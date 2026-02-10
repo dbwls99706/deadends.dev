@@ -1,9 +1,13 @@
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "deadend-dev"
 version = "0.1.0"
 description = "Structured failure knowledge infrastructure for AI agents"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "YuJin Hong"}
 ]
@@ -20,6 +24,9 @@ dev = [
     "pytest>=7.0",
     "ruff>=0.4",
 ]
+
+[tool.setuptools.packages.find]
+include = ["generator*"]
 
 [tool.ruff]
 line-length = 100
