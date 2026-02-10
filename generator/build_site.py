@@ -78,11 +78,28 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         env_summary = build_env_summary(canon)
         all_sources = collect_sources(canon)
 
-        # Build JSON-LD (the full canon with context)
+        # Build JSON-LD with Schema.org TechArticle + custom ErrorCanon
         json_ld_data = {
-            "@context": "https://deadend.dev/schema/v1",
-            "@type": "ErrorCanon",
-            **canon,
+            "@context": [
+                "https://schema.org",
+                {"deadend": "https://deadend.dev/schema/v1#"},
+            ],
+            "@type": "TechArticle",
+            "name": canon["error"]["signature"],
+            "description": canon["verdict"]["summary"],
+            "url": canon["url"],
+            "dateModified": canon["verdict"]["last_updated"],
+            "publisher": {
+                "@type": "Organization",
+                "name": "deadend.dev",
+                "url": "https://deadend.dev",
+            },
+            "about": {
+                "@type": "SoftwareSourceCode",
+                "programmingLanguage": canon["error"]["domain"],
+            },
+            # Full ErrorCanon data embedded
+            "deadend:errorCanon": canon,
         }
         json_ld = json.dumps(json_ld_data, indent=2, ensure_ascii=False)
 
@@ -228,12 +245,12 @@ def build_sitemap(canons: list[dict]) -> None:
 def build_robots_txt() -> None:
     """Generate robots.txt with explicit AI crawler allowances."""
     content = """# deadend.dev - Structured failure knowledge for AI agents
-# All crawlers welcome, including AI agents
+# All crawlers welcome — this site is BUILT for AI consumption
 
 User-agent: *
 Allow: /
 
-# AI crawlers explicitly welcome
+# AI crawlers explicitly welcome — full access to all content
 User-agent: GPTBot
 Allow: /
 
@@ -255,7 +272,29 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
 Sitemap: https://deadend.dev/sitemap.xml
+
+# AI-specific endpoints:
+# Error index (JSON): https://deadend.dev/api/v1/index.json
+# OpenAPI spec: https://deadend.dev/api/v1/openapi.json
+# LLM-optimized: https://deadend.dev/llms.txt
+# Full data dump: https://deadend.dev/llms-full.txt
+# Plugin manifest: https://deadend.dev/.well-known/ai-plugin.json
 """
     (SITE_DIR / "robots.txt").write_text(content, encoding="utf-8")
     print("  Generated: robots.txt")
@@ -290,16 +329,299 @@ def build_cname() -> None:
     print("  Generated: CNAME")
 
 
-def build_llms_txt() -> None:
-    """Generate llms.txt for AI agent discovery."""
-    content = """# deadend.dev
-> Structured failure knowledge for AI agents.
-> When you encounter an error, check https://deadend.dev/{domain}/{error-slug}/{env-hash}
-> API: https://deadend.dev/api/v1/{domain}/{error-slug}/{env-hash}.json
-> All data is open source: https://github.com/deadend-dev/error-data
-"""
-    (SITE_DIR / "llms.txt").write_text(content, encoding="utf-8")
+def build_llms_txt(canons: list[dict]) -> None:
+    """Generate llms.txt and llms-full.txt for AI agent discovery."""
+    # Group by domain for organized listing
+    by_domain: dict[str, list[dict]] = {}
+    for c in canons:
+        by_domain.setdefault(c["error"]["domain"], []).append(c)
+
+    lines = [
+        "# deadend.dev",
+        "",
+        "> Structured failure knowledge for AI agents.",
+        "> Before trying a fix for an error, check if it's a known dead end.",
+        "",
+        "## How to Use",
+        "",
+        "1. Match your error against signatures below",
+        "2. Fetch the JSON: GET https://deadend.dev/api/v1/{id}.json",
+        "3. Check dead_ends[] — do NOT try these",
+        "4. Check workarounds[] — try these instead",
+        "5. Check transition_graph — know what error comes next",
+        "",
+        "## API",
+        "",
+        "- Error lookup: `GET /api/v1/{domain}/{slug}/{env}.json`",
+        "- Error index: `GET /api/v1/index.json`",
+        "- OpenAPI spec: `GET /api/v1/openapi.json`",
+        "",
+        "## Error Signatures",
+        "",
+    ]
+
+    for domain in sorted(by_domain.keys()):
+        lines.append(f"### {domain}")
+        lines.append("")
+        for c in sorted(by_domain[domain], key=lambda x: x["id"]):
+            lines.append(
+                f"- [{c['error']['signature']}]"
+                f"(https://deadend.dev/{c['id']})"
+                f" — {c['verdict']['resolvable']}"
+            )
+        lines.append("")
+
+    (SITE_DIR / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
     print("  Generated: llms.txt")
+
+    # llms-full.txt — complete data dump for AI context windows
+    full_lines = [
+        "# deadend.dev — Complete Error Database",
+        "",
+        f"# Total: {len(canons)} errors across "
+        f"{len(by_domain)} domains",
+        f"# Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+        "",
+    ]
+    for canon in sorted(canons, key=lambda c: c["id"]):
+        full_lines.append(f"## {canon['id']}")
+        full_lines.append(f"ERROR: {canon['error']['signature']}")
+        full_lines.append(f"REGEX: {canon['error']['regex']}")
+        full_lines.append(f"RESOLVABLE: {canon['verdict']['resolvable']}")
+        full_lines.append(
+            f"FIX_RATE: {canon['verdict']['fix_success_rate']}"
+        )
+        full_lines.append(f"SUMMARY: {canon['verdict']['summary']}")
+        full_lines.append("DEAD_ENDS:")
+        for de in canon["dead_ends"]:
+            full_lines.append(
+                f"  - {de['action']} (fail_rate={de['fail_rate']})"
+            )
+            full_lines.append(f"    WHY: {de['why_fails']}")
+        full_lines.append("WORKAROUNDS:")
+        for wa in canon.get("workarounds", []):
+            full_lines.append(
+                f"  - {wa['action']} "
+                f"(success_rate={wa['success_rate']})"
+            )
+            if wa.get("how"):
+                full_lines.append(f"    HOW: {wa['how']}")
+        full_lines.append("")
+
+    (SITE_DIR / "llms-full.txt").write_text(
+        "\n".join(full_lines), encoding="utf-8"
+    )
+    print("  Generated: llms-full.txt")
+
+
+def build_api_index(canons: list[dict]) -> None:
+    """Generate /api/v1/index.json — master error index for AI agents."""
+    index = {
+        "schema_version": "1.0.0",
+        "total": len(canons),
+        "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "errors": [],
+    }
+
+    for canon in sorted(canons, key=lambda c: c["id"]):
+        index["errors"].append({
+            "id": canon["id"],
+            "signature": canon["error"]["signature"],
+            "regex": canon["error"]["regex"],
+            "domain": canon["error"]["domain"],
+            "category": canon["error"]["category"],
+            "resolvable": canon["verdict"]["resolvable"],
+            "fix_success_rate": canon["verdict"]["fix_success_rate"],
+            "confidence": canon["verdict"]["confidence"],
+            "dead_end_count": len(canon["dead_ends"]),
+            "workaround_count": len(canon.get("workarounds", [])),
+            "api_url": f"{BASE_URL}/api/v1/{canon['id']}.json",
+            "page_url": canon["url"],
+        })
+
+    api_dir = SITE_DIR / "api" / "v1"
+    api_dir.mkdir(parents=True, exist_ok=True)
+    (api_dir / "index.json").write_text(
+        json.dumps(index, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("  Generated: /api/v1/index.json")
+
+
+def build_openapi_spec(canons: list[dict]) -> None:
+    """Generate OpenAPI 3.1 spec for the JSON API."""
+    domains = sorted({c["error"]["domain"] for c in canons})
+    spec = {
+        "openapi": "3.1.0",
+        "info": {
+            "title": "deadend.dev API",
+            "description": (
+                "Structured failure knowledge for AI agents. "
+                "Query error signatures to find dead ends, workarounds, "
+                "and error transition graphs."
+            ),
+            "version": "1.0.0",
+            "contact": {"url": "https://github.com/deadend-dev/deadend.dev"},
+        },
+        "servers": [{"url": "https://deadend.dev/api/v1"}],
+        "paths": {
+            "/index.json": {
+                "get": {
+                    "summary": "List all known errors",
+                    "description": (
+                        "Returns an index of all error signatures with "
+                        "regex patterns, verdicts, and API URLs."
+                    ),
+                    "operationId": "listErrors",
+                    "responses": {
+                        "200": {
+                            "description": "Error index",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "total": {"type": "integer"},
+                                            "errors": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/ErrorSummary"
+                                                },
+                                            },
+                                        },
+                                    }
+                                }
+                            },
+                        }
+                    },
+                }
+            },
+            "/{domain}/{slug}/{env}.json": {
+                "get": {
+                    "summary": "Get full ErrorCanon data",
+                    "description": (
+                        "Returns the complete ErrorCanon for a specific "
+                        "error in a specific environment."
+                    ),
+                    "operationId": "getErrorCanon",
+                    "parameters": [
+                        {
+                            "name": "domain",
+                            "in": "path",
+                            "required": True,
+                            "schema": {
+                                "type": "string",
+                                "enum": domains,
+                            },
+                        },
+                        {
+                            "name": "slug",
+                            "in": "path",
+                            "required": True,
+                            "schema": {"type": "string"},
+                        },
+                        {
+                            "name": "env",
+                            "in": "path",
+                            "required": True,
+                            "schema": {"type": "string"},
+                        },
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Full ErrorCanon",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/ErrorCanon"
+                                    }
+                                }
+                            },
+                        }
+                    },
+                }
+            },
+        },
+        "components": {
+            "schemas": {
+                "ErrorSummary": {
+                    "type": "object",
+                    "properties": {
+                        "id": {"type": "string"},
+                        "signature": {"type": "string"},
+                        "regex": {"type": "string"},
+                        "domain": {"type": "string"},
+                        "resolvable": {
+                            "type": "string",
+                            "enum": ["true", "partial", "false"],
+                        },
+                        "fix_success_rate": {"type": "number"},
+                        "api_url": {"type": "string", "format": "uri"},
+                    },
+                },
+                "ErrorCanon": {
+                    "type": "object",
+                    "description": (
+                        "Complete structured failure knowledge for one "
+                        "error in one environment."
+                    ),
+                    "properties": {
+                        "id": {"type": "string"},
+                        "error": {"type": "object"},
+                        "environment": {"type": "object"},
+                        "verdict": {"type": "object"},
+                        "dead_ends": {"type": "array"},
+                        "workarounds": {"type": "array"},
+                        "transition_graph": {"type": "object"},
+                    },
+                },
+            }
+        },
+    }
+
+    api_dir = SITE_DIR / "api" / "v1"
+    api_dir.mkdir(parents=True, exist_ok=True)
+    (api_dir / "openapi.json").write_text(
+        json.dumps(spec, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("  Generated: /api/v1/openapi.json")
+
+
+def build_well_known(canons: list[dict]) -> None:
+    """Generate .well-known/ai-plugin.json for AI agent discovery."""
+    well_known_dir = SITE_DIR / ".well-known"
+    well_known_dir.mkdir(parents=True, exist_ok=True)
+
+    plugin = {
+        "schema_version": "v1",
+        "name_for_human": "deadend.dev",
+        "name_for_model": "deadend_error_knowledge",
+        "description_for_human": (
+            "Structured failure knowledge — check what NOT to try "
+            "before debugging an error."
+        ),
+        "description_for_model": (
+            "When you encounter a software error, query this service "
+            "to find: (1) dead ends — approaches that are known to fail, "
+            "(2) workarounds — approaches that actually work with success "
+            "rates, (3) error chains — what error typically comes next. "
+            "Fetch /api/v1/index.json for the full error list, then "
+            "fetch /api/v1/{id}.json for details. "
+            "Match your error message against the regex patterns."
+        ),
+        "auth": {"type": "none"},
+        "api": {
+            "type": "openapi",
+            "url": "https://deadend.dev/api/v1/openapi.json",
+        },
+        "logo_url": "https://deadend.dev/logo.png",
+        "contact_email": "hello@deadend.dev",
+        "legal_info_url": "https://deadend.dev/legal",
+    }
+
+    (well_known_dir / "ai-plugin.json").write_text(
+        json.dumps(plugin, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("  Generated: .well-known/ai-plugin.json")
 
 
 def main():
@@ -353,8 +675,20 @@ def main():
     build_cname()
     print()
 
-    print("Generating llms.txt...")
-    build_llms_txt()
+    print("Generating llms.txt + llms-full.txt...")
+    build_llms_txt(canons)
+    print()
+
+    print("Generating API index...")
+    build_api_index(canons)
+    print()
+
+    print("Generating OpenAPI spec...")
+    build_openapi_spec(canons)
+    print()
+
+    print("Generating .well-known/ai-plugin.json...")
+    build_well_known(canons)
     print()
 
     print(f"Build complete! {len(canons)} error pages generated in site/")

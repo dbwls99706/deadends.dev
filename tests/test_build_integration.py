@@ -113,7 +113,9 @@ class TestSiteBuildIntegration:
             )
             assert match, f"Could not extract JSON-LD from {canon['id']}"
             json_ld = json.loads(match.group(1))
-            assert json_ld["id"] == canon["id"]
+            # JSON-LD uses Schema.org TechArticle with embedded ErrorCanon
+            assert json_ld["@type"] == "TechArticle"
+            assert json_ld["deadend:errorCanon"]["id"] == canon["id"]
 
     def test_html_pages_have_ai_summary(self, built_site):
         """Every error page should have an ai-summary section."""
