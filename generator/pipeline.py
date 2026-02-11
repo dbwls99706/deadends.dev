@@ -57,13 +57,13 @@ def run_step(name: str, step: dict) -> bool:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="deadend.dev pipeline")
+    parser = argparse.ArgumentParser(description="deadends.dev pipeline")
     parser.add_argument("--build", action="store_true", help="Build only")
     parser.add_argument("--gen", action="store_true", help="Generate only")
     args = parser.parse_args()
 
     print("=" * 60)
-    print("  deadend.dev — Full Pipeline")
+    print("  deadends.dev — Full Pipeline")
     print("=" * 60)
 
     if args.gen:

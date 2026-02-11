@@ -14,7 +14,7 @@ DATA_DIR = PROJECT_ROOT / "data" / "canons"
 SITE_DIR = PROJECT_ROOT / "site"
 TEMPLATE_DIR = PROJECT_ROOT / "generator" / "templates"
 BASE_URL = "https://deadends.dev"
-# Base path for subpath hosting (e.g., "/deadend.dev" for github.io/deadend.dev/)
+# Base path for subpath hosting (e.g., "/deadends.dev" for github.io/deadends.dev/)
 # Empty string when hosted at root domain
 BASE_PATH = ""
 
