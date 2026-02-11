@@ -1,4 +1,4 @@
-"""deadend.dev MCP Server — Error knowledge for AI coding agents.
+"""deadends.dev MCP Server — Error knowledge for AI coding agents.
 
 Exposes structured failure knowledge through the Model Context Protocol.
 AI agents can query error signatures to get dead ends, workarounds,
@@ -14,7 +14,7 @@ Claude Desktop config (~/.claude/claude_desktop_config.json):
     "deadend": {
       "command": "python",
       "args": ["-m", "mcp.server"],
-      "cwd": "/path/to/deadend.dev"
+      "cwd": "/path/to/deadends.dev"
     }
   }
 }
@@ -25,7 +25,7 @@ Cursor config (MCP settings):
     "deadend": {
       "command": "python",
       "args": ["-m", "mcp.server"],
-      "cwd": "/path/to/deadend.dev"
+      "cwd": "/path/to/deadends.dev"
     }
   }
 }
@@ -171,7 +171,7 @@ TOOLS = [
     {
         "name": "lookup_error",
         "description": (
-            "Match an error message against deadend.dev's database of known "
+            "Match an error message against deadends.dev's database of known "
             "errors. Returns dead ends (what NOT to try), workarounds (what "
             "works), and error chains (what comes next). Use this BEFORE "
             "attempting to fix any error to avoid wasting time on approaches "
@@ -212,7 +212,7 @@ TOOLS = [
     {
         "name": "list_error_domains",
         "description": (
-            "List all error domains and counts in the deadend.dev database. "
+            "List all error domains and counts in the deadends.dev database. "
             "Domains include: python, node, docker, git, cuda, pip, "
             "typescript, rust, go, kubernetes, terraform, aws, nextjs, react."
         ),
@@ -231,8 +231,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             "protocolVersion": "2024-11-05",
             "capabilities": {"tools": {}},
             "serverInfo": {
-                "name": "deadend-dev",
-                "version": "1.1.0",
+                "name": "deadends-dev",
+                "version": "1.2.0",
             },
         }
     elif method == "tools/list":
@@ -247,7 +247,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             if not matches:
                 suggested = _suggest_domains(error_msg)
                 text = (
-                    "No matching errors found in deadend.dev database.\n\n"
+                    "No matching errors found in deadends.dev database.\n\n"
                     f"Searched {len(canons)} error patterns across "
                     f"{len(_get_domain_index())} domains.\n"
                 )
@@ -349,7 +349,7 @@ def main():
     """Run MCP server in stdio mode."""
     canons = _get_canons()
     sys.stderr.write(
-        f"deadend.dev MCP server loaded: {len(canons)} errors "
+        f"deadends.dev MCP server loaded: {len(canons)} errors "
         f"across {len(_get_domain_index())} domains\n"
     )
 

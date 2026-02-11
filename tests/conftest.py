@@ -1,4 +1,4 @@
-"""Shared test fixtures for deadend.dev tests."""
+"""Shared test fixtures for deadends.dev tests."""
 
 import copy
 

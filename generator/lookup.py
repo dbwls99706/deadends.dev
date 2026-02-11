@@ -1,7 +1,7 @@
-"""deadend.dev error lookup SDK.
+"""deadends.dev error lookup SDK.
 
 Programmatic error lookup for AI coding agents and developer tools.
-Works offline with bundled data or online via the deadend.dev API.
+Works offline with bundled data or online via the deadends.dev API.
 
 Usage:
     from generator.lookup import lookup, lookup_all
