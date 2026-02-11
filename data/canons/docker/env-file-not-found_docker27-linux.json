@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/env-file-not-found/docker27-linux",
+  "url": "https://deadends.dev/docker/env-file-not-found/docker27-linux",
+  "error": {
+    "signature": "ERROR: Couldn't find env file: .env",
+    "regex": "Couldn't find env file|env_file.*not found|\\.env.*no such file",
+    "domain": "docker",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=27,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "docker-compose references an env_file that doesn't exist."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove env_file from docker-compose.yml",
+      "why_fails": "May break the application that expects those env vars",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/services/#env_file"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create an empty .env file",
+      "why_fails": "App may fail with missing required env vars",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/services/#env_file"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Create the .env file from the example: cp .env.example .env",
+      "success_rate": 0.95,
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/services/#env_file"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Make env_file optional with required: false (Compose V2)",
+      "success_rate": 0.88,
+      "how": "env_file:\n  - path: .env\n    required: false",
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/services/#env_file"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

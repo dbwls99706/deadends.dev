@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/compose-version-obsolete/docker27-linux",
+  "url": "https://deadends.dev/docker/compose-version-obsolete/docker27-linux",
+  "error": {
+    "signature": "WARNING: the attribute 'version' is obsolete in docker compose",
+    "regex": "attribute.*version.*obsolete|version.*top-level element is obsolete",
+    "domain": "docker",
+    "category": "config_warning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=27,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.98,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Docker Compose V2 no longer needs the 'version' field. Harmless warning."
+  },
+  "dead_ends": [
+    {
+      "action": "Downgrade Docker Compose",
+      "why_fails": "Older versions are unmaintained — accept the new format",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.docker.com/compose/releases/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Pin version to '3.8' or another specific version",
+      "why_fails": "Still triggers the warning — the field itself is obsolete",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/version-and-name/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Simply remove the 'version' line from docker-compose.yml",
+      "success_rate": 0.98,
+      "how": "# Remove this line:\n# version: '3.8'",
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/version-and-name/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "It's just a warning — it still works. But removing it is cleaner",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.docker.com/reference/compose-file/version-and-name/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

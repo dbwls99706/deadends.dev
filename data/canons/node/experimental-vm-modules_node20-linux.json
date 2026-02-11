@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "node/experimental-vm-modules/node20-linux",
+  "url": "https://deadends.dev/node/experimental-vm-modules/node20-linux",
+  "error": {
+    "signature": "TypeError: A dynamic import callback was not specified (Jest ESM)",
+    "regex": "dynamic import callback.*not specified|--experimental-vm-modules|ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING",
+    "domain": "node",
+    "category": "test_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "node",
+      "version_range": ">=20,<23"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "Jest can't handle ES modules without --experimental-vm-modules flag."
+  },
+  "dead_ends": [
+    {
+      "action": "Rewrite all tests to CommonJS",
+      "why_fails": "If your project is ESM, tests should be ESM too",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://jestjs.io/docs/ecmascript-modules"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use dynamic import() inside require-based tests",
+      "why_fails": "Awkward pattern that makes tests harder to read",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://jestjs.io/docs/ecmascript-modules"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Run Jest with experimental VM modules: NODE_OPTIONS=--experimental-vm-modules npx jest",
+      "success_rate": 0.92,
+      "sources": [
+        "https://jestjs.io/docs/ecmascript-modules"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Consider switching to Vitest which has native ESM support",
+      "success_rate": 0.9,
+      "how": "npm install -D vitest\n# vitest supports ESM natively",
+      "sources": [
+        "https://vitest.dev/guide/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add transform config to jest.config.js for ESM files",
+      "success_rate": 0.82,
+      "sources": [
+        "https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

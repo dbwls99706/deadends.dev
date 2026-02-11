@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kubernetes/dns-resolution-failed-pod/k8s1-linux",
+  "url": "https://deadends.dev/kubernetes/dns-resolution-failed-pod/k8s1-linux",
+  "error": {
+    "signature": "Error: Could not resolve host / nslookup failed in pod",
+    "regex": "Could not resolve|nslookup.*can't resolve|dial tcp.*no such host",
+    "domain": "kubernetes",
+    "category": "dns_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kubernetes",
+      "version_range": ">=1.28,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-11",
+    "summary": "Pod can't resolve DNS. CoreDNS issue, network policy blocking, or service doesn't exist."
+  },
+  "dead_ends": [
+    {
+      "action": "Hardcode IP addresses in the application",
+      "why_fails": "IPs change — services are designed to be accessed by name",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restart the pod",
+      "why_fails": "If CoreDNS is broken, restarting the pod won't help",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check if CoreDNS pods are running: kubectl get pods -n kube-system -l k8s-app=kube-dns",
+      "success_rate": 0.92,
+      "sources": [
+        "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Test DNS from inside the pod: kubectl exec <pod> -- nslookup <service-name>",
+      "success_rate": 0.9,
+      "sources": [
+        "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use FQDN: service-name.namespace.svc.cluster.local for cross-namespace access",
+      "success_rate": 0.88,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

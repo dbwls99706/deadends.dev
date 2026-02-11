@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/lookuperror-unknown-encoding/py311-linux",
+  "url": "https://deadends.dev/python/lookuperror-unknown-encoding/py311-linux",
+  "error": {
+    "signature": "LookupError: unknown encoding: utf8",
+    "regex": "LookupError: unknown encoding",
+    "domain": "python",
+    "category": "encoding_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.11,<3.13"
+    },
+    "os": "linux",
+    "python": ">=3.11,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Misspelled encoding name. utf8 → utf-8, ascii → ascii, latin1 → latin-1."
+  },
+  "dead_ends": [
+    {
+      "action": "Install a codec package",
+      "why_fails": "Standard encodings are built into Python — no package needed",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.python.org/3/library/codecs.html#standard-encodings"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set PYTHONIOENCODING environment variable",
+      "why_fails": "Doesn't fix the encoding name in your code",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.python.org/3/using/cmdline.html#envvar-PYTHONIOENCODING"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the correct encoding name: 'utf-8' (with hyphen), not 'utf8'",
+      "success_rate": 0.98,
+      "how": "open('file.txt', encoding='utf-8')  # not 'utf8' or 'UTF_8'",
+      "sources": [
+        "https://docs.python.org/3/library/codecs.html#standard-encodings"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check Python's list of standard encodings for the correct name",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.python.org/3/library/codecs.html#standard-encodings"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

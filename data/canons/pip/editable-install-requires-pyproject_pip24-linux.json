@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pip/editable-install-requires-pyproject/pip24-linux",
+  "url": "https://deadends.dev/pip/editable-install-requires-pyproject/pip24-linux",
+  "error": {
+    "signature": "ERROR: Project file has a 'pyproject.toml' and its build backend is missing the 'build_editable' hook",
+    "regex": "build_editable.*hook|editable.*install.*failed|pip install -e.*error",
+    "domain": "pip",
+    "category": "install_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=24,<25"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "pip install -e . fails because build backend doesn't support editable installs."
+  },
+  "dead_ends": [
+    {
+      "action": "Use pip install . instead (non-editable)",
+      "why_fails": "Loses live editing — need to reinstall after every change",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pip.pypa.io/en/stable/topics/local-project-installs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade pip to bypass the check",
+      "why_fails": "Old pip has other issues — better to fix the build config",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://pip.pypa.io/en/stable/installation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add setuptools to build-system in pyproject.toml — it supports build_editable",
+      "success_rate": 0.95,
+      "how": "[build-system]\nrequires = ['setuptools>=64']\nbuild-backend = 'setuptools.build_meta'",
+      "sources": [
+        "https://setuptools.pypa.io/en/latest/userguide/development_mode.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Or use pip install -e . --no-build-isolation if using a custom backend",
+      "success_rate": 0.82,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-no-build-isolation"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

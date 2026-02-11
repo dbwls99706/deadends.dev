@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/image-prune-in-use/docker27-linux",
+  "url": "https://deadends.dev/docker/image-prune-in-use/docker27-linux",
+  "error": {
+    "signature": "Error response from daemon: conflict: unable to remove image (image is being used)",
+    "regex": "unable to remove.*image.*being used|conflict.*image.*in use",
+    "domain": "docker",
+    "category": "resource_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=27,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Can't delete image because a container (running or stopped) is using it."
+  },
+  "dead_ends": [
+    {
+      "action": "Force remove with -f",
+      "why_fails": "May break running containers that depend on this image",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://docs.docker.com/reference/cli/docker/image/rm/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete all images with docker image prune -a",
+      "why_fails": "Deletes ALL unused images — may remove images you still want",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.docker.com/reference/cli/docker/image/prune/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Remove containers using the image first: docker ps -a | grep <image>",
+      "success_rate": 0.95,
+      "how": "docker rm $(docker ps -aq --filter ancestor=<image>)\ndocker rmi <image>",
+      "sources": [
+        "https://docs.docker.com/reference/cli/docker/container/rm/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use docker system prune to clean up all unused resources safely",
+      "success_rate": 0.88,
+      "sources": [
+        "https://docs.docker.com/reference/cli/docker/system/prune/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

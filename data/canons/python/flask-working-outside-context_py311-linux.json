@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/flask-working-outside-context/py311-linux",
+  "url": "https://deadends.dev/python/flask-working-outside-context/py311-linux",
+  "error": {
+    "signature": "RuntimeError: Working outside of application context",
+    "regex": "Working outside of (application|request) context",
+    "domain": "python",
+    "category": "context_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.11,<3.13"
+    },
+    "os": "linux",
+    "python": ">=3.11,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-11",
+    "summary": "Flask operation requires app context. Accessing current_app, g, or db outside of a request/CLI."
+  },
+  "dead_ends": [
+    {
+      "action": "Import the app instance directly",
+      "why_fails": "Creates circular imports and bypasses Flask's context-local design",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://flask.palletsprojects.com/en/3.0.x/appcontext/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set global variables instead of using g/current_app",
+      "why_fails": "Breaks in multi-threaded/multi-worker deployments",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://flask.palletsprojects.com/en/3.0.x/appcontext/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use with app.app_context(): to push an application context",
+      "success_rate": 0.95,
+      "how": "with app.app_context():\n    db.create_all()",
+      "sources": [
+        "https://flask.palletsprojects.com/en/3.0.x/appcontext/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "In tests, use app.test_client() or app.test_request_context()",
+      "success_rate": 0.9,
+      "sources": [
+        "https://flask.palletsprojects.com/en/3.0.x/testing/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

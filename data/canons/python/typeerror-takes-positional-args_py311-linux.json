@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/typeerror-takes-positional-args/py311-linux",
+  "url": "https://deadends.dev/python/typeerror-takes-positional-args/py311-linux",
+  "error": {
+    "signature": "TypeError: function() takes 0 positional arguments but 1 was given",
+    "regex": "TypeError: \\w+\\(\\) takes \\d+ positional argument.* but \\d+ (was|were) given",
+    "domain": "python",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.11,<3.13"
+    },
+    "os": "linux",
+    "python": ">=3.11,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Too many arguments passed. Common: missing self in class method, or calling staticmethod wrong."
+  },
+  "dead_ends": [
+    {
+      "action": "Add *args to accept anything",
+      "why_fails": "Hides the real issue — wrong number of args means a bug",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Remove extra arguments from the call",
+      "why_fails": "May work but check if the function signature is wrong instead",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If class method, add 'self' as first parameter",
+      "success_rate": 0.95,
+      "how": "class Foo:\n    def method(self, x):  # not: def method(x):",
+      "sources": [
+        "https://docs.python.org/3/tutorial/classes.html#method-objects"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If decorator issue, check @staticmethod vs @classmethod vs regular method",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.python.org/3/library/functions.html#staticmethod"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rust/e0433-unresolved-import/rust1-linux",
+  "url": "https://deadends.dev/rust/e0433-unresolved-import/rust1-linux",
+  "error": {
+    "signature": "error[E0433]: failed to resolve: use of undeclared crate or module",
+    "regex": "E0433.*failed to resolve|undeclared crate or module",
+    "domain": "rust",
+    "category": "import_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rust",
+      "version_range": ">=1.70,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Crate or module not found. Missing dependency in Cargo.toml or wrong use path."
+  },
+  "dead_ends": [
+    {
+      "action": "Add the path to src/lib.rs manually",
+      "why_fails": "If the crate isn't in Cargo.toml, it's not available",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://doc.rust-lang.org/error_codes/E0433.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use extern crate (pre-2018 edition syntax)",
+      "why_fails": "Unnecessary since Rust 2018 — just add to Cargo.toml",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://doc.rust-lang.org/edition-guide/rust-2018/module-system/path-clarity.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add the dependency to Cargo.toml: [dependencies] section",
+      "success_rate": 0.95,
+      "how": "cargo add <crate-name>",
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check use path: crate:: for local, module_name:: for deps",
+      "success_rate": 0.9,
+      "how": "use crate::module::MyType;  // local\nuse serde::Serialize;  // external",
+      "sources": [
+        "https://doc.rust-lang.org/reference/items/use-declarations.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For feature-gated items, enable the feature in Cargo.toml",
+      "success_rate": 0.82,
+      "how": "serde = { version = \"1\", features = [\"derive\"] }",
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/features.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

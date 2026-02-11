@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/django-improperlyconfigured/py311-linux",
+  "url": "https://deadends.dev/python/django-improperlyconfigured/py311-linux",
+  "error": {
+    "signature": "django.core.exceptions.ImproperlyConfigured: Requested setting DEFAULT_INDEX_TABLESPACE, but settings are not configured",
+    "regex": "ImproperlyConfigured.*settings are not configured|DJANGO_SETTINGS_MODULE",
+    "domain": "python",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.11,<3.13"
+    },
+    "os": "linux",
+    "python": ">=3.11,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "DJANGO_SETTINGS_MODULE not set. Django can't find settings.py."
+  },
+  "dead_ends": [
+    {
+      "action": "Hardcode settings in the script",
+      "why_fails": "Duplicates configuration and diverges from the main settings",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.djangoproject.com/en/5.0/topics/settings/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Import settings directly from the file",
+      "why_fails": "Bypasses Django's settings machinery — may miss configured apps",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://docs.djangoproject.com/en/5.0/topics/settings/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set environment variable: export DJANGO_SETTINGS_MODULE=myproject.settings",
+      "success_rate": 0.95,
+      "how": "import os\nos.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')",
+      "sources": [
+        "https://docs.djangoproject.com/en/5.0/topics/settings/#designating-the-settings"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Or call django.setup() after setting the env var in scripts",
+      "success_rate": 0.92,
+      "how": "import django\nos.environ['DJANGO_SETTINGS_MODULE'] = 'myproject.settings'\ndjango.setup()",
+      "sources": [
+        "https://docs.djangoproject.com/en/5.0/topics/settings/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

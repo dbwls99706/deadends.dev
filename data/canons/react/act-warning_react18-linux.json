@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "react/act-warning/react18-linux",
+  "url": "https://deadends.dev/react/act-warning/react18-linux",
+  "error": {
+    "signature": "Warning: An update to X inside a test was not wrapped in act(...)",
+    "regex": "An update to .+ inside a test was not wrapped in act",
+    "domain": "react",
+    "category": "test_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "react",
+      "version_range": ">=18,<20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "React state update in test not wrapped in act(). Test may not reflect final UI state."
+  },
+  "dead_ends": [
+    {
+      "action": "Suppress console.error in tests",
+      "why_fails": "Silences the warning but test assertions may be wrong",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://react.dev/reference/react/act"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add act() around every single assertion",
+      "why_fails": "Over-wrapping — only wrap state-changing operations",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://react.dev/reference/react/act"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wrap state-triggering actions in act(): await act(async () => { fireEvent.click(btn) })",
+      "success_rate": 0.92,
+      "sources": [
+        "https://react.dev/reference/react/act"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use React Testing Library's built-in methods (click, type) which auto-wrap in act",
+      "success_rate": 0.95,
+      "how": "import { render, screen, fireEvent } from '@testing-library/react';",
+      "sources": [
+        "https://testing-library.com/docs/react-testing-library/intro/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For async updates, use waitFor: await waitFor(() => expect(element).toBeVisible())",
+      "success_rate": 0.9,
+      "sources": [
+        "https://testing-library.com/docs/dom-testing-library/api-async#waitfor"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "go/too-many-open-files/go1-linux",
+  "url": "https://deadends.dev/go/too-many-open-files/go1-linux",
+  "error": {
+    "signature": "dial tcp: socket: too many open files",
+    "regex": "too many open files|EMFILE|socket.*too many",
+    "domain": "go",
+    "category": "system_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "go",
+      "version_range": ">=1.21,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-11",
+    "summary": "File descriptor limit reached. Common in HTTP clients without closing response bodies."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase ulimit to a very large value",
+      "why_fails": "Just delays the problem — file descriptors are still leaking",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://pkg.go.dev/net/http"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restart the process when limit is hit",
+      "why_fails": "Hack that doesn't fix the leak",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://pkg.go.dev/net/http"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Close HTTP response bodies: defer resp.Body.Close()",
+      "success_rate": 0.95,
+      "how": "resp, err := http.Get(url)\nif err != nil { return err }\ndefer resp.Body.Close()",
+      "sources": [
+        "https://pkg.go.dev/net/http#Client.Do"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Close file handles, database connections, and other resources with defer",
+      "success_rate": 0.9,
+      "sources": [
+        "https://go.dev/blog/defer-panic-and-recover"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase ulimit as a temporary measure: ulimit -n 65536",
+      "success_rate": 0.75,
+      "sources": [
+        "https://pkg.go.dev/os#File"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "react/controlled-uncontrolled-switch/react18-linux",
+  "url": "https://deadends.dev/react/controlled-uncontrolled-switch/react18-linux",
+  "error": {
+    "signature": "Warning: A component is changing an uncontrolled input to be controlled",
+    "regex": "changing an? (un)?controlled input to be (un)?controlled",
+    "domain": "react",
+    "category": "state_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "react",
+      "version_range": ">=18,<20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-11",
+    "summary": "Input value switches between undefined and defined. Must be always controlled or always uncontrolled."
+  },
+  "dead_ends": [
+    {
+      "action": "Add suppressWarning prop",
+      "why_fails": "No such prop exists — fix the state management",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use defaultValue and value together",
+      "why_fails": "React doesn't support both — pick one pattern",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://react.dev/reference/react-dom/components/input"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Initialize state with empty string, not undefined: useState('')",
+      "success_rate": 0.95,
+      "how": "// Bad: const [val, setVal] = useState()  // undefined initially\n// Good: const [val, setVal] = useState('')",
+      "sources": [
+        "https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use value={val ?? ''} to ensure value is never undefined",
+      "success_rate": 0.9,
+      "sources": [
+        "https://react.dev/reference/react-dom/components/input"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

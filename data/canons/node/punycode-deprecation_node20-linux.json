@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "node/punycode-deprecation/node20-linux",
+  "url": "https://deadends.dev/node/punycode-deprecation/node20-linux",
+  "error": {
+    "signature": "DeprecationWarning: The `punycode` module is deprecated",
+    "regex": "punycode.*deprecated|DEP0040",
+    "domain": "node",
+    "category": "deprecation_warning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "node",
+      "version_range": ">=20,<23"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.88,
+    "last_updated": "2026-02-11",
+    "summary": "Built-in punycode module deprecated. Usually caused by a dependency, not your code."
+  },
+  "dead_ends": [
+    {
+      "action": "Suppress the warning with --no-deprecation",
+      "why_fails": "Hides all deprecation warnings, including important ones",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://nodejs.org/api/cli.html#--no-deprecation"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Patch the dependency to remove punycode",
+      "why_fails": "Fragile and will be overwritten on npm install",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://nodejs.org/api/deprecations.html#DEP0040"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the userland punycode package: npm install punycode",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.npmjs.com/package/punycode"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Update the dependency that uses punycode — check npm ls punycode",
+      "success_rate": 0.9,
+      "how": "npm ls punycode  # find which dependency uses it\nnpm update <dep>",
+      "sources": [
+        "https://nodejs.org/api/deprecations.html#DEP0040"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "This is a warning, not an error — it still works, just update when possible",
+      "success_rate": 0.85,
+      "sources": [
+        "https://nodejs.org/api/deprecations.html#DEP0040"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

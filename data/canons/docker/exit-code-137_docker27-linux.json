@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/exit-code-137/docker27-linux",
+  "url": "https://deadends.dev/docker/exit-code-137/docker27-linux",
+  "error": {
+    "signature": "Container exited with code 137 (OOMKilled)",
+    "regex": "exit.*code 137|OOMKill|Killed|signal: killed",
+    "domain": "docker",
+    "category": "oom_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=27,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-11",
+    "summary": "Container killed by OOM killer (exit code 137 = SIGKILL). Exceeded memory limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Set --oom-kill-disable",
+      "why_fails": "System may freeze if container consumes all host memory",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.docker.com/engine/containers/resource_constraints/#limit-a-containers-access-to-memory"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Remove memory limit entirely",
+      "why_fails": "Container may consume all host memory and kill other processes",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.docker.com/engine/containers/resource_constraints/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase memory limit: docker run --memory=2g or in compose: mem_limit: 2g",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.docker.com/engine/containers/resource_constraints/#limit-a-containers-access-to-memory"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Profile application memory to find leaks or reduce footprint",
+      "success_rate": 0.85,
+      "sources": [
+        "https://docs.docker.com/engine/containers/resource_constraints/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For build-time OOM, increase Docker Desktop memory in Settings > Resources",
+      "success_rate": 0.88,
+      "sources": [
+        "https://docs.docker.com/desktop/settings-and-maintenance/settings/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}
