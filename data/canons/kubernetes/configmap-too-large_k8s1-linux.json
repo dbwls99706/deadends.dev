@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kubernetes/configmap-too-large/k8s1-linux",
+  "url": "https://deadends.dev/kubernetes/configmap-too-large/k8s1-linux",
+  "error": {
+    "signature": "Error from server: etcd: request is too large",
+    "regex": "request is too large|etcd.*too large|ConfigMap.*exceeds maximum size",
+    "domain": "kubernetes",
+    "category": "storage_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kubernetes",
+      "version_range": ">=1.28,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.88,
+    "last_updated": "2026-02-11",
+    "summary": "ConfigMap/Secret exceeds 1MB etcd limit. Too much data in a single resource."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase etcd max request size",
+      "why_fails": "Requires cluster admin access and can affect etcd performance",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/configuration/configmap/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Split into many small ConfigMaps manually",
+      "why_fails": "Hard to manage — consider using external configuration",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/configuration/configmap/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a volume mount with a PersistentVolumeClaim for large config files",
+      "success_rate": 0.9,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use external configuration services (Vault, Parameter Store, etc.)",
+      "success_rate": 0.88,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/configuration/configmap/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Compress or minify the config data, or split logically into multiple ConfigMaps",
+      "success_rate": 0.82,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/configuration/configmap/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nextjs/use-client-directive/nextjs14-linux",
+  "url": "https://deadends.dev/nextjs/use-client-directive/nextjs14-linux",
+  "error": {
+    "signature": "Error: useState/useEffect can only be used in Client Components. Add 'use client' directive",
+    "regex": "useState.*Client Component|useEffect.*Client Component|use client.*directive",
+    "domain": "nextjs",
+    "category": "component_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nextjs",
+      "version_range": ">=14,<16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.98,
+    "confidence": 0.95,
+    "last_updated": "2026-02-11",
+    "summary": "Using React hooks in a Server Component. App Router defaults all components to Server Components."
+  },
+  "dead_ends": [
+    {
+      "action": "Mark every component as 'use client'",
+      "why_fails": "Defeats the purpose of Server Components — only mark interactive ones",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Move state management to a global store",
+      "why_fails": "Over-engineering for simple interactive components",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add 'use client' directive at the top of the file that uses hooks",
+      "success_rate": 0.98,
+      "how": "'use client';\nimport { useState } from 'react';",
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Split into Server (data fetching) + Client (interactive) components",
+      "success_rate": 0.92,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

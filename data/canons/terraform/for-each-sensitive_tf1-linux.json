@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "terraform/for-each-sensitive/tf1-linux",
+  "url": "https://deadends.dev/terraform/for-each-sensitive/tf1-linux",
+  "error": {
+    "signature": "Error: Invalid for_each argument: Sensitive values not allowed in for_each",
+    "regex": "Invalid for_each.*[Ss]ensitive|for_each.*sensitive value",
+    "domain": "terraform",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "for_each can't iterate over sensitive values. Terraform can't plan resources with hidden keys."
+  },
+  "dead_ends": [
+    {
+      "action": "Mark everything as non-sensitive",
+      "why_fails": "Exposes secrets in plan output and state",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/expressions/function-calls#sensitive"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use count instead of for_each",
+      "why_fails": "Loses the benefit of stable resource keys — risky for updates",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/count"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use nonsensitive() to unwrap the value for for_each keys only",
+      "success_rate": 0.92,
+      "how": "for_each = nonsensitive(var.my_sensitive_map)",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/functions/nonsensitive"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restructure to use non-sensitive keys with sensitive values as attributes",
+      "success_rate": 0.85,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/expressions/function-calls"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

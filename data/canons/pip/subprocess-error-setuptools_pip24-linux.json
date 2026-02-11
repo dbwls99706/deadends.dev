@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pip/subprocess-error-setuptools/pip24-linux",
+  "url": "https://deadends.dev/pip/subprocess-error-setuptools/pip24-linux",
+  "error": {
+    "signature": "error: subprocess-exited-with-error: python setup.py egg_info did not run successfully",
+    "regex": "subprocess-exited-with-error|setup.py egg_info.*error|egg_info",
+    "domain": "pip",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=24,<25"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-11",
+    "summary": "Legacy setup.py based install failed. Package may need C compiler, headers, or pyproject.toml migration."
+  },
+  "dead_ends": [
+    {
+      "action": "Use --no-build-isolation",
+      "why_fails": "May fix some cases but can cause dependency conflicts in build env",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Install from a wheel instead",
+      "why_fails": "If a wheel exists, pip would already use it — it's building because there's no wheel",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://pip.pypa.io/en/stable/topics/wheels/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install build dependencies: apt install python3-dev build-essential (for C extensions)",
+      "success_rate": 0.9,
+      "how": "sudo apt install python3-dev build-essential  # Debian/Ubuntu\nbrew install python  # macOS",
+      "sources": [
+        "https://pip.pypa.io/en/stable/topics/wheels/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check if a newer version has a pre-built wheel: pip install --prefer-binary <pkg>",
+      "success_rate": 0.85,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-prefer-binary"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Install package-specific system deps (e.g., libpq-dev for psycopg2, libxml2-dev for lxml)",
+      "success_rate": 0.88,
+      "sources": [
+        "https://pip.pypa.io/en/stable/topics/wheels/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

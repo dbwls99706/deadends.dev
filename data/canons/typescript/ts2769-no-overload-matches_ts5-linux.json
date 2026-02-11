@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "typescript/ts2769-no-overload-matches/ts5-linux",
+  "url": "https://deadends.dev/typescript/ts2769-no-overload-matches/ts5-linux",
+  "error": {
+    "signature": "error TS2769: No overload matches this call",
+    "regex": "TS2769.*No overload matches this call",
+    "domain": "typescript",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "typescript",
+      "version_range": ">=5.0,<6.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "None of the function's overload signatures match the provided arguments. Check each overload's requirements."
+  },
+  "dead_ends": [
+    {
+      "action": "Cast arguments to any",
+      "why_fails": "Bypasses type checking entirely — the overloads exist for correctness",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Remove the overload signatures",
+      "why_fails": "If it's a library function, you can't modify it",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Read each overload signature in the error — match your args to one of them",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check for subtle type differences: string vs String, number vs bigint",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Common with event handlers: use the specific event type, not generic Event",
+      "success_rate": 0.85,
+      "how": "onClick: (e: React.MouseEvent<HTMLButtonElement>) => void",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/functions.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

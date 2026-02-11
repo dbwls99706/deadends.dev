@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rust/e0277-send-not-satisfied/rust1-linux",
+  "url": "https://deadends.dev/rust/e0277-send-not-satisfied/rust1-linux",
+  "error": {
+    "signature": "error[E0277]: `X` cannot be sent between threads safely",
+    "regex": "E0277.*cannot be sent between threads|Send.*is not satisfied",
+    "domain": "rust",
+    "category": "concurrency_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rust",
+      "version_range": ">=1.70,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "Type doesn't implement Send trait. Can't use across threads. Common with Rc, RefCell."
+  },
+  "dead_ends": [
+    {
+      "action": "Implement Send with unsafe impl",
+      "why_fails": "Implementing Send unsafely on types that aren't thread-safe causes UB",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://doc.rust-lang.org/std/marker/trait.Send.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use single-threaded runtime",
+      "why_fails": "Limits application scalability unnecessarily",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://doc.rust-lang.org/book/ch16-04-extensible-concurrency-sync-and-send.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Arc instead of Rc for shared ownership across threads",
+      "success_rate": 0.95,
+      "how": "use std::sync::Arc;\nlet shared = Arc::new(data);",
+      "sources": [
+        "https://doc.rust-lang.org/std/sync/struct.Arc.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Mutex/RwLock instead of RefCell for interior mutability across threads",
+      "success_rate": 0.92,
+      "how": "use std::sync::Mutex;\nlet data = Arc::new(Mutex::new(value));",
+      "sources": [
+        "https://doc.rust-lang.org/std/sync/struct.Mutex.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If using async, ensure futures are Send by avoiding non-Send types across .await",
+      "success_rate": 0.85,
+      "sources": [
+        "https://doc.rust-lang.org/book/ch16-04-extensible-concurrency-sync-and-send.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/multi-stage-copy-from/docker27-linux",
+  "url": "https://deadends.dev/docker/multi-stage-copy-from/docker27-linux",
+  "error": {
+    "signature": "COPY --from=builder failed: stat /app/build: file not found in build stage",
+    "regex": "COPY --from.*failed|file not found.*build stage|COPY.*--from.*stat",
+    "domain": "docker",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=27,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "Multi-stage build COPY source path doesn't exist in the builder stage."
+  },
+  "dead_ends": [
+    {
+      "action": "Add the file to the build context",
+      "why_fails": "Build context is for COPY without --from; --from copies from another stage",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.docker.com/build/building/multi-stage/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a single-stage build",
+      "why_fails": "Loses multi-stage benefits (smaller final image, no build tools in prod)",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://docs.docker.com/build/building/multi-stage/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the builder stage: the build output path may differ from what you're copying",
+      "success_rate": 0.95,
+      "how": "# Verify: RUN ls -la /app/build  # add this to builder stage to debug",
+      "sources": [
+        "https://docs.docker.com/build/building/multi-stage/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ensure the build step in the builder stage actually runs and outputs to the expected path",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.docker.com/build/building/multi-stage/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

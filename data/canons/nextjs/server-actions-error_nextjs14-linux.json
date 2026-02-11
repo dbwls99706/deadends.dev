@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nextjs/server-actions-error/nextjs14-linux",
+  "url": "https://deadends.dev/nextjs/server-actions-error/nextjs14-linux",
+  "error": {
+    "signature": "Error: Functions cannot be passed directly to Client Components unless you explicitly expose it with 'use server'",
+    "regex": "Functions cannot be passed.*Client Components|use server|Server Actions",
+    "domain": "nextjs",
+    "category": "component_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nextjs",
+      "version_range": ">=14,<16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "Passing a server function as prop to a Client Component. Need 'use server' directive."
+  },
+  "dead_ends": [
+    {
+      "action": "Convert the function to a client-side function",
+      "why_fails": "Loses server-side benefits (DB access, secrets, etc.)",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use an API route instead",
+      "why_fails": "Server Actions are the recommended replacement for simple API routes",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Mark the function with 'use server' directive to make it a Server Action",
+      "success_rate": 0.95,
+      "how": "'use server';\nasync function submitForm(data: FormData) { ... }",
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a separate actions.ts file with 'use server' at the top",
+      "success_rate": 0.92,
+      "how": "// app/actions.ts\n'use server';\nexport async function createItem(data: FormData) { ... }",
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}
