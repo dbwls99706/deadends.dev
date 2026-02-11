@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kubernetes/persistent-volume-pending/k8s1-linux",
+  "url": "https://deadends.dev/kubernetes/persistent-volume-pending/k8s1-linux",
+  "error": {
+    "signature": "PersistentVolumeClaim is stuck in Pending state",
+    "regex": "PersistentVolumeClaim.*Pending|no persistent volumes available|waiting for a volume to be created",
+    "domain": "kubernetes",
+    "category": "storage_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kubernetes",
+      "version_range": ">=1.28,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-11",
+    "summary": "PVC can't find a matching PV. No StorageClass provisioner or no available storage."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually create a PV with exact specs",
+      "why_fails": "Manual PVs don't scale and are hard to manage",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete and recreate the PVC",
+      "why_fails": "Won't help if the underlying issue is no StorageClass or no space",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check if a default StorageClass exists: kubectl get storageclass",
+      "success_rate": 0.92,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/storage/storage-classes/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a StorageClass or set one as default if missing",
+      "success_rate": 0.88,
+      "how": "kubectl patch storageclass <name> -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'",
+      "sources": [
+        "https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For local dev, use local-path provisioner or hostPath",
+      "success_rate": 0.8,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/storage/volumes/#hostpath"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

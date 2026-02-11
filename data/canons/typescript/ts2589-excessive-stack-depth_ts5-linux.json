@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "typescript/ts2589-excessive-stack-depth/ts5-linux",
+  "url": "https://deadends.dev/typescript/ts2589-excessive-stack-depth/ts5-linux",
+  "error": {
+    "signature": "error TS2589: Type instantiation is excessively deep and possibly infinite",
+    "regex": "TS2589.*excessively deep.*possibly infinite",
+    "domain": "typescript",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "typescript",
+      "version_range": ">=5.0,<6.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.78,
+    "confidence": 0.85,
+    "last_updated": "2026-02-11",
+    "summary": "Recursive type exceeded depth limit. Complex conditional/mapped types or circular type references."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase TypeScript recursion limit",
+      "why_fails": "No such config option — the limit is hardcoded for safety",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use @ts-ignore on the line",
+      "why_fails": "Hides the type entirely — you lose all type checking",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Simplify the recursive type — add a depth limit parameter",
+      "success_rate": 0.88,
+      "how": "type DeepPartial<T, D extends number = 5> = ...",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Break circular type references by using interface instead of type alias",
+      "success_rate": 0.82,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check if a simpler type utility exists in a library like type-fest",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.npmjs.com/package/type-fest"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

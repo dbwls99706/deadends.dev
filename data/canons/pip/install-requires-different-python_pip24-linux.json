@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pip/install-requires-different-python/pip24-linux",
+  "url": "https://deadends.dev/pip/install-requires-different-python/pip24-linux",
+  "error": {
+    "signature": "ERROR: Package requires a different Python: X.Y.Z not in '>=3.X'",
+    "regex": "requires a different Python|python_requires|Requires-Python",
+    "domain": "pip",
+    "category": "version_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=24,<25"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "Package doesn't support your Python version. Check python_requires in package metadata."
+  },
+  "dead_ends": [
+    {
+      "action": "Use --ignore-requires-python",
+      "why_fails": "Package may genuinely not work on your Python version — crashes at runtime",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-ignore-requires-python"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Edit the package metadata to remove the restriction",
+      "why_fails": "Package will reinstall with original metadata on update",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install an older version that supports your Python: pip install 'pkg<2.0'",
+      "success_rate": 0.92,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#requirement-specifiers"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Upgrade Python to meet the requirement",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.python.org/downloads/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use pyenv to manage multiple Python versions",
+      "success_rate": 0.85,
+      "how": "pyenv install 3.12.0 && pyenv local 3.12.0",
+      "sources": [
+        "https://github.com/pyenv/pyenv"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

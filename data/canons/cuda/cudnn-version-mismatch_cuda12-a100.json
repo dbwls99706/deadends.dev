@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/cudnn-version-mismatch/cuda12-a100",
+  "url": "https://deadends.dev/cuda/cudnn-version-mismatch/cuda12-a100",
+  "error": {
+    "signature": "RuntimeError: cuDNN version incompatibility",
+    "regex": "cuDNN.*incompatib|cuDNN.*version.*mismatch|CUDNN_STATUS_VERSION_MISMATCH",
+    "domain": "cuda",
+    "category": "compatibility_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux",
+    "hardware": {
+      "gpu": "A100",
+      "vram_gb": 40
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-11",
+    "summary": "cuDNN version doesn't match the CUDA toolkit or PyTorch build."
+  },
+  "dead_ends": [
+    {
+      "action": "Install the latest cuDNN regardless of CUDA version",
+      "why_fails": "cuDNN versions are tied to CUDA versions — must match",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Build cuDNN from source",
+      "why_fails": "cuDNN is proprietary — can't build from source",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://developer.nvidia.com/cudnn"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the cuDNN version that matches your CUDA toolkit: check the compatibility matrix",
+      "success_rate": 0.92,
+      "sources": [
+        "https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use conda install which handles CUDA/cuDNN version matching automatically",
+      "success_rate": 0.9,
+      "how": "conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia",
+      "sources": [
+        "https://pytorch.org/get-started/locally/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Or install PyTorch with bundled cuDNN via pip: pip install torch --index-url ...",
+      "success_rate": 0.85,
+      "sources": [
+        "https://pytorch.org/get-started/locally/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}

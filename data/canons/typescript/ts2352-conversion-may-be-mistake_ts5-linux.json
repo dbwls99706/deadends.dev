@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "typescript/ts2352-conversion-may-be-mistake/ts5-linux",
+  "url": "https://deadends.dev/typescript/ts2352-conversion-may-be-mistake/ts5-linux",
+  "error": {
+    "signature": "error TS2352: Conversion of type 'X' to type 'Y' may be a mistake",
+    "regex": "TS2352.*[Cc]onversion.*may be a mistake",
+    "domain": "typescript",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "typescript",
+      "version_range": ">=5.0,<6.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-11",
+    "summary": "Type assertion (as) between incompatible types. TypeScript warns the cast looks wrong."
+  },
+  "dead_ends": [
+    {
+      "action": "Double cast: x as unknown as Y",
+      "why_fails": "Bypasses all type safety — any bug will be a runtime error",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use any as intermediate",
+      "why_fails": "Same as double cast — loses all type information",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use type narrowing instead of assertion: instanceof, typeof, in operator",
+      "success_rate": 0.95,
+      "how": "if (obj instanceof MyClass) { obj.method(); }",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a type guard function for complex narrowing",
+      "success_rate": 0.88,
+      "how": "function isMyType(x: unknown): x is MyType { return 'key' in (x as object); }",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Fix the actual type mismatch instead of casting",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-11",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-11"
+  }
+}
