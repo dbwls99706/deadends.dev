@@ -32,25 +32,29 @@ jobs:
       - name: Build site
         run: python -m generator.build_site
 
-      - name: Copy AI agent config files
-        run: |
-          cp -f CLAUDE.md site/CLAUDE.md 2>/dev/null || true
-          cp -f .cursorrules site/.cursorrules 2>/dev/null || true
-          cp -f .windsurfrules site/.windsurfrules 2>/dev/null || true
-          cp -f AGENTS.md site/AGENTS.md 2>/dev/null || true
-          cp -f .clinerules site/.clinerules 2>/dev/null || true
-          cp -rf .well-known site/.well-known 2>/dev/null || true
-          touch site/.nojekyll
+      - name: Prepare site for deployment
+        run: touch site/.nojekyll
 
       - name: Validate generated HTML
         run: python -m generator.validate --site-only
 
-      - name: Upload site artifact
+      - name: Create Pages artifact
         if: github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v4
+        run: |
+          tar \
+            --dereference --hard-dereference \
+            --directory site/ \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            .
+
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
         with:
-          path: site/
-          include-hidden-files: true
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
 
   deploy:
     if: github.ref == 'refs/heads/main'
