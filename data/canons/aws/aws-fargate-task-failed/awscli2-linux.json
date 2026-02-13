@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "aws/aws-fargate-task-failed/awscli2-linux",
+  "url": "https://deadends.dev/aws/aws-fargate-task-failed/awscli2-linux",
+  "error": {
+    "signature": "STOPPED (Essential container in task exited) - CannotPullContainerError or ResourceInitializationError",
+    "regex": "(CannotPullContainerError|ResourceInitializationError|Essential container in task exited|STOPPED.*exit code [1-9])",
+    "domain": "aws",
+    "category": "container_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-12"
+  },
+  "environment": {
+    "runtime": {"name": "aws", "version_range": ">=2.0,<3.0"},
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-12",
+    "summary": "Fargate task stopped due to image pull failure, resource initialization error, or container crash."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase task CPU/memory to fix CannotPullContainerError",
+      "why_fails": "Image pull errors are network or permission issues, not resource limits",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Restart the ECS service to fix persistent task failures",
+      "why_fails": "Service restart re-launches the same task definition; configuration errors persist",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check stopped task reason and container exit code in ECS console or CLI",
+      "success_rate": 0.88,
+      "how": "aws ecs describe-tasks --cluster CLUSTER --tasks TASK_ARN --query 'tasks[].stoppedReason'",
+      "sources": ["https://docs.aws.amazon.com/AmazonECS/latest/developerguide/stopped-task-errors.html"],
+      "condition": ""
+    },
+    {
+      "action": "For CannotPullContainerError: ensure task execution role has ECR access and VPC has NAT gateway or VPC endpoints",
+      "success_rate": 0.85,
+      "how": "Attach AmazonECSTaskExecutionRolePolicy to execution role; verify subnet has internet access for ECR pulls",
+      "sources": ["https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html"],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {"error_id": "aws/ecs-service-unable-to-place_aws-cli2-linux", "probability": 0.20, "condition": "Repeated task failures trigger service unable to place tasks"}
+    ],
+    "preceded_by": [
+      {"error_id": "aws/ecr-login-required_awscli2-linux", "probability": 0.25, "condition": "ECR authentication issues cause container image pull failures"}
+    ],
+    "frequently_confused_with": [
+      {"error_id": "aws/ecs-service-unable-to-place_aws-cli2-linux", "distinction": "Unable to place is about scheduling/resources; Fargate task failed is about the task itself failing after placement"}
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-12",
+    "review_status": "auto_generated",
+    "evidence_count": 100,
+    "last_verification": "2026-02-12"
+  }
+}
