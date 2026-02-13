@@ -969,18 +969,34 @@ def build_llms_txt(canons: list[dict]) -> None:
         "Check dead ends before attempting a fix. "
         "Check workarounds for approaches that actually work.",
         "",
-        "## About",
+        "## Integration Methods (choose one)",
         "",
-        f"- [API Index]({BASE_URL}/api/v1/index.json): "
-        "All errors with regex patterns and API URLs",
+        "### Option 1: MCP Server (recommended for AI agents)",
+        "",
+        "```",
+        "pip install deadends-dev",
+        "python -m mcp.server  # stdio mode",
+        "```",
+        "",
+        "Tools: `lookup_error`, `get_error_detail`, `search_errors`, "
+        "`batch_lookup`, `get_error_chain`, `list_error_domains`, "
+        "`list_errors_by_domain`, `get_domain_stats`",
+        "",
+        "### Option 2: REST API",
+        "",
         f"- [Match Endpoint]({BASE_URL}/api/v1/match.json): "
-        "Lightweight regex-only matching (fits in context window)",
+        "Lightweight regex matching (fits in context window)",
+        f"- [API Index]({BASE_URL}/api/v1/index.json): "
+        "Full error index with API URLs",
         f"- [OpenAPI Spec]({BASE_URL}/api/v1/openapi.json): "
         "Full API specification",
+        f"- [NDJSON Stream]({BASE_URL}/api/v1/errors.ndjson): "
+        "Streaming format for batch processing",
+        "",
+        "### Option 3: Full Context Dump",
+        "",
         f"- [Complete Database]({BASE_URL}/llms-full.txt): "
-        "Full error dump in plaintext",
-        f"- [Error Search]({BASE_URL}/search/): "
-        "Client-side error matching",
+        "All errors in plaintext (load into context window)",
         "",
         "## How to Use",
         "",
@@ -1436,8 +1452,8 @@ def build_well_known(canons: list[dict]) -> None:
                 "name": "Get Error Details",
                 "description": (
                     "Get full structured failure knowledge for a specific "
-                    "error by its ID. Returns complete dead ends, workarounds, "
-                    "transition graphs, and source evidence."
+                    "error by its ID. Returns complete dead ends, "
+                    "workarounds, transition graphs, and source evidence."
                 ),
                 "tags": ["errors", "lookup", "api"],
             },
@@ -1448,6 +1464,51 @@ def build_well_known(canons: list[dict]) -> None:
                     f"List all {len(domains)} error domains with counts."
                 ),
                 "tags": ["domains", "index"],
+            },
+            {
+                "id": "search-errors",
+                "name": "Search Errors",
+                "description": (
+                    "Fuzzy keyword search across all errors. Use when "
+                    "you have a vague description rather than an exact "
+                    "error message."
+                ),
+                "tags": ["search", "errors"],
+            },
+            {
+                "id": "list-by-domain",
+                "name": "List Errors By Domain",
+                "description": (
+                    "List all errors in a specific domain with fix rates."
+                ),
+                "tags": ["domain", "list"],
+            },
+            {
+                "id": "batch-lookup",
+                "name": "Batch Lookup",
+                "description": (
+                    "Look up multiple error messages at once (max 10). "
+                    "Use for debugging error chains or log analysis."
+                ),
+                "tags": ["batch", "errors"],
+            },
+            {
+                "id": "domain-stats",
+                "name": "Domain Statistics",
+                "description": (
+                    "Get quality metrics for a domain: error counts, "
+                    "fix rates, resolvability, confidence levels."
+                ),
+                "tags": ["stats", "quality"],
+            },
+            {
+                "id": "error-chain",
+                "name": "Error Chain Traversal",
+                "description": (
+                    "Get the transition graph for an error: what errors "
+                    "follow, what precedes it, what gets confused with it."
+                ),
+                "tags": ["chain", "graph", "transitions"],
             },
         ],
         "auth": {"type": "none"},
