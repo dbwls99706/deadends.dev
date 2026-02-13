@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ signature }} — All Environments & Fixes | deadends.dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <title>Fix {{ signature }} — {{ environments|length }} Environments, {{ min_rate }}%–{{ max_rate }}% Success | deadends.dev</title>
   <meta name="description" content="How to fix {{ signature }}. Covers {{ environments|length }} environments with {{ total_dead_ends }} dead ends to avoid and {{ total_workarounds }} verified workarounds. Fix rates: {{ min_rate }}%–{{ max_rate }}%.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
@@ -11,12 +13,30 @@
   <link rel="canonical" href="{{ base_url }}/{{ domain }}/{{ slug }}/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ signature }} — All Environments & Fixes">
+  <meta property="og:title" content="Fix {{ signature }} — {{ min_rate }}%–{{ max_rate }}% Success Rate">
   <meta property="og:description" content="{{ environments|length }} environments, {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds. Fix rates from {{ min_rate }}% to {{ max_rate }}%.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/{{ slug }}/">
-  <meta property="og:site_name" content="deadends.dev — Structured Failure Knowledge">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:site_name" content="deadends.dev">
+  <meta property="og:image" content="{{ base_url }}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ base_url }}/og-image.png">
+
+  <!-- BreadcrumbList for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "deadends.dev", "item": "{{ base_url }}"},
+      {"@type": "ListItem", "position": 2, "name": "{{ domain }}", "item": "{{ base_url }}/{{ domain }}/"},
+      {"@type": "ListItem", "position": 3, "name": "{{ signature }}"}
+    ]
+  }
+  </script>
 
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; color: #e0e0e0; background: #0d1117; }

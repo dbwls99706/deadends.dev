@@ -89,6 +89,9 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         all_sources = collect_sources(canon)
 
         # Build JSON-LD with Schema.org TechArticle + custom ErrorCanon
+        page_url = canon["url"]
+        if not page_url.endswith("/"):
+            page_url += "/"
         json_ld_data = {
             "@context": [
                 "https://schema.org",
@@ -96,9 +99,14 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             ],
             "@type": "TechArticle",
             "name": canon["error"]["signature"],
+            "headline": f"Fix {canon['error']['signature']}",
             "description": canon["verdict"]["summary"],
-            "url": canon["url"],
+            "url": page_url,
+            "datePublished": canon["error"].get(
+                "first_seen", canon["metadata"].get("generation_date", "")
+            ),
             "dateModified": canon["verdict"]["last_updated"],
+            "image": f"{BASE_URL}/og-image.png",
             "publisher": {
                 "@type": "Organization",
                 "name": "deadends.dev",
@@ -134,11 +142,39 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             faq_json_ld_data, indent=2, ensure_ascii=False
         )
 
+        # HowTo schema — workarounds as step-by-step fix instructions
+        howto_json_ld = ""
+        workarounds = canon.get("workarounds", [])
+        if workarounds:
+            howto_steps = []
+            for i, wa in enumerate(workarounds, 1):
+                step = {
+                    "@type": "HowToStep",
+                    "position": i,
+                    "name": wa["action"],
+                    "text": wa.get("how", wa["action"]),
+                }
+                if wa.get("tradeoff"):
+                    step["text"] += f" (Tradeoff: {wa['tradeoff']})"
+                howto_steps.append(step)
+            howto_data = {
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": f"How to fix {sig}",
+                "description": canon["verdict"]["summary"],
+                "totalTime": "PT10M",
+                "step": howto_steps,
+            }
+            howto_json_ld = json.dumps(
+                howto_data, indent=2, ensure_ascii=False
+            )
+
         html = template.render(
             env_summary=env_summary,
             all_sources=all_sources,
             json_ld=json_ld,
             faq_json_ld=faq_json_ld,
+            howto_json_ld=howto_json_ld,
             known_ids=known_ids,
             **canon,
         )
@@ -282,25 +318,18 @@ def build_sitemap(
     # Error pages (environment-specific)
     for canon in canons:
         url_elem = SubElement(urlset, "url")
-        SubElement(url_elem, "loc").text = canon["url"]
+        # Ensure trailing slash (pages are served as /path/index.html)
+        error_url = canon["url"]
+        if not error_url.endswith("/"):
+            error_url += "/"
+        SubElement(url_elem, "loc").text = error_url
         last_updated = canon["verdict"].get("last_updated", now)
         SubElement(url_elem, "lastmod").text = last_updated
         SubElement(url_elem, "changefreq").text = "monthly"
         SubElement(url_elem, "priority").text = "0.8"
 
-    # API endpoints
-    url_elem = SubElement(urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/api/v1/index.json"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "0.7"
-
-    # llms.txt
-    url_elem = SubElement(urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/llms.txt"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "0.7"
+    # Note: Non-HTML resources (JSON API, llms.txt) are excluded from sitemap
+    # to avoid diluting crawl budget. Google won't index JSON/TXT as web pages.
 
     xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml_body = tostring(urlset, encoding="unicode")
@@ -440,22 +469,34 @@ Sitemap: {BASE_URL}/sitemap.xml
 
 
 def build_404_page() -> None:
-    """Generate a custom 404 page."""
+    """Generate a custom 404 page with navigation and search."""
     html = (
         "<!DOCTYPE html>\n"
         '<html lang="en"><head>\n'
-        '<meta charset="utf-8"><title>404 | deadends.dev</title>\n'
+        '<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<meta name="theme-color" content="#0d1117">\n'
+        "<title>404 — Error Not Found | deadends.dev</title>\n"
+        '<meta name="robots" content="noindex">\n'
+        f'<link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">\n'
         "<style>\n"
-        "body{font-family:system-ui;max-width:800px;margin:2rem auto;\n"
-        "padding:0 1rem;color:#e0e0e0;background:#0d1117;}\n"
-        "a{color:#58a6ff;}\n"
+        "body{font-family:system-ui,-apple-system,sans-serif;max-width:800px;"
+        "margin:2rem auto;padding:0 1rem;color:#e0e0e0;background:#0d1117;}\n"
+        "a{color:#58a6ff;}h1{font-size:1.6rem;}"
+        "nav a{color:#8b949e;text-decoration:none;}nav a:hover{color:#58a6ff;}\n"
+        ".links{margin:2rem 0;}.links a{display:inline-block;margin:0.5rem 1rem 0.5rem 0;}\n"
         "</style>\n"
         "</head><body>\n"
-        "<h1>404 — Error Not Found (Ironic, isn't it?)</h1>\n"
-        '<p>This error page doesn\'t exist yet.'
-        f' <a href="{BASE_PATH}/">Browse existing errors</a> or\n'
+        f'<nav><a href="{BASE_PATH}/">deadends.dev</a></nav>\n'
+        "<h1>404 — Error Not Found</h1>\n"
+        "<p>This error page doesn't exist yet. "
+        "Ironic for a site that catalogs errors.</p>\n"
+        '<div class="links">\n'
+        f'<a href="{BASE_PATH}/search/">Search errors</a>\n'
+        f'<a href="{BASE_PATH}/">Browse all domains</a>\n'
         '<a href="https://github.com/dbwls99706/deadends.dev/issues/new">'
-        "request it</a>.</p>\n"
+        "Request this error</a>\n"
+        "</div>\n"
         "</body></html>"
     )
     (SITE_DIR / "404.html").write_text(html, encoding="utf-8")
@@ -467,6 +508,63 @@ def build_cname() -> None:
     """Generate CNAME file for custom domain."""
     (SITE_DIR / "CNAME").write_text("deadends.dev\n", encoding="utf-8")
     print("  Generated: CNAME")
+
+
+def build_og_image() -> None:
+    """Generate a branded OG image (1200x630 PNG) for social sharing.
+
+    Creates a minimal valid PNG using Python stdlib (zlib + struct).
+    Dark background with branded text area for social media previews.
+    """
+    import struct
+    import zlib
+
+    width, height = 1200, 630
+    # Background: #0d1117 (matches site theme)
+    bg_r, bg_g, bg_b = 0x0D, 0x11, 0x17
+    # Accent bar: #58a6ff (link color)
+    accent_r, accent_g, accent_b = 0x58, 0xA6, 0xFF
+    # Red accent: #f85149 (dead end color)
+    red_r, red_g, red_b = 0xF8, 0x51, 0x49
+
+    # Build raw pixel data row by row
+    raw_rows = []
+    for y in range(height):
+        row = b"\x00"  # PNG filter byte: None
+        for x in range(width):
+            # Top accent bar (0-6px)
+            if y < 6:
+                row += bytes([accent_r, accent_g, accent_b])
+            # Bottom accent bar
+            elif y >= height - 6:
+                row += bytes([red_r, red_g, red_b])
+            # Left accent stripe (0-6px)
+            elif x < 6:
+                row += bytes([accent_r, accent_g, accent_b])
+            # Right accent stripe
+            elif x >= width - 6:
+                row += bytes([red_r, red_g, red_b])
+            else:
+                row += bytes([bg_r, bg_g, bg_b])
+        raw_rows.append(row)
+
+    raw_data = b"".join(raw_rows)
+    compressed = zlib.compress(raw_data, 9)
+
+    def make_chunk(chunk_type: bytes, data: bytes) -> bytes:
+        chunk = chunk_type + data
+        crc = struct.pack(">I", zlib.crc32(chunk) & 0xFFFFFFFF)
+        return struct.pack(">I", len(data)) + chunk + crc
+
+    png = b"\x89PNG\r\n\x1a\n"
+    # IHDR: width, height, bit_depth=8, color_type=2(RGB), compression, filter, interlace
+    ihdr_data = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    png += make_chunk(b"IHDR", ihdr_data)
+    png += make_chunk(b"IDAT", compressed)
+    png += make_chunk(b"IEND", b"")
+
+    (SITE_DIR / "og-image.png").write_bytes(png)
+    print("  Generated: og-image.png (1200x630)")
 
 
 def build_favicon() -> None:
@@ -1514,6 +1612,10 @@ def main():
 
     print("Generating IndexNow support...")
     build_indexnow(canons)
+    print()
+
+    print("Generating OG image for social sharing...")
+    build_og_image()
     print()
 
     print("Generating favicon...")

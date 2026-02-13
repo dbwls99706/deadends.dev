@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ domain }} errors — Dead Ends & Fixes ({{ total }} errors) | deadends.dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <title>{{ domain | capitalize }} Errors — {{ total }} Known Issues with Fixes | deadends.dev</title>
   <meta name="description" content="All known {{ domain }} errors with dead ends and verified workarounds. {{ total }} error entries with fix success rates and what NOT to try.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
-  <meta name="keywords" content="{{ domain }}, {{ domain }} error, {{ domain }} fix, troubleshooting, dead end, workaround{% for e in entries %}, {{ e.signature }}{% endfor %}">
+  <meta name="keywords" content="{{ domain }}, {{ domain }} error, {{ domain }} fix, troubleshooting, dead end, workaround, how to fix {{ domain }} errors">
 
   <!-- AI agent discovery -->
   <link rel="alternate" type="application/json" href="{{ base_path }}/api/v1/index.json" title="Error Index JSON API">
@@ -14,14 +16,31 @@
   <link rel="describedby" href="{{ base_path }}/api/v1/openapi.json" type="application/json">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ domain }} errors — Dead Ends & Fixes | deadends.dev">
+  <meta property="og:title" content="{{ domain | capitalize }} Errors — {{ total }} Known Issues with Fixes">
   <meta property="og:description" content="{{ total }} {{ domain }} error patterns with dead ends and verified workarounds.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/">
   <meta property="og:site_name" content="deadends.dev">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="{{ base_url }}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ base_url }}/og-image.png">
 
   <link rel="canonical" href="{{ base_url }}/{{ domain }}/">
+
+  <!-- BreadcrumbList for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "deadends.dev", "item": "{{ base_url }}"},
+      {"@type": "ListItem", "position": 2, "name": "{{ domain }}"}
+    ]
+  }
+  </script>
 
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
