@@ -38,7 +38,9 @@
       "action": "Change Neptune instance class to fix connection issues",
       "why_fails": "Instance class affects performance, not network connectivity",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/neptune/latest/userguide/"
+      ],
       "condition": ""
     }
   ],

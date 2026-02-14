@@ -51,7 +51,8 @@
       "sources": [
         "https://kubernetes.io/docs/concepts/storage/storage-classes/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "kubectl get storageclass"
     },
     {
       "action": "Create a StorageClass or set one as default if missing",
@@ -68,7 +69,8 @@
       "sources": [
         "https://kubernetes.io/docs/concepts/storage/volumes/#hostpath"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

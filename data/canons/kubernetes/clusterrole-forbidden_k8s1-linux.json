@@ -60,7 +60,8 @@
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "more restricted scope"
     },
     {
       "action": "Check current permissions: kubectl auth can-i --list",
@@ -68,7 +69,8 @@
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/authorization/#checking-api-access"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "kubectl auth can-i --list"
     }
   ],
   "transition_graph": {

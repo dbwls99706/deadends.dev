@@ -51,7 +51,8 @@
       "sources": [
         "https://docs.docker.com/engine/containers/resource_constraints/#limit-a-containers-access-to-memory"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "docker run --memory=2g or in compose: mem_limit: 2g"
     },
     {
       "action": "Profile application memory to find leaks or reduce footprint",
@@ -59,7 +60,8 @@
       "sources": [
         "https://docs.docker.com/engine/containers/resource_constraints/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "For build-time OOM, increase Docker Desktop memory in Settings > Resources",
@@ -67,7 +69,8 @@
       "sources": [
         "https://docs.docker.com/desktop/settings-and-maintenance/settings/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

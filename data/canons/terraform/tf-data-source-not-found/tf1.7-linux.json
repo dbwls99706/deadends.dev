@@ -29,14 +29,18 @@
       "action": "Add a depends_on to make the data source wait",
       "why_fails": "If the resource simply does not exist, waiting will not help; depends_on cannot create missing resources",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/resources"
+      ],
       "condition": ""
     },
     {
       "action": "Use try() to ignore the missing data source error",
       "why_fails": "try() cannot suppress provider-level errors from data sources, only expression evaluation errors",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/providers"
+      ],
       "condition": ""
     }
   ],

@@ -8,6 +8,7 @@ from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 from jinja2 import Environment, FileSystemLoader
+from markupsafe import Markup
 
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "canons"
@@ -275,11 +276,15 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
         for c in recent
     ]
 
+    # Pick a representative example error for API/feature links
+    example_error_id = recent_entries[0]["id"] if recent_entries else canons[0]["id"]
+
     html = template.render(
         total_errors=len(canons),
         domains=domains,
         domain_stats=domain_stats,
         recent_entries=recent_entries,
+        example_error_id=example_error_id,
         google_verification=GOOGLE_VERIFICATION,
         bing_verification=BING_VERIFICATION,
     )
@@ -570,7 +575,7 @@ def build_stylesheet() -> None:
         "/* Page-specific heading sizes */",
         ".pg-index h1 { font-size: 1.8rem; }",
         ".pg-index h2 { font-size: 1.2rem; }",
-        ".pg-domain h1, .pg-search h1 { font-size: 1.6rem; }",
+        ".pg-domain h1, .pg-summary h1, .pg-search h1 { font-size: 1.6rem; }",
         "",
         "/* Verdict colors */",
         ".verdict-true { color: #3fb950; }",
@@ -1975,6 +1980,15 @@ def main():
     jinja_env.globals["base_path"] = BASE_PATH
     jinja_env.globals["base_url"] = BASE_URL
     jinja_env.filters["display_name"] = domain_display_name
+    def _json_escape(s: str) -> Markup:
+        """JSON-safe string for use inside JSON-LD <script> blocks.
+        Returns Markup to bypass Jinja2 autoescape (the value is already
+        properly escaped by json.dumps). Also escapes </ to prevent XSS."""
+        escaped = json.dumps(s)[1:-1]  # strip outer quotes
+        escaped = escaped.replace("</", r"<\/")  # prevent </script> breakout
+        return Markup(escaped)
+
+    jinja_env.filters["json_escape"] = _json_escape
 
     # Build pages
     print("Generating error pages...")

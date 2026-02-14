@@ -51,7 +51,8 @@
       "sources": [
         "https://pkg.go.dev/encoding/json#Unmarshal"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Use string tag for numeric fields that come as strings: `json:\"id,string\"`",
@@ -59,7 +60,8 @@
       "sources": [
         "https://pkg.go.dev/encoding/json#Marshal"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "`json:\"id,string\"`"
     }
   ],
   "transition_graph": {

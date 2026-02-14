@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Wrap in try/except IndexError",
-      "why_fails": "Masks the real issue — the list is shorter than expected",
+      "why_fails": "Masks the real issue \u2014 the list is shorter than expected",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/tutorial/errors.html"

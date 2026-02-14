@@ -38,7 +38,9 @@
       "action": "Nest dynamic blocks more than two levels deep",
       "why_fails": "Deeply nested dynamic blocks become unreadable and error-prone; refactor into modules instead",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/modules"
+      ],
       "condition": ""
     }
   ],

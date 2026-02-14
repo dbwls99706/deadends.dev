@@ -51,7 +51,8 @@
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/error-responses.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "For IaC (Terraform/CloudFormation), import the existing resource into your state",
@@ -68,7 +69,8 @@
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/error-responses.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

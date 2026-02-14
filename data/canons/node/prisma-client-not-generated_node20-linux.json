@@ -42,7 +42,8 @@
       "sources": [
         "https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Add prisma generate to your build/postinstall script",

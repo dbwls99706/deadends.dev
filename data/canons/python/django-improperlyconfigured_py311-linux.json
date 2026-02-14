@@ -37,7 +37,7 @@
     },
     {
       "action": "Import settings directly from the file",
-      "why_fails": "Bypasses Django's settings machinery — may miss configured apps",
+      "why_fails": "Bypasses Django's settings machinery \u2014 may miss configured apps",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.djangoproject.com/en/5.0/topics/settings/"
@@ -78,16 +78,7 @@
         "probability": 0.16
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "python/keyboardinterrupt/py311-linux",
-        "distinction": "'django.core.exceptions.ImproperlyConfigured' indicates a Django configuration error, while 'KeyboardInterrupt' indicates user-initiated interruption (Ctrl+C)."
-      },
-      {
-        "error_id": "python/pickle-unpickling-error/py311-linux",
-        "distinction": "'django.core.exceptions.ImproperlyConfigured' indicates a Django configuration error, while '_pickle.UnpicklingError' indicates a pickle deserialization failure."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

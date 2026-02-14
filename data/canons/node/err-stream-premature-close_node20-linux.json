@@ -51,7 +51,8 @@
       "sources": [
         "https://nodejs.org/api/stream.html#streamfinishedstream-options-callback"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Use stream.pipeline() instead of .pipe() — it handles cleanup automatically",
@@ -68,7 +69,8 @@
       "sources": [
         "https://nodejs.org/api/http.html#event-close"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

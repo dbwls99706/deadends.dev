@@ -55,7 +55,8 @@
       "sources": [
         "https://pytorch.org/docs/stable/notes/cuda.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Use gradient checkpointing to trade compute for memory",
@@ -81,7 +82,8 @@
       "sources": [
         "https://pytorch.org/docs/stable/fsdp.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use unsafe to bypass the borrow checker",
-      "why_fails": "Never use unsafe to work around ownership — it will cause UB",
+      "why_fails": "Never use unsafe to work around ownership \u2014 it will cause UB",
       "fail_rate": 0.95,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0507.html"
@@ -51,7 +51,8 @@
       "sources": [
         "https://doc.rust-lang.org/std/clone/trait.Clone.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "value.clone()"
     },
     {
       "action": "Use .as_ref() or pattern matching with ref to avoid moving",
@@ -68,7 +69,8 @@
       "sources": [
         "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {
@@ -92,10 +94,6 @@
       {
         "error_id": "rust/e0382-use-after-move/rust1-linux",
         "distinction": "'[E0507]' indicates moving out of borrowed content, while '[E0382]' indicates use of a moved value (ownership violation)."
-      },
-      {
-        "error_id": "rust/cargo-feature-not-found/rust1-linux",
-        "distinction": "'[E0507]' indicates moving out of borrowed content, while 'error' indicates a missing cargo feature flag."
       }
     ]
   },

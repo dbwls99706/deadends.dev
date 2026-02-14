@@ -51,7 +51,8 @@
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/api-retries.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Check AWS Health Dashboard for ongoing service incidents",
@@ -59,7 +60,8 @@
       "sources": [
         "https://health.aws.amazon.com/health/status"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "If persistent, try a different AWS region as failover",
@@ -67,7 +69,8 @@
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/rande.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

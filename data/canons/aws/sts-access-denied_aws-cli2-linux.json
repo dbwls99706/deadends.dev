@@ -22,21 +22,25 @@
     "fix_success_rate": 0.92,
     "confidence": 0.94,
     "last_updated": "2026-02-11",
-    "summary": "IAM identity cannot assume the target role — trust policy or permissions boundary issue."
+    "summary": "IAM identity cannot assume the target role \u2014 trust policy or permissions boundary issue."
   },
   "dead_ends": [
     {
       "action": "Attaching AdministratorAccess to the calling identity",
       "why_fails": "Excessive permissions; violates least privilege",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_access-denied.html"
+      ],
       "condition": ""
     },
     {
       "action": "Modifying the role trust policy to allow all principals",
       "why_fails": "Any AWS account could assume the role",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_access-denied.html"
+      ],
       "condition": ""
     }
   ],
@@ -72,10 +76,6 @@
       }
     ],
     "frequently_confused_with": [
-      {
-        "error_id": "aws/cognito-user-not-confirmed/aws-cli2-linux",
-        "distinction": "'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates an IAM permission denial, while 'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user."
-      },
       {
         "error_id": "aws/ecs-service-unable-to-place/aws-cli2-linux",
         "distinction": "'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates an IAM permission denial, while 'service unable to place tasks' indicates ECS unable to place tasks on instances."

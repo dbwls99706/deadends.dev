@@ -52,7 +52,8 @@
       "sources": [
         "https://docs.python.org/3/reference/expressions.html#generator-expressions"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "Refactor to avoid calling next(gen) from within gen's own iteration"
     },
     {
       "action": "Use separate generator instances for recursive patterns",
@@ -60,7 +61,8 @@
       "sources": [
         "https://docs.python.org/3/reference/expressions.html#yield-expressions"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

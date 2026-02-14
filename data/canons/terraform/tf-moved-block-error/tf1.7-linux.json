@@ -38,7 +38,9 @@
       "action": "Use moved blocks to move resources between different state files",
       "why_fails": "Moved blocks only work within a single state file; cross-state moves require state mv or import",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/resources"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Using unsafe to bypass the borrow checker",
       "why_fails": "Introduces undefined behavior; defeats Rust's safety guarantees",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://doc.rust-lang.org/error_codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Cloning everything to avoid borrows",
       "why_fails": "Wastes memory and CPU; hides the architectural issue",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://doc.rust-lang.org/error_codes/"
+      ],
       "condition": ""
     }
   ],
@@ -53,8 +57,10 @@
     {
       "action": "Use RefCell<T> for interior mutability when compile-time borrow checking is too restrictive",
       "success_rate": 0.85,
-      "how": "RefCell allows runtime-checked mutable borrows",
-      "sources": [],
+      "how": "use std::cell::RefCell; let data = RefCell::new(vec![1,2,3]); let r = data.borrow(); let m = data.borrow_mut();",
+      "sources": [
+        "https://doc.rust-lang.org/std/cell/struct.RefCell.html"
+      ],
       "condition": ""
     }
   ],
@@ -74,7 +80,7 @@
     "frequently_confused_with": [
       {
         "error_id": "rust/e0106-missing-lifetime/rust1-linux",
-        "distinction": "'[E0502]' indicates a bad gateway from Ingress (backend not ready), while '[E0106]' indicates a missing lifetime specifier."
+        "distinction": "E0502 means simultaneous mutable and immutable borrows of the same value; E0106 means a lifetime annotation is missing from a reference type"
       }
     ]
   },

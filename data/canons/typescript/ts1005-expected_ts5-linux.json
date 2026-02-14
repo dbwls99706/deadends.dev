@@ -51,7 +51,8 @@
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Look for unclosed brackets, parentheses, or template literals",
@@ -59,7 +60,8 @@
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Check tsconfig.json target — some syntax requires ES2020+",
@@ -67,7 +69,8 @@
       "sources": [
         "https://www.typescriptlang.org/tsconfig/#target"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

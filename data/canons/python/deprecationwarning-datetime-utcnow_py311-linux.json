@@ -61,7 +61,8 @@
       "sources": [
         "https://docs.python.org/3/library/datetime.html#datetime.datetime.now"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "tz=timezone.utc"
     }
   ],
   "transition_graph": {

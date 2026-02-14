@@ -84,7 +84,7 @@
     {
       "action": "Split the migration into multiple deployments for zero-downtime changes",
       "success_rate": 0.88,
-      "how": "Deploy in phases: Phase 1 — add nullable column and update application code to write non-null values. Phase 2 — run backfill job (UPDATE in batches of 1000-10000 rows). Phase 3 — add NOT NULL constraint. This prevents long table locks and allows rollback at each phase. Use a CHECK constraint (NOT VALID) first, then VALIDATE CONSTRAINT separately to avoid full table lock.",
+      "how": "Deploy in phases: Phase 1 \u2014 add nullable column and update application code to write non-null values. Phase 2 \u2014 run backfill job (UPDATE in batches of 1000-10000 rows). Phase 3 \u2014 add NOT NULL constraint. This prevents long table locks and allows rollback at each phase. Use a CHECK constraint (NOT VALID) first, then VALIDATE CONSTRAINT separately to avoid full table lock.",
       "tradeoff": "Requires multiple deployments and careful coordination between schema and application changes",
       "sources": [
         "https://www.postgresql.org/docs/16/sql-altertable.html#SQL-ALTERTABLE-DESC-ADD-TABLE-CONSTRAINT"

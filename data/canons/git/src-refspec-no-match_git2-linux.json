@@ -51,12 +51,13 @@
       "sources": [
         "https://git-scm.com/docs/git-commit"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "git add . && git commit -m 'initial'"
     },
     {
       "action": "Check current branch name: git branch — default may be 'master' not 'main'",
       "success_rate": 0.92,
-      "how": "git branch -a",
+      "how": "git branch — default may be 'master' not 'main'",
       "sources": [
         "https://git-scm.com/docs/git-branch"
       ],

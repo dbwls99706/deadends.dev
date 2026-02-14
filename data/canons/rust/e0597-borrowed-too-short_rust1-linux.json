@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use 'static lifetime to extend",
-      "why_fails": "'static means lives forever — wrong for most temporary values",
+      "why_fails": "'static means lives forever \u2014 wrong for most temporary values",
       "fail_rate": 0.8,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0597.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Leak memory with Box::leak",
-      "why_fails": "Creates a genuine memory leak — never do this for normal code",
+      "why_fails": "Creates a genuine memory leak \u2014 never do this for normal code",
       "fail_rate": 0.9,
       "sources": [
         "https://doc.rust-lang.org/std/boxed/struct.Box.html#method.leak"
@@ -60,7 +60,8 @@
       "sources": [
         "https://doc.rust-lang.org/std/clone/trait.Clone.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Use Rc/Arc for shared ownership when multiple parts need the data",
@@ -68,7 +69,8 @@
       "sources": [
         "https://doc.rust-lang.org/std/rc/struct.Rc.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {
@@ -84,12 +86,7 @@
         "probability": 0.16
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "rust/e0015-cannot-call-non-const-fn/rust1-linux",
-        "distinction": "'[E0597]' indicates a value that does not live long enough, while '[E0015]' indicates a non-const function called in const context."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

@@ -32,14 +32,18 @@
       "action": "Set CUDA_VISIBLE_DEVICES to include the requested device number",
       "why_fails": "CUDA_VISIBLE_DEVICES remaps device ordinals; device N in the visible set becomes device 0,1,2... in order. Setting it to '2' makes that GPU device 0, not device 2.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/"
+      ],
       "condition": ""
     },
     {
       "action": "Install more GPU drivers hoping the device appears",
       "why_fails": "The device ordinal is about physical hardware; drivers cannot create GPUs that do not exist",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/"
+      ],
       "condition": ""
     }
   ],

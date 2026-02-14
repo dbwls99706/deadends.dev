@@ -38,7 +38,9 @@
       "action": "Retry the same request immediately",
       "why_fails": "If the backend is inherently slow, retries will also time out, wasting resources",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

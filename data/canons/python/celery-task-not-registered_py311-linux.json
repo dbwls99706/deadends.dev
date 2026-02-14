@@ -43,7 +43,8 @@
       "sources": [
         "https://docs.celeryq.dev/en/stable/userguide/workers.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Ensure autodiscover_tasks finds the task: check include/imports config",
@@ -60,7 +61,8 @@
       "sources": [
         "https://docs.celeryq.dev/en/stable/userguide/tasks.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

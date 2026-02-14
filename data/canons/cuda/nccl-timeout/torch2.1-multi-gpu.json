@@ -128,12 +128,7 @@
         "condition": "After fixing CUDA version mismatch, users attempt distributed training for the first time"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "cuda/nccl-timeout/torch2.0-multi-gpu",
-        "distinction": "Same error class but on PyTorch 2.0. PyTorch 2.1 introduced changes to the NCCL watchdog timeout behavior (default increased from 1800s to 600s in some configurations). Debug flags and workarounds are the same, but default timeout values differ."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "deadend-seed-v1",

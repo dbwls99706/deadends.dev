@@ -36,7 +36,7 @@
     },
     {
       "action": "Use extern crate (pre-2018 edition syntax)",
-      "why_fails": "Unnecessary since Rust 2018 — just add to Cargo.toml",
+      "why_fails": "Unnecessary since Rust 2018 \u2014 just add to Cargo.toml",
       "fail_rate": 0.7,
       "sources": [
         "https://doc.rust-lang.org/edition-guide/rust-2018/module-system/path-clarity.html"
@@ -90,12 +90,7 @@
         "probability": 0.14
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "rust/e0015-non-const-fn/rust1-linux",
-        "distinction": "'[E0433]' indicates an unresolved crate or module import, while '[E0015]' indicates a non-const function called in const context."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

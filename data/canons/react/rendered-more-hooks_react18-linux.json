@@ -60,7 +60,8 @@
       "sources": [
         "https://react.dev/reference/rules/rules-of-hooks"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Check for early returns before hooks — all hooks must run before any return",
@@ -68,7 +69,8 @@
       "sources": [
         "https://react.dev/reference/rules/rules-of-hooks"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

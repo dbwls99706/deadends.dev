@@ -3,7 +3,7 @@
   "id": "git/bisect-bad-revision/git2-linux",
   "url": "https://deadends.dev/git/bisect-bad-revision/git2-linux",
   "error": {
-    "signature": "You need to start by 'git bisect start' — bisect session not initialized or in bad state",
+    "signature": "You need to start by 'git bisect start' \u2014 bisect session not initialized or in bad state",
     "regex": "(?:You need to start by.*git bisect|git bisect.*(?:bad|good|reset|start)|not a valid commit|[Bb]isect.*(?:error|failed|cannot))",
     "domain": "git",
     "category": "workflow_error",

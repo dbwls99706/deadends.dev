@@ -42,7 +42,8 @@
       "sources": [
         "https://go.dev/doc/effective_go#channels"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "and vice versa"
     },
     {
       "action": "Use select with default case for non-blocking channel operations",
@@ -59,7 +60,8 @@
       "sources": [
         "https://go.dev/ref/spec#Close"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "close(ch)"
     }
   ],
   "transition_graph": {

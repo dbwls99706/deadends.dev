@@ -60,7 +60,8 @@
       "sources": [
         "https://react.dev/reference/react/Component#componentdidmount"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "Replace componentDidMount with useEffect(() => {...}, []) and componentDidUpdate with useEffect(() => {...}, [deps])"
     }
   ],
   "transition_graph": {

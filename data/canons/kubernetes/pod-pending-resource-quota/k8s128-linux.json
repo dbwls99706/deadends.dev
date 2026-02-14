@@ -63,7 +63,7 @@
   "workarounds": [
     {
       "action": "Inspect ResourceQuota and actual resource usage with kubectl describe quota and kubectl top nodes",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "Run 'kubectl describe quota -n <namespace>' to see quota limits vs current usage. Run 'kubectl top nodes' to see actual node resource consumption. Compare the pod's resource requests (from the deployment spec) against available capacity. If quota is the bottleneck, request a quota increase or reduce the pod's requests to realistic values based on actual usage.",
       "sources": [
         "https://kubernetes.io/docs/concepts/policy/resource-quotas/"

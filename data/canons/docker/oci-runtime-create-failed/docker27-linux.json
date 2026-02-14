@@ -60,7 +60,8 @@
       "sources": [
         "https://docs.docker.com/build/building/multi-platform/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "amd64 vs arm64"
     }
   ],
   "transition_graph": {

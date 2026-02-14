@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use 'static lifetime on everything",
-      "why_fails": "'static means lives forever — wrong for most references",
+      "why_fails": "'static means lives forever \u2014 wrong for most references",
       "fail_rate": 0.8,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0106.html"
@@ -51,7 +51,8 @@
       "sources": [
         "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "fn foo<'a>(s: &'a str) -> &'a str"
     },
     {
       "action": "If function has one reference input, the compiler can infer (lifetime elision rules)",
@@ -59,7 +60,8 @@
       "sources": [
         "https://doc.rust-lang.org/reference/lifetime-elision.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "lifetime elision rules"
     },
     {
       "action": "Consider returning an owned type (String, Vec) if lifetime complexity isn't worth it",
@@ -67,7 +69,8 @@
       "sources": [
         "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "Use owned types like String instead of &str, or Vec<T> instead of &[T], to avoid lifetime annotations"
     }
   ],
   "transition_graph": {
@@ -91,10 +94,6 @@
       {
         "error_id": "rust/e0499-mutable-borrow-twice/rust1-linux",
         "distinction": "'[E0106]' indicates a missing lifetime specifier, while '[E0499]' indicates borrowing as mutable more than once."
-      },
-      {
-        "error_id": "rust/e0015-non-const-fn/rust1-linux",
-        "distinction": "'[E0106]' indicates a missing lifetime specifier, while '[E0015]' indicates a non-const function called in const context."
       }
     ]
   },

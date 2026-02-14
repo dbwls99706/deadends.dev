@@ -42,7 +42,8 @@
       "sources": [
         "https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "kubectl delete pod <name> --grace-period=0 --force"
     },
     {
       "action": "Check for finalizers preventing deletion: kubectl get pod <name> -o json | jq '.metadata.finalizers'",
@@ -50,7 +51,8 @@
       "sources": [
         "https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "kubectl get pod <name> -o json | jq '.metadata.finalizers'"
     },
     {
       "action": "Check if the container's SIGTERM handler is stuck — may need code fix",
@@ -58,7 +60,8 @@
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

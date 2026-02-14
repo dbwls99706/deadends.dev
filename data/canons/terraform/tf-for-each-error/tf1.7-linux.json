@@ -38,7 +38,9 @@
       "action": "Use depends_on to ensure the for_each source is computed first",
       "why_fails": "depends_on controls execution order but does not make unknown values known at plan time",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/resources"
+      ],
       "condition": ""
     }
   ],

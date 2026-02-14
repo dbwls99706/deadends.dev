@@ -60,7 +60,8 @@
       "sources": [
         "https://react.dev/warnings/invalid-hook-call-warning"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "If using linked packages, ensure they resolve to the same React instance",
@@ -68,7 +69,8 @@
       "sources": [
         "https://react.dev/warnings/invalid-hook-call-warning#duplicate-react"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

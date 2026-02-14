@@ -60,7 +60,8 @@
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "const results = await Promise.allSettled([p1, p2, p3])"
     }
   ],
   "transition_graph": {

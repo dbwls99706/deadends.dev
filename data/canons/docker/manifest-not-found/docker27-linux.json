@@ -60,7 +60,8 @@
       "sources": [
         "https://docs.docker.com/reference/cli/docker/image/pull/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "docker.io vs ghcr.io vs ecr"
     }
   ],
   "transition_graph": {

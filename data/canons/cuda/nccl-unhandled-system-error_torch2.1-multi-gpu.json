@@ -54,7 +54,8 @@
       "sources": [
         "https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Try NCCL_P2P_DISABLE=1 if peer-to-peer GPU communication fails",
@@ -62,7 +63,8 @@
       "sources": [
         "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

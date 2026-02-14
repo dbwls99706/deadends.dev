@@ -61,7 +61,8 @@
       "sources": [
         "https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "from pathlib import Path; if Path(filepath).exists(): ..."
     }
   ],
   "transition_graph": {

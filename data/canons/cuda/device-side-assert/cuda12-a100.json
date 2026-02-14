@@ -64,7 +64,8 @@
       "sources": [
         "https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "num_classes must match output dim"
     }
   ],
   "transition_graph": {

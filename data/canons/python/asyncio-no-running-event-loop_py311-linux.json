@@ -70,7 +70,8 @@
       "sources": [
         "https://docs.python.org/3/library/asyncio-task.html#asyncio.run_coroutine_threadsafe"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "asyncio.run_coroutine_threadsafe(coro, running_loop)"
     }
   ],
   "transition_graph": {

@@ -51,7 +51,8 @@
       "sources": [
         "https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Check current usage: aws service-quotas list-service-quotas",
@@ -59,7 +60,8 @@
       "sources": [
         "https://docs.aws.amazon.com/cli/latest/reference/service-quotas/"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "aws service-quotas list-service-quotas"
     },
     {
       "action": "Clean up unused resources to free capacity under the limit",
@@ -67,7 +69,8 @@
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {
@@ -88,10 +91,6 @@
       }
     ],
     "frequently_confused_with": [
-      {
-        "error_id": "aws/cognito-user-not-confirmed/aws-cli2-linux",
-        "distinction": "'An error occurred (LimitExceededException) when calling the X operation' indicates an AWS service limit exceeded, while 'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user."
-      },
       {
         "error_id": "aws/no-credentials-error/awscli2-linux",
         "distinction": "'An error occurred (LimitExceededException) when calling the X operation' indicates an AWS service limit exceeded, while 'botocore.exceptions.NoCredentialsError' indicates missing AWS credentials configuration."

@@ -60,7 +60,8 @@
       "sources": [
         "https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Check for typos in the type name — Rust is case-sensitive",
@@ -68,7 +69,8 @@
       "sources": [
         "https://doc.rust-lang.org/reference/items.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

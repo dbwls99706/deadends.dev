@@ -60,7 +60,8 @@
       "sources": [
         "https://nextjs.org/docs/app/api-reference/functions/not-found"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "import { notFound } from 'next/navigation'; // call in Server Component only"
     }
   ],
   "transition_graph": {

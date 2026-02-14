@@ -74,8 +74,8 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "go/race-condition-detected/go1-linux",
-        "distinction": "'cannot call pointer method on value / cannot take the address of' indicates calling a pointer receiver method on a non-pointer, while 'WARNING' indicates a data race detected by the race detector."
+        "error_id": "go/interface-conversion-panic/go121-linux",
+        "distinction": "Pointer receiver error is a compile-time error about calling a method with a pointer receiver on a non-addressable value; interface conversion panic is a runtime panic from a failed type assertion on an interface"
       }
     ]
   },

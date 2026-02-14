@@ -51,7 +51,8 @@
       "sources": [
         "https://developer.hashicorp.com/terraform/language/backend/s3"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "If state is corrupted, pull the state file, fix it, and push back",
@@ -68,7 +69,8 @@
       "sources": [
         "https://developer.hashicorp.com/terraform/language/state/locking"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {

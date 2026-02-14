@@ -51,7 +51,8 @@
       "sources": [
         "https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Verify correct AWS_PROFILE is set, check ~/.aws/credentials",

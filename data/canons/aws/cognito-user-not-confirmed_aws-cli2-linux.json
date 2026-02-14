@@ -29,14 +29,18 @@
       "action": "Deleting and recreating the user",
       "why_fails": "Loses any associated data; user must re-register",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonECR/latest/userguide/"
+      ],
       "condition": ""
     },
     {
       "action": "Disabling email verification on the user pool",
       "why_fails": "Removes a security measure; can't retroactively confirm existing users",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -78,11 +82,11 @@
     "frequently_confused_with": [
       {
         "error_id": "aws/assume-role-unauthorized/awscli2-linux",
-        "distinction": "'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user, while 'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates missing Docker registry authentication."
+        "distinction": "UserNotConfirmedException means the Cognito user exists but hasn't completed email/phone verification; AccessDenied on AssumeRole means the IAM principal lacks permission to assume the target role"
       },
       {
         "error_id": "aws/region-not-set/awscli2-linux",
-        "distinction": "'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user, while 'botocore.exceptions.NoRegionError' indicates a missing AWS region configuration."
+        "distinction": "UserNotConfirmedException means a Cognito user hasn't verified their email/phone; NoRegionError means no AWS region was configured in env vars, config file, or code"
       }
     ]
   },

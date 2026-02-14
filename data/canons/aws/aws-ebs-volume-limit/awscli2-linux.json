@@ -38,7 +38,9 @@
       "action": "Use a different volume type to bypass the limit",
       "why_fails": "Each volume type has its own limit, but total storage quota may still be hit",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/ebs/latest/userguide/"
+      ],
       "condition": ""
     }
   ],

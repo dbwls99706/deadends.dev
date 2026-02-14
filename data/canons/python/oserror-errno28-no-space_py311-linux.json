@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Increase disk size as first response",
-      "why_fails": "May be a temp dir issue — check where the writes are going",
+      "why_fails": "May be a temp dir issue \u2014 check where the writes are going",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.python.org/3/library/os.html"
@@ -52,7 +52,8 @@
       "sources": [
         "https://docs.python.org/3/library/shutil.html#shutil.disk_usage"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "df -h and du -sh /tmp to find what's full"
     },
     {
       "action": "Clean up temp files, old logs, or __pycache__ directories",
@@ -60,7 +61,8 @@
       "sources": [
         "https://docs.python.org/3/library/tempfile.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     },
     {
       "action": "Set TMPDIR to a volume with more space for temporary files",
@@ -68,7 +70,8 @@
       "sources": [
         "https://docs.python.org/3/library/tempfile.html#tempfile.gettempdir"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {
@@ -84,16 +87,7 @@
         "probability": 0.11
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "python/deprecationwarning-datetime-utcnow/py311-linux",
-        "distinction": "'OSError' indicates disk space exhaustion, while 'DeprecationWarning' indicates use of a deprecated API."
-      },
-      {
-        "error_id": "python/django-improperlyconfigured/py311-linux",
-        "distinction": "'OSError' indicates disk space exhaustion, while 'django.core.exceptions.ImproperlyConfigured' indicates a Django configuration error."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

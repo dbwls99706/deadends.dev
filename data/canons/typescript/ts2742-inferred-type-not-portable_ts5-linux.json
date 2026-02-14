@@ -51,7 +51,8 @@
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/modules/reference.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": "not just devDependencies"
     },
     {
       "action": "Add an explicit return type annotation to avoid relying on inference",
@@ -68,7 +69,8 @@
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/project-references.html"
       ],
-      "condition": ""
+      "condition": "",
+      "how": ""
     }
   ],
   "transition_graph": {
