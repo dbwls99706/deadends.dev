@@ -57,7 +57,7 @@
     {
       "action": "Check signal.aborted before processing results",
       "success_rate": 0.88,
-      "how": "if (!signal.aborted) { processResult(data) } — guard against race conditions",
+      "how": "if (!signal.aborted) { processResult(data) } \u2014 guard against race conditions",
       "sources": [],
       "condition": ""
     }
@@ -84,10 +84,6 @@
       }
     ],
     "frequently_confused_with": [
-      {
-        "error_id": "node/abort-error/node20-linux",
-        "distinction": "'DOMException' indicates an aborted async operation, while 'AbortError' indicates an aborted async operation."
-      },
       {
         "error_id": "node/err-unknown-file-extension/node20-linux",
         "distinction": "'DOMException' indicates an aborted async operation, while '[ERR_UNKNOWN_FILE_EXTENSION]' indicates an unrecognized file extension for Node.js loader."

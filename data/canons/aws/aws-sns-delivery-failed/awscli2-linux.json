@@ -73,12 +73,7 @@
         "condition": "SNS topic policy denies the publishing principal"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "aws/aws-codepipeline-action-failed/awscli2-linux",
-        "distinction": "'SNS delivery to endpoint failed: Endpoint is disabled or doe' vs 'Action execution failed: The action failed because either th': while both are aws errors, the former SNS message delivery to a subscription endpoint failed due to disabled endpoint, while the latter A CodePipeline action stage failed due to provider misconfiguration, IAM issues,."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

@@ -53,9 +53,9 @@
       "condition": ""
     },
     {
-      "action": "Use composer's allow-plugins or replace/provide to resolve the conflict",
+      "action": "Use composer's replace/provide fields or --with-all-dependencies to resolve the conflict",
       "success_rate": 0.8,
-      "how": "If the conflict is between two packages that provide the same interface, use the 'replace' field in composer.json. If one package is a fork of another, specify which one to use. As a last resort, use 'composer require package/name:^2.0 --with-all-dependencies' to let composer resolve the full tree.",
+      "how": "If the conflict is between two packages that provide the same interface, add a 'replace' field in composer.json to tell Composer which package supersedes the other. If one package is a fork, use 'replace' to indicate it provides the same functionality. Use 'composer require package/name:^2.0 --with-all-dependencies' to let Composer re-resolve the full dependency tree.",
       "sources": [],
       "condition": ""
     }

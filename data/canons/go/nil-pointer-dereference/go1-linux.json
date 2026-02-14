@@ -52,7 +52,7 @@
         "https://go.dev/doc/effective_go#errors"
       ],
       "condition": "",
-      "how": ""
+      "how": "Use stack trace to find the exact line. Check: (1) err != nil before using result, (2) val, ok := x.(Type) before using val, (3) struct field initialization in constructors"
     },
     {
       "action": "Use the comma-ok pattern for type assertions and map lookups",
@@ -79,8 +79,8 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "go/context-deadline-exceeded/go1-linux",
-        "distinction": "'runtime error' indicates a nil pointer dereference, while 'context deadline exceeded' indicates a context deadline or timeout."
+        "error_id": "go/slice-bounds-out-of-range/go121-linux",
+        "distinction": "Both are runtime panics, but nil pointer dereference means a pointer/interface was nil when accessed, while slice bounds out of range means an index exceeded the slice length"
       }
     ]
   },

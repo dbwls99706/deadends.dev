@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Make the bucket public",
-      "why_fails": "Security risk — opens all objects to the internet",
+      "why_fails": "Security risk \u2014 opens all objects to the internet",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html"
@@ -86,12 +86,7 @@
         "probability": 0.12
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "aws/access-denied-exception/awscli2-linux",
-        "distinction": "'An error occurred (AccessDenied) when calling the GetObject operation' indicates an IAM permission denial, while 'An error occurred (AccessDeniedException) when calling the X operation' indicates an IAM permission denial."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

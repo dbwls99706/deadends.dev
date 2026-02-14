@@ -22,7 +22,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.94,
     "last_updated": "2026-02-11",
-    "summary": "IAM identity cannot assume the target role — trust policy or permissions boundary issue."
+    "summary": "IAM identity cannot assume the target role \u2014 trust policy or permissions boundary issue."
   },
   "dead_ends": [
     {
@@ -76,10 +76,6 @@
       }
     ],
     "frequently_confused_with": [
-      {
-        "error_id": "aws/cognito-user-not-confirmed/aws-cli2-linux",
-        "distinction": "'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates an IAM permission denial, while 'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user."
-      },
       {
         "error_id": "aws/ecs-service-unable-to-place/aws-cli2-linux",
         "distinction": "'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates an IAM permission denial, while 'service unable to place tasks' indicates ECS unable to place tasks on instances."

@@ -77,10 +77,6 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "aws/cognito-user-not-confirmed/aws-cli2-linux",
-        "distinction": "'An error occurred (AccessDenied) when calling the GetObject operation' indicates an IAM permission denial, while 'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user."
-      },
-      {
         "error_id": "aws/service-unavailable/awscli2-linux",
         "distinction": "'An error occurred (AccessDenied) when calling the GetObject operation' indicates an IAM permission denial, while 'An error occurred (ServiceUnavailableException) when calling the X operation' indicates an AWS service outage."
       }

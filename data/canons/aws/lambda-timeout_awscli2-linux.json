@@ -52,7 +52,7 @@
         "https://docs.aws.amazon.com/lambda/latest/dg/lambda-troubleshooting.html"
       ],
       "condition": "",
-      "how": "cold start, DB connections, external API calls"
+      "how": "Enable AWS X-Ray tracing to identify the slow segment: aws lambda update-function-configuration --function-name X --tracing-config Mode=Active. Check CloudWatch Logs for duration breakdown."
     },
     {
       "action": "Use provisioned concurrency to eliminate cold start delays",
@@ -61,7 +61,7 @@
         "https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html"
       ],
       "condition": "",
-      "how": ""
+      "how": "aws lambda put-provisioned-concurrency-config --function-name X --qualifier prod --provisioned-concurrent-executions 5"
     }
   ],
   "transition_graph": {
@@ -84,7 +84,7 @@
     "frequently_confused_with": [
       {
         "error_id": "aws/rds-connection-timeout/aws-cli2-linux",
-        "distinction": "'Task timed out after X.XX seconds (Lambda timeout)' indicates a network or operation timeout, while 'OperationalError' indicates a network or operation timeout."
+        "distinction": "Lambda timeout means the entire function exceeded its configured execution time limit (default 3s, max 15min); RDS connection timeout means the database connection specifically failed or timed out, which may or may not cause a Lambda timeout"
       },
       {
         "error_id": "aws/ecs-service-unable-to-place/aws-cli2-linux",

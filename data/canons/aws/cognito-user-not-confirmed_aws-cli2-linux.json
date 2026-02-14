@@ -82,11 +82,11 @@
     "frequently_confused_with": [
       {
         "error_id": "aws/assume-role-unauthorized/awscli2-linux",
-        "distinction": "'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user, while 'An error occurred (AccessDenied) when calling the AssumeRole operation' indicates missing Docker registry authentication."
+        "distinction": "UserNotConfirmedException means the Cognito user exists but hasn't completed email/phone verification; AccessDenied on AssumeRole means the IAM principal lacks permission to assume the target role"
       },
       {
         "error_id": "aws/region-not-set/awscli2-linux",
-        "distinction": "'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user, while 'botocore.exceptions.NoRegionError' indicates a missing AWS region configuration."
+        "distinction": "UserNotConfirmedException means a Cognito user hasn't verified their email/phone; NoRegionError means no AWS region was configured in env vars, config file, or code"
       }
     ]
   },

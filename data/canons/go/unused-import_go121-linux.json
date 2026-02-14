@@ -70,16 +70,7 @@
         "probability": 0.16
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "go/assignment-to-entry-in-nil-map/go1-linux",
-        "distinction": "'imported and not used' indicates an unused import, while 'panic' indicates writing to an uninitialized (nil) map."
-      },
-      {
-        "error_id": "go/method-has-pointer-receiver/go1-linux",
-        "distinction": "'imported and not used' indicates an unused import, while 'cannot call pointer method on value / cannot take the address of' indicates calling a pointer receiver method on a non-pointer."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

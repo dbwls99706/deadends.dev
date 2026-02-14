@@ -63,28 +63,14 @@
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {
-        "error_id": "go/slice-bounds-out-of-range/go121-linux",
-        "probability": 0.19
-      },
-      {
-        "error_id": "go/assignment-to-entry-in-nil-map/go1-linux",
-        "probability": 0.23
-      }
-    ],
+    "leads_to": [],
     "preceded_by": [
       {
         "error_id": "go/cannot-use-as-type/go1-linux",
         "probability": 0.16
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "go/assignment-to-entry-in-nil-map/go1-linux",
-        "distinction": "'import cycle not allowed' indicates a circular dependency between Go packages, while 'assignment to entry in nil map' is a runtime panic from writing to an uninitialized (nil) map."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

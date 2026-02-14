@@ -92,10 +92,6 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "aws/cognito-user-not-confirmed/aws-cli2-linux",
-        "distinction": "'An error occurred (LimitExceededException) when calling the X operation' indicates an AWS service limit exceeded, while 'An error occurred (UserNotConfirmedException) when calling the InitiateAuth oper' indicates an unconfirmed Cognito user."
-      },
-      {
         "error_id": "aws/no-credentials-error/awscli2-linux",
         "distinction": "'An error occurred (LimitExceededException) when calling the X operation' indicates an AWS service limit exceeded, while 'botocore.exceptions.NoCredentialsError' indicates missing AWS credentials configuration."
       }

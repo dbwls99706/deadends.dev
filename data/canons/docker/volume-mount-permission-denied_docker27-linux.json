@@ -36,7 +36,7 @@
     },
     {
       "action": "chmod 777 on host directory",
-      "why_fails": "Major security risk — opens directory to all users",
+      "why_fails": "Major security risk \u2014 opens directory to all users",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.docker.com/engine/storage/volumes/"
@@ -95,10 +95,6 @@
       }
     ],
     "frequently_confused_with": [
-      {
-        "error_id": "docker/cannot-stop-container/docker24-linux",
-        "distinction": "'Error' indicates insufficient file system permissions, while 'response from daemon' indicates insufficient file system permissions."
-      },
       {
         "error_id": "docker/exec-format-error/docker27-linux",
         "distinction": "'Error' indicates insufficient file system permissions, while 'exec format error' indicates a CPU architecture mismatch (e.g., arm64 vs amd64)."

@@ -79,12 +79,7 @@
         "condition": "Module version update removed or renamed an output"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "terraform/invalid-reference/tf1-linux",
-        "distinction": "'Error: Reference to undeclared output value or output not fo' vs 'Error: Reference to undeclared resource': while both are terraform errors, the former Configuration references an output that does not exist in the module or root con while the latter Terraform config references a resource that doesn't exist. Typo or missing modul."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

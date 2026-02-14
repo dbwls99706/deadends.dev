@@ -77,10 +77,6 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "go/too-many-open-files/go1-linux",
-        "distinction": "'interface conversion' indicates an invalid interface type assertion, while 'dial tcp' indicates file descriptor exhaustion."
-      },
-      {
         "error_id": "go/method-has-pointer-receiver/go1-linux",
         "distinction": "'interface conversion' indicates an invalid interface type assertion, while 'cannot call pointer method on value / cannot take the address of' indicates calling a pointer receiver method on a non-pointer."
       }
