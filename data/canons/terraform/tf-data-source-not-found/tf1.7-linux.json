@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -32,7 +35,7 @@
     {
       "action": "Use try() to ignore the missing data source error",
       "why_fails": "try() cannot suppress provider-level errors from data sources, only expression evaluation errors",
-      "fail_rate": 0.80,
+      "fail_rate": 0.8,
       "sources": [],
       "condition": ""
     }
@@ -42,27 +45,37 @@
       "action": "Verify the resource exists and the data source filter values are correct",
       "success_rate": 0.88,
       "how": "Check the cloud console or CLI that the resource exists in the same region/account, and that filter values match exactly",
-      "sources": ["https://developer.hashicorp.com/terraform/language/data-sources"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/data-sources"
+      ],
       "condition": ""
     },
     {
       "action": "Create the resource with a Terraform resource block instead of referencing it as a data source",
       "success_rate": 0.82,
       "how": "If the resource should be managed by Terraform, convert data block to a resource block",
-      "sources": ["https://developer.hashicorp.com/terraform/language/data-sources"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/data-sources"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "terraform/invalid-reference/tf1-linux", "probability": 0.15, "condition": "Incorrect data source leads to invalid reference errors in dependent resources"}
+      {
+        "error_id": "terraform/invalid-reference/tf1-linux",
+        "probability": 0.15,
+        "condition": "Incorrect data source leads to invalid reference errors in dependent resources"
+      }
     ],
     "preceded_by": [
-      {"error_id": "terraform/tf-provider-authentication/tf1.7-linux", "probability": 0.10, "condition": "Wrong credentials point to wrong account where resource does not exist"}
+      {
+        "error_id": "terraform/tf-provider-authentication/tf1.7-linux",
+        "probability": 0.1,
+        "condition": "Wrong credentials point to wrong account where resource does not exist"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/unsupported-attribute_tf1-linux", "distinction": "Unsupported attribute is about accessing a non-existent field; data source not found is about the queried resource not existing"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

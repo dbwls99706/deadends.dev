@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "aws", "version_range": ">=2.0,<3.0"},
+    "runtime": {
+      "name": "aws",
+      "version_range": ">=2.0,<3.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -33,36 +36,42 @@
       "action": "Use a different instance family without checking its specific limit",
       "why_fails": "vCPU limits are per-instance-family; the other family may also be at its limit",
       "fail_rate": 0.55,
-      "sources": ["https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html"
+      ],
       "condition": ""
     }
   ],
   "workarounds": [
     {
       "action": "Request a vCPU limit increase via Service Quotas console or API",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "aws service-quotas request-service-quota-increase --service-code ec2 --quota-code L-1216C47A --desired-value NEW_LIMIT",
-      "sources": ["https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html"
+      ],
       "condition": ""
     },
     {
       "action": "Terminate unused instances or use Auto Scaling to manage capacity",
       "success_rate": 0.82,
       "how": "aws ec2 describe-instances --filters Name=instance-state-name,Values=running to find instances to terminate",
-      "sources": ["https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "aws/aws-ebs-volume-limit/awscli2-linux", "probability": 0.15, "condition": "Instance limit increases may also hit EBS volume limits"}
+      {
+        "error_id": "aws/aws-ebs-volume-limit/awscli2-linux",
+        "probability": 0.15,
+        "condition": "Instance limit increases may also hit EBS volume limits"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "aws/limit-exceeded_awscli2-linux", "probability": 0.25, "condition": "General limit exceeded error before specific vCPU limit"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "aws/limit-exceeded_awscli2-linux", "distinction": "LimitExceeded is a general quota error; EC2 instance limit is specifically about vCPU capacity per instance family"}
-    ]
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

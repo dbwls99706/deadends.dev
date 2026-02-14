@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -32,7 +35,7 @@
     {
       "action": "Increase parallelism to speed through rate limits",
       "why_fails": "Higher parallelism means more concurrent API calls, making rate limiting worse",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -42,26 +45,29 @@
       "action": "Reduce parallelism with -parallelism flag",
       "success_rate": 0.85,
       "how": "terraform apply -parallelism=5 (default is 10) to reduce concurrent API calls",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/apply"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/apply"
+      ],
       "condition": ""
     },
     {
       "action": "Wait and retry with exponential backoff, or split into smaller configurations",
       "success_rate": 0.82,
       "how": "Wait a few minutes then retry; for large infrastructure, split into separate state files by service or team",
-      "sources": ["https://developer.hashicorp.com/terraform/language/state"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/state"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/apply-timeout_tf1-linux", "probability": 0.20, "condition": "Sustained rate limiting causes operations to exceed timeout"}
-    ],
-    "preceded_by": [
-      {"error_id": "terraform/error-refreshing-state_tf1-linux", "probability": 0.15, "condition": "Refreshing large state with many resources triggers rate limits"}
-    ],
+    "leads_to": [],
+    "preceded_by": [],
     "frequently_confused_with": [
-      {"error_id": "terraform/tf-provider-authentication/tf1.7-linux", "distinction": "Provider authentication is about invalid credentials; provider rate limit is about valid credentials exceeding API call quotas"}
+      {
+        "error_id": "terraform/tf-provider-authentication/tf1.7-linux",
+        "distinction": "Provider authentication is about invalid credentials; provider rate limit is about valid credentials exceeding API call quotas"
+      }
     ]
   },
   "metadata": {

@@ -11,13 +11,16 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "aws", "version_range": ">=2.0,<3.0"},
+    "runtime": {
+      "name": "aws",
+      "version_range": ">=2.0,<3.0"
+    },
     "os": "linux"
   },
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.75,
-    "confidence": 0.80,
+    "confidence": 0.8,
     "last_updated": "2026-02-12",
     "summary": "An EMR step (Spark, Hive, etc.) failed due to application errors, resource exhaustion, or configuration issues."
   },
@@ -25,7 +28,7 @@
     {
       "action": "Increase cluster size without checking the actual error",
       "why_fails": "Many step failures are due to application bugs or misconfigured scripts, not resource limits",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [],
       "condition": ""
     },
@@ -42,26 +45,35 @@
       "action": "Check the step's stderr log in S3 for the specific error",
       "success_rate": 0.85,
       "how": "aws emr describe-step --cluster-id CLUSTER_ID --step-id STEP_ID to get log URI, then check s3://LOG_URI/steps/STEP_ID/stderr.gz",
-      "sources": ["https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-manage-view-web-log-files.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-manage-view-web-log-files.html"
+      ],
       "condition": ""
     },
     {
       "action": "Run the step in debug mode or on a smaller dataset first",
       "success_rate": 0.78,
       "how": "Add --conf spark.driver.extraJavaOptions=-Dlog4j.configuration=... for verbose logging, test with subset of data",
-      "sources": ["https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-troubleshoot-failed.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-troubleshoot-failed.html"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "aws/limit-exceeded_awscli2-linux", "probability": 0.10, "condition": "Repeated step retries exhaust EMR instance quotas"}
-    ],
+    "leads_to": [],
     "preceded_by": [
-      {"error_id": "aws/access-denied-exception/awscli2-linux", "probability": 0.15, "condition": "EMR role lacks S3 or Glue permissions needed by the step"}
+      {
+        "error_id": "aws/access-denied-exception/awscli2-linux",
+        "probability": 0.15,
+        "condition": "EMR role lacks S3 or Glue permissions needed by the step"
+      }
     ],
     "frequently_confused_with": [
-      {"error_id": "aws/aws-glue-job-failed/awscli2-linux", "distinction": "Glue job failures are serverless ETL; EMR step failures are on managed Hadoop/Spark clusters you provision"}
+      {
+        "error_id": "aws/aws-glue-job-failed/awscli2-linux",
+        "distinction": "Glue job failures are serverless ETL; EMR step failures are on managed Hadoop/Spark clusters you provision"
+      }
     ]
   },
   "metadata": {

@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "java", "version_range": ">=17,<21"},
+    "runtime": {
+      "name": "java",
+      "version_range": ">=17,<21"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,7 +28,7 @@
     {
       "action": "Setting the timeout to an extremely large value or disabling it entirely",
       "why_fails": "Removing timeouts means a single slow request can block a thread indefinitely, leading to thread pool exhaustion and cascading failures across the application. Timeouts are a critical circuit-breaker mechanism.",
-      "fail_rate": 0.80,
+      "fail_rate": 0.8,
       "sources": [],
       "condition": ""
     },
@@ -55,14 +58,29 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "java/thread-pool-exhausted/jdk17-linux", "probability": 0.20, "condition": "when many threads are blocked waiting for timed-out HTTP responses"},
-      {"error_id": "java/broken-pipe/jdk17-linux", "probability": 0.15, "condition": "when the server eventually responds after the client has given up and closed the connection"}
+      {
+        "error_id": "java/thread-pool-exhausted/jdk21-linux",
+        "probability": 0.2,
+        "condition": "when many threads are blocked waiting for timed-out HTTP responses"
+      },
+      {
+        "error_id": "java/broken-pipe/jdk17-linux",
+        "probability": 0.15,
+        "condition": "when the server eventually responds after the client has given up and closed the connection"
+      }
     ],
     "preceded_by": [
-      {"error_id": "java/connection-pool-exhausted/jdk17-linux", "probability": 0.15, "condition": "when connection pool exhaustion delays HTTP request initiation"}
+      {
+        "error_id": "java/connection-pool-exhausted/jdk17-linux",
+        "probability": 0.15,
+        "condition": "when connection pool exhaustion delays HTTP request initiation"
+      }
     ],
     "frequently_confused_with": [
-      {"error_id": "java/socketexception-connection-reset/jdk17-linux", "distinction": "Connection reset means the server actively rejected or dropped the connection; timeout means the server did not respond within the allowed time"}
+      {
+        "error_id": "java/socketexception-connection-reset/jdk17-linux",
+        "distinction": "Connection reset means the server actively rejected or dropped the connection; timeout means the server did not respond within the allowed time"
+      }
     ]
   },
   "metadata": {

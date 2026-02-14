@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "aws", "version_range": ">=2.0,<3.0"},
+    "runtime": {
+      "name": "aws",
+      "version_range": ">=2.0,<3.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -32,7 +35,7 @@
     {
       "action": "Delete and recreate the SNS topic to fix delivery issues",
       "why_fails": "Recreating the topic loses all subscriptions and requires reconfiguring all subscribers",
-      "fail_rate": 0.80,
+      "fail_rate": 0.8,
       "sources": [],
       "condition": ""
     }
@@ -42,27 +45,31 @@
       "action": "Enable delivery status logging to identify the specific failure reason",
       "success_rate": 0.88,
       "how": "Configure delivery status logging in SNS topic attributes, then check CloudWatch Logs for delivery failure details",
-      "sources": ["https://docs.aws.amazon.com/sns/latest/dg/sns-topic-attributes.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/sns/latest/dg/sns-topic-attributes.html"
+      ],
       "condition": ""
     },
     {
       "action": "Re-enable disabled endpoints or resubscribe for platforms like SQS, Lambda, HTTP",
       "success_rate": 0.85,
       "how": "aws sns set-subscription-attributes or delete/recreate the subscription for the failing endpoint",
-      "sources": ["https://docs.aws.amazon.com/sns/latest/dg/sns-troubleshooting.html"],
+      "sources": [
+        "https://docs.aws.amazon.com/sns/latest/dg/sns-troubleshooting.html"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "aws/sqs-message-too-large_aws-cli2-linux", "probability": 0.10, "condition": "SNS-to-SQS fanout fails when message exceeds SQS size limit"}
-    ],
+    "leads_to": [],
     "preceded_by": [
-      {"error_id": "aws/access-denied-exception/awscli2-linux", "probability": 0.15, "condition": "SNS topic policy denies the publishing principal"}
+      {
+        "error_id": "aws/access-denied-exception/awscli2-linux",
+        "probability": 0.15,
+        "condition": "SNS topic policy denies the publishing principal"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "aws/sqs-message-too-large_aws-cli2-linux", "distinction": "SQS message too large is about message size limits; SNS delivery failed is about endpoint availability and permissions"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

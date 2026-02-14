@@ -11,12 +11,15 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.80,
+    "fix_success_rate": 0.8,
     "confidence": 0.83,
     "last_updated": "2026-02-12",
     "summary": "The for_each argument depends on values not known until apply, which Terraform requires at plan time."
@@ -25,8 +28,10 @@
     {
       "action": "Convert for_each to count to solve the issue",
       "why_fails": "count has the same restriction on unknown values and switching between count and for_each forces resource recreation",
-      "fail_rate": 0.80,
-      "sources": ["https://developer.hashicorp.com/terraform/language/meta-arguments/for_each"],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each"
+      ],
       "condition": ""
     },
     {
@@ -42,27 +47,31 @@
       "action": "Use input variables or data sources instead of computed resource attributes for the for_each key set",
       "success_rate": 0.85,
       "how": "Replace for_each = resource.x.ids with for_each = var.known_ids or for_each = toset(data.source.ids)",
-      "sources": ["https://developer.hashicorp.com/terraform/language/meta-arguments/for_each"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each"
+      ],
       "condition": ""
     },
     {
       "action": "Use a two-stage apply with remote state to pass computed values",
       "success_rate": 0.78,
       "how": "First config outputs the computed set, second config reads it via terraform_remote_state data source",
-      "sources": ["https://developer.hashicorp.com/terraform/language/state/remote-state-data"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/state/remote-state-data"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "terraform/tf-count-cannot-be-computed/tf1.7-linux", "probability": 0.20, "condition": "Switching to count encounters similar unknown value restrictions"}
+      {
+        "error_id": "terraform/tf-count-cannot-be-computed/tf1.7-linux",
+        "probability": 0.2,
+        "condition": "Switching to count encounters similar unknown value restrictions"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "terraform/for-each-sensitive_tf1-linux", "probability": 0.15, "condition": "After handling sensitive for_each values, unknown value issues surface"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/for-each-sensitive_tf1-linux", "distinction": "for_each sensitive is about sensitive values in the set; for_each error is about unknown/computed values at plan time"}
-    ]
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

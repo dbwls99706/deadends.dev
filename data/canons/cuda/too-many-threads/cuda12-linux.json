@@ -11,9 +11,14 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "cuda", "version_range": ">=12.0,<13.0"},
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
     "os": "linux",
-    "hardware": {"gpu": "any"}
+    "hardware": {
+      "gpu": "any"
+    }
   },
   "verdict": {
     "resolvable": "true",
@@ -33,7 +38,7 @@
     {
       "action": "Use cudaSetDevice to switch to a different GPU",
       "why_fails": "All modern NVIDIA GPUs have the same max threads per block (1024); switching devices will not help",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -48,7 +53,7 @@
     },
     {
       "action": "Query device properties to set block size dynamically",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "cudaDeviceProp prop; cudaGetDeviceProperties(&prop, 0); use prop.maxThreadsPerBlock",
       "sources": [],
       "condition": ""
@@ -63,13 +68,18 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "cuda/illegal-memory-access/cuda12-linux", "probability": 0.15, "condition": "when reducing block size causes incorrect index calculations"}
+      {
+        "error_id": "cuda/illegal-memory-access/cuda12-linux",
+        "probability": 0.15,
+        "condition": "when reducing block size causes incorrect index calculations"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "cuda/no-kernel-image-for-device_cuda12-linux", "probability": 0.1, "condition": "when code compiled for wrong arch has different thread limits"}
-    ],
+    "preceded_by": [],
     "frequently_confused_with": [
-      {"error_id": "cuda/cooperative-launch-too-large/cuda12-linux", "distinction": "Too-many-threads is about exceeding per-block thread limits; cooperative-launch-too-large is about cooperative kernel groups exceeding device occupancy"}
+      {
+        "error_id": "cuda/cooperative-launch-too-large/cuda12-linux",
+        "distinction": "Too-many-threads is about exceeding per-block thread limits; cooperative-launch-too-large is about cooperative kernel groups exceeding device occupancy"
+      }
     ]
   },
   "metadata": {

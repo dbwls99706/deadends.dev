@@ -11,13 +11,16 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.88,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-12",
     "summary": "Module version specified in configuration does not match available versions in the registry."
   },
@@ -25,8 +28,10 @@
     {
       "action": "Pin to a specific commit hash of a registry module",
       "why_fails": "Terraform Registry modules are versioned by semver tags, not commit hashes; this only works for git sources",
-      "fail_rate": 0.80,
-      "sources": ["https://developer.hashicorp.com/terraform/language/modules/sources"],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/modules/sources"
+      ],
       "condition": ""
     },
     {
@@ -40,29 +45,27 @@
   "workarounds": [
     {
       "action": "Check available versions in the registry and update the version constraint",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "Visit registry.terraform.io for the module, update version = \"~> X.Y\" in the module block",
-      "sources": ["https://developer.hashicorp.com/terraform/language/modules/syntax"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/modules/syntax"
+      ],
       "condition": ""
     },
     {
       "action": "Run terraform init -upgrade to fetch the latest matching version",
       "success_rate": 0.85,
       "how": "terraform init -upgrade will re-evaluate version constraints and download compatible versions",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/init"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/init"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/module-not-installed_tf1-linux", "probability": 0.25, "condition": "Version mismatch prevents module installation"}
-    ],
-    "preceded_by": [
-      {"error_id": "terraform/module-not-installed_tf1-linux", "probability": 0.15, "condition": "Module not installed error prompts version change that causes mismatch"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/provider-version-constraint_tf1-linux", "distinction": "Provider version constraint is about provider plugins; module version mismatch is about Terraform module source versions"}
-    ]
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

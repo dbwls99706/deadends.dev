@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,8 +28,10 @@
     {
       "action": "Delete .terraform.lock.hcl and never commit it",
       "why_fails": "The lock file ensures reproducible builds; without it, different team members get different provider versions",
-      "fail_rate": 0.70,
-      "sources": ["https://developer.hashicorp.com/terraform/language/files/dependency-lock"],
+      "fail_rate": 0.7,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/files/dependency-lock"
+      ],
       "condition": ""
     },
     {
@@ -42,27 +47,31 @@
       "action": "Run terraform init -upgrade to update the lock file with new provider versions",
       "success_rate": 0.92,
       "how": "terraform init -upgrade updates provider versions and regenerates the lock file",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/init"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/init"
+      ],
       "condition": ""
     },
     {
       "action": "Add platform hashes for cross-platform teams using terraform providers lock",
       "success_rate": 0.85,
       "how": "terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=darwin_arm64",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/providers/lock"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/providers/lock"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "terraform/provider-not-present/tf1-linux", "probability": 0.20, "condition": "Lock file mismatch prevents provider installation"}
+      {
+        "error_id": "terraform/provider-not-present/tf1-linux",
+        "probability": 0.2,
+        "condition": "Lock file mismatch prevents provider installation"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "terraform/provider-version-constraint_tf1-linux", "probability": 0.25, "condition": "Version constraint change makes lock file stale"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/provider-version-constraint_tf1-linux", "distinction": "Version constraint error is about incompatible version requirements; dependency lock error is about the lock file not matching current requirements"}
-    ]
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

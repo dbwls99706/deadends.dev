@@ -11,9 +11,14 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "cuda", "version_range": ">=12.0,<13.0"},
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
     "os": "linux",
-    "hardware": {"gpu": "any"}
+    "hardware": {
+      "gpu": "any"
+    }
   },
   "verdict": {
     "resolvable": "true",
@@ -33,7 +38,7 @@
     {
       "action": "Increase GPU memory to fix mapping failure",
       "why_fails": "Map failures are usually about address space or interop registration, not raw memory availability",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [],
       "condition": ""
     }
@@ -55,7 +60,7 @@
     },
     {
       "action": "Use cudaMallocManaged for unified memory instead of explicit mapping",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "how": "Replace explicit buffer mapping with unified memory: cudaMallocManaged(&ptr, size) which handles mapping automatically",
       "sources": [],
       "condition": "when graphics interop is not required"
@@ -63,14 +68,14 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "cuda/context-destroyed/cuda12-linux", "probability": 0.15, "condition": "when map failure corrupts CUDA context state"}
+      {
+        "error_id": "cuda/context-destroyed/cuda12-linux",
+        "probability": 0.15,
+        "condition": "when map failure corrupts CUDA context state"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "cuda/torch-cuda-oom-new_torch2-a100", "probability": 0.2, "condition": "when OOM prevents buffer mapping due to address space exhaustion"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "cuda/torch-cuda-oom-new_torch2-a100", "distinction": "Map-buffer-object-failed is about mapping address spaces (often interop); OOM is about insufficient memory for allocation"}
-    ]
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

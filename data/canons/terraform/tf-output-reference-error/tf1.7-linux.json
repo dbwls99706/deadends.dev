@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -26,7 +29,9 @@
       "action": "Access module internals directly instead of using outputs",
       "why_fails": "Terraform modules are encapsulated; you cannot reference internal resources without explicit outputs",
       "fail_rate": 0.95,
-      "sources": ["https://developer.hashicorp.com/terraform/language/modules"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/modules"
+      ],
       "condition": ""
     },
     {
@@ -42,27 +47,37 @@
       "action": "Add the missing output block to the module",
       "success_rate": 0.92,
       "how": "Add output \"name\" { value = resource.type.name.attribute } to the module's outputs.tf",
-      "sources": ["https://developer.hashicorp.com/terraform/language/values/outputs"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/values/outputs"
+      ],
       "condition": ""
     },
     {
       "action": "Check for typos in the output name reference",
       "success_rate": 0.88,
       "how": "Compare module.NAME.OUTPUT_NAME with the actual output names defined in the module source",
-      "sources": ["https://developer.hashicorp.com/terraform/language/modules/syntax"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/modules/syntax"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "terraform/invalid-reference/tf1-linux", "probability": 0.20, "condition": "Missing output leads to invalid reference chains in dependent resources"}
+      {
+        "error_id": "terraform/invalid-reference/tf1-linux",
+        "probability": 0.2,
+        "condition": "Missing output leads to invalid reference chains in dependent resources"
+      }
     ],
     "preceded_by": [
-      {"error_id": "terraform/tf-module-version-mismatch/tf1.7-linux", "probability": 0.15, "condition": "Module version update removed or renamed an output"}
+      {
+        "error_id": "terraform/tf-module-version-mismatch/tf1.7-linux",
+        "probability": 0.15,
+        "condition": "Module version update removed or renamed an output"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/unsupported-attribute_tf1-linux", "distinction": "Unsupported attribute is about accessing a non-existent field on a resource; output reference error is about a missing output from a module"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

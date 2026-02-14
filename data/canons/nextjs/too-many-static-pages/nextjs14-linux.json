@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-13"
   },
   "environment": {
-    "runtime": {"name": "next.js", "version_range": ">=14.0,<15.0"},
+    "runtime": {
+      "name": "next.js",
+      "version_range": ">=14.0,<15.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,21 +28,21 @@
     {
       "action": "Increasing the Node.js --max-old-space-size to fix the timeout",
       "why_fails": "The static generation timeout is time-based, not memory-based. Increasing the heap size only helps if the timeout is caused by garbage collection pauses, which is rare. Most timeout issues are caused by slow data fetching during page rendering, excessive page count, or CPU-bound rendering. Increasing memory without addressing the root cause (slow renders or too many pages) does not help and may actually slow down builds due to GC overhead on oversized heaps",
-      "fail_rate": 0.80,
+      "fail_rate": 0.8,
       "sources": [],
       "condition": "Unless the build is specifically failing with JavaScript heap out of memory"
     },
     {
       "action": "Setting staticPageGenerationTimeout to an extremely high value (e.g., 600+ seconds)",
       "why_fails": "While Next.js allows configuring staticPageGenerationTimeout in next.config.js, setting it very high masks the underlying performance problem. CI/CD pipelines have their own timeouts (typically 10-30 minutes for a build step), and individual page renders taking minutes indicate a fundamental issue with data fetching or rendering logic. The build will still be impractically slow even if it eventually completes",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [],
       "condition": "When individual pages take more than 60 seconds to render"
     },
     {
       "action": "Parallelizing static generation by running multiple build processes concurrently",
       "why_fails": "Next.js already parallelizes static generation internally using worker threads. Running multiple next build processes concurrently on the same project causes file system conflicts, corrupted build output, and race conditions in the .next directory. Additionally, multiple processes competing for the same CPU and memory resources will likely make each individual build slower rather than faster",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -47,7 +50,7 @@
   "workarounds": [
     {
       "action": "Reduce statically generated pages and use on-demand rendering for the long tail",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "Instead of statically generating all pages, generate only the most-visited subset and let the rest be rendered on demand: // app/blog/[slug]/page.tsx\nexport async function generateStaticParams() {\n  // Only pre-generate top 200 posts (by traffic)\n  const topPosts = await db.posts.findMany({\n    orderBy: { views: 'desc' },\n    take: 200,\n    select: { slug: true },\n  });\n  return topPosts.map(p => ({ slug: p.slug }));\n}\n\n// Allow dynamic rendering for non-pre-generated paths:\nexport const dynamicParams = true;\n\nNote: this requires server-side rendering (not compatible with output: 'export'). For static export, paginate the content across multiple routes with fewer pages each",
       "sources": [],
       "condition": "When not using output: 'export' (requires a server)"
@@ -69,16 +72,20 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "nextjs/dynamic-server-usage/nextjs14-linux", "probability": 0.20, "condition": "when switching from static export to server rendering and encountering dynamic API usage issues"},
-      {"error_id": "nextjs/err-next-static-generation-error_next14-linux", "probability": 0.15, "condition": "when individual pages fail during static generation instead of the overall process timing out"}
+      {
+        "error_id": "nextjs/dynamic-server-usage/nextjs14-linux",
+        "probability": 0.2,
+        "condition": "when switching from static export to server rendering and encountering dynamic API usage issues"
+      }
     ],
     "preceded_by": [
-      {"error_id": "nextjs/static-params-missing/nextjs14-linux", "probability": 0.20, "condition": "when adding generateStaticParams to fix the missing params error but returning too many parameter combinations"},
-      {"error_id": "nextjs/generatestaticparams-error_nextjs14-linux", "probability": 0.15, "condition": "when generateStaticParams succeeds but the resulting page count causes build timeout"}
+      {
+        "error_id": "nextjs/static-params-missing/nextjs14-linux",
+        "probability": 0.2,
+        "condition": "when adding generateStaticParams to fix the missing params error but returning too many parameter combinations"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "nextjs/err-next-static-generation-error_next14-linux", "distinction": "Static generation error occurs when a specific page fails to render (runtime error during render); too-many-static-pages timeout occurs when the overall export process exceeds time limits due to volume or slow rendering, even if individual pages would succeed given enough time"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

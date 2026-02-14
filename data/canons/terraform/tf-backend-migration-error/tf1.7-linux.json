@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,14 +28,14 @@
     {
       "action": "Delete the .terraform directory and reinitialize without migrating",
       "why_fails": "Skipping migration loses the existing state file, making Terraform think no resources exist",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     },
     {
       "action": "Manually copy the state file to the new backend location",
       "why_fails": "Manual copies miss metadata, may corrupt state, and do not handle locking correctly",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [],
       "condition": ""
     }
@@ -42,27 +45,25 @@
       "action": "Run terraform init -migrate-state to properly migrate state to the new backend",
       "success_rate": 0.88,
       "how": "terraform init -migrate-state will prompt to copy existing state to the new backend configuration",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/init"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/init"
+      ],
       "condition": ""
     },
     {
       "action": "Use terraform init -reconfigure if you intentionally want a fresh state",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "how": "terraform init -reconfigure reinitializes the backend without migrating state (use only if state in new backend is correct)",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/init"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/init"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/error-loading-state_tf115-linux", "probability": 0.20, "condition": "Failed migration can corrupt or lose state data"}
-    ],
-    "preceded_by": [
-      {"error_id": "terraform/backend-initialization-required_tf115-linux", "probability": 0.30, "condition": "Backend initialization prompt precedes migration requirement"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/backend-initialization-required_tf115-linux", "distinction": "Backend init required means terraform init not run yet; backend migration error means backend config changed and state must move"}
-    ]
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

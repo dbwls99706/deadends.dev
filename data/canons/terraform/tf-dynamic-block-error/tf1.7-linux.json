@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,8 +28,10 @@
     {
       "action": "Use dynamic blocks for attributes that are not block types",
       "why_fails": "Dynamic blocks can only generate nested block types, not simple attributes; use for expressions for lists/maps",
-      "fail_rate": 0.80,
-      "sources": ["https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"
+      ],
       "condition": ""
     },
     {
@@ -42,27 +47,25 @@
       "action": "Verify the block type name matches the resource schema exactly",
       "success_rate": 0.88,
       "how": "dynamic \"block_name\" must match a nested block type in the resource; check provider documentation for valid block names",
-      "sources": ["https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"
+      ],
       "condition": ""
     },
     {
       "action": "Use the correct iterator and content block syntax",
       "success_rate": 0.85,
       "how": "dynamic \"name\" { for_each = var.list; content { attr = name.value.attr } } - iterator defaults to the dynamic block label",
-      "sources": ["https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/unsupported-attribute_tf1-linux", "probability": 0.20, "condition": "Incorrect content block attributes cause unsupported attribute errors"}
-    ],
-    "preceded_by": [
-      {"error_id": "terraform/unsupported-attribute_tf1-linux", "probability": 0.10, "condition": "Refactoring repeated blocks into dynamic blocks introduces syntax errors"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/unsupported-attribute_tf1-linux", "distinction": "Unsupported attribute is about individual attribute names; dynamic block error is about the block structure and iteration"}
-    ]
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

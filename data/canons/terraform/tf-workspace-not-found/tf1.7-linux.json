@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,7 +28,7 @@
     {
       "action": "Edit the .terraform/environment file to force-set the workspace",
       "why_fails": "If the workspace does not exist in the backend, manually setting the file creates an invalid state",
-      "fail_rate": 0.80,
+      "fail_rate": 0.8,
       "sources": [],
       "condition": ""
     },
@@ -42,27 +45,31 @@
       "action": "Create the missing workspace using terraform workspace new",
       "success_rate": 0.92,
       "how": "terraform workspace new WORKSPACE_NAME",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/workspace/new"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/workspace/new"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to an existing workspace using terraform workspace select",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "terraform workspace list to see available workspaces, then terraform workspace select WORKSPACE_NAME",
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/workspace/select"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/workspace/select"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/error-loading-state_tf115-linux", "probability": 0.10, "condition": "Wrong workspace leads to missing or incorrect state"}
-    ],
+    "leads_to": [],
     "preceded_by": [
-      {"error_id": "terraform/tf-backend-migration-error/tf1.7-linux", "probability": 0.15, "condition": "Backend migration to new backend does not migrate workspaces automatically"}
+      {
+        "error_id": "terraform/tf-backend-migration-error/tf1.7-linux",
+        "probability": 0.15,
+        "condition": "Backend migration to new backend does not migrate workspaces automatically"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/error-loading-state_tf115-linux", "distinction": "Error loading state is about corrupted or inaccessible state; workspace not found is about the workspace itself not existing"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

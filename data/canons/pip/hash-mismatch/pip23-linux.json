@@ -11,13 +11,16 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "pip", "version_range": ">=23,<24"},
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=23,<24"
+    },
     "os": "linux"
   },
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.88,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-12",
     "summary": "Package hash mismatch in pip 23 occurs when cached or downloaded wheels do not match the hashes specified in requirements. Often caused by stale cache or updated packages on PyPI."
   },
@@ -55,13 +58,18 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "pip/conflicting-dependencies/pip23-linux", "probability": 0.2, "condition": "when hash regeneration reveals version conflicts"}
+      {
+        "error_id": "pip/conflicting-dependencies/pip23-linux",
+        "probability": 0.2,
+        "condition": "when hash regeneration reveals version conflicts"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "pip/cache-corruption/pip23-linux", "probability": 0.3, "condition": "when pip cache has corrupted entries"}
-    ],
+    "preceded_by": [],
     "frequently_confused_with": [
-      {"error_id": "pip/no-matching-distribution/pip24-linux", "distinction": "Hash mismatch means the package was found but its checksum is wrong; no-matching-distribution means the package version was not found at all"}
+      {
+        "error_id": "pip/no-matching-distribution/pip24-linux",
+        "distinction": "Hash mismatch means the package was found but its checksum is wrong; no-matching-distribution means the package version was not found at all"
+      }
     ]
   },
   "metadata": {

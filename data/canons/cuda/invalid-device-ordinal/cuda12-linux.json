@@ -11,9 +11,14 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "cuda", "version_range": ">=12.0,<13.0"},
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
     "os": "linux",
-    "hardware": {"gpu": "any"}
+    "hardware": {
+      "gpu": "any"
+    }
   },
   "verdict": {
     "resolvable": "true",
@@ -26,7 +31,7 @@
     {
       "action": "Set CUDA_VISIBLE_DEVICES to include the requested device number",
       "why_fails": "CUDA_VISIBLE_DEVICES remaps device ordinals; device N in the visible set becomes device 0,1,2... in order. Setting it to '2' makes that GPU device 0, not device 2.",
-      "fail_rate": 0.60,
+      "fail_rate": 0.6,
       "sources": [],
       "condition": ""
     },
@@ -48,7 +53,7 @@
     },
     {
       "action": "Set CUDA_VISIBLE_DEVICES correctly and use remapped ordinals starting from 0",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "export CUDA_VISIBLE_DEVICES=0,1 then use torch.cuda.set_device(0) for the first visible GPU",
       "sources": [],
       "condition": "when using CUDA_VISIBLE_DEVICES"
@@ -63,14 +68,20 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "cuda/not-initialized/cuda12-linux", "probability": 0.15, "condition": "when invalid device prevents CUDA initialization entirely"}
+      {
+        "error_id": "cuda/not-initialized/cuda12-linux",
+        "probability": 0.15,
+        "condition": "when invalid device prevents CUDA initialization entirely"
+      }
     ],
     "preceded_by": [
-      {"error_id": "cuda/cuda-driver-insufficient/cuda12-linux", "probability": 0.1, "condition": "when driver issues cause some GPUs to not be visible"}
+      {
+        "error_id": "cuda/cuda-driver-insufficient/cuda12-linux",
+        "probability": 0.1,
+        "condition": "when driver issues cause some GPUs to not be visible"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "cuda/all-cuda-capable-devices-busy_cuda12-linux", "distinction": "Invalid-device-ordinal means the device index does not exist; all-devices-busy means all existing devices are occupied by other processes"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

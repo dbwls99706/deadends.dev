@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-13"
   },
   "environment": {
-    "runtime": {"name": "next.js", "version_range": ">=14.0,<15.0"},
+    "runtime": {
+      "name": "next.js",
+      "version_range": ">=14.0,<15.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -39,7 +42,7 @@
     {
       "action": "Returning an empty array from generateStaticParams to skip all dynamic pages",
       "why_fails": "Returning an empty array means no pages are generated for that dynamic route. All URLs matching the pattern (e.g., /blog/any-slug) will result in 404 errors in the exported site. This technically satisfies the build requirement but produces a broken site with no actual dynamic content pages",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": "Unless you intentionally want no pages for that route"
     }
@@ -54,7 +57,7 @@
     },
     {
       "action": "Switch from output: 'export' to standard Next.js deployment if dynamic routes cannot be fully enumerated",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "If your dynamic routes depend on user-generated content or data that cannot be enumerated at build time, remove output: 'export' from next.config.js and deploy to a platform that supports Next.js server-side rendering (Vercel, AWS, Docker with standalone output): // next.config.js\nmodule.exports = {\n  // Remove: output: 'export',\n  // Optionally use standalone for Docker:\n  output: 'standalone',\n};\n\nWith server-side rendering, dynamic routes are rendered on-demand and do not require generateStaticParams() (though it can still be used for ISR/SSG optimization)",
       "sources": [],
       "condition": "When the full set of dynamic parameters cannot be known at build time"
@@ -69,16 +72,25 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "nextjs/too-many-static-pages/nextjs14-linux", "probability": 0.25, "condition": "when generateStaticParams returns thousands of parameter combinations causing build timeout"},
-      {"error_id": "nextjs/dynamic-server-usage/nextjs14-linux", "probability": 0.20, "condition": "when developers try to use dynamic server features in pages that must be statically generated"}
+      {
+        "error_id": "nextjs/too-many-static-pages/nextjs14-linux",
+        "probability": 0.25,
+        "condition": "when generateStaticParams returns thousands of parameter combinations causing build timeout"
+      },
+      {
+        "error_id": "nextjs/dynamic-server-usage/nextjs14-linux",
+        "probability": 0.2,
+        "condition": "when developers try to use dynamic server features in pages that must be statically generated"
+      }
     ],
     "preceded_by": [
-      {"error_id": "nextjs/err-next-config-invalid_next14-linux", "probability": 0.10, "condition": "when adding output: 'export' to next.config.js for the first time on a project with dynamic routes"},
-      {"error_id": "nextjs/dynamic-server-usage/nextjs14-linux", "probability": 0.15, "condition": "when converting from dynamic to static export"}
+      {
+        "error_id": "nextjs/dynamic-server-usage/nextjs14-linux",
+        "probability": 0.15,
+        "condition": "when converting from dynamic to static export"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "nextjs/generatestaticparams-error_nextjs14-linux", "distinction": "generatestaticparams-error occurs when the function exists but throws an error during execution; static-params-missing occurs when the function is not exported from the page at all"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

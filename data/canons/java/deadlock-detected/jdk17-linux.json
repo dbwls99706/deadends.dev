@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "java", "version_range": ">=17,<21"},
+    "runtime": {
+      "name": "java",
+      "version_range": ">=17,<21"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,7 +28,7 @@
     {
       "action": "Increasing thread pool size to work around the deadlock",
       "why_fails": "Adding more threads does not resolve a deadlock — the circular lock dependency remains. New threads may also deadlock on the same resources, making the situation worse.",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     },
@@ -55,13 +58,24 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "java/thread-pool-exhausted/jdk17-linux", "probability": 0.25, "condition": "when deadlocked threads hold up the thread pool causing all threads to eventually block"}
+      {
+        "error_id": "java/thread-pool-exhausted/jdk21-linux",
+        "probability": 0.25,
+        "condition": "when deadlocked threads hold up the thread pool causing all threads to eventually block"
+      }
     ],
     "preceded_by": [
-      {"error_id": "java/concurrentmodificationexception/jdk17-linux", "probability": 0.10, "condition": "when a developer adds synchronization to fix ConcurrentModificationException but introduces a deadlock"}
+      {
+        "error_id": "java/concurrentmodificationexception/jdk17-linux",
+        "probability": 0.1,
+        "condition": "when a developer adds synchronization to fix ConcurrentModificationException but introduces a deadlock"
+      }
     ],
     "frequently_confused_with": [
-      {"error_id": "java/thread-pool-exhausted/jdk17-linux", "distinction": "Thread pool exhaustion means no available threads for work; deadlock means specific threads are permanently blocked waiting for each other's locks"}
+      {
+        "error_id": "java/thread-pool-exhausted/jdk21-linux",
+        "distinction": "Thread pool exhaustion means no available threads for work; deadlock means specific threads are permanently blocked waiting for each other's locks"
+      }
     ]
   },
   "metadata": {

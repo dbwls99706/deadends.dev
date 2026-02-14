@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "react", "version_range": ">=18,<20"},
+    "runtime": {
+      "name": "react",
+      "version_range": ">=18,<20"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -25,14 +28,14 @@
     {
       "action": "Using useEffect + useState to subscribe to the external store instead of useSyncExternalStore",
       "why_fails": "useEffect subscriptions have a timing gap: the store can change between render and the effect running, causing the component to show stale data for one frame (the tearing problem that useSyncExternalStore was designed to fix). In concurrent mode, this gap can cause visible UI inconsistencies where components show different values from the same store.",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [],
       "condition": ""
     },
     {
       "action": "Disabling concurrent features (using ReactDOM.render instead of createRoot) to avoid tearing",
       "why_fails": "ReactDOM.render uses synchronous rendering where tearing cannot occur, but it disables all React 18 features (automatic batching, transitions, Suspense for data fetching, streaming SSR). This is a regression to React 17 behavior and the legacy API is deprecated.",
-      "fail_rate": 0.60,
+      "fail_rate": 0.6,
       "sources": [],
       "condition": ""
     }
@@ -40,7 +43,7 @@
   "workarounds": [
     {
       "action": "Ensure getSnapshot returns a stable reference (memoized or cached) between renders if the store has not changed",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "The getSnapshot function must return the exact same reference (===) if the store has not changed. Do NOT create a new object/array on every call: BAD: getSnapshot = () => ({ count: store.count }). GOOD: getSnapshot = () => store.getState() (where getState returns the same object reference). For selectors that derive data, memoize the result: use a selector with shallow equality check, or cache the derived value and only recompute when inputs change.",
       "sources": [],
       "condition": ""
@@ -55,14 +58,18 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "react/too-many-rerenders/react18-linux", "probability": 0.15, "condition": "when fixing tearing by forcing synchronous re-renders causes render loops"},
-      {"error_id": "react/maximum-update-depth-exceeded_react18-linux", "probability": 0.10, "condition": "when store subscription triggers setState during render, causing infinite updates"}
+      {
+        "error_id": "react/too-many-rerenders/react18-linux",
+        "probability": 0.15,
+        "condition": "when fixing tearing by forcing synchronous re-renders causes render loops"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "react/hooks-rules-violation_react18-linux", "probability": 0.10, "condition": "when incorrectly using useSyncExternalStore conditionally violates the rules of hooks"}
-    ],
+    "preceded_by": [],
     "frequently_confused_with": [
-      {"error_id": "react/react-bad-setstate-in-render/react18-linux", "distinction": "useSyncExternalStore tearing is about inconsistent reads from an external store during concurrent rendering. Bad setState in render is about calling setState during the render phase. Both cause unexpected re-renders but have different causes: tearing is a read consistency issue; setState in render is a write timing issue."}
+      {
+        "error_id": "react/react-bad-setstate-in-render/react18-linux",
+        "distinction": "useSyncExternalStore tearing is about inconsistent reads from an external store during concurrent rendering. Bad setState in render is about calling setState during the render phase. Both cause unexpected re-renders but have different causes: tearing is a read consistency issue; setState in render is a write timing issue."
+      }
     ]
   },
   "metadata": {

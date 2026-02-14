@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -26,13 +29,15 @@
       "action": "Remove the check block to suppress the warning",
       "why_fails": "Check blocks exist to catch infrastructure drift and misconfigurations; removing them hides real problems",
       "fail_rate": 0.75,
-      "sources": ["https://developer.hashicorp.com/terraform/language/checks"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/checks"
+      ],
       "condition": ""
     },
     {
       "action": "Change the condition to always return true",
       "why_fails": "Hardcoding true defeats the purpose of the check and leaves infrastructure issues undetected",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -42,26 +47,29 @@
       "action": "Fix the underlying infrastructure issue that the check block detected",
       "success_rate": 0.85,
       "how": "Read the error_message from the check block, identify the failing condition, and fix the resource or data source",
-      "sources": ["https://developer.hashicorp.com/terraform/language/checks"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/checks"
+      ],
       "condition": ""
     },
     {
       "action": "Update the check condition if the assertion is outdated or too strict",
       "success_rate": 0.82,
       "how": "Review the check block condition and error_message; adjust the condition to reflect current valid states",
-      "sources": ["https://developer.hashicorp.com/terraform/language/checks"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/checks"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {"error_id": "terraform/error-refreshing-state_tf1-linux", "probability": 0.10, "condition": "Check block data sources may fail to refresh when infrastructure has drifted"}
-    ],
-    "preceded_by": [
-      {"error_id": "terraform/error-refreshing-state_tf1-linux", "probability": 0.15, "condition": "State refresh reveals drift that triggers check block assertions"}
-    ],
+    "leads_to": [],
+    "preceded_by": [],
     "frequently_confused_with": [
-      {"error_id": "terraform/invalid-reference/tf1-linux", "distinction": "Invalid reference is about syntax/type errors in expressions; check block assertion is about runtime condition evaluation"}
+      {
+        "error_id": "terraform/invalid-reference/tf1-linux",
+        "distinction": "Invalid reference is about syntax/type errors in expressions; check block assertion is about runtime condition evaluation"
+      }
     ]
   },
   "metadata": {

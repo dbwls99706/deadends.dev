@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-13"
   },
   "environment": {
-    "runtime": {"name": "next.js", "version_range": ">=14.0,<15.0"},
+    "runtime": {
+      "name": "next.js",
+      "version_range": ">=14.0,<15.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -32,7 +35,7 @@
     {
       "action": "Adding the secret/sensitive variable with NEXT_PUBLIC_ prefix to make it accessible on the client",
       "why_fails": "NEXT_PUBLIC_ variables are inlined into the JavaScript bundle at build time and are visible to anyone who inspects the page source or network requests. Adding NEXT_PUBLIC_ to database URLs, API secret keys, auth tokens, or any sensitive value exposes them publicly. This is a security vulnerability, not a fix. The variable was intentionally server-only to protect it",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": "When the variable contains sensitive data (API keys, database URLs, secrets)"
     },
@@ -69,15 +72,29 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "nextjs/hydration-failed/nextjs14-linux", "probability": 0.15, "condition": "when server and client render different values because the env var is available server-side but undefined client-side"},
-      {"error_id": "nextjs/server-component-client-hook/nextjs14-linux", "probability": 0.10, "condition": "when developers try to convert a client component to a server component to access env vars but it uses hooks"}
+      {
+        "error_id": "nextjs/hydration-failed/nextjs14-linux",
+        "probability": 0.15,
+        "condition": "when server and client render different values because the env var is available server-side but undefined client-side"
+      },
+      {
+        "error_id": "nextjs/server-component-client-hook/nextjs14-linux",
+        "probability": 0.1,
+        "condition": "when developers try to convert a client component to a server component to access env vars but it uses hooks"
+      }
     ],
     "preceded_by": [
-      {"error_id": "nextjs/use-client-directive_nextjs14-linux", "probability": 0.15, "condition": "when adding 'use client' to a component that previously accessed env vars as a server component"},
-      {"error_id": "nextjs/server-only-import-client/nextjs14-linux", "probability": 0.10, "condition": "when a server-only utility that reads env vars is imported into a client component"}
+      {
+        "error_id": "nextjs/server-only-import-client/nextjs14-linux",
+        "probability": 0.1,
+        "condition": "when a server-only utility that reads env vars is imported into a client component"
+      }
     ],
     "frequently_confused_with": [
-      {"error_id": "nextjs/server-only-import-client/nextjs14-linux", "distinction": "server-only-import-client is about importing a module marked with 'server-only' package into a client component; env-var-client-access is specifically about accessing non-NEXT_PUBLIC_ environment variables in client code"}
+      {
+        "error_id": "nextjs/server-only-import-client/nextjs14-linux",
+        "distinction": "server-only-import-client is about importing a module marked with 'server-only' package into a client component; env-var-client-access is specifically about accessing non-NEXT_PUBLIC_ environment variables in client code"
+      }
     ]
   },
   "metadata": {

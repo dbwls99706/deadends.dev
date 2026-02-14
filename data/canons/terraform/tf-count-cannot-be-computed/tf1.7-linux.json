@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-12"
   },
   "environment": {
-    "runtime": {"name": "terraform", "version_range": ">=1.5,<2.0"},
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -26,13 +29,15 @@
       "action": "Use -target to apply the dependency first",
       "why_fails": "Targeted applies create state drift and are not sustainable for ongoing operations",
       "fail_rate": 0.65,
-      "sources": ["https://developer.hashicorp.com/terraform/cli/commands/plan#resource-targeting"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/plan#resource-targeting"
+      ],
       "condition": ""
     },
     {
       "action": "Wrap the count in a try() function",
       "why_fails": "try() handles errors, not unknown values; count must be known at plan time regardless",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -42,27 +47,31 @@
       "action": "Use a variable or local value that is known at plan time instead of a computed attribute",
       "success_rate": 0.88,
       "how": "Replace count = resource.x.computed_value with count = var.known_count or a data source value",
-      "sources": ["https://developer.hashicorp.com/terraform/language/meta-arguments/count"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/count"
+      ],
       "condition": ""
     },
     {
       "action": "Split into two separate Terraform configurations with a remote state data source",
       "success_rate": 0.78,
       "how": "Apply the first config that produces the computed value, then reference it via terraform_remote_state in the second config",
-      "sources": ["https://developer.hashicorp.com/terraform/language/state/remote-state-data"],
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/state/remote-state-data"
+      ],
       "condition": ""
     }
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "terraform/tf-for-each-error/tf1.7-linux", "probability": 0.25, "condition": "Switching from count to for_each encounters similar unknown value issues"}
+      {
+        "error_id": "terraform/tf-for-each-error/tf1.7-linux",
+        "probability": 0.25,
+        "condition": "Switching from count to for_each encounters similar unknown value issues"
+      }
     ],
-    "preceded_by": [
-      {"error_id": "terraform/invalid-count-argument_tf115-linux", "probability": 0.20, "condition": "Count argument syntax issues precede computed value errors"}
-    ],
-    "frequently_confused_with": [
-      {"error_id": "terraform/invalid-count-argument_tf115-linux", "distinction": "Invalid count argument is about syntax errors in count; count cannot be computed is about runtime unknown values"}
-    ]
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

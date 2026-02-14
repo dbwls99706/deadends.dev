@@ -11,7 +11,10 @@
     "last_confirmed": "2026-02-13"
   },
   "environment": {
-    "runtime": {"name": "next.js", "version_range": ">=14.0,<15.0"},
+    "runtime": {
+      "name": "next.js",
+      "version_range": ">=14.0,<15.0"
+    },
     "os": "linux"
   },
   "verdict": {
@@ -32,7 +35,7 @@
     {
       "action": "Using module.exports or CommonJS syntax in the middleware file",
       "why_fails": "Next.js middleware runs in the Edge Runtime, which only supports ES modules. Using module.exports = function middleware() {} or exports.middleware = ... is not recognized. The middleware file must use ES module syntax with 'export function middleware()' or 'export default function()'. This is a common issue when copying patterns from older Node.js codebases or Express middleware",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [],
       "condition": ""
     },
@@ -69,16 +72,20 @@
   ],
   "transition_graph": {
     "leads_to": [
-      {"error_id": "nextjs/middleware-redirect-loop_nextjs14-linux", "probability": 0.20, "condition": "when the middleware function is created correctly but redirect logic creates an infinite loop"},
-      {"error_id": "nextjs/route-conflict/nextjs14-linux", "probability": 0.10, "condition": "when middleware rewrites conflict with existing route definitions"}
+      {
+        "error_id": "nextjs/route-conflict/nextjs14-linux",
+        "probability": 0.1,
+        "condition": "when middleware rewrites conflict with existing route definitions"
+      }
     ],
     "preceded_by": [
-      {"error_id": "nextjs/module-not-found-resolve/nextjs14-linux", "probability": 0.10, "condition": "when middleware imports a module that is not compatible with the Edge Runtime"},
-      {"error_id": "nextjs/err-next-config-invalid_next14-linux", "probability": 0.05, "condition": "when next.config.js issues prevent proper middleware compilation"}
+      {
+        "error_id": "nextjs/module-not-found-resolve/nextjs14-linux",
+        "probability": 0.1,
+        "condition": "when middleware imports a module that is not compatible with the Edge Runtime"
+      }
     ],
-    "frequently_confused_with": [
-      {"error_id": "nextjs/middleware-redirect-loop_nextjs14-linux", "distinction": "Redirect loops occur when the middleware function exists and runs correctly but has flawed redirect logic; the export error means the middleware file itself cannot be loaded because it lacks the required function export"}
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
