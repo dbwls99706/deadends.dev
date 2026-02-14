@@ -53,7 +53,7 @@
         "https://docs.python.org/3/reference/expressions.html#generator-expressions"
       ],
       "condition": "",
-      "how": ""
+      "how": "Refactor to avoid calling next(gen) from within gen's own iteration"
     },
     {
       "action": "Use separate generator instances for recursive patterns",

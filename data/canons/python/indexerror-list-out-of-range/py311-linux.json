@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Wrap in try/except IndexError",
-      "why_fails": "Masks the real issue — the list is shorter than expected",
+      "why_fails": "Masks the real issue \u2014 the list is shorter than expected",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/tutorial/errors.html"
@@ -80,12 +80,7 @@
         "condition": "Data structure changed from dict to list"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "python/cuda-out-of-memory/torch2.1-a100-40gb",
-        "distinction": "'IndexError: list index out of range' vs 'RuntimeError: CUDA out of memory. Tried to allocate X GiB': while both are python errors, the former Accessing a list index that doesn't exist. Common in loops, API responses, and o while the latter In this environment, allocation failures of 2GiB+ are not resolved by batch_size."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

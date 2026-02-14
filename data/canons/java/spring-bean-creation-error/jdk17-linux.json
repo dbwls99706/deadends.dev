@@ -34,7 +34,7 @@
   "dead_ends": [
     {
       "action": "Adding @Autowired annotation to every field as a shotgun fix",
-      "why_fails": "If the dependency bean does not exist in the application context, @Autowired does not create it — it just changes the injection point from constructor to field. The root cause is that the target bean class is not registered as a Spring component. Field injection also makes dependencies implicit, harder to test, and allows creation of objects in invalid states.",
+      "why_fails": "If the dependency bean does not exist in the application context, @Autowired does not create it \u2014 it just changes the injection point from constructor to field. The root cause is that the target bean class is not registered as a Spring component. Field injection also makes dependencies implicit, harder to test, and allows creation of objects in invalid states.",
       "fail_rate": 0.82,
       "sources": [
         "https://docs.spring.io/spring-framework/reference/core/beans/dependencies.html"
@@ -52,7 +52,7 @@
     },
     {
       "action": "Adding @Lazy to all injected dependencies to defer the error",
-      "why_fails": "Using @Lazy universally defers bean creation from startup to first use. This turns a clear, immediate startup error into a runtime exception that occurs unpredictably when the lazy bean is first accessed — potentially in production under load. It also masks circular dependency errors that Spring would otherwise detect and report at startup.",
+      "why_fails": "Using @Lazy universally defers bean creation from startup to first use. This turns a clear, immediate startup error into a runtime exception that occurs unpredictably when the lazy bean is first accessed \u2014 potentially in production under load. It also masks circular dependency errors that Spring would otherwise detect and report at startup.",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-lazy-init.html"
@@ -105,12 +105,7 @@
         "condition": "When a dependency class is on the classpath at compile time but missing at runtime"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "java/maven-dependency-conflict/maven3-linux",
-        "distinction": "'Error creating bean with name 'X': Unsatisfied dependency ex' vs 'Dependency convergence error': while both are java errors, the former Spring cannot create a bean because a required dependency is missing from the ap while the latter Maven dependency convergence errors occur when different transitive dependency p."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "manual",

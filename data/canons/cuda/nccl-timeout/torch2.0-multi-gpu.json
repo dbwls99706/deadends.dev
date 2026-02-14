@@ -38,12 +38,12 @@
   "dead_ends": [
     {
       "action": "Increasing the timeout alone (torch.distributed.init_process_group timeout parameter)",
-      "why_fails": "The default NCCL timeout in PyTorch 2.0 is 1800 seconds (30 minutes). If the operation has not completed in 30 minutes, adding more time will not help — the communication is completely stalled due to interface misconfiguration or routing failure, not slowness.",
+      "why_fails": "The default NCCL timeout in PyTorch 2.0 is 1800 seconds (30 minutes). If the operation has not completed in 30 minutes, adding more time will not help \u2014 the communication is completely stalled due to interface misconfiguration or routing failure, not slowness.",
       "fail_rate": 0.87,
       "sources": [
         "https://pytorch.org/docs/stable/distributed.html#torch.distributed.init_process_group"
       ],
-      "common_misconception": "Users believe that NCCL operations are 'slow but progressing' when they time out. In reality, a timeout means zero bytes were transferred in the timeout window — the path is broken, not slow."
+      "common_misconception": "Users believe that NCCL operations are 'slow but progressing' when they time out. In reality, a timeout means zero bytes were transferred in the timeout window \u2014 the path is broken, not slow."
     },
     {
       "action": "Restarting the training process without fixing the network configuration",
@@ -125,12 +125,7 @@
         "condition": "After resolving CUDA version mismatch, users attempt multi-GPU training for the first time"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "cuda/nccl-timeout/torch2.1-multi-gpu",
-        "distinction": "Same error class but on PyTorch 2.1. PyTorch 2.0 uses the older torch.distributed.launch launcher while 2.1 defaults to torchrun. The default timeout values and NCCL watchdog behavior differ slightly between versions, but the debugging approach is identical."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "deadend-seed-v1",

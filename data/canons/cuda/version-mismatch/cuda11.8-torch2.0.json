@@ -101,12 +101,7 @@
         "condition": "When users attempt downgrading PyTorch to resolve OOM issues and encounter version mismatch"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "cuda/version-mismatch/cuda12.1-torch2.1",
-        "distinction": "Same class of error but different CUDA/PyTorch version pair. The fix differs in the index URL used (cu118 vs cu121). Check the error message for the exact versions reported."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "deadend-seed-v1",

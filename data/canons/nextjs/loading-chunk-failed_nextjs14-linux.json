@@ -52,7 +52,7 @@
         "https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary"
       ],
       "condition": "",
-      "how": ""
+      "how": "class ErrorBoundary extends React.Component { componentDidCatch(e) { if (e.name === 'ChunkLoadError') window.location.reload(); } }"
     },
     {
       "action": "Use content-addressed filenames (default in Next.js) so old chunks remain available",

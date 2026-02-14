@@ -42,7 +42,7 @@
       "sources": [
         "https://github.com/pytorch/pytorch/issues/94292"
       ],
-      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository — if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
+      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository \u2014 if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
     },
     {
       "action": "Calling torch.cuda.init() before any CUDA operations",
@@ -111,12 +111,7 @@
         "condition": "Partial CUDA library updates when attempting to fix version mismatch can leave cuBLAS out of sync"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "cuda/cublas-init-error/cuda12.1-a100",
-        "distinction": "Same error class but different CUDA toolkit and GPU. The RTX 3090 uses Ampere GA102 (compute capability 8.6) while the A100 uses GA100 (compute capability 8.0). cuBLAS kernels differ between these architectures, so the library version requirements can differ."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "deadend-seed-v1",

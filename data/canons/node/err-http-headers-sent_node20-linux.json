@@ -61,7 +61,7 @@
         "https://expressjs.com/en/guide/writing-middleware.html"
       ],
       "condition": "",
-      "how": ""
+      "how": "Use return after res.send()/res.json() to prevent double-response"
     }
   ],
   "transition_graph": {

@@ -52,7 +52,7 @@
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"
       ],
       "condition": "",
-      "how": ""
+      "how": "try { JSON.parse(data) } catch (e) { /* handle malformed input */ }"
     },
     {
       "action": "Verify file extension matches the module system (.mjs for ESM, .cjs for CJS)",

@@ -3,7 +3,7 @@
   "id": "git/bisect-bad-revision/git2-linux",
   "url": "https://deadends.dev/git/bisect-bad-revision/git2-linux",
   "error": {
-    "signature": "You need to start by 'git bisect start' — bisect session not initialized or in bad state",
+    "signature": "You need to start by 'git bisect start' \u2014 bisect session not initialized or in bad state",
     "regex": "(?:You need to start by.*git bisect|git bisect.*(?:bad|good|reset|start)|not a valid commit|[Bb]isect.*(?:error|failed|cannot))",
     "domain": "git",
     "category": "workflow_error",
@@ -100,12 +100,7 @@
       }
     ],
     "preceded_by": [],
-    "frequently_confused_with": [
-      {
-        "error_id": "git/stash-no-local-changes/git2-linux",
-        "distinction": "'You need to start by 'git bisect start' — bisect session not' vs 'No local changes to save — git stash fails when only untrack': while both are git errors in the workflow_error category, the former Git bisect errors occur when the bisect session isn't properly initialized, bad/ while the latter By default, 'git stash' only saves tracked files with modifications and staged c."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "manual",

@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check the type — you may have the wrong type; use compiler suggestions",
+      "action": "Check the type \u2014 you may have the wrong type; use compiler suggestions",
       "success_rate": 0.88,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0599.html"
@@ -77,12 +77,7 @@
         "probability": 0.14
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "rust/e0015-cannot-call-non-const-fn/rust1-linux",
-        "distinction": "'[E0599]' indicates a method not found for the given type, while '[E0015]' indicates a non-const function called in const context."
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

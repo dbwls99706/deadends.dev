@@ -96,10 +96,6 @@
     ],
     "frequently_confused_with": [
       {
-        "error_id": "rust/e0015-cannot-call-non-const-fn/rust1-linux",
-        "distinction": "'[E0277]' indicates a type that cannot be sent between threads, while '[E0015]' indicates a non-const function called in const context."
-      },
-      {
         "error_id": "rust/e0507-move-out-of-borrow/rust1-linux",
         "distinction": "'[E0277]' indicates a type that cannot be sent between threads, while '[E0507]' indicates moving out of borrowed content."
       }

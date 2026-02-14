@@ -62,7 +62,7 @@
         "https://flask.palletsprojects.com/en/3.0.x/testing/"
       ],
       "condition": "",
-      "how": ""
+      "how": "with app.test_request_context(): ..."
     }
   ],
   "transition_graph": {

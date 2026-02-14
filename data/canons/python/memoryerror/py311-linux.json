@@ -62,7 +62,7 @@
         "https://docs.python.org/3/library/mmap.html"
       ],
       "condition": "",
-      "how": "mmap, generators"
+      "how": "import mmap; with open('large.bin','rb') as f: mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)"
     }
   ],
   "transition_graph": {

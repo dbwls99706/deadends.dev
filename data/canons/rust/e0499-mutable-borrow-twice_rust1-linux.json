@@ -80,10 +80,6 @@
       {
         "error_id": "rust/e0382-borrow-moved-value/rust1-linux",
         "distinction": "'[E0499]' indicates borrowing as mutable more than once, while '[E0382]' indicates use of a moved value (ownership violation)."
-      },
-      {
-        "error_id": "rust/cargo-feature-not-found/rust1-linux",
-        "distinction": "'[E0499]' indicates borrowing as mutable more than once, while 'error' indicates a missing cargo feature flag."
       }
     ]
   },
