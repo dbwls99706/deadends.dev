@@ -461,6 +461,15 @@ Allow: /
 User-agent: Ai2Bot-Dolma
 Allow: /
 
+User-agent: GrokBot
+Allow: /
+
+User-agent: MistralBot
+Allow: /
+
+User-agent: Qwen
+Allow: /
+
 Sitemap: {BASE_URL}/sitemap.xml
 
 # AI agent config files:
@@ -1668,6 +1677,9 @@ def build_match_json(canons: list[dict]) -> None:
             "domain": canon["error"]["domain"],
             "ok": canon["verdict"]["resolvable"],
             "rate": canon["verdict"]["fix_success_rate"],
+            "conf": canon["verdict"]["confidence"],
+            "de": len(canon["dead_ends"]),
+            "wa": len(canon.get("workarounds", [])),
             "url": f"{BASE_URL}/api/v1/{canon['id']}.json",
         })
 
