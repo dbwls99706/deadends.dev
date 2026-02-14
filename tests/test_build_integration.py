@@ -47,7 +47,6 @@ def built_site(tmp_path_factory):
         jinja_env.globals["base_url"] = bs.BASE_URL
         jinja_env.filters["display_name"] = bs.domain_display_name
 
-        import json
         from markupsafe import Markup
 
         def _json_escape(s: str) -> Markup:

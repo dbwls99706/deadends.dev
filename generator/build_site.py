@@ -575,7 +575,7 @@ def build_stylesheet() -> None:
         "/* Page-specific heading sizes */",
         ".pg-index h1 { font-size: 1.8rem; }",
         ".pg-index h2 { font-size: 1.2rem; }",
-        ".pg-domain h1, .pg-search h1 { font-size: 1.6rem; }",
+        ".pg-domain h1, .pg-summary h1, .pg-search h1 { font-size: 1.6rem; }",
         "",
         "/* Verdict colors */",
         ".verdict-true { color: #3fb950; }",
