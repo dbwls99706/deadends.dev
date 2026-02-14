@@ -85,12 +85,7 @@
         "condition": "dict.get() returns None which is then subscripted"
       }
     ],
-    "frequently_confused_with": [
-      {
-        "error_id": "python/keyerror/py311-linux",
-        "distinction": "KeyError is about missing dict keys; TypeError NoneType is about operating on None values"
-      }
-    ]
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",

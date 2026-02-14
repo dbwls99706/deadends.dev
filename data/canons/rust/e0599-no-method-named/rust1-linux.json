@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check the type \u2014 you may have the wrong type; use compiler suggestions",
+      "action": "Check the type — you may have the wrong type; use compiler suggestions",
       "success_rate": 0.88,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0599.html"
@@ -65,18 +65,8 @@
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {
-        "error_id": "rust/e0507-move-out-of-borrow/rust1-linux",
-        "probability": 0.22
-      }
-    ],
-    "preceded_by": [
-      {
-        "error_id": "rust/cargo-feature-not-found/rust1-linux",
-        "probability": 0.14
-      }
-    ],
+    "leads_to": [],
+    "preceded_by": [],
     "frequently_confused_with": []
   },
   "metadata": {

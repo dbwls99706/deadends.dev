@@ -74,28 +74,9 @@
     }
   ],
   "transition_graph": {
-    "leads_to": [
-      {
-        "error_id": "aws/cloudformation-rollback-complete/awscli2-linux",
-        "probability": 0.15
-      }
-    ],
-    "preceded_by": [
-      {
-        "error_id": "aws/expired-token-exception/awscli2-linux",
-        "probability": 0.17
-      },
-      {
-        "error_id": "aws/lambda-timeout/awscli2-linux",
-        "probability": 0.17
-      }
-    ],
-    "frequently_confused_with": [
-      {
-        "error_id": "aws/no-credentials-error/awscli2-linux",
-        "distinction": "'An error occurred (LimitExceededException) when calling the X operation' indicates an AWS service limit exceeded, while 'botocore.exceptions.NoCredentialsError' indicates missing AWS credentials configuration."
-      }
-    ]
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
