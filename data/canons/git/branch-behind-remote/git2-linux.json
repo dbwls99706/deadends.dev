@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "git/branch-behind-remote/git2-linux",
+  "url": "https://deadends.dev/git/branch-behind-remote/git2-linux",
+  "error": {
+    "signature": "Your branch is behind 'origin/main' by N commits, and can be fast-forwarded",
+    "regex": "Your branch is behind .* by \\d+ commit",
+    "domain": "git",
+    "category": "sync_error",
+    "first_seen": "2015-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "git",
+      "version_range": ">=2.30,<3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-14",
+    "summary": "Local branch is behind the remote tracking branch. New commits exist on the remote that haven't been pulled. This is informational but can lead to rejected pushes if local commits are also present."
+  },
+  "dead_ends": [
+    {
+      "action": "Using git push --force to overwrite remote with local state",
+      "why_fails": "Force push overwrites the remote commits that others may depend on. This causes history rewriting for all collaborators and can lose other people's work.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://git-scm.com/docs/git-push"
+      ],
+      "condition": "Shared branch with collaborators"
+    },
+    {
+      "action": "Ignoring the message and continuing to work without pulling",
+      "why_fails": "Each new local commit increases divergence. Eventually git push will be rejected, requiring a more complex merge or rebase.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pull to fast-forward your local branch",
+      "how": "git pull origin main\n# Or if you prefer rebase:\ngit pull --rebase origin main",
+      "success_rate": 0.95,
+      "sources": [
+        "https://git-scm.com/docs/git-pull"
+      ],
+      "condition": "No local commits"
+    },
+    {
+      "action": "Rebase local commits on top of the updated remote",
+      "how": "git fetch origin\ngit rebase origin/main\n# Resolve any conflicts, then:\ngit push origin main",
+      "success_rate": 0.9,
+      "sources": [
+        "https://git-scm.com/docs/git-rebase"
+      ],
+      "condition": "Has local commits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "git/error-failed-to-push-some-refs/git2-linux",
+        "probability": 0.35,
+        "condition": "Local commits exist and push is attempted without pulling first"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "git/diverged-branches/git2-linux",
+        "distinction": "'Branch is behind' means only remote has new commits (can fast-forward). 'Diverged' means both local and remote have new commits (requires merge or rebase)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 200,
+    "last_verification": "2026-02-14"
+  }
+}

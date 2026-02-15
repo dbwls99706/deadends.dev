@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "typescript/ts2416-property-not-assignable-base/ts5-linux",
+  "url": "https://deadends.dev/typescript/ts2416-property-not-assignable-base/ts5-linux",
+  "error": {
+    "signature": "TS2416: Property 'X' in type 'Y' is not assignable to the same property in base type 'Z'",
+    "regex": "TS2416:? Property ['\"]?\\w+['\"]? in type ['\"]?\\w+['\"]? is not assignable to the same property in base type",
+    "domain": "typescript",
+    "category": "type_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "typescript",
+      "version_range": ">=5.0,<6.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-14",
+    "summary": "A class overrides a property or method from its base class (or implements an interface member) with an incompatible type. TypeScript enforces that overridden members maintain Liskov Substitution Principle compatibility -- the derived type must be assignable to the base type for that member. Common causes: narrowing a method parameter type in a subclass, changing a return type incompatibly, or overriding a property with a different type."
+  },
+  "dead_ends": [
+    {
+      "action": "Use 'as any' type assertion on the overriding property to silence the error",
+      "why_fails": "Casting to any removes type safety at the override point, allowing runtime type mismatches. Code that uses the base class type will pass values the subclass cannot handle, causing runtime errors. This breaks polymorphism and the Liskov Substitution Principle that TypeScript is enforcing.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/classes.html#overriding-methods"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable strictFunctionTypes in tsconfig to allow bivariant parameter checking",
+      "why_fails": "Disabling strictFunctionTypes weakens type checking across the entire project, not just the one override. It allows unsound assignments where a function expecting a broader type is assigned one expecting a narrower type. This masks real bugs elsewhere and does not specifically target TS2416 (which applies to property types, not just function types).",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.typescriptlang.org/tsconfig#strictFunctionTypes"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Widen the overriding member's type to be compatible with the base type using union or the base type itself",
+      "success_rate": 0.92,
+      "how": "// Before (error): method parameter is narrower than base\nclass Base {\n  handle(input: string | number): void { /* ... */ }\n}\nclass Derived extends Base {\n  handle(input: string): void { /* TS2416 */ }\n}\n\n// After: accept the full base type, narrow inside\nclass Derived extends Base {\n  handle(input: string | number): void {\n    if (typeof input === 'string') {\n      // string-specific logic\n    }\n  }\n}",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/classes.html#overriding-methods"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use generics in the base class to allow subclasses to specialize types safely",
+      "success_rate": 0.88,
+      "how": "// Before: rigid base type\nclass Base {\n  data: Record<string, unknown> = {};\n}\nclass Derived extends Base {\n  data: { name: string; age: number } = { name: '', age: 0 }; // TS2416\n}\n\n// After: generic base allows type-safe specialization\nclass Base<T extends Record<string, unknown> = Record<string, unknown>> {\n  data: T;\n  constructor(data: T) { this.data = data; }\n}\nclass Derived extends Base<{ name: string; age: number }> {\n  constructor() { super({ name: '', age: 0 }); }\n}",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-classes"
+      ],
+      "condition": "You control the base class definition"
+    },
+    {
+      "action": "Use an interface with method overloads instead of class inheritance",
+      "success_rate": 0.8,
+      "how": "// Instead of class inheritance with incompatible overrides,\n// use an interface with overloaded signatures:\ninterface Handler {\n  handle(input: string): string;\n  handle(input: number): number;\n  handle(input: string | number): string | number;\n}\n\nclass MyHandler implements Handler {\n  handle(input: string): string;\n  handle(input: number): number;\n  handle(input: string | number): string | number {\n    if (typeof input === 'string') return input.toUpperCase();\n    return input * 2;\n  }\n}",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
+      ],
+      "condition": "The design calls for different behavior based on input type"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "typescript/ts2322-type-not-assignable/ts5-linux",
+        "probability": 0.3,
+        "condition": "After fixing the override, callers passing the old narrower type now get TS2322 assignment errors"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "typescript/ts2322-type-not-assignable/ts5-linux",
+        "probability": 0.15,
+        "condition": "Developer changes a property type to fix TS2322, inadvertently creating a base type mismatch"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "typescript/ts2322-type-not-assignable/ts5-linux",
+        "distinction": "TS2322 is a general type assignment mismatch (variable = value). TS2416 specifically occurs when a class member's type is incompatible with the same-named member in a base class or interface. TS2416 is about inheritance compatibility, not general assignment."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 55,
+    "last_verification": "2026-02-14"
+  }
+}

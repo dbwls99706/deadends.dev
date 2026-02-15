@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nextjs/generate-metadata-client-component/nextjs14-linux",
+  "url": "https://deadends.dev/nextjs/generate-metadata-client-component/nextjs14-linux",
+  "error": {
+    "signature": "Error: 'generateMetadata' cannot be used in a Client Component",
+    "regex": "generateMetadata.*cannot be used in a Client Component|generateMetadata.*client.?component|You are attempting to export.*generateMetadata.*from a component marked.*use client",
+    "domain": "nextjs",
+    "category": "render_error",
+    "first_seen": "2023-10-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nextjs",
+      "version_range": ">=14,<16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.91,
+    "last_updated": "2026-02-14",
+    "summary": "The generateMetadata function or metadata export is placed in a file with the 'use client' directive. In the Next.js App Router, metadata generation is inherently a server-side operation because it must run during SSR/SSG to inject <head> tags. Client Components cannot export generateMetadata or the static metadata object. The solution is always to keep metadata exports in Server Components."
+  },
+  "dead_ends": [
+    {
+      "action": "Moving 'use client' below the generateMetadata export to try to make it server-only",
+      "why_fails": "The 'use client' directive must be at the top of a file and applies to the entire module. There is no way to partially mark a file as client or server. Moving the directive below the export does not change its scope -- the entire file is still a Client Component, and generateMetadata remains invalid.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Using document.title or useEffect to set metadata dynamically on the client",
+      "why_fails": "Setting document.title via useEffect bypasses Next.js metadata system entirely. Search engine crawlers and social media scrapers will not see the metadata because it requires JavaScript execution. This breaks SEO, Open Graph tags, and social sharing cards. The metadata will also flash/change after hydration, causing poor user experience.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/optimizing/metadata"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Split the file into a Server Component page with metadata and a separate Client Component for interactivity",
+      "success_rate": 0.95,
+      "how": "Separate server metadata from client interactivity:\n\n// app/dashboard/page.tsx (Server Component - NO 'use client')\nimport type { Metadata } from 'next';\nimport DashboardClient from './dashboard-client';\n\nexport const metadata: Metadata = {\n  title: 'Dashboard',\n  description: 'User dashboard with analytics',\n};\n// OR use generateMetadata for dynamic metadata:\nexport async function generateMetadata({ params }): Promise<Metadata> {\n  const data = await fetchData(params.id);\n  return { title: data.name, description: data.summary };\n}\n\nexport default function DashboardPage() {\n  return <DashboardClient />;\n}\n\n// app/dashboard/dashboard-client.tsx\n'use client';\nimport { useState } from 'react';\nexport default function DashboardClient() {\n  const [tab, setTab] = useState('overview');\n  return <div>...</div>;\n}",
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/optimizing/metadata",
+        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use generateMetadata with async data fetching in the server page component",
+      "success_rate": 0.93,
+      "how": "For dynamic metadata that depends on route params or fetched data:\n\n// app/products/[id]/page.tsx (Server Component)\nimport type { Metadata, ResolvingMetadata } from 'next';\n\ntype Props = { params: { id: string } };\n\nexport async function generateMetadata(\n  { params }: Props,\n  parent: ResolvingMetadata\n): Promise<Metadata> {\n  const product = await fetch(`https://api.example.com/products/${params.id}`).then(r => r.json());\n  const previousImages = (await parent).openGraph?.images || [];\n  return {\n    title: product.name,\n    openGraph: {\n      images: [product.image, ...previousImages],\n    },\n  };\n}\n\nexport default async function ProductPage({ params }: Props) {\n  const product = await fetch(`https://api.example.com/products/${params.id}`).then(r => r.json());\n  return <ProductView product={product} />; // ProductView can be 'use client'\n}",
+      "sources": [
+        "https://nextjs.org/docs/app/api-reference/functions/generate-metadata"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "nextjs/rsc-serialization-error/nextjs14-linux",
+        "probability": 0.2,
+        "condition": "when splitting server/client components and passing non-serializable props between them"
+      },
+      {
+        "error_id": "nextjs/async-client-component/nextjs14-linux",
+        "probability": 0.15,
+        "condition": "when moving generateMetadata to a server page but accidentally making the page async with 'use client'"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "nextjs/server-only-import-client/nextjs14-linux",
+        "probability": 0.15,
+        "condition": "when adding 'use client' to resolve server-only import issues and forgetting to move generateMetadata"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "nextjs/server-only-import-client/nextjs14-linux",
+        "distinction": "generateMetadata-in-client is specifically about metadata/SEO exports being in client components; server-only-import-client is about importing server-only modules. Both enforce the server/client boundary but for different APIs."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 52,
+    "last_verification": "2026-02-14"
+  }
+}

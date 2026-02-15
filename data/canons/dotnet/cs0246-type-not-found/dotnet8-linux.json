@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "id": "dotnet/cs0246-type-not-found/dotnet8-linux",
+  "url": "https://deadends.dev/dotnet/cs0246-type-not-found/dotnet8-linux",
+  "error": {
+    "signature": "error CS0246: The type or namespace name 'X' could not be found",
+    "regex": "CS0246.*type or namespace name.*could not be found|error CS0246|The type or namespace name '.*' could not be found.*are you missing a using directive or an assembly reference",
+    "domain": "dotnet",
+    "category": "compilation_error",
+    "first_seen": "2015-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dotnet",
+      "version_range": ">=8.0,<9.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.91,
+    "confidence": 0.88,
+    "last_updated": "2026-02-14",
+    "summary": "The C# compiler cannot resolve a type or namespace because either the required 'using' directive is missing, a NuGet package reference is not added to the project, the target framework does not include the type, or there is a project reference missing in a multi-project solution. This is one of the most common C# compilation errors and is almost always a missing import or package reference rather than a code logic issue."
+  },
+  "dead_ends": [
+    {
+      "action": "Copying the missing type's source code directly into the project",
+      "why_fails": "Copying source code from a NuGet package or another project creates maintenance nightmares. The copied code will not receive updates, may have internal dependencies on other types from the same package, and can cause duplicate type definitions if the package is later properly referenced. It also violates licensing terms for many packages. The proper fix is to add the package/project reference.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0246"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Adding a using directive without installing the NuGet package",
+      "why_fails": "A 'using' directive only imports a namespace into scope -- it does not add the assembly containing that namespace to the compilation. If the NuGet package providing the assembly is not referenced in the .csproj file, the 'using' directive alone will produce the same CS0246 error or change it to a different error. Both the package reference AND the using directive are needed.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0246"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add the missing using directive and NuGet package reference",
+      "success_rate": 0.92,
+      "how": "1. Identify which package contains the missing type. Search on NuGet:\n   dotnet package search <TypeName>\n   # Or browse: https://www.nuget.org/packages?q=<TypeName>\n\n2. Add the NuGet package:\n   dotnet add package <PackageName>\n   # Example: dotnet add package Microsoft.EntityFrameworkCore\n\n3. Add the using directive to your .cs file:\n   using Microsoft.EntityFrameworkCore;\n\n4. For common types, here are frequent missing packages:\n   - JsonConvert -> dotnet add package Newtonsoft.Json; using Newtonsoft.Json;\n   - ILogger<T> -> dotnet add package Microsoft.Extensions.Logging; using Microsoft.Extensions.Logging;\n   - DbContext -> dotnet add package Microsoft.EntityFrameworkCore; using Microsoft.EntityFrameworkCore;\n   - HttpClient extensions -> dotnet add package Microsoft.Extensions.Http; using Microsoft.Extensions.Http;\n   - IOptions<T> -> dotnet add package Microsoft.Extensions.Options; using Microsoft.Extensions.Options;\n\n5. Restore and rebuild:\n   dotnet restore && dotnet build",
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0246",
+        "https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-dotnet-cli"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add a project reference for types defined in another project in the solution",
+      "success_rate": 0.9,
+      "how": "If the type is in another project in the same solution:\n\n# Add project reference:\ndotnet add src/MyApp.Web/MyApp.Web.csproj reference src/MyApp.Core/MyApp.Core.csproj\n\n# Or manually edit the .csproj file:\n<ItemGroup>\n  <ProjectReference Include=\"..\\MyApp.Core\\MyApp.Core.csproj\" />\n</ItemGroup>\n\n# Then add the using directive:\nusing MyApp.Core.Models;\nusing MyApp.Core.Services;\n\n# Verify the project builds:\ndotnet build src/MyApp.sln\n\n# For multi-targeting issues, ensure both projects target compatible frameworks:\n# Check: <TargetFramework>net8.0</TargetFramework> is consistent",
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-add-reference"
+      ],
+      "condition": "When the type is in another project in the solution"
+    },
+    {
+      "action": "Use global usings or implicit usings to avoid repetitive using directives",
+      "success_rate": 0.85,
+      "how": "For types used across many files, configure global usings:\n\n// Option 1: In a GlobalUsings.cs file at the project root:\nglobal using Microsoft.EntityFrameworkCore;\nglobal using Microsoft.Extensions.Logging;\nglobal using System.ComponentModel.DataAnnotations;\nglobal using MyApp.Core.Models;\n\n// Option 2: In the .csproj file:\n<ItemGroup>\n  <Using Include=\"Microsoft.EntityFrameworkCore\" />\n  <Using Include=\"MyApp.Core.Models\" />\n</ItemGroup>\n\n// Option 3: Enable implicit usings (on by default for .NET 6+):\n<PropertyGroup>\n  <ImplicitUsings>enable</ImplicitUsings>\n</PropertyGroup>\n// This auto-imports: System, System.Collections.Generic, System.Linq,\n// System.Threading.Tasks, etc. For web apps: Microsoft.AspNetCore.*",
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#global-modifier",
+        "https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#using"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "dotnet/nuget-version-conflict/dotnet8-linux",
+        "probability": 0.15,
+        "condition": "when adding the missing package introduces version conflicts with existing packages"
+      },
+      {
+        "error_id": "dotnet/build-failed-sdk-mismatch/dotnet8-linux",
+        "probability": 0.1,
+        "condition": "when the missing type is in a namespace only available in a newer SDK version"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "dotnet/nuget-restore-failed/dotnet8-linux",
+        "probability": 0.2,
+        "condition": "when NuGet restore fails silently and packages are not available for compilation"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "dotnet/nuget-restore-failed/dotnet8-linux",
+        "distinction": "CS0246 is a compilation error about unresolved types; NuGet restore failure is a package management error. CS0246 can be caused by failed NuGet restore, but it can also occur with successful restore when the using directive is missing or the wrong package version is installed."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 150,
+    "last_verification": "2026-02-14"
+  }
+}

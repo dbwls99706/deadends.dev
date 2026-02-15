@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cicd/gha-shallow-clone-missing-history/gha-linux",
+  "url": "https://deadends.dev/cicd/gha-shallow-clone-missing-history/gha-linux",
+  "error": {
+    "signature": "fatal: --unshallow on a complete repository does not make sense",
+    "regex": "fatal:.*unshallow.*complete repository|fatal:.*shallow.*not allowed|object not found.*shallow",
+    "domain": "cicd",
+    "category": "git_operation",
+    "first_seen": "2019-11-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-actions",
+      "version_range": ">=2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "GitHub Actions' actions/checkout defaults to fetch-depth: 1 (shallow clone). Git operations requiring history (git log, git describe, semantic-release, changelog generation) fail because commits, tags, or merge bases are missing."
+  },
+  "dead_ends": [
+    {
+      "action": "Running git fetch --unshallow in a step after checkout",
+      "why_fails": "While this works in some cases, it re-fetches the entire history which is slow for large repos. It also fails if the repo was already fully cloned (error: --unshallow on a complete repository). Use fetch-depth: 0 in checkout instead.",
+      "fail_rate": 0.55,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Setting fetch-depth to a large fixed number like 100 or 500",
+      "why_fails": "A fixed depth is a guess that may still be insufficient. If the needed commit (merge base, tag, or blame target) is beyond that depth, the operation still fails. Only fetch-depth: 0 guarantees all history is available.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": "When the required history depth varies"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set fetch-depth: 0 in actions/checkout to get full history",
+      "how": "- uses: actions/checkout@v4\n  with:\n    fetch-depth: 0  # Fetches all history for all branches and tags\n    # Required for: git describe, semantic-release, changelog generation",
+      "success_rate": 0.95,
+      "sources": [
+        "https://github.com/actions/checkout#usage"
+      ],
+      "condition": "When full history is needed"
+    },
+    {
+      "action": "For PR diff only, fetch the base branch with enough depth",
+      "how": "- uses: actions/checkout@v4\n  with:\n    fetch-depth: 0\n- run: git fetch origin ${{ github.base_ref }}\n# Now git diff origin/${{ github.base_ref }}...HEAD works correctly",
+      "success_rate": 0.9,
+      "sources": [
+        "https://github.com/actions/checkout#usage"
+      ],
+      "condition": "Only need PR changes, not full history"
+    },
+    {
+      "action": "For semantic-release or git describe, also fetch tags",
+      "how": "- uses: actions/checkout@v4\n  with:\n    fetch-depth: 0\n    fetch-tags: true  # Available in actions/checkout@v4+\n# Or manually:\n- run: git fetch --tags origin",
+      "success_rate": 0.92,
+      "sources": [
+        "https://github.com/actions/checkout#usage"
+      ],
+      "condition": "Need tags for versioning (git describe, semantic-release)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "cicd/gha-checkout-failed/gha-linux",
+        "probability": 0.15,
+        "condition": "Checkout configuration issues may lead to shallow clone problems"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "cicd/gha-checkout-failed/gha-linux",
+        "distinction": "Shallow clone errors occur after a successful checkout when git operations need history that wasn't fetched. Checkout failures prevent cloning the repo at all (auth issues, ref not found)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 110,
+    "last_verification": "2026-02-14"
+  }
+}

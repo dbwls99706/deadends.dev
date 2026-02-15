@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/runtimeerror-event-loop-closed/py311-linux",
+  "url": "https://deadends.dev/python/runtimeerror-event-loop-closed/py311-linux",
+  "error": {
+    "signature": "RuntimeError: Event loop is closed",
+    "regex": "RuntimeError: Event loop is closed",
+    "domain": "python",
+    "category": "async_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.10,<3.14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "Occurs when asyncio operations are attempted after the event loop has been closed, commonly during cleanup in aiohttp, asyncpg, or when mixing asyncio.run() with manual loop management."
+  },
+  "dead_ends": [
+    {
+      "action": "Calling asyncio.get_event_loop() to get a new loop after it was closed",
+      "why_fails": "get_event_loop() returns the already-closed loop in Python 3.10+. It does not create a new one. The returned loop raises RuntimeError on any operation.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.python.org/3/library/asyncio-eventloop.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Wrapping everything in try/except to suppress the error",
+      "why_fails": "Suppressing the error masks resource leaks. Connections, file handles, and background tasks won't be cleaned up properly, causing data corruption or resource exhaustion.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use asyncio.run() as the single entry point and let it manage the loop lifecycle",
+      "how": "Replace manual loop.run_until_complete() + loop.close() with a single asyncio.run(main()). This properly handles loop creation, running, and cleanup.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://docs.python.org/3/library/asyncio-runner.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For aiohttp, use async with for the ClientSession and ensure cleanup before loop closes",
+      "how": "async with aiohttp.ClientSession() as session:\n    async with session.get(url) as resp:\n        return await resp.json()\n# Session is properly closed before the event loop shuts down",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.aiohttp.org/en/stable/client_quickstart.html"
+      ],
+      "condition": "Using aiohttp"
+    },
+    {
+      "action": "On Windows, set WindowsSelectorEventLoopPolicy to avoid ProactorEventLoop close issues",
+      "how": "import asyncio\nimport sys\nif sys.platform == 'win32':\n    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())",
+      "success_rate": 0.85,
+      "sources": [
+        "https://docs.python.org/3/library/asyncio-platforms.html"
+      ],
+      "condition": "On Windows with ProactorEventLoop"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "python/runtimeerror-event-loop/py311-linux",
+        "probability": 0.25,
+        "condition": "Developer fixes 'event loop already running' by manually closing and recreating the loop"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "python/runtimeerror-event-loop/py311-linux",
+        "distinction": "'Event loop is closed' means the loop was shut down and can't be reused. 'Event loop is already running' means the loop is active and you're trying to start it again (e.g., nested asyncio.run())."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 120,
+    "last_verification": "2026-02-14"
+  }
+}

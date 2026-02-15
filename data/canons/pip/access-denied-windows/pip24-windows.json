@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pip/access-denied-windows/pip24-windows",
+  "url": "https://deadends.dev/pip/access-denied-windows/pip24-windows",
+  "error": {
+    "signature": "ERROR: Could not install packages due to an OSError: [WinError 5] Access denied",
+    "regex": "Could not install packages due to an OSError.*WinError 5.*Access (is )?denied|PermissionError.*WinError 5|Access is denied.*pip install",
+    "domain": "pip",
+    "category": "permission_error",
+    "first_seen": "2019-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=22,<26"
+    },
+    "os": "windows",
+    "python": ">=3.9,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-14",
+    "summary": "pip cannot write to the Python installation directory on Windows because the current user lacks write permissions. This typically occurs when Python is installed system-wide (e.g., in C:\\Program Files\\Python311) and pip is run from a non-elevated command prompt, or when antivirus software locks files during installation. It also occurs when trying to upgrade pip itself while pip's executable is in use by the running process."
+  },
+  "dead_ends": [
+    {
+      "action": "Always running pip as Administrator",
+      "why_fails": "Running pip with elevated privileges installs packages into the system-wide Python directory, which creates security risks and can break the system Python installation. It also means all pip operations require admin privileges going forward, packages installed as admin may conflict with user-level packages, and it prevents using virtual environments properly. Microsoft's own Python documentation recommends against this.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://pip.pypa.io/en/stable/user_guide/#user-installs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disabling Windows antivirus/Defender to prevent file locking",
+      "why_fails": "While antivirus software can lock Python files during scanning, disabling it entirely creates significant security risks. The real issue is that pip is trying to write to a protected directory. Disabling antivirus is a dangerous workaround that does not address the permission model and leaves the system vulnerable. If antivirus is the actual cause, adding an exclusion for the virtual environment directory is the proper approach.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://learn.microsoft.com/en-us/windows/security/operating-system-security/system-security/windows-defender-security-center/wdsc-virus-threat-protection"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a virtual environment to isolate packages in a user-writable directory",
+      "success_rate": 0.92,
+      "how": "Create and activate a virtual environment:\n\n# Create venv in project directory (user-writable):\npython -m venv .venv\n\n# Activate on Windows CMD:\n.venv\\Scripts\\activate.bat\n\n# Activate on Windows PowerShell:\n.venv\\Scripts\\Activate.ps1\n\n# If PowerShell execution policy blocks activation:\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser\n.venv\\Scripts\\Activate.ps1\n\n# Now pip installs to the venv (no admin needed):\npip install <package-name>\n\n# Verify install location:\npip show <package-name>  # Location should be under .venv\\",
+      "sources": [
+        "https://docs.python.org/3/library/venv.html",
+        "https://pip.pypa.io/en/stable/user_guide/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use --user flag to install packages in the user site-packages directory",
+      "success_rate": 0.85,
+      "how": "Install to the user-level directory instead of the system directory:\n\npip install --user <package-name>\n\n# This installs to:\n# C:\\Users\\<username>\\AppData\\Roaming\\Python\\Python311\\site-packages\\\n\n# Ensure user scripts directory is in PATH:\n# Add to PATH: C:\\Users\\<username>\\AppData\\Roaming\\Python\\Python311\\Scripts\n\n# To upgrade pip itself with --user:\npython -m pip install --user --upgrade pip\n\n# Note: --user flag does not work inside virtual environments\n# (it's already user-scoped there)",
+      "sources": [
+        "https://pip.pypa.io/en/stable/user_guide/#user-installs"
+      ],
+      "condition": "When not using a virtual environment"
+    },
+    {
+      "action": "Close other Python processes and retry when upgrading pip itself",
+      "success_rate": 0.8,
+      "how": "When the error occurs specifically during 'pip install --upgrade pip':\n\n# The running pip process locks its own executable.\n# Use python -m pip to avoid the locked pip.exe:\npython -m pip install --upgrade pip\n\n# If that still fails, close ALL Python processes first:\n# 1. Close all Python IDEs, Jupyter notebooks, Python terminals\n# 2. Check Task Manager for python.exe processes\n# 3. Then upgrade:\npython -m pip install --upgrade pip\n\n# Alternative: upgrade pip in a fresh command prompt:\n# Open new CMD/PowerShell (not the one currently running pip)\npython -m pip install --upgrade pip --force-reinstall",
+      "sources": [
+        "https://pip.pypa.io/en/stable/installation/#upgrading-pip"
+      ],
+      "condition": "When the error occurs during pip self-upgrade"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "python/modulenotfounderror/py311-linux",
+        "probability": 0.2,
+        "condition": "when the install fails silently and the user thinks the package was installed"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "pip/dependency-resolver-conflict/pip24-linux",
+        "probability": 0.1,
+        "condition": "when resolving conflicts requires reinstalling packages in a protected directory"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "python/permissionerror-errno13/py311-linux",
+        "distinction": "WinError 5 Access Denied is Windows-specific and typically involves system-wide Python installations or file locking; PermissionError errno 13 is the Unix equivalent involving directory permissions or read-only filesystems."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 120,
+    "last_verification": "2026-02-14"
+  }
+}

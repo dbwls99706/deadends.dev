@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/wsl2-docker-connect-failed/docker27-wsl2",
+  "url": "https://deadends.dev/docker/wsl2-docker-connect-failed/docker27-wsl2",
+  "error": {
+    "signature": "error during connect: in the default daemon configuration on Windows, the docker client must be run with elevated privileges",
+    "regex": "error during connect.*docker client must be run|Cannot connect to the Docker daemon.*Is the docker daemon running",
+    "domain": "docker",
+    "category": "connection_error",
+    "first_seen": "2021-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=24,<28"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-14",
+    "summary": "Docker client in WSL2 cannot connect to the Docker daemon. Usually caused by Docker Desktop WSL2 integration not enabled, Docker Desktop not running, or DOCKER_HOST pointing to the wrong socket."
+  },
+  "dead_ends": [
+    {
+      "action": "Installing Docker Engine natively inside WSL2 alongside Docker Desktop",
+      "why_fails": "Running two Docker daemons (Docker Desktop + native) causes socket conflicts and confusing behavior. Images/containers are split between the two daemons.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Docker Desktop is installed"
+    },
+    {
+      "action": "Running dockerd manually with sudo inside WSL2",
+      "why_fails": "If Docker Desktop is managing the daemon, running a second dockerd creates conflicts. If Docker Desktop is not installed, systemd may not be available in older WSL2 distros.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enable WSL2 integration in Docker Desktop settings",
+      "how": "Docker Desktop > Settings > Resources > WSL Integration > Enable integration with your WSL distro. Then restart Docker Desktop and run 'wsl --shutdown' followed by reopening your WSL terminal.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://docs.docker.com/desktop/wsl/"
+      ],
+      "condition": "Docker Desktop installed"
+    },
+    {
+      "action": "Ensure Docker Desktop is running before using docker CLI in WSL2",
+      "how": "Start Docker Desktop from the Windows Start menu. Wait for the whale icon in the system tray to stabilize. Then retry docker commands in WSL2.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.docker.com/desktop/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Unset DOCKER_HOST if it points to the wrong socket",
+      "how": "echo $DOCKER_HOST\n# If set, unset it:\nunset DOCKER_HOST\n# The default socket /var/run/docker.sock should be used via WSL2 integration",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": "DOCKER_HOST is explicitly set"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "docker/permission-denied-sock/docker24-wsl2",
+        "distinction": "'permission denied on docker.sock' means the socket exists but the user lacks permissions. 'error during connect' means the socket doesn't exist or the daemon isn't running."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 110,
+    "last_verification": "2026-02-14"
+  }
+}

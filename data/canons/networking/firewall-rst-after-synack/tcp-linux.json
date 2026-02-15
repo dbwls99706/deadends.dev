@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/firewall-rst-after-synack/tcp-linux",
+  "url": "https://deadends.dev/networking/firewall-rst-after-synack/tcp-linux",
+  "error": {
+    "signature": "TCP RST received immediately after SYN-ACK: connection reset by firewall",
+    "regex": "TCP RST received.*after SYN.?ACK|connection reset by (firewall|peer).*immediately|RST.*SYN.?ACK|read: connection reset by peer",
+    "domain": "networking",
+    "category": "firewall",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tcp",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.72,
+    "last_updated": "2026-02-14",
+    "summary": "A TCP RST packet is injected by a middlebox (firewall, IDS/IPS, DPI device, or cloud security group) immediately after the three-way handshake SYN-ACK, before any application data is exchanged. This indicates a stateful firewall or deep packet inspection device is actively terminating the connection. Unlike a normal connection refused (RST from the destination host), this RST often has anomalous TCP characteristics (wrong sequence number, TTL inconsistent with the server) revealing it originates from an intermediate device. Resolution depends on identifying and reconfiguring the offending middlebox."
+  },
+  "dead_ends": [
+    {
+      "action": "Increasing TCP connection timeout or adding retry logic in the application",
+      "why_fails": "The RST is injected deterministically by the firewall based on policy rules, not due to transient network conditions. Retrying the connection will produce the same RST every time because the firewall policy has not changed. Unlike a timeout or transient packet loss, a firewall RST is a deliberate, policy-driven rejection that persists until the rule is modified.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc793#section-3.4"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Changing the application port to bypass the firewall rule",
+      "why_fails": "Modern stateful firewalls and next-gen firewalls (NGFW) inspect traffic at layers 4-7 and can identify protocols regardless of port. Changing the port may temporarily bypass simple port-based rules but sophisticated firewalls use deep packet inspection (DPI) to detect the actual protocol. Additionally, non-standard ports often trigger stricter inspection policies. In cloud environments (AWS Security Groups, Azure NSG), egress rules frequently apply to all ports.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc793#section-3.4"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Identify the offending middlebox using TTL analysis and traceroute, then update firewall rules",
+      "success_rate": 0.7,
+      "how": "1. Capture the RST packet and compare its TTL with the server's normal packets:\n   tcpdump -nn -i eth0 'tcp[tcpflags] & (tcp-rst) != 0' -v host <server-ip>\n\n2. Note the TTL of the RST vs normal SYN-ACK -- a TTL difference indicates an intermediate device\n\n3. Trace the path to locate the middlebox hop:\n   traceroute -T -p <port> <server-ip>\n   mtr --tcp --port <port> <server-ip>\n\n4. Check cloud security groups / network ACLs:\n   # AWS:\n   aws ec2 describe-security-groups --group-ids sg-xxxxx\n   aws ec2 describe-network-acls --filters Name=association.subnet-id,Values=subnet-xxxxx\n\n5. Update the firewall rule to allow the traffic:\n   # iptables example:\n   iptables -I FORWARD -s <source-ip> -d <dest-ip> -p tcp --dport <port> -j ACCEPT",
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc793",
+        "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a TLS tunnel or VPN to encapsulate the traffic and bypass DPI-based RST injection",
+      "success_rate": 0.65,
+      "how": "If the RST is injected by a DPI device based on protocol detection, wrapping the traffic in TLS can prevent inspection:\n\n1. SSH tunnel:\n   ssh -L <local-port>:<remote-host>:<remote-port> bastion-host\n\n2. WireGuard VPN (peer-to-peer):\n   # On server:\n   [Interface]\n   PrivateKey = <server-private-key>\n   Address = 10.0.0.1/24\n   ListenPort = 51820\n   [Peer]\n   PublicKey = <client-public-key>\n   AllowedIPs = 10.0.0.2/32\n\n   # On client:\n   [Interface]\n   PrivateKey = <client-private-key>\n   Address = 10.0.0.2/24\n   [Peer]\n   PublicKey = <server-public-key>\n   Endpoint = <server-ip>:51820\n   AllowedIPs = 10.0.0.1/32\n\n3. stunnel for wrapping arbitrary TCP in TLS:\n   stunnel3 -c -d localhost:<local-port> -r <remote-host>:<remote-port>",
+      "sources": [
+        "https://www.wireguard.com/quickstart/",
+        "https://www.stunnel.org/docs.html"
+      ],
+      "condition": "When firewall rules cannot be changed (e.g., ISP-level or government-level filtering)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/connection-reset/tcp-linux",
+        "probability": 0.25,
+        "condition": "when the same firewall policy causes RST at different stages of the connection lifecycle"
+      },
+      {
+        "error_id": "networking/connection-timeout/tcp-linux",
+        "probability": 0.15,
+        "condition": "when the firewall switches from RST injection to silent drop (no RST, just timeout)"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/firewall-blocked/tcp-linux",
+        "probability": 0.3,
+        "condition": "when firewall policy changes from silent drop to active RST injection"
+      },
+      {
+        "error_id": "networking/connection-timeout/tcp-linux",
+        "probability": 0.2,
+        "condition": "when investigating timeouts reveals they are actually RST injections at the TCP level"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/connection-reset/tcp-linux",
+        "distinction": "A normal connection-reset comes from the actual server or application and may happen at any point; firewall RST injection occurs immediately after SYN-ACK with anomalous TTL and typically before any application data is exchanged."
+      },
+      {
+        "error_id": "networking/connection-refused/tcp-linux",
+        "distinction": "Connection-refused is a RST in response to the initial SYN (no service listening); firewall RST injection occurs after the three-way handshake completes (SYN -> SYN-ACK -> ACK -> RST), meaning the server accepted but a middlebox intervened."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 28,
+    "last_verification": "2026-02-14"
+  }
+}

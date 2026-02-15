@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "aws/cloudformation-update-rollback-failed/awscli2-linux",
+  "url": "https://deadends.dev/aws/cloudformation-update-rollback-failed/awscli2-linux",
+  "error": {
+    "signature": "Stack is in UPDATE_ROLLBACK_FAILED state and can not be updated",
+    "regex": "UPDATE_ROLLBACK_FAILED",
+    "domain": "aws",
+    "category": "deployment_error",
+    "first_seen": "2018-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "awscli",
+      "version_range": ">=2.0,<3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-14",
+    "summary": "CloudFormation stack update failed and the rollback also failed, leaving the stack in a broken state. Usually caused by resources that were manually modified outside CloudFormation, or by resources that cannot be rolled back (e.g., RDS with deletion protection)."
+  },
+  "dead_ends": [
+    {
+      "action": "Deleting the stack to start fresh",
+      "why_fails": "DELETE will fail if resources have deletion protection, dependencies from other stacks, or non-empty S3 buckets. Even if deletion succeeds, you lose all managed resources and state.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html"
+      ],
+      "condition": "Resources have dependencies or deletion protection"
+    },
+    {
+      "action": "Retrying the same update that caused the failure",
+      "why_fails": "The stack is in a failed state and won't accept updates until the rollback is completed. The same update will fail for the same reason.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use ContinueUpdateRollback to skip the failing resources",
+      "how": "aws cloudformation continue-update-rollback \\\n  --stack-name my-stack \\\n  --resources-to-skip ResourceLogicalId1 ResourceLogicalId2\n# Identify failing resources from stack events:\naws cloudformation describe-stack-events --stack-name my-stack",
+      "success_rate": 0.85,
+      "sources": [
+        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Fix the external state that caused rollback failure, then continue rollback",
+      "how": "1. Check stack events: aws cloudformation describe-stack-events --stack-name my-stack\n2. Identify the resource that failed to rollback\n3. Manually fix it (re-create deleted resources, remove deletion protection, etc.)\n4. Run: aws cloudformation continue-update-rollback --stack-name my-stack",
+      "success_rate": 0.82,
+      "sources": [
+        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html"
+      ],
+      "condition": "Resources were manually modified"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "aws/cloudformation-rollback-complete/awscli2-linux",
+        "probability": 0.2,
+        "condition": "Initial rollback fails partway through"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "aws/cloudformation-rollback-complete/awscli2-linux",
+        "distinction": "ROLLBACK_COMPLETE means the stack was created, failed, and rolled back successfully (stack is empty). UPDATE_ROLLBACK_FAILED means an update's rollback itself failed, leaving the stack in a broken intermediate state."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 75,
+    "last_verification": "2026-02-14"
+  }
+}

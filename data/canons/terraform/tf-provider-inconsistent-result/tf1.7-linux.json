@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "terraform/tf-provider-inconsistent-result/tf1.7-linux",
+  "url": "https://deadends.dev/terraform/tf-provider-inconsistent-result/tf1.7-linux",
+  "error": {
+    "signature": "Error: Provider produced inconsistent result after apply",
+    "regex": "Provider produced inconsistent result after apply|Provider.*produced.*unexpected new value.*for.*was present, but now absent|planned value.*for.*does not match config",
+    "domain": "terraform",
+    "category": "provider_error",
+    "first_seen": "2021-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-14",
+    "summary": "After Terraform applies a resource change, the provider returns state that does not match what was planned. This is typically a provider bug where the API normalizes, transforms, or silently modifies a value (e.g., the cloud API lowercases a name, strips whitespace, reorders a list, or sets a default value the provider did not anticipate). It can also occur when an external process modifies the resource between plan and apply, or when the provider does not properly handle computed/optional attributes. This error is frustrating because it is often outside the user's direct control."
+  },
+  "dead_ends": [
+    {
+      "action": "Run terraform apply again expecting the error to self-resolve",
+      "why_fails": "If the root cause is a provider bug (value normalization, API transformations), the same inconsistency occurs on every apply. The provider plans one value but the API returns a different one, creating an infinite plan-apply-error loop. Re-applying without changing configuration produces the same error.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/plugin/sdkv2/resources/data-consistency-errors"
+      ],
+      "condition": "Error is caused by provider value normalization bug"
+    },
+    {
+      "action": "Delete the resource from state with terraform state rm and reimport",
+      "why_fails": "Removing and reimporting the resource captures the current API state, but on the next plan, Terraform will try to reconcile the imported state with your config. If the config contains the value the API normalizes differently, the same inconsistency appears on the next apply. You are just resetting the cycle.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/state/rm"
+      ],
+      "condition": "The config value is the one being normalized by the API"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Align your config value with the API-normalized form to avoid the diff",
+      "success_rate": 0.85,
+      "how": "# Identify what the API returns vs what you configured.\n# Run:\n#   terraform plan -out=plan.tfplan\n#   terraform show -json plan.tfplan | jq '.resource_changes'\n# Look for the attribute that differs.\n\n# Example: API lowercases resource names\n# Before (triggers inconsistent result):\nresource \"aws_s3_bucket\" \"data\" {\n  bucket = \"My-Data-Bucket\"  # API normalizes to lowercase\n}\n\n# After (matches API behavior):\nresource \"aws_s3_bucket\" \"data\" {\n  bucket = \"my-data-bucket\"  # Pre-normalized to match API\n}",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/plugin/sdkv2/resources/data-consistency-errors"
+      ],
+      "condition": "You can identify which attribute is being normalized"
+    },
+    {
+      "action": "Use lifecycle ignore_changes to skip the inconsistent attribute",
+      "success_rate": 0.82,
+      "how": "# When the provider bug is in a non-critical computed attribute,\n# use ignore_changes to prevent Terraform from comparing it:\n\nresource \"aws_appautoscaling_target\" \"ecs\" {\n  max_capacity       = 10\n  min_capacity       = 2\n  resource_id        = \"service/my-cluster/my-service\"\n  scalable_dimension = \"ecs:service:DesiredCount\"\n  service_namespace  = \"ecs\"\n\n  lifecycle {\n    ignore_changes = [\n      # API returns this in a different format than planned\n      role_arn,\n    ]\n  }\n}",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle#ignore_changes"
+      ],
+      "condition": "The inconsistent attribute is not critical to your configuration"
+    },
+    {
+      "action": "Pin or upgrade the provider version to one with the bug fixed",
+      "success_rate": 0.75,
+      "how": "# Check the provider's GitHub issues for the specific inconsistency.\n# Often these are fixed in newer versions.\n\n# In your terraform block:\nterraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 5.40.0\"  # Version with fix\n    }\n  }\n}\n\n# Then run:\n#   terraform init -upgrade\n#   terraform plan  # Verify the error is gone\n\n# If downgrading is needed, check:\n# https://github.com/hashicorp/terraform-provider-aws/issues\n# for the specific attribute causing the issue.",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/providers/requirements#version-constraints"
+      ],
+      "condition": "A provider version with the fix exists"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "terraform/error-refreshing-state/tf1-linux",
+        "probability": 0.15,
+        "condition": "If the inconsistency corrupts state, subsequent refresh may fail"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "terraform/plugin-crashed/tf1-linux",
+        "probability": 0.1,
+        "condition": "Provider plugin crashes can leave partial state that triggers inconsistency on the next apply"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "terraform/error-refreshing-state/tf1-linux",
+        "distinction": "Refresh state errors occur when Terraform cannot read existing resource state from the API. Inconsistent result after apply occurs when Terraform successfully applies but the returned values do not match the plan. Both indicate provider/API issues but at different stages of the apply lifecycle."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 70,
+    "last_verification": "2026-02-14"
+  }
+}

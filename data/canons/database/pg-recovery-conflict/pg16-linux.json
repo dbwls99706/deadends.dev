@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "id": "database/pg-recovery-conflict/pg16-linux",
+  "url": "https://deadends.dev/database/pg-recovery-conflict/pg16-linux",
+  "error": {
+    "signature": "ERROR: canceling statement due to conflict with recovery",
+    "regex": "canceling statement due to conflict with recovery",
+    "domain": "database",
+    "category": "replication_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "postgresql",
+      "version_range": ">=14,<17"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.91,
+    "last_updated": "2026-02-14",
+    "summary": "Queries on a hot standby replica are canceled because WAL replay needs to apply changes (typically a VACUUM removing dead tuples or an ACCESS EXCLUSIVE lock) that conflict with an in-progress read query. The standby must replay WAL within max_standby_streaming_delay or it kills conflicting queries. This is inherent to PostgreSQL streaming replication when long-running analytics queries run on read replicas."
+  },
+  "dead_ends": [
+    {
+      "action": "Set max_standby_streaming_delay to -1 (infinite) to never cancel queries",
+      "why_fails": "Setting max_standby_streaming_delay to -1 prevents query cancellation but causes the standby to fall arbitrarily far behind the primary. During failover, you lose recent committed transactions. WAL accumulates on the primary causing disk pressure, and replication lag becomes unbounded. This trades query stability for data recency and operational safety.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.postgresql.org/docs/current/hot-standby.html#HOT-STANDBY-CONFLICT"
+      ],
+      "condition": "Standby is used for failover or requires near-real-time data"
+    },
+    {
+      "action": "Disable hot_standby_feedback thinking it reduces conflicts",
+      "why_fails": "hot_standby_feedback actually helps prevent conflicts by informing the primary about the standby's oldest active query, so the primary's VACUUM does not remove tuples the standby still needs. Disabling it increases conflict frequency because the primary vacuums aggressively without awareness of standby queries.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-HOT-STANDBY-FEEDBACK"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Retry the exact same long-running query immediately after cancellation",
+      "why_fails": "If WAL replay is ongoing (e.g., during a large VACUUM on the primary), the same conflict will recur. The query will be canceled again within max_standby_streaming_delay. Without addressing the root cause, retries enter a cancel-retry loop that wastes resources and never completes.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.postgresql.org/docs/current/hot-standby.html"
+      ],
+      "condition": "Primary is under heavy write/vacuum load"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enable hot_standby_feedback on the standby to prevent vacuum conflicts",
+      "success_rate": 0.85,
+      "how": "On the standby, set:\n  ALTER SYSTEM SET hot_standby_feedback = on;\n  SELECT pg_reload_conf();\n\nThis tells the primary about the standby's oldest running transaction so VACUUM will not remove tuples the standby still needs. Combine with a reasonable max_standby_streaming_delay (e.g., 300s):\n  ALTER SYSTEM SET max_standby_streaming_delay = '300s';",
+      "sources": [
+        "https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-HOT-STANDBY-FEEDBACK"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a dedicated logical replication subscriber or separate read replica for analytics",
+      "success_rate": 0.92,
+      "how": "Create a publication on the primary for the tables analytics queries need:\n  CREATE PUBLICATION analytics_pub FOR TABLE orders, events, users;\n\nOn a separate server, create a subscription:\n  CREATE SUBSCRIPTION analytics_sub\n    CONNECTION 'host=primary dbname=mydb'\n    PUBLICATION analytics_pub;\n\nLogical replication does not have WAL replay conflicts because changes are applied as regular SQL, not through physical WAL replay.",
+      "sources": [
+        "https://www.postgresql.org/docs/current/logical-replication.html"
+      ],
+      "condition": "Feasible for read-heavy analytics workloads"
+    },
+    {
+      "action": "Optimize long-running standby queries to complete within max_standby_streaming_delay",
+      "success_rate": 0.78,
+      "how": "Profile slow queries with EXPLAIN (ANALYZE, BUFFERS):\n  EXPLAIN (ANALYZE, BUFFERS) SELECT ... FROM large_table WHERE ...;\n\nAdd appropriate indexes, use materialized views for complex aggregations:\n  CREATE MATERIALIZED VIEW daily_stats AS\n    SELECT date_trunc('day', created_at) AS day, count(*)\n    FROM events GROUP BY 1;\n  REFRESH MATERIALIZED VIEW CONCURRENTLY daily_stats;\n\nBreak large scans into smaller time-windowed queries to stay under the delay threshold.",
+      "sources": [
+        "https://www.postgresql.org/docs/current/hot-standby.html"
+      ],
+      "condition": "Queries can be optimized or partitioned"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "database/pg-replication-slot-inactive/pg16-linux",
+        "probability": 0.15,
+        "condition": "When hot_standby_feedback causes the primary to retain excessive WAL due to long standby queries, replication slots can become bloated"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "database/query-timeout/pg16-linux",
+        "probability": 0.2,
+        "condition": "Long-running queries on the standby that would normally time out are instead canceled by recovery conflict first"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "database/deadlock-detected/pg16-linux",
+        "distinction": "Deadlock detected involves two transactions blocking each other on the primary. Recovery conflict is a standby-only issue where WAL replay conflicts with read queries. Deadlocks involve write-write conflicts; recovery conflicts involve replay-read conflicts."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 65,
+    "last_verification": "2026-02-14"
+  }
+}

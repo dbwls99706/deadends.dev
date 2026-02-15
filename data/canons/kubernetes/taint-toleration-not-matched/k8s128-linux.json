@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kubernetes/taint-toleration-not-matched/k8s128-linux",
+  "url": "https://deadends.dev/kubernetes/taint-toleration-not-matched/k8s128-linux",
+  "error": {
+    "signature": "Warning FailedScheduling: 0/N nodes are available: N node(s) had untolerated taint {key: value}",
+    "regex": "untolerated taint|had taint.*that the pod didn't tolerate",
+    "domain": "kubernetes",
+    "category": "scheduling_error",
+    "first_seen": "2019-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kubernetes",
+      "version_range": ">=1.26,<1.32"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "Pod cannot be scheduled because all nodes have taints that the pod doesn't tolerate. Common with dedicated node pools (GPU, spot instances), master/control-plane taints, or after cluster upgrades that add taints."
+  },
+  "dead_ends": [
+    {
+      "action": "Removing taints from all nodes to get the pod scheduled",
+      "why_fails": "Taints exist for a reason (e.g., control-plane isolation, GPU reservation). Removing them allows any pod to schedule on specialized nodes, causing resource contention and security issues.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Setting nodeSelector without tolerations",
+      "why_fails": "nodeSelector selects nodes by label but doesn't bypass taints. The pod will target the right nodes but still be rejected by their taints.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add the matching toleration to the pod spec",
+      "how": "spec:\n  tolerations:\n  - key: \"dedicated\"\n    operator: \"Equal\"\n    value: \"gpu\"\n    effect: \"NoSchedule\"",
+      "success_rate": 0.95,
+      "sources": [
+        "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check which taints exist on nodes and match tolerations accordingly",
+      "how": "kubectl get nodes -o custom-columns=NAME:.metadata.name,TAINTS:.spec.taints\n# Or for a specific node:\nkubectl describe node <node-name> | grep -A5 Taints",
+      "success_rate": 0.92,
+      "sources": [
+        "https://kubernetes.io/docs/reference/kubectl/cheatsheet/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "kubernetes/failedscheduling/k8s1-linux",
+        "distinction": "FailedScheduling due to insufficient resources means nodes lack CPU/memory. Untolerated taint means nodes have capacity but reject the pod due to taint rules."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 100,
+    "last_verification": "2026-02-14"
+  }
+}

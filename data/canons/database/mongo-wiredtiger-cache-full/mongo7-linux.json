@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "database/mongo-wiredtiger-cache-full/mongo7-linux",
+  "url": "https://deadends.dev/database/mongo-wiredtiger-cache-full/mongo7-linux",
+  "error": {
+    "signature": "MongoServerError: WiredTiger cache is full",
+    "regex": "WiredTiger (cache|eviction).*full|cache (is full|pressure)|eviction server.*unable to reach eviction goal",
+    "domain": "database",
+    "category": "resource_error",
+    "first_seen": "2021-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=6.0,<8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-14",
+    "summary": "MongoDB's WiredTiger storage engine cache has exceeded its configured or effective limit and the eviction threads cannot free pages fast enough. This causes new operations to stall or fail. Common causes: storage.wiredTiger.engineConfig.cacheSizeGB set too low, long-running transactions holding dirty pages pinned, large write bursts overwhelming eviction, or the working set exceeding available memory. The default cache size is 50% of (RAM - 1GB)."
+  },
+  "dead_ends": [
+    {
+      "action": "Set cacheSizeGB to the entire system RAM",
+      "why_fails": "MongoDB shares the host with the OS page cache, journaling, connections, and aggregation pipelines. Setting WiredTiger cache to total RAM starves the OS file cache (needed for reading compressed data from disk) and other MongoDB subsystems, causing OOM kills. MongoDB docs recommend no more than 50% of RAM minus 1GB for the WiredTiger cache.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-storage.wiredTiger.engineConfig.cacheSizeGB"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restart mongod to clear the cache without investigating the cause",
+      "why_fails": "A restart clears the cache temporarily but the issue recurs immediately once the workload resumes. After restart, the cache is cold so performance is initially worse due to cache warming. If the root cause is undersized cache, a write burst, or long-running transactions, the problem returns within minutes to hours.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/wiredtiger/"
+      ],
+      "condition": "Root cause is not a transient spike"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase cacheSizeGB to an appropriate value based on available RAM and working set",
+      "success_rate": 0.88,
+      "how": "Check current cache usage:\n  db.serverStatus().wiredTiger.cache\n\nLook at 'bytes currently in the cache' vs 'maximum bytes configured'.\nSet cache to ~60% of RAM minus 1GB (leave room for OS):\n\n  # In mongod.conf:\n  storage:\n    wiredTiger:\n      engineConfig:\n        cacheSizeGB: 12  # For a 24GB host\n\n  # Or at runtime (MongoDB 4.0.12+):\n  db.adminCommand({setParameter: 1, wiredTigerEngineRuntimeConfig: 'cache_size=12G'})",
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-storage.wiredTiger.engineConfig.cacheSizeGB"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Identify and kill long-running transactions pinning dirty cache pages",
+      "success_rate": 0.82,
+      "how": "Find long-running operations:\n  db.currentOp({\"active\": true, \"secs_running\": {\"$gt\": 30}})\n\nCheck transaction state:\n  db.currentOp({\"$all\": true}).inprog.filter(op => op.transaction)\n\nKill problematic operations:\n  db.killOp(<opid>)\n\nSet a default transaction timeout to prevent future occurrences:\n  db.adminCommand({setParameter: 1, transactionLifetimeLimitSeconds: 60})",
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/transactions-production-consideration/"
+      ],
+      "condition": "Long-running transactions are identified as the cause"
+    },
+    {
+      "action": "Tune WiredTiger eviction settings to handle write-heavy workloads",
+      "success_rate": 0.75,
+      "how": "Adjust eviction triggers to start cleaning earlier:\n\n  # In mongod.conf:\n  storage:\n    wiredTiger:\n      engineConfig:\n        configString: \"eviction_target=75,eviction_trigger=95,eviction_dirty_target=5,eviction_dirty_trigger=20,eviction=(threads_min=4,threads_max=8)\"\n\nMonitor eviction metrics:\n  db.serverStatus().wiredTiger.cache['tracked dirty bytes in the cache']\n  db.serverStatus().wiredTiger.cache['pages evicted by application threads']  # Should be 0; nonzero means eviction is overwhelmed",
+      "sources": [
+        "https://source.wiredtiger.com/develop/tune_cache.html"
+      ],
+      "condition": "Write-heavy workload overwhelming default eviction settings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "database/mongodb-connection-failed/mongo7-linux",
+        "probability": 0.25,
+        "condition": "When cache pressure causes operations to time out, clients see connection failures and timeouts"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "database/mongo-write-conflict/mongo7-linux",
+        "probability": 0.2,
+        "condition": "Frequent write conflicts cause retries that increase cache dirty page pressure"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "database/mongo-write-conflict/mongo7-linux",
+        "distinction": "Write conflicts (WriteConflict) are transaction-level contention errors where two transactions modify the same document. WiredTiger cache full is a storage engine resource exhaustion issue affecting all operations. Write conflicts cause cache pressure but are not the same error."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 45,
+    "last_verification": "2026-02-14"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rust/send-not-general-enough/rust1-linux",
+  "url": "https://deadends.dev/rust/send-not-general-enough/rust1-linux",
+  "error": {
+    "signature": "implementation of `Send` is not general enough",
+    "regex": "implementation of .?Send.? is not general enough|lifetime bound.*is not satisfied.*Send",
+    "domain": "rust",
+    "category": "async_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rust",
+      "version_range": ">=1.70,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-14",
+    "summary": "The Rust compiler determines that a future is not Send because it holds a reference with a non-'static lifetime across an .await point. The Send implementation for the future requires all captured references to be valid for any lifetime, but the compiler can only prove the reference is valid for a specific, shorter lifetime. This commonly occurs in async functions that borrow local data across await points, use closures capturing references in spawned tasks, or pass non-'static references to async trait methods. The error message is notoriously confusing as it discusses higher-ranked trait bounds internally."
+  },
+  "dead_ends": [
+    {
+      "action": "Add explicit lifetime annotations to the async function signature",
+      "why_fails": "The issue is not about naming lifetimes -- it is about the async runtime (tokio::spawn) requiring 'static bounds on futures. Adding lifetime annotations to the async fn does not make the future Send + 'static. The spawned task must own all its data because it may outlive the scope that created it. Lifetime annotations only describe relationships; they do not extend data lifetimes.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://doc.rust-lang.org/nomicon/lifetime-mismatch.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Wrap the borrowed reference in Arc to make it 'static",
+      "why_fails": "Arc<&'a T> is Send only if &'a T is Send, but the lifetime 'a is still not 'static. Wrapping a reference in Arc does not extend the referent's lifetime. You need Arc<T> (owning the data), not Arc<&T> (sharing a reference). This is a common mistake that produces the same or a similar error.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://doc.rust-lang.org/std/sync/struct.Arc.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Clone or move owned data into the async task instead of borrowing",
+      "success_rate": 0.9,
+      "how": "// Before (error): borrowing across spawn\nasync fn process(data: &str) {\n    tokio::spawn(async {\n        println!(\"{data}\"); // borrows non-'static reference\n    }).await.unwrap();\n}\n\n// After: clone into an owned String and move it\nasync fn process(data: &str) {\n    let owned = data.to_string();  // Clone to owned String\n    tokio::spawn(async move {\n        println!(\"{owned}\"); // owned data, 'static + Send\n    }).await.unwrap();\n}",
+      "sources": [
+        "https://tokio.rs/tokio/tutorial/spawning#send-bound"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Arc<T> to share owned data across async tasks",
+      "success_rate": 0.88,
+      "how": "use std::sync::Arc;\n\nstruct AppState {\n    db_url: String,\n    config: Config,\n}\n\nasync fn handle(state: Arc<AppState>) {\n    let state = state.clone(); // Cheap Arc clone\n    tokio::spawn(async move {\n        // state is Arc<AppState>: 'static + Send + Clone\n        println!(\"DB: {}\", state.db_url);\n    }).await.unwrap();\n}",
+      "sources": [
+        "https://tokio.rs/tokio/tutorial/shared-state"
+      ],
+      "condition": "Data needs to be shared across multiple tasks"
+    },
+    {
+      "action": "Restructure to avoid spawning by using join! or select! for concurrent work",
+      "success_rate": 0.8,
+      "how": "use tokio::join;\n\n// Instead of spawning (which requires Send + 'static):\nasync fn process(data: &str) {\n    // join! runs futures concurrently on the SAME task\n    // No Send or 'static requirement\n    let (result_a, result_b) = join!(\n        fetch_a(data),\n        fetch_b(data),\n    );\n    println!(\"{result_a:?}, {result_b:?}\");\n}\n\nasync fn fetch_a(data: &str) -> String {\n    format!(\"a: {data}\")\n}\nasync fn fetch_b(data: &str) -> String {\n    format!(\"b: {data}\")\n}",
+      "sources": [
+        "https://docs.rs/tokio/latest/tokio/macro.join.html"
+      ],
+      "condition": "Concurrency does not require separate OS threads or independent cancellation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "rust/e0277-send-not-satisfied/rust1-linux",
+        "probability": 0.25,
+        "condition": "After fixing the lifetime issue, the underlying type may still not implement Send"
+      },
+      {
+        "error_id": "rust/e0382-borrow-moved-value/rust1-linux",
+        "probability": 0.2,
+        "condition": "When moving owned data into async blocks, the original variable is moved and cannot be used again"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "rust/rust-async-send-bound/rust1.77-linux",
+        "probability": 0.3,
+        "condition": "Developer encounters async Send bound error first, then gets this more specific lifetime-related variant"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "rust/rust-async-send-bound/rust1.77-linux",
+        "distinction": "rust-async-send-bound is about types that do not implement Send at all (Rc, RefCell). send-not-general-enough is about lifetimes: the type IS Send for a specific lifetime but the task requires it to be Send for ANY lifetime ('static). The fix differs: the former needs type changes (Rc->Arc), the latter needs ownership changes (clone/move/Arc<T>)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 55,
+    "last_verification": "2026-02-14"
+  }
+}

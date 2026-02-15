@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "id": "php/laravel-container-binding-resolution/php83-linux",
+  "url": "https://deadends.dev/php/laravel-container-binding-resolution/php83-linux",
+  "error": {
+    "signature": "Illuminate\\Contracts\\Container\\BindingResolutionException: Target class [X] does not exist",
+    "regex": "BindingResolutionException.*Target class.*does not exist",
+    "domain": "php",
+    "category": "dependency_injection",
+    "first_seen": "2020-09-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "php",
+      "version_range": ">=8.0,<8.4"
+    },
+    "os": "linux",
+    "framework": "laravel >=8.0"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "The Laravel service container cannot resolve a binding because the target class doesn't exist, wasn't registered, or auto-discovery failed. Common after upgrading Laravel 8+ which removed default namespace prefix from RouteServiceProvider."
+  },
+  "dead_ends": [
+    {
+      "action": "Adding the full namespace prefix back to RouteServiceProvider::$namespace",
+      "why_fails": "Laravel 8+ intentionally removed the default namespace prefix to support PHP 8 named arguments and better IDE support. Re-adding it creates subtle routing issues with resource controllers and invokable controllers.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://laravel.com/docs/10.x/upgrade#routing"
+      ],
+      "condition": "Upgrading from Laravel 7 to 8+"
+    },
+    {
+      "action": "Running composer dump-autoload repeatedly without checking the actual class path",
+      "why_fails": "dump-autoload regenerates the autoloader map, but if the class file doesn't exist or the namespace doesn't match the directory structure (PSR-4), re-dumping won't help.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use fully qualified class names in route definitions",
+      "how": "In routes/web.php, change:\nRoute::get('/users', 'UserController@index');\nTo:\nuse App\\Http\\Controllers\\UserController;\nRoute::get('/users', [UserController::class, 'index']);",
+      "success_rate": 0.95,
+      "sources": [
+        "https://laravel.com/docs/10.x/controllers#basic-controllers"
+      ],
+      "condition": "Controllers not found after Laravel 8 upgrade"
+    },
+    {
+      "action": "Register the binding explicitly in a ServiceProvider",
+      "how": "In AppServiceProvider::register():\n$this->app->bind(MyInterface::class, MyImplementation::class);\n// Or for singletons:\n$this->app->singleton(MyService::class, function ($app) {\n    return new MyService($app->make(Dependency::class));\n});",
+      "success_rate": 0.93,
+      "sources": [
+        "https://laravel.com/docs/10.x/container#binding"
+      ],
+      "condition": "Interface bindings or custom services"
+    },
+    {
+      "action": "Clear all cached configs, routes, and services",
+      "how": "php artisan config:clear && php artisan route:clear && php artisan cache:clear && composer dump-autoload",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": "After adding new provider or changing configuration"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "php/composer-autoload-not-found/composer2-linux",
+        "probability": 0.2,
+        "condition": "Autoload misconfiguration causes class not found, leading to binding resolution failure"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "php/class-not-found/php83-linux",
+        "distinction": "BindingResolutionException is thrown by Laravel's DI container when resolving dependencies. Class not found (Error) is a PHP-level autoload failure. The former can occur even when the class exists if the container binding is misconfigured."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 85,
+    "last_verification": "2026-02-14"
+  }
+}

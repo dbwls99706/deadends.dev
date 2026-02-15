@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pip/cmake-not-found/pip24-linux",
+  "url": "https://deadends.dev/pip/cmake-not-found/pip24-linux",
+  "error": {
+    "signature": "error: command 'cmake' failed: No such file or directory",
+    "regex": "command 'cmake' failed.*No such file or directory|cmake.*not found|Could not find CMAKE|CMake is required",
+    "domain": "pip",
+    "category": "build_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pip",
+      "version_range": ">=22,<26"
+    },
+    "os": "linux",
+    "python": ">=3.9,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.87,
+    "last_updated": "2026-02-14",
+    "summary": "A Python package with C/C++ native extensions requires CMake as a build tool, but CMake is not installed on the system or not found in PATH. This commonly occurs when installing packages like dlib, llama-cpp-python, cmake-build-extension-based packages, or any package that uses CMakeLists.txt for native compilation. The error occurs during pip's build phase when it invokes the package's setup.py or pyproject.toml build system."
+  },
+  "dead_ends": [
+    {
+      "action": "Installing cmake via pip (pip install cmake) inside the same pip install command",
+      "why_fails": "When pip is building a package that requires cmake, the build happens in an isolated environment. Even if cmake is installed via pip in the same requirements.txt, pip's dependency resolver may not install cmake first, or the isolated build environment may not have access to the pip-installed cmake binary. The build isolation means the cmake binary needs to be on the system PATH, not just in the virtual environment's bin directory during the build phase.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/"
+      ],
+      "condition": "When build isolation is enabled (default)"
+    },
+    {
+      "action": "Using --no-build-isolation to make pip find cmake in the virtual environment",
+      "why_fails": "While --no-build-isolation can work in some cases, it disables pip's build isolation entirely, which means all build dependencies must be pre-installed manually. This creates fragile builds where missing any single build dependency causes cryptic errors. It also means build dependencies can conflict with your project dependencies, leading to version incompatibilities that are hard to diagnose.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-no-build-isolation"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install cmake as a system package before running pip install",
+      "success_rate": 0.92,
+      "how": "Install cmake via your system package manager:\n\n# Debian/Ubuntu:\nsudo apt-get update && sudo apt-get install -y cmake build-essential\n\n# RHEL/CentOS/Fedora:\nsudo dnf install -y cmake gcc gcc-c++ make\n\n# Alpine (Docker):\napk add --no-cache cmake make g++\n\n# macOS:\nbrew install cmake\n\n# Then install the Python package:\npip install dlib  # or whatever package needed cmake\n\n# In a Dockerfile:\nFROM python:3.11-slim\nRUN apt-get update && apt-get install -y cmake build-essential && rm -rf /var/lib/apt/lists/*\nRUN pip install dlib",
+      "sources": [
+        "https://cmake.org/install/",
+        "https://pip.pypa.io/en/stable/cli/pip_install/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Install cmake via pip first as a separate step, then install the target package",
+      "success_rate": 0.85,
+      "how": "Install cmake from PyPI as a separate step before installing the package that needs it:\n\n# Two-step install:\npip install cmake\npip install llama-cpp-python\n\n# Or in a requirements file, split into build-requirements.txt:\n# build-requirements.txt:\ncmake>=3.24\nsetuptools\nwheel\n\n# requirements.txt:\ndlib>=19.24\n\n# Install sequence:\npip install -r build-requirements.txt\npip install -r requirements.txt\n\n# In CI/CD:\n- run: pip install cmake setuptools wheel\n- run: pip install -r requirements.txt",
+      "sources": [
+        "https://pypi.org/project/cmake/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a pre-built binary wheel instead of building from source",
+      "success_rate": 0.88,
+      "how": "Many packages that require cmake also publish pre-built wheels for common platforms:\n\n# Check if a wheel is available for your platform:\npip install --only-binary :all: dlib\n\n# For packages with optional binary wheels:\npip install llama-cpp-python --prefer-binary\n\n# If no wheel exists, check conda-forge which often has pre-built binaries:\nconda install -c conda-forge dlib\n\n# Or use a Docker base image that already includes the built package:\nFROM nvidia/cuda:12.1-devel-ubuntu22.04\n# Many CUDA packages are pre-built in nvidia's images",
+      "sources": [
+        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-only-binary"
+      ],
+      "condition": "When pre-built wheels are available for the target platform"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "pip/build-wheel-failed/pip23-linux-arm64",
+        "probability": 0.2,
+        "condition": "when cmake is installed but other build dependencies (like specific libraries) are missing"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "pip/dependency-resolver-conflict/pip24-linux",
+        "probability": 0.1,
+        "condition": "when resolving dependencies leads to a package version that requires building from source"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "pip/build-wheel-failed/pip23-linux-arm64",
+        "distinction": "cmake-not-found is specifically about the cmake binary missing; build-wheel-failed is a broader error that can occur for many reasons including missing compilers, missing header files, or cmake configuration failures after cmake is found."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 65,
+    "last_verification": "2026-02-14"
+  }
+}

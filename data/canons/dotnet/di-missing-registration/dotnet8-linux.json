@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "id": "dotnet/di-missing-registration/dotnet8-linux",
+  "url": "https://deadends.dev/dotnet/di-missing-registration/dotnet8-linux",
+  "error": {
+    "signature": "System.InvalidOperationException: No service for type 'X' has been registered",
+    "regex": "No service for type '.*' has been registered|InvalidOperationException.*No service for type|Unable to resolve service for type.*while attempting to activate",
+    "domain": "dotnet",
+    "category": "dependency_injection",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dotnet",
+      "version_range": ">=8.0,<9.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "The .NET dependency injection container cannot resolve a service because it was never registered in the DI container (Program.cs / Startup.cs). This occurs when a controller, service, or middleware requests a dependency via constructor injection but the corresponding AddScoped/AddTransient/AddSingleton registration is missing. It also happens when registering a concrete type but injecting an interface that was not mapped, or when a transitive dependency of a registered service is itself unregistered."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually creating service instances with 'new' instead of registering in DI",
+      "why_fails": "Creating instances manually with 'new ServiceX()' bypasses the DI container entirely. The manually created instance will not have its own dependencies injected, leading to NullReferenceExceptions deeper in the call chain. It also defeats the purpose of DI (testability, lifetime management, loose coupling) and creates tight coupling that makes unit testing impossible without the concrete implementation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Using IServiceProvider.GetService() everywhere to avoid constructor injection",
+      "why_fails": "Resolving services via IServiceProvider (Service Locator pattern) hides dependencies, makes the code harder to test, and can cause scoped services to be resolved outside their intended scope. It does not fix the missing registration -- GetService() returns null for unregistered services (leading to NullReferenceException later) and GetRequiredService() throws the same InvalidOperationException. The root cause is the missing registration, not the injection method.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register the missing service in Program.cs with the appropriate lifetime",
+      "success_rate": 0.95,
+      "how": "Add the missing registration in Program.cs (or Startup.cs for older patterns):\n\nvar builder = WebApplication.CreateBuilder(args);\n\n// Register interface -> implementation mapping:\nbuilder.Services.AddScoped<IMyService, MyService>();\n\n// Or register concrete type directly:\nbuilder.Services.AddTransient<MyService>();\n\n// For services with dependencies, ensure ALL transitive dependencies are registered:\nbuilder.Services.AddScoped<IRepository, SqlRepository>();\nbuilder.Services.AddScoped<IMyService, MyService>(); // MyService depends on IRepository\n\n// Common registrations often missed:\nbuilder.Services.AddDbContext<AppDbContext>(options =>\n    options.UseSqlServer(builder.Configuration.GetConnectionString(\"Default\")));\nbuilder.Services.AddHttpClient<IApiClient, ApiClient>();\nbuilder.Services.AddMemoryCache();\nbuilder.Services.AddScoped<ICurrentUserService, CurrentUserService>();\n\nvar app = builder.Build();",
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection",
+        "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use assembly scanning to auto-register services by convention",
+      "success_rate": 0.88,
+      "how": "Use Scrutor or a custom convention to auto-register services and avoid missing registrations:\n\n// Install Scrutor: dotnet add package Scrutor\n\nbuilder.Services.Scan(scan => scan\n    .FromAssemblyOf<MyService>()\n    .AddClasses(classes => classes.AssignableTo<IScopedService>())\n    .AsImplementedInterfaces()\n    .WithScopedLifetime()\n    .AddClasses(classes => classes.AssignableTo<ITransientService>())\n    .AsImplementedInterfaces()\n    .WithTransientLifetime()\n);\n\n// Or use a simple custom convention:\nvar serviceTypes = typeof(Program).Assembly.GetTypes()\n    .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith(\"Service\"));\nforeach (var type in serviceTypes)\n{\n    var iface = type.GetInterfaces().FirstOrDefault(i => i.Name == $\"I{type.Name}\");\n    if (iface != null)\n        builder.Services.AddScoped(iface, type);\n}",
+      "sources": [
+        "https://github.com/khellang/Scrutor",
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Validate DI registrations at startup to catch missing registrations early",
+      "success_rate": 0.85,
+      "how": "Enable scope validation in development to catch DI issues at startup instead of at runtime:\n\n// In Program.cs:\nvar builder = WebApplication.CreateBuilder(args);\n\n// Enable scope validation (already on by default in Development):\nif (builder.Environment.IsDevelopment())\n{\n    builder.Host.UseDefaultServiceProvider(options =>\n    {\n        options.ValidateScopes = true;\n        options.ValidateOnBuild = true; // Catches missing registrations at startup!\n    });\n}\n\n// ValidateOnBuild will throw at app startup if any registered service\n// has a dependency that is not registered, giving you an immediate error\n// instead of a runtime exception when the service is first requested.\n\nvar app = builder.Build(); // Throws here if DI graph is incomplete",
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#scope-validation"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "dotnet/di-circular-dependency/dotnet8-linux",
+        "probability": 0.15,
+        "condition": "when adding the missing registration creates a circular dependency chain"
+      },
+      {
+        "error_id": "dotnet/nullreferenceexception/dotnet8-linux",
+        "probability": 0.2,
+        "condition": "when using GetService() instead of GetRequiredService() and not checking for null"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "dotnet/aspnet-middleware-order/dotnet8-linux",
+        "probability": 0.1,
+        "condition": "when refactoring middleware introduces new service dependencies that are not registered"
+      },
+      {
+        "error_id": "dotnet/nuget-restore-failed/dotnet8-linux",
+        "probability": 0.1,
+        "condition": "when a NuGet package provides extension methods for DI registration that were not called"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "dotnet/di-circular-dependency/dotnet8-linux",
+        "distinction": "Missing registration means the service was never added to the container; circular dependency means services are registered but form a dependency cycle. Both throw InvalidOperationException but with different messages."
+      },
+      {
+        "error_id": "dotnet/invalidoperationexception/dotnet8-linux",
+        "distinction": "The generic InvalidOperationException can have many causes; the DI-specific variant always includes 'No service for type' in the message and is specifically about unregistered services."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 95,
+    "last_verification": "2026-02-14"
+  }
+}

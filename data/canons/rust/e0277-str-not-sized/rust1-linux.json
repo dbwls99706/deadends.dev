@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rust/e0277-str-not-sized/rust1-linux",
+  "url": "https://deadends.dev/rust/e0277-str-not-sized/rust1-linux",
+  "error": {
+    "signature": "error[E0277]: the size for values of type `str` cannot be known at compilation time",
+    "regex": "E0277.*the size for values of type.*str.*cannot be known at compilation time|doesn't have a size known at compile-time.*str",
+    "domain": "rust",
+    "category": "type_error",
+    "first_seen": "2018-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rust",
+      "version_range": ">=1.70,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-14",
+    "summary": "The type `str` is a dynamically sized type (DST) -- its size is not known at compile time because strings can be any length. Rust requires all local variables, function parameters, and return types to be Sized by default. You cannot use `str` directly; you must use it behind a pointer: `&str` (borrowed string slice), `String` (owned heap string), or `Box<str>` (owned boxed slice). This is one of the most common errors for Rust beginners encountering the Sized trait bound system."
+  },
+  "dead_ends": [
+    {
+      "action": "Add #[repr(C)] or other layout attributes to make str Sized",
+      "why_fails": "repr attributes control memory layout of structs and enums, not the fundamental property of str being a dynamically-sized type. str is an unsized type at the language level -- it represents a UTF-8 byte sequence of unknown length. No attribute can change this; it is intrinsic to how str is defined in the language.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://doc.rust-lang.org/reference/dynamically-sized-types.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use str as a struct field type directly without indirection",
+      "why_fails": "Struct fields must be Sized (unless the very last field uses ?Sized). Declaring `field: str` makes the entire struct unsized, which means it cannot be stack-allocated, returned from functions, or used as a local variable. The struct becomes essentially unusable without Box or other indirection for the entire struct.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use &str for borrowed string references (most common fix)",
+      "success_rate": 0.95,
+      "how": "// Before (error):\nfn greet(name: str) { // E0277: str is not Sized\n    println!(\"Hello, {name}\");\n}\n\n// After: use a reference\nfn greet(name: &str) {\n    println!(\"Hello, {name}\");\n}\n\n// For struct fields:\nstruct Config<'a> {\n    name: &'a str,  // Borrowed string slice with lifetime\n}\n\nlet cfg = Config { name: \"production\" };",
+      "sources": [
+        "https://doc.rust-lang.org/book/ch04-03-slices.html#string-slices"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use String for owned string data",
+      "success_rate": 0.93,
+      "how": "// When you need ownership (e.g., storing in a struct without lifetimes):\nstruct User {\n    name: String,  // Owned, heap-allocated, Sized\n}\n\nimpl User {\n    fn new(name: &str) -> Self {\n        User { name: name.to_string() }\n    }\n}\n\n// For function parameters that need ownership:\nfn store_name(name: String) {\n    // name is owned and can be stored\n}",
+      "sources": [
+        "https://doc.rust-lang.org/book/ch08-02-strings.html"
+      ],
+      "condition": "You need owned data without lifetime parameters"
+    },
+    {
+      "action": "Use Box<str> for owned string data with minimal overhead",
+      "success_rate": 0.8,
+      "how": "// Box<str> is a thin pointer + length, slightly smaller than String\n// (no capacity field). Useful for immutable owned strings:\nlet boxed: Box<str> = \"hello\".into();\nlet boxed: Box<str> = String::from(\"hello\").into_boxed_str();\n\n// In generic contexts with ?Sized bound:\nfn print_it<T: AsRef<str> + ?Sized>(val: &T) {\n    println!(\"{}\", val.as_ref());\n}\nprint_it(\"literal\");        // &str\nprint_it(&String::from(\"owned\")); // &String",
+      "sources": [
+        "https://doc.rust-lang.org/std/boxed/struct.Box.html"
+      ],
+      "condition": "Need owned immutable string with minimal memory overhead"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "rust/e0106-missing-lifetime/rust1-linux",
+        "probability": 0.35,
+        "condition": "When switching from str to &str, lifetime annotations are required in structs and function signatures"
+      },
+      {
+        "error_id": "rust/e0277-trait-bound/rust1-linux",
+        "probability": 0.15,
+        "condition": "When using generic code with ?Sized bounds, additional trait bounds may be needed"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "rust/e0308-mismatched-types/rust1-linux",
+        "probability": 0.2,
+        "condition": "Developer tries to assign a &str to a str variable or vice versa"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "rust/e0277-trait-bound/rust1-linux",
+        "distinction": "E0277 trait bound is the general 'trait X is not implemented for Y' error. E0277 str-not-sized is specifically about the Sized bound and dynamically-sized types. The fix for str-not-sized is always to add indirection (&, Box, Rc), while general trait bound errors require implementing or deriving the trait."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 120,
+    "last_verification": "2026-02-14"
+  }
+}

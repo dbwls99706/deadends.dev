@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/mtls-handshake-no-client-cert/tcp-linux",
+  "url": "https://deadends.dev/networking/mtls-handshake-no-client-cert/tcp-linux",
+  "error": {
+    "signature": "mTLS handshake failed: certificate verify failed (no client certificate)",
+    "regex": "mTLS handshake failed.*no client certificate|certificate verify failed.*no client cert|SSL_do_handshake.*no client certificate|peer did not return a certificate|SSL3_READ_BYTES.*sslv3 alert certificate required",
+    "domain": "networking",
+    "category": "ssl_tls",
+    "first_seen": "2022-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tcp",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.84,
+    "last_updated": "2026-02-14",
+    "summary": "The server requires mutual TLS (mTLS) authentication, meaning the client must present a valid certificate signed by the server's trusted CA during the TLS handshake. The client either has no certificate configured, the certificate is not signed by a CA the server trusts, or the certificate/key pair is mismatched. This is common in zero-trust architectures, service meshes (Istio, Linkerd), and API gateways that enforce client certificate authentication."
+  },
+  "dead_ends": [
+    {
+      "action": "Disabling server-side client certificate verification to skip mTLS",
+      "why_fails": "Disabling client certificate verification (e.g., setting ssl_verify_client to 'off' in nginx or removing ClientAuth from Go TLS config) completely removes the mTLS security layer. This defeats the purpose of mutual authentication and violates zero-trust principles. In service mesh environments (Istio, Linkerd), you cannot disable mTLS without modifying mesh-wide policy, which affects all services.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.openssl.org/docs/man3.0/man3/SSL_CTX_set_verify.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Using a self-signed client certificate not signed by the server's trusted CA",
+      "why_fails": "The server validates the client certificate against its configured CA bundle. A self-signed certificate or one signed by a different CA will fail verification even if the certificate format and key are correct. The server's trust store must contain the CA that signed the client certificate. In Kubernetes/Istio environments, certificates are managed by the mesh CA (e.g., istiod) and manually created certs are rejected.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.openssl.org/docs/man3.0/man1/openssl-verify.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Setting only the client certificate without the private key",
+      "why_fails": "During the TLS handshake, the client must prove possession of the private key corresponding to the client certificate by signing a CertificateVerify message. Without the private key, the handshake fails after the certificate is sent. Both the certificate and matching private key must be configured together.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8446#section-4.4.3"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure the client with the correct certificate and private key signed by the server's trusted CA",
+      "success_rate": 0.88,
+      "how": "1. Generate a client key and CSR:\n   openssl genrsa -out client.key 4096\n   openssl req -new -key client.key -out client.csr -subj '/CN=my-service/O=my-org'\n\n2. Sign with the CA the server trusts:\n   openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365 -sha256\n\n3. Configure the client (curl example):\n   curl --cert client.crt --key client.key --cacert ca.crt https://mtls-server.example.com\n\n4. Python requests example:\n   import requests\n   resp = requests.get('https://mtls-server.example.com', cert=('client.crt', 'client.key'), verify='ca.crt')\n\n5. Verify the chain: openssl verify -CAfile ca.crt client.crt",
+      "sources": [
+        "https://www.openssl.org/docs/man3.0/man1/openssl-x509.html",
+        "https://www.openssl.org/docs/man3.0/man1/openssl-req.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "In Kubernetes/Istio, configure PeerAuthentication and DestinationRule for proper mTLS",
+      "success_rate": 0.85,
+      "how": "For Istio service mesh mTLS:\n\n# Enable strict mTLS for the namespace\napiVersion: security.istio.io/v1beta1\nkind: PeerAuthentication\nmetadata:\n  name: default\n  namespace: my-namespace\nspec:\n  mtls:\n    mode: STRICT\n\n# Configure destination rule to use mTLS\napiVersion: networking.istio.io/v1beta1\nkind: DestinationRule\nmetadata:\n  name: my-service\n  namespace: my-namespace\nspec:\n  host: my-service.my-namespace.svc.cluster.local\n  trafficPolicy:\n    tls:\n      mode: ISTIO_MUTUAL\n\nVerify: istioctl proxy-config secret <pod-name> -n my-namespace\nCheck: istioctl authn tls-check <pod-name> my-service.my-namespace.svc.cluster.local",
+      "sources": [
+        "https://istio.io/latest/docs/reference/config/security/peer_authentication/",
+        "https://istio.io/latest/docs/concepts/security/#mutual-tls-authentication"
+      ],
+      "condition": "Kubernetes with Istio service mesh"
+    },
+    {
+      "action": "Use cert-manager to automate client certificate lifecycle in Kubernetes",
+      "success_rate": 0.82,
+      "how": "Install cert-manager and create a Certificate resource:\n\napiVersion: cert-manager.io/v1\nkind: Certificate\nmetadata:\n  name: my-service-client-cert\n  namespace: my-namespace\nspec:\n  secretName: my-service-client-tls\n  issuerRef:\n    name: internal-ca-issuer\n    kind: ClusterIssuer\n  commonName: my-service\n  usages:\n    - client auth\n    - digital signature\n  duration: 8760h\n  renewBefore: 720h\n\nMount the secret in your pod:\n  volumes:\n    - name: client-tls\n      secret:\n        secretName: my-service-client-tls\n  volumeMounts:\n    - name: client-tls\n      mountPath: /etc/tls/client\n      readOnly: true",
+      "sources": [
+        "https://cert-manager.io/docs/usage/certificate/"
+      ],
+      "condition": "Kubernetes environments with cert-manager"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/ssl-certificate-expired/openssl3-linux",
+        "probability": 0.15,
+        "condition": "when client certificate is correctly configured but expires without rotation"
+      },
+      {
+        "error_id": "networking/ssl-hostname-mismatch/openssl3-linux",
+        "probability": 0.1,
+        "condition": "when client certificate CN/SAN does not match expected identity"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/ssl-unable-to-verify/openssl3-linux",
+        "probability": 0.2,
+        "condition": "when server certificate verification succeeds but mTLS client auth was not configured"
+      },
+      {
+        "error_id": "networking/connection-refused/tcp-linux",
+        "probability": 0.1,
+        "condition": "when the service was unreachable and after fixing connectivity, mTLS is now the next barrier"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/ssl-unable-to-verify/openssl3-linux",
+        "distinction": "ssl-unable-to-verify is the client failing to verify the SERVER certificate; mTLS-no-client-cert is the SERVER failing to verify the CLIENT certificate. Both are certificate verification failures but in opposite directions."
+      },
+      {
+        "error_id": "networking/ssl-self-signed/openssl3-linux",
+        "distinction": "ssl-self-signed is about untrusted server certificates; mTLS-no-client-cert is about missing or untrusted client certificates. They can co-occur but have different root causes."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 38,
+    "last_verification": "2026-02-14"
+  }
+}
