@@ -56,7 +56,7 @@
       "@type": "ItemList",
       "numberOfItems": {{ total }},
       "itemListElement": [{% for e in entries %}
-        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.id }}", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
+        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.slug_key }}/", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
       ]
     }
   }
@@ -69,7 +69,7 @@
   <pre id="ai-summary" style="display:none;">DOMAIN={{ domain }}
 TOTAL_ERRORS={{ total }}
 MATCH_API={{ base_url }}/api/v1/match.json
-{% for e in entries %}ENTRY={{ e.id }} | resolvable={{ e.resolvable }} | rate={{ e.fix_success_rate }}
+{% for e in entries %}ENTRY={{ e.slug_key }} | envs={{ e.env_count }} | best_rate={{ e.fix_success_rate }}
 {% endfor %}</pre>
   {% endautoescape %}
 
