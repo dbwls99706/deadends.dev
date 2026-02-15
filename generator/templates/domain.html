@@ -29,6 +29,7 @@
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
 
   <link rel="canonical" href="{{ base_url }}/{{ domain }}/">
+  <link rel="alternate" type="application/atom+xml" href="{{ base_path }}/feed-{{ domain }}.xml" title="{{ domain | display_name }} Error Patterns">
 
   <!-- BreadcrumbList for Google rich results -->
   <script type="application/ld+json">
@@ -93,7 +94,7 @@ MATCH_API={{ base_url }}/api/v1/match.json
   {% endfor %}
 
   <footer class="meta">
-    <p><a href="{{ base_path }}/">deadends.dev</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>
+    <p><a href="{{ base_path }}/">deadends.dev</a> · <a href="{{ base_path }}/feed-{{ domain }}.xml">Atom feed</a> · <a href="{{ base_path }}/api/v1/match/{{ domain }}.json">Match API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>
   </footer>
 </body>
 </html>

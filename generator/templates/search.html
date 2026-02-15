@@ -49,8 +49,17 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
   <h1>Error Search</h1>
   <p>Paste your error message below. We'll match it against {{ total_errors }} known error patterns.</p>
 
-  <div style="margin: 1.5rem 0;">
+  <div class="search-controls">
     <textarea id="search-input" rows="3" placeholder="Paste your error message here, e.g. ModuleNotFoundError: No module named 'torch'"></textarea>
+    <div class="search-filters">
+      <select id="domain-filter" aria-label="Filter by domain">
+        <option value="">All domains ({{ domain_count }})</option>
+        {% for domain in domain_errors %}
+        <option value="{{ domain.name }}">{{ domain.name | display_name }} ({{ domain.errors|length }})</option>
+        {% endfor %}
+      </select>
+      <span id="search-status" class="meta"></span>
+    </div>
   </div>
 
   <div id="results"></div>
@@ -61,7 +70,7 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
   <section id="all-errors">
     <h2>All Known Errors ({{ total_errors }})</h2>
     {% for domain in domain_errors %}
-    <h3>{{ domain.name }} ({{ domain.errors|length }})</h3>
+    <h3>{{ domain.name | display_name }} ({{ domain.errors|length }})</h3>
     {% for err in domain.errors %}
     <div class="error-entry">
       <a href="{{ err.page_url }}"><code>{{ err.signature }}</code></a>
@@ -83,6 +92,8 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
       var resultsDiv = document.getElementById('results');
       var noResults = document.getElementById('no-results');
       var allErrors = document.getElementById('all-errors');
+      var domainFilter = document.getElementById('domain-filter');
+      var searchStatus = document.getElementById('search-status');
       var debounceTimer;
 
       // Pre-compile regexes
@@ -98,60 +109,205 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         }
       }
 
+      // Levenshtein distance for fuzzy matching
+      function levenshtein(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+        // Limit length to avoid performance issues
+        if (a.length > 200) a = a.substring(0, 200);
+        if (b.length > 200) b = b.substring(0, 200);
+        var matrix = [];
+        for (var i = 0; i <= b.length; i++) matrix[i] = [i];
+        for (var j = 0; j <= a.length; j++) matrix[0][j] = j;
+        for (var i = 1; i <= b.length; i++) {
+          for (var j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+              matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+              matrix[i][j] = Math.min(
+                matrix[i - 1][j - 1] + 1,
+                matrix[i][j - 1] + 1,
+                matrix[i - 1][j] + 1
+              );
+            }
+          }
+        }
+        return matrix[b.length][a.length];
+      }
+
+      // Fuzzy word match: check if any word in query fuzzy-matches
+      function fuzzyWordScore(queryWords, sigWords) {
+        var score = 0;
+        for (var qi = 0; qi < queryWords.length; qi++) {
+          var qw = queryWords[qi];
+          if (qw.length < 3) continue;
+          for (var si = 0; si < sigWords.length; si++) {
+            var sw = sigWords[si];
+            if (sw.length < 3) continue;
+            var maxLen = Math.max(qw.length, sw.length);
+            var dist = levenshtein(qw, sw);
+            // Allow 1 edit per 4 characters
+            var threshold = Math.floor(maxLen / 4);
+            if (dist <= threshold && dist > 0) {
+              score += Math.max(1, 5 - dist);
+            }
+          }
+        }
+        return score;
+      }
+
+      // Highlight matching text
+      function highlightText(text, query) {
+        if (!query || query.length < 3) return escapeHtml(text);
+        var escaped = escapeHtml(text);
+        var lowerText = text.toLowerCase();
+        var lowerQuery = query.toLowerCase();
+
+        // Try to highlight exact substring first
+        var idx = lowerText.indexOf(lowerQuery);
+        if (idx !== -1) {
+          var before = escapeHtml(text.substring(0, idx));
+          var match = escapeHtml(text.substring(idx, idx + query.length));
+          var after = escapeHtml(text.substring(idx + query.length));
+          return before + '<mark>' + match + '</mark>' + after;
+        }
+
+        // Highlight matching words
+        var words = query.toLowerCase().split(/\W+/).filter(function(w) {
+          return w.length > 2;
+        });
+        if (words.length === 0) return escaped;
+        var pattern = words.map(function(w) {
+          return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }).join('|');
+        try {
+          var re = new RegExp('(' + pattern + ')', 'gi');
+          return escaped.replace(re, '<mark>$1</mark>');
+        } catch(e) {
+          return escaped;
+        }
+      }
+
+      var stopwords = new Set(['the','a','an','is','are','was','were','be',
+        'been','being','have','has','had','do','does','did','will','would',
+        'could','should','may','might','shall','can','to','of','in','for',
+        'on','with','at','by','from','no','not','error','when','or','and']);
+
       function search(query) {
-        if (!query || query.length < 3) {
+        var domain = domainFilter.value;
+        if ((!query || query.length < 3) && !domain) {
           resultsDiv.innerHTML = '';
           noResults.style.display = 'none';
           allErrors.style.display = 'block';
+          searchStatus.textContent = '';
           return;
         }
         allErrors.style.display = 'none';
         var matches = [];
-        var lowerQuery = query.toLowerCase();
+        var lowerQuery = query ? query.toLowerCase() : '';
+        var queryWords = lowerQuery.split(/\W+/).filter(function(w) {
+          return w.length > 2 && !stopwords.has(w);
+        });
+
         for (var i = 0; i < compiled.length; i++) {
           var entry = compiled[i];
+
+          // Domain filter
+          if (domain && entry.data.domain !== domain) continue;
+
           var score = 0;
-          // Regex match (highest priority)
-          if (entry.re && entry.re.test(query)) {
-            score += 100;
-          }
-          // Signature substring match
-          if (entry.data.signature.toLowerCase().indexOf(lowerQuery) !== -1) {
-            score += 50;
-          }
-          // Query contains signature words
-          var words = entry.data.signature.toLowerCase().split(/\W+/);
-          for (var w = 0; w < words.length; w++) {
-            if (words[w].length > 2 && lowerQuery.indexOf(words[w]) !== -1) {
-              score += 10;
+
+          if (query && query.length >= 3) {
+            // Regex match (highest priority)
+            if (entry.re && entry.re.test(query)) {
+              score += 100;
             }
+            // Signature substring match
+            if (entry.data.signature.toLowerCase().indexOf(lowerQuery) !== -1) {
+              score += 50;
+            }
+            // Query contains signature words
+            var sigWords = entry.data.signature.toLowerCase().split(/\W+/).filter(function(w) {
+              return w.length > 2 && !stopwords.has(w);
+            });
+            for (var w = 0; w < sigWords.length; w++) {
+              if (lowerQuery.indexOf(sigWords[w]) !== -1) {
+                score += 10;
+              }
+            }
+            // Query words match signature words
+            for (var qw = 0; qw < queryWords.length; qw++) {
+              for (var sw = 0; sw < sigWords.length; sw++) {
+                if (queryWords[qw] === sigWords[sw]) {
+                  score += 5;
+                }
+              }
+            }
+            // Fuzzy matching for typos
+            var fuzzy = fuzzyWordScore(queryWords, sigWords);
+            if (fuzzy > 0 && score === 0) {
+              score += fuzzy;
+            }
+            // Summary keyword match
+            if (entry.data.summary) {
+              var lowerSummary = entry.data.summary.toLowerCase();
+              for (var qw2 = 0; qw2 < queryWords.length; qw2++) {
+                if (lowerSummary.indexOf(queryWords[qw2]) !== -1) {
+                  score += 3;
+                }
+              }
+            }
+          } else if (domain) {
+            // Domain filter only, no query — show all in domain
+            score = 1;
           }
+
           if (score > 0) {
             matches.push({ score: score, data: entry.data });
           }
         }
-        matches.sort(function(a, b) { return b.score - a.score; });
+
+        matches.sort(function(a, b) {
+          if (b.score !== a.score) return b.score - a.score;
+          return b.data.fix_success_rate - a.data.fix_success_rate;
+        });
 
         if (matches.length === 0) {
           resultsDiv.innerHTML = '';
           noResults.style.display = 'block';
+          searchStatus.textContent = '';
           return;
         }
         noResults.style.display = 'none';
-        var html = '<h2>Matches (' + matches.length + ')</h2>';
-        var limit = Math.min(matches.length, 20);
+        var total = matches.length;
+        var limit = Math.min(total, 30);
+        searchStatus.textContent = total + ' match' + (total !== 1 ? 'es' : '') + (total > limit ? ' (showing top ' + limit + ')' : '');
+
+        var html = '<h2>Matches (' + total + ')</h2>';
         for (var j = 0; j < limit; j++) {
           var d = matches[j].data;
           var verdictClass = 'verdict-' + d.resolvable;
+          var sig = highlightText(d.signature, query);
           html += '<div class="result">'
             + '<h3><a href="' + d.page_url + '"><code>'
-            + escapeHtml(d.signature) + '</code></a> '
-            + '<span class="' + verdictClass + '">[' + d.resolvable + ']</span></h3>'
+            + sig + '</code></a> '
+            + '<span class="' + verdictClass + '">[' + d.resolvable + ']</span>'
+            + ' <span class="result-domain">' + escapeHtml(d.domain) + '</span></h3>'
+            + '<p class="result-summary">' + (d.summary ? highlightText(d.summary, query) : '') + '</p>'
             + '<p class="meta">'
             + '<span class="dead-end-count">' + d.dead_end_count + ' dead ends</span> · '
             + '<span class="workaround-count">' + d.workaround_count + ' workarounds</span> · '
-            + 'Fix rate: ' + Math.round(d.fix_success_rate * 100) + '%'
-            + '</p></div>';
+            + 'Fix rate: ' + Math.round(d.fix_success_rate * 100) + '%';
+          if (matches[j].score >= 100) {
+            html += ' · <span class="match-quality match-exact">Regex match</span>';
+          } else if (matches[j].score >= 50) {
+            html += ' · <span class="match-quality match-high">High match</span>';
+          } else if (matches[j].score >= 10) {
+            html += ' · <span class="match-quality match-medium">Partial match</span>';
+          } else {
+            html += ' · <span class="match-quality match-fuzzy">Fuzzy match</span>';
+          }
+          html += '</p></div>';
         }
         resultsDiv.innerHTML = html;
       }
@@ -162,39 +318,54 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         return d.innerHTML;
       }
 
-      function updateUrlState(query) {
+      function updateUrlState(query, domain) {
         var url = new URL(window.location);
         if (query) {
           url.searchParams.set('q', query);
         } else {
           url.searchParams.delete('q');
         }
+        if (domain) {
+          url.searchParams.set('domain', domain);
+        } else {
+          url.searchParams.delete('domain');
+        }
         history.replaceState(null, '', url);
       }
 
-      input.addEventListener('input', function() {
+      function doSearch() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function() {
           var q = input.value.trim();
+          var d = domainFilter.value;
           search(q);
-          updateUrlState(q);
+          updateUrlState(q, d);
         }, 150);
-      });
+      }
+
+      input.addEventListener('input', doSearch);
+      domainFilter.addEventListener('change', doSearch);
 
       window.addEventListener('popstate', function() {
         var params = new URLSearchParams(window.location.search);
         var q = params.get('q') || '';
+        var d = params.get('domain') || '';
         input.value = q;
+        domainFilter.value = d;
         search(q);
       });
 
-      // Support ?q= URL parameter for programmatic deep-linking
-      // AI coding agents can link to /search/?q=ModuleNotFoundError
+      // Support ?q= and ?domain= URL parameters for programmatic deep-linking
+      // AI coding agents can link to /search/?q=ModuleNotFoundError&domain=python
       var params = new URLSearchParams(window.location.search);
       var q = params.get('q');
+      var d = params.get('domain');
+      if (d) domainFilter.value = d;
       if (q) {
         input.value = q;
         search(q);
+      } else if (d) {
+        search('');
       }
     })();
   </script>

@@ -556,6 +556,7 @@ Sitemap: {BASE_URL}/sitemap.xml
 
 # AI agent discovery:
 # Match errors:    {BASE_URL}/api/v1/match.json
+# Match by domain: {BASE_URL}/api/v1/match/{{domain}}.json
 # Error index:     {BASE_URL}/api/v1/index.json
 # OpenAPI spec:    {BASE_URL}/api/v1/openapi.json
 # Version info:    {BASE_URL}/api/v1/version.json
@@ -567,6 +568,7 @@ Sitemap: {BASE_URL}/sitemap.xml
 # A2A agent card:  {BASE_URL}/.well-known/agent-card.json
 # Security:        {BASE_URL}/.well-known/security.txt
 # Atom feed:       {BASE_URL}/feed.xml
+# Domain feeds:    {BASE_URL}/feed-{{domain}}.xml
 """
     (SITE_DIR / "robots.txt").write_text(content, encoding="utf-8")
     print("  Generated: robots.txt")
@@ -690,6 +692,10 @@ def build_stylesheet() -> None:
         "  margin: 0.2rem; font-size: 0.85rem; }",
         "",
         "/* Search page */",
+        ".search-controls { margin: 1.5rem 0; }",
+        ".search-filters { display: flex;",
+        "  align-items: center; gap: 1rem;",
+        "  margin-top: 0.75rem; }",
         "#search-input { width: 100%;",
         "  padding: 0.75rem; font-size: 1rem;",
         "  font-family: monospace;",
@@ -700,6 +706,12 @@ def build_stylesheet() -> None:
         "#search-input:focus {",
         "  border-color: #58a6ff; outline: none; }",
         "#search-input::placeholder { color: #484f58; }",
+        "#domain-filter { background: #161b22;",
+        "  color: #e0e0e0; border: 1px solid #30363d;",
+        "  border-radius: 6px; padding: 0.4rem 0.6rem;",
+        "  font-size: 0.85rem; }",
+        "#domain-filter:focus {",
+        "  border-color: #58a6ff; outline: none; }",
         ".result { border: 1px solid #30363d;",
         "  border-radius: 6px;",
         "  padding: 1rem; margin: 0.75rem 0; }",
@@ -708,10 +720,72 @@ def build_stylesheet() -> None:
         "  margin: 0 0 0.5rem 0; font-size: 1rem; }",
         ".result .dead-end-count { color: #f85149; }",
         ".result .workaround-count { color: #3fb950; }",
+        ".result-domain { background: #21262d;",
+        "  padding: 0.1rem 0.4rem; border-radius: 3px;",
+        "  font-size: 0.75rem; color: #8b949e; }",
+        ".result-summary { color: #b1bac4;",
+        "  font-size: 0.85rem; margin: 0.25rem 0; }",
+        "mark { background: #3b2e00;",
+        "  color: #e3b341; border-radius: 2px;",
+        "  padding: 0 2px; }",
+        ".match-quality { font-size: 0.75rem;",
+        "  padding: 0.1rem 0.4rem; border-radius: 3px; }",
+        ".match-exact { background: #0d2818;",
+        "  color: #3fb950; }",
+        ".match-high { background: #1b1f23;",
+        "  color: #58a6ff; }",
+        ".match-medium { background: #272115;",
+        "  color: #d29922; }",
+        ".match-fuzzy { background: #21262d;",
+        "  color: #8b949e; }",
         "#no-results { display: none; color: #8b949e;",
         "  padding: 2rem; text-align: center; }",
         "#all-errors { margin-top: 2rem; }",
         ".error-entry { padding: 0.4rem 0;",
+        "  border-bottom: 1px solid #161b22; }",
+        "",
+        "/* Error chain visualization */",
+        ".error-chain-flow { display: flex;",
+        "  align-items: center;",
+        "  gap: 0.5rem; flex-wrap: wrap;",
+        "  padding: 1rem; margin: 1rem 0;",
+        "  background: #161b22;",
+        "  border-radius: 6px;",
+        "  border: 1px solid #30363d;",
+        "  overflow-x: auto; }",
+        ".chain-group { display: flex;",
+        "  flex-direction: column; gap: 0.5rem; }",
+        ".chain-label { font-size: 0.7rem;",
+        "  text-transform: uppercase;",
+        "  color: #8b949e; letter-spacing: 0.05em; }",
+        ".chain-node { border: 1px solid #30363d;",
+        "  border-radius: 6px;",
+        "  padding: 0.5rem 0.75rem;",
+        "  font-size: 0.85rem;",
+        "  max-width: 220px;",
+        "  word-break: break-word; }",
+        ".chain-node a { text-decoration: none; }",
+        ".chain-node-self { border-color: #58a6ff;",
+        "  background: #0d2240;",
+        "  text-align: center;",
+        "  font-size: 0.9rem; }",
+        ".chain-node-incoming { border-color: #d29922;",
+        "  background: #1c1600; }",
+        ".chain-node-outgoing { border-color: #f85149;",
+        "  background: #250e0d; }",
+        ".chain-arrow { font-size: 1.5rem;",
+        "  color: #484f58; line-height: 1;",
+        "  align-self: center; }",
+        ".chain-prob { display: inline-block;",
+        "  font-size: 0.7rem; color: #8b949e;",
+        "  background: #21262d;",
+        "  padding: 0.1rem 0.3rem;",
+        "  border-radius: 3px; margin-left: 0.3rem; }",
+        ".chain-cond { display: block;",
+        "  font-size: 0.7rem; color: #8b949e;",
+        "  margin-top: 0.25rem; }",
+        ".chain-confused { margin-top: 1rem; }",
+        ".chain-confused-item { padding: 0.3rem 0;",
         "  border-bottom: 1px solid #161b22; }",
         "",
     ])
@@ -1064,6 +1138,7 @@ def build_search_page(
             "fix_success_rate": canon["verdict"]["fix_success_rate"],
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
+            "summary": canon["verdict"]["summary"],
             "page_url": f"{BASE_PATH}/{canon['id']}",
         })
 
@@ -1417,6 +1492,33 @@ def build_openapi_spec(canons: list[dict]) -> None:
                                     },
                                 },
                             },
+                        }
+                    },
+                }
+            },
+            "/match/{domain}.json": {
+                "get": {
+                    "summary": "Lightweight error matching by domain",
+                    "description": (
+                        "Per-domain match file. Load only the domain you "
+                        "need instead of the full match.json."
+                    ),
+                    "operationId": "matchErrorsByDomain",
+                    "parameters": [
+                        {
+                            "name": "domain",
+                            "in": "path",
+                            "required": True,
+                            "schema": {
+                                "type": "string",
+                                "enum": domains,
+                            },
+                        },
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Domain-specific matching patterns",
+                            "content": {"application/json": {}},
                         }
                     },
                 }
@@ -1884,6 +1986,7 @@ def build_version_json(canons: list[dict]) -> None:
         },
         "endpoints": {
             "match": f"{BASE_URL}/api/v1/match.json",
+            "match_by_domain": f"{BASE_URL}/api/v1/match/{{domain}}.json",
             "index": f"{BASE_URL}/api/v1/index.json",
             "openapi": f"{BASE_URL}/api/v1/openapi.json",
             "version": f"{BASE_URL}/api/v1/version.json",
@@ -1892,6 +1995,8 @@ def build_version_json(canons: list[dict]) -> None:
             "llms_full": f"{BASE_URL}/llms-full.txt",
             "stats": f"{BASE_URL}/api/v1/stats.json",
             "ndjson_stream": f"{BASE_URL}/api/v1/errors.ndjson",
+            "feed": f"{BASE_URL}/feed.xml",
+            "feed_by_domain": f"{BASE_URL}/feed-{{domain}}.xml",
         },
         "discovery": {
             "ai_plugin": f"{BASE_URL}/.well-known/ai-plugin.json",
@@ -1948,6 +2053,137 @@ def build_match_json(canons: list[dict]) -> None:
         encoding="utf-8",
     )
     print("  Generated: /api/v1/match.json")
+
+
+def build_domain_match_json(canons: list[dict]) -> None:
+    """Generate per-domain match JSON files for lightweight loading.
+
+    AI agents can load only the domains they need instead of the full
+    365KB match.json file.
+    """
+    by_domain: dict[str, list[dict]] = {}
+    for canon in sorted(canons, key=lambda c: c["id"]):
+        domain = canon["error"]["domain"]
+        by_domain.setdefault(domain, []).append(canon)
+
+    api_dir = SITE_DIR / "api" / "v1" / "match"
+    api_dir.mkdir(parents=True, exist_ok=True)
+
+    for domain, domain_canons in by_domain.items():
+        match_data = {
+            "version": "1.0.0",
+            "domain": domain,
+            "total": len(domain_canons),
+            "generated": datetime.now(timezone.utc).strftime(
+                "%Y-%m-%dT%H:%M:%SZ"
+            ),
+            "patterns": [],
+        }
+        for canon in domain_canons:
+            match_data["patterns"].append({
+                "id": canon["id"],
+                "sig": canon["error"]["signature"],
+                "re": canon["error"]["regex"],
+                "ok": canon["verdict"]["resolvable"],
+                "rate": canon["verdict"]["fix_success_rate"],
+                "conf": canon["verdict"]["confidence"],
+                "de": len(canon["dead_ends"]),
+                "wa": len(canon.get("workarounds", [])),
+                "url": f"{BASE_URL}/api/v1/{canon['id']}.json",
+            })
+
+        (api_dir / f"{domain}.json").write_text(
+            json.dumps(
+                match_data, separators=(",", ":"), ensure_ascii=False
+            ),
+            encoding="utf-8",
+        )
+
+    print(
+        f"  Generated: /api/v1/match/{{domain}}.json "
+        f"({len(by_domain)} domains)"
+    )
+
+
+def build_domain_feeds(canons: list[dict]) -> None:
+    """Generate per-domain Atom feeds for domain-specific subscriptions."""
+    ns = "http://www.w3.org/2005/Atom"
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    by_domain: dict[str, list[dict]] = {}
+    for c in canons:
+        by_domain.setdefault(c["error"]["domain"], []).append(c)
+
+    for domain, domain_canons in by_domain.items():
+        dated = sorted(
+            domain_canons,
+            key=lambda c: c["metadata"].get("generation_date", "2020-01-01"),
+            reverse=True,
+        )[:30]
+
+        feed = Element("feed", xmlns=ns)
+        display = domain_display_name(domain)
+        SubElement(feed, "title").text = (
+            f"deadends.dev — {display} Error Patterns"
+        )
+        SubElement(feed, "subtitle").text = (
+            f"New {display} error patterns with dead ends and workarounds"
+        )
+        link_self = SubElement(feed, "link")
+        link_self.set("href", f"{BASE_URL}/feed-{domain}.xml")
+        link_self.set("rel", "self")
+        link_self.set("type", "application/atom+xml")
+        link_alt = SubElement(feed, "link")
+        link_alt.set("href", f"{BASE_URL}/{domain}/")
+        link_alt.set("rel", "alternate")
+        SubElement(feed, "id").text = f"{BASE_URL}/{domain}/"
+        SubElement(feed, "updated").text = now
+        author = SubElement(feed, "author")
+        SubElement(author, "name").text = "deadends.dev"
+
+        for canon in dated:
+            entry = SubElement(feed, "entry")
+            cid = canon["id"]
+            sig = canon["error"]["signature"]
+            rate = int(canon["verdict"]["fix_success_rate"] * 100)
+            resolvable = canon["verdict"]["resolvable"]
+            de_count = len(canon["dead_ends"])
+            wa_count = len(canon.get("workarounds", []))
+            gen_date = canon["metadata"].get(
+                "generation_date", "2026-01-01"
+            )
+
+            SubElement(entry, "title").text = sig
+            elink = SubElement(entry, "link")
+            elink.set("href", f"{BASE_URL}/{cid}")
+            elink.set("rel", "alternate")
+            SubElement(entry, "id").text = f"{BASE_URL}/{cid}"
+            SubElement(entry, "updated").text = f"{gen_date}T00:00:00Z"
+
+            summary_text = (
+                f"Resolvable: {resolvable} | "
+                f"Fix rate: {rate}% | "
+                f"Dead ends: {de_count} | "
+                f"Workarounds: {wa_count}\n\n"
+                f"{canon['verdict']['summary']}\n\n"
+                f"JSON API: {BASE_URL}/api/v1/{cid}.json"
+            )
+            content = SubElement(entry, "content")
+            content.set("type", "text")
+            content.text = summary_text
+
+            cat = SubElement(entry, "category")
+            cat.set("term", domain)
+
+        xml_bytes = tostring(
+            feed, encoding="unicode", xml_declaration=False
+        )
+        xml_out = '<?xml version="1.0" encoding="utf-8"?>\n' + xml_bytes
+        (SITE_DIR / f"feed-{domain}.xml").write_text(
+            xml_out, encoding="utf-8"
+        )
+
+    print(f"  Generated: feed-{{domain}}.xml ({len(by_domain)} feeds)")
 
 
 def build_ai_config_files() -> None:
@@ -2196,6 +2432,14 @@ def main():
 
     print("Generating Atom feed...")
     build_feed(canons)
+    print()
+
+    print("Generating domain-level Atom feeds...")
+    build_domain_feeds(canons)
+    print()
+
+    print("Generating domain-level match.json files...")
+    build_domain_match_json(canons)
     print()
 
     print("Generating IndexNow support...")

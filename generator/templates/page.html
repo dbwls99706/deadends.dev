@@ -170,52 +170,64 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   {% if graph.get("leads_to", []) or graph.get("preceded_by", []) or graph.get("frequently_confused_with", []) %}
   <section id="error-chain">
     <h2>Error Chain</h2>
-    {% if graph.get("leads_to", []) %}
-    <h3>This error may lead to:</h3>
-    <ul>
-      {% for lt in graph.leads_to %}
-      <li>
-        {% if lt.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ lt.error_id }}">{{ lt.error_id }}</a>
-        {% else %}
-        <code>{{ lt.error_id }}</code> <span class="meta">(page not yet generated)</span>
-        {% endif %}
-        (probability: {{ lt.probability }}{% if lt.condition %}, condition: {{ lt.condition }}{% endif %})
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+    <div class="error-chain-flow">
+      {% if graph.get("preceded_by", []) %}
+      <div class="chain-group chain-preceded">
+        <div class="chain-label">Preceded by</div>
+        {% for pb in graph.preceded_by %}
+        <div class="chain-node chain-node-incoming">
+          {% if pb.error_id in known_ids|default([]) %}
+          <a href="{{ base_path }}/{{ pb.error_id }}">{{ pb.error_id.split('/')[-2] | default(pb.error_id) }}</a>
+          {% else %}
+          <code>{{ pb.error_id.split('/')[-2] | default(pb.error_id) }}</code>
+          {% endif %}
+          <span class="chain-prob">{{ (pb.probability * 100)|int }}%</span>
+          {% if pb.condition %}<span class="chain-cond">{{ pb.condition }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="chain-arrow">&#8594;</div>
+      {% endif %}
 
-    {% if graph.get("preceded_by", []) %}
-    <h3>Often preceded by:</h3>
-    <ul>
-      {% for pb in graph.preceded_by %}
-      <li>
-        {% if pb.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ pb.error_id }}">{{ pb.error_id }}</a>
-        {% else %}
-        <code>{{ pb.error_id }}</code> <span class="meta">(page not yet generated)</span>
-        {% endif %}
-        (probability: {{ pb.probability }}{% if pb.condition %}, condition: {{ pb.condition }}{% endif %})
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+      <div class="chain-group chain-current">
+        <div class="chain-node chain-node-self">
+          <strong>{{ error.signature }}</strong>
+        </div>
+      </div>
+
+      {% if graph.get("leads_to", []) %}
+      <div class="chain-arrow">&#8594;</div>
+      <div class="chain-group chain-leads">
+        <div class="chain-label">Leads to</div>
+        {% for lt in graph.leads_to %}
+        <div class="chain-node chain-node-outgoing">
+          {% if lt.error_id in known_ids|default([]) %}
+          <a href="{{ base_path }}/{{ lt.error_id }}">{{ lt.error_id.split('/')[-2] | default(lt.error_id) }}</a>
+          {% else %}
+          <code>{{ lt.error_id.split('/')[-2] | default(lt.error_id) }}</code>
+          {% endif %}
+          <span class="chain-prob">{{ (lt.probability * 100)|int }}%</span>
+          {% if lt.condition %}<span class="chain-cond">{{ lt.condition }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
 
     {% if graph.get("frequently_confused_with", []) %}
-    <h3>Frequently confused with:</h3>
-    <ul>
+    <div class="chain-confused">
+      <h3>Frequently confused with:</h3>
       {% for fc in graph.frequently_confused_with %}
-      <li>
+      <div class="chain-confused-item">
         {% if fc.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ fc.error_id }}">{{ fc.error_id }}</a>
+        <a href="{{ base_path }}/{{ fc.error_id }}">{{ fc.error_id.split('/')[-2] | default(fc.error_id) }}</a>
         {% else %}
-        <code>{{ fc.error_id }}</code> <span class="meta">(page not yet generated)</span>
+        <code>{{ fc.error_id.split('/')[-2] | default(fc.error_id) }}</code>
         {% endif %}
-        — {{ fc.distinction }}
-      </li>
+        <span class="meta">— {{ fc.distinction }}</span>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
     {% endif %}
   </section>
   {% endif %}
