@@ -56,7 +56,7 @@
       "@type": "ItemList",
       "numberOfItems": {{ total }},
       "itemListElement": [{% for e in entries %}
-        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.id }}", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
+        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.slug_key }}/", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
       ]
     }
   }
@@ -69,20 +69,26 @@
   <pre id="ai-summary" style="display:none;">DOMAIN={{ domain }}
 TOTAL_ERRORS={{ total }}
 MATCH_API={{ base_url }}/api/v1/match.json
-{% for e in entries %}ENTRY={{ e.id }} | resolvable={{ e.resolvable }} | rate={{ e.fix_success_rate }}
+{% for e in entries %}ENTRY={{ e.slug_key }} | envs={{ e.env_count }} | best_rate={{ e.fix_success_rate }}
 {% endfor %}</pre>
   {% endautoescape %}
 
   <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
 
   <h1>{{ domain | display_name }} errors</h1>
-  <p class="meta">{{ total }} error entr{{ 'ies' if total != 1 else 'y' }}</p>
+  <p class="meta">{{ total }} error entr{{ 'ies' if total != 1 else 'y' }} · Average fix rate: {{ avg_fix_rate }}% · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds</p>
+
+  <section id="domain-stats" style="background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem;margin:1rem 0;">
+    <strong>Overview:</strong>
+    <span class="verdict-true">{{ resolvable_counts.true }} fixable</span> ·
+    <span class="verdict-partial">{{ resolvable_counts.partial }} partial</span> ·
+    <span class="verdict-false">{{ resolvable_counts.false }} not fixable</span>
+  </section>
 
   {% for e in entries %}
   <div class="entry">
-    <a href="{{ base_path }}/{{ e.id }}"><code>{{ e.signature }}</code></a>
-    <span class="verdict-{{ e.resolvable }}">[{{ e.resolvable }}]</span>
-    <span class="meta">{{ e.env_summary }}</span>
+    <a href="{{ base_path }}/{{ e.slug_key }}/"><code>{{ e.signature }}</code></a>
+    <span class="meta">{{ e.env_count }} env{{ 's' if e.env_count != 1 else '' }} · Best fix rate: {{ (e.fix_success_rate * 100)|int }}% · {{ e.dead_end_count }} dead ends · {{ e.workaround_count }} workarounds</span>
   </div>
   {% endfor %}
 
