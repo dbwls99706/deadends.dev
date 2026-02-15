@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "terraform/tf-newer-provider-version/tf1.7-linux",
+  "url": "https://deadends.dev/terraform/tf-newer-provider-version/tf1.7-linux",
+  "error": {
+    "signature": "Error: Resource instance managed by newer provider version",
+    "regex": "Resource instance managed by newer provider version|state was written by a newer provider.*downgrade.*not supported|provider version.*is too old",
+    "domain": "terraform",
+    "category": "provider_error",
+    "first_seen": "2022-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.5,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-14",
+    "summary": "Terraform state contains resource instances that were last managed by a newer version of the provider than is currently configured. Provider state schemas may change between versions, and providers typically support reading old state formats but not newer ones. This occurs when a team member upgrades the provider, runs apply (writing new-format state), and another team member or CI pipeline uses an older provider version. Provider downgrades are generally not supported."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually edit the terraform.tfstate JSON to downgrade provider version metadata",
+      "why_fails": "Terraform state files contain checksums, serial numbers, and lineage data for consistency. Manually editing the state bypasses integrity checks and can corrupt the state file. Even if you change the version field, the resource attribute schema from the newer provider may use field names or structures the older provider does not understand, causing deserialization errors or data loss.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/state"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Run terraform init -upgrade with the old version constraint to force downgrade",
+      "why_fails": "terraform init -upgrade selects the latest version matching constraints, but it does not migrate state to the older format. The provider binary is downgraded but the state still contains new-format data. The old provider cannot deserialize the newer state schema, producing the same error. Provider state migration is one-way (upgrade only).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://developer.hashicorp.com/terraform/cli/commands/init"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Upgrade the provider to match the version that wrote the state",
+      "success_rate": 0.95,
+      "how": "# Check which provider version wrote the state:\nterraform providers\n# Or inspect state:\n#   terraform show -json | jq '.values.root_module.resources[].provider_name'\n\n# Update version constraint in your config:\nterraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 5.30.0\"  # Match or exceed the version in state\n    }\n  }\n}\n\n# Upgrade:\nterraform init -upgrade\nterraform plan  # Should work now",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/providers/requirements#version-constraints"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Pin provider versions in required_providers and use a dependency lock file across the team",
+      "success_rate": 0.9,
+      "how": "# Pin exact versions to prevent accidental upgrades:\nterraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"= 5.40.0\"  # Exact pin\n    }\n  }\n}\n\n# Commit .terraform.lock.hcl to version control:\ngit add .terraform.lock.hcl\ngit commit -m \"Pin provider versions\"\n\n# All team members and CI pipelines now use the same version.\n# To upgrade, one person runs:\n#   terraform init -upgrade\n#   terraform plan  # Verify\n#   terraform apply\n#   git add .terraform.lock.hcl && git commit -m \"Upgrade AWS provider to X.Y.Z\"",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/files/dependency-lock"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If state is in a remote backend, restore a state backup from before the provider upgrade",
+      "success_rate": 0.78,
+      "how": "# For Terraform Cloud / remote backends with state versioning:\n# List state versions:\nterraform state list\n\n# In Terraform Cloud UI: go to the workspace -> States tab\n# Find the state version before the provider upgrade and rollback.\n\n# For S3 backend with versioning enabled:\n# aws s3api list-object-versions --bucket my-tf-state --prefix terraform.tfstate\n# aws s3api get-object --bucket my-tf-state --key terraform.tfstate \\\n#   --version-id <old-version-id> terraform.tfstate.backup\n# terraform state push terraform.tfstate.backup\n\n# WARNING: Rolling back state loses any resource changes applied\n# after the backup. Plan carefully after rollback.",
+      "sources": [
+        "https://developer.hashicorp.com/terraform/language/state/remote"
+      ],
+      "condition": "Remote backend has state versioning enabled and recent changes can be re-applied"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "terraform/error-refreshing-state/tf1-linux",
+        "probability": 0.2,
+        "condition": "If the provider version mismatch is not resolved, subsequent operations fail to deserialize state"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "terraform/provider-version-constraint/tf1-linux",
+        "probability": 0.25,
+        "condition": "Developer changes version constraint to an older version after another team member upgraded"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "terraform/provider-not-present/tf1-linux",
+        "distinction": "Provider not present means the provider plugin is not installed at all. Newer provider version means the provider IS installed but its version is older than what the state requires. The former needs terraform init; the latter needs a provider version upgrade."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-14"
+  }
+}

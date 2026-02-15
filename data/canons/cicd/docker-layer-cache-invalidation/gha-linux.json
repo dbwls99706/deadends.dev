@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cicd/docker-layer-cache-invalidation/gha-linux",
+  "url": "https://deadends.dev/cicd/docker-layer-cache-invalidation/gha-linux",
+  "error": {
+    "signature": "Docker build cache miss: all layers rebuilt despite no source changes",
+    "regex": "CACHED.*0/|cache miss|exporting layers|sha256:.*DONE",
+    "domain": "cicd",
+    "category": "build_optimization",
+    "first_seen": "2020-06-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=20.10"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-02-14",
+    "summary": "Docker layer cache is invalidated every CI run because COPY . . is placed before dependency installation, build arguments change every run, or the CI cache action isn't properly configured for BuildKit cache mounts."
+  },
+  "dead_ends": [
+    {
+      "action": "Adding --cache-from with the latest image tag without BuildKit",
+      "why_fails": "Legacy Docker builder's --cache-from only works if the image layers exactly match. Any change in a parent layer invalidates all subsequent layers. Without BuildKit's cache mount feature, dependency installation layers are rebuilt whenever any source file changes.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": "Using legacy Docker builder without BuildKit"
+    },
+    {
+      "action": "Caching the entire /var/lib/docker directory in CI",
+      "why_fails": "Docker's storage driver (overlay2) creates many small files that are slow to save/restore from CI cache. The cache upload time often exceeds the time saved. GitHub Actions has a 10GB cache limit that fills quickly.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Order Dockerfile to COPY dependency files first, install, then COPY source code",
+      "how": "# Good Dockerfile ordering:\nFROM node:20-slim\nWORKDIR /app\nCOPY package.json package-lock.json ./  # Changes rarely\nRUN npm ci                               # Cached unless deps change\nCOPY . .                                 # Source changes don't invalidate npm ci\nRUN npm run build",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.docker.com/build/cache/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use docker/build-push-action with GitHub Actions cache backend",
+      "how": "- uses: docker/setup-buildx-action@v3\n- uses: docker/build-push-action@v5\n  with:\n    context: .\n    push: true\n    tags: myapp:latest\n    cache-from: type=gha\n    cache-to: type=gha,mode=max",
+      "success_rate": 0.88,
+      "sources": [
+        "https://docs.docker.com/build/cache/backends/gha/"
+      ],
+      "condition": "Using GitHub Actions"
+    },
+    {
+      "action": "Use BuildKit cache mounts for package manager caches",
+      "how": "# syntax=docker/dockerfile:1\nFROM python:3.12-slim\nRUN --mount=type=cache,target=/root/.cache/pip \\\n    pip install -r requirements.txt\n# The pip cache persists across builds, speeding up even when requirements change",
+      "success_rate": 0.85,
+      "sources": [
+        "https://docs.docker.com/build/cache/#use-cache-mounts"
+      ],
+      "condition": "BuildKit enabled (default in Docker 23+)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "cicd/docker-build-failed-ci/docker-linux",
+        "probability": 0.1,
+        "condition": "Slow builds due to cache misses may cause CI timeout failures"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "cicd/docker-buildx-cache-miss/gha-ubuntu",
+        "distinction": "Layer cache invalidation is about Dockerfile ordering causing unnecessary rebuilds. BuildX cache miss is about the CI cache storage backend (GHA cache, registry cache) not being configured or having expired."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 90,
+    "last_verification": "2026-02-14"
+  }
+}

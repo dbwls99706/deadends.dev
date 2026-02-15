@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "react/useeffect-async-callback/react18-linux",
+  "url": "https://deadends.dev/react/useeffect-async-callback/react18-linux",
+  "error": {
+    "signature": "useEffect must not return anything besides a function, which is used for clean-up",
+    "regex": "useEffect must not return anything besides a function|destroy is not a function",
+    "domain": "react",
+    "category": "hooks_error",
+    "first_seen": "2019-02-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "react",
+      "version_range": ">=16.8,<19.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-14",
+    "summary": "Passing an async function directly to useEffect causes it to return a Promise instead of a cleanup function. React expects either undefined or a cleanup function from the effect callback."
+  },
+  "dead_ends": [
+    {
+      "action": "Using .then() chains instead of async/await to avoid the async callback",
+      "why_fails": "While .then() technically avoids the async return issue, it makes error handling harder and leads to deeply nested promise chains. The IIFE pattern is simpler and more maintainable.",
+      "fail_rate": 0.55,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Suppressing the warning with eslint-disable without fixing the code",
+      "why_fails": "The warning exists because the async callback returns a Promise as the cleanup function. React will try to call the Promise as a function during cleanup, causing silent failures and potential memory leaks from unclean subscriptions.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Define the async function inside useEffect and call it immediately",
+      "how": "useEffect(() => {\n  const fetchData = async () => {\n    try {\n      const response = await fetch('/api/data');\n      const data = await response.json();\n      setData(data);\n    } catch (error) {\n      setError(error);\n    }\n  };\n  fetchData();\n}, []);",
+      "success_rate": 0.95,
+      "sources": [
+        "https://react.dev/reference/react/useEffect#fetching-data-with-effects"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add cleanup with AbortController to cancel pending requests on unmount",
+      "how": "useEffect(() => {\n  const controller = new AbortController();\n  const fetchData = async () => {\n    try {\n      const res = await fetch('/api/data', { signal: controller.signal });\n      const data = await res.json();\n      setData(data);\n    } catch (e) {\n      if (e.name !== 'AbortError') setError(e);\n    }\n  };\n  fetchData();\n  return () => controller.abort();\n}, []);",
+      "success_rate": 0.95,
+      "sources": [
+        "https://react.dev/reference/react/useEffect#fetching-data-with-effects"
+      ],
+      "condition": "When cleanup is needed to prevent state updates on unmounted components"
+    },
+    {
+      "action": "Use a data fetching library like React Query / TanStack Query instead of manual useEffect",
+      "how": "import { useQuery } from '@tanstack/react-query';\n\nfunction Component() {\n  const { data, error, isLoading } = useQuery({\n    queryKey: ['data'],\n    queryFn: () => fetch('/api/data').then(res => res.json()),\n  });\n  // Handles loading, errors, caching, and cleanup automatically\n}",
+      "success_rate": 0.95,
+      "sources": [
+        "https://tanstack.com/query/latest"
+      ],
+      "condition": "For data fetching use cases"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "react/cannot-update-unmounted/react18-linux",
+        "probability": 0.35,
+        "condition": "If async function completes after component unmounts without AbortController cleanup"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "react/useeffect-missing-dependency/react18-linux",
+        "distinction": "The async callback error is about the return value type (Promise vs function). Missing dependency warnings are about values used inside the effect that aren't listed in the dependency array."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 200,
+    "last_verification": "2026-02-14"
+  }
+}

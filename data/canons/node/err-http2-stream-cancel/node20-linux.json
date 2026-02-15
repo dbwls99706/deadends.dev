@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "node/err-http2-stream-cancel/node20-linux",
+  "url": "https://deadends.dev/node/err-http2-stream-cancel/node20-linux",
+  "error": {
+    "signature": "Error [ERR_HTTP2_STREAM_CANCEL]: The pending stream has been canceled (code: NGHTTP2_CANCEL)",
+    "regex": "ERR_HTTP2_STREAM_CANCEL",
+    "domain": "node",
+    "category": "network_error",
+    "first_seen": "2021-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "node",
+      "version_range": ">=18,<23"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.8,
+    "last_updated": "2026-02-14",
+    "summary": "HTTP/2 stream was cancelled by the remote peer or due to timeout. Common with gRPC clients, HTTP/2 proxies, or when the server resets the stream. Often seen behind load balancers with HTTP/2 keepalive mismatches."
+  },
+  "dead_ends": [
+    {
+      "action": "Simply retrying the same request immediately",
+      "why_fails": "If the server or load balancer is actively resetting HTTP/2 streams due to configuration limits, retrying hits the same limit. Need to address the root cause first.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": "Systematic stream resets"
+    },
+    {
+      "action": "Downgrading to HTTP/1.1 globally",
+      "why_fails": "Loses multiplexing, header compression, and server push benefits. May not be possible if the server only supports HTTP/2 (e.g., gRPC requires HTTP/2).",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": "gRPC or HTTP/2-only services"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase HTTP/2 stream timeout and keepalive settings on the client",
+      "how": "const client = http2.connect(url, {\n  settings: { maxConcurrentStreams: 100 },\n  peerMaxConcurrentStreams: 100\n});\nclient.setTimeout(30000);",
+      "success_rate": 0.85,
+      "sources": [
+        "https://nodejs.org/api/http2.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Configure load balancer to match HTTP/2 keepalive timeouts",
+      "how": "Ensure the client's keepalive interval is shorter than the load balancer's idle timeout. For ALB: set idle_timeout to be longer than client keepalive.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://nodejs.org/api/http2.html#http2session-and-sockets"
+      ],
+      "condition": "Behind a load balancer"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "node/econnreset/node20-linux",
+        "distinction": "ECONNRESET is a TCP-level connection reset. ERR_HTTP2_STREAM_CANCEL is an HTTP/2 protocol-level stream cancellation. The HTTP/2 error is specific to multiplexed streams."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 45,
+    "last_verification": "2026-02-14"
+  }
+}

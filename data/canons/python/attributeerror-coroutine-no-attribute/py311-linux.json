@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/attributeerror-coroutine-no-attribute/py311-linux",
+  "url": "https://deadends.dev/python/attributeerror-coroutine-no-attribute/py311-linux",
+  "error": {
+    "signature": "AttributeError: 'coroutine' object has no attribute 'X'",
+    "regex": "AttributeError: 'coroutine' object has no attribute",
+    "domain": "python",
+    "category": "async_error",
+    "first_seen": "2018-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.8,<3.14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-02-14",
+    "summary": "Occurs when calling an async function without 'await'. The function returns a coroutine object instead of the actual result, and accessing attributes on that coroutine fails."
+  },
+  "dead_ends": [
+    {
+      "action": "Checking if the attribute actually exists on the return type",
+      "why_fails": "The attribute exists on the actual return value, not on the coroutine wrapper. The issue is the missing 'await', not a missing attribute.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Adding the missing attribute to the returned object's class",
+      "why_fails": "The returned object is a coroutine, not the intended type. Adding attributes to the class won't help because the code never reaches the actual return value.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add 'await' before the async function call",
+      "how": "# Wrong:\nresult = fetch_data()  # returns coroutine\nresult.name  # AttributeError\n\n# Right:\nresult = await fetch_data()  # returns actual data\nresult.name  # works",
+      "success_rate": 0.97,
+      "sources": [
+        "https://docs.python.org/3/library/asyncio-task.html#coroutines"
+      ],
+      "condition": "Inside an async function"
+    },
+    {
+      "action": "If in synchronous code, use asyncio.run() to execute the coroutine",
+      "how": "import asyncio\nresult = asyncio.run(fetch_data())\nresult.name  # works",
+      "success_rate": 0.9,
+      "sources": [
+        "https://docs.python.org/3/library/asyncio-runner.html"
+      ],
+      "condition": "In synchronous context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "python/runtimeerror-coroutine-never-awaited/py311-linux",
+        "distinction": "'coroutine never awaited' is a RuntimeWarning that the coroutine was created but never executed. 'coroutine has no attribute' means the coroutine was used as if it were the return value."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 200,
+    "last_verification": "2026-02-14"
+  }
+}

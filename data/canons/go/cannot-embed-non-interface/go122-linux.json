@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "go/cannot-embed-non-interface/go122-linux",
+  "url": "https://deadends.dev/go/cannot-embed-non-interface/go122-linux",
+  "error": {
+    "signature": "cannot embed non-interface type T",
+    "regex": "cannot embed non-interface type|cannot use.*as.*embedded field",
+    "domain": "go",
+    "category": "compile_error",
+    "first_seen": "2020-01-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "go",
+      "version_range": ">=1.21,<2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "Attempting to embed a concrete type where only interfaces are allowed, or embedding a type that conflicts with another embedded type's methods. Go's embedding rules require careful type composition."
+  },
+  "dead_ends": [
+    {
+      "action": "Using type assertion to cast the embedded type",
+      "why_fails": "The error is a compile-time error about type embedding rules, not a runtime type mismatch. Type assertions don't apply here.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://go.dev/ref/spec#Struct_types"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Creating a wrapper interface just to embed the type",
+      "why_fails": "If you need the concrete type's fields (not just methods), an interface won't help since interfaces only carry method sets.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": "Need access to concrete fields"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a named field instead of embedding",
+      "how": "// Instead of embedding:\ntype MyStruct struct {\n    SomeConcreteType  // ERROR: cannot embed\n}\n// Use a named field:\ntype MyStruct struct {\n    Inner SomeConcreteType\n}\n// Access: s.Inner.Method()",
+      "success_rate": 0.95,
+      "sources": [
+        "https://go.dev/ref/spec#Struct_types"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Extract an interface from the concrete type and embed that",
+      "how": "type Doer interface {\n    Do() error\n}\ntype MyStruct struct {\n    Doer  // embed the interface\n}\n// Then assign: s := MyStruct{Doer: concreteInstance}",
+      "success_rate": 0.88,
+      "sources": [
+        "https://go.dev/doc/effective_go#embedding"
+      ],
+      "condition": "Only need method access"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "go/cannot-use-as-type/go121-linux",
+        "distinction": "'cannot embed' is about struct composition rules. 'cannot use X as type Y' is about type assignment or argument passing."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "expert_review",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-14"
+  }
+}

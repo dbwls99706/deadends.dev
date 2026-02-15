@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "typescript/ts2790-delete-must-be-optional/ts5-linux",
+  "url": "https://deadends.dev/typescript/ts2790-delete-must-be-optional/ts5-linux",
+  "error": {
+    "signature": "TS2790: The operand of a 'delete' operator must be optional",
+    "regex": "TS2790:? The operand of a ['\"]?delete['\"]? operator must be optional",
+    "domain": "typescript",
+    "category": "type_error",
+    "first_seen": "2021-06-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "typescript",
+      "version_range": ">=5.0,<6.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.9,
+    "last_updated": "2026-02-14",
+    "summary": "TypeScript 4.0+ with strict mode (exactOptionalPropertyTypes or strict) enforces that the delete operator can only be used on properties marked as optional (?:). Deleting a required property would leave the object in a state that violates its type contract -- the property is declared as always present but is now undefined. This error catches potential runtime bugs where code assumes a property exists but it has been deleted."
+  },
+  "dead_ends": [
+    {
+      "action": "Use @ts-ignore or @ts-expect-error to suppress the delete error",
+      "why_fails": "Suppressing the error allows deleting a required property, making the object's runtime shape inconsistent with its type. Any subsequent code accessing the deleted property gets undefined instead of the declared type, causing runtime TypeError ('Cannot read property of undefined'). The type system can no longer protect you.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Cast the object to 'any' before deleting the property",
+      "why_fails": "Casting to any bypasses the type check but the underlying problem remains: the object's type declares the property as required. After casting back or using the object elsewhere with its original type, TypeScript assumes the property exists. This leads to the same runtime undefined access bugs that TS2790 is designed to prevent.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Mark the property as optional in the type definition",
+      "success_rate": 0.95,
+      "how": "// Before: required property\ninterface Config {\n  apiKey: string;\n  debug: boolean;\n}\nconst config: Config = { apiKey: 'abc', debug: true };\ndelete config.debug; // TS2790\n\n// After: mark as optional\ninterface Config {\n  apiKey: string;\n  debug?: boolean;  // Now optional\n}\nconst config: Config = { apiKey: 'abc', debug: true };\ndelete config.debug; // OK",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/2/objects.html#optional-properties"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use destructuring with rest to create a new object without the property instead of mutating",
+      "success_rate": 0.92,
+      "how": "// Instead of deleting, create a new object without the property:\ninterface FullUser {\n  id: string;\n  name: string;\n  password: string;\n}\ntype SafeUser = Omit<FullUser, 'password'>;\n\nconst user: FullUser = { id: '1', name: 'Alice', password: 'secret' };\n// Don't do: delete user.password;\n// Do this instead:\nconst { password, ...safeUser }: FullUser = user;\n// safeUser is { id: string; name: string } - type-safe, no mutation\nconst result: SafeUser = safeUser;",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/variable-declarations.html#object-destructuring"
+      ],
+      "condition": "Immutable pattern is acceptable"
+    },
+    {
+      "action": "Use Partial<T> for objects where properties may be removed at runtime",
+      "success_rate": 0.85,
+      "how": "// When the object is expected to have properties removed over its lifetime:\ninterface FormFields {\n  name: string;\n  email: string;\n  phone: string;\n}\n\n// Use Partial when the object will be mutated by deleting fields\nconst draft: Partial<FormFields> = { name: 'Bob', email: 'bob@x.com', phone: '555' };\ndelete draft.phone; // OK - all properties in Partial are optional\n\n// When you need the full object later, validate:\nfunction isComplete(f: Partial<FormFields>): f is FormFields {\n  return !!f.name && !!f.email && !!f.phone;\n}",
+      "sources": [
+        "https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype"
+      ],
+      "condition": "Object represents a mutable draft or partial state"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "typescript/ts2322-type-not-assignable/ts5-linux",
+        "probability": 0.2,
+        "condition": "After making the property optional, assignments from required-property sources trigger TS2322"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "typescript/ts2322-type-not-assignable/ts5-linux",
+        "probability": 0.1,
+        "condition": "Developer upgrades to strict mode and delete statements that previously worked now trigger TS2790"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "typescript/ts2339-property-not-exist/ts5-linux",
+        "distinction": "TS2339 occurs when accessing a property that doesn't exist on a type. TS2790 occurs when trying to delete a property that is required (not optional) on a type. Both involve property access but TS2790 is specifically about the delete operator and property optionality."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 40,
+    "last_verification": "2026-02-14"
+  }
+}

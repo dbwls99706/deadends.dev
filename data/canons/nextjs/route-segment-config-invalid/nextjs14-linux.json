@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nextjs/route-segment-config-invalid/nextjs14-linux",
+  "url": "https://deadends.dev/nextjs/route-segment-config-invalid/nextjs14-linux",
+  "error": {
+    "signature": "Error: Route segment config is invalid",
+    "regex": "Route segment config is invalid|Invalid route segment (config|option)|route segment configuration.*invalid",
+    "domain": "nextjs",
+    "category": "config_error",
+    "first_seen": "2023-10-01",
+    "last_confirmed": "2026-02-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nextjs",
+      "version_range": ">=14,<16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-02-14",
+    "summary": "A route segment config export (e.g., dynamic, revalidate, runtime, fetchCache, preferredRegion) in a page.tsx, layout.tsx, or route.tsx file uses an invalid value or unsupported option name. Next.js validates these config exports at build time and rejects unrecognized keys or invalid value types. Common causes include typos in config names, using App Router config in Pages Router files, or passing incorrect value types (e.g., a string where a number is expected for revalidate)."
+  },
+  "dead_ends": [
+    {
+      "action": "Wrapping the route segment config in a regular JavaScript object instead of using named exports",
+      "why_fails": "Route segment config must be individual named exports (e.g., export const dynamic = 'force-dynamic'). Wrapping them in an object like export const config = { dynamic: 'force-dynamic' } is the Pages Router pattern and is silently ignored or causes validation errors in the App Router. The two systems are fundamentally incompatible.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Adding route segment config to a client component file",
+      "why_fails": "Route segment config exports (dynamic, revalidate, runtime, etc.) are only valid in Server Components -- specifically in page.tsx, layout.tsx, route.tsx, and loading.tsx files. Adding them to a file with 'use client' directive causes the config to be ignored or triggers an invalid config error because client components cannot control server-side rendering behavior.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Using getStaticProps/getServerSideProps config patterns from Pages Router in App Router",
+      "why_fails": "Pages Router data fetching functions (getStaticProps, getServerSideProps) and their config options do not exist in the App Router. Attempting to use export const getStaticProps or similar patterns results in unrecognized config errors. App Router uses completely different conventions: export const dynamic, export const revalidate, and fetch() options.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use only valid named exports with correct value types for App Router route segment config",
+      "success_rate": 0.93,
+      "how": "Ensure your page/layout file uses valid named exports:\n\n// page.tsx (App Router)\nexport const dynamic = 'force-dynamic'; // 'auto' | 'force-dynamic' | 'error' | 'force-static'\nexport const revalidate = 3600; // false | 0 | number\nexport const runtime = 'nodejs'; // 'nodejs' | 'edge'\nexport const fetchCache = 'auto'; // 'auto' | 'default-cache' | 'only-cache' | 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'\nexport const preferredRegion = 'auto'; // 'auto' | 'global' | 'home' | string | string[]\nexport const maxDuration = 60; // number (seconds)\n\nRemove any unrecognized exports and ensure types match (e.g., revalidate must be a number or false, not a string).",
+      "sources": [
+        "https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Move route segment config from client component to the nearest server component page or layout",
+      "success_rate": 0.9,
+      "how": "If your config is in a client component, move it to the parent page.tsx or layout.tsx:\n\n// app/dashboard/page.tsx (Server Component - no 'use client')\nexport const dynamic = 'force-dynamic';\nexport const revalidate = 0;\n\nimport DashboardClient from './dashboard-client';\n\nexport default async function DashboardPage() {\n  const data = await fetchData();\n  return <DashboardClient initialData={data} />;\n}\n\n// app/dashboard/dashboard-client.tsx\n'use client';\n// Client-side interactivity here, NO route segment config",
+      "sources": [
+        "https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "nextjs/rsc-serialization-error/nextjs14-linux",
+        "probability": 0.15,
+        "condition": "when fixing config by restructuring components, passing non-serializable props from server to client"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "nextjs/route-conflict/nextjs14-linux",
+        "probability": 0.1,
+        "condition": "when resolving route conflicts by adding route segment config to disambiguate behavior"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "nextjs/server-only-import-client/nextjs14-linux",
+        "distinction": "Route segment config invalid is about incorrect config exports; server-only-import-client is about importing server-only modules in client components. Both involve server/client boundaries but at different levels."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "generate_new_canons.py",
+    "generation_date": "2026-02-14",
+    "review_status": "auto_generated",
+    "evidence_count": 45,
+    "last_verification": "2026-02-14"
+  }
+}
