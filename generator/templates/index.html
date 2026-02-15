@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
-  <title>deadends.dev — Structured Failure Knowledge for AI Agents</title>
-  <meta name="description" content="When AI coding agents fail, they search the web. deadends.dev provides structured failure knowledge: what NOT to try, what works, and what error comes next. {{ total_errors }} errors across {{ domains | length }} domains.">
+  <title>deadends.dev — Stop Trying What Doesn't Work | Error Fixes for Developers</title>
+  <meta name="description" content="Don't waste time on dead-end fixes. deadends.dev tells you what NOT to try, what actually works, and what error comes next. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   {% if google_verification %}<meta name="google-site-verification" content="{{ google_verification }}">{% endif %}
@@ -19,8 +19,8 @@
   <link rel="alternate" type="application/atom+xml" href="{{ base_path }}/feed.xml" title="New Error Patterns">
   <link rel="author" href="{{ base_path }}/CLAUDE.md" type="text/markdown" title="AI Agent Instructions">
 
-  <meta property="og:title" content="deadends.dev — Structured Failure Knowledge for AI Agents">
-  <meta property="og:description" content="Know which debugging paths are dead ends before wasting cycles. {{ total_errors }} errors across {{ domains | length }} domains.">
+  <meta property="og:title" content="deadends.dev — Stop Trying What Doesn't Work">
+  <meta property="og:description" content="Know which debugging paths are dead ends before wasting time. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}">
   <meta property="og:site_name" content="deadends.dev">
@@ -84,14 +84,14 @@ USAGE=1. Fetch /api/v1/match.json (350KB) for lightweight regex matching. 2. Mat
 
   <header>
     <h1>deadends.dev</h1>
-    <p>Structured failure knowledge for AI coding agents.</p>
+    <p>Stop trying what doesn't work.</p>
   </header>
 
   <div class="hero">
-    <p>When AI coding agents hit an error, they search the web. But search results are written by humans, for humans — unstructured, environment-unaware, and often wrong for specific conditions.</p>
+    <p>Every developer has wasted hours on a fix that was never going to work. Stack Overflow answers that are outdated, environment-specific, or just plain wrong for your setup.</p>
     <p><strong>deadends.dev</strong> tells you what <em>NOT</em> to try, what actually works (and under which conditions), and what error comes next if you take a particular path.</p>
     <p><strong><a href="{{ base_path }}/search/">Paste your error message here to find matches instantly.</a></strong></p>
-    <p class="meta">{{ total_errors }} error entries across {{ domains | length }} domains. All data available as <a href="https://github.com/dbwls99706/deadends.dev">open source JSON</a>.</p>
+    <p class="meta">{{ total_errors }} verified error entries across {{ domains | length }} domains. All data available as <a href="https://github.com/dbwls99706/deadends.dev">open source JSON</a>.</p>
   </div>
 
   <section>

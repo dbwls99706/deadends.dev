@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
-  <title>Fix {{ error.signature }} — {{ (verdict.fix_success_rate * 100)|int }}% Success Rate | deadends.dev</title>
-  <meta name="description" content="{{ (verdict.fix_success_rate * 100)|int }}% fix rate for {{ error.signature }}. Avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified solutions with step-by-step instructions. {{ env_summary }}.">
+  <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
+  <meta name="description" content="Don't waste time on {{ error.signature }}. Avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified workarounds with step-by-step instructions. {{ env_summary }}. Fix rate: {{ (verdict.fix_success_rate * 100)|int }}%.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
@@ -35,8 +35,8 @@
 
   <!-- Open Graph -->
   {% set canonical_url = url if url.endswith('/') else url ~ '/' %}
-  <meta property="og:title" content="Fix {{ error.signature }} — {{ (verdict.fix_success_rate * 100)|int }}% Success Rate">
-  <meta property="og:description" content="{{ dead_ends|length }} dead ends to avoid, {{ workarounds|default([])|length }} verified workarounds. Fix rate: {{ (verdict.fix_success_rate * 100)|int }}%.">
+  <meta property="og:title" content="{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid">
+  <meta property="og:description" content="Don't waste time on dead-end fixes. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% fix rate. {{ env_summary }}.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:site_name" content="deadends.dev">

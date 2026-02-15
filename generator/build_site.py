@@ -231,14 +231,29 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "env_summary": build_env_summary(c),
                 "resolvable": c["verdict"]["resolvable"],
                 "fix_success_rate": c["verdict"]["fix_success_rate"],
+                "dead_end_count": len(c["dead_ends"]),
+                "workaround_count": len(c.get("workarounds", [])),
             }
             for c in sorted(domain_canons, key=lambda c: c["id"])
         ]
+
+        # Domain-level stats
+        rates = [c["verdict"]["fix_success_rate"] for c in domain_canons]
+        resolvable_counts = {"true": 0, "partial": 0, "false": 0}
+        for c in domain_canons:
+            r = c["verdict"]["resolvable"]
+            resolvable_counts[r] = resolvable_counts.get(r, 0) + 1
+        total_de = sum(len(c["dead_ends"]) for c in domain_canons)
+        total_wa = sum(len(c.get("workarounds", [])) for c in domain_canons)
 
         html = template.render(
             domain=domain,
             entries=entries,
             total=len(entries),
+            avg_fix_rate=int(sum(rates) / len(rates) * 100),
+            resolvable_counts=resolvable_counts,
+            total_dead_ends=total_de,
+            total_workarounds=total_wa,
         )
 
         domain_dir = SITE_DIR / domain
@@ -779,6 +794,7 @@ def build_error_summary_pages(
     that aggregates all environments. Returns summary metadata for sitemap.
     """
     template = jinja_env.get_template("error_summary.html")
+    known_ids = {c["id"] for c in canons}
 
     # Group canons by domain/slug (strip the env part of the id)
     by_slug: dict[str, list[dict]] = {}
@@ -842,6 +858,45 @@ def build_error_summary_pages(
         min_rate = int(min(rates) * 100)
         max_rate = int(max(rates) * 100)
 
+        # Aggregate transition_graph across all environments
+        all_leads_to: dict[str, dict] = {}
+        all_preceded_by: dict[str, dict] = {}
+        all_confused_with: dict[str, dict] = {}
+        for c in slug_canons:
+            graph = c.get("transition_graph", {})
+            for lt in graph.get("leads_to", []):
+                eid = lt["error_id"]
+                existing = all_leads_to.get(eid, {})
+                if lt.get("probability", 0) > existing.get("probability", 0):
+                    all_leads_to[eid] = lt
+            for pb in graph.get("preceded_by", []):
+                eid = pb["error_id"]
+                existing = all_preceded_by.get(eid, {})
+                if pb.get("probability", 0) > existing.get("probability", 0):
+                    all_preceded_by[eid] = pb
+            for fc in graph.get("frequently_confused_with", []):
+                eid = fc["error_id"]
+                if eid not in all_confused_with:
+                    all_confused_with[eid] = fc
+
+        aggregated_graph = {}
+        if all_leads_to:
+            aggregated_graph["leads_to"] = sorted(
+                all_leads_to.values(),
+                key=lambda x: x.get("probability", 0),
+                reverse=True,
+            )
+        if all_preceded_by:
+            aggregated_graph["preceded_by"] = sorted(
+                all_preceded_by.values(),
+                key=lambda x: x.get("probability", 0),
+                reverse=True,
+            )
+        if all_confused_with:
+            aggregated_graph["frequently_confused_with"] = list(
+                all_confused_with.values()
+            )
+
         # Generate common variations from the regex pattern
         common_variations = _generate_variations(signature, regex, domain)
 
@@ -901,6 +956,8 @@ def build_error_summary_pages(
             min_rate=min_rate,
             max_rate=max_rate,
             summary_json_ld=summary_json_ld,
+            transition_graph=aggregated_graph,
+            known_ids=known_ids,
         )
 
         # Write to /{domain}/{slug}/index.html
