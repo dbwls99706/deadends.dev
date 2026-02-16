@@ -61,7 +61,7 @@ def build_env_summary(canon: dict) -> str:
     parts = []
 
     runtime = env.get("runtime", {})
-    if runtime:
+    if runtime.get("name") and runtime.get("version_range"):
         parts.append(f"{runtime['name']} {runtime['version_range']}")
 
     hw = env.get("hardware", {})
@@ -139,7 +139,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "datePublished": canon["error"].get(
                 "first_seen", canon["metadata"].get("generation_date", "")
             ),
-            "dateModified": canon["verdict"]["last_updated"],
+            "dateModified": canon["verdict"].get("last_updated", ""),
             "image": f"{BASE_URL}/og-image.png",
             "publisher": {
                 "@type": "Organization",
@@ -154,6 +154,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "deadend:errorCanon": canon,
         }
         json_ld = json.dumps(json_ld_data, indent=2, ensure_ascii=False)
+        json_ld = json_ld.replace("</", r"<\/")
 
         # FAQPage schema — dead ends as FAQ questions for Google rich snippets
         faq_entities = []
@@ -174,7 +175,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         }
         faq_json_ld = json.dumps(
             faq_json_ld_data, indent=2, ensure_ascii=False
-        )
+        ).replace("</", r"<\/")
 
         # HowTo schema — workarounds as step-by-step fix instructions
         howto_json_ld = ""
@@ -200,7 +201,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             }
             howto_json_ld = json.dumps(
                 howto_data, indent=2, ensure_ascii=False
-            )
+            ).replace("</", r"<\/")
 
         # Same-domain errors for internal linking (exclude self)
         current_slug = error_id.rsplit("/", 1)[0]
@@ -547,6 +548,30 @@ Allow: /
 User-agent: Qwen
 Allow: /
 
+User-agent: TikTokSpider
+Allow: /
+
+User-agent: Facebookbot
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
+User-agent: ExaBot
+Allow: /
+
+User-agent: AndiBot
+Allow: /
+
+User-agent: FirecrawlAgent
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
 Sitemap: {BASE_URL}/sitemap.xml
 
 # AI agent config files:
@@ -564,7 +589,7 @@ Sitemap: {BASE_URL}/sitemap.xml
 # LLM-optimized:   {BASE_URL}/llms.txt
 # Full data dump:  {BASE_URL}/llms-full.txt
 # Plugin manifest: {BASE_URL}/.well-known/ai-plugin.json
-# A2A agent card:  {BASE_URL}/.well-known/agent-card.json
+# A2A agent card:  {BASE_URL}/.well-known/agent.json
 # Security:        {BASE_URL}/.well-known/security.txt
 # Atom feed:       {BASE_URL}/feed.xml
 """
@@ -928,17 +953,23 @@ def build_error_summary_pages(
         for c in slug_canons:
             graph = c.get("transition_graph", {})
             for lt in graph.get("leads_to", []):
-                eid = lt["error_id"]
+                eid = lt.get("error_id")
+                if not eid:
+                    continue
                 existing = all_leads_to.get(eid, {})
                 if lt.get("probability", 0) > existing.get("probability", 0):
                     all_leads_to[eid] = lt
             for pb in graph.get("preceded_by", []):
-                eid = pb["error_id"]
+                eid = pb.get("error_id")
+                if not eid:
+                    continue
                 existing = all_preceded_by.get(eid, {})
                 if pb.get("probability", 0) > existing.get("probability", 0):
                     all_preceded_by[eid] = pb
             for fc in graph.get("frequently_confused_with", []):
-                eid = fc["error_id"]
+                eid = fc.get("error_id")
+                if not eid:
+                    continue
                 if eid not in all_confused_with:
                     all_confused_with[eid] = fc
 
@@ -1003,7 +1034,7 @@ def build_error_summary_pages(
             },
             indent=2,
             ensure_ascii=False,
-        )
+        ).replace("</", r"<\/")
 
         # Same-domain errors for cross-linking (exclude self)
         same_domain = [
@@ -1081,7 +1112,9 @@ def build_search_page(
         total_errors=len(canons),
         domain_count=len(by_domain),
         domain_errors=domain_errors,
-        search_data=json.dumps(search_data, ensure_ascii=False),
+        search_data=json.dumps(search_data, ensure_ascii=False).replace(
+            "</", r"<\/"
+        ),
     )
 
     search_dir = SITE_DIR / "search"
@@ -1215,6 +1248,30 @@ def build_llms_txt(canons: list[dict]) -> None:
             )
         full_lines.append("")
 
+        tg = canon.get("transition_graph", {})
+        leads = tg.get("leads_to", [])
+        preceded = tg.get("preceded_by", [])
+        confused = tg.get("frequently_confused_with", [])
+        if leads or preceded or confused:
+            full_lines.append("### Error Chain")
+            full_lines.append("")
+            if leads:
+                ids = [e["error_id"] for e in leads
+                       if isinstance(e, dict) and "error_id" in e]
+                if ids:
+                    full_lines.append(f"- LEADS_TO: {', '.join(ids)}")
+            if preceded:
+                ids = [e["error_id"] for e in preceded
+                       if isinstance(e, dict) and "error_id" in e]
+                if ids:
+                    full_lines.append(f"- PRECEDED_BY: {', '.join(ids)}")
+            if confused:
+                ids = [e["error_id"] for e in confused
+                       if isinstance(e, dict) and "error_id" in e]
+                if ids:
+                    full_lines.append(f"- CONFUSED_WITH: {', '.join(ids)}")
+            full_lines.append("")
+
     (SITE_DIR / "llms-full.txt").write_text(
         "\n".join(full_lines), encoding="utf-8"
     )
@@ -1324,7 +1381,11 @@ def build_openapi_spec(canons: list[dict]) -> None:
                     "description": (
                         "Compact file with all error signatures and regexes. "
                         "Load into context window and regex-match your error. "
-                        "On match, fetch the full canon via the api_url."
+                        "On match, fetch the full canon via the api_url. "
+                        "Compact field names: id=canon ID, sig=error signature, "
+                        "re=regex pattern, ok=resolvable (true/partial/false), "
+                        "rate=fix success rate, conf=confidence, "
+                        "de=dead end count, wa=workaround count, url=full JSON API URL."
                     ),
                     "operationId": "matchErrors",
                     "responses": {
@@ -1641,7 +1702,7 @@ def build_well_known(canons: list[dict]) -> None:
     )
     print("  Generated: .well-known/ai-plugin.json")
 
-    # agent-card.json (Google A2A protocol)
+    # agent.json (Google A2A protocol — standard path: /.well-known/agent.json)
     agent_card = {
         "name": "deadends.dev",
         "description": (
@@ -1653,6 +1714,7 @@ def build_well_known(canons: list[dict]) -> None:
         ),
         "version": "1.0.0",
         "url": BASE_URL,
+        "protocolVersion": "0.3.0",
         "provider": {
             "organization": "deadends.dev",
             "url": BASE_URL,
@@ -1660,6 +1722,7 @@ def build_well_known(canons: list[dict]) -> None:
         "capabilities": {
             "streaming": False,
             "pushNotifications": False,
+            "extendedAgentCard": False,
         },
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -1771,10 +1834,11 @@ def build_well_known(canons: list[dict]) -> None:
         "feedUrl": f"{BASE_URL}/feed.xml",
     }
 
-    (well_known_dir / "agent-card.json").write_text(
-        json.dumps(agent_card, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    print("  Generated: .well-known/agent-card.json")
+    # Write as standard A2A filename (agent.json) + legacy alias (agent-card.json)
+    agent_card_json = json.dumps(agent_card, indent=2, ensure_ascii=False)
+    (well_known_dir / "agent.json").write_text(agent_card_json, encoding="utf-8")
+    (well_known_dir / "agent-card.json").write_text(agent_card_json, encoding="utf-8")
+    print("  Generated: .well-known/agent.json + agent-card.json")
 
     # security.txt (RFC 9116)
     security_txt = (
@@ -2053,7 +2117,7 @@ def build_feed(canons: list[dict]) -> None:
         de_count = len(canon["dead_ends"])
         wa_count = len(canon.get("workarounds", []))
         gen_date = canon["metadata"].get(
-            "generation_date", "2026-01-01"
+            "generation_date", "2020-01-01"
         )
 
         SubElement(entry, "title").text = f"[{domain}] {sig}"
