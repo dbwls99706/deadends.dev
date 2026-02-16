@@ -547,6 +547,30 @@ Allow: /
 User-agent: Qwen
 Allow: /
 
+User-agent: TikTokSpider
+Allow: /
+
+User-agent: Facebookbot
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
+User-agent: ExaBot
+Allow: /
+
+User-agent: AndiBot
+Allow: /
+
+User-agent: FirecrawlAgent
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
 Sitemap: {BASE_URL}/sitemap.xml
 
 # AI agent config files:
@@ -564,7 +588,7 @@ Sitemap: {BASE_URL}/sitemap.xml
 # LLM-optimized:   {BASE_URL}/llms.txt
 # Full data dump:  {BASE_URL}/llms-full.txt
 # Plugin manifest: {BASE_URL}/.well-known/ai-plugin.json
-# A2A agent card:  {BASE_URL}/.well-known/agent-card.json
+# A2A agent card:  {BASE_URL}/.well-known/agent.json
 # Security:        {BASE_URL}/.well-known/security.txt
 # Atom feed:       {BASE_URL}/feed.xml
 """
@@ -1215,6 +1239,27 @@ def build_llms_txt(canons: list[dict]) -> None:
             )
         full_lines.append("")
 
+        tg = canon.get("transition_graph", {})
+        leads = tg.get("leads_to", [])
+        preceded = tg.get("preceded_by", [])
+        confused = tg.get("frequently_confused_with", [])
+        if leads or preceded or confused:
+            full_lines.append("### Error Chain")
+            full_lines.append("")
+            if leads:
+                ids = [e["error_id"] for e in leads if isinstance(e, dict)]
+                if ids:
+                    full_lines.append(f"- LEADS_TO: {', '.join(ids)}")
+            if preceded:
+                ids = [e["error_id"] for e in preceded if isinstance(e, dict)]
+                if ids:
+                    full_lines.append(f"- PRECEDED_BY: {', '.join(ids)}")
+            if confused:
+                ids = [e["error_id"] for e in confused if isinstance(e, dict)]
+                if ids:
+                    full_lines.append(f"- CONFUSED_WITH: {', '.join(ids)}")
+            full_lines.append("")
+
     (SITE_DIR / "llms-full.txt").write_text(
         "\n".join(full_lines), encoding="utf-8"
     )
@@ -1324,7 +1369,11 @@ def build_openapi_spec(canons: list[dict]) -> None:
                     "description": (
                         "Compact file with all error signatures and regexes. "
                         "Load into context window and regex-match your error. "
-                        "On match, fetch the full canon via the api_url."
+                        "On match, fetch the full canon via the api_url. "
+                        "Compact field names: id=canon ID, sig=error signature, "
+                        "re=regex pattern, ok=resolvable (true/partial/false), "
+                        "rate=fix success rate, conf=confidence, "
+                        "de=dead end count, wa=workaround count, url=full JSON API URL."
                     ),
                     "operationId": "matchErrors",
                     "responses": {
@@ -1641,7 +1690,7 @@ def build_well_known(canons: list[dict]) -> None:
     )
     print("  Generated: .well-known/ai-plugin.json")
 
-    # agent-card.json (Google A2A protocol)
+    # agent.json (Google A2A protocol — standard path: /.well-known/agent.json)
     agent_card = {
         "name": "deadends.dev",
         "description": (
@@ -1653,6 +1702,7 @@ def build_well_known(canons: list[dict]) -> None:
         ),
         "version": "1.0.0",
         "url": BASE_URL,
+        "protocolVersion": "0.3.0",
         "provider": {
             "organization": "deadends.dev",
             "url": BASE_URL,
@@ -1660,6 +1710,7 @@ def build_well_known(canons: list[dict]) -> None:
         "capabilities": {
             "streaming": False,
             "pushNotifications": False,
+            "extendedAgentCard": False,
         },
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -1771,10 +1822,11 @@ def build_well_known(canons: list[dict]) -> None:
         "feedUrl": f"{BASE_URL}/feed.xml",
     }
 
-    (well_known_dir / "agent-card.json").write_text(
-        json.dumps(agent_card, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    print("  Generated: .well-known/agent-card.json")
+    # Write as standard A2A filename (agent.json) + legacy alias (agent-card.json)
+    agent_card_json = json.dumps(agent_card, indent=2, ensure_ascii=False)
+    (well_known_dir / "agent.json").write_text(agent_card_json, encoding="utf-8")
+    (well_known_dir / "agent-card.json").write_text(agent_card_json, encoding="utf-8")
+    print("  Generated: .well-known/agent.json + agent-card.json")
 
     # security.txt (RFC 9116)
     security_txt = (

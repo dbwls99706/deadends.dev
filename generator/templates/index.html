@@ -59,6 +59,46 @@
     "sameAs": ["https://github.com/dbwls99706/deadends.dev"]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "deadends.dev Error Knowledge Database",
+    "description": "Structured failure knowledge for AI coding agents — {{ total_errors }} error patterns across {{ domains | length }} domains. Each entry contains dead ends (what NOT to try), workarounds (what works with success rates), and error transition graphs.",
+    "url": "{{ base_url }}",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "creator": {
+      "@type": "Organization",
+      "name": "deadends.dev",
+      "url": "{{ base_url }}"
+    },
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "{{ base_url }}/api/v1/index.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/x-ndjson",
+        "contentUrl": "{{ base_url }}/api/v1/errors.ndjson"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/plain",
+        "contentUrl": "{{ base_url }}/llms-full.txt"
+      }
+    ],
+    "measurementTechnique": "Automated evidence collection and expert validation",
+    "variableMeasured": [
+      "Error fix success rate",
+      "Dead end fail rate",
+      "Workaround success rate"
+    ],
+    "keywords": ["error debugging", "dead ends", "workarounds", "AI coding agents", "error patterns", {{ domains | tojson }}]
+  }
+  </script>
 
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
