@@ -577,7 +577,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     }],
                 }
             domain_filter = args.get("domain", "")
-            limit = min(args.get("limit", 10), 20)
+            raw_limit = args.get("limit", 10)
+            limit = min(int(raw_limit) if isinstance(raw_limit, (int, float)) else 10, 20)
             scored = []
             for c in canons:
                 if domain_filter and c["error"]["domain"] != domain_filter:

@@ -61,7 +61,7 @@ def build_env_summary(canon: dict) -> str:
     parts = []
 
     runtime = env.get("runtime", {})
-    if runtime:
+    if runtime.get("name") and runtime.get("version_range"):
         parts.append(f"{runtime['name']} {runtime['version_range']}")
 
     hw = env.get("hardware", {})
@@ -139,7 +139,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "datePublished": canon["error"].get(
                 "first_seen", canon["metadata"].get("generation_date", "")
             ),
-            "dateModified": canon["verdict"]["last_updated"],
+            "dateModified": canon["verdict"].get("last_updated", ""),
             "image": f"{BASE_URL}/og-image.png",
             "publisher": {
                 "@type": "Organization",
@@ -154,6 +154,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "deadend:errorCanon": canon,
         }
         json_ld = json.dumps(json_ld_data, indent=2, ensure_ascii=False)
+        json_ld = json_ld.replace("</", r"<\/")
 
         # FAQPage schema — dead ends as FAQ questions for Google rich snippets
         faq_entities = []
@@ -174,7 +175,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         }
         faq_json_ld = json.dumps(
             faq_json_ld_data, indent=2, ensure_ascii=False
-        )
+        ).replace("</", r"<\/")
 
         # HowTo schema — workarounds as step-by-step fix instructions
         howto_json_ld = ""
@@ -200,7 +201,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             }
             howto_json_ld = json.dumps(
                 howto_data, indent=2, ensure_ascii=False
-            )
+            ).replace("</", r"<\/")
 
         # Same-domain errors for internal linking (exclude self)
         current_slug = error_id.rsplit("/", 1)[0]
@@ -952,17 +953,23 @@ def build_error_summary_pages(
         for c in slug_canons:
             graph = c.get("transition_graph", {})
             for lt in graph.get("leads_to", []):
-                eid = lt["error_id"]
+                eid = lt.get("error_id")
+                if not eid:
+                    continue
                 existing = all_leads_to.get(eid, {})
                 if lt.get("probability", 0) > existing.get("probability", 0):
                     all_leads_to[eid] = lt
             for pb in graph.get("preceded_by", []):
-                eid = pb["error_id"]
+                eid = pb.get("error_id")
+                if not eid:
+                    continue
                 existing = all_preceded_by.get(eid, {})
                 if pb.get("probability", 0) > existing.get("probability", 0):
                     all_preceded_by[eid] = pb
             for fc in graph.get("frequently_confused_with", []):
-                eid = fc["error_id"]
+                eid = fc.get("error_id")
+                if not eid:
+                    continue
                 if eid not in all_confused_with:
                     all_confused_with[eid] = fc
 
@@ -1027,7 +1034,7 @@ def build_error_summary_pages(
             },
             indent=2,
             ensure_ascii=False,
-        )
+        ).replace("</", r"<\/")
 
         # Same-domain errors for cross-linking (exclude self)
         same_domain = [
@@ -1105,7 +1112,9 @@ def build_search_page(
         total_errors=len(canons),
         domain_count=len(by_domain),
         domain_errors=domain_errors,
-        search_data=json.dumps(search_data, ensure_ascii=False),
+        search_data=json.dumps(search_data, ensure_ascii=False).replace(
+            "</", r"<\/"
+        ),
     )
 
     search_dir = SITE_DIR / "search"
@@ -1247,15 +1256,18 @@ def build_llms_txt(canons: list[dict]) -> None:
             full_lines.append("### Error Chain")
             full_lines.append("")
             if leads:
-                ids = [e["error_id"] for e in leads if isinstance(e, dict)]
+                ids = [e["error_id"] for e in leads
+                       if isinstance(e, dict) and "error_id" in e]
                 if ids:
                     full_lines.append(f"- LEADS_TO: {', '.join(ids)}")
             if preceded:
-                ids = [e["error_id"] for e in preceded if isinstance(e, dict)]
+                ids = [e["error_id"] for e in preceded
+                       if isinstance(e, dict) and "error_id" in e]
                 if ids:
                     full_lines.append(f"- PRECEDED_BY: {', '.join(ids)}")
             if confused:
-                ids = [e["error_id"] for e in confused if isinstance(e, dict)]
+                ids = [e["error_id"] for e in confused
+                       if isinstance(e, dict) and "error_id" in e]
                 if ids:
                     full_lines.append(f"- CONFUSED_WITH: {', '.join(ids)}")
             full_lines.append("")
@@ -2105,7 +2117,7 @@ def build_feed(canons: list[dict]) -> None:
         de_count = len(canon["dead_ends"])
         wa_count = len(canon.get("workarounds", []))
         gen_date = canon["metadata"].get(
-            "generation_date", "2026-01-01"
+            "generation_date", "2020-01-01"
         )
 
         SubElement(entry, "title").text = f"[{domain}] {sig}"
