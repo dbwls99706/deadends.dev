@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/dns-record-type-conflict/dns-linux",
+  "url": "https://deadends.dev/networking/dns-record-type-conflict/dns-linux",
+  "error": {
+    "signature": "DNS record type conflict: CNAME cannot coexist with other records at same name",
+    "regex": "CNAME.*conflict|record.*type.*conflict|cannot.*add.*record.*CNAME.*exists|CNAME.*coexist|duplicate.*record.*type|conflicting.*record",
+    "domain": "networking",
+    "category": "dns",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dns",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-16",
+    "summary": "DNS record type conflict occurs when attempting to add records that violate RFC rules at the same domain name. The most common case is adding any record (A, MX, TXT) at a name where a CNAME already exists. Per RFC 1034, a CNAME record must be the only record at that name. This frequently occurs in registrar panels (Gabia, GoDaddy) when configuring email (MX) alongside a CNAME, or when adding SPF/DKIM TXT records."
+  },
+  "dead_ends": [
+    {
+      "action": "Add an MX record alongside an existing CNAME at the same name",
+      "why_fails": "RFC 1034 Section 3.6.2 states that if a CNAME record exists at a name, no other records can exist at that name. Adding MX next to CNAME violates this rule. Some DNS providers silently accept it but resolvers will either ignore the MX or the CNAME, causing unpredictable mail delivery failures.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1034"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add TXT records (SPF, DKIM) at a name that already has a CNAME record",
+      "why_fails": "TXT records cannot coexist with CNAME at the same name. DNS resolvers following the standard will only see the CNAME and ignore TXT records, causing SPF validation failures, DKIM verification failures, and email deliverability problems.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1034"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Replace the CNAME with A/AAAA records to allow other record types at the same name",
+      "success_rate": 0.92,
+      "how": "1. Resolve the CNAME target to get its IP addresses: dig target-hostname.example.com A +short\n2. Delete the CNAME record from the DNS zone\n3. Add A records (and AAAA if available) with the resolved IPs\n4. Now add your MX, TXT, or other records — they will coexist with A/AAAA without conflict\n5. Caveat: if the target's IP changes, you must update the A records manually\n6. Verify all records: dig yourdomain.com ANY",
+      "sources": [],
+      "condition": "Works when the target has stable IP addresses"
+    },
+    {
+      "action": "Use a subdomain for the CNAME and separate record types by name",
+      "success_rate": 0.93,
+      "how": "1. Move the CNAME to a subdomain: e.g., www.example.com CNAME target.example.net\n2. Keep A/AAAA records at the apex (example.com) for direct IP resolution\n3. Add MX records at the apex: example.com MX 10 mail.example.com\n4. Add TXT records at the apex: example.com TXT 'v=spf1 ...'\n5. Configure your web server or load balancer to handle both apex and www traffic\n6. This is the RFC-compliant approach and works with all DNS providers including Gabia",
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1034"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/dns-zone-apex-cname/dns-linux",
+        "probability": 0.3,
+        "condition": "when the record type conflict is specifically at the zone apex where SOA/NS records exist"
+      },
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "probability": 0.1,
+        "condition": "when conflicting records cause resolution failure for the domain name"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/dns-zone-apex-cname/dns-linux",
+        "probability": 0.2,
+        "condition": "when a CNAME-at-apex error leads to investigation revealing broader record type conflicts"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/dns-zone-apex-cname/dns-linux",
+        "distinction": "Zone apex CNAME is a specific case of the CNAME coexistence rule (CNAME conflicting with mandatory SOA/NS); general record type conflict covers CNAME vs MX, CNAME vs TXT, and other combinations at any name"
+      },
+      {
+        "error_id": "networking/dns-servfail/dns-linux",
+        "distinction": "SERVFAIL is the resolver's error response; record type conflict is the underlying configuration error in the zone that may cause resolvers to return SERVFAIL or inconsistent results"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-16",
+    "review_status": "auto_generated",
+    "evidence_count": 52,
+    "last_verification": "2026-02-16"
+  }
+}

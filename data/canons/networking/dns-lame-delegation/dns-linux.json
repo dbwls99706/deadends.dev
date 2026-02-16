@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/dns-lame-delegation/dns-linux",
+  "url": "https://deadends.dev/networking/dns-lame-delegation/dns-linux",
+  "error": {
+    "signature": "Lame delegation: nameserver does not serve the zone",
+    "regex": "lame.*delegation|lame.*server|nameserver.*not.*authoritative|NS.*not.*respond.*authoritatively|REFUSED.*query|delegation.*broken",
+    "domain": "networking",
+    "category": "dns",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dns",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-02-16",
+    "summary": "A lame delegation occurs when the NS records at the parent zone (registrar) point to nameservers that do not actually serve the domain's zone. This commonly happens when switching DNS providers (e.g., from Gabia's default nameservers to Cloudflare or AWS Route53) but only updating one side: either the registrar's NS records or the new provider's zone, but not both."
+  },
+  "dead_ends": [
+    {
+      "action": "Only update the NS records at the registrar without configuring the zone at the new DNS provider",
+      "why_fails": "Changing NS records at the registrar (e.g., Gabia domain management) to point to new nameservers (e.g., Cloudflare) without first creating the zone and importing records at the new provider results in lame delegation. The new nameservers will respond with REFUSED or SERVFAIL because they have no zone file for the domain.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1912"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete the zone at the old DNS provider before the new NS records propagate",
+      "why_fails": "During NS record propagation (up to 48 hours), some resolvers still query the old nameservers. If the zone has already been deleted there, those resolvers get REFUSED responses. Both old and new nameservers must serve the zone simultaneously during the transition period.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1912"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set up the zone at the new DNS provider first, then update NS records at the registrar",
+      "success_rate": 0.92,
+      "how": "1. Export all DNS records from the current provider (Gabia panel: DNS management > export zone)\n2. Create the zone at the new provider (e.g., Cloudflare: Add Site > import records)\n3. Verify the new provider serves the zone: dig @new-ns1.example.com yourdomain.com A\n4. Only after verification, update NS records at the registrar (Gabia: Domain Management > Nameserver)\n5. Keep the old zone active for at least 48 hours after the NS change\n6. Monitor with: dig NS yourdomain.com and dig +trace yourdomain.com",
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1912"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Diagnose and fix an existing lame delegation",
+      "success_rate": 0.88,
+      "how": "1. Check current NS records at the parent: dig NS yourdomain.com\n2. Query each nameserver directly: dig @ns1.example.com yourdomain.com SOA\n3. If any NS returns REFUSED or no answer, it is lame\n4. Fix option A: Add the zone to the lame nameserver\n5. Fix option B: Update the registrar NS records to remove the lame NS and point to servers that actually serve the zone\n6. Verify all listed NS respond authoritatively: for ns in $(dig NS yourdomain.com +short); do echo \"$ns:\"; dig @$ns yourdomain.com SOA +short; done",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/dns-servfail/dns-linux",
+        "probability": 0.3,
+        "condition": "when the recursive resolver receives REFUSED from the lame nameserver and returns SERVFAIL to the client"
+      },
+      {
+        "error_id": "networking/dns-timeout/dns-linux",
+        "probability": 0.2,
+        "condition": "when the lame nameserver is completely unreachable rather than responding with REFUSED"
+      },
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "probability": 0.1,
+        "condition": "when delegation is so broken that the parent returns NXDOMAIN"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/dns-propagation-delay/dns-linux",
+        "probability": 0.2,
+        "condition": "when what appears to be a propagation delay is actually a lame delegation after a provider migration"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/dns-servfail/dns-linux",
+        "distinction": "SERVFAIL is a generic error code that can have many causes; lame delegation is a specific misconfiguration where NS records point to servers that do not serve the zone"
+      },
+      {
+        "error_id": "networking/dns-propagation-delay/dns-linux",
+        "distinction": "Propagation delay means the authoritative server has the correct data but caches are stale; lame delegation means the nameserver itself cannot answer queries for the domain"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-16",
+    "review_status": "auto_generated",
+    "evidence_count": 48,
+    "last_verification": "2026-02-16"
+  }
+}

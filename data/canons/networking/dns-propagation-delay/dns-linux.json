@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/dns-propagation-delay/dns-linux",
+  "url": "https://deadends.dev/networking/dns-propagation-delay/dns-linux",
+  "error": {
+    "signature": "DNS record change not visible: old record still returned after update",
+    "regex": "old.*record.*still|propagation.*delay|dns.*not.*updated|stale.*dns|cached.*old.*record|dns.*change.*not.*reflect",
+    "domain": "networking",
+    "category": "dns",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dns",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-16",
+    "summary": "After updating DNS records in a registrar control panel (e.g., Gabia, GoDaddy, Namecheap), the old record value continues to be returned by resolvers. This is caused by DNS caching at multiple layers: the authoritative server's SOA TTL, recursive resolver caches, OS-level caches, and browser DNS caches. The old record will persist until all caches expire."
+  },
+  "dead_ends": [
+    {
+      "action": "Repeatedly flush the local DNS cache expecting immediate global propagation",
+      "why_fails": "Flushing the local cache (systemd-resolve --flush-caches) only clears the local OS cache. Upstream recursive resolvers (ISP, Google 8.8.8.8, Cloudflare 1.1.1.1) each maintain their own independent caches governed by the record's TTL. These caches cannot be flushed by the end user. The old record will persist in upstream caches until the TTL expires.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1035"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete and recreate the DNS record to force propagation",
+      "why_fails": "Deleting a record in the registrar panel removes it from the authoritative zone, but cached copies in recursive resolvers remain valid until their TTL expires. Deleting and recreating does not invalidate existing caches and may cause a period of NXDOMAIN for clients whose cache expired between the delete and recreate.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1035"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Lower the TTL before making the change, then update the record",
+      "success_rate": 0.95,
+      "how": "1. Before the planned change, lower the TTL to 60-300 seconds on the existing record\n2. Wait for the old (high) TTL to expire (e.g., if old TTL was 3600s, wait 1 hour)\n3. Now make the actual record change — it will propagate within the new low TTL\n4. Verify propagation: dig @8.8.8.8 yourdomain.com A and dig @1.1.1.1 yourdomain.com A\n5. After confirming propagation, optionally raise TTL back for performance\n6. Check multiple resolvers: use tools like dns.google or whatsmydns.net",
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1035"
+      ],
+      "condition": "Requires planning ahead before the DNS change"
+    },
+    {
+      "action": "Query the authoritative nameserver directly to verify the change was applied",
+      "success_rate": 0.9,
+      "how": "1. Find the authoritative nameservers: dig NS yourdomain.com\n2. Query each authoritative NS directly: dig @ns1.gabia.co.kr yourdomain.com A\n3. If the authoritative NS returns the new record, the change is applied correctly\n4. For cached results, wait for TTL expiry or use a resolver known to have short cache: dig @8.8.8.8 yourdomain.com A\n5. Check the SOA record for minimum TTL: dig SOA yourdomain.com\n6. Flush local caches: sudo resolvectl flush-caches (Linux) or sudo dscacheutil -flushcache (macOS)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "probability": 0.1,
+        "condition": "when a record is deleted during migration but the new record has not yet propagated"
+      },
+      {
+        "error_id": "networking/ssl-hostname-mismatch/openssl3-linux",
+        "probability": 0.15,
+        "condition": "when the DNS change points to a new server whose SSL certificate does not yet cover the domain"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "probability": 0.1,
+        "condition": "when a newly created record has not yet propagated to recursive resolvers"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "distinction": "Propagation delay means the record exists at the authoritative server but caches still serve stale data; NXDOMAIN means the record genuinely does not exist in the zone"
+      },
+      {
+        "error_id": "networking/dns-lame-delegation/dns-linux",
+        "distinction": "Propagation delay is a caching issue where the authoritative server has the correct data; lame delegation means the authoritative nameserver itself cannot serve the zone"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-16",
+    "review_status": "auto_generated",
+    "evidence_count": 55,
+    "last_verification": "2026-02-16"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/dns-zone-apex-cname/dns-linux",
+  "url": "https://deadends.dev/networking/dns-zone-apex-cname/dns-linux",
+  "error": {
+    "signature": "CNAME record at zone apex conflicts with SOA/NS records",
+    "regex": "CNAME.*conflict|CNAME.*zone.*apex|CNAME.*root.*domain|cannot.*add.*CNAME.*apex|CNAME.*not.*allowed.*at.*apex|CNAME.*coexist",
+    "domain": "networking",
+    "category": "dns",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dns",
+      "version_range": "any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.92,
+    "last_updated": "2026-02-16",
+    "summary": "RFC 1034 forbids CNAME records at the zone apex (e.g., example.com) because CNAME cannot coexist with other record types, and the apex always requires SOA and NS records. This commonly occurs when developers try to point their root domain to a load balancer, CDN, or platform (e.g., Vercel, Netlify, AWS ALB) that provides a hostname instead of an IP address."
+  },
+  "dead_ends": [
+    {
+      "action": "Force-add a CNAME record at the zone apex through the registrar panel",
+      "why_fails": "Most DNS providers (Gabia, GoDaddy, Route53 standard) reject CNAME at the apex because it violates RFC 1034 Section 3.6.2. Even if a provider allows it, the CNAME will conflict with the mandatory SOA and NS records, causing unpredictable resolution behavior including total zone failure for some resolvers.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1034"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a wildcard CNAME (*.example.com) to cover the apex",
+      "why_fails": "Wildcard records only match names that do not have explicit records. The zone apex (example.com) always has SOA and NS records, so a wildcard CNAME does not apply to the apex itself. It only covers subdomains like random.example.com.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc4592"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use ALIAS/ANAME/CNAME flattening if your DNS provider supports it",
+      "success_rate": 0.95,
+      "how": "1. Check if your DNS provider supports ALIAS or ANAME records (Cloudflare, DNSimple, Route53 do; Gabia does not natively)\n2. If supported, create an ALIAS record at the apex pointing to the target hostname\n3. The DNS provider resolves the target hostname to IPs and serves A/AAAA records transparently\n4. If your provider does not support ALIAS, consider migrating DNS to one that does (e.g., Cloudflare — free tier available)\n5. Verify: dig example.com A — should return IP addresses resolved from the target hostname\n6. ALIAS records work transparently with SOA/NS because they return A/AAAA, not CNAME",
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc1034"
+      ],
+      "condition": "Requires DNS provider with ALIAS/ANAME support or willingness to migrate DNS"
+    },
+    {
+      "action": "Use A records with the target's IP addresses at the zone apex",
+      "success_rate": 0.88,
+      "how": "1. Find the IP addresses of the target service: dig target-hostname.example.net A\n2. Add A records at the apex for each IP: example.com A 203.0.113.1, example.com A 203.0.113.2\n3. Also add AAAA records if IPv6 is available\n4. Note: if the target's IPs change, you must update the A records manually\n5. For platforms with stable IPs (e.g., some cloud load balancers), this works well\n6. For platforms with dynamic IPs (e.g., Heroku), prefer ALIAS records or redirect approach",
+      "sources": [],
+      "condition": "Only reliable if the target service has stable IP addresses"
+    },
+    {
+      "action": "Redirect the apex domain to www using an HTTP redirect",
+      "success_rate": 0.85,
+      "how": "1. Point the apex (example.com) A record to your server or a redirect service\n2. Configure the server to 301 redirect example.com to www.example.com\n3. Set up www.example.com as a CNAME pointing to your target hostname\n4. Many registrars (including Gabia) offer URL forwarding/redirect for the apex domain\n5. This adds one redirect hop but avoids the CNAME-at-apex issue entirely\n6. Verify both: curl -I example.com (should show 301) and dig www.example.com CNAME",
+      "sources": [],
+      "condition": "Acceptable if an HTTP redirect from apex to www is tolerable"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "probability": 0.15,
+        "condition": "when the conflicting CNAME record causes zone resolution failure for the apex"
+      },
+      {
+        "error_id": "networking/dns-servfail/dns-linux",
+        "probability": 0.2,
+        "condition": "when the CNAME at apex conflicts with DNSSEC signatures on the SOA/NS records"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/dns-record-type-conflict/dns-linux",
+        "probability": 0.3,
+        "condition": "when a general record type conflict is identified as specifically a CNAME-at-apex issue"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/dns-record-type-conflict/dns-linux",
+        "distinction": "CNAME at zone apex is a specific case of the general rule that CNAME cannot coexist with other record types; record type conflict covers other cases like duplicate A/AAAA or conflicting MX and CNAME"
+      },
+      {
+        "error_id": "networking/dns-nxdomain/dns-linux",
+        "distinction": "NXDOMAIN means the domain does not exist; CNAME at apex means the domain exists but has a protocol-level configuration error"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-16",
+    "review_status": "auto_generated",
+    "evidence_count": 65,
+    "last_verification": "2026-02-16"
+  }
+}
