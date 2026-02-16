@@ -116,6 +116,7 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
                         for lt in canon.get("transition_graph", {}).get(
                             "leads_to", []
                         )
+                        if "error_id" in lt
                     ],
                     "url": canon["url"],
                 })
@@ -773,20 +774,23 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 if leads_to:
                     parts.append("### This error often leads to:")
                     for lt in leads_to:
-                        lt_canon = lookup_by_id(lt["error_id"], canons)
+                        lt_id = lt.get("error_id")
+                        if not lt_id:
+                            continue
+                        lt_canon = lookup_by_id(lt_id, canons)
                         if lt_canon:
                             sig = lt_canon["error"]["signature"]
                             rate = int(
                                 lt_canon["verdict"]["fix_success_rate"] * 100
                             )
                             parts.append(
-                                f"- **{sig}** (p={lt['probability']}, "
-                                f"fix rate: {rate}%) — {lt['error_id']}"
+                                f"- **{sig}** (p={lt.get('probability', '?')}, "
+                                f"fix rate: {rate}%) — {lt_id}"
                             )
                         else:
                             parts.append(
-                                f"- {lt['error_id']} "
-                                f"(p={lt['probability']})"
+                                f"- {lt_id} "
+                                f"(p={lt.get('probability', '?')})"
                             )
                         if lt.get("condition"):
                             parts.append(
@@ -798,17 +802,20 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 if preceded:
                     parts.append("### Usually preceded by:")
                     for pb in preceded:
-                        pb_canon = lookup_by_id(pb["error_id"], canons)
+                        pb_id = pb.get("error_id")
+                        if not pb_id:
+                            continue
+                        pb_canon = lookup_by_id(pb_id, canons)
                         if pb_canon:
                             sig = pb_canon["error"]["signature"]
                             parts.append(
-                                f"- **{sig}** (p={pb['probability']}) "
-                                f"— {pb['error_id']}"
+                                f"- **{sig}** (p={pb.get('probability', '?')}) "
+                                f"— {pb_id}"
                             )
                         else:
                             parts.append(
-                                f"- {pb['error_id']} "
-                                f"(p={pb['probability']})"
+                                f"- {pb_id} "
+                                f"(p={pb.get('probability', '?')})"
                             )
                     parts.append("")
 
@@ -816,14 +823,17 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 if confused:
                     parts.append("### Frequently confused with:")
                     for fc in confused:
-                        fc_canon = lookup_by_id(fc["error_id"], canons)
+                        fc_id = fc.get("error_id")
+                        if not fc_id:
+                            continue
+                        fc_canon = lookup_by_id(fc_id, canons)
                         if fc_canon:
                             sig = fc_canon["error"]["signature"]
                             parts.append(
-                                f"- **{sig}** — {fc['error_id']}"
+                                f"- **{sig}** — {fc_id}"
                             )
                         else:
-                            parts.append(f"- {fc['error_id']}")
+                            parts.append(f"- {fc_id}")
                         if fc.get("distinction"):
                             parts.append(
                                 f"  Distinction: {fc['distinction']}"
