@@ -176,7 +176,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for lt in graph.leads_to %}
       <li>
         {% if lt.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ lt.error_id }}">{{ lt.error_id }}</a>
+        <a href="{{ base_path }}/{{ lt.error_id }}/">{{ lt.error_id }}</a>
         {% else %}
         <code>{{ lt.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -192,7 +192,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for pb in graph.preceded_by %}
       <li>
         {% if pb.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ pb.error_id }}">{{ pb.error_id }}</a>
+        <a href="{{ base_path }}/{{ pb.error_id }}/">{{ pb.error_id }}</a>
         {% else %}
         <code>{{ pb.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -208,7 +208,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for fc in graph.frequently_confused_with %}
       <li>
         {% if fc.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ fc.error_id }}">{{ fc.error_id }}</a>
+        <a href="{{ base_path }}/{{ fc.error_id }}/">{{ fc.error_id }}</a>
         {% else %}
         <code>{{ fc.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}

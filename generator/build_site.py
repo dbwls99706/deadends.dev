@@ -1095,7 +1095,7 @@ def build_search_page(
             "fix_success_rate": canon["verdict"]["fix_success_rate"],
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
-            "page_url": f"{BASE_PATH}/{canon['id']}",
+            "page_url": f"{BASE_PATH}/{canon['id']}/",
         })
 
     # Group by domain for the "all errors" section
@@ -1300,7 +1300,7 @@ def build_api_index(canons: list[dict]) -> None:
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
             "api_url": f"{BASE_URL}/api/v1/{canon['id']}.json",
-            "page_url": canon["url"],
+            "page_url": f"{canon['url']}/",
         })
 
     api_dir = SITE_DIR / "api" / "v1"
@@ -2054,7 +2054,7 @@ def build_indexnow(canons: list[dict]) -> None:
     )
 
     # URL list for IndexNow submission
-    urls = [BASE_URL]
+    urls = [f"{BASE_URL}/"]
     urls.append(f"{BASE_URL}/search/")
 
     domains_seen = set()
@@ -2065,7 +2065,11 @@ def build_indexnow(canons: list[dict]) -> None:
             urls.append(f"{BASE_URL}/{domain}/")
 
     for canon in sorted(canons, key=lambda c: c["id"]):
-        urls.append(canon["url"])
+        # Ensure trailing slash for GitHub Pages (avoids 301 redirects)
+        canon_url = canon["url"]
+        if not canon_url.endswith("/"):
+            canon_url += "/"
+        urls.append(canon_url)
 
     urls.append(f"{BASE_URL}/api/v1/index.json")
     urls.append(f"{BASE_URL}/llms.txt")
@@ -2122,9 +2126,9 @@ def build_feed(canons: list[dict]) -> None:
 
         SubElement(entry, "title").text = f"[{domain}] {sig}"
         elink = SubElement(entry, "link")
-        elink.set("href", f"{BASE_URL}/{cid}")
+        elink.set("href", f"{BASE_URL}/{cid}/")
         elink.set("rel", "alternate")
-        SubElement(entry, "id").text = f"{BASE_URL}/{cid}"
+        SubElement(entry, "id").text = f"{BASE_URL}/{cid}/"
         SubElement(entry, "updated").text = f"{gen_date}T00:00:00Z"
 
         summary_text = (
