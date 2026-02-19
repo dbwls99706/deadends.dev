@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "deadend": {
+      "command": "python",
+      "args": ["-m", "mcp.server"],
+      "cwd": "/home/user/deadends.dev"
+    }
+  }
+}
