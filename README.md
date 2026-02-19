@@ -2,7 +2,7 @@
 
 <!-- mcp-name: dev.deadends/deadends-dev -->
 
-[![Errors](https://img.shields.io/badge/errors-970%2B-blue)](https://deadends.dev)
+[![Errors](https://img.shields.io/badge/errors-1028-blue)](https://deadends.dev)
 [![Domains](https://img.shields.io/badge/domains-20-green)](https://deadends.dev)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-8-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
@@ -10,7 +10,7 @@
 
 **Structured failure knowledge for AI coding agents.**
 
-970+ error entries across 20 domains. When AI coding agents encounter errors, they waste tokens on approaches that are known to fail. deadends.dev tells agents what NOT to try, what actually works, and what error comes next.
+1028 error entries across 20 domains. When AI coding agents encounter errors, they waste tokens on approaches that are known to fail. deadends.dev tells agents what NOT to try, what actually works, and what error comes next.
 
 > **Website:** [deadends.dev](https://deadends.dev) · **MCP Server:** [Smithery](https://smithery.ai/server/deadend/deadends-dev) · **PyPI:** [deadends-dev](https://pypi.org/project/deadends-dev/) · **API:** [/api/v1/index.json](https://deadends.dev/api/v1/index.json)
 
@@ -28,7 +28,7 @@ The MCP server exposes 8 tools for AI coding agents:
 
 | Tool | Description |
 |------|-------------|
-| `lookup_error` | Match an error message against 970+ known patterns. Returns dead ends, workarounds, and error chains. |
+| `lookup_error` | Match an error message against 1028 known patterns. Returns dead ends, workarounds, and error chains. |
 | `get_error_detail` | Get full details for a specific error by ID (e.g., `python/modulenotfounderror/py311-linux`). |
 | `list_error_domains` | List all 20 error domains and their counts. |
 | `search_errors` | Fuzzy keyword search across all domains (e.g., "memory limit", "permission denied"). |
@@ -139,26 +139,26 @@ deadends --list  # show all known errors
 
 | Domain | Errors | Examples |
 |--------|--------|----------|
-| Python | 86 | ModuleNotFoundError, TypeError, KeyError, MemoryError, RecursionError |
-| Node | 70 | ERR_MODULE_NOT_FOUND, EACCES, EADDRINUSE, heap OOM, ERR_REQUIRE_ESM |
-| Kubernetes | 55 | CrashLoopBackOff, ImagePullBackOff, OOMKilled, RBAC forbidden, HPA |
-| Docker | 55 | no space left, exec format error, bind address in use, healthcheck |
-| AWS | 50 | AccessDenied, S3 NoSuchBucket, Lambda timeout, CloudFormation rollback |
-| Java | 50 | NullPointerException, ClassNotFound, OutOfMemoryError, connection pool |
-| Go | 50 | nil pointer, unused import, interface conversion, slice out of range |
-| Database | 50 | deadlock, connection pool, slow query, replication lag, constraint violation |
-| Git | 47 | failed to push, merge conflicts, detached HEAD, stash apply, tags |
-| TypeScript | 45 | TS2307, TS2322, TS2345, TS2532, TS7053, TS2769, TS18048 |
-| Terraform | 45 | state lock, cycle, provider not found, moved block, backend init |
-| Rust | 45 | E0382 borrow, E0308 mismatch, E0277 trait, E0106 lifetime, E0507 |
-| React | 45 | invalid hook call, too many re-renders, unique key, context, act() |
-| CUDA | 45 | OOM, device-side assert, NCCL, cuDNN, tensor device mismatch |
-| CI/CD | 44 | GitHub Actions timeout, secret not found, Docker rate limit, cache miss |
-| PHP | 43 | headers already sent, too many connections, autoload, memory exhaustion |
-| pip | 40 | build wheel failed, conflicting deps, externally-managed, hash mismatch |
-| Networking | 40 | connection refused, ECONNRESET, SSL certificate, DNS timeout, EPIPE |
-| Next.js | 35 | hydration failed, dynamic server, server-only import, RSC serialization |
-| .NET | 28 | NullReferenceException, LINQ translation, DI circular, EF concurrency |
+| Python | 85 | ModuleNotFoundError, TypeError, KeyError, MemoryError, RecursionError |
+| Node | 67 | ERR_MODULE_NOT_FOUND, EACCES, EADDRINUSE, heap OOM, ERR_REQUIRE_ESM |
+| Docker | 63 | no space left, exec format error, bind address in use, healthcheck |
+| Kubernetes | 61 | CrashLoopBackOff, ImagePullBackOff, OOMKilled, RBAC forbidden, HPA |
+| Git | 59 | failed to push, merge conflicts, detached HEAD, stash apply, tags |
+| Go | 53 | nil pointer, unused import, interface conversion, slice out of range |
+| Java | 52 | NullPointerException, ClassNotFound, OutOfMemoryError, connection pool |
+| Database | 52 | deadlock, connection pool, slow query, replication lag, constraint violation |
+| AWS | 51 | AccessDenied, S3 NoSuchBucket, Lambda timeout, CloudFormation rollback |
+| TypeScript | 49 | TS2307, TS2322, TS2345, TS2532, TS7053, TS2769, TS18048 |
+| Rust | 47 | E0382 borrow, E0308 mismatch, E0277 trait, E0106 lifetime, E0507 |
+| PHP | 47 | headers already sent, too many connections, autoload, memory exhaustion |
+| CUDA | 47 | OOM, device-side assert, NCCL, cuDNN, tensor device mismatch |
+| Terraform | 46 | state lock, cycle, provider not found, moved block, backend init |
+| CI/CD | 46 | GitHub Actions timeout, secret not found, Docker rate limit, cache miss |
+| React | 44 | invalid hook call, too many re-renders, unique key, context, act() |
+| Next.js | 44 | hydration failed, dynamic server, server-only import, RSC serialization |
+| Networking | 42 | connection refused, ECONNRESET, SSL certificate, DNS timeout, EPIPE |
+| pip | 41 | build wheel failed, conflicting deps, externally-managed, hash mismatch |
+| .NET | 32 | NullReferenceException, LINQ translation, DI circular, EF concurrency |
 
 ## ErrorCanon Data Format
 
