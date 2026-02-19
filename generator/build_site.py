@@ -57,7 +57,7 @@ def load_canons(data_dir: Path) -> list[dict]:
 
 def build_env_summary(canon: dict) -> str:
     """Build a human-readable environment summary string."""
-    env = canon["environment"]
+    env = canon.get("environment", {})
     parts = []
 
     runtime = env.get("runtime", {})
@@ -287,7 +287,7 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
             domain=domain,
             entries=entries,
             total=len(entries),
-            avg_fix_rate=int(sum(rates) / len(rates) * 100),
+            avg_fix_rate=int(sum(rates) / len(rates) * 100) if rates else 0,
             resolvable_counts=resolvable_counts,
             total_dead_ends=total_de,
             total_workarounds=total_wa,
@@ -1916,7 +1916,7 @@ def build_stats_json(canons: list[dict]) -> None:
 
         domain_stats[domain] = {
             "count": len(dcanons),
-            "avg_fix_rate": round(sum(rates) / len(rates), 3),
+            "avg_fix_rate": round(sum(rates) / len(rates), 3) if rates else 0,
             "resolvability": res,
             "confidence": conf,
             "top_categories": dict(
@@ -1929,7 +1929,7 @@ def build_stats_json(canons: list[dict]) -> None:
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "total_errors": len(canons),
         "total_domains": len(domains),
-        "avg_fix_rate": round(sum(all_rates) / len(all_rates), 3),
+        "avg_fix_rate": round(sum(all_rates) / len(all_rates), 3) if all_rates else 0,
         "domains": domain_stats,
     }
 
