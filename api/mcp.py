@@ -140,6 +140,59 @@ def _suggest_domains(error_message):
     return ", ".join(suggestions) if suggestions else "unknown"
 
 
+PROMPTS = [
+    {
+        "name": "debug_error",
+        "description": (
+            "Get a structured debugging plan for an error, including "
+            "dead ends to avoid and proven workarounds from deadends.dev."
+        ),
+        "arguments": [
+            {
+                "name": "error_message",
+                "description": "The full error message to debug",
+                "required": True,
+            }
+        ],
+    },
+    {
+        "name": "domain_overview",
+        "description": (
+            "Get an overview of error patterns, fix rates, and common "
+            "pitfalls for a specific technology domain."
+        ),
+        "arguments": [
+            {
+                "name": "domain",
+                "description": (
+                    "Technology domain (e.g., python, docker, kubernetes)"
+                ),
+                "required": True,
+            }
+        ],
+    },
+]
+
+RESOURCES = [
+    {
+        "uri": "deadends://domains",
+        "name": "Error Domains",
+        "description": (
+            "All 20 error domains with error counts and coverage statistics"
+        ),
+        "mimeType": "application/json",
+    },
+    {
+        "uri": "deadends://index",
+        "name": "Error Index",
+        "description": (
+            "Complete index of all error patterns with IDs, signatures, "
+            "domains, and fix rates"
+        ),
+        "mimeType": "application/json",
+    },
+]
+
 TOOLS = [
     {
         "name": "lookup_error",
@@ -206,7 +259,15 @@ TOOLS = [
         ),
         "inputSchema": {
             "type": "object",
-            "properties": {},
+            "properties": {
+                "sort_by": {
+                    "type": "string",
+                    "description": (
+                        "Sort domains by: 'count' (default, most errors first) "
+                        "or 'name' (alphabetical)"
+                    ),
+                },
+            },
         },
         "annotations": {
             "title": "List domains",
@@ -384,14 +445,173 @@ def handle_mcp(method, params, canons):
                 "resources": {},
                 "prompts": {},
             },
-            "serverInfo": {"name": "deadends-dev", "version": "1.4.0"},
+            "serverInfo": {
+                "name": "deadends-dev",
+                "version": "1.5.0",
+            },
         }
     elif method == "ping":
         return {}
     elif method == "resources/list":
-        return {"resources": []}
+        return {"resources": RESOURCES}
+    elif method == "resources/read":
+        uri = params.get("uri", "")
+        if uri == "deadends://domains":
+            domains = {}
+            for c in canons:
+                d = c["error"]["domain"]
+                domains[d] = domains.get(d, 0) + 1
+            content = json.dumps(
+                {
+                    "total_errors": len(canons),
+                    "total_domains": len(domains),
+                    "domains": dict(
+                        sorted(domains.items(), key=lambda x: x[1], reverse=True)
+                    ),
+                },
+                indent=2,
+            )
+            return {
+                "contents": [
+                    {
+                        "uri": uri,
+                        "mimeType": "application/json",
+                        "text": content,
+                    }
+                ]
+            }
+        elif uri == "deadends://index":
+            index_entries = []
+            for c in canons:
+                index_entries.append(
+                    {
+                        "id": c["id"],
+                        "signature": c["error"]["signature"],
+                        "domain": c["error"]["domain"],
+                        "resolvable": c["verdict"]["resolvable"],
+                        "fix_success_rate": c["verdict"]["fix_success_rate"],
+                    }
+                )
+            content = json.dumps(index_entries, indent=2, ensure_ascii=False)
+            return {
+                "contents": [
+                    {
+                        "uri": uri,
+                        "mimeType": "application/json",
+                        "text": content,
+                    }
+                ]
+            }
+        return {
+            "error": {
+                "code": -32602,
+                "message": f"Unknown resource URI: {uri}",
+            }
+        }
     elif method == "prompts/list":
-        return {"prompts": []}
+        return {"prompts": PROMPTS}
+    elif method == "prompts/get":
+        name = params.get("name", "")
+        args = params.get("arguments", {})
+        if name == "debug_error":
+            error_msg = args.get("error_message", "unknown error")
+            matches = match_error(error_msg, canons)
+            if matches:
+                m = matches[0]
+                dead_ends = "\n".join(
+                    f"- AVOID: {d['action']} (fails {int(d['fail_rate']*100)}%)"
+                    f" — {d['why_fails']}"
+                    for d in m["dead_ends"]
+                )
+                workarounds = "\n".join(
+                    f"- TRY: {w['action']} (works {int(w['success_rate']*100)}%)"
+                    for w in m["workarounds"]
+                )
+                prompt_text = (
+                    f"Debug this error using deadends.dev knowledge:\n\n"
+                    f"Error: {error_msg}\n"
+                    f"Match: {m['signature']} [{m['domain']}]\n"
+                    f"Fix rate: {int(m['fix_success_rate']*100)}%\n\n"
+                    f"Dead ends (DO NOT try these):\n{dead_ends}\n\n"
+                    f"Workarounds (TRY these):\n{workarounds}\n\n"
+                    f"Provide a step-by-step fix using the workarounds above. "
+                    f"Explain WHY the dead ends fail."
+                )
+            else:
+                prompt_text = (
+                    f"Debug this error: {error_msg}\n\n"
+                    f"No matching patterns found in deadends.dev "
+                    f"({len(canons)} errors across "
+                    f"{len(_get_domain_index())} domains).\n"
+                    f"Analyze the error from first principles and suggest "
+                    f"debugging steps."
+                )
+            return {
+                "description": "Structured debugging plan using deadends.dev",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": {
+                            "type": "text",
+                            "text": prompt_text,
+                        },
+                    }
+                ],
+            }
+        elif name == "domain_overview":
+            domain = args.get("domain", "")
+            dc = [
+                c for c in canons
+                if c["error"]["domain"] == domain
+            ]
+            if dc:
+                rates = [
+                    c["verdict"]["fix_success_rate"] for c in dc
+                ]
+                avg_rate = sum(rates) / len(rates) if rates else 0
+                top_errors = sorted(
+                    dc,
+                    key=lambda c: c["verdict"]["fix_success_rate"],
+                )[:5]
+                top_list = "\n".join(
+                    f"- {c['error']['signature']} "
+                    f"(fix: {int(c['verdict']['fix_success_rate']*100)}%)"
+                    for c in top_errors
+                )
+                prompt_text = (
+                    f"Overview of {domain} errors in deadends.dev:\n\n"
+                    f"Total errors: {len(dc)}\n"
+                    f"Average fix rate: {int(avg_rate*100)}%\n\n"
+                    f"Hardest to fix:\n{top_list}\n\n"
+                    f"Summarize the most common failure patterns in "
+                    f"{domain} and how to avoid them."
+                )
+            else:
+                available = sorted(
+                    {c["error"]["domain"] for c in canons}
+                )
+                prompt_text = (
+                    f"Domain '{domain}' not found.\n"
+                    f"Available: {', '.join(available)}"
+                )
+            return {
+                "description": f"Overview of {domain} error patterns",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": {
+                            "type": "text",
+                            "text": prompt_text,
+                        },
+                    }
+                ],
+            }
+        return {
+            "error": {
+                "code": -32602,
+                "message": f"Unknown prompt: {name}",
+            }
+        }
     elif method == "tools/list":
         return {"tools": TOOLS}
     elif method == "tools/call":
@@ -482,12 +702,19 @@ def handle_mcp(method, params, canons):
             return {"content": [{"type": "text", "text": text}]}
 
         elif tool_name == "list_error_domains":
+            sort_by = args.get("sort_by", "count")
             domains = {}
             for c in canons:
                 d = c["error"]["domain"]
                 domains[d] = domains.get(d, 0) + 1
+            if sort_by == "name":
+                sorted_domains = sorted(domains.items())
+            else:
+                sorted_domains = sorted(
+                    domains.items(), key=lambda x: x[1], reverse=True
+                )
             text = f"Total errors: {len(canons)}\n\n"
-            for domain, count in sorted(domains.items()):
+            for domain, count in sorted_domains:
                 text += f"- {domain}: {count} errors\n"
             text += (
                 "\nUse lookup_error to search by error message, "
@@ -905,7 +1132,7 @@ class handler(BaseHTTPRequestHandler):
         canons = _load_canons()
         info = {
             "name": "deadends-dev",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "description": (
                 "Structured failure knowledge for AI agents "
                 "— dead ends, workarounds, error chains"
