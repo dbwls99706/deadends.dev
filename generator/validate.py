@@ -101,9 +101,9 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
 def validate_cross_references(canons: list[dict]) -> list[str]:
     """Validate that all referenced error_ids exist in the dataset.
 
-    Returns warnings (not errors) since early data may reference future pages.
+    Returns errors so broken references fail the build.
     """
-    warnings = []
+    errors = []
     known_ids = {c["id"] for c in canons}
 
     for canon in canons:
@@ -111,26 +111,26 @@ def validate_cross_references(canons: list[dict]) -> list[str]:
 
         for lt in graph.get("leads_to", []):
             if lt["error_id"] not in known_ids:
-                warnings.append(
+                errors.append(
                     f"{canon['id']}: transition_graph.leads_to references "
                     f"non-existent error '{lt['error_id']}'"
                 )
 
         for pb in graph.get("preceded_by", []):
             if pb["error_id"] not in known_ids:
-                warnings.append(
+                errors.append(
                     f"{canon['id']}: transition_graph.preceded_by references "
                     f"non-existent error '{pb['error_id']}'"
                 )
 
         for fc in graph.get("frequently_confused_with", []):
             if fc["error_id"] not in known_ids:
-                warnings.append(
+                errors.append(
                     f"{canon['id']}: transition_graph.frequently_confused_with "
                     f"references non-existent error '{fc['error_id']}'"
                 )
 
-    return warnings
+    return errors
 
 
 def validate_html(html_path: Path) -> list[str]:
@@ -256,11 +256,11 @@ def validate_all(
                     print(f"  FAIL: {canon_file}: Invalid JSON: {e}")
 
             if not skip_data_validation:
-                # Cross-reference validation (warnings only)
-                xref_warnings = validate_cross_references(all_canons)
-                for warning in xref_warnings:
-                    all_warnings.append(warning)
-                    print(f"  WARN: {warning}")
+                # Cross-reference validation (errors — fail the build)
+                xref_errors = validate_cross_references(all_canons)
+                for error in xref_errors:
+                    all_errors.append(error)
+                    print(f"  FAIL: {error}")
 
     # Validate HTML files if site_dir provided
     if site_dir and site_dir.exists():
