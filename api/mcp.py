@@ -459,8 +459,11 @@ def handle_mcp(method, params, canons):
         if uri == "deadends://domains":
             domains = {}
             for c in canons:
-                d = c["error"]["domain"]
-                domains[d] = domains.get(d, 0) + 1
+                if not isinstance(c, dict):
+                    continue
+                d = c.get("error", {}).get("domain")
+                if d:
+                    domains[d] = domains.get(d, 0) + 1
             content = json.dumps(
                 {
                     "total_errors": len(canons),
@@ -483,15 +486,26 @@ def handle_mcp(method, params, canons):
         elif uri == "deadends://index":
             index_entries = []
             for c in canons:
-                index_entries.append(
-                    {
-                        "id": c["id"],
-                        "signature": c["error"]["signature"],
-                        "domain": c["error"]["domain"],
-                        "resolvable": c["verdict"]["resolvable"],
-                        "fix_success_rate": c["verdict"]["fix_success_rate"],
-                    }
-                )
+                try:
+                    index_entries.append(
+                        {
+                            "id": c.get("id", "unknown"),
+                            "signature": c.get("error", {}).get(
+                                "signature", "unknown"
+                            ),
+                            "domain": c.get("error", {}).get(
+                                "domain", "unknown"
+                            ),
+                            "resolvable": c.get("verdict", {}).get(
+                                "resolvable", "unknown"
+                            ),
+                            "fix_success_rate": c.get("verdict", {}).get(
+                                "fix_success_rate", 0
+                            ),
+                        }
+                    )
+                except (TypeError, AttributeError):
+                    continue
             content = json.dumps(index_entries, indent=2, ensure_ascii=False)
             return {
                 "contents": [
@@ -562,20 +576,27 @@ def handle_mcp(method, params, canons):
             domain = args.get("domain", "")
             dc = [
                 c for c in canons
-                if c["error"]["domain"] == domain
+                if c.get("error", {}).get("domain") == domain
             ]
             if dc:
                 rates = [
-                    c["verdict"]["fix_success_rate"] for c in dc
+                    c.get("verdict", {}).get("fix_success_rate", 0)
+                    for c in dc
+                    if isinstance(
+                        c.get("verdict", {}).get("fix_success_rate"),
+                        (int, float),
+                    )
                 ]
                 avg_rate = sum(rates) / len(rates) if rates else 0
                 top_errors = sorted(
                     dc,
-                    key=lambda c: c["verdict"]["fix_success_rate"],
+                    key=lambda c: c.get("verdict", {}).get(
+                        "fix_success_rate", 0
+                    ),
                 )[:5]
                 top_list = "\n".join(
-                    f"- {c['error']['signature']} "
-                    f"(fix: {int(c['verdict']['fix_success_rate']*100)}%)"
+                    f"- {c.get('error', {}).get('signature', '?')} "
+                    f"(fix: {int(c.get('verdict', {}).get('fix_success_rate', 0)*100)}%)"
                     for c in top_errors
                 )
                 prompt_text = (
