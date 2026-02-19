@@ -8,6 +8,7 @@ import json
 import re
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
 
@@ -449,7 +450,28 @@ TOOLS = [
 ]
 
 
-def handle_mcp(method, params, canons):
+def _parse_config(query_string):
+    """Parse Smithery connection config from URL query parameters."""
+    qs = parse_qs(query_string, keep_blank_values=False)
+    max_results = 10
+    raw = qs.get("max_results", ["10"])[0]
+    try:
+        max_results = max(1, min(20, int(raw)))
+    except (ValueError, TypeError):
+        max_results = 10
+    return {
+        "verbose": qs.get("verbose", ["true"])[0].lower() != "false",
+        "preferred_domains": [
+            d.strip() for d in qs.get("preferred_domains", [""])[0].split(",")
+            if d.strip()
+        ],
+        "max_results": max_results,
+    }
+
+
+def handle_mcp(method, params, canons, config=None):
+    if config is None:
+        config = {"verbose": True, "preferred_domains": [], "max_results": 10}
     canons = [c for c in canons if _is_valid_canon(c)]
     if method == "initialize":
         return {
@@ -659,6 +681,11 @@ def handle_mcp(method, params, canons):
         if tool_name == "lookup_error":
             error_msg = args.get("error_message", "")
             matches = match_error(error_msg, canons)
+            if matches and config["preferred_domains"]:
+                pref = config["preferred_domains"]
+                matches.sort(
+                    key=lambda m: (m["domain"] not in pref, -m["fix_success_rate"]),
+                )
             if not matches:
                 suggested = _suggest_domains(error_msg)
                 text = (
@@ -676,8 +703,9 @@ def handle_mcp(method, params, canons):
                     "error type (e.g., 'ModuleNotFoundError: ...')."
                 )
             else:
+                max_matches = min(len(matches), config["max_results"])
                 parts = []
-                for m in matches[:5]:
+                for m in matches[:max_matches]:
                     parts.append(f"## {m['signature']}")
                     parts.append(
                         f"Resolvable: {m['resolvable']} | "
@@ -692,22 +720,32 @@ def handle_mcp(method, params, canons):
                             f"(fails {int(d['fail_rate']*100)}%): "
                             f"{d['why_fails']}"
                         )
-                    parts.append("")
-                    parts.append("### Workarounds (TRY THESE):")
-                    for w in m["workarounds"]:
-                        how = f" — `{w['how']}`" if w["how"] else ""
-                        parts.append(
-                            f"- {w['action']} "
-                            f"(works {int(w['success_rate']*100)}%)"
-                            f"{how}"
-                        )
-                    if m.get("leads_to"):
+                    if config["verbose"]:
                         parts.append("")
-                        parts.append(
-                            "### Next Errors (after fixing this):"
-                        )
-                        for lt in m["leads_to"]:
-                            parts.append(f"- {lt}")
+                        parts.append("### Workarounds (TRY THESE):")
+                        for w in m["workarounds"]:
+                            how = f" — `{w['how']}`" if w["how"] else ""
+                            parts.append(
+                                f"- {w['action']} "
+                                f"(works {int(w['success_rate']*100)}%)"
+                                f"{how}"
+                            )
+                        if m.get("leads_to"):
+                            parts.append("")
+                            parts.append(
+                                "### Next Errors (after fixing this):"
+                            )
+                            for lt in m["leads_to"]:
+                                parts.append(f"- {lt}")
+                    else:
+                        parts.append("")
+                        parts.append("### Top Workaround:")
+                        if m["workarounds"]:
+                            w = m["workarounds"][0]
+                            parts.append(
+                                f"- {w['action']} "
+                                f"(works {int(w['success_rate']*100)}%)"
+                            )
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
@@ -765,7 +803,7 @@ def handle_mcp(method, params, canons):
         elif tool_name == "search_errors":
             query = args.get("query", "").lower()
             domain_filter = args.get("domain", "")
-            limit = min(args.get("limit", 10), 20)
+            limit = min(args.get("limit", config["max_results"]), 20)
             scored = []
             for c in canons:
                 if not isinstance(c, dict) or not c.get("error"):
@@ -790,6 +828,8 @@ def handle_mcp(method, params, canons):
                         if w in wa["action"].lower():
                             score += 3
                 if score > 0:
+                    if config["preferred_domains"] and c.get("error", {}).get("domain") in config["preferred_domains"]:
+                        score += 20
                     scored.append((score, c))
             scored.sort(key=lambda x: x[0], reverse=True)
             if not scored:
@@ -1146,10 +1186,13 @@ class handler(BaseHTTPRequestHandler):
             return
 
         canons = _load_canons()
+        parsed_url = urlparse(self.path)
+        config = _parse_config(parsed_url.query)
         result = handle_mcp(
             request.get("method", ""),
             request.get("params", {}),
             canons,
+            config,
         )
 
         if result is None:
