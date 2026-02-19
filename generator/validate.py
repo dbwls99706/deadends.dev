@@ -4,6 +4,7 @@ import argparse
 import json
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 from jsonschema import ValidationError, validate
@@ -11,6 +12,28 @@ from jsonschema import ValidationError, validate
 from generator.schema import ERRORCANON_SCHEMA
 
 BASE_URL = "https://deadends.dev"
+
+# Staleness thresholds (days since last_confirmed)
+STALE_THRESHOLD_DAYS = 365
+AGING_THRESHOLD_DAYS = 180
+
+
+def _parse_date(date_str: str) -> date | None:
+    """Parse a YYYY-MM-DD string into a date object."""
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return None
+
+
+def _canon_age_days(data: dict, reference_date: date | None = None) -> int | None:
+    """Calculate days since last_confirmed. Returns None if date is missing/invalid."""
+    ref = reference_date or date.today()
+    last_confirmed = data.get("error", {}).get("last_confirmed")
+    d = _parse_date(last_confirmed)
+    if d is None:
+        return None
+    return (ref - d).days
 
 
 def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
@@ -95,7 +118,67 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
             f"evidence_count={data['metadata']['evidence_count']} but no source URLs provided"
         )
 
+    # Warning: staleness check based on last_confirmed age
+    age = _canon_age_days(data)
+    if age is not None:
+        if age > STALE_THRESHOLD_DAYS:
+            warnings.append(
+                f"Stale canon: last_confirmed {data['error']['last_confirmed']} "
+                f"({age} days ago, threshold: {STALE_THRESHOLD_DAYS} days). "
+                "Consider re-verifying this error."
+            )
+        elif age > AGING_THRESHOLD_DAYS:
+            warnings.append(
+                f"Aging canon: last_confirmed {data['error']['last_confirmed']} "
+                f"({age} days ago). Consider re-verification before "
+                f"{STALE_THRESHOLD_DAYS} days."
+            )
+
     return errors, warnings
+
+
+def staleness_summary(
+    canons: list[dict], reference_date: date | None = None
+) -> str:
+    """Generate a summary report of canon freshness across the dataset.
+
+    Returns a formatted string with staleness statistics.
+    """
+    ref = reference_date or date.today()
+    fresh = 0
+    aging = 0
+    stale = 0
+    unknown = 0
+    stale_ids: list[tuple[str, int]] = []
+
+    for canon in canons:
+        age = _canon_age_days(canon, ref)
+        if age is None:
+            unknown += 1
+        elif age > STALE_THRESHOLD_DAYS:
+            stale += 1
+            stale_ids.append((canon["id"], age))
+        elif age > AGING_THRESHOLD_DAYS:
+            aging += 1
+        else:
+            fresh += 1
+
+    total = len(canons)
+    lines = [
+        f"\n  FRESHNESS REPORT ({ref.isoformat()})",
+        f"  Total: {total} | Fresh: {fresh} | "
+        f"Aging: {aging} | Stale: {stale} | Unknown: {unknown}",
+    ]
+
+    if stale_ids:
+        stale_ids.sort(key=lambda x: x[1], reverse=True)
+        lines.append(f"\n  Top stale canons (>{STALE_THRESHOLD_DAYS} days):")
+        for canon_id, age in stale_ids[:10]:
+            lines.append(f"    {canon_id} — {age} days")
+        if len(stale_ids) > 10:
+            lines.append(f"    ... and {len(stale_ids) - 10} more")
+
+    return "\n".join(lines)
 
 
 def validate_cross_references(canons: list[dict]) -> list[str]:
@@ -288,6 +371,10 @@ def validate_all(
                 for error in errors:
                     all_errors.append(error)
                     print(f"  FAIL: {error}")
+
+    # Staleness summary (always show when canons are loaded)
+    if all_canons:
+        print(staleness_summary(all_canons))
 
     if all_warnings:
         print(f"\n{len(all_warnings)} warning(s)")

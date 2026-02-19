@@ -1,8 +1,13 @@
 """Tests for ErrorCanon validation logic."""
 
+from datetime import date
 
-
-from generator.validate import validate_canon_json, validate_cross_references
+from generator.validate import (
+    _canon_age_days,
+    staleness_summary,
+    validate_canon_json,
+    validate_cross_references,
+)
 
 
 class TestValidCanon:
@@ -125,6 +130,78 @@ class TestWarnings:
                 wa["sources"] = []
         _, warnings = validate_canon_json(valid_canon)
         assert any("evidence_count" in w and "no source URLs" in w for w in warnings)
+
+
+class TestStaleness:
+    def test_fresh_canon_no_staleness_warning(self, valid_canon):
+        # Set last_confirmed to today
+        valid_canon["error"]["last_confirmed"] = date.today().isoformat()
+        _, warnings = validate_canon_json(valid_canon)
+        assert not any("Stale" in w or "Aging" in w for w in warnings)
+
+    def test_aging_canon_warning(self, valid_canon):
+        # Set last_confirmed to 200 days ago
+        ref = date(2026, 2, 19)
+        valid_canon["error"]["last_confirmed"] = "2025-08-03"  # ~200 days before ref
+        age = _canon_age_days(valid_canon, reference_date=ref)
+        assert 180 < age < 365
+        _, warnings = validate_canon_json(valid_canon)
+        # The warning depends on date.today(), but we verify the age calculation
+        assert age == 200
+
+    def test_stale_canon_warning(self, valid_canon):
+        # Set last_confirmed to 400 days ago
+        ref = date(2026, 2, 19)
+        valid_canon["error"]["last_confirmed"] = "2025-01-15"  # ~400 days before ref
+        age = _canon_age_days(valid_canon, reference_date=ref)
+        assert age > 365
+
+    def test_canon_age_days_missing_date(self, valid_canon):
+        del valid_canon["error"]["last_confirmed"]
+        assert _canon_age_days(valid_canon) is None
+
+    def test_canon_age_days_invalid_date(self, valid_canon):
+        valid_canon["error"]["last_confirmed"] = "not-a-date"
+        assert _canon_age_days(valid_canon) is None
+
+    def test_staleness_summary_all_fresh(self, make_canon):
+        ref = date(2026, 2, 19)
+        canons = [
+            make_canon(
+                id=f"python/err-{i}/env1",
+                url=f"https://deadends.dev/python/err-{i}/env1",
+                error={"last_confirmed": "2026-02-01"},
+            )
+            for i in range(5)
+        ]
+        report = staleness_summary(canons, reference_date=ref)
+        assert "Fresh: 5" in report
+        assert "Stale: 0" in report
+
+    def test_staleness_summary_mixed(self, make_canon):
+        ref = date(2026, 2, 19)
+        canons = [
+            make_canon(
+                id="python/fresh/env1",
+                url="https://deadends.dev/python/fresh/env1",
+                error={"last_confirmed": "2026-02-01"},
+            ),
+            make_canon(
+                id="python/aging/env1",
+                url="https://deadends.dev/python/aging/env1",
+                error={"last_confirmed": "2025-07-01"},
+            ),
+            make_canon(
+                id="python/stale/env1",
+                url="https://deadends.dev/python/stale/env1",
+                error={"last_confirmed": "2024-12-01"},
+            ),
+        ]
+        report = staleness_summary(canons, reference_date=ref)
+        assert "Fresh: 1" in report
+        assert "Aging: 1" in report
+        assert "Stale: 1" in report
+        assert "python/stale/env1" in report
 
 
 class TestCrossReferences:

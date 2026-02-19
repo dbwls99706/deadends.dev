@@ -21,6 +21,7 @@ CLI Usage:
 import json
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
@@ -40,6 +41,26 @@ def _load_canons() -> list[dict]:
             canons.append(json.load(fh))
     _CANONS_CACHE = canons
     return canons
+
+
+def _compute_freshness(canon: dict) -> str:
+    """Compute freshness status based on last_confirmed date.
+
+    Returns 'fresh' (<180 days), 'aging' (180-365), 'stale' (>365), or 'unknown'.
+    """
+    last_confirmed = canon.get("error", {}).get("last_confirmed")
+    if not last_confirmed:
+        return "unknown"
+    try:
+        d = datetime.strptime(last_confirmed, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return "unknown"
+    age = (date.today() - d).days
+    if age > 365:
+        return "stale"
+    elif age > 180:
+        return "aging"
+    return "fresh"
 
 
 _STOPWORDS = frozenset({
@@ -114,6 +135,7 @@ def lookup_all(error_message: str) -> list[dict]:
                     }
                     for w in canon.get("workarounds", [])
                 ],
+                "freshness": _compute_freshness(canon),
                 "url": canon["url"],
             })
 
