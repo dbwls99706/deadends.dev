@@ -65,8 +65,11 @@ def _get_domain_index() -> dict[str, list[str]]:
     canons = _get_canons()
     index: dict[str, list[str]] = {}
     for c in canons:
-        d = c["error"]["domain"]
-        sig = c["error"]["signature"]
+        try:
+            d = c["error"]["domain"]
+            sig = c["error"]["signature"]
+        except (KeyError, TypeError):
+            continue
         index.setdefault(d, [])
         if sig not in index[d]:
             index[d].append(sig)
@@ -120,10 +123,10 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
                     ],
                     "url": canon["url"],
                 })
-        except re.error:
+        except (re.error, KeyError, TypeError) as exc:
+            canon_id = canon.get("id", "<unknown>")
             sys.stderr.write(
-                f"WARNING: Invalid regex in {canon['id']}: "
-                f"{canon['error']['regex']}\n"
+                f"WARNING: Skipping canon {canon_id}: {exc}\n"
             )
             continue
 
@@ -143,7 +146,10 @@ def list_domains(canons: list[dict]) -> dict:
     """List all domains with error counts."""
     domains: dict[str, int] = {}
     for canon in canons:
-        d = canon["error"]["domain"]
+        try:
+            d = canon["error"]["domain"]
+        except (KeyError, TypeError):
+            continue
         domains[d] = domains.get(d, 0) + 1
     return {"total": len(canons), "domains": domains}
 
@@ -533,7 +539,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 # Try partial match
                 partial = [
                     c for c in canons
-                    if error_id in c["id"] or c["id"] in error_id
+                    if "id" in c
+                    and (error_id in c["id"] or c["id"] in error_id)
                 ]
                 if partial:
                     suggestions = [c["id"] for c in partial[:5]]
@@ -582,12 +589,18 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             limit = min(int(raw_limit) if isinstance(raw_limit, (int, float)) else 10, 20)
             scored = []
             for c in canons:
-                if domain_filter and c["error"]["domain"] != domain_filter:
+                try:
+                    c_domain = c["error"]["domain"]
+                    c_sig = c["error"]["signature"]
+                    c_summary = c["verdict"]["summary"]
+                except (KeyError, TypeError):
+                    continue
+                if domain_filter and c_domain != domain_filter:
                     continue
                 # Score by keyword presence in signature, summary, dead ends
                 score = 0
-                sig = c["error"]["signature"].lower()
-                summary = c["verdict"]["summary"].lower()
+                sig = c_sig.lower()
+                summary = c_summary.lower()
                 _stopwords = {
                     "", "the", "a", "an", "is", "of", "in", "to",
                     "for", "and", "or", "no", "not", "on", "at",
@@ -635,9 +648,16 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
         elif tool_name == "list_errors_by_domain":
             domain = args.get("domain", "")
             sort_by = args.get("sort_by", "fix_rate")
-            domain_canons = [c for c in canons if c["error"]["domain"] == domain]
+            domain_canons = [
+                c for c in canons
+                if c.get("error", {}).get("domain") == domain
+            ]
             if not domain_canons:
-                available = sorted({c["error"]["domain"] for c in canons})
+                available = sorted({
+                    c.get("error", {}).get("domain", "?")
+                    for c in canons
+                    if c.get("error", {}).get("domain")
+                })
                 text = (
                     f"Unknown domain: '{domain}'\n\n"
                     f"Available domains: {', '.join(available)}"
@@ -694,26 +714,39 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
 
         elif tool_name == "get_domain_stats":
             domain = args.get("domain", "")
-            dc = [c for c in canons if c["error"]["domain"] == domain]
+            dc = [
+                c for c in canons
+                if c.get("error", {}).get("domain") == domain
+            ]
             if not dc:
-                available = sorted({c["error"]["domain"] for c in canons})
+                available = sorted({
+                    c.get("error", {}).get("domain", "?")
+                    for c in canons
+                    if c.get("error", {}).get("domain")
+                })
                 text = (
                     f"Unknown domain: '{domain}'\n"
                     f"Available: {', '.join(available)}"
                 )
             else:
-                rates = [c["verdict"]["fix_success_rate"] for c in dc]
-                avg_rate = sum(rates) / len(rates)
+                rates = [
+                    c["verdict"]["fix_success_rate"]
+                    for c in dc
+                    if "verdict" in c and "fix_success_rate" in c["verdict"]
+                ]
+                avg_rate = sum(rates) / len(rates) if rates else 0
                 res_counts = {"true": 0, "partial": 0, "false": 0}
                 categories: dict[str, int] = {}
                 conf_levels = {"high": 0, "medium": 0, "low": 0}
                 for c in dc:
-                    res_counts[c["verdict"]["resolvable"]] = (
-                        res_counts.get(c["verdict"]["resolvable"], 0) + 1
-                    )
-                    cat = c["error"]["category"]
-                    categories[cat] = categories.get(cat, 0) + 1
-                    conf = c["verdict"]["confidence"]
+                    try:
+                        r = c["verdict"]["resolvable"]
+                        res_counts[r] = res_counts.get(r, 0) + 1
+                        cat = c["error"]["category"]
+                        categories[cat] = categories.get(cat, 0) + 1
+                        conf = c["verdict"]["confidence"]
+                    except (KeyError, TypeError):
+                        continue
                     if isinstance(conf, (int, float)):
                         conf_label = (
                             "high" if conf >= 0.8
@@ -753,7 +786,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             if not canon:
                 partial = [
                     c for c in canons
-                    if error_id in c["id"] or c["id"] in error_id
+                    if "id" in c
+                    and (error_id in c["id"] or c["id"] in error_id)
                 ]
                 if partial:
                     suggestions = [c["id"] for c in partial[:5]]
@@ -766,8 +800,9 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     text = f"Error ID not found: {error_id}"
             else:
                 graph = canon.get("transition_graph", {})
+                sig = canon.get("error", {}).get("signature", error_id)
                 parts = [
-                    f"## Error Chain: {canon['error']['signature']}",
+                    f"## Error Chain: {sig}",
                     f"ID: {error_id}\n",
                 ]
                 leads_to = graph.get("leads_to", [])
@@ -779,9 +814,13 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                             continue
                         lt_canon = lookup_by_id(lt_id, canons)
                         if lt_canon:
-                            sig = lt_canon["error"]["signature"]
+                            sig = lt_canon.get("error", {}).get(
+                                "signature", lt_id
+                            )
                             rate = int(
-                                lt_canon["verdict"]["fix_success_rate"] * 100
+                                lt_canon.get("verdict", {}).get(
+                                    "fix_success_rate", 0
+                                ) * 100
                             )
                             parts.append(
                                 f"- **{sig}** (p={lt.get('probability', '?')}, "
@@ -807,7 +846,9 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                             continue
                         pb_canon = lookup_by_id(pb_id, canons)
                         if pb_canon:
-                            sig = pb_canon["error"]["signature"]
+                            sig = pb_canon.get("error", {}).get(
+                                "signature", pb_id
+                            )
                             parts.append(
                                 f"- **{sig}** (p={pb.get('probability', '?')}) "
                                 f"— {pb_id}"
@@ -828,7 +869,9 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                             continue
                         fc_canon = lookup_by_id(fc_id, canons)
                         if fc_canon:
-                            sig = fc_canon["error"]["signature"]
+                            sig = fc_canon.get("error", {}).get(
+                                "signature", fc_id
+                            )
                             parts.append(
                                 f"- **{sig}** — {fc_id}"
                             )
