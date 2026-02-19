@@ -142,8 +142,8 @@ class TestCrossReferences:
             id="python/error-b/env1",
             url="https://deadends.dev/python/error-b/env1",
         )
-        warnings = validate_cross_references([canon1, canon2])
-        assert len(warnings) == 0
+        errors = validate_cross_references([canon1, canon2])
+        assert len(errors) == 0
 
     def test_missing_cross_reference(self, make_canon):
         canon1 = make_canon(
@@ -155,9 +155,9 @@ class TestCrossReferences:
                 "frequently_confused_with": [],
             },
         )
-        warnings = validate_cross_references([canon1])
-        assert len(warnings) == 1
-        assert "non-existent" in warnings[0]
+        errors = validate_cross_references([canon1])
+        assert len(errors) == 1
+        assert "non-existent" in errors[0]
 
     def test_missing_confused_with_reference(self, make_canon):
         canon1 = make_canon(
@@ -169,5 +169,5 @@ class TestCrossReferences:
                 ],
             },
         )
-        warnings = validate_cross_references([canon1])
-        assert len(warnings) == 1
+        errors = validate_cross_references([canon1])
+        assert len(errors) == 1
