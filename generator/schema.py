@@ -31,18 +31,14 @@ ERRORCANON_SCHEMA = {
                 "domain": {
                     "type": "string",
                     "enum": [
+                        # Active domains (have canons in data/canons/)
                         "python",
                         "cuda",
                         "node",
                         "pip",
                         "docker",
                         "git",
-                        "mcp",
-                        "http",
-                        "auth",
-                        "db",
                         "rust",
-                        "llm",
                         "typescript",
                         "go",
                         "kubernetes",
@@ -56,6 +52,11 @@ ERRORCANON_SCHEMA = {
                         "php",
                         "dotnet",
                         "networking",
+                        # Reserved for future expansion
+                        "mcp",
+                        "http",
+                        "auth",
+                        "llm",
                     ],
                 },
                 "category": {"type": "string", "minLength": 1},
