@@ -2,6 +2,25 @@ startCommand:
   type: stdio
   configSchema:
     type: object
-    properties: {}
+    properties:
+      preferred_domains:
+        type: string
+        description: "Comma-separated list of domains to prioritize in results (e.g., 'python,docker,kubernetes'). Leave empty for all domains."
+      max_results:
+        type: integer
+        description: "Default maximum number of results to return per query (1-20). Defaults to 10."
+        default: 10
+        minimum: 1
+        maximum: 20
+      verbose:
+        type: boolean
+        description: "Include full workaround details and error chain info in lookup results. Defaults to true."
+        default: true
   commandFunction: |-
-    (config) => ({ command: 'python', args: ['-m', 'mcp.server'] })
+    (config) => {
+      const env = {};
+      if (config.preferred_domains) env.DEADENDS_PREFERRED_DOMAINS = config.preferred_domains;
+      if (config.max_results) env.DEADENDS_MAX_RESULTS = String(config.max_results);
+      if (config.verbose !== undefined) env.DEADENDS_VERBOSE = String(config.verbose);
+      return { command: 'python', args: ['-m', 'mcp.server'], env };
+    }
