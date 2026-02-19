@@ -15,6 +15,17 @@ _CANONS = None
 _DOMAIN_INDEX = None
 
 
+def _is_valid_canon(c):
+    """Check that a canon has the minimum required structure."""
+    return (
+        isinstance(c, dict)
+        and isinstance(c.get("error"), dict)
+        and isinstance(c.get("verdict"), dict)
+        and "domain" in c["error"]
+        and "signature" in c["error"]
+    )
+
+
 def _load_canons():
     global _CANONS
     if _CANONS is not None:
@@ -22,7 +33,9 @@ def _load_canons():
     canons = []
     for f in sorted(DATA_DIR.rglob("*.json")):
         with open(f, encoding="utf-8") as fh:
-            canons.append(json.load(fh))
+            data = json.load(fh)
+            if _is_valid_canon(data):
+                canons.append(data)
     _CANONS = canons
     return canons
 
@@ -80,7 +93,7 @@ def match_error(error_message, canons):
                     ],
                     "url": canon["url"],
                 })
-        except re.error:
+        except (re.error, KeyError, TypeError, AttributeError):
             continue
     matches.sort(key=lambda m: m["fix_success_rate"], reverse=True)
     return matches
@@ -437,6 +450,7 @@ TOOLS = [
 
 
 def handle_mcp(method, params, canons):
+    canons = [c for c in canons if _is_valid_canon(c)]
     if method == "initialize":
         return {
             "protocolVersion": "2025-03-26",
@@ -609,7 +623,10 @@ def handle_mcp(method, params, canons):
                 )
             else:
                 available = sorted(
-                    {c["error"]["domain"] for c in canons}
+                    {c.get("error", {}).get("domain")
+                     for c in canons
+                     if isinstance(c, dict)
+                     and c.get("error", {}).get("domain")}
                 )
                 prompt_text = (
                     f"Domain '{domain}' not found.\n"
@@ -726,8 +743,9 @@ def handle_mcp(method, params, canons):
             sort_by = args.get("sort_by", "count")
             domains = {}
             for c in canons:
-                d = c["error"]["domain"]
-                domains[d] = domains.get(d, 0) + 1
+                d = c.get("error", {}).get("domain") if isinstance(c, dict) else None
+                if d:
+                    domains[d] = domains.get(d, 0) + 1
             if sort_by == "name":
                 sorted_domains = sorted(domains.items())
             else:
@@ -750,10 +768,12 @@ def handle_mcp(method, params, canons):
             limit = min(args.get("limit", 10), 20)
             scored = []
             for c in canons:
-                if domain_filter and c["error"]["domain"] != domain_filter:
+                if not isinstance(c, dict) or not c.get("error"):
+                    continue
+                if domain_filter and c.get("error", {}).get("domain") != domain_filter:
                     continue
                 score = 0
-                sig = c["error"]["signature"].lower()
+                sig = c.get("error", {}).get("signature", "").lower()
                 summary = c["verdict"]["summary"].lower()
                 q_words = set(query.split())
                 for w in q_words:
@@ -804,11 +824,16 @@ def handle_mcp(method, params, canons):
             domain = args.get("domain", "")
             sort_by = args.get("sort_by", "fix_rate")
             domain_canons = [
-                c for c in canons if c["error"]["domain"] == domain
+                c for c in canons
+                if isinstance(c, dict)
+                and c.get("error", {}).get("domain") == domain
             ]
             if not domain_canons:
                 available = sorted(
-                    {c["error"]["domain"] for c in canons}
+                    {c.get("error", {}).get("domain")
+                     for c in canons
+                     if isinstance(c, dict)
+                     and c.get("error", {}).get("domain")}
                 )
                 text = (
                     f"Unknown domain: '{domain}'\n\n"
