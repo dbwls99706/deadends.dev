@@ -34,6 +34,7 @@ import json
 import os
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
@@ -88,6 +89,26 @@ def _get_domain_index() -> dict[str, list[str]]:
     return index
 
 
+def _compute_freshness(canon: dict) -> str:
+    """Compute freshness status based on last_confirmed date.
+
+    Returns 'fresh' (<180 days), 'aging' (180-365), 'stale' (>365), or 'unknown'.
+    """
+    last_confirmed = canon.get("error", {}).get("last_confirmed")
+    if not last_confirmed:
+        return "unknown"
+    try:
+        d = datetime.strptime(last_confirmed, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return "unknown"
+    age = (date.today() - d).days
+    if age > 365:
+        return "stale"
+    elif age > 180:
+        return "aging"
+    return "fresh"
+
+
 def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     """Match an error message against all known patterns.
 
@@ -138,6 +159,7 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
                         )
                         if "error_id" in lt
                     ],
+                    "freshness": _compute_freshness(canon),
                     "url": canon["url"],
                     "_match_ratio": match_ratio,
                     "_preferred": preferred,
