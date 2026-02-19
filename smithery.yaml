@@ -7,11 +7,8 @@ startCommand:
         type: string
         description: "Comma-separated list of domains to prioritize in results (e.g., 'python,docker,kubernetes'). Leave empty for all domains."
       max_results:
-        type: integer
+        type: string
         description: "Default maximum number of results to return per query (1-20). Defaults to 10."
-        default: 10
-        minimum: 1
-        maximum: 20
       verbose:
         type: boolean
         description: "Include full workaround details and error chain info in lookup results. Defaults to true."

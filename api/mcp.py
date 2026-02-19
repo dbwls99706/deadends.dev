@@ -1123,12 +1123,25 @@ class handler(BaseHTTPRequestHandler):
 
         try:
             request = json.loads(body)
-        except json.JSONDecodeError:
+        except (json.JSONDecodeError, ValueError):
             self.send_response(400)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(
                 json.dumps({"error": "Invalid JSON"}).encode()
+            )
+            return
+
+        if not isinstance(request, dict):
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(
+                json.dumps({
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32600, "message": "Invalid Request"},
+                    "id": None,
+                }).encode()
             )
             return
 
