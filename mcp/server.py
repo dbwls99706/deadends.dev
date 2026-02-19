@@ -31,11 +31,22 @@ Cursor config (MCP settings):
 """
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
+
+# Smithery configuration via environment variables
+_PREFERRED_DOMAINS: list[str] = [
+    d.strip() for d in os.getenv("DEADENDS_PREFERRED_DOMAINS", "").split(",")
+    if d.strip()
+]
+_MAX_RESULTS: int = min(
+    max(int(os.getenv("DEADENDS_MAX_RESULTS", "10")), 1), 20
+)
+_VERBOSE: bool = os.getenv("DEADENDS_VERBOSE", "true").lower() != "false"
 
 # Module-level cache — loaded once on first request
 _CANONS: list[dict] | None = None
@@ -80,21 +91,27 @@ def _get_domain_index() -> dict[str, list[str]]:
 def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     """Match an error message against all known patterns.
 
-    Returns matches sorted by (regex_match, fix_success_rate) so exact
-    regex hits always rank above partial keyword matches.
+    Returns matches sorted by (match_ratio, preferred_domain, fix_success_rate)
+    so longer regex matches rank higher, preferred domains get a boost, and
+    fix_success_rate breaks ties.
     """
     if not error_message or not error_message.strip():
         return []
 
     matches = []
+    msg_len = len(error_message)
     for canon in canons:
         try:
             pattern = re.compile(canon["error"]["regex"], re.IGNORECASE)
-            if pattern.search(error_message):
+            m = pattern.search(error_message)
+            if m:
+                match_ratio = len(m.group()) / msg_len if msg_len else 0
+                domain = canon["error"]["domain"]
+                preferred = 1 if domain in _PREFERRED_DOMAINS else 0
                 matches.append({
                     "id": canon["id"],
                     "signature": canon["error"]["signature"],
-                    "domain": canon["error"]["domain"],
+                    "domain": domain,
                     "resolvable": canon["verdict"]["resolvable"],
                     "fix_success_rate": canon["verdict"]["fix_success_rate"],
                     "summary": canon["verdict"]["summary"],
@@ -122,6 +139,8 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
                         if "error_id" in lt
                     ],
                     "url": canon["url"],
+                    "_match_ratio": match_ratio,
+                    "_preferred": preferred,
                 })
         except (re.error, KeyError, TypeError) as exc:
             canon_id = canon.get("id", "<unknown>")
@@ -130,7 +149,14 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
             )
             continue
 
-    matches.sort(key=lambda m: m["fix_success_rate"], reverse=True)
+    matches.sort(
+        key=lambda m: (m["_match_ratio"], m["_preferred"], m["fix_success_rate"]),
+        reverse=True,
+    )
+    # Strip internal scoring fields
+    for m in matches:
+        m.pop("_match_ratio", None)
+        m.pop("_preferred", None)
     return matches
 
 
@@ -456,7 +482,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             },
             "serverInfo": {
                 "name": "deadends-dev",
-                "version": "1.4.0",
+                "version": "1.5.1",
             },
         }
     elif method == "ping":
@@ -502,7 +528,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 )
             else:
                 parts = []
-                for m in matches[:5]:
+                for m in matches[:_MAX_RESULTS]:
                     parts.append(f"## {m['signature']}")
                     parts.append(f"Resolvable: {m['resolvable']} | "
                                  f"Fix rate: {m['fix_success_rate']}")
@@ -513,18 +539,25 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         parts.append(f"- {d['action']} "
                                      f"(fails {int(d['fail_rate']*100)}%): "
                                      f"{d['why_fails']}")
-                    parts.append("")
-                    parts.append("### Workarounds (TRY THESE):")
-                    for w in m["workarounds"]:
-                        how = f" — `{w['how']}`" if w["how"] else ""
-                        parts.append(f"- {w['action']} "
-                                     f"(works {int(w['success_rate']*100)}%)"
-                                     f"{how}")
-                    if m.get("leads_to"):
+                    if _VERBOSE:
                         parts.append("")
-                        parts.append("### Next Errors (after fixing this):")
-                        for lt in m["leads_to"]:
-                            parts.append(f"- {lt}")
+                        parts.append("### Workarounds (TRY THESE):")
+                        for w in m["workarounds"]:
+                            how = f" — `{w['how']}`" if w["how"] else ""
+                            parts.append(f"- {w['action']} "
+                                         f"(works {int(w['success_rate']*100)}%)"
+                                         f"{how}")
+                        if m.get("leads_to"):
+                            parts.append("")
+                            parts.append("### Next Errors (after fixing this):")
+                            for lt in m["leads_to"]:
+                                parts.append(f"- {lt}")
+                    else:
+                        parts.append("")
+                        parts.append("### Workarounds (TRY THESE):")
+                        for w in m["workarounds"]:
+                            parts.append(f"- {w['action']} "
+                                         f"(works {int(w['success_rate']*100)}%)")
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
@@ -585,8 +618,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     }],
                 }
             domain_filter = args.get("domain", "")
-            raw_limit = args.get("limit", 10)
-            limit = min(int(raw_limit) if isinstance(raw_limit, (int, float)) else 10, 20)
+            raw_limit = args.get("limit", _MAX_RESULTS)
+            limit = min(int(raw_limit) if isinstance(raw_limit, (int, float)) else _MAX_RESULTS, 20)
             scored = []
             for c in canons:
                 try:
@@ -621,6 +654,8 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         if w in wa["action"].lower():
                             score += 3
                 if score > 0:
+                    if c_domain in _PREFERRED_DOMAINS:
+                        score += 5
                     scored.append((score, c))
             scored.sort(key=lambda x: x[0], reverse=True)
             if not scored:
