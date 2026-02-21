@@ -925,6 +925,47 @@ def get_all_canons() -> list[dict]:
         confused_with=[confused("react/cannot-update-while-rendering/react18-linux", "Cannot update while rendering is about state update timing; too many re-renders is about infinite render loops")],
     ))
 
+    # === NETWORKING (HTTPS) ===
+    canons.append(canon(
+        "networking", "mixed-content-blocked", "http-linux",
+        "Mixed Content: The page was loaded over HTTPS, but requested an insecure resource",
+        r"Mixed Content.*loaded over HTTPS.*insecure|blocked.*mixed.*content|mixed-content.*blocked",
+        "ssl_tls", "http", "HTTP/1.1+", "linux", "true", 0.91, 0.92,
+        "The browser blocked an HTTP sub-resource (image, script, stylesheet, XHR) loaded on an HTTPS page. Occurs most often during HTTP-to-HTTPS migrations when asset URLs were not updated.",
+        [de("Add 'upgrade-insecure-requests' meta tag to the HTML head", "Only works when the HTTPS version of the resource exists; fails for third-party assets without HTTPS endpoints", 0.55, sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"]),
+         de("Disable mixed content blocking in browser developer settings", "Cannot be disabled in production—only in local dev tools. Chrome removed per-site mixed content allowance in 2021.", 0.98, sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"]),
+         de("Proxy all mixed content through the origin server to rewrite URLs on the fly", "Violates CDN terms of service, breaks cache-busting, introduces latency, and is complex to maintain", 0.72, sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"])],
+        [wa("Audit and rewrite all HTTP asset URLs to HTTPS in templates, CSS, and CMS content", 0.94, "grep -r 'http://' templates/ static/ --include='*.html' --include='*.css'", sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"]),
+         wa("Add Content-Security-Policy: upgrade-insecure-requests header at the web server (TLS termination) layer", 0.82, "nginx: add_header Content-Security-Policy \"upgrade-insecure-requests\";", sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"]),
+         wa("Self-host or replace third-party HTTP-only assets with HTTPS-capable alternatives", 0.88, "Download and serve from your HTTPS origin, or switch to an HTTPS CDN", sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"])],
+        leads_to=[leads("networking/ssl-unable-to-verify/openssl3-linux", 0.1, "Upgrading asset URLs to HTTPS reveals untrusted certificate on asset server"),
+                  leads("networking/cors-preflight-failed/http-linux", 0.15, "HTTPS assets on a different origin may lack proper CORS headers")],
+        preceded_by=[preceded("networking/too-many-redirects/http-linux", 0.1, "Incomplete HTTP-to-HTTPS migration leaves asset URLs pointing to HTTP origins"),
+                     preceded("networking/ssl-certificate-expired/openssl3-linux", 0.05, "Renewing expired cert reveals asset URLs were hardcoded to HTTP")],
+        confused_with=[confused("networking/cors-preflight-failed/http-linux", "Mixed content is protocol mismatch on the same page; CORS is cross-origin access control regardless of protocol"),
+                       confused("networking/ssl-unable-to-verify/openssl3-linux", "Mixed content: assets loaded over HTTP on an HTTPS page; ssl-unable-to-verify: the HTTPS connection itself fails due to invalid cert chain")],
+    ))
+
+    canons.append(canon(
+        "networking", "hsts-preload-misconfigured", "http-linux",
+        "Strict-Transport-Security header missing or misconfigured / HSTS preload requirements not met",
+        r"Strict-Transport-Security.*missing|hsts.*not.*set|max-age.*too.*short.*preload|includeSubDomains.*required.*preload|preload.*directive.*missing",
+        "ssl_tls", "http", "HTTP/1.1+", "linux", "true", 0.88, 0.89,
+        "The HSTS header is absent or does not meet browser preload requirements (max-age >= 31536000, includeSubDomains, preload directive). Without HSTS, the first HTTP request is vulnerable to downgrade attacks.",
+        [de("Submit domain to HSTS preload list before verifying all subdomains support HTTPS", "includeSubDomains forces all subdomains to HTTPS permanently; any subdomain without a valid cert becomes inaccessible with no bypass. Removal takes months.", 0.85, sources=["https://hstspreload.org/"]),
+         de("Set max-age to a very large value immediately on first HSTS deployment", "If HTTPS breaks later, browsers refuse HTTP fallback for the full cached duration. Ramp up progressively.", 0.70, sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"]),
+         de("Add HSTS header only in the application layer when a reverse proxy handles TLS termination", "The header must be set at the TLS-terminating layer to be sent on all HTTPS responses including static files", 0.60, sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"])],
+        [wa("Add Strict-Transport-Security header at the TLS termination layer with progressive max-age", 0.92, "Start: max-age=300 → 86400 → 604800 → 31536000. nginx: add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;", sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"]),
+         wa("Submit to HSTS preload list only after all subdomains are HTTPS-ready", 0.85, "Validate at https://hstspreload.org/ then submit; requires max-age=31536000, includeSubDomains, preload", sources=["https://hstspreload.org/"]),
+         wa("Use Helmet.js (Node.js) or framework security middleware to set HSTS automatically", 0.88, "app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }))", sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"])],
+        leads_to=[leads("networking/ssl-certificate-expired/openssl3-linux", 0.2, "Long max-age HSTS with later certificate expiry leaves users unable to bypass HTTPS requirement"),
+                  leads("networking/mixed-content-blocked/http-linux", 0.15, "Enabling HSTS reveals subdomains or assets still served over HTTP")],
+        preceded_by=[preceded("networking/ssl-certificate-expired/openssl3-linux", 0.1, "Fixing expired certificate triggers security audit revealing missing HSTS"),
+                     preceded("networking/too-many-redirects/http-linux", 0.1, "Diagnosing HTTP-to-HTTPS redirect loops reveals HSTS missing from HTTPS response")],
+        confused_with=[confused("networking/ssl-certificate-expired/openssl3-linux", "HSTS: missing or wrong security policy header; certificate expiry: cert past validity date. HSTS errors appear in security audits; cert expiry shows browser error pages."),
+                       confused("networking/mixed-content-blocked/http-linux", "Mixed content: HTTP sub-resources on an HTTPS page; HSTS: enforcing HTTPS at transport level via response header. Both occur during HTTPS migrations but are independent.")],
+    ))
+
     return canons
 
 

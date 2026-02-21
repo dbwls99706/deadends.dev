@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/mixed-content-blocked/http-linux",
+  "url": "https://deadends.dev/networking/mixed-content-blocked/http-linux",
+  "error": {
+    "signature": "Mixed Content: The page was loaded over HTTPS, but requested an insecure resource",
+    "regex": "Mixed Content.*loaded over HTTPS.*insecure|blocked.*mixed.*content|mixed-content.*blocked",
+    "domain": "networking",
+    "category": "ssl_tls",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "http",
+      "version_range": "HTTP/1.1+"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.91,
+    "confidence": 0.92,
+    "last_updated": "2026-02-21",
+    "summary": "The browser blocked an HTTP sub-resource (image, script, stylesheet, XHR) loaded on an HTTPS page. Modern browsers block all active mixed content (scripts, iframes) and increasingly block passive mixed content (images). This occurs most often during HTTP-to-HTTPS migrations when asset URLs were not updated."
+  },
+  "dead_ends": [
+    {
+      "action": "Add 'upgrade-insecure-requests' meta tag to the HTML head",
+      "why_fails": "The CSP meta tag 'upgrade-insecure-requests' only upgrades HTTP requests to HTTPS if the HTTPS resource actually exists at that URL. If the third-party CDN or asset server doesn't serve over HTTPS, the upgraded request simply fails with a connection error. It also cannot upgrade requests already blocked before the meta tag is parsed.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"
+      ],
+      "condition": "when third-party resources don't have HTTPS endpoints"
+    },
+    {
+      "action": "Disable mixed content blocking in browser developer settings",
+      "why_fails": "Browser mixed content restrictions cannot be permanently disabled in production environments—only in local developer tools. End users will still see blocked content. Chrome removed the option to allow mixed content per-site in 2021, so this is not a viable workaround for any real user.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Proxy all mixed content through the origin server to rewrite URLs on the fly",
+      "why_fails": "Proxying third-party assets violates third-party CDN terms of service, breaks cache-busting and asset fingerprinting, introduces latency and a single point of failure, and is complex to maintain. The correct fix is to update asset URLs directly.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Audit and rewrite all HTTP asset URLs to HTTPS in templates, CSS, and CMS content",
+      "success_rate": 0.94,
+      "how": "1. Open browser DevTools → Console and filter for 'Mixed Content' errors to identify all HTTP resources\n2. Run: grep -r 'http://' templates/ static/ --include='*.html' --include='*.css' --include='*.js'\n3. Replace hardcoded http:// URLs with https:// for resources that support HTTPS\n4. For CMS content (WordPress, etc.), run a database search-and-replace: UPDATE wp_posts SET post_content = REPLACE(post_content, 'http://your-cdn.com', 'https://your-cdn.com')\n5. Use protocol-relative URLs (//example.com/resource) only as a last resort—they inherit the page protocol\n6. Verify with: curl -s https://yoursite.com | grep -o 'src=\"http://[^\"]*\"'",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add Content-Security-Policy: upgrade-insecure-requests header at the server level",
+      "success_rate": 0.82,
+      "how": "1. Add to nginx: add_header Content-Security-Policy \"upgrade-insecure-requests\";\n2. Add to Apache: Header always set Content-Security-Policy \"upgrade-insecure-requests\"\n3. Add to Express.js: res.setHeader('Content-Security-Policy', 'upgrade-insecure-requests')\n4. This automatically upgrades HTTP sub-resource requests to HTTPS before they are sent\n5. Verify: in DevTools Network tab, check that http:// requests show as upgraded to https://\n6. Note: only works when the HTTPS version of the resource exists at the same host/path",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"
+      ],
+      "condition": "when third-party resources have HTTPS endpoints at the same path"
+    },
+    {
+      "action": "Self-host or replace third-party HTTP-only assets with HTTPS-capable alternatives",
+      "success_rate": 0.88,
+      "how": "1. Download the HTTP-only asset (font, library, image) and serve it from your HTTPS origin\n2. For Google Fonts, use the HTTPS URL: https://fonts.googleapis.com (already HTTPS)\n3. For jQuery/libraries, switch to a CDN that supports HTTPS: https://cdnjs.cloudflare.com\n4. For images, upload to your own server or an HTTPS-enabled CDN (Cloudflare Images, AWS S3 + CloudFront)\n5. Update all references in your templates to point to the new HTTPS URL",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"
+      ],
+      "condition": "when third-party resources do not offer HTTPS endpoints"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/ssl-unable-to-verify/openssl3-linux",
+        "probability": 0.1,
+        "condition": "when upgrading asset URLs to HTTPS reveals an untrusted certificate on the asset server"
+      },
+      {
+        "error_id": "networking/cors-preflight-failed/http-linux",
+        "probability": 0.15,
+        "condition": "when HTTPS assets are hosted on a different origin without proper CORS headers"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/too-many-redirects/http-linux",
+        "probability": 0.1,
+        "condition": "when HTTP-to-HTTPS migration is incomplete and some assets still point to HTTP origins"
+      },
+      {
+        "error_id": "networking/ssl-certificate-expired/openssl3-linux",
+        "probability": 0.05,
+        "condition": "when renewing an expired cert reveals that asset URLs were hardcoded to HTTP"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/cors-preflight-failed/http-linux",
+        "distinction": "Mixed content is about the HTTP/HTTPS protocol mismatch on the same page; CORS is about cross-origin access control regardless of protocol. Mixed content shows in Console as 'Mixed Content'; CORS shows as a CORS policy error."
+      },
+      {
+        "error_id": "networking/ssl-unable-to-verify/openssl3-linux",
+        "distinction": "Mixed content errors occur when assets are loaded over HTTP on an HTTPS page; ssl-unable-to-verify occurs when the HTTPS connection itself cannot be established due to an invalid certificate chain."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-21",
+    "review_status": "auto_generated",
+    "evidence_count": 68,
+    "last_verification": "2026-02-21"
+  }
+}

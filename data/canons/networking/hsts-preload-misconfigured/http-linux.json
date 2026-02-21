@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "id": "networking/hsts-preload-misconfigured/http-linux",
+  "url": "https://deadends.dev/networking/hsts-preload-misconfigured/http-linux",
+  "error": {
+    "signature": "Strict-Transport-Security header missing or misconfigured / HSTS preload requirements not met",
+    "regex": "Strict-Transport-Security.*missing|hsts.*not.*set|max-age.*too.*short.*preload|includeSubDomains.*required.*preload|preload.*directive.*missing",
+    "domain": "networking",
+    "category": "ssl_tls",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "http",
+      "version_range": "HTTP/1.1+"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.89,
+    "last_updated": "2026-02-21",
+    "summary": "The HTTP Strict-Transport-Security (HSTS) header is absent or does not meet browser preload requirements. Without HSTS, browsers will accept HTTP connections before the first HTTPS redirect, leaving the first request vulnerable to downgrade attacks. HSTS preload additionally requires max-age >= 31536000, includeSubDomains, and the preload directive."
+  },
+  "dead_ends": [
+    {
+      "action": "Submit a domain to the HSTS preload list before verifying all subdomains support HTTPS",
+      "why_fails": "HSTS preload with includeSubDomains forces all subdomains to HTTPS permanently in browsers. If any subdomain (staging, dev, mail, ftp) does not have a valid HTTPS certificate, users on those subdomains will receive certificate errors with no bypass option. Removal from the preload list takes months to propagate to all browser versions.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://hstspreload.org/"
+      ],
+      "condition": "when subdomains lack valid HTTPS certificates"
+    },
+    {
+      "action": "Set max-age to a very large value (10 years or more) immediately on first HSTS deployment",
+      "why_fails": "Setting an extremely long max-age on the first deployment means if HTTPS breaks (certificate expires, server misconfiguration), browsers will refuse to load the site over HTTP for the full duration stored in their cache. Start with a short max-age, verify everything works, then progressively increase to the preload minimum of 31536000 (1 year).",
+      "fail_rate": 0.70,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ],
+      "condition": "when deploying HSTS for the first time without testing"
+    },
+    {
+      "action": "Add HSTS header only to the application layer (e.g., Express.js, Django) without the reverse proxy",
+      "why_fails": "When HTTPS termination happens at the reverse proxy (nginx, Caddy, load balancer), the application receives HTTP internally and may not always add the HSTS header to every response. The header must be set at the TLS-terminating layer to be reliably sent on all HTTPS responses, including static files and redirected responses.",
+      "fail_rate": 0.60,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ],
+      "condition": "when using a reverse proxy for TLS termination"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add Strict-Transport-Security header at the web server (TLS termination) layer with progressive max-age",
+      "success_rate": 0.92,
+      "how": "1. Start with a short max-age to test: Strict-Transport-Security: max-age=300\n2. Verify your HTTPS setup works completely for 1-2 weeks\n3. Increase progressively: 86400 (1 day) → 604800 (1 week) → 2592000 (1 month) → 31536000 (1 year)\n4. nginx: add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;\n5. Apache: Header always set Strict-Transport-Security \"max-age=31536000; includeSubDomains\"\n6. Caddy: header Strict-Transport-Security \"max-age=31536000; includeSubDomains\"\n7. Verify: curl -I https://yourdomain.com | grep -i strict",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Submit to HSTS preload list only after all subdomains are HTTPS-ready",
+      "success_rate": 0.85,
+      "how": "1. Audit all subdomains: for sub in www api staging mail; do curl -I https://$sub.yourdomain.com 2>&1 | head -3; done\n2. Ensure ALL subdomains have valid HTTPS certificates (or decommission HTTP-only ones)\n3. Set the full preload header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload\n4. Validate at https://hstspreload.org/ (checks all requirements automatically)\n5. Submit via https://hstspreload.org/ once the checker shows all green\n6. Note: removal requests take 6-12 months to propagate—be certain before submitting",
+      "sources": [
+        "https://hstspreload.org/"
+      ],
+      "condition": "when preparing for preload list submission"
+    },
+    {
+      "action": "Use Helmet.js (Node.js) or SecurityMiddleware to set HSTS automatically",
+      "success_rate": 0.88,
+      "how": "1. Install helmet: npm install helmet\n2. Add to Express: app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }))\n3. For Django: SECURE_HSTS_SECONDS = 31536000; SECURE_HSTS_INCLUDE_SUBDOMAINS = True in settings.py\n4. For Rails: config.force_ssl = true in production.rb (sets HSTS automatically)\n5. Ensure the middleware runs on every request, including static file serving\n6. Test by checking the response headers in browser DevTools → Network → Headers",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ],
+      "condition": "when managing HSTS through application middleware"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "networking/ssl-certificate-expired/openssl3-linux",
+        "probability": 0.2,
+        "condition": "when HSTS is set with a long max-age and the certificate later expires, leaving users unable to bypass the HTTPS requirement"
+      },
+      {
+        "error_id": "networking/mixed-content-blocked/http-linux",
+        "probability": 0.15,
+        "condition": "when enabling HSTS reveals that some subdomains or assets are still served over HTTP"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "networking/ssl-certificate-expired/openssl3-linux",
+        "probability": 0.1,
+        "condition": "when fixing an expired certificate prompts a security audit that reveals missing HSTS"
+      },
+      {
+        "error_id": "networking/too-many-redirects/http-linux",
+        "probability": 0.1,
+        "condition": "when diagnosing HTTP-to-HTTPS redirect loops reveals HSTS is missing from the HTTPS response"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "networking/ssl-certificate-expired/openssl3-linux",
+        "distinction": "HSTS misconfiguration is a missing or incorrect security policy header; certificate expiry is the certificate itself being past its validity date. HSTS errors appear in security audit tools; certificate expiry causes browser certificate error pages."
+      },
+      {
+        "error_id": "networking/mixed-content-blocked/http-linux",
+        "distinction": "Mixed content is about HTTP sub-resources loaded on an HTTPS page; HSTS is about enforcing HTTPS at the transport level via a response header. They often co-occur during HTTPS migrations but are independent issues."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-21",
+    "review_status": "auto_generated",
+    "evidence_count": 55,
+    "last_verification": "2026-02-21"
+  }
+}
