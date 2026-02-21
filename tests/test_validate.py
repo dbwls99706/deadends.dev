@@ -7,6 +7,7 @@ from generator.validate import (
     staleness_summary,
     validate_canon_json,
     validate_cross_references,
+    validate_unique_ids,
 )
 
 
@@ -248,3 +249,24 @@ class TestCrossReferences:
         )
         errors = validate_cross_references([canon1])
         assert len(errors) == 1
+
+
+class TestUniqueIds:
+    def test_unique_ids_pass(self, make_canon):
+        canon1 = make_canon()
+        canon2 = make_canon(id="python/another-error/py311-linux")
+        errors = validate_unique_ids([canon1, canon2])
+        assert errors == []
+
+    def test_duplicate_id_fails(self, make_canon):
+        canon1 = make_canon()
+        canon2 = make_canon()  # same id as canon1
+        errors = validate_unique_ids([canon1, canon2])
+        assert len(errors) == 1
+        assert "Duplicate" in errors[0]
+        assert canon1["id"] in errors[0]
+
+    def test_single_canon_no_duplicate(self, make_canon):
+        canon = make_canon()
+        errors = validate_unique_ids([canon])
+        assert errors == []

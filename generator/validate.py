@@ -181,6 +181,31 @@ def staleness_summary(
     return "\n".join(lines)
 
 
+def validate_unique_ids(canons: list[dict]) -> list[str]:
+    """Validate that all canon IDs are unique across the dataset.
+
+    Duplicate IDs can occur when both flat-file (slug_env.json) and
+    directory-style (slug/env.json) formats coexist for the same canon.
+
+    Returns errors so duplicates fail the build.
+    """
+    errors = []
+    seen: dict[str, list[str]] = {}
+    for canon in canons:
+        cid = canon["id"]
+        url = canon.get("url", "")
+        key = f"{cid}|{url}"
+        seen.setdefault(cid, []).append(url)
+
+    for cid, urls in seen.items():
+        if len(urls) > 1:
+            errors.append(
+                f"Duplicate canon ID '{cid}' found {len(urls)} times. "
+                "Remove the duplicate file (flat-file vs directory-style conflict)."
+            )
+    return errors
+
+
 def validate_cross_references(canons: list[dict]) -> list[str]:
     """Validate that all referenced error_ids exist in the dataset.
 
@@ -339,6 +364,12 @@ def validate_all(
                     print(f"  FAIL: {canon_file}: Invalid JSON: {e}")
 
             if not skip_data_validation:
+                # Duplicate ID validation (errors — fail the build)
+                dup_errors = validate_unique_ids(all_canons)
+                for error in dup_errors:
+                    all_errors.append(error)
+                    print(f"  FAIL: {error}")
+
                 # Cross-reference validation (errors — fail the build)
                 xref_errors = validate_cross_references(all_canons)
                 for error in xref_errors:
