@@ -194,7 +194,6 @@ def validate_unique_ids(canons: list[dict]) -> list[str]:
     for canon in canons:
         cid = canon["id"]
         url = canon.get("url", "")
-        key = f"{cid}|{url}"
         seen.setdefault(cid, []).append(url)
 
     for cid, urls in seen.items():
