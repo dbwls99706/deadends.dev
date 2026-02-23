@@ -16,5 +16,16 @@
       "source": "/mcp",
       "destination": "/api/mcp.py"
     }
+  ],
+  "headers": [
+    {
+      "source": "/api/v1/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }

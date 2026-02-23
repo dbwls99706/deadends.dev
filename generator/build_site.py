@@ -369,7 +369,7 @@ def build_sitemap(
     main_urlset = Element("urlset", xmlns=ns)
 
     url_elem = SubElement(main_urlset, "url")
-    SubElement(url_elem, "loc").text = BASE_URL
+    SubElement(url_elem, "loc").text = f"{BASE_URL}/"
     SubElement(url_elem, "lastmod").text = now
     SubElement(url_elem, "changefreq").text = "weekly"
     SubElement(url_elem, "priority").text = "1.0"
@@ -394,6 +394,18 @@ def build_sitemap(
     _write_urlset(main_urlset, SITE_DIR / "sitemap-main.xml")
     print("  Generated: sitemap-main.xml")
 
+    # Build a lookup: slug_key → most recent last_confirmed date across all envs
+    slug_lastmod: dict[str, str] = {}
+    for canon in canons:
+        parts = canon["id"].split("/")
+        if len(parts) == 3:
+            slug_key = f"{parts[0]}/{parts[1]}"
+            date = canon.get("error", {}).get("last_confirmed", now)
+            if not date or not isinstance(date, str):
+                date = now
+            existing = slug_lastmod.get(slug_key, "")
+            slug_lastmod[slug_key] = date if date > existing else existing
+
     # --- Per-domain sitemaps: summary pages only ---
     summaries_by_domain: dict[str, list[dict]] = {}
     for summary in summary_urls or []:
@@ -406,8 +418,8 @@ def build_sitemap(
         for s in summaries_by_domain[domain]:
             url_elem = SubElement(domain_urlset, "url")
             SubElement(url_elem, "loc").text = s["url"]
-            SubElement(url_elem, "lastmod").text = now
-            SubElement(url_elem, "changefreq").text = "weekly"
+            SubElement(url_elem, "lastmod").text = slug_lastmod.get(s["slug_key"], now)
+            SubElement(url_elem, "changefreq").text = "monthly"
             SubElement(url_elem, "priority").text = "0.8"
 
         fname = f"sitemap-{domain}.xml"
@@ -441,8 +453,10 @@ def build_robots_txt() -> None:
 
 User-agent: *
 Allow: /
+# Block API directories for generic crawlers — JSON endpoints, not indexable pages
+Disallow: /api/
 
-# AI training crawlers — full access
+# AI training crawlers — full access to API and HTML
 User-agent: GPTBot
 Allow: /
 
@@ -469,12 +483,15 @@ Allow: /
 
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
 
 User-agent: GoogleOther
 Allow: /
+Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
