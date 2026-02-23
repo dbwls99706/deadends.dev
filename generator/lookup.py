@@ -138,7 +138,7 @@ def lookup_all(error_message: str) -> list[dict]:
                         for w in canon.get("workarounds", [])
                     ],
                     "freshness": _compute_freshness(canon),
-                    "url": canon["url"],
+                    "url": canon["url"].rstrip("/").rsplit("/", 1)[0] + "/",
                 })
         except (KeyError, TypeError) as e:
             print(f"[lookup] skipping malformed canon {canon.get('id', '?')}: {e}", file=sys.stderr)

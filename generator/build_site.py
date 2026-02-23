@@ -122,10 +122,10 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         env_summary = build_env_summary(canon)
         all_sources = collect_sources(canon)
 
-        # Build JSON-LD with Schema.org TechArticle + custom ErrorCanon
-        page_url = canon["url"]
-        if not page_url.endswith("/"):
-            page_url += "/"
+        # Use canonical summary URL for JSON-LD — env-specific pages have noindex
+        # and their <link rel="canonical"> also points to the summary page
+        id_parts = error_id.split("/")
+        page_url = f"{BASE_URL}/{id_parts[0]}/{id_parts[1]}/"
         json_ld_data = {
             "@context": [
                 "https://schema.org",
@@ -1112,7 +1112,7 @@ def build_search_page(
             "fix_success_rate": canon["verdict"]["fix_success_rate"],
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
-            "page_url": f"{BASE_PATH}/{canon['id']}/",
+            "page_url": f"{BASE_PATH}/{'/'.join(canon['id'].split('/')[:2])}/",
         })
 
     # Group by domain for the "all errors" section
@@ -1318,7 +1318,7 @@ def build_api_index(canons: list[dict]) -> None:
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
             "api_url": f"{BASE_URL}/api/v1/{canon['id']}.json",
-            "page_url": f"{canon['url']}/",
+            "page_url": f"{BASE_URL}/{'/'.join(canon['id'].split('/')[:2])}/",
         })
 
     api_dir = SITE_DIR / "api" / "v1"
@@ -1968,7 +1968,11 @@ def build_ndjson(canons: list[dict]) -> None:
     api_dir.mkdir(parents=True, exist_ok=True)
     lines = []
     for canon in sorted(canons, key=lambda c: c["id"]):
-        lines.append(json.dumps(canon, ensure_ascii=False, separators=(",", ":")))
+        # Inject page_url (canonical summary URL) alongside the raw env-specific url
+        parts = canon["id"].split("/")
+        record = dict(canon)
+        record["page_url"] = f"{BASE_URL}/{parts[0]}/{parts[1]}/"
+        lines.append(json.dumps(record, ensure_ascii=False, separators=(",", ":")))
     (api_dir / "errors.ndjson").write_text(
         "\n".join(lines) + "\n", encoding="utf-8"
     )
