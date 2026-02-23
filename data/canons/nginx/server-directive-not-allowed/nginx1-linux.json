@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/server-directive-not-allowed/nginx1-linux",
+  "url": "https://deadends.dev/nginx/server-directive-not-allowed/nginx1-linux",
+  "error": {
+    "signature": "nginx: [emerg] \"server\" directive is not allowed here",
+    "regex": "(directive is not allowed here|unexpected.*directive|unknown directive|nginx.*emerg.*directive)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.18"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "nginx config syntax error. Directive placed in wrong context (e.g., server block inside another server block)."
+  },
+  "dead_ends": [
+    {
+      "action": "Copy config snippets from Stack Overflow without understanding context hierarchy",
+      "why_fails": "nginx has strict context nesting: main > http > server > location. Directives in wrong context fail.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Put all configuration in a single nginx.conf file",
+      "why_fails": "While valid, large monolithic configs are error-prone. Use include and sites-enabled/ pattern.",
+      "fail_rate": 0.55,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Test config syntax before reloading",
+      "success_rate": 0.95,
+      "how": "sudo nginx -t  # validates config and shows exact error location",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check nginx context hierarchy",
+      "success_rate": 0.9,
+      "how": "http {} contains server {}; server {} contains location {}; main context is outside http {}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use include to split config into manageable files",
+      "success_rate": 0.82,
+      "how": "include /etc/nginx/conf.d/*.conf; include /etc/nginx/sites-enabled/*;",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

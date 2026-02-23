@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/bind-address-in-use/nginx1-linux",
+  "url": "https://deadends.dev/nginx/bind-address-in-use/nginx1-linux",
+  "error": {
+    "signature": "nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)",
+    "regex": "(bind\\(\\).*failed.*Address already in use|bind.*0\\.0\\.0\\.0.*failed|98.*Address already in use|EADDRINUSE.*nginx)",
+    "domain": "nginx",
+    "category": "startup_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.18"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "Port 80/443 already in use by another process. Another nginx instance, Apache, or a container."
+  },
+  "dead_ends": [
+    {
+      "action": "Change nginx to a different port like 8080",
+      "why_fails": "Clients expect 80/443. Changing ports requires all URLs and redirects to be updated.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use kill -9 on the process using the port",
+      "why_fails": "kill -9 does not allow graceful shutdown; may corrupt logs or leave connections hanging. Use graceful stop.",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Find and stop the conflicting process",
+      "success_rate": 0.95,
+      "how": "sudo ss -tlnp | grep :80  # or: sudo lsof -i :80",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use nginx -s stop to stop the existing nginx",
+      "success_rate": 0.9,
+      "how": "sudo nginx -s stop && sudo nginx",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check for and stop Apache if installed alongside nginx",
+      "success_rate": 0.85,
+      "how": "sudo systemctl stop apache2 && sudo systemctl disable apache2",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

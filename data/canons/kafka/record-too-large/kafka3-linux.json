@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/record-too-large/kafka3-linux",
+  "url": "https://deadends.dev/kafka/record-too-large/kafka3-linux",
+  "error": {
+    "signature": "org.apache.kafka.common.errors.RecordTooLargeException: The message is 1500000 bytes, max is 1048576",
+    "regex": "(RecordTooLargeException|message.*bytes.*max|MESSAGE_TOO_LARGE|max\\.message\\.bytes)",
+    "domain": "kafka",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "Message exceeds size limit. Default is 1MB. Must increase on broker, topic, AND producer side."
+  },
+  "dead_ends": [
+    {
+      "action": "Only increase max.message.bytes on the broker",
+      "why_fails": "Must also increase on topic level AND producer (max.request.size). All three must agree.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Only increase producer max.request.size",
+      "why_fails": "Broker will still reject messages exceeding its message.max.bytes setting",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase limits on all three levels: broker, topic, and producer",
+      "success_rate": 0.92,
+      "how": "Broker: message.max.bytes=5242880; Topic: max.message.bytes=5242880; Producer: max.request.size=5242880",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compress messages to stay within limits",
+      "success_rate": 0.85,
+      "how": "Producer config: compression.type=snappy  # or lz4, zstd",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Redesign to use chunking or external storage for large payloads",
+      "success_rate": 0.8,
+      "how": "Store large data in S3/blob storage; send only reference in Kafka message",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

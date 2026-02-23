@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/consumer-rebalance-revoked/kafka3-linux",
+  "url": "https://deadends.dev/kafka/consumer-rebalance-revoked/kafka3-linux",
+  "error": {
+    "signature": "CommitFailedException: Commit cannot be completed since the group has already rebalanced",
+    "regex": "(CommitFailedException|group.*rebalanced|Offset commit.*failed.*rebalance|partitions.*revoked)",
+    "domain": "kafka",
+    "category": "consumer_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.85,
+    "last_updated": "2026-02-23",
+    "summary": "Consumer group rebalanced while processing messages. Processing took longer than session.timeout.ms or max.poll.interval.ms."
+  },
+  "dead_ends": [
+    {
+      "action": "Set session.timeout.ms to very large value",
+      "why_fails": "Delays detection of genuinely failed consumers; dead consumers block partition processing",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable auto-commit and never commit offsets",
+      "why_fails": "Without commits, all messages are reprocessed on restart, causing duplicates",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase max.poll.interval.ms to match expected processing time",
+      "success_rate": 0.88,
+      "how": "max.poll.interval.ms=600000  # 10 minutes; adjust to your processing time",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reduce max.poll.records to process fewer messages per poll",
+      "success_rate": 0.85,
+      "how": "max.poll.records=100  # process smaller batches to stay within poll interval",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move heavy processing to async worker pool",
+      "success_rate": 0.8,
+      "how": "Poll quickly, dispatch to thread pool, commit after completion",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

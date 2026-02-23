@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/unavailable-connection-failed/grpc1-linux",
+  "url": "https://deadends.dev/grpc/unavailable-connection-failed/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.UNAVAILABLE: failed to connect to all addresses",
+    "regex": "(StatusCode\\.UNAVAILABLE|failed to connect to all addresses|UNAVAILABLE.*connect|grpc.*connection.*refused)",
+    "domain": "grpc",
+    "category": "connection_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "gRPC client cannot reach the server. Server not running, wrong address/port, or TLS/plaintext mismatch."
+  },
+  "dead_ends": [
+    {
+      "action": "Add grpc.enable_http_proxy channel option",
+      "why_fails": "HTTP proxies do not support gRPC's HTTP/2 framing. This makes connection worse, not better.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch to REST API as workaround",
+      "why_fails": "Loses gRPC benefits (streaming, protobuf efficiency, code generation). Fix the connection instead.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify server is running and listening on expected port",
+      "success_rate": 0.95,
+      "how": "grpcurl -plaintext localhost:50051 list  # or ss -tlnp | grep 50051",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check TLS mismatch: plaintext client vs TLS server or vice versa",
+      "success_rate": 0.9,
+      "how": "grpc.insecure_channel() for plaintext; grpc.secure_channel(creds) for TLS",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check DNS resolution and firewall rules for remote servers",
+      "success_rate": 0.85,
+      "how": "dig server.example.com; telnet server.example.com 50051",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

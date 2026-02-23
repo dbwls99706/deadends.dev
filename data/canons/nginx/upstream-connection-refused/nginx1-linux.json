@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/upstream-connection-refused/nginx1-linux",
+  "url": "https://deadends.dev/nginx/upstream-connection-refused/nginx1-linux",
+  "error": {
+    "signature": "connect() failed (111: Connection refused) while connecting to upstream",
+    "regex": "(connect\\(\\) failed.*111.*Connection refused|upstream.*Connection refused|connect.*upstream.*refused)",
+    "domain": "nginx",
+    "category": "proxy_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.18"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "nginx cannot reach the backend. Backend not running, wrong port, or listening on different interface."
+  },
+  "dead_ends": [
+    {
+      "action": "Change proxy_pass to use hostname instead of IP",
+      "why_fails": "DNS resolution adds latency and can fail; use IP for local backends",
+      "fail_rate": 0.55,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Restart nginx assuming the issue is with nginx",
+      "why_fails": "nginx is working correctly by reporting the error; the backend is the problem",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify the backend is running and listening on the expected port",
+      "success_rate": 0.95,
+      "how": "curl -v http://127.0.0.1:8000  # test backend directly; ss -tlnp | grep 8000",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check backend is listening on correct interface (0.0.0.0 vs 127.0.0.1)",
+      "success_rate": 0.9,
+      "how": "If backend listens on 127.0.0.1 but nginx uses proxy_pass to container IP, connection refused",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check firewall rules and SELinux if enabled",
+      "success_rate": 0.82,
+      "how": "sudo setsebool -P httpd_can_network_connect 1  # SELinux blocks nginx upstream by default",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

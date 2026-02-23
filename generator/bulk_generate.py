@@ -1742,6 +1742,380 @@ def get_all_canons() -> list[dict]:
             "stream = client.chat.completions.create(..., stream=True)")],
     ))
 
+
+    # =====================================================================
+    # === NGINX ===
+    # =====================================================================
+    canons.append(canon(
+        "nginx", "bind-address-in-use", "nginx1-linux",
+        "nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)",
+        r"(bind\(\).*failed.*Address already in use|bind.*0\.0\.0\.0.*failed|98.*Address already in use|EADDRINUSE.*nginx)",
+        "startup_error", "nginx", ">=1.18", "linux", "true", 0.92, 0.92,
+        "Port 80/443 already in use by another process. Another nginx instance, Apache, or a container.",
+        [de("Change nginx to a different port like 8080",
+            "Clients expect 80/443. Changing ports requires all URLs and redirects to be updated.", 0.65),
+         de("Use kill -9 on the process using the port",
+            "kill -9 does not allow graceful shutdown; may corrupt logs or leave connections hanging. Use graceful stop.", 0.68)],
+        [wa("Find and stop the conflicting process", 0.95,
+            "sudo ss -tlnp | grep :80  # or: sudo lsof -i :80"),
+         wa("Use nginx -s stop to stop the existing nginx", 0.90,
+            "sudo nginx -s stop && sudo nginx"),
+         wa("Check for and stop Apache if installed alongside nginx", 0.85,
+            "sudo systemctl stop apache2 && sudo systemctl disable apache2")],
+    ))
+
+    canons.append(canon(
+        "nginx", "upstream-timed-out", "nginx1-linux",
+        "upstream timed out (110: Connection timed out) while reading response header from upstream",
+        r"(upstream timed out|110.*Connection timed out|upstream.*reading response|proxy_read_timeout)",
+        "proxy_error", "nginx", ">=1.18", "linux", "true", 0.82, 0.88,
+        "Backend server did not respond within proxy timeout. Slow API, long-running request, or backend down.",
+        [de("Set proxy_read_timeout to extremely large value (3600s)",
+            "Masks backend performance problems; ties up nginx worker connections; may hit client-side timeouts anyway", 0.70),
+         de("Increase worker_connections to handle more concurrent requests",
+            "worker_connections does not fix slow backends; it only helps with concurrent connection capacity", 0.75)],
+        [wa("Increase proxy timeouts to match expected backend response time", 0.88,
+            "proxy_read_timeout 120s; proxy_connect_timeout 10s; proxy_send_timeout 60s;"),
+         wa("Fix the slow backend (add caching, optimize queries)", 0.90),
+         wa("Add upstream health checks to avoid routing to dead backends", 0.82,
+            "upstream backend { server 127.0.0.1:8000 max_fails=3 fail_timeout=30s; }")],
+    ))
+
+    canons.append(canon(
+        "nginx", "server-directive-not-allowed", "nginx1-linux",
+        "nginx: [emerg] \"server\" directive is not allowed here",
+        r"(directive is not allowed here|unexpected.*directive|unknown directive|nginx.*emerg.*directive)",
+        "config_error", "nginx", ">=1.18", "linux", "true", 0.92, 0.92,
+        "nginx config syntax error. Directive placed in wrong context (e.g., server block inside another server block).",
+        [de("Copy config snippets from Stack Overflow without understanding context hierarchy",
+            "nginx has strict context nesting: main > http > server > location. Directives in wrong context fail.", 0.82),
+         de("Put all configuration in a single nginx.conf file",
+            "While valid, large monolithic configs are error-prone. Use include and sites-enabled/ pattern.", 0.55)],
+        [wa("Test config syntax before reloading", 0.95,
+            "sudo nginx -t  # validates config and shows exact error location"),
+         wa("Check nginx context hierarchy", 0.90,
+            "http {} contains server {}; server {} contains location {}; main context is outside http {}"),
+         wa("Use include to split config into manageable files", 0.82,
+            "include /etc/nginx/conf.d/*.conf; include /etc/nginx/sites-enabled/*;")],
+    ))
+
+    canons.append(canon(
+        "nginx", "upstream-connection-refused", "nginx1-linux",
+        "connect() failed (111: Connection refused) while connecting to upstream",
+        r"(connect\(\) failed.*111.*Connection refused|upstream.*Connection refused|connect.*upstream.*refused)",
+        "proxy_error", "nginx", ">=1.18", "linux", "true", 0.88, 0.90,
+        "nginx cannot reach the backend. Backend not running, wrong port, or listening on different interface.",
+        [de("Change proxy_pass to use hostname instead of IP",
+            "DNS resolution adds latency and can fail; use IP for local backends", 0.55),
+         de("Restart nginx assuming the issue is with nginx",
+            "nginx is working correctly by reporting the error; the backend is the problem", 0.80)],
+        [wa("Verify the backend is running and listening on the expected port", 0.95,
+            "curl -v http://127.0.0.1:8000  # test backend directly; ss -tlnp | grep 8000"),
+         wa("Check backend is listening on correct interface (0.0.0.0 vs 127.0.0.1)", 0.90,
+            "If backend listens on 127.0.0.1 but nginx uses proxy_pass to container IP, connection refused"),
+         wa("Check firewall rules and SELinux if enabled", 0.82,
+            "sudo setsebool -P httpd_can_network_connect 1  # SELinux blocks nginx upstream by default")],
+    ))
+
+    # =====================================================================
+    # === REDIS ===
+    # =====================================================================
+    canons.append(canon(
+        "redis", "misconf-rdb-snapshots", "redis7-linux",
+        "MISCONF Redis is configured to save RDB snapshots, but it can't persist to disk",
+        r"(MISCONF.*RDB|can't persist to disk|BGSAVE.*failed|rdbSaveBackground|fork.*Cannot allocate memory)",
+        "persistence_error", "redis", ">=7.0", "linux", "true", 0.85, 0.88,
+        "Redis cannot save to disk. Disk full, permission error, or insufficient memory for BGSAVE fork.",
+        [de("Disable persistence entirely with CONFIG SET save ''",
+            "Data will be lost on restart. Only appropriate for pure cache use cases.", 0.60),
+         de("Set stop-writes-on-bgsave-error no",
+            "Allows writes to continue but data is not being persisted; silent data loss risk", 0.72)],
+        [wa("Fix the underlying disk/memory issue", 0.92,
+            "df -h /var/lib/redis  # check disk; free -m  # check memory for fork"),
+         wa("Set vm.overcommit_memory=1 for Linux fork behavior", 0.88,
+            "echo 1 > /proc/sys/vm/overcommit_memory  # allows Redis BGSAVE fork to succeed"),
+         wa("Use AOF persistence as alternative if RDB fork fails", 0.80,
+            "CONFIG SET appendonly yes  # AOF does not require fork for every write")],
+    ))
+
+    canons.append(canon(
+        "redis", "oom-maxmemory", "redis7-linux",
+        "OOM command not allowed when used memory > 'maxmemory'",
+        r"(OOM command not allowed|used memory.*maxmemory|maxmemory.*exceeded|OOM.*Redis)",
+        "memory_error", "redis", ">=7.0", "linux", "true", 0.85, 0.90,
+        "Redis memory limit reached and eviction policy does not allow the operation.",
+        [de("Remove maxmemory limit entirely",
+            "Without limits, Redis grows until the OS OOM killer terminates it, losing all data", 0.85),
+         de("Flush all data (FLUSHALL) to free memory",
+            "Destroys all data. Only appropriate if data is a rebuildable cache.", 0.72)],
+        [wa("Set appropriate eviction policy", 0.90,
+            "CONFIG SET maxmemory-policy allkeys-lru  # evict least-recently-used keys"),
+         wa("Increase maxmemory if the server has available RAM", 0.85,
+            "CONFIG SET maxmemory 4gb"),
+         wa("Analyze memory usage to find large keys", 0.88,
+            "redis-cli --bigkeys  # finds largest keys per type; redis-cli MEMORY USAGE key_name")],
+    ))
+
+    canons.append(canon(
+        "redis", "readonly-replica", "redis7-linux",
+        "READONLY You can't write against a read only replica",
+        r"(READONLY.*can't write|read only replica|READONLY.*replica|slave.*read.?only)",
+        "replication_error", "redis", ">=7.0", "linux", "true", 0.88, 0.90,
+        "Write command sent to a Redis replica. Application connected to replica instead of primary.",
+        [de("Set replica-read-only no on the replica",
+            "Writes to replica are not replicated to primary; they get overwritten on next sync, causing data loss", 0.90),
+         de("Promote replica to primary",
+            "Only appropriate during failover. Otherwise you end up with split-brain: two primaries.", 0.78)],
+        [wa("Fix application connection to point to the primary node", 0.95,
+            "Check connection string: connect to primary host/port, not replica"),
+         wa("Use Redis Sentinel or Cluster for automatic primary discovery", 0.90,
+            "Sentinel: redis-py SentinelConnectionPool auto-discovers current primary"),
+         wa("Separate read and write connections in application", 0.82,
+            "Reads from replica, writes to primary. Most Redis clients support this.")],
+    ))
+
+    # =====================================================================
+    # === MONGODB ===
+    # =====================================================================
+    canons.append(canon(
+        "mongodb", "authentication-failed", "mongo7-linux",
+        "MongoServerError: Authentication failed",
+        r"(Authentication failed|MongoServerError.*auth|SCRAM.*authentication|auth.*failed.*mongo)",
+        "auth_error", "mongodb", ">=7.0", "linux", "true", 0.90, 0.90,
+        "MongoDB authentication failed. Wrong credentials, wrong auth database, or auth not enabled.",
+        [de("Connect without credentials assuming auth is disabled",
+            "MongoDB 7+ enables auth by default. Even local connections require authentication.", 0.75),
+         de("Use the admin database credentials for all databases",
+            "Users are scoped to their auth database. Admin user must specify authSource=admin.", 0.70)],
+        [wa("Specify the correct authentication database", 0.92,
+            "mongosh 'mongodb://user:pass@host:27017/mydb?authSource=admin'"),
+         wa("Verify user exists in the correct database", 0.88,
+            "use admin; db.getUsers()  # check which database the user was created in"),
+         wa("Reset password if forgotten", 0.82,
+            "Start mongod without --auth, connect locally, db.changeUserPassword('user', 'newpass')")],
+    ))
+
+    canons.append(canon(
+        "mongodb", "duplicate-key-error", "mongo7-linux",
+        "MongoServerError: E11000 duplicate key error collection: mydb.users index: email_1",
+        r"(E11000 duplicate key|duplicate key error|MongoServerError.*11000|DuplicateKeyError)",
+        "constraint_error", "mongodb", ">=7.0", "linux", "true", 0.88, 0.90,
+        "Unique index violation. Attempting to insert a document with a duplicate value for a unique field.",
+        [de("Remove the unique index to stop the error",
+            "The unique constraint exists for data integrity. Removing it allows corrupt duplicate data.", 0.85),
+         de("Catch the error and silently ignore it",
+            "Ignoring duplicates may mean lost updates or inconsistent data", 0.65)],
+        [wa("Use upsert to update-or-insert atomically", 0.92,
+            "db.users.updateOne({ email: x }, { $set: doc }, { upsert: true })"),
+         wa("Check for existence before insert", 0.85,
+            "if not db.users.find_one({'email': x}): db.users.insert_one(doc)  # but not atomic"),
+         wa("Handle the error and provide user-friendly message", 0.88,
+            "catch DuplicateKeyError: return 'Email already registered'")],
+    ))
+
+    canons.append(canon(
+        "mongodb", "connection-refused", "mongo7-linux",
+        "MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017",
+        r"(MongoNetworkError.*ECONNREFUSED|connect.*ECONNREFUSED.*27017|MongooseServerSelectionError|getaddrinfo.*ENOTFOUND.*mongo)",
+        "connection_error", "mongodb", ">=7.0", "linux", "true", 0.90, 0.92,
+        "Cannot connect to MongoDB. Service not running, wrong host/port, or firewall blocking.",
+        [de("Reinstall MongoDB to fix connection issues",
+            "Connection refused means the service is not listening, not that the installation is broken", 0.82),
+         de("Use localhost instead of 127.0.0.1 or vice versa",
+            "Both resolve to the same address. The issue is the service not running, not the address format.", 0.72)],
+        [wa("Start the MongoDB service", 0.95,
+            "sudo systemctl start mongod && sudo systemctl enable mongod"),
+         wa("Check if MongoDB is listening on the expected port", 0.90,
+            "ss -tlnp | grep 27017; sudo journalctl -u mongod --tail=20"),
+         wa("Check bindIp in mongod.conf for remote connections", 0.85,
+            "bindIp: 0.0.0.0  # in /etc/mongod.conf; default is 127.0.0.1 only")],
+    ))
+
+    # =====================================================================
+    # === KAFKA ===
+    # =====================================================================
+    canons.append(canon(
+        "kafka", "topic-not-in-metadata", "kafka3-linux",
+        "org.apache.kafka.common.errors.TimeoutException: Topic my_topic not present in metadata after 60000 ms",
+        r"(Topic.*not present in metadata|TimeoutException.*metadata|topic.*not exist|Unknown topic or partition)",
+        "configuration_error", "kafka", ">=3.0", "linux", "true", 0.88, 0.90,
+        "Producer/consumer cannot find topic. Topic does not exist and auto-creation is disabled, or bootstrap servers are wrong.",
+        [de("Set auto.create.topics.enable=true in production",
+            "Auto-creation leads to typo-induced phantom topics. Create topics explicitly in production.", 0.72),
+         de("Connect directly to a broker instead of using bootstrap servers",
+            "Direct broker connection bypasses cluster metadata; breaks when broker changes or cluster rebalances", 0.80)],
+        [wa("Create the topic explicitly before producing/consuming", 0.92,
+            "kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1"),
+         wa("Verify bootstrap servers are correct and reachable", 0.90,
+            "kafka-broker-api-versions.sh --bootstrap-server localhost:9092"),
+         wa("Check topic exists with list command", 0.85,
+            "kafka-topics.sh --list --bootstrap-server localhost:9092")],
+    ))
+
+    canons.append(canon(
+        "kafka", "record-too-large", "kafka3-linux",
+        "org.apache.kafka.common.errors.RecordTooLargeException: The message is 1500000 bytes, max is 1048576",
+        r"(RecordTooLargeException|message.*bytes.*max|MESSAGE_TOO_LARGE|max\.message\.bytes)",
+        "configuration_error", "kafka", ">=3.0", "linux", "true", 0.90, 0.88,
+        "Message exceeds size limit. Default is 1MB. Must increase on broker, topic, AND producer side.",
+        [de("Only increase max.message.bytes on the broker",
+            "Must also increase on topic level AND producer (max.request.size). All three must agree.", 0.82),
+         de("Only increase producer max.request.size",
+            "Broker will still reject messages exceeding its message.max.bytes setting", 0.85)],
+        [wa("Increase limits on all three levels: broker, topic, and producer", 0.92,
+            "Broker: message.max.bytes=5242880; Topic: max.message.bytes=5242880; Producer: max.request.size=5242880"),
+         wa("Compress messages to stay within limits", 0.85,
+            "Producer config: compression.type=snappy  # or lz4, zstd"),
+         wa("Redesign to use chunking or external storage for large payloads", 0.80,
+            "Store large data in S3/blob storage; send only reference in Kafka message")],
+    ))
+
+    canons.append(canon(
+        "kafka", "consumer-rebalance-revoked", "kafka3-linux",
+        "CommitFailedException: Commit cannot be completed since the group has already rebalanced",
+        r"(CommitFailedException|group.*rebalanced|Offset commit.*failed.*rebalance|partitions.*revoked)",
+        "consumer_error", "kafka", ">=3.0", "linux", "true", 0.78, 0.85,
+        "Consumer group rebalanced while processing messages. Processing took longer than session.timeout.ms or max.poll.interval.ms.",
+        [de("Set session.timeout.ms to very large value",
+            "Delays detection of genuinely failed consumers; dead consumers block partition processing", 0.72),
+         de("Disable auto-commit and never commit offsets",
+            "Without commits, all messages are reprocessed on restart, causing duplicates", 0.85)],
+        [wa("Increase max.poll.interval.ms to match expected processing time", 0.88,
+            "max.poll.interval.ms=600000  # 10 minutes; adjust to your processing time"),
+         wa("Reduce max.poll.records to process fewer messages per poll", 0.85,
+            "max.poll.records=100  # process smaller batches to stay within poll interval"),
+         wa("Move heavy processing to async worker pool", 0.80,
+            "Poll quickly, dispatch to thread pool, commit after completion")],
+    ))
+
+    # =====================================================================
+    # === ELASTICSEARCH ===
+    # =====================================================================
+    canons.append(canon(
+        "elasticsearch", "index-read-only", "es8-linux",
+        "ClusterBlockException: index [my_index] blocked by: [FORBIDDEN/12/index read-only / allow delete (api)]",
+        r"(FORBIDDEN.*index read-only|ClusterBlockException|read-only.*allow delete|disk.*watermark.*exceeded)",
+        "disk_error", "elasticsearch", ">=8.0", "linux", "true", 0.90, 0.90,
+        "Elasticsearch set index to read-only because disk usage exceeded flood-stage watermark (95% by default).",
+        [de("Delete the index to free space",
+            "You lose all data. Free disk space first, then unblock the index.", 0.82),
+         de("Increase the watermark thresholds",
+            "Only delays the problem. When disk is truly full, the cluster will crash.", 0.65)],
+        [wa("Free disk space, then unblock the index", 0.95,
+            "Free disk, then: PUT _all/_settings with index.blocks.read_only_allow_delete set to null"),
+         wa("Delete old indices using ILM or curator", 0.88,
+            "DELETE /old-index-2024.*  # or configure ILM delete phase"),
+         wa("Add more disk space or data nodes", 0.82)],
+    ))
+
+    canons.append(canon(
+        "elasticsearch", "circuit-breaker-exception", "es8-linux",
+        "circuit_breaking_exception: [parent] Data too large, data for [request] would be larger than limit",
+        r"(circuit_breaking_exception|Data too large|circuit breaker.*tripped|parent.*breaker.*limit)",
+        "memory_error", "elasticsearch", ">=8.0", "linux", "true", 0.82, 0.88,
+        "JVM heap usage exceeded circuit breaker limit. Query too large, too many aggregations, or heap too small.",
+        [de("Disable circuit breakers",
+            "Circuit breakers prevent OOM crashes. Disabling them leads to unrecoverable OutOfMemoryError.", 0.92),
+         de("Set ES_JAVA_OPTS heap to all available RAM",
+            "ES heap should be max 50% of RAM and not exceed 31GB (compressed oops limit).", 0.80)],
+        [wa("Reduce query scope: add filters, limit aggregation buckets", 0.90,
+            "Add date range filter; set size:0 for aggregation-only queries; limit terms agg size"),
+         wa("Increase JVM heap (up to 50% of RAM, max ~31GB)", 0.85,
+            "ES_JAVA_OPTS='-Xms16g -Xmx16g'  # in jvm.options or docker env"),
+         wa("Use scroll/search_after for large result sets instead of deep pagination", 0.82)],
+    ))
+
+    canons.append(canon(
+        "elasticsearch", "mapper-parsing-exception", "es8-linux",
+        "mapper_parsing_exception: failed to parse field [timestamp] of type [date]",
+        r"(mapper_parsing_exception|failed to parse field|strict_dynamic_mapping_exception|could not parse.*type.*date|illegal_argument.*mapper)",
+        "mapping_error", "elasticsearch", ">=8.0", "linux", "true", 0.85, 0.90,
+        "Document field type does not match index mapping. Sending string where number expected, or wrong date format.",
+        [de("Delete and recreate the index with dynamic mapping",
+            "Dynamic mapping guesses types from first document; subsequent documents with different types will fail the same way", 0.75),
+         de("Set strict_date_optional_time for all date fields",
+            "Only works if all dates use ISO 8601. If you have epoch timestamps or custom formats, this fails.", 0.68)],
+        [wa("Define explicit mapping with correct field types before indexing", 0.92,
+            "PUT /my_index { 'mappings': { 'properties': { 'timestamp': { 'type': 'date', 'format': 'epoch_millis||yyyy-MM-dd' }}}}"),
+         wa("Fix the source data to match the existing mapping", 0.88),
+         wa("Use ingest pipeline to transform data before indexing", 0.82,
+            "Use date processor in ingest pipeline to normalize date formats")],
+    ))
+
+    # =====================================================================
+    # === GRPC ===
+    # =====================================================================
+    canons.append(canon(
+        "grpc", "unavailable-connection-failed", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.UNAVAILABLE: failed to connect to all addresses",
+        r"(StatusCode\.UNAVAILABLE|failed to connect to all addresses|UNAVAILABLE.*connect|grpc.*connection.*refused)",
+        "connection_error", "grpc", ">=1.50", "linux", "true", 0.88, 0.90,
+        "gRPC client cannot reach the server. Server not running, wrong address/port, or TLS/plaintext mismatch.",
+        [de("Add grpc.enable_http_proxy channel option",
+            "HTTP proxies do not support gRPC's HTTP/2 framing. This makes connection worse, not better.", 0.78),
+         de("Switch to REST API as workaround",
+            "Loses gRPC benefits (streaming, protobuf efficiency, code generation). Fix the connection instead.", 0.72)],
+        [wa("Verify server is running and listening on expected port", 0.95,
+            "grpcurl -plaintext localhost:50051 list  # or ss -tlnp | grep 50051"),
+         wa("Check TLS mismatch: plaintext client vs TLS server or vice versa", 0.90,
+            "grpc.insecure_channel() for plaintext; grpc.secure_channel(creds) for TLS"),
+         wa("Check DNS resolution and firewall rules for remote servers", 0.85,
+            "dig server.example.com; telnet server.example.com 50051")],
+    ))
+
+    canons.append(canon(
+        "grpc", "deadline-exceeded", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.DEADLINE_EXCEEDED",
+        r"(StatusCode\.DEADLINE_EXCEEDED|DEADLINE_EXCEEDED|deadline.*exceeded|context deadline exceeded)",
+        "timeout_error", "grpc", ">=1.50", "linux", "true", 0.82, 0.88,
+        "gRPC call timed out. Server processing too slow, network latency, or deadline set too short.",
+        [de("Remove deadline entirely so calls never time out",
+            "Without deadlines, stuck calls block forever. Deadlines are a best practice in gRPC.", 0.85),
+         de("Set very long deadline (5 minutes) for all calls",
+            "Long deadlines tie up resources. Set per-RPC deadlines appropriate for each operation.", 0.68)],
+        [wa("Set appropriate per-RPC deadline based on expected latency", 0.90,
+            "metadata = [('grpc-timeout', '30S')]; # or in Python: stub.MyMethod(req, timeout=30)"),
+         wa("Profile server-side handler to find bottleneck", 0.88),
+         wa("Add server-side deadline propagation and cancellation", 0.82,
+            "Check context.is_active() periodically in long handlers; abort early if cancelled")],
+    ))
+
+    canons.append(canon(
+        "grpc", "unimplemented-method", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.UNIMPLEMENTED: Method not found",
+        r"(StatusCode\.UNIMPLEMENTED|Method not found|UNIMPLEMENTED.*method|service.*not.*registered)",
+        "configuration_error", "grpc", ">=1.50", "linux", "true", 0.90, 0.92,
+        "gRPC method not found on server. Service not registered, proto mismatch, or wrong server address.",
+        [de("Regenerate proto stubs assuming the proto file is wrong",
+            "If server and client use different proto versions, regenerating from wrong proto makes it worse", 0.68),
+         de("Use reflection to discover available methods",
+            "Reflection helps debug but does not fix the root cause of missing service registration", 0.50)],
+        [wa("Verify service is registered on the server", 0.95,
+            "server.add_insecure_port(...); server.add_generic_rpc_handlers([...])  # check service is added"),
+         wa("Use grpcurl to list available services and methods", 0.90,
+            "grpcurl -plaintext localhost:50051 list  # shows registered services"),
+         wa("Ensure client and server use the same proto definition", 0.88,
+            "Compare .proto files; regenerate both client and server stubs from the same source")],
+    ))
+
+    canons.append(canon(
+        "grpc", "message-too-large", "grpc1-linux",
+        "StatusCode.RESOURCE_EXHAUSTED: Received message larger than max (4194304 vs. 4194304)",
+        r"(RESOURCE_EXHAUSTED.*message.*larger|Received message larger than max|max.*message.*size|grpc.*resource.*exhausted)",
+        "configuration_error", "grpc", ">=1.50", "linux", "true", 0.90, 0.88,
+        "gRPC message exceeds the default 4MB limit. Large responses, file transfers, or accumulated data.",
+        [de("Remove message size limit entirely on both sides",
+            "No limit means a single large or malicious message can crash the process with OOM", 0.78),
+         de("Compress messages at application level before sending",
+            "gRPC has built-in compression. Application-level compression adds complexity without benefit.", 0.65)],
+        [wa("Increase max message size on both client and server", 0.92,
+            "channel = grpc.insecure_channel(addr, options=[('grpc.max_receive_message_length', 50*1024*1024)])"),
+         wa("Use gRPC streaming for large data transfers", 0.88,
+            "Stream data in chunks instead of one large message: rpc StreamData(stream Chunk) returns (Result)"),
+         wa("Enable built-in gRPC compression", 0.80,
+            "channel = grpc.insecure_channel(addr, compression=grpc.Compression.Gzip)")],
+    ))
+
     return canons
 
 

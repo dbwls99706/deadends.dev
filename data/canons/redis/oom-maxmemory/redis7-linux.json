@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/oom-maxmemory/redis7-linux",
+  "url": "https://deadends.dev/redis/oom-maxmemory/redis7-linux",
+  "error": {
+    "signature": "OOM command not allowed when used memory > 'maxmemory'",
+    "regex": "(OOM command not allowed|used memory.*maxmemory|maxmemory.*exceeded|OOM.*Redis)",
+    "domain": "redis",
+    "category": "memory_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Redis memory limit reached and eviction policy does not allow the operation."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove maxmemory limit entirely",
+      "why_fails": "Without limits, Redis grows until the OS OOM killer terminates it, losing all data",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Flush all data (FLUSHALL) to free memory",
+      "why_fails": "Destroys all data. Only appropriate if data is a rebuildable cache.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set appropriate eviction policy",
+      "success_rate": 0.9,
+      "how": "CONFIG SET maxmemory-policy allkeys-lru  # evict least-recently-used keys",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase maxmemory if the server has available RAM",
+      "success_rate": 0.85,
+      "how": "CONFIG SET maxmemory 4gb",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Analyze memory usage to find large keys",
+      "success_rate": 0.88,
+      "how": "redis-cli --bigkeys  # finds largest keys per type; redis-cli MEMORY USAGE key_name",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

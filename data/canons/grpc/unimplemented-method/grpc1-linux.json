@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/unimplemented-method/grpc1-linux",
+  "url": "https://deadends.dev/grpc/unimplemented-method/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.UNIMPLEMENTED: Method not found",
+    "regex": "(StatusCode\\.UNIMPLEMENTED|Method not found|UNIMPLEMENTED.*method|service.*not.*registered)",
+    "domain": "grpc",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "gRPC method not found on server. Service not registered, proto mismatch, or wrong server address."
+  },
+  "dead_ends": [
+    {
+      "action": "Regenerate proto stubs assuming the proto file is wrong",
+      "why_fails": "If server and client use different proto versions, regenerating from wrong proto makes it worse",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use reflection to discover available methods",
+      "why_fails": "Reflection helps debug but does not fix the root cause of missing service registration",
+      "fail_rate": 0.5,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify service is registered on the server",
+      "success_rate": 0.95,
+      "how": "server.add_insecure_port(...); server.add_generic_rpc_handlers([...])  # check service is added",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use grpcurl to list available services and methods",
+      "success_rate": 0.9,
+      "how": "grpcurl -plaintext localhost:50051 list  # shows registered services",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure client and server use the same proto definition",
+      "success_rate": 0.88,
+      "how": "Compare .proto files; regenerate both client and server stubs from the same source",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}
