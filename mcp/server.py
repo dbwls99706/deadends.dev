@@ -160,7 +160,7 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
                         if "error_id" in lt
                     ],
                     "freshness": _compute_freshness(canon),
-                    "url": canon["url"],
+                    "url": canon["url"].rstrip("/").rsplit("/", 1)[0] + "/",
                     "_match_ratio": match_ratio,
                     "_preferred": preferred,
                 })
