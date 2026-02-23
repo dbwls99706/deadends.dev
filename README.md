@@ -99,6 +99,9 @@ for d in result["dead_ends"]:
 for w in result["workarounds"]:
     print(f"TRY: {w['action']} — works {int(w['success_rate']*100)}%")
 
+# result["url"] is the canonical summary page URL (e.g. /python/modulenotfounderror/)
+print(result["url"])
+
 # Batch lookup (multiple errors at once)
 results = batch_lookup([
     "ModuleNotFoundError: No module named 'torch'",
@@ -123,11 +126,11 @@ deadends --list  # show all known errors
 | Endpoint | Description |
 |----------|-------------|
 | [`/api/v1/match.json`](https://deadends.dev/api/v1/match.json) | Lightweight regex matching (fits in context window) |
-| [`/api/v1/index.json`](https://deadends.dev/api/v1/index.json) | Full error index with all metadata |
+| [`/api/v1/index.json`](https://deadends.dev/api/v1/index.json) | Full error index — includes `page_url` (canonical summary page) |
 | [`/api/v1/{domain}/{slug}/{env}.json`](https://deadends.dev/api/v1/python/modulenotfounderror/py311-linux.json) | Individual ErrorCanon ([example](https://deadends.dev/api/v1/python/modulenotfounderror/py311-linux.json)) |
 | [`/api/v1/openapi.json`](https://deadends.dev/api/v1/openapi.json) | OpenAPI 3.1 spec with response examples |
 | [`/api/v1/stats.json`](https://deadends.dev/api/v1/stats.json) | Dataset quality metrics by domain |
-| [`/api/v1/errors.ndjson`](https://deadends.dev/api/v1/errors.ndjson) | NDJSON streaming (one error per line) |
+| [`/api/v1/errors.ndjson`](https://deadends.dev/api/v1/errors.ndjson) | NDJSON streaming — includes `page_url` (canonical summary page) |
 | [`/api/v1/version.json`](https://deadends.dev/api/v1/version.json) | Service metadata and endpoint directory |
 | [`/llms.txt`](https://deadends.dev/llms.txt) | LLM-optimized error listing ([llmstxt.org](https://llmstxt.org) standard) |
 | [`/llms-full.txt`](https://deadends.dev/llms-full.txt) | Complete database dump |
@@ -182,9 +185,9 @@ Every page on deadends.dev includes machine-readable data in 18 formats:
 |--------|----------|---------|
 | JSON API | `/api/v1/{id}.json` | RESTful error data per ErrorCanon |
 | match.json | `/api/v1/match.json` | Compact regex-only file (load entire DB into context) |
-| index.json | `/api/v1/index.json` | Master error index with metadata |
+| index.json | `/api/v1/index.json` | Master error index with metadata; each entry has `page_url` pointing to the canonical summary page |
 | stats.json | `/api/v1/stats.json` | Dataset quality metrics per domain |
-| errors.ndjson | `/api/v1/errors.ndjson` | Streaming NDJSON for batch processing |
+| errors.ndjson | `/api/v1/errors.ndjson` | Streaming NDJSON for batch processing; each record has `page_url` for the canonical summary page |
 | OpenAPI | `/api/v1/openapi.json` | Full API spec with response examples |
 | JSON-LD | Every `<head>` | Schema.org TechArticle + FAQPage |
 | ai-summary | Every page | `<pre id="ai-summary">` KEY=VALUE blocks |
@@ -220,6 +223,18 @@ Add error definitions to `generator/bulk_generate.py` or create JSON files direc
 ```bash
 python -m generator.validate --data-only  # Validate before submitting
 ```
+
+## Changelog
+
+### v0.5.0
+- **`page_url` field** added to `index.json`, `errors.ndjson`, and all SDK/MCP responses — always points to the canonical summary page (`/domain/slug/`), distinct from the env-specific `url` field
+- **Lookup SDK** `url` return value now points to the canonical summary page instead of the env-specific page
+- **MCP tools** (`match_error`, `get_error_detail`) now return canonical summary URLs
+- **SEO fixes**: Atom feed, IndexNow submissions, JSON-LD TechArticle, and Open Graph tags all corrected to use canonical summary URLs
+- **Error chain links** in HTML templates corrected to point to summary pages rather than noindex env pages
+
+### v0.4.0
+- Initial public release with 1028 error entries across 20 domains
 
 ## License
 
