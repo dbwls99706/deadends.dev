@@ -1956,7 +1956,9 @@ def build_well_known(canons: list[dict]) -> None:
             },
             {
                 "name": "list_errors_by_domain",
-                "description": "List all errors in a specific domain, sorted by fix rate, name, or confidence.",
+                "description": (
+                    "List all errors in a specific domain, sorted by fix rate, name, or confidence."
+                ),
             },
             {
                 "name": "batch_lookup",
@@ -1964,11 +1966,17 @@ def build_well_known(canons: list[dict]) -> None:
             },
             {
                 "name": "get_domain_stats",
-                "description": "Get quality metrics for a domain: avg fix rate, resolvability, confidence breakdown.",
+                "description": (
+                    "Get quality metrics for a domain: avg fix rate, "
+                    "resolvability, confidence breakdown."
+                ),
             },
             {
                 "name": "get_error_chain",
-                "description": "Traverse the error transition graph: what errors follow, precede, or get confused with this one.",
+                "description": (
+                    "Traverse the error transition graph: what errors follow, "
+                    "precede, or get confused with this one."
+                ),
             },
         ],
         "domains": domains,
