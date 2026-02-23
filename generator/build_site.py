@@ -1995,7 +1995,7 @@ def build_version_json(canons: list[dict]) -> None:
 
     version_data = {
         "service": "deadends.dev",
-        "version": "1.4.0",
+        "version": "1.5.0",
         "description": (
             "Structured failure knowledge for AI coding agents. "
             "Dead ends, workarounds, and error chains."
