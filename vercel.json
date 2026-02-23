@@ -9,6 +9,10 @@
   ],
   "rewrites": [
     {
+      "source": "/.well-known/mcp/server-card.json",
+      "destination": "/api/mcp.py"
+    },
+    {
       "source": "/api/mcp",
       "destination": "/api/mcp.py"
     },
