@@ -1,19 +1,20 @@
 {
   "version": 2,
+  "trailingSlash": true,
   "builds": [
     {
       "src": "api/mcp.py",
       "use": "@vercel/python"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/mcp",
-      "dest": "/api/mcp.py"
+      "source": "/api/mcp",
+      "destination": "/api/mcp.py"
     },
     {
-      "src": "/mcp",
-      "dest": "/api/mcp.py"
+      "source": "/mcp",
+      "destination": "/api/mcp.py"
     }
   ]
 }
