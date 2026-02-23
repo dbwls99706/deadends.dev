@@ -21,9 +21,11 @@
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ signature }} — dead ends and verified fixes">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
+  <meta name="twitter:image:alt" content="{{ signature }} — dead ends and verified fixes">
 
   <!-- BreadcrumbList for Google rich results -->
   <script type="application/ld+json">
@@ -138,7 +140,8 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
       {% for lt in graph.leads_to %}
       <li>
         {% if lt.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ lt.error_id }}/">{{ lt.error_id }}</a>
+        {% set lt_parts = lt.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/">{{ lt.error_id }}</a>
         {% else %}
         <code>{{ lt.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -154,7 +157,8 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
       {% for pb in graph.preceded_by %}
       <li>
         {% if pb.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ pb.error_id }}/">{{ pb.error_id }}</a>
+        {% set pb_parts = pb.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/">{{ pb.error_id }}</a>
         {% else %}
         <code>{{ pb.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -170,7 +174,8 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
       {% for fc in graph.frequently_confused_with %}
       <li>
         {% if fc.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ fc.error_id }}/">{{ fc.error_id }}</a>
+        {% set fc_parts = fc.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/">{{ fc.error_id }}</a>
         {% else %}
         <code>{{ fc.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}

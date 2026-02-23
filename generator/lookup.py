@@ -160,8 +160,8 @@ def batch_lookup(error_messages: list[str]) -> list[dict | None]:
     """Look up multiple error messages at once.
 
     Returns a list of best matches (or None) for each input message.
-    More efficient than calling lookup() in a loop because canon data
-    is loaded only once.
+    Convenience wrapper for looking up multiple error messages at once.
+    Canon data is loaded once and cached at the module level regardless.
 
     Usage:
         from generator.lookup import batch_lookup
