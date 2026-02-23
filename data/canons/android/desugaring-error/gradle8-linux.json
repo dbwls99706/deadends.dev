@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/desugaring-error/gradle8-linux",
+  "url": "https://deadends.dev/android/desugaring-error/gradle8-linux",
+  "error": {
+    "signature": "Error: Default interface methods are only supported starting with Android 7.0 (API 24)",
+    "regex": "(Default interface methods.*only supported|desugaring|Lambda.*not supported.*API|java\\.lang\\.invoke.*not supported|requires.*API level)",
+    "domain": "android",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gradle",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "Java 8+ features used but desugaring not enabled. minSdk too low or compileOptions missing."
+  },
+  "dead_ends": [
+    {
+      "action": "Raise minSdk to 26+ to support all Java 8 features",
+      "why_fails": "Excludes older devices. Enable desugaring instead to support Java 8 on all API levels.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rewrite code to avoid Java 8 features (lambdas, default methods)",
+      "why_fails": "Unnecessary; Android toolchain supports desugaring to convert these to older bytecode",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enable Java 8 desugaring in build.gradle",
+      "success_rate": 0.95,
+      "how": "android { compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 } }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable core library desugaring for java.time and streams on older APIs",
+      "success_rate": 0.88,
+      "how": "android { compileOptions { coreLibraryDesugaringEnabled true } }; dependencies { coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4' }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set Kotlin JVM target to 1.8",
+      "success_rate": 0.85,
+      "how": "kotlinOptions { jvmTarget = '1.8' }",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

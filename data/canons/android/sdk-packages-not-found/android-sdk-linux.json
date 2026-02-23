@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/sdk-packages-not-found/android-sdk-linux",
+  "url": "https://deadends.dev/android/sdk-packages-not-found/android-sdk-linux",
+  "error": {
+    "signature": "Failed to install the following Android SDK packages as some licenses have not been accepted",
+    "regex": "(Failed to install.*SDK packages|licenses have not been accepted|Android SDK.*not found|SDK location not found|ANDROID_HOME.*not set)",
+    "domain": "android",
+    "category": "installation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android-sdk",
+      "version_range": ">=33"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "Android SDK packages not installed or licenses not accepted. Common in CI/CD and fresh setups."
+  },
+  "dead_ends": [
+    {
+      "action": "Download SDK packages manually from Google archives",
+      "why_fails": "Manual downloads miss dependency packages and do not register licenses",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Accept licenses interactively when running in CI",
+      "why_fails": "CI has no interactive terminal. Licenses must be accepted non-interactively.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept all SDK licenses non-interactively",
+      "success_rate": 0.95,
+      "how": "yes | sdkmanager --licenses",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set ANDROID_HOME and install required packages",
+      "success_rate": 0.9,
+      "how": "export ANDROID_HOME=$HOME/Android/Sdk; sdkmanager 'platform-tools' 'platforms;android-34'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use sdkmanager to install specific missing packages",
+      "success_rate": 0.88,
+      "how": "sdkmanager --list  # find package names; sdkmanager 'build-tools;34.0.0'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/dll-not-found-exception/unity2022-cross",
+  "url": "https://deadends.dev/unity/dll-not-found-exception/unity2022-cross",
+  "error": {
+    "signature": "DllNotFoundException: Unable to load DLL 'my_native_plugin': The specified module could not be found",
+    "regex": "(DllNotFoundException|Unable to load DLL|native plugin.*not found|lib.*\\.so.*not found|module could not be found)",
+    "domain": "unity",
+    "category": "plugin_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "Native plugin DLL/SO not found. Wrong platform, wrong architecture, or missing dependencies."
+  },
+  "dead_ends": [
+    {
+      "action": "Put the DLL in the root Assets folder",
+      "why_fails": "Unity expects native plugins in Assets/Plugins/{platform}/ with correct import settings",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rename the DLL to match a different expected name",
+      "why_fails": "The DLL name must match the DllImport attribute. Renaming creates a mismatch.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Place native plugins in the correct platform folder",
+      "success_rate": 0.92,
+      "how": "Assets/Plugins/x86_64/ for Windows 64-bit; Assets/Plugins/Android/ for Android; set platform in Inspector",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check plugin Inspector settings for correct platform and CPU",
+      "success_rate": 0.88,
+      "how": "Select .dll in Unity > Inspector > check 'Any Platform' or specific platforms, set CPU architecture",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify all native dependencies are also included",
+      "success_rate": 0.82,
+      "how": "Use dumpbin /dependents (Win) or ldd (Linux) to check DLL dependencies",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

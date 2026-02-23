@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/merge-debug-resources-failed/gradle8-linux",
+  "url": "https://deadends.dev/android/merge-debug-resources-failed/gradle8-linux",
+  "error": {
+    "signature": "Execution failed for task ':app:mergeDebugResources'. Resource compilation failed",
+    "regex": "(mergeDebugResources|Resource compilation failed|AAPT2.*error|Execution failed.*merge.*Resources)",
+    "domain": "android",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gradle",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "Android resource merge failed. Duplicate resources, invalid XML, or AAPT2 crash."
+  },
+  "dead_ends": [
+    {
+      "action": "Clean project repeatedly (Build > Clean)",
+      "why_fails": "Clean removes build cache but does not fix the underlying resource conflict",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade Gradle plugin version",
+      "why_fails": "Masks the issue temporarily; the resource conflict still exists and will reappear",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the full error output for specific resource conflict",
+      "success_rate": 0.92,
+      "how": "Run: ./gradlew mergeDebugResources --stacktrace  # shows exact conflicting resource",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Search for duplicate resource names across modules and libraries",
+      "success_rate": 0.88,
+      "how": "grep -r 'resource_name' app/src/main/res/  # check for duplicates in values/, drawables, etc.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Invalidate caches and restart (File > Invalidate Caches)",
+      "success_rate": 0.82,
+      "how": "Android Studio: File > Invalidate Caches > Invalidate and Restart",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

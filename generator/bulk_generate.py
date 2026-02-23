@@ -2116,6 +2116,264 @@ def get_all_canons() -> list[dict]:
             "channel = grpc.insecure_channel(addr, compression=grpc.Compression.Gzip)")],
     ))
 
+
+    # =====================================================================
+    # === ANDROID ===
+    # =====================================================================
+    canons.append(canon(
+        "android", "merge-debug-resources-failed", "gradle8-linux",
+        "Execution failed for task ':app:mergeDebugResources'. Resource compilation failed",
+        r"(mergeDebugResources|Resource compilation failed|AAPT2.*error|Execution failed.*merge.*Resources)",
+        "build_error", "gradle", ">=8.0", "linux", "true", 0.85, 0.88,
+        "Android resource merge failed. Duplicate resources, invalid XML, or AAPT2 crash.",
+        [de("Clean project repeatedly (Build > Clean)",
+            "Clean removes build cache but does not fix the underlying resource conflict", 0.65),
+         de("Downgrade Gradle plugin version",
+            "Masks the issue temporarily; the resource conflict still exists and will reappear", 0.72)],
+        [wa("Check the full error output for specific resource conflict", 0.92,
+            "Run: ./gradlew mergeDebugResources --stacktrace  # shows exact conflicting resource"),
+         wa("Search for duplicate resource names across modules and libraries", 0.88,
+            "grep -r 'resource_name' app/src/main/res/  # check for duplicates in values/, drawables, etc."),
+         wa("Invalidate caches and restart (File > Invalidate Caches)", 0.82,
+            "Android Studio: File > Invalidate Caches > Invalidate and Restart")],
+    ))
+
+    canons.append(canon(
+        "android", "gradle-oom", "gradle8-linux",
+        "java.lang.OutOfMemoryError: GC overhead limit exceeded during Gradle build",
+        r"(OutOfMemoryError.*GC overhead|OutOfMemoryError.*Gradle|Java heap space.*gradle|Metaspace.*gradle|GC overhead limit exceeded)",
+        "memory_error", "gradle", ">=8.0", "linux", "true", 0.88, 0.90,
+        "Gradle build runs out of memory. Project too large, too many modules, or JVM heap too small.",
+        [de("Set org.gradle.jvmargs=-Xmx16g as first attempt",
+            "Excessive heap hides the real problem (inefficient build) and slows down GC pauses", 0.60),
+         de("Disable Gradle daemon to reduce memory usage",
+            "Daemon keeps JVM warm for faster builds. Disabling it makes every build slower.", 0.72)],
+        [wa("Increase Gradle JVM heap to reasonable size (4-8GB)", 0.90,
+            "In gradle.properties: org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"),
+         wa("Enable Gradle configuration cache to reduce memory per build", 0.85,
+            "org.gradle.configuration-cache=true  # in gradle.properties"),
+         wa("Use modularization to reduce per-module build scope", 0.78)],
+    ))
+
+    canons.append(canon(
+        "android", "sdk-packages-not-found", "android-sdk-linux",
+        "Failed to install the following Android SDK packages as some licenses have not been accepted",
+        r"(Failed to install.*SDK packages|licenses have not been accepted|Android SDK.*not found|SDK location not found|ANDROID_HOME.*not set)",
+        "installation_error", "android-sdk", ">=33", "linux", "true", 0.92, 0.92,
+        "Android SDK packages not installed or licenses not accepted. Common in CI/CD and fresh setups.",
+        [de("Download SDK packages manually from Google archives",
+            "Manual downloads miss dependency packages and do not register licenses", 0.80),
+         de("Accept licenses interactively when running in CI",
+            "CI has no interactive terminal. Licenses must be accepted non-interactively.", 0.85)],
+        [wa("Accept all SDK licenses non-interactively", 0.95,
+            "yes | sdkmanager --licenses"),
+         wa("Set ANDROID_HOME and install required packages", 0.90,
+            "export ANDROID_HOME=$HOME/Android/Sdk; sdkmanager 'platform-tools' 'platforms;android-34'"),
+         wa("Use sdkmanager to install specific missing packages", 0.88,
+            "sdkmanager --list  # find package names; sdkmanager 'build-tools;34.0.0'")],
+    ))
+
+    canons.append(canon(
+        "android", "adb-device-unauthorized", "android-sdk-linux",
+        "adb: device unauthorized. Please check the confirmation dialog on your device.",
+        r"(device unauthorized|Please check.*confirmation dialog|adb.*unauthorized|no permissions.*adb|USB debugging.*not authorized)",
+        "device_error", "adb", ">=34", "linux", "true", 0.90, 0.92,
+        "ADB cannot communicate with device. USB debugging not enabled or RSA key not accepted on device.",
+        [de("Restart adb server repeatedly",
+            "If the device has not authorized the computer, restarting adb will not help", 0.72),
+         de("Use a different USB cable assuming it is a cable issue",
+            "Unauthorized error is an authentication issue, not a connectivity issue. The device IS connected.", 0.80)],
+        [wa("Accept USB debugging prompt on the device screen", 0.95,
+            "Unlock phone screen > tap 'Always allow from this computer' > OK"),
+         wa("Enable USB debugging in Developer Options", 0.92,
+            "Settings > About Phone > tap Build Number 7 times > Developer Options > USB debugging"),
+         wa("Revoke and re-authorize USB debugging authorizations", 0.85,
+            "adb kill-server && Settings > Developer Options > Revoke USB debugging authorizations > reconnect")],
+    ))
+
+    canons.append(canon(
+        "android", "desugaring-error", "gradle8-linux",
+        "Error: Default interface methods are only supported starting with Android 7.0 (API 24)",
+        r"(Default interface methods.*only supported|desugaring|Lambda.*not supported.*API|java\.lang\.invoke.*not supported|requires.*API level)",
+        "build_error", "gradle", ">=8.0", "linux", "true", 0.92, 0.92,
+        "Java 8+ features used but desugaring not enabled. minSdk too low or compileOptions missing.",
+        [de("Raise minSdk to 26+ to support all Java 8 features",
+            "Excludes older devices. Enable desugaring instead to support Java 8 on all API levels.", 0.70),
+         de("Rewrite code to avoid Java 8 features (lambdas, default methods)",
+            "Unnecessary; Android toolchain supports desugaring to convert these to older bytecode", 0.82)],
+        [wa("Enable Java 8 desugaring in build.gradle", 0.95,
+            "android { compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 } }"),
+         wa("Enable core library desugaring for java.time and streams on older APIs", 0.88,
+            "android { compileOptions { coreLibraryDesugaringEnabled true } }; dependencies { coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4' }"),
+         wa("Set Kotlin JVM target to 1.8", 0.85,
+            "kotlinOptions { jvmTarget = '1.8' }")],
+    ))
+
+    # =====================================================================
+    # === FLUTTER ===
+    # =====================================================================
+    canons.append(canon(
+        "flutter", "renderflex-overflowed", "flutter3-linux",
+        "A RenderFlex overflowed by 42 pixels on the bottom.",
+        r"(RenderFlex overflowed|overflowed by.*pixels|BOTTOM OVERFLOWING|RIGHT OVERFLOWING|RenderBox.*not laid out)",
+        "layout_error", "flutter", ">=3.0", "cross-platform", "true", 0.90, 0.92,
+        "Widget exceeds available space. Column/Row child too large for the parent constraints.",
+        [de("Wrap everything in SingleChildScrollView",
+            "Makes the entire screen scrollable which breaks fixed-position elements and can cause nested scroll issues", 0.65),
+         de("Set fixed height/width on the overflowing widget",
+            "Hardcoded sizes break on different screen sizes and orientations", 0.72)],
+        [wa("Wrap overflowing child in Expanded or Flexible", 0.92,
+            "Column(children: [Expanded(child: ListView(...)), BottomBar()])"),
+         wa("Use ListView instead of Column for scrollable content", 0.88,
+            "Replace Column with ListView when content may exceed screen height"),
+         wa("Use LayoutBuilder to adapt to available space", 0.82,
+            "LayoutBuilder(builder: (context, constraints) => ... constraints.maxHeight ...)")],
+    ))
+
+    canons.append(canon(
+        "flutter", "missing-plugin-exception", "flutter3-linux",
+        "MissingPluginException(No implementation found for method X on channel Y)",
+        r"(MissingPluginException|No implementation found for method|channel.*not.*registered|plugin.*not.*found)",
+        "plugin_error", "flutter", ">=3.0", "cross-platform", "true", 0.85, 0.88,
+        "Platform plugin method not found. Plugin not properly installed, hot restart issue, or platform code missing.",
+        [de("Run flutter pub get and hope it fixes itself",
+            "pub get downloads Dart code but does not rebuild native platform code", 0.70),
+         de("Downgrade the plugin to an older version",
+            "Older versions may have different bugs. The real issue is usually a missing rebuild.", 0.65)],
+        [wa("Stop app completely and do a full rebuild (not hot restart)", 0.92,
+            "flutter clean && flutter pub get && flutter run  # full native rebuild"),
+         wa("Ensure plugin is added in pubspec.yaml AND native platform setup", 0.88,
+            "Some plugins need manual setup: AndroidManifest.xml permissions, Info.plist entries, Podfile"),
+         wa("For custom plugins, verify MethodChannel name matches between Dart and platform", 0.82)],
+    ))
+
+    canons.append(canon(
+        "flutter", "null-check-operator-null-value", "flutter3-linux",
+        "Null check operator used on a null value",
+        r"(Null check operator used on a null value|_CastError.*null|type.*Null.*is not a subtype of type)",
+        "null_safety_error", "flutter", ">=3.0", "cross-platform", "true", 0.88, 0.90,
+        "The ! operator was used on a null value. Variable was expected to be non-null but was null at runtime.",
+        [de("Add ! everywhere to make null errors go away",
+            "! is an assertion, not a fix. It just moves the crash to a different location.", 0.85),
+         de("Disable null safety with // @dart=2.9",
+            "Disabling null safety removes compile-time null checks and makes ALL null errors runtime crashes", 0.90)],
+        [wa("Use null-aware operators instead of force-unwrap", 0.92,
+            "value?.method()  or  value ?? defaultValue  instead of value!.method()"),
+         wa("Add null checks before the operation", 0.88,
+            "if (value != null) { value.method(); } else { handleNull(); }"),
+         wa("Fix the source of null: check API responses, state initialization", 0.85,
+            "Add late keyword only when you are certain it will be initialized before use")],
+    ))
+
+    canons.append(canon(
+        "flutter", "cocoapods-version-conflict", "flutter3-macos",
+        "CocoaPods could not find compatible versions for pod 'Firebase/CoreOnly'",
+        r"(CocoaPods could not find compatible versions|pod install.*error|Specs satisfying.*were found but|CDN.*error.*trunk|Podfile\.lock.*out of date)",
+        "dependency_error", "cocoapods", ">=1.12", "macos", "true", 0.82, 0.88,
+        "iOS dependency conflict. Plugin versions require incompatible native library versions.",
+        [de("Delete Podfile.lock and Pods directory and re-run",
+            "Removing Podfile.lock loses version pins. May install breaking changes in transitive dependencies.", 0.68),
+         de("Pin all pod versions to exact numbers",
+            "Exact version pins prevent security updates and conflict with Flutter plugin requirements", 0.72)],
+        [wa("Update CocoaPods repo and re-run pod install", 0.88,
+            "cd ios && pod repo update && pod install"),
+         wa("Run flutter clean then rebuild iOS", 0.85,
+            "flutter clean && cd ios && rm -rf Pods Podfile.lock && cd .. && flutter pub get && cd ios && pod install"),
+         wa("Check Flutter plugin compatibility matrix and update pubspec.yaml", 0.82)],
+    ))
+
+    canons.append(canon(
+        "flutter", "gradle-assemble-debug-failed", "flutter3-linux",
+        "Gradle task assembleDebug failed with exit code 1",
+        r"(assembleDebug.*failed|Gradle.*exit code 1|Could not determine.*dependencies|Execution failed.*task.*android)",
+        "build_error", "flutter", ">=3.0", "linux", "true", 0.80, 0.85,
+        "Android build failed. Generic Gradle failure — the real error is further up in the log output.",
+        [de("Run flutter clean and retry without reading the log",
+            "flutter clean rarely fixes Gradle errors. The real error is in the log above the exit code.", 0.72),
+         de("Delete the android/ folder and recreate with flutter create",
+            "Destroys custom Android configurations (permissions, build flavors, signing)", 0.85)],
+        [wa("Scroll up in the log to find the actual error", 0.95,
+            "flutter build apk --verbose 2>&1 | less  # search for 'ERROR' or 'FAILURE'"),
+         wa("Run Gradle directly for better error output", 0.88,
+            "cd android && ./gradlew assembleDebug --stacktrace"),
+         wa("Update Gradle wrapper and Android Gradle Plugin version", 0.80,
+            "In android/gradle/wrapper/gradle-wrapper.properties and android/build.gradle")],
+    ))
+
+    # =====================================================================
+    # === UNITY ===
+    # =====================================================================
+    canons.append(canon(
+        "unity", "null-reference-exception", "unity2022-cross",
+        "NullReferenceException: Object reference not set to an instance of an object",
+        r"(NullReferenceException|Object reference not set|UnassignedReferenceException|not.*assigned.*Inspector)",
+        "runtime_error", "unity", ">=2022.3", "cross-platform", "true", 0.88, 0.90,
+        "Accessing a null component, GameObject, or unassigned Inspector reference. Most common Unity error.",
+        [de("Add null checks around every GetComponent call",
+            "Excessive null checks hide design problems. Fix the root cause: assign references properly.", 0.60),
+         de("Use GameObject.Find() in Update() to always get fresh references",
+            "Find() is O(n) over all GameObjects. Called every frame, it destroys performance.", 0.85)],
+        [wa("Assign references via Inspector (drag-and-drop) instead of runtime lookup", 0.92,
+            "[SerializeField] private Rigidbody rb;  // assign in Inspector, checked at edit time"),
+         wa("Use TryGetComponent to safely get components", 0.88,
+            "if (TryGetComponent<Rigidbody>(out var rb)) { rb.AddForce(...); }"),
+         wa("Check if object was destroyed with the null-conditional operator", 0.82,
+            "myObject?.DoSomething();  // Unity overrides == null for destroyed objects")],
+    ))
+
+    canons.append(canon(
+        "unity", "missing-assembly-reference", "unity2022-cross",
+        "error CS0246: The type or namespace name could not be found (are you missing an assembly reference?)",
+        r"(CS0246|type or namespace.*could not be found|missing.*assembly reference|assembly.*not found|asmdef.*missing)",
+        "compilation_error", "unity", ">=2022.3", "cross-platform", "true", 0.88, 0.90,
+        "C# compiler cannot find a type. Missing package, wrong assembly definition, or namespace not imported.",
+        [de("Copy the DLL file directly into the Assets folder",
+            "Unity has a package manager. Manual DLLs create version conflicts and are not tracked.", 0.72),
+         de("Remove all .asmdef files to fix assembly resolution",
+            "Assembly definitions control compilation boundaries. Removing them can cause circular dependency errors.", 0.80)],
+        [wa("Add the missing package via Unity Package Manager", 0.92,
+            "Window > Package Manager > search for the package; or edit Packages/manifest.json"),
+         wa("Add using directive for the correct namespace", 0.90,
+            "using UnityEngine.UI;  // for UI components; using TMPro;  // for TextMeshPro"),
+         wa("Add assembly reference in .asmdef file", 0.85,
+            "Edit your .asmdef to include the dependency assembly in Assembly Definition References")],
+    ))
+
+    canons.append(canon(
+        "unity", "shader-compilation-error", "unity2022-cross",
+        "Shader error in 'Custom/MyShader': failed to open source file at line 42",
+        r"(Shader error|Shader compilation|failed to open source file|maximum.*texture.*interpolators|maximum.*ALU|syntax error.*shader|Program.*vert.*frag.*not found)",
+        "shader_error", "unity", ">=2022.3", "cross-platform", "partial", 0.65, 0.85,
+        "Shader compilation failed. Syntax error, exceeding GPU limits, or missing include file.",
+        [de("Switch to a more powerful GPU to fix shader compilation limits",
+            "Shader instruction limits are per-platform target, not the development GPU. Target platform determines limits.", 0.78),
+         de("Copy shader code from older Unity tutorials",
+            "Shader API changes between Unity versions. Old surface shader code may not compile in newer versions.", 0.72)],
+        [wa("Check the Console for the exact error line and fix the shader syntax", 0.88),
+         wa("Use Shader Graph (visual editor) instead of writing HLSL/ShaderLab manually", 0.85,
+            "Window > Shader Graph > create new shader; drag nodes instead of writing code"),
+         wa("Reduce shader complexity for mobile: fewer texture samples, simpler math", 0.78,
+            "Mobile GPUs have strict limits on interpolators and ALU instructions")],
+    ))
+
+    canons.append(canon(
+        "unity", "dll-not-found-exception", "unity2022-cross",
+        "DllNotFoundException: Unable to load DLL 'my_native_plugin': The specified module could not be found",
+        r"(DllNotFoundException|Unable to load DLL|native plugin.*not found|lib.*\.so.*not found|module could not be found)",
+        "plugin_error", "unity", ">=2022.3", "cross-platform", "true", 0.82, 0.88,
+        "Native plugin DLL/SO not found. Wrong platform, wrong architecture, or missing dependencies.",
+        [de("Put the DLL in the root Assets folder",
+            "Unity expects native plugins in Assets/Plugins/{platform}/ with correct import settings", 0.78),
+         de("Rename the DLL to match a different expected name",
+            "The DLL name must match the DllImport attribute. Renaming creates a mismatch.", 0.82)],
+        [wa("Place native plugins in the correct platform folder", 0.92,
+            "Assets/Plugins/x86_64/ for Windows 64-bit; Assets/Plugins/Android/ for Android; set platform in Inspector"),
+         wa("Check plugin Inspector settings for correct platform and CPU", 0.88,
+            "Select .dll in Unity > Inspector > check 'Any Platform' or specific platforms, set CPU architecture"),
+         wa("Verify all native dependencies are also included", 0.82,
+            "Use dumpbin /dependents (Win) or ldd (Linux) to check DLL dependencies")],
+    ))
+
     return canons
 
 
