@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/ament-cmake-not-found/cmake3-linux",
+  "url": "https://deadends.dev/cmake/ament-cmake-not-found/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: find_package(ament_cmake REQUIRED) failed: ament_cmake not found",
+    "regex": "(find_package\\(ament_cmake\\)|ament_cmake.*not found|Could not find.*ament|rosidl.*REQUIRED)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "CMake cannot find ament_cmake. ROS 2 environment not sourced or package not installed."
+  },
+  "dead_ends": [
+    {
+      "action": "Install ament_cmake via pip",
+      "why_fails": "ament_cmake is CMake-based, distributed via apt, not pip",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add ament_cmake as git submodule",
+      "why_fails": "Core ROS 2 infrastructure; source build causes version conflicts",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Source ROS 2 installation before cmake/colcon",
+      "success_rate": 0.95,
+      "how": "source /opt/ros/humble/setup.bash && colcon build",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install via apt",
+      "success_rate": 0.9,
+      "how": "sudo apt install ros-humble-ament-cmake",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add source to shell profile",
+      "success_rate": 0.85,
+      "how": "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

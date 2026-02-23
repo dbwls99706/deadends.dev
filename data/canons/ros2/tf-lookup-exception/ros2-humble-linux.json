@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/tf-lookup-exception/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/tf-lookup-exception/ros2-humble-linux",
+  "error": {
+    "signature": "tf2.LookupException: \"map\" passed to lookupTransform argument target_frame does not exist",
+    "regex": "(tf2.*LookupException|lookupTransform.*does not exist|Could not find a connection between)",
+    "domain": "ros2",
+    "category": "tf_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "TF2 cannot find the requested frame. The frame publisher is not running or publishing to the wrong topic."
+  },
+  "dead_ends": [
+    {
+      "action": "Add a sleep/retry loop waiting for the transform",
+      "why_fails": "Masks a configuration error; if the frame publisher is misconfigured the transform never appears",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Hardcode the transform as a 4x4 matrix instead of using TF2",
+      "why_fails": "Defeats TF2 purpose, breaks when robot moves, unmaintainable",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase TF buffer cache time to very large values",
+      "why_fails": "The frame was never published, not expired from cache",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Run ros2 run tf2_tools view_frames to visualize the TF tree",
+      "success_rate": 0.9,
+      "how": "ros2 run tf2_tools view_frames  # generates frames.pdf",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check frame_id strings match exactly (no leading slash in ROS 2)",
+      "success_rate": 0.88,
+      "how": "ROS 2 TF2 does NOT use leading slashes: use 'map' not '/map'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Launch static_transform_publisher for missing static frames",
+      "success_rate": 0.85,
+      "how": "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 parent child",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -52,11 +52,31 @@ ERRORCANON_SCHEMA = {
                         "php",
                         "dotnet",
                         "networking",
+                        # Robotics / Embedded / Vision
+                        "ros2",
+                        "embedded",
+                        "opencv",
+                        "cmake",
+                        # ML / AI
+                        "pytorch",
+                        "tensorflow",
+                        "huggingface",
+                        "llm",
+                        # Infrastructure / Middleware
+                        "nginx",
+                        "redis",
+                        "mongodb",
+                        "kafka",
+                        "elasticsearch",
+                        "grpc",
+                        # Mobile / Cross-platform
+                        "android",
+                        "flutter",
+                        "unity",
                         # Reserved for future expansion
                         "mcp",
                         "http",
                         "auth",
-                        "llm",
                     ],
                 },
                 "category": {"type": "string", "minLength": 1},

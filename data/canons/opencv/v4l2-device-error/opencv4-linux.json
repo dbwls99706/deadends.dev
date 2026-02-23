@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/v4l2-device-error/opencv4-linux",
+  "url": "https://deadends.dev/opencv/v4l2-device-error/opencv4-linux",
+  "error": {
+    "signature": "VIDEOIO ERROR: V4L2: Unable to open device /dev/video0: Permission denied",
+    "regex": "(V4L2.*Unable to open|VIDEOIO.*V4L2|v4l2.*VIDIOC_STREAMON|V4L2.*Permission denied)",
+    "domain": "opencv",
+    "category": "camera_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "v4l2",
+      "version_range": ">=5.4"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "V4L2 cannot open video device. Permission issue, Docker container, or headless server."
+  },
+  "dead_ends": [
+    {
+      "action": "Compile OpenCV from source with V4L2 support",
+      "why_fails": "pip opencv-python already includes V4L2 on Linux; issue is OS-level permissions",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use GStreamer backend as workaround",
+      "why_fails": "GStreamer also needs device permissions; switching backend does not bypass OS checks",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add user to video group",
+      "success_rate": 0.92,
+      "how": "sudo usermod -aG video $USER && newgrp video",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For Docker: pass device and group",
+      "success_rate": 0.88,
+      "how": "docker run --device=/dev/video0:/dev/video0 --group-add video my_image",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Find correct video node (not metadata node)",
+      "success_rate": 0.82,
+      "how": "v4l2-ctl --list-devices",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

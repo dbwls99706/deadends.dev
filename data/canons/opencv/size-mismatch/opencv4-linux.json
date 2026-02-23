@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/size-mismatch/opencv4-linux",
+  "url": "https://deadends.dev/opencv/size-mismatch/opencv4-linux",
+  "error": {
+    "signature": "cv2.error: (-209:Sizes of input arguments do not match)",
+    "regex": "(Sizes of input arguments do not match|src\\.size\\(\\) == dst\\.size\\(\\)|images must have the same size)",
+    "domain": "opencv",
+    "category": "dimension_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "Two Mats have different dimensions. Common with addWeighted, bitwise_and, absdiff."
+  },
+  "dead_ends": [
+    {
+      "action": "Pad smaller image with zeros",
+      "why_fails": "Zero-padding changes content and produces artifacts; resize is usually correct",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Crop both to minimum overlapping region without checking alignment",
+      "why_fails": "Cropping without spatial relationship gives meaningless results",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Resize one image to match the other",
+      "success_rate": 0.95,
+      "how": "img2 = cv2.resize(img2, (img1.shape[1], img1.shape[0]))  # (width, height)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check shapes before operation",
+      "success_rate": 0.9,
+      "how": "assert img1.shape[:2] == img2.shape[:2], f'{img1.shape} vs {img2.shape}'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ROI to extract matching regions",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

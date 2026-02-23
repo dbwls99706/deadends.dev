@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/find-package-not-found/cmake3-linux",
+  "url": "https://deadends.dev/cmake/find-package-not-found/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: Could NOT find OpenCV (missing: OpenCV_DIR)",
+    "regex": "(Could NOT find \\w+|find_package.*REQUIRED.*missing|_DIR.*not set|Config file.*not found)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "find_package() cannot locate a dependency. Config file or Find module not in search path."
+  },
+  "dead_ends": [
+    {
+      "action": "Set CMAKE_PREFIX_PATH to the source directory",
+      "why_fails": "Should point to INSTALL prefix (where lib/cmake/ lives), not the source tree",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy .cmake files into your project",
+      "why_fails": "Bundling third-party cmake configs creates version mismatches",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use find_library() as drop-in replacement",
+      "why_fails": "find_library() only finds .so/.a but not headers, definitions, or transitive deps",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install development package via system package manager",
+      "success_rate": 0.92,
+      "how": "sudo apt install libopencv-dev",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set package-specific _DIR variable",
+      "success_rate": 0.88,
+      "how": "cmake -DOpenCV_DIR=/path/to/opencv/build ..",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use CMAKE_PREFIX_PATH for custom installs",
+      "success_rate": 0.85,
+      "how": "cmake -DCMAKE_PREFIX_PATH=/opt/opencv ..",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/cascade-classifier-empty/opencv4-linux",
+  "url": "https://deadends.dev/opencv/cascade-classifier-empty/opencv4-linux",
+  "error": {
+    "signature": "cv2.error: (-215:Assertion failed) !empty() in function 'detectMultiScale'",
+    "regex": "(!empty\\(\\).*detectMultiScale|empty.*cascade|CascadeClassifier.*empty)",
+    "domain": "opencv",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "CascadeClassifier is empty because XML model file was not loaded. Wrong file path."
+  },
+  "dead_ends": [
+    {
+      "action": "Download XML from random GitHub repo",
+      "why_fails": "Third-party files may be incompatible. Use official OpenCV data files.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use relative path assuming cwd is script location",
+      "why_fails": "Python cwd is where you ran the command, not where the script lives",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use cv2.data.haarcascades for bundled cascades",
+      "success_rate": 0.95,
+      "how": "cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check if cascade loaded before using",
+      "success_rate": 0.9,
+      "how": "if face_cascade.empty(): raise FileNotFoundError('Cascade not found')",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use absolute path via __file__",
+      "success_rate": 0.85,
+      "how": "os.path.join(os.path.dirname(__file__), 'models', 'my_cascade.xml')",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

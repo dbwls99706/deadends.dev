@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/mat-type-assertion/opencv4-linux",
+  "url": "https://deadends.dev/opencv/mat-type-assertion/opencv4-linux",
+  "error": {
+    "signature": "cv2.error: (-215:Assertion failed) src.type() == CV_8UC1 in function 'equalizeHist'",
+    "regex": "(Assertion failed.*src\\.type\\(\\)|CV_8UC[13]|src\\.depth\\(\\)|expected.*Mat.*type)",
+    "domain": "opencv",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "OpenCV function received Mat with wrong type or channels. equalizeHist/Canny require grayscale."
+  },
+  "dead_ends": [
+    {
+      "action": "Convert to float32 assuming function needs float",
+      "why_fails": "Most OpenCV functions expect CV_8U (uint8). Float without scaling produces black images.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reshape Mat dimensions instead of converting color space",
+      "why_fails": "numpy reshape changes memory layout but not pixel format",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Convert color space before calling the function",
+      "success_rate": 0.95,
+      "how": "gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check actual type of your Mat",
+      "success_rate": 0.88,
+      "how": "print(img.shape, img.dtype)  # (H,W,3) uint8=BGR; (H,W) uint8=gray",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

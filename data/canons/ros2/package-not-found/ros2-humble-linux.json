@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/package-not-found/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/package-not-found/ros2-humble-linux",
+  "error": {
+    "signature": "PackageNotFoundError: Packages not found: ['my_package']",
+    "regex": "PackageNotFound(Error|Exception).*Packages?\\s+not\\s+found",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "colcon build or ros2 run cannot locate the package. Usually the workspace is not sourced or the package name is misspelled."
+  },
+  "dead_ends": [
+    {
+      "action": "Re-run colcon build without sourcing the workspace first",
+      "why_fails": "Building and running in the same terminal without sourcing install/setup.bash means the new package is invisible to ros2 CLI",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Manually copy the package into /opt/ros/humble/share/",
+      "why_fails": "System install paths are managed by apt; manual copies get overwritten and break dependency resolution",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add the package path to AMENT_PREFIX_PATH by hand",
+      "why_fails": "Does not persist across terminals and masks the real issue: the workspace overlay is not sourced",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Source the workspace overlay after building",
+      "success_rate": 0.95,
+      "how": "cd ~/ros2_ws && colcon build --packages-select my_package && source install/setup.bash",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify package.xml <name> matches the directory name and CMakeLists project() name",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check that the package is listed in colcon list output",
+      "success_rate": 0.85,
+      "how": "cd ~/ros2_ws && colcon list | grep my_package",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

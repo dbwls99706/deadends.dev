@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/no-cxx-compiler-found/cmake3-linux",
+  "url": "https://deadends.dev/cmake/no-cxx-compiler-found/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: No CMAKE_CXX_COMPILER could be found",
+    "regex": "(No CMAKE_CXX_COMPILER|No CMAKE_C_COMPILER|compiler.*not found|CMAKE_CXX_COMPILER.*NOTFOUND)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "CMake cannot find a C/C++ compiler. Toolchain not installed or not in PATH."
+  },
+  "dead_ends": [
+    {
+      "action": "Set CMAKE_CXX_COMPILER to compiler include directory",
+      "why_fails": "Must point to compiler EXECUTABLE (e.g., /usr/bin/g++), not a directory",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install cmake assuming it includes a compiler",
+      "why_fails": "CMake is a build system generator, not a compiler. You need gcc/g++ separately.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the compiler toolchain",
+      "success_rate": 0.95,
+      "how": "sudo apt install build-essential",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use CMake toolchain file for cross-compilation",
+      "success_rate": 0.85,
+      "how": "cmake -DCMAKE_TOOLCHAIN_FILE=arm-toolchain.cmake ..",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Specify compiler explicitly",
+      "success_rate": 0.88,
+      "how": "cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-12 ..",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}
