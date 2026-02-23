@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
   <title>{{ signature }} — How to Fix It ({{ total_dead_ends }} Dead Ends to Avoid) | deadends.dev</title>
-  <meta name="description" content="Don't waste time on {{ signature }}. {{ total_dead_ends }} known dead ends to avoid, {{ total_workarounds }} verified workarounds across {{ environments|length }} environments. Fix rates: {{ min_rate }}%–{{ max_rate }}%.">
+  <meta name="description" content="Fix {{ signature }} with {{ total_workarounds }} step-by-step workarounds (up to {{ max_rate }}% success rate). Skip {{ total_dead_ends }} common approaches that waste your time. Covers {{ environments|length }} environment{% if environments|length != 1 %}s{% endif %}.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ signature }}, {{ domain }}, error fix, troubleshooting, dead end, workaround, how to fix, solve{% for env in environments %}, {{ env.env_summary }}{% endfor %}{% for v in common_variations|default([]) %}, {{ v }}{% endfor %}">
