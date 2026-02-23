@@ -7,6 +7,7 @@
   "repository": "https://github.com/dbwls99706/deadends.dev",
   "license": "MIT",
   "description": "Structured failure knowledge for AI agents — dead ends, workarounds, error chains. 1028 error entries across 20 domains.",
+  "instructions": "Use lookup_error BEFORE attempting to fix any error to avoid wasting time on known dead ends. Use search_errors for vague descriptions, get_error_detail for full info by ID, and get_error_chain to predict cascading failures.",
   "tools": [
     {
       "name": "lookup_error",
@@ -20,6 +21,13 @@
           }
         },
         "required": ["error_message"]
+      },
+      "annotations": {
+        "title": "Look up error",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -34,6 +42,13 @@
           }
         },
         "required": ["error_id"]
+      },
+      "annotations": {
+        "title": "Get error details",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -47,6 +62,13 @@
             "description": "Sort domains by: 'count' (default, most errors first) or 'name' (alphabetical)"
           }
         }
+      },
+      "annotations": {
+        "title": "List domains",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -69,6 +91,13 @@
           }
         },
         "required": ["query"]
+      },
+      "annotations": {
+        "title": "Search errors",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -87,6 +116,13 @@
           }
         },
         "required": ["domain"]
+      },
+      "annotations": {
+        "title": "List domain errors",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -103,6 +139,13 @@
           }
         },
         "required": ["error_messages"]
+      },
+      "annotations": {
+        "title": "Batch lookup",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -117,6 +160,13 @@
           }
         },
         "required": ["domain"]
+      },
+      "annotations": {
+        "title": "Domain statistics",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     },
     {
@@ -131,6 +181,13 @@
           }
         },
         "required": ["error_id"]
+      },
+      "annotations": {
+        "title": "Error chain",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     }
   ],
