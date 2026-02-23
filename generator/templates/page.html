@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
   <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
-  <meta name="description" content="Don't waste time on {{ error.signature }}. Avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified workarounds with step-by-step instructions. {{ env_summary }}. Fix rate: {{ (verdict.fix_success_rate * 100)|int }}%.">
+  <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
   <meta name="robots" content="noindex, follow">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
@@ -43,11 +43,13 @@
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content="{{ error.first_seen }}">
   <meta property="article:modified_time" content="{{ verdict.last_updated }}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
+  <meta name="twitter:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
   {% set id_parts = id.split('/') %}
@@ -176,7 +178,8 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for lt in graph.leads_to %}
       <li>
         {% if lt.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ lt.error_id }}/">{{ lt.error_id }}</a>
+        {% set lt_parts = lt.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/">{{ lt.error_id }}</a>
         {% else %}
         <code>{{ lt.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -192,7 +195,8 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for pb in graph.preceded_by %}
       <li>
         {% if pb.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ pb.error_id }}/">{{ pb.error_id }}</a>
+        {% set pb_parts = pb.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/">{{ pb.error_id }}</a>
         {% else %}
         <code>{{ pb.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}
@@ -208,7 +212,8 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% for fc in graph.frequently_confused_with %}
       <li>
         {% if fc.error_id in known_ids|default([]) %}
-        <a href="{{ base_path }}/{{ fc.error_id }}/">{{ fc.error_id }}</a>
+        {% set fc_parts = fc.error_id.split('/') %}
+        <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/">{{ fc.error_id }}</a>
         {% else %}
         <code>{{ fc.error_id }}</code> <span class="meta">(page not yet generated)</span>
         {% endif %}

@@ -2252,12 +2252,16 @@ def build_indexnow(canons: list[dict]) -> None:
             domains_seen.add(domain)
             urls.append(f"{BASE_URL}/{domain}/")
 
+    # Use summary URLs (domain/slug/) not env-specific URLs (domain/slug/env/)
+    # because env-specific pages have noindex — submitting them wastes IndexNow quota
+    seen_slugs: set[str] = set()
     for canon in sorted(canons, key=lambda c: c["id"]):
-        # Ensure trailing slash for GitHub Pages (avoids 301 redirects)
-        canon_url = canon["url"]
-        if not canon_url.endswith("/"):
-            canon_url += "/"
-        urls.append(canon_url)
+        parts = canon["id"].split("/")
+        if len(parts) == 3:
+            slug_key = f"{parts[0]}/{parts[1]}"
+            if slug_key not in seen_slugs:
+                seen_slugs.add(slug_key)
+                urls.append(f"{BASE_URL}/{slug_key}/")
 
     urls.append(f"{BASE_URL}/api/v1/index.json")
     urls.append(f"{BASE_URL}/llms.txt")
@@ -2312,11 +2316,14 @@ def build_feed(canons: list[dict]) -> None:
             "generation_date", "2020-01-01"
         )
 
+        # Link to summary page (domain/slug/) not env-specific page (domain/slug/env/)
+        # because env-specific pages have noindex — feed should point to canonical URL
+        slug_key = "/".join(cid.split("/")[:2])
         SubElement(entry, "title").text = f"[{domain}] {sig}"
         elink = SubElement(entry, "link")
-        elink.set("href", f"{BASE_URL}/{cid}/")
+        elink.set("href", f"{BASE_URL}/{slug_key}/")
         elink.set("rel", "alternate")
-        SubElement(entry, "id").text = f"{BASE_URL}/{cid}/"
+        SubElement(entry, "id").text = f"{BASE_URL}/{slug_key}/"
         SubElement(entry, "updated").text = f"{gen_date}T00:00:00Z"
 
         summary_text = (
