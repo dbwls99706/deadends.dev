@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/version-conflict/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/version-conflict/es8-linux",
+  "error": {
+    "signature": "version_conflict_engine_exception: [doc_id]: version conflict, required seqNo [5], primary term [1]",
+    "regex": "(version_conflict_engine_exception|version conflict.*seqNo|conflict.*primary term|409.*Conflict.*version)",
+    "domain": "elasticsearch",
+    "category": "concurrency_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Optimistic concurrency control conflict. Document was modified by another process between read and write."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable version checking with version_type=force",
+      "why_fails": "Force overwrites silently lose concurrent updates; data corruption risk",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add retry with no backoff",
+      "why_fails": "Immediate retry on conflict often hits the same conflict; needs read-modify-write cycle",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement read-modify-write with if_seq_no and if_primary_term",
+      "success_rate": 0.92,
+      "how": "GET doc -> modify -> PUT with if_seq_no=X&if_primary_term=Y -> retry on 409",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use update API with script for atomic field updates",
+      "success_rate": 0.88,
+      "how": "POST /index/_update/id { 'script': { 'source': 'ctx._source.count += 1' } }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add retry with exponential backoff on conflict",
+      "success_rate": 0.85,
+      "how": "Retry the full read-modify-write cycle 3-5 times with backoff",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

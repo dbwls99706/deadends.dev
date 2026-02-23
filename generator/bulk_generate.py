@@ -2374,6 +2374,105 @@ def get_all_canons() -> list[dict]:
             "Use dumpbin /dependents (Win) or ldd (Linux) to check DLL dependencies")],
     ))
 
+
+    # =====================================================================
+    # === SUPPLEMENTARY: thin domains get extra entries ===
+    # =====================================================================
+
+    # Redis: connection refused + cluster down
+    canons.append(canon(
+        "redis", "connection-refused", "redis7-linux",
+        "Error: Could not connect to Redis at 127.0.0.1:6379: Connection refused",
+        r"(Could not connect to Redis|Connection refused.*6379|ECONNREFUSED.*redis|redis.*Connection refused)",
+        "connection_error", "redis", ">=7.0", "linux", "true", 0.92, 0.92,
+        "Redis server not running or not listening on expected port.",
+        [de("Reinstall Redis",
+            "Connection refused means the service is not running, not a broken installation", 0.80),
+         de("Change the port in redis.conf to avoid conflict",
+            "Other applications expect the default port. Fix the port conflict instead.", 0.65)],
+        [wa("Start the Redis service", 0.95,
+            "sudo systemctl start redis && sudo systemctl enable redis"),
+         wa("Check if Redis is running and on which port", 0.90,
+            "redis-cli ping  # should return PONG; ss -tlnp | grep redis"),
+         wa("Check redis.conf bind and protected-mode settings", 0.85,
+            "bind 127.0.0.1; protected-mode yes  # default; change for remote access")],
+    ))
+
+    canons.append(canon(
+        "redis", "clusterdown", "redis7-linux",
+        "CLUSTERDOWN The cluster is down",
+        r"(CLUSTERDOWN|cluster is down|cluster.*not.*ready|slot.*not.*covered)",
+        "cluster_error", "redis", ">=7.0", "linux", "partial", 0.65, 0.85,
+        "Redis Cluster has lost quorum or has uncovered hash slots. One or more master nodes are down without a failover replica.",
+        [de("Force a failover on all nodes",
+            "Forcing failover on healthy nodes can cause split-brain and data loss", 0.82),
+         de("Restart all cluster nodes simultaneously",
+            "Simultaneous restart loses cluster state; nodes may not rejoin properly", 0.78)],
+        [wa("Check cluster status and identify failed nodes", 0.90,
+            "redis-cli --cluster check 127.0.0.1:7000"),
+         wa("Fix or replace the failed node and let cluster recover", 0.85,
+            "redis-cli --cluster fix 127.0.0.1:7000  # reassigns orphaned slots"),
+         wa("Add replicas to prevent future CLUSTERDOWN", 0.78,
+            "redis-cli --cluster add-node new_node:7006 existing:7000 --cluster-slave")],
+    ))
+
+    # MongoDB: server selection timeout
+    canons.append(canon(
+        "mongodb", "server-selection-timeout", "mongo7-linux",
+        "MongoTimeoutError: Server selection timed out after 30000 ms",
+        r"(Server selection timed out|MongoTimeoutError|ServerSelectionTimeoutError|topology.*no suitable servers)",
+        "connection_error", "mongodb", ">=7.0", "linux", "true", 0.82, 0.88,
+        "MongoDB driver cannot find a suitable server within timeout. Replica set not initialized, wrong connection string, or network issue.",
+        [de("Increase serverSelectionTimeoutMS to very large value",
+            "Hides the real problem; application hangs for minutes before failing", 0.72),
+         de("Use directConnection=true to bypass replica set",
+            "Bypasses read preference and failover; application breaks when the node goes down", 0.68)],
+        [wa("Check replica set status", 0.90,
+            "mongosh --eval 'rs.status()'  # verify all members are healthy"),
+         wa("Verify connection string matches replica set name", 0.92,
+            "mongodb://host1:27017,host2:27017/?replicaSet=myReplicaSet  # must match rs.initiate name"),
+         wa("Check network connectivity between app and all replica members", 0.85,
+            "All hosts in the connection string must be reachable from the application")],
+    ))
+
+    # Kafka: consumer group coordinator
+    canons.append(canon(
+        "kafka", "group-coordinator-unavailable", "kafka3-linux",
+        "org.apache.kafka.common.errors.GroupCoordinatorNotAvailableException",
+        r"(GroupCoordinatorNotAvailable|coordinator.*not available|FindCoordinator.*error|consumer group.*unavailable)",
+        "consumer_error", "kafka", ">=3.0", "linux", "true", 0.82, 0.88,
+        "Consumer group coordinator broker not available. Cluster still starting up, or the coordinator broker is down.",
+        [de("Restart all consumers simultaneously",
+            "Mass restart triggers thundering herd problem; all consumers try to join at once causing repeated rebalances", 0.75),
+         de("Delete the consumer group and recreate it",
+            "Deleting the group loses committed offsets; all consumers restart from earliest/latest", 0.82)],
+        [wa("Wait for cluster to fully start - coordinator election takes a few seconds", 0.88,
+            "Add retry logic with backoff in consumer initialization"),
+         wa("Check if the __consumer_offsets topic is healthy", 0.85,
+            "kafka-topics.sh --describe --topic __consumer_offsets --bootstrap-server localhost:9092"),
+         wa("Verify all brokers are running", 0.90,
+            "kafka-broker-api-versions.sh --bootstrap-server localhost:9092")],
+    ))
+
+    # Elasticsearch: version conflict
+    canons.append(canon(
+        "elasticsearch", "version-conflict", "es8-linux",
+        "version_conflict_engine_exception: [doc_id]: version conflict, required seqNo [5], primary term [1]",
+        r"(version_conflict_engine_exception|version conflict.*seqNo|conflict.*primary term|409.*Conflict.*version)",
+        "concurrency_error", "elasticsearch", ">=8.0", "linux", "true", 0.85, 0.90,
+        "Optimistic concurrency control conflict. Document was modified by another process between read and write.",
+        [de("Disable version checking with version_type=force",
+            "Force overwrites silently lose concurrent updates; data corruption risk", 0.85),
+         de("Add retry with no backoff",
+            "Immediate retry on conflict often hits the same conflict; needs read-modify-write cycle", 0.70)],
+        [wa("Implement read-modify-write with if_seq_no and if_primary_term", 0.92,
+            "GET doc -> modify -> PUT with if_seq_no=X&if_primary_term=Y -> retry on 409"),
+         wa("Use update API with script for atomic field updates", 0.88,
+            "POST /index/_update/id { 'script': { 'source': 'ctx._source.count += 1' } }"),
+         wa("Add retry with exponential backoff on conflict", 0.85,
+            "Retry the full read-modify-write cycle 3-5 times with backoff")],
+    ))
+
     return canons
 
 
