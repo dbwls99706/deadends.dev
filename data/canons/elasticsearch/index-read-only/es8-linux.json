@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/index-read-only/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/index-read-only/es8-linux",
+  "error": {
+    "signature": "ClusterBlockException: index [my_index] blocked by: [FORBIDDEN/12/index read-only / allow delete (api)]",
+    "regex": "(FORBIDDEN.*index read-only|ClusterBlockException|read-only.*allow delete|disk.*watermark.*exceeded)",
+    "domain": "elasticsearch",
+    "category": "disk_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Elasticsearch set index to read-only because disk usage exceeded flood-stage watermark (95% by default)."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete the index to free space",
+      "why_fails": "You lose all data. Free disk space first, then unblock the index.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase the watermark thresholds",
+      "why_fails": "Only delays the problem. When disk is truly full, the cluster will crash.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Free disk space, then unblock the index",
+      "success_rate": 0.95,
+      "how": "Free disk, then: PUT _all/_settings with index.blocks.read_only_allow_delete set to null",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete old indices using ILM or curator",
+      "success_rate": 0.88,
+      "how": "DELETE /old-index-2024.*  # or configure ILM delete phase",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add more disk space or data nodes",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

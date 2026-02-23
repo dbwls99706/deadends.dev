@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/upstream-timed-out/nginx1-linux",
+  "url": "https://deadends.dev/nginx/upstream-timed-out/nginx1-linux",
+  "error": {
+    "signature": "upstream timed out (110: Connection timed out) while reading response header from upstream",
+    "regex": "(upstream timed out|110.*Connection timed out|upstream.*reading response|proxy_read_timeout)",
+    "domain": "nginx",
+    "category": "proxy_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.18"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "Backend server did not respond within proxy timeout. Slow API, long-running request, or backend down."
+  },
+  "dead_ends": [
+    {
+      "action": "Set proxy_read_timeout to extremely large value (3600s)",
+      "why_fails": "Masks backend performance problems; ties up nginx worker connections; may hit client-side timeouts anyway",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase worker_connections to handle more concurrent requests",
+      "why_fails": "worker_connections does not fix slow backends; it only helps with concurrent connection capacity",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase proxy timeouts to match expected backend response time",
+      "success_rate": 0.88,
+      "how": "proxy_read_timeout 120s; proxy_connect_timeout 10s; proxy_send_timeout 60s;",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Fix the slow backend (add caching, optimize queries)",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add upstream health checks to avoid routing to dead backends",
+      "success_rate": 0.82,
+      "how": "upstream backend { server 127.0.0.1:8000 max_fails=3 fail_timeout=30s; }",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

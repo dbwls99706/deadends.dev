@@ -29,6 +29,22 @@ DOMAIN_DISPLAY_NAMES = {
     "nextjs": "Next.js",
     "typescript": "TypeScript",
     "pip": "pip",
+    # Robotics / Embedded / Vision
+    "ros2": "ROS 2",
+    "opencv": "OpenCV",
+    "cmake": "CMake",
+    # ML / AI
+    "pytorch": "PyTorch",
+    "tensorflow": "TensorFlow",
+    "huggingface": "Hugging Face",
+    "llm": "LLM",
+    # Infrastructure / Middleware
+    "grpc": "gRPC",
+    "mongodb": "MongoDB",
+    "elasticsearch": "Elasticsearch",
+    # Mobile / Cross-platform
+    "flutter": "Flutter",
+    "unity": "Unity",
 }
 
 

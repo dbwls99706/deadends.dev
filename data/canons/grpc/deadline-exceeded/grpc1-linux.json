@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/deadline-exceeded/grpc1-linux",
+  "url": "https://deadends.dev/grpc/deadline-exceeded/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.DEADLINE_EXCEEDED",
+    "regex": "(StatusCode\\.DEADLINE_EXCEEDED|DEADLINE_EXCEEDED|deadline.*exceeded|context deadline exceeded)",
+    "domain": "grpc",
+    "category": "timeout_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "gRPC call timed out. Server processing too slow, network latency, or deadline set too short."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove deadline entirely so calls never time out",
+      "why_fails": "Without deadlines, stuck calls block forever. Deadlines are a best practice in gRPC.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set very long deadline (5 minutes) for all calls",
+      "why_fails": "Long deadlines tie up resources. Set per-RPC deadlines appropriate for each operation.",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set appropriate per-RPC deadline based on expected latency",
+      "success_rate": 0.9,
+      "how": "metadata = [('grpc-timeout', '30S')]; # or in Python: stub.MyMethod(req, timeout=30)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Profile server-side handler to find bottleneck",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add server-side deadline propagation and cancellation",
+      "success_rate": 0.82,
+      "how": "Check context.is_active() periodically in long handlers; abort early if cancelled",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

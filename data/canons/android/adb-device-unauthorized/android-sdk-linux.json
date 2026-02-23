@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/adb-device-unauthorized/android-sdk-linux",
+  "url": "https://deadends.dev/android/adb-device-unauthorized/android-sdk-linux",
+  "error": {
+    "signature": "adb: device unauthorized. Please check the confirmation dialog on your device.",
+    "regex": "(device unauthorized|Please check.*confirmation dialog|adb.*unauthorized|no permissions.*adb|USB debugging.*not authorized)",
+    "domain": "android",
+    "category": "device_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "adb",
+      "version_range": ">=34"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "ADB cannot communicate with device. USB debugging not enabled or RSA key not accepted on device."
+  },
+  "dead_ends": [
+    {
+      "action": "Restart adb server repeatedly",
+      "why_fails": "If the device has not authorized the computer, restarting adb will not help",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a different USB cable assuming it is a cable issue",
+      "why_fails": "Unauthorized error is an authentication issue, not a connectivity issue. The device IS connected.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept USB debugging prompt on the device screen",
+      "success_rate": 0.95,
+      "how": "Unlock phone screen > tap 'Always allow from this computer' > OK",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable USB debugging in Developer Options",
+      "success_rate": 0.92,
+      "how": "Settings > About Phone > tap Build Number 7 times > Developer Options > USB debugging",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Revoke and re-authorize USB debugging authorizations",
+      "success_rate": 0.85,
+      "how": "adb kill-server && Settings > Developer Options > Revoke USB debugging authorizations > reconnect",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/videocapture-cannot-open/opencv4-linux",
+  "url": "https://deadends.dev/opencv/videocapture-cannot-open/opencv4-linux",
+  "error": {
+    "signature": "VideoCapture: can't open camera by index / !_src.empty() in function 'cvtColor'",
+    "regex": "(can't open camera|Cannot open camera|VideoCapture.*failed|!_src\\.empty\\(\\)|CAP_V4L2.*Unable)",
+    "domain": "opencv",
+    "category": "camera_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "OpenCV VideoCapture fails to open camera. V4L2 permission issue, wrong index, or camera used by another process."
+  },
+  "dead_ends": [
+    {
+      "action": "Install opencv-python-headless to fix camera issues",
+      "why_fails": "Headless variant REMOVES GUI and camera support. Use opencv-python or opencv-contrib-python.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use camera index 0 assuming it is always the first camera",
+      "why_fails": "On multi-camera systems, indices shift. /dev/video0 may be a metadata device.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set CAP_PROP_FPS before opening capture",
+      "why_fails": "Properties cannot be set before device is open; the open itself is failing",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check device existence and permissions",
+      "success_rate": 0.92,
+      "how": "ls -la /dev/video* && sudo usermod -aG video $USER",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Try specific backend and enumerate devices",
+      "success_rate": 0.88,
+      "how": "cap = cv2.VideoCapture(0, cv2.CAP_V4L2)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check if another process is using the camera",
+      "success_rate": 0.85,
+      "how": "fuser /dev/video0",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

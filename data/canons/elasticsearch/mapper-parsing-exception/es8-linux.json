@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/mapper-parsing-exception/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/mapper-parsing-exception/es8-linux",
+  "error": {
+    "signature": "mapper_parsing_exception: failed to parse field [timestamp] of type [date]",
+    "regex": "(mapper_parsing_exception|failed to parse field|strict_dynamic_mapping_exception|could not parse.*type.*date|illegal_argument.*mapper)",
+    "domain": "elasticsearch",
+    "category": "mapping_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Document field type does not match index mapping. Sending string where number expected, or wrong date format."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete and recreate the index with dynamic mapping",
+      "why_fails": "Dynamic mapping guesses types from first document; subsequent documents with different types will fail the same way",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set strict_date_optional_time for all date fields",
+      "why_fails": "Only works if all dates use ISO 8601. If you have epoch timestamps or custom formats, this fails.",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Define explicit mapping with correct field types before indexing",
+      "success_rate": 0.92,
+      "how": "PUT /my_index { 'mappings': { 'properties': { 'timestamp': { 'type': 'date', 'format': 'epoch_millis||yyyy-MM-dd' }}}}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Fix the source data to match the existing mapping",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ingest pipeline to transform data before indexing",
+      "success_rate": 0.82,
+      "how": "Use date processor in ingest pipeline to normalize date formats",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

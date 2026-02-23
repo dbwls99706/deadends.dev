@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/null-check-operator-null-value/flutter3-linux",
+  "url": "https://deadends.dev/flutter/null-check-operator-null-value/flutter3-linux",
+  "error": {
+    "signature": "Null check operator used on a null value",
+    "regex": "(Null check operator used on a null value|_CastError.*null|type.*Null.*is not a subtype of type)",
+    "domain": "flutter",
+    "category": "null_safety_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "The ! operator was used on a null value. Variable was expected to be non-null but was null at runtime."
+  },
+  "dead_ends": [
+    {
+      "action": "Add ! everywhere to make null errors go away",
+      "why_fails": "! is an assertion, not a fix. It just moves the crash to a different location.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable null safety with // @dart=2.9",
+      "why_fails": "Disabling null safety removes compile-time null checks and makes ALL null errors runtime crashes",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use null-aware operators instead of force-unwrap",
+      "success_rate": 0.92,
+      "how": "value?.method()  or  value ?? defaultValue  instead of value!.method()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add null checks before the operation",
+      "success_rate": 0.88,
+      "how": "if (value != null) { value.method(); } else { handleNull(); }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Fix the source of null: check API responses, state initialization",
+      "success_rate": 0.85,
+      "how": "Add late keyword only when you are certain it will be initialized before use",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

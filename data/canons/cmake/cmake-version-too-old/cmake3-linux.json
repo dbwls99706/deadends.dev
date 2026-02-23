@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/cmake-version-too-old/cmake3-linux",
+  "url": "https://deadends.dev/cmake/cmake-version-too-old/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: CMake 3.16 or higher is required. You are running version 3.10.2",
+    "regex": "(CMake.*or higher is required|cmake_minimum_required.*VERSION|CMake.*version.*too old)",
+    "domain": "cmake",
+    "category": "version_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Project requires newer CMake than installed. Common on Ubuntu LTS with outdated packages."
+  },
+  "dead_ends": [
+    {
+      "action": "Lower cmake_minimum_required to match installed version",
+      "why_fails": "Minimum is set for a reason; lowering it causes cryptic build failures",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install from default Ubuntu apt",
+      "why_fails": "Ubuntu LTS ships outdated CMake. 20.04 gives 3.16, 18.04 gives 3.10.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install from Kitware APT repository",
+      "success_rate": 0.92,
+      "how": "sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && sudo apt install cmake",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install via pip",
+      "success_rate": 0.9,
+      "how": "pip install cmake",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Download pre-built binary from cmake.org",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

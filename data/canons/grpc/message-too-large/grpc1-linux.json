@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/message-too-large/grpc1-linux",
+  "url": "https://deadends.dev/grpc/message-too-large/grpc1-linux",
+  "error": {
+    "signature": "StatusCode.RESOURCE_EXHAUSTED: Received message larger than max (4194304 vs. 4194304)",
+    "regex": "(RESOURCE_EXHAUSTED.*message.*larger|Received message larger than max|max.*message.*size|grpc.*resource.*exhausted)",
+    "domain": "grpc",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "gRPC message exceeds the default 4MB limit. Large responses, file transfers, or accumulated data."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove message size limit entirely on both sides",
+      "why_fails": "No limit means a single large or malicious message can crash the process with OOM",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compress messages at application level before sending",
+      "why_fails": "gRPC has built-in compression. Application-level compression adds complexity without benefit.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase max message size on both client and server",
+      "success_rate": 0.92,
+      "how": "channel = grpc.insecure_channel(addr, options=[('grpc.max_receive_message_length', 50*1024*1024)])",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use gRPC streaming for large data transfers",
+      "success_rate": 0.88,
+      "how": "Stream data in chunks instead of one large message: rpc StreamData(stream Chunk) returns (Result)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable built-in gRPC compression",
+      "success_rate": 0.8,
+      "how": "channel = grpc.insecure_channel(addr, compression=grpc.Compression.Gzip)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

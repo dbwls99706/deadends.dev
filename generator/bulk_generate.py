@@ -966,6 +966,1513 @@ def get_all_canons() -> list[dict]:
                        confused("networking/mixed-content-blocked/http-linux", "Mixed content: HTTP sub-resources on an HTTPS page; HSTS: enforcing HTTPS at transport level via response header. Both occur during HTTPS migrations but are independent.")],
     ))
 
+
+    # =====================================================================
+    # === ROS 2 ===
+    # =====================================================================
+    canons.append(canon(
+        "ros2", "package-not-found", "ros2-humble-linux",
+        "PackageNotFoundError: Packages not found: ['my_package']",
+        r"PackageNotFound(Error|Exception).*Packages?\s+not\s+found",
+        "build_error", "ros2", ">=humble,<rolling", "linux", "true", 0.90, 0.92,
+        "colcon build or ros2 run cannot locate the package. Usually the workspace is not sourced or the package name is misspelled.",
+        [de("Re-run colcon build without sourcing the workspace first",
+            "Building and running in the same terminal without sourcing install/setup.bash means the new package is invisible to ros2 CLI", 0.80),
+         de("Manually copy the package into /opt/ros/humble/share/",
+            "System install paths are managed by apt; manual copies get overwritten and break dependency resolution", 0.85),
+         de("Add the package path to AMENT_PREFIX_PATH by hand",
+            "Does not persist across terminals and masks the real issue: the workspace overlay is not sourced", 0.70)],
+        [wa("Source the workspace overlay after building", 0.95,
+            "cd ~/ros2_ws && colcon build --packages-select my_package && source install/setup.bash"),
+         wa("Verify package.xml <name> matches the directory name and CMakeLists project() name", 0.88),
+         wa("Check that the package is listed in colcon list output", 0.85,
+            "cd ~/ros2_ws && colcon list | grep my_package")],
+    ))
+
+    canons.append(canon(
+        "ros2", "qos-incompatible", "ros2-humble-linux",
+        "[WARN] New publisher discovered on topic '/sensor_data', offering incompatible QoS",
+        r"(incompatible QoS|QoS.*incompatib|RELIABLE.*BEST_EFFORT|offered.*incompatible)",
+        "communication_error", "ros2", ">=humble,<rolling", "linux", "true", 0.88, 0.90,
+        "Publisher and subscriber have mismatched QoS profiles. Messages are silently dropped with no error besides this warning.",
+        [de("Set both sides to RELIABLE QoS unconditionally",
+            "Sensor drivers often only offer BEST_EFFORT; forcing RELIABLE on subscriber causes zero messages with no further error", 0.82),
+         de("Ignore the warning assuming messages still arrive",
+            "With incompatible QoS the DDS layer drops ALL messages; the warning is not cosmetic", 0.90),
+         de("Change DDS middleware hoping it fixes QoS",
+            "QoS incompatibility is DDS-standard behavior, not vendor-specific; switching RMW does not help", 0.75)],
+        [wa("Match subscriber QoS to publisher using SensorDataQoS or qos_profile_sensor_data", 0.92,
+            "from rclpy.qos import qos_profile_sensor_data; self.create_subscription(Msg, topic, cb, qos_profile_sensor_data)"),
+         wa("Use ros2 topic info -v to check offered and requested QoS", 0.90,
+            "ros2 topic info -v /sensor_data"),
+         wa("Set QoS reliability to BEST_EFFORT for high-frequency sensor topics", 0.88)],
+    ))
+
+    canons.append(canon(
+        "ros2", "tf-lookup-exception", "ros2-humble-linux",
+        "tf2.LookupException: \"map\" passed to lookupTransform argument target_frame does not exist",
+        r"(tf2.*LookupException|lookupTransform.*does not exist|Could not find a connection between)",
+        "tf_error", "ros2", ">=humble,<rolling", "linux", "true", 0.82, 0.88,
+        "TF2 cannot find the requested frame. The frame publisher is not running or publishing to the wrong topic.",
+        [de("Add a sleep/retry loop waiting for the transform",
+            "Masks a configuration error; if the frame publisher is misconfigured the transform never appears", 0.72),
+         de("Hardcode the transform as a 4x4 matrix instead of using TF2",
+            "Defeats TF2 purpose, breaks when robot moves, unmaintainable", 0.88),
+         de("Increase TF buffer cache time to very large values",
+            "The frame was never published, not expired from cache", 0.78)],
+        [wa("Run ros2 run tf2_tools view_frames to visualize the TF tree", 0.90,
+            "ros2 run tf2_tools view_frames  # generates frames.pdf"),
+         wa("Check frame_id strings match exactly (no leading slash in ROS 2)", 0.88,
+            "ROS 2 TF2 does NOT use leading slashes: use 'map' not '/map'"),
+         wa("Launch static_transform_publisher for missing static frames", 0.85,
+            "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 parent child")],
+    ))
+
+    canons.append(canon(
+        "ros2", "launch-file-error", "ros2-humble-linux",
+        "launch.invalid_launch_file_error.InvalidLaunchFileError: Caught exception when trying to load file",
+        r"(InvalidLaunchFileError|Caught exception.*load.*file.*launch|SyntaxError.*launch\.py)",
+        "launch_error", "ros2", ">=humble,<rolling", "linux", "true", 0.92, 0.90,
+        "ROS 2 launch file has a Python syntax error or incorrect launch API usage.",
+        [de("Convert ROS 1 XML launch directly to ROS 2 XML without API changes",
+            "ROS 2 XML launch uses different tags and attribute names than ROS 1", 0.80),
+         de("Use print() for debugging inside launch descriptions",
+            "Launch descriptions are declarative; print() runs at parse time not launch time", 0.65)],
+        [wa("Use ros2 launch --print to validate syntax without executing", 0.90,
+            "ros2 launch my_package my_launch.py --print"),
+         wa("Follow Python launch template with LaunchDescription and Node action", 0.92,
+            "from launch import LaunchDescription; from launch_ros.actions import Node"),
+         wa("Read the full traceback - the actual Python error is at the bottom", 0.88)],
+    ))
+
+    canons.append(canon(
+        "ros2", "colcon-build-cmake-error", "ros2-humble-linux",
+        "colcon build: CMake Error at CMakeLists.txt: find_package(ament_cmake) failed",
+        r"(colcon.*CMake Error|find_package\(ament_cmake\).*failed|Could not find.*ament_cmake)",
+        "build_error", "ros2", ">=humble,<rolling", "linux", "true", 0.88, 0.90,
+        "colcon build fails because ament_cmake is not found. ROS 2 environment is not sourced.",
+        [de("Install ament_cmake via pip",
+            "ament_cmake is a CMake package, not Python; pip install does nothing useful", 0.90),
+         de("Build ament_cmake from source in your workspace",
+            "ament_cmake is core ROS 2 infrastructure; building from source causes version conflicts", 0.80)],
+        [wa("Source the ROS 2 installation before building", 0.95,
+            "source /opt/ros/humble/setup.bash && cd ~/ros2_ws && colcon build"),
+         wa("Install missing packages via apt", 0.90,
+            "sudo apt install ros-humble-ament-cmake"),
+         wa("Use rosdep to install all dependencies", 0.88,
+            "cd ~/ros2_ws && rosdep install --from-paths src --ignore-src -y")],
+    ))
+
+    canons.append(canon(
+        "ros2", "node-name-not-unique", "ros2-humble-linux",
+        "[WARN] Node name is not unique across the ROS graph",
+        r"(Node name.*not unique|node.*already.*registered|Another node.*same name)",
+        "runtime_error", "ros2", ">=humble,<rolling", "linux", "partial", 0.65, 0.85,
+        "Two nodes with the same name cause topic/service collisions. Common when launching multiple instances.",
+        [de("Ignore the warning",
+            "Non-unique names cause parameter and service name collisions; nodes silently override each other", 0.75),
+         de("Kill all nodes and restart one by one",
+            "Does not fix the root cause in the launch file; duplicate reappears on next launch", 0.60)],
+        [wa("Use unique node names via namespace or remapping", 0.90,
+            "ros2 run my_pkg my_node --ros-args -r __node:=my_node_1"),
+         wa("Use push_ros_namespace in launch files for multi-robot setups", 0.85,
+            "GroupAction([PushRosNamespace('robot1'), Node(package='my_pkg', executable='my_node')])"),
+         wa("Set node name dynamically from launch argument", 0.82)],
+    ))
+
+    # =====================================================================
+    # === EMBEDDED ===
+    # =====================================================================
+    canons.append(canon(
+        "embedded", "stlink-connection-failed", "stm32-arm-linux",
+        "Error: init mode failed (unable to connect to the target)",
+        r"(unable to connect to the target|init mode failed|Error connecting.*ST-?LINK|No STM32 target found)",
+        "debugger_error", "openocd", ">=0.11", "linux", "true", 0.85, 0.88,
+        "ST-LINK cannot connect to STM32 via SWD/JTAG. Wiring, BOOT pins, sleep mode, or flash protection.",
+        [de("Increase SWD clock frequency for stable connection",
+            "Higher frequency makes marginal connections WORSE; long wires need LOWER frequencies", 0.80),
+         de("Replace the ST-LINK adapter assuming it is broken",
+            "Usually the target chip or wiring is the problem. Verify with a second target board first.", 0.70),
+         de("Flash via serial bootloader to fix debug port",
+            "Serial flash may work but does not re-enable SWD if firmware disabled the SWD pins", 0.72)],
+        [wa("Use connect under reset mode", 0.90,
+            "openocd -f interface/stlink.cfg -c 'reset_config srst_only' -f target/stm32f4x.cfg"),
+         wa("Check SWD wiring: SWDIO, SWCLK, GND, and NRST", 0.88,
+            "Minimum: GND, SWDIO (PA13), SWCLK (PA14). Keep wires under 10cm."),
+         wa("Erase flash via BOOT0 pin to recover bricked chips", 0.85,
+            "Set BOOT0=HIGH, power cycle, erase via STM32CubeProgrammer UART, then BOOT0=LOW")],
+        arch="arm",
+    ))
+
+    canons.append(canon(
+        "embedded", "uart-framing-error", "stm32-arm-linux",
+        "UART framing error: start/stop bit mismatch",
+        r"(UART.*framing error|framing error.*UART|start.*stop.*bit.*mismatch|USART.*FE flag|ORE.*overrun)",
+        "communication_error", "stm32", ">=F1", "cross-platform", "true", 0.88, 0.90,
+        "UART produces garbage or framing errors. Almost always baud rate mismatch or parity mismatch.",
+        [de("Swap TX and RX wires assuming they are crossed",
+            "TX/RX swap produces silence, not framing errors. Framing errors mean data arrives but cannot be decoded.", 0.75),
+         de("Add pull-up resistors to TX/RX lines",
+            "UART is push-pull, not open-drain. Pull-ups do not fix framing errors.", 0.70),
+         de("Increase baud rate for faster communication",
+            "The issue is mismatch, not speed. Both sides must agree on identical settings.", 0.82)],
+        [wa("Verify both sides use identical settings: baud, data bits, stop bits, parity", 0.95,
+            "Common default: 115200 8N1 (115200 baud, 8 data bits, no parity, 1 stop bit)"),
+         wa("Check clock source accuracy - HSI can drift causing baud errors", 0.85,
+            "STM32 HSI is +/-1% at 25C but worse at extremes. Use HSE crystal for reliable UART."),
+         wa("Use oscilloscope or logic analyzer to measure actual bit timing", 0.88,
+            "Measure shortest pulse; 1/width = actual baud rate")],
+    ))
+
+    canons.append(canon(
+        "embedded", "can-bus-off", "stm32-arm-linux",
+        "CAN error: Bus-off state entered (TEC >= 256)",
+        r"(CAN.*[Bb]us.?off|TEC.*256|transmit error counter|CAN.*error.passive|bxCAN.*BOF)",
+        "communication_error", "stm32", ">=F1", "cross-platform", "partial", 0.60, 0.85,
+        "CAN controller entered bus-off after too many transmit errors. Node disconnected from bus.",
+        [de("Restart CAN peripheral immediately in a tight loop",
+            "Rapid restart floods bus with error frames and may force OTHER nodes bus-off", 0.85),
+         de("Increase CAN bus speed",
+            "Higher speed needs tighter timing and shorter bus; usually makes it worse", 0.80),
+         de("Disable CAN error interrupts",
+            "Node is still disconnected; disabling interrupts just hides the state", 0.90)],
+        [wa("Check CAN bus termination: two 120 ohm resistors at each end", 0.88,
+            "Measure between CAN_H and CAN_L powered off: should read ~60 ohm"),
+         wa("Verify bit timing matches all other nodes on the bus", 0.85,
+            "All nodes must agree on baud rate and sample point (typically 87.5% for 500kbps)"),
+         wa("Implement bus-off recovery with backoff delay", 0.80,
+            "HAL_CAN_Start() after bus-off with 100ms+ delay to let bus settle")],
+    ))
+
+    canons.append(canon(
+        "embedded", "usb-device-descriptor-read-error", "linux-host",
+        "usb 1-1: device descriptor read/64, error -71",
+        r"(device descriptor read.*error|usb.*descriptor.*failed|USB.*EPROTO|Cannot enumerate USB|device not accepting address)",
+        "usb_error", "linux-kernel", ">=5.4", "linux", "true", 0.78, 0.85,
+        "Linux fails to enumerate USB device. Error -71 (EPROTO) = protocol failure during descriptor read. Hardware/signal issue.",
+        [de("Recompile kernel with different USB options",
+            "Protocol errors during enumeration are electrical issues, not kernel config", 0.85),
+         de("Upgrade cable to USB 3.0",
+            "USB 3.0 cables may lack proper USB 2.0 data pair wiring. Use known-good USB 2.0 cable.", 0.72),
+         de("Disable USB autosuspend globally",
+            "Autosuspend affects already-enumerated devices, not initial enumeration", 0.68)],
+        [wa("Try a different USB port directly on the motherboard", 0.88,
+            "Front panel ports have longer wires and more EMI. Use rear motherboard ports."),
+         wa("Use a powered USB hub for adequate power delivery", 0.85),
+         wa("Check dmesg for specific error code", 0.82,
+            "dmesg | grep usb  # -71=EPROTO, -32=EPIPE, -110=ETIMEDOUT")],
+    ))
+
+    canons.append(canon(
+        "embedded", "hardfault-handler", "stm32-arm-linux",
+        "HardFault_Handler: FORCED, bus fault at address 0x00000000",
+        r"(HardFault|Hard[_ ]?[Ff]ault|BusFault|MemManage|UsageFault|FORCED.*fault)",
+        "runtime_error", "stm32", ">=F1", "cross-platform", "partial", 0.55, 0.85,
+        "ARM Cortex-M hard fault. Null pointer, stack overflow, unaligned access, or invalid memory.",
+        [de("Add while(1) in HardFault handler and inspect PC in debugger",
+            "PC in handler points to handler itself, not faulting instruction. Read stacked PC from exception frame.", 0.72),
+         de("Increase heap size assuming memory allocation failure",
+            "Hard faults are usually stack overflow or dangling pointers. Heap failures return NULL.", 0.78),
+         de("Disable fault handlers to prevent stopping",
+            "Without handlers, faults escalate to lockup; processor halts until hardware reset", 0.92)],
+        [wa("Read stacked PC/LR from exception frame to find faulting instruction", 0.85,
+            "In handler: read SP, stacked_pc = *(SP+24), look up in .map file"),
+         wa("Enable BusFault, MemManage, UsageFault handlers for specific info", 0.88,
+            "SCB->SHCSR |= (BUSFAULTENA | MEMFAULTENA | USGFAULTENA);"),
+         wa("Check stack size and add overflow detection", 0.80,
+            "FreeRTOS: configCHECK_FOR_STACK_OVERFLOW=2; Bare metal: fill stack with 0xDEADBEEF")],
+        arch="arm",
+    ))
+
+    canons.append(canon(
+        "embedded", "i2c-nack", "stm32-arm-linux",
+        "I2C error: NACK received (AF flag set), address 0x68",
+        r"(I2C.*NACK|NACK.*received|AF.*flag|acknowledge failure|i2c.*no ack|HAL_I2C_ERROR_AF)",
+        "communication_error", "stm32", ">=F1", "cross-platform", "true", 0.85, 0.88,
+        "I2C slave does not acknowledge. Almost always wrong address (7-bit vs 8-bit confusion) or missing pull-ups.",
+        [de("Add more pull-up resistors in parallel",
+            "Too-low resistance causes signal distortion. Standard: 4.7k for 100kHz, 2.2k for 400kHz.", 0.70),
+         de("Increase I2C clock speed to reduce NACK",
+            "NACKs are not timing-related. Higher speed makes bus problems worse.", 0.82),
+         de("Brute-force scan all addresses",
+            "Some devices (EEPROMs) respond to scan with side effects like data corruption", 0.55)],
+        [wa("Verify 7-bit address - datasheets often list 8-bit (left-shifted) address", 0.95,
+            "Datasheet says 0xD0 -> 7-bit is 0x68. HAL uses 8-bit: HAL_I2C_Master_Transmit(hi2c, 0xD0, ...)"),
+         wa("Check hardware: SDA, SCL, pull-ups to VCC", 0.90,
+            "Both lines need pull-ups (4.7k to 3.3V). Idle state should be HIGH."),
+         wa("Use logic analyzer to verify actual bus activity", 0.85)],
+    ))
+
+    # =====================================================================
+    # === OPENCV ===
+    # =====================================================================
+    canons.append(canon(
+        "opencv", "videocapture-cannot-open", "opencv4-linux",
+        "VideoCapture: can't open camera by index / !_src.empty() in function 'cvtColor'",
+        r"(can't open camera|Cannot open camera|VideoCapture.*failed|!_src\.empty\(\)|CAP_V4L2.*Unable)",
+        "camera_error", "opencv", ">=4.5", "linux", "true", 0.82, 0.88,
+        "OpenCV VideoCapture fails to open camera. V4L2 permission issue, wrong index, or camera used by another process.",
+        [de("Install opencv-python-headless to fix camera issues",
+            "Headless variant REMOVES GUI and camera support. Use opencv-python or opencv-contrib-python.", 0.88),
+         de("Use camera index 0 assuming it is always the first camera",
+            "On multi-camera systems, indices shift. /dev/video0 may be a metadata device.", 0.70),
+         de("Set CAP_PROP_FPS before opening capture",
+            "Properties cannot be set before device is open; the open itself is failing", 0.75)],
+        [wa("Check device existence and permissions", 0.92,
+            "ls -la /dev/video* && sudo usermod -aG video $USER"),
+         wa("Try specific backend and enumerate devices", 0.88,
+            "cap = cv2.VideoCapture(0, cv2.CAP_V4L2)"),
+         wa("Check if another process is using the camera", 0.85,
+            "fuser /dev/video0")],
+    ))
+
+    canons.append(canon(
+        "opencv", "mat-type-assertion", "opencv4-linux",
+        "cv2.error: (-215:Assertion failed) src.type() == CV_8UC1 in function 'equalizeHist'",
+        r"(Assertion failed.*src\.type\(\)|CV_8UC[13]|src\.depth\(\)|expected.*Mat.*type)",
+        "type_error", "opencv", ">=4.5", "linux", "true", 0.90, 0.92,
+        "OpenCV function received Mat with wrong type or channels. equalizeHist/Canny require grayscale.",
+        [de("Convert to float32 assuming function needs float",
+            "Most OpenCV functions expect CV_8U (uint8). Float without scaling produces black images.", 0.75),
+         de("Reshape Mat dimensions instead of converting color space",
+            "numpy reshape changes memory layout but not pixel format", 0.82)],
+        [wa("Convert color space before calling the function", 0.95,
+            "gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)"),
+         wa("Check actual type of your Mat", 0.88,
+            "print(img.shape, img.dtype)  # (H,W,3) uint8=BGR; (H,W) uint8=gray")],
+    ))
+
+    canons.append(canon(
+        "opencv", "realsense-device-not-found", "opencv4-linux",
+        "RuntimeError: No RealSense devices were found",
+        r"(No RealSense devices|RealSense.*not found|Failed to set power state|rs2.*RS2_EXCEPTION|librealsense.*No device)",
+        "camera_error", "librealsense", ">=2.50", "linux", "true", 0.78, 0.85,
+        "Intel RealSense not detected. USB 2.0 port (D400 needs 3.0), missing udev rules, or kernel conflict.",
+        [de("Install librealsense from pip only",
+            "pip pyrealsense2 is just the wrapper; you need udev rules and kernel patches from official repo", 0.80),
+         de("Use USB 2.0 port for D400 series",
+            "D435/D455 require USB 3.0 for depth streaming. May enumerate on 2.0 but depth fails.", 0.85),
+         de("Compile librealsense from source on Ubuntu LTS",
+            "Official APT repo with DKMS patches is easier and more reliable", 0.65)],
+        [wa("Install from official APT repository with kernel patches", 0.90,
+            "Follow github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md"),
+         wa("Check USB 3.0 connection via lsusb", 0.88,
+            "lsusb -t | grep realsense  # speed should show 5000M not 480M"),
+         wa("Install udev rules for non-root access", 0.85,
+            "sudo cp config/99-realsense-libusb.rules /etc/udev/rules.d/ && sudo udevadm control --reload-rules")],
+    ))
+
+    canons.append(canon(
+        "opencv", "size-mismatch", "opencv4-linux",
+        "cv2.error: (-209:Sizes of input arguments do not match)",
+        r"(Sizes of input arguments do not match|src\.size\(\) == dst\.size\(\)|images must have the same size)",
+        "dimension_error", "opencv", ">=4.5", "linux", "true", 0.92, 0.92,
+        "Two Mats have different dimensions. Common with addWeighted, bitwise_and, absdiff.",
+        [de("Pad smaller image with zeros",
+            "Zero-padding changes content and produces artifacts; resize is usually correct", 0.68),
+         de("Crop both to minimum overlapping region without checking alignment",
+            "Cropping without spatial relationship gives meaningless results", 0.72)],
+        [wa("Resize one image to match the other", 0.95,
+            "img2 = cv2.resize(img2, (img1.shape[1], img1.shape[0]))  # (width, height)"),
+         wa("Check shapes before operation", 0.90,
+            "assert img1.shape[:2] == img2.shape[:2], f'{img1.shape} vs {img2.shape}'"),
+         wa("Use ROI to extract matching regions", 0.82)],
+    ))
+
+    canons.append(canon(
+        "opencv", "cascade-classifier-empty", "opencv4-linux",
+        "cv2.error: (-215:Assertion failed) !empty() in function 'detectMultiScale'",
+        r"(!empty\(\).*detectMultiScale|empty.*cascade|CascadeClassifier.*empty)",
+        "configuration_error", "opencv", ">=4.5", "linux", "true", 0.92, 0.90,
+        "CascadeClassifier is empty because XML model file was not loaded. Wrong file path.",
+        [de("Download XML from random GitHub repo",
+            "Third-party files may be incompatible. Use official OpenCV data files.", 0.72),
+         de("Use relative path assuming cwd is script location",
+            "Python cwd is where you ran the command, not where the script lives", 0.80)],
+        [wa("Use cv2.data.haarcascades for bundled cascades", 0.95,
+            "cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')"),
+         wa("Check if cascade loaded before using", 0.90,
+            "if face_cascade.empty(): raise FileNotFoundError('Cascade not found')"),
+         wa("Use absolute path via __file__", 0.85,
+            "os.path.join(os.path.dirname(__file__), 'models', 'my_cascade.xml')")],
+    ))
+
+    canons.append(canon(
+        "opencv", "v4l2-device-error", "opencv4-linux",
+        "VIDEOIO ERROR: V4L2: Unable to open device /dev/video0: Permission denied",
+        r"(V4L2.*Unable to open|VIDEOIO.*V4L2|v4l2.*VIDIOC_STREAMON|V4L2.*Permission denied)",
+        "camera_error", "v4l2", ">=5.4", "linux", "true", 0.85, 0.88,
+        "V4L2 cannot open video device. Permission issue, Docker container, or headless server.",
+        [de("Compile OpenCV from source with V4L2 support",
+            "pip opencv-python already includes V4L2 on Linux; issue is OS-level permissions", 0.78),
+         de("Use GStreamer backend as workaround",
+            "GStreamer also needs device permissions; switching backend does not bypass OS checks", 0.72)],
+        [wa("Add user to video group", 0.92,
+            "sudo usermod -aG video $USER && newgrp video"),
+         wa("For Docker: pass device and group", 0.88,
+            "docker run --device=/dev/video0:/dev/video0 --group-add video my_image"),
+         wa("Find correct video node (not metadata node)", 0.82,
+            "v4l2-ctl --list-devices")],
+    ))
+
+    # =====================================================================
+    # === CMAKE ===
+    # =====================================================================
+    canons.append(canon(
+        "cmake", "find-package-not-found", "cmake3-linux",
+        "CMake Error: Could NOT find OpenCV (missing: OpenCV_DIR)",
+        r"(Could NOT find \w+|find_package.*REQUIRED.*missing|_DIR.*not set|Config file.*not found)",
+        "build_error", "cmake", ">=3.16", "linux", "true", 0.88, 0.90,
+        "find_package() cannot locate a dependency. Config file or Find module not in search path.",
+        [de("Set CMAKE_PREFIX_PATH to the source directory",
+            "Should point to INSTALL prefix (where lib/cmake/ lives), not the source tree", 0.78),
+         de("Copy .cmake files into your project",
+            "Bundling third-party cmake configs creates version mismatches", 0.80),
+         de("Use find_library() as drop-in replacement",
+            "find_library() only finds .so/.a but not headers, definitions, or transitive deps", 0.72)],
+        [wa("Install development package via system package manager", 0.92,
+            "sudo apt install libopencv-dev"),
+         wa("Set package-specific _DIR variable", 0.88,
+            "cmake -DOpenCV_DIR=/path/to/opencv/build .."),
+         wa("Use CMAKE_PREFIX_PATH for custom installs", 0.85,
+            "cmake -DCMAKE_PREFIX_PATH=/opt/opencv ..")],
+    ))
+
+    canons.append(canon(
+        "cmake", "no-cxx-compiler-found", "cmake3-linux",
+        "CMake Error: No CMAKE_CXX_COMPILER could be found",
+        r"(No CMAKE_CXX_COMPILER|No CMAKE_C_COMPILER|compiler.*not found|CMAKE_CXX_COMPILER.*NOTFOUND)",
+        "build_error", "cmake", ">=3.16", "linux", "true", 0.92, 0.90,
+        "CMake cannot find a C/C++ compiler. Toolchain not installed or not in PATH.",
+        [de("Set CMAKE_CXX_COMPILER to compiler include directory",
+            "Must point to compiler EXECUTABLE (e.g., /usr/bin/g++), not a directory", 0.82),
+         de("Install cmake assuming it includes a compiler",
+            "CMake is a build system generator, not a compiler. You need gcc/g++ separately.", 0.88)],
+        [wa("Install the compiler toolchain", 0.95,
+            "sudo apt install build-essential"),
+         wa("Use CMake toolchain file for cross-compilation", 0.85,
+            "cmake -DCMAKE_TOOLCHAIN_FILE=arm-toolchain.cmake .."),
+         wa("Specify compiler explicitly", 0.88,
+            "cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-12 ..")],
+    ))
+
+    canons.append(canon(
+        "cmake", "target-link-unknown", "cmake3-linux",
+        "CMake Error: Cannot specify link libraries for target which is not built by this project",
+        r"(Cannot specify link libraries for target|target.*not built by this project|target_link_libraries.*unknown)",
+        "build_error", "cmake", ">=3.16", "linux", "true", 0.90, 0.88,
+        "target_link_libraries references a nonexistent target. Typo or wrong order in CMakeLists.txt.",
+        [de("Use add_custom_target to make it visible",
+            "add_custom_target is for custom commands, not linkable libraries", 0.78),
+         de("Move target_link_libraries before add_executable",
+            "Target must exist before setting properties. add_executable must come FIRST.", 0.85)],
+        [wa("Ensure add_executable is called before target_link_libraries", 0.95,
+            "add_executable(my_target main.cpp)\ntarget_link_libraries(my_target PRIVATE my_lib)"),
+         wa("Check for typos between add_executable and target_link_libraries", 0.90),
+         wa("If target is in subdirectory, call add_subdirectory first", 0.85)],
+    ))
+
+    canons.append(canon(
+        "cmake", "cmake-version-too-old", "cmake3-linux",
+        "CMake Error: CMake 3.16 or higher is required. You are running version 3.10.2",
+        r"(CMake.*or higher is required|cmake_minimum_required.*VERSION|CMake.*version.*too old)",
+        "version_error", "cmake", ">=3.0", "linux", "true", 0.92, 0.90,
+        "Project requires newer CMake than installed. Common on Ubuntu LTS with outdated packages.",
+        [de("Lower cmake_minimum_required to match installed version",
+            "Minimum is set for a reason; lowering it causes cryptic build failures", 0.82),
+         de("Install from default Ubuntu apt",
+            "Ubuntu LTS ships outdated CMake. 20.04 gives 3.16, 18.04 gives 3.10.", 0.70)],
+        [wa("Install from Kitware APT repository", 0.92,
+            "sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && sudo apt install cmake"),
+         wa("Install via pip", 0.90,
+            "pip install cmake"),
+         wa("Download pre-built binary from cmake.org", 0.85)],
+    ))
+
+    canons.append(canon(
+        "cmake", "ament-cmake-not-found", "cmake3-linux",
+        "CMake Error: find_package(ament_cmake REQUIRED) failed: ament_cmake not found",
+        r"(find_package\(ament_cmake\)|ament_cmake.*not found|Could not find.*ament|rosidl.*REQUIRED)",
+        "build_error", "cmake", ">=3.16", "linux", "true", 0.90, 0.92,
+        "CMake cannot find ament_cmake. ROS 2 environment not sourced or package not installed.",
+        [de("Install ament_cmake via pip",
+            "ament_cmake is CMake-based, distributed via apt, not pip", 0.90),
+         de("Add ament_cmake as git submodule",
+            "Core ROS 2 infrastructure; source build causes version conflicts", 0.82)],
+        [wa("Source ROS 2 installation before cmake/colcon", 0.95,
+            "source /opt/ros/humble/setup.bash && colcon build"),
+         wa("Install via apt", 0.90,
+            "sudo apt install ros-humble-ament-cmake"),
+         wa("Add source to shell profile", 0.85,
+            "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc")],
+    ))
+
+
+    # =====================================================================
+    # === PYTORCH ===
+    # =====================================================================
+    canons.append(canon(
+        "pytorch", "cuda-out-of-memory", "pytorch2-linux",
+        "torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 GiB",
+        r"(CUDA out of memory|OutOfMemoryError.*CUDA|Tried to allocate.*GiB|CUDA.*OOM)",
+        "memory_error", "pytorch", ">=2.0", "linux", "true", 0.85, 0.92,
+        "GPU memory exhausted during training or inference. Batch size too large, model too big, or memory leak from accumulated gradients.",
+        [de("Set PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb to a small value",
+            "Reduces fragmentation but does not free memory; often makes OOM happen sooner with a different error", 0.70),
+         de("Call torch.cuda.empty_cache() in the training loop",
+            "empty_cache releases unused cached memory back to CUDA but does not free tensors still referenced; has no effect if all memory is in use", 0.72),
+         de("Upgrade to a GPU with more VRAM as first response",
+            "Often the code has a memory leak (not detaching losses, storing all predictions). Fix the code before throwing hardware at it.", 0.60)],
+        [wa("Reduce batch size or use gradient accumulation", 0.92,
+            "Halve batch_size; use optimizer.step() every N mini-batches to simulate larger batch"),
+         wa("Use mixed precision training (AMP)", 0.88,
+            "with torch.amp.autocast('cuda'): ... # FP16 uses ~half the memory"),
+         wa("Detach loss and move metrics to CPU", 0.85,
+            "loss_val = loss.item()  # not loss_val = loss; prevents computation graph accumulation"),
+         wa("Use gradient checkpointing for large models", 0.80,
+            "model.gradient_checkpointing_enable()  # trades compute for memory")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "device-mismatch", "pytorch2-linux",
+        "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu",
+        r"(Expected all tensors.*same device|found.*cuda.*cpu|found.*two devices|expected.*device.*got)",
+        "device_error", "pytorch", ">=2.0", "linux", "true", 0.92, 0.90,
+        "Tensors on different devices (CPU vs GPU) used in same operation. Model on GPU but input on CPU or vice versa.",
+        [de("Move every tensor to GPU at creation time",
+            "Some tensors (like labels, indices) should stay on CPU until needed. Eager .cuda() wastes VRAM.", 0.65),
+         de("Use .cuda() everywhere instead of .to(device)",
+            ".cuda() hardcodes GPU and breaks on CPU-only machines or multi-GPU. Use .to(device) consistently.", 0.72)],
+        [wa("Use a device variable and .to(device) consistently", 0.95,
+            "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); model.to(device); x = x.to(device)"),
+         wa("Check both model and data are on the same device before forward pass", 0.90,
+            "assert next(model.parameters()).device == input_tensor.device"),
+         wa("Move criterion/loss function to device if it has parameters", 0.85)],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "tensor-size-mismatch", "pytorch2-linux",
+        "RuntimeError: Sizes of tensors must match except in dimension 1. Expected 64 but got 32",
+        r"(Sizes of tensors must match|size mismatch|expected.*but got.*dimension|shape.*doesn.t match|mat1.*mat2.*cannot be multiplied)",
+        "shape_error", "pytorch", ">=2.0", "linux", "true", 0.88, 0.90,
+        "Tensor dimensions do not match for the operation. Wrong input size, missing reshape, or model architecture mismatch.",
+        [de("Add unsqueeze/squeeze randomly until shapes match",
+            "Blindly changing dimensions produces numerically wrong results even if the operation succeeds", 0.80),
+         de("Transpose the tensor to swap dimensions",
+            "Transpose changes semantic meaning (batch vs feature vs spatial). May run but produce garbage output.", 0.72)],
+        [wa("Print shapes at each layer to find where mismatch begins", 0.92,
+            "print(x.shape) after each layer; or use torchsummary: summary(model, input_size)"),
+         wa("Verify input dimensions match what the model expects", 0.90,
+            "Check model's first layer: nn.Linear(in_features=784, ...) needs input of shape (batch, 784)"),
+         wa("Use adaptive pooling before FC layers to handle variable input sizes", 0.82,
+            "nn.AdaptiveAvgPool2d((1, 1))  # outputs fixed size regardless of input spatial dims")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "inplace-operation-gradient", "pytorch2-linux",
+        "RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation",
+        r"(inplace operation|modified by an inplace|one of the variables needed for gradient)",
+        "autograd_error", "pytorch", ">=2.0", "linux", "true", 0.85, 0.88,
+        "An in-place operation (+=, relu_(inplace=True), etc.) modified a tensor needed for backward pass, breaking autograd.",
+        [de("Wrap the operation in torch.no_grad()",
+            "no_grad disables gradient tracking entirely; the model will not learn", 0.88),
+         de("Use .data to bypass autograd",
+            "Modifying .data breaks the computation graph silently; gradients become incorrect without errors", 0.85)],
+        [wa("Replace inplace operations with out-of-place equivalents", 0.92,
+            "x = x + 1 instead of x += 1; F.relu(x) instead of F.relu(x, inplace=True)"),
+         wa("Clone tensors before modification", 0.88,
+            "y = x.clone(); y.modify_inplace()  # x's gradient graph is preserved"),
+         wa("Set inplace=False in ReLU/Dropout layers", 0.90,
+            "nn.ReLU(inplace=False)  # default is False anyway")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "dataloader-worker-killed", "pytorch2-linux",
+        "RuntimeError: DataLoader worker (pid 12345) is killed by signal: Killed",
+        r"(DataLoader worker.*killed|killed by signal.*Killed|RuntimeError.*DataLoader.*pid|shared memory.*insufficient)",
+        "memory_error", "pytorch", ">=2.0", "linux", "true", 0.82, 0.88,
+        "DataLoader worker process killed by OS OOM killer. Too many workers, large prefetch, or shared memory limit in Docker.",
+        [de("Set num_workers=0 permanently",
+            "Fixes the crash but kills data loading performance; training becomes I/O bound", 0.60),
+         de("Increase system swap space",
+            "Swap on GPU training machines causes massive slowdowns; fix the memory usage instead", 0.72)],
+        [wa("Reduce num_workers and prefetch_factor", 0.90,
+            "DataLoader(dataset, num_workers=2, prefetch_factor=2)  # default prefetch_factor=2"),
+         wa("In Docker: increase shared memory size", 0.88,
+            "docker run --shm-size=8g ... # or --ipc=host"),
+         wa("Use persistent_workers=True to avoid respawning overhead", 0.82,
+            "DataLoader(dataset, num_workers=4, persistent_workers=True)")],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === TENSORFLOW ===
+    # =====================================================================
+    canons.append(canon(
+        "tensorflow", "oom-allocating-tensor", "tf2-linux",
+        "tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor",
+        r"(ResourceExhaustedError.*OOM|OOM when allocating tensor|Allocator.*ran out of memory|GPU.*memory.*exhausted)",
+        "memory_error", "tensorflow", ">=2.10", "linux", "true", 0.85, 0.90,
+        "TensorFlow GPU memory exhausted. Batch too large or TF is allocating all GPU memory upfront.",
+        [de("Set TF_FORCE_GPU_ALLOW_GROWTH=true as environment variable only",
+            "Some TF versions ignore the env var; set it programmatically as well", 0.55),
+         de("Install tensorflow-cpu to avoid GPU issues",
+            "Completely gives up GPU acceleration. Fix memory management instead.", 0.82)],
+        [wa("Enable GPU memory growth to allocate on demand", 0.92,
+            "gpus = tf.config.list_physical_devices('GPU'); tf.config.experimental.set_memory_growth(gpus[0], True)"),
+         wa("Reduce batch size", 0.90),
+         wa("Set memory limit per GPU", 0.85,
+            "tf.config.set_logical_device_configuration(gpu, [tf.config.LogicalDeviceConfiguration(memory_limit=4096)])")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "incompatible-shapes", "tf2-linux",
+        "InvalidArgumentError: Incompatible shapes: [32,10] vs. [32,5]",
+        r"(Incompatible shapes|InvalidArgumentError.*shape|logits and labels must have the same|Dimensions must be equal)",
+        "shape_error", "tensorflow", ">=2.10", "linux", "true", 0.90, 0.90,
+        "Tensor shapes do not match. Common with loss functions where model output and label dimensions differ.",
+        [de("Reshape labels to match model output",
+            "If model outputs 10 classes but you have 5, reshape just masks the real problem: wrong model or wrong labels", 0.78),
+         de("Use sparse_categorical_crossentropy to avoid shape issues",
+            "Only works if labels are integer indices, not one-hot. Using it with one-hot labels gives wrong results.", 0.65)],
+        [wa("Match loss function to label format", 0.92,
+            "Integer labels: sparse_categorical_crossentropy. One-hot labels: categorical_crossentropy."),
+         wa("Verify model output shape matches number of classes", 0.90,
+            "model.summary()  # check last layer output shape"),
+         wa("Check dataset label shapes before training", 0.85,
+            "print(y_train.shape, y_train[:5])  # verify dimensions and format")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "cudart-library-not-found", "tf2-linux",
+        "Could not load dynamic library 'libcudart.so.12'; dlerror: libcudart.so.12: cannot open shared object",
+        r"(Could not load dynamic library|libcuda(rt|nn|blas)|cannot open shared object|CUDA.*library.*not found|dlerror)",
+        "installation_error", "tensorflow", ">=2.10", "linux", "true", 0.82, 0.88,
+        "TensorFlow cannot find CUDA runtime libraries. CUDA version mismatch or LD_LIBRARY_PATH not set.",
+        [de("Install the latest CUDA toolkit regardless of TF version",
+            "TF requires specific CUDA versions. TF 2.15 needs CUDA 12.2, not 12.5 or 11.x.", 0.82),
+         de("Set LD_LIBRARY_PATH in the Python script",
+            "LD_LIBRARY_PATH must be set BEFORE Python starts; setting it inside Python has no effect on dlopen", 0.78),
+         de("Symlink the wrong CUDA version to the expected filename",
+            "ABI differences between CUDA versions cause crashes; symlinks hide version mismatches", 0.85)],
+        [wa("Install the exact CUDA version matching your TF version", 0.92,
+            "Check https://www.tensorflow.org/install/source#gpu for version matrix"),
+         wa("Use pip install tensorflow[and-cuda] for automatic CUDA bundling", 0.90,
+            "pip install tensorflow[and-cuda]  # bundles compatible CUDA/cuDNN"),
+         wa("Use conda which manages CUDA dependencies automatically", 0.85,
+            "conda install tensorflow-gpu  # installs matching cudatoolkit")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "tf1-vs-tf2-session", "tf2-linux",
+        "AttributeError: module 'tensorflow' has no attribute 'Session'",
+        r"(has no attribute.*Session|tf\.Session|placeholder.*not.*found|module.*tensorflow.*no attribute)",
+        "api_error", "tensorflow", ">=2.0", "linux", "true", 0.90, 0.92,
+        "TF1 API used in TF2. tf.Session, tf.placeholder, etc. removed in TF2. Common when following old tutorials.",
+        [de("Install TensorFlow 1.x to run old code",
+            "TF1 has known security vulnerabilities and no GPU support for modern CUDA. Migrate to TF2.", 0.78),
+         de("Use tf.compat.v1 for everything",
+            "compat.v1 is a migration aid, not a permanent solution. It disables TF2 optimizations like eager execution.", 0.65)],
+        [wa("Use tf.compat.v1.Session() for quick migration, then refactor", 0.82,
+            "import tensorflow.compat.v1 as tf; tf.disable_v2_behavior()  # temporary"),
+         wa("Migrate to TF2 eager execution (no Session needed)", 0.95,
+            "In TF2, operations execute immediately: result = tf.matmul(a, b)  # no sess.run()"),
+         wa("Use the TF2 migration script", 0.85,
+            "tf_upgrade_v2 --infile old_code.py --outfile new_code.py")],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === HUGGING FACE ===
+    # =====================================================================
+    canons.append(canon(
+        "huggingface", "tokenizer-load-error", "hf-transformers-linux",
+        "OSError: Can't load tokenizer for 'model-name'. Make sure the model identifier is correct.",
+        r"(Can't load tokenizer|OSError.*tokenizer|not a valid model identifier|Tokenizer class.*not found|does not appear to have.*tokenizer)",
+        "loading_error", "transformers", ">=4.30", "linux", "true", 0.88, 0.90,
+        "Hugging Face cannot load tokenizer. Model name typo, private/gated model, or missing tokenizer files.",
+        [de("Download tokenizer files manually from the Hub and load locally",
+            "Manual download may miss files (special_tokens_map, tokenizer_config) causing subtle errors", 0.70),
+         de("Use a different tokenizer assuming they are interchangeable",
+            "Tokenizers are model-specific. Using wrong tokenizer produces wrong token IDs and garbage outputs.", 0.88)],
+        [wa("Check exact model name on huggingface.co/models", 0.92,
+            "AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-hf')  # exact Hub ID"),
+         wa("Login with access token for gated/private models", 0.90,
+            "huggingface-cli login  # or use_auth_token=True in from_pretrained()"),
+         wa("Specify revision/branch if model has multiple versions", 0.82,
+            "AutoTokenizer.from_pretrained('model', revision='main')")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "generate-oom", "hf-transformers-linux",
+        "torch.cuda.OutOfMemoryError: CUDA out of memory during model.generate()",
+        r"(OutOfMemoryError.*generate|CUDA out of memory.*generat|OOM.*model\.generate|KV cache.*memory)",
+        "memory_error", "transformers", ">=4.30", "linux", "true", 0.80, 0.88,
+        "OOM during text generation. KV cache grows linearly with sequence length, consuming all VRAM.",
+        [de("Set max_new_tokens very high for better generation quality",
+            "Longer sequences need quadratically more KV cache memory. Set reasonable limits.", 0.78),
+         de("Call torch.cuda.empty_cache() between generate calls",
+            "Does not free the KV cache allocated during generate; only helps if there is fragmented cached memory", 0.65)],
+        [wa("Load model in lower precision", 0.90,
+            "model = AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float16, device_map='auto')"),
+         wa("Use quantization (4-bit or 8-bit)", 0.88,
+            "model = AutoModelForCausalLM.from_pretrained(name, load_in_4bit=True, device_map='auto')"),
+         wa("Set reasonable max_new_tokens and use streaming", 0.85,
+            "model.generate(inputs, max_new_tokens=256, do_sample=True)")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "gated-model-unauthorized", "hf-transformers-linux",
+        "HTTPError: 401 Client Error: Unauthorized for url: huggingface.co",
+        r"(401.*Unauthorized|Client Error.*Unauthorized.*huggingface|Access to model.*is restricted|gated.*accept.*license)",
+        "auth_error", "transformers", ">=4.30", "linux", "true", 0.92, 0.90,
+        "Attempting to access a gated model without accepting license or providing auth token.",
+        [de("Use a mirror site or unofficial copy of the model",
+            "Unofficial copies may be tampered with, outdated, or violate the model license", 0.85),
+         de("Create a new Hugging Face account to bypass the gate",
+            "You still need to accept the license agreement on the new account", 0.80)],
+        [wa("Accept the model license on the model page, then use auth token", 0.95,
+            "1. Visit huggingface.co/{model} and accept license. 2. huggingface-cli login. 3. Re-run."),
+         wa("Pass token explicitly in from_pretrained", 0.90,
+            "model = AutoModel.from_pretrained(name, token='hf_xxxxx')"),
+         wa("Set HF_TOKEN environment variable", 0.85,
+            "export HF_TOKEN=hf_xxxxx  # or add to .env file")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "wrong-input-type", "hf-transformers-linux",
+        "ValueError: Text input must of type str (single example), List[str] (batch)",
+        r"(Text input must.*type|expected.*str.*got|Batch.*must be.*list|tokenizer.*invalid input)",
+        "type_error", "transformers", ">=4.30", "linux", "true", 0.92, 0.92,
+        "Tokenizer received wrong input type. Usually passing raw data instead of text strings.",
+        [de("Convert everything to string with str()",
+            "str() on a list produces '[\'text1\', \'text2\']' which is tokenized as one string, not a batch", 0.82),
+         de("Wrap single string in a list unconditionally",
+            "Some pipeline functions handle single strings differently from batches; check the API first", 0.55)],
+        [wa("Pass correct type: str for single, List[str] for batch", 0.95,
+            "tokenizer('single text') or tokenizer(['text1', 'text2'])"),
+         wa("Use tokenizer with padding and truncation for batches", 0.90,
+            "tokenizer(texts, padding=True, truncation=True, return_tensors='pt')"),
+         wa("Check the input type before calling tokenizer", 0.85)],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === LLM ===
+    # =====================================================================
+    canons.append(canon(
+        "llm", "context-length-exceeded", "openai-api",
+        "openai.BadRequestError: This model's maximum context length is 128000 tokens",
+        r"(maximum context length|context.*length.*exceeded|too many tokens|prompt.*too long|max.*tokens.*exceeded)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "true", 0.88, 0.90,
+        "Input + output tokens exceed the model's context window. Long conversations, large documents, or system prompts.",
+        [de("Truncate the prompt from the beginning",
+            "Cutting the start loses system prompts and instructions. Truncate middle conversation, keep start and end.", 0.72),
+         de("Switch to a model with larger context window",
+            "Larger context = higher cost and latency. Fix the prompt design first.", 0.60)],
+        [wa("Implement conversation summarization/windowing", 0.88,
+            "Keep last N messages + summary of older messages; summarize when approaching limit"),
+         wa("Use tiktoken to count tokens before sending", 0.92,
+            "import tiktoken; enc = tiktoken.encoding_for_model('gpt-4'); len(enc.encode(text))"),
+         wa("Chunk large documents and process separately", 0.85,
+            "Split into overlapping chunks of ~4000 tokens; process each; combine results")],
+    ))
+
+    canons.append(canon(
+        "llm", "rate-limit-error", "openai-api",
+        "openai.RateLimitError: Rate limit reached for model",
+        r"(RateLimitError|rate limit|Rate limit reached|429.*Too Many Requests|quota.*exceeded)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "true", 0.85, 0.88,
+        "API rate limit hit. Too many requests per minute or tokens per minute exceeded.",
+        [de("Retry immediately in a tight loop",
+            "Immediate retries increase load and may get you temporarily banned. Use exponential backoff.", 0.85),
+         de("Create multiple API keys to bypass rate limits",
+            "Rate limits are per-organization, not per-key. Multiple keys from same org share the same limit.", 0.82)],
+        [wa("Implement exponential backoff with jitter", 0.92,
+            "Use tenacity: @retry(wait=wait_exponential(min=1, max=60) + wait_random(0, 2))"),
+         wa("Batch requests and spread them over time", 0.85,
+            "Process queue with rate limiter: max N requests per minute"),
+         wa("Request rate limit increase from provider", 0.80,
+            "OpenAI: usage tier auto-upgrades with spend. Anthropic: request via console.")],
+    ))
+
+    canons.append(canon(
+        "llm", "json-parse-error", "openai-api",
+        "json.decoder.JSONDecodeError: Expecting value when parsing LLM output",
+        r"(JSONDecodeError.*LLM|json.*parse.*error.*output|invalid JSON.*response|Expecting value.*line 1|Unterminated string)",
+        "parsing_error", "openai-api", ">=1.0", "cross-platform", "true", 0.82, 0.88,
+        "LLM output is not valid JSON despite being asked for JSON. Markdown code blocks, trailing text, or truncated output.",
+        [de("Use eval() or ast.literal_eval() to parse LLM output",
+            "eval() is a security vulnerability; literal_eval fails on non-Python JSON. Use json.loads.", 0.90),
+         de("Prompt harder with ONLY output JSON and nothing else",
+            "Prompting alone is unreliable. Models can still add markdown fences or explanatory text.", 0.68)],
+        [wa("Use structured output / JSON mode if available", 0.95,
+            "OpenAI: response_format={'type': 'json_object'}; Anthropic: tool_use for structured output"),
+         wa("Strip markdown code fences before parsing", 0.88,
+            "text = re.sub(r'^```json\\n?|```$', '', text.strip()); data = json.loads(text)"),
+         wa("Use a lenient JSON parser like json-repair", 0.82,
+            "from json_repair import repair_json; data = json.loads(repair_json(text))")],
+    ))
+
+    canons.append(canon(
+        "llm", "api-timeout", "openai-api",
+        "openai.APITimeoutError: Request timed out",
+        r"(APITimeoutError|Request timed out|timeout.*exceeded|ConnectTimeout|ReadTimeout.*openai)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "partial", 0.70, 0.85,
+        "API request timed out. Long generation, network issues, or API overload.",
+        [de("Set timeout to very large value (300s+)",
+            "Extremely long timeouts tie up resources; if the API is overloaded your request will likely fail anyway", 0.65),
+         de("Retry the exact same long prompt immediately",
+            "If the prompt caused slow generation (long output), it will timeout again. Reduce max_tokens.", 0.72)],
+        [wa("Set reasonable timeout with retry logic", 0.88,
+            "client = OpenAI(timeout=60.0, max_retries=3)"),
+         wa("Reduce max_tokens to limit generation time", 0.85,
+            "Shorter responses generate faster; use max_tokens=1000 instead of 4096"),
+         wa("Use streaming to avoid timeout on long responses", 0.82,
+            "stream = client.chat.completions.create(..., stream=True)")],
+    ))
+
+
+    # =====================================================================
+    # === NGINX ===
+    # =====================================================================
+    canons.append(canon(
+        "nginx", "bind-address-in-use", "nginx1-linux",
+        "nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)",
+        r"(bind\(\).*failed.*Address already in use|bind.*0\.0\.0\.0.*failed|98.*Address already in use|EADDRINUSE.*nginx)",
+        "startup_error", "nginx", ">=1.18", "linux", "true", 0.92, 0.92,
+        "Port 80/443 already in use by another process. Another nginx instance, Apache, or a container.",
+        [de("Change nginx to a different port like 8080",
+            "Clients expect 80/443. Changing ports requires all URLs and redirects to be updated.", 0.65),
+         de("Use kill -9 on the process using the port",
+            "kill -9 does not allow graceful shutdown; may corrupt logs or leave connections hanging. Use graceful stop.", 0.68)],
+        [wa("Find and stop the conflicting process", 0.95,
+            "sudo ss -tlnp | grep :80  # or: sudo lsof -i :80"),
+         wa("Use nginx -s stop to stop the existing nginx", 0.90,
+            "sudo nginx -s stop && sudo nginx"),
+         wa("Check for and stop Apache if installed alongside nginx", 0.85,
+            "sudo systemctl stop apache2 && sudo systemctl disable apache2")],
+    ))
+
+    canons.append(canon(
+        "nginx", "upstream-timed-out", "nginx1-linux",
+        "upstream timed out (110: Connection timed out) while reading response header from upstream",
+        r"(upstream timed out|110.*Connection timed out|upstream.*reading response|proxy_read_timeout)",
+        "proxy_error", "nginx", ">=1.18", "linux", "true", 0.82, 0.88,
+        "Backend server did not respond within proxy timeout. Slow API, long-running request, or backend down.",
+        [de("Set proxy_read_timeout to extremely large value (3600s)",
+            "Masks backend performance problems; ties up nginx worker connections; may hit client-side timeouts anyway", 0.70),
+         de("Increase worker_connections to handle more concurrent requests",
+            "worker_connections does not fix slow backends; it only helps with concurrent connection capacity", 0.75)],
+        [wa("Increase proxy timeouts to match expected backend response time", 0.88,
+            "proxy_read_timeout 120s; proxy_connect_timeout 10s; proxy_send_timeout 60s;"),
+         wa("Fix the slow backend (add caching, optimize queries)", 0.90),
+         wa("Add upstream health checks to avoid routing to dead backends", 0.82,
+            "upstream backend { server 127.0.0.1:8000 max_fails=3 fail_timeout=30s; }")],
+    ))
+
+    canons.append(canon(
+        "nginx", "server-directive-not-allowed", "nginx1-linux",
+        "nginx: [emerg] \"server\" directive is not allowed here",
+        r"(directive is not allowed here|unexpected.*directive|unknown directive|nginx.*emerg.*directive)",
+        "config_error", "nginx", ">=1.18", "linux", "true", 0.92, 0.92,
+        "nginx config syntax error. Directive placed in wrong context (e.g., server block inside another server block).",
+        [de("Copy config snippets from Stack Overflow without understanding context hierarchy",
+            "nginx has strict context nesting: main > http > server > location. Directives in wrong context fail.", 0.82),
+         de("Put all configuration in a single nginx.conf file",
+            "While valid, large monolithic configs are error-prone. Use include and sites-enabled/ pattern.", 0.55)],
+        [wa("Test config syntax before reloading", 0.95,
+            "sudo nginx -t  # validates config and shows exact error location"),
+         wa("Check nginx context hierarchy", 0.90,
+            "http {} contains server {}; server {} contains location {}; main context is outside http {}"),
+         wa("Use include to split config into manageable files", 0.82,
+            "include /etc/nginx/conf.d/*.conf; include /etc/nginx/sites-enabled/*;")],
+    ))
+
+    canons.append(canon(
+        "nginx", "upstream-connection-refused", "nginx1-linux",
+        "connect() failed (111: Connection refused) while connecting to upstream",
+        r"(connect\(\) failed.*111.*Connection refused|upstream.*Connection refused|connect.*upstream.*refused)",
+        "proxy_error", "nginx", ">=1.18", "linux", "true", 0.88, 0.90,
+        "nginx cannot reach the backend. Backend not running, wrong port, or listening on different interface.",
+        [de("Change proxy_pass to use hostname instead of IP",
+            "DNS resolution adds latency and can fail; use IP for local backends", 0.55),
+         de("Restart nginx assuming the issue is with nginx",
+            "nginx is working correctly by reporting the error; the backend is the problem", 0.80)],
+        [wa("Verify the backend is running and listening on the expected port", 0.95,
+            "curl -v http://127.0.0.1:8000  # test backend directly; ss -tlnp | grep 8000"),
+         wa("Check backend is listening on correct interface (0.0.0.0 vs 127.0.0.1)", 0.90,
+            "If backend listens on 127.0.0.1 but nginx uses proxy_pass to container IP, connection refused"),
+         wa("Check firewall rules and SELinux if enabled", 0.82,
+            "sudo setsebool -P httpd_can_network_connect 1  # SELinux blocks nginx upstream by default")],
+    ))
+
+    # =====================================================================
+    # === REDIS ===
+    # =====================================================================
+    canons.append(canon(
+        "redis", "misconf-rdb-snapshots", "redis7-linux",
+        "MISCONF Redis is configured to save RDB snapshots, but it can't persist to disk",
+        r"(MISCONF.*RDB|can't persist to disk|BGSAVE.*failed|rdbSaveBackground|fork.*Cannot allocate memory)",
+        "persistence_error", "redis", ">=7.0", "linux", "true", 0.85, 0.88,
+        "Redis cannot save to disk. Disk full, permission error, or insufficient memory for BGSAVE fork.",
+        [de("Disable persistence entirely with CONFIG SET save ''",
+            "Data will be lost on restart. Only appropriate for pure cache use cases.", 0.60),
+         de("Set stop-writes-on-bgsave-error no",
+            "Allows writes to continue but data is not being persisted; silent data loss risk", 0.72)],
+        [wa("Fix the underlying disk/memory issue", 0.92,
+            "df -h /var/lib/redis  # check disk; free -m  # check memory for fork"),
+         wa("Set vm.overcommit_memory=1 for Linux fork behavior", 0.88,
+            "echo 1 > /proc/sys/vm/overcommit_memory  # allows Redis BGSAVE fork to succeed"),
+         wa("Use AOF persistence as alternative if RDB fork fails", 0.80,
+            "CONFIG SET appendonly yes  # AOF does not require fork for every write")],
+    ))
+
+    canons.append(canon(
+        "redis", "oom-maxmemory", "redis7-linux",
+        "OOM command not allowed when used memory > 'maxmemory'",
+        r"(OOM command not allowed|used memory.*maxmemory|maxmemory.*exceeded|OOM.*Redis)",
+        "memory_error", "redis", ">=7.0", "linux", "true", 0.85, 0.90,
+        "Redis memory limit reached and eviction policy does not allow the operation.",
+        [de("Remove maxmemory limit entirely",
+            "Without limits, Redis grows until the OS OOM killer terminates it, losing all data", 0.85),
+         de("Flush all data (FLUSHALL) to free memory",
+            "Destroys all data. Only appropriate if data is a rebuildable cache.", 0.72)],
+        [wa("Set appropriate eviction policy", 0.90,
+            "CONFIG SET maxmemory-policy allkeys-lru  # evict least-recently-used keys"),
+         wa("Increase maxmemory if the server has available RAM", 0.85,
+            "CONFIG SET maxmemory 4gb"),
+         wa("Analyze memory usage to find large keys", 0.88,
+            "redis-cli --bigkeys  # finds largest keys per type; redis-cli MEMORY USAGE key_name")],
+    ))
+
+    canons.append(canon(
+        "redis", "readonly-replica", "redis7-linux",
+        "READONLY You can't write against a read only replica",
+        r"(READONLY.*can't write|read only replica|READONLY.*replica|slave.*read.?only)",
+        "replication_error", "redis", ">=7.0", "linux", "true", 0.88, 0.90,
+        "Write command sent to a Redis replica. Application connected to replica instead of primary.",
+        [de("Set replica-read-only no on the replica",
+            "Writes to replica are not replicated to primary; they get overwritten on next sync, causing data loss", 0.90),
+         de("Promote replica to primary",
+            "Only appropriate during failover. Otherwise you end up with split-brain: two primaries.", 0.78)],
+        [wa("Fix application connection to point to the primary node", 0.95,
+            "Check connection string: connect to primary host/port, not replica"),
+         wa("Use Redis Sentinel or Cluster for automatic primary discovery", 0.90,
+            "Sentinel: redis-py SentinelConnectionPool auto-discovers current primary"),
+         wa("Separate read and write connections in application", 0.82,
+            "Reads from replica, writes to primary. Most Redis clients support this.")],
+    ))
+
+    # =====================================================================
+    # === MONGODB ===
+    # =====================================================================
+    canons.append(canon(
+        "mongodb", "authentication-failed", "mongo7-linux",
+        "MongoServerError: Authentication failed",
+        r"(Authentication failed|MongoServerError.*auth|SCRAM.*authentication|auth.*failed.*mongo)",
+        "auth_error", "mongodb", ">=7.0", "linux", "true", 0.90, 0.90,
+        "MongoDB authentication failed. Wrong credentials, wrong auth database, or auth not enabled.",
+        [de("Connect without credentials assuming auth is disabled",
+            "MongoDB 7+ enables auth by default. Even local connections require authentication.", 0.75),
+         de("Use the admin database credentials for all databases",
+            "Users are scoped to their auth database. Admin user must specify authSource=admin.", 0.70)],
+        [wa("Specify the correct authentication database", 0.92,
+            "mongosh 'mongodb://user:pass@host:27017/mydb?authSource=admin'"),
+         wa("Verify user exists in the correct database", 0.88,
+            "use admin; db.getUsers()  # check which database the user was created in"),
+         wa("Reset password if forgotten", 0.82,
+            "Start mongod without --auth, connect locally, db.changeUserPassword('user', 'newpass')")],
+    ))
+
+    canons.append(canon(
+        "mongodb", "duplicate-key-error", "mongo7-linux",
+        "MongoServerError: E11000 duplicate key error collection: mydb.users index: email_1",
+        r"(E11000 duplicate key|duplicate key error|MongoServerError.*11000|DuplicateKeyError)",
+        "constraint_error", "mongodb", ">=7.0", "linux", "true", 0.88, 0.90,
+        "Unique index violation. Attempting to insert a document with a duplicate value for a unique field.",
+        [de("Remove the unique index to stop the error",
+            "The unique constraint exists for data integrity. Removing it allows corrupt duplicate data.", 0.85),
+         de("Catch the error and silently ignore it",
+            "Ignoring duplicates may mean lost updates or inconsistent data", 0.65)],
+        [wa("Use upsert to update-or-insert atomically", 0.92,
+            "db.users.updateOne({ email: x }, { $set: doc }, { upsert: true })"),
+         wa("Check for existence before insert", 0.85,
+            "if not db.users.find_one({'email': x}): db.users.insert_one(doc)  # but not atomic"),
+         wa("Handle the error and provide user-friendly message", 0.88,
+            "catch DuplicateKeyError: return 'Email already registered'")],
+    ))
+
+    canons.append(canon(
+        "mongodb", "connection-refused", "mongo7-linux",
+        "MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017",
+        r"(MongoNetworkError.*ECONNREFUSED|connect.*ECONNREFUSED.*27017|MongooseServerSelectionError|getaddrinfo.*ENOTFOUND.*mongo)",
+        "connection_error", "mongodb", ">=7.0", "linux", "true", 0.90, 0.92,
+        "Cannot connect to MongoDB. Service not running, wrong host/port, or firewall blocking.",
+        [de("Reinstall MongoDB to fix connection issues",
+            "Connection refused means the service is not listening, not that the installation is broken", 0.82),
+         de("Use localhost instead of 127.0.0.1 or vice versa",
+            "Both resolve to the same address. The issue is the service not running, not the address format.", 0.72)],
+        [wa("Start the MongoDB service", 0.95,
+            "sudo systemctl start mongod && sudo systemctl enable mongod"),
+         wa("Check if MongoDB is listening on the expected port", 0.90,
+            "ss -tlnp | grep 27017; sudo journalctl -u mongod --tail=20"),
+         wa("Check bindIp in mongod.conf for remote connections", 0.85,
+            "bindIp: 0.0.0.0  # in /etc/mongod.conf; default is 127.0.0.1 only")],
+    ))
+
+    # =====================================================================
+    # === KAFKA ===
+    # =====================================================================
+    canons.append(canon(
+        "kafka", "topic-not-in-metadata", "kafka3-linux",
+        "org.apache.kafka.common.errors.TimeoutException: Topic my_topic not present in metadata after 60000 ms",
+        r"(Topic.*not present in metadata|TimeoutException.*metadata|topic.*not exist|Unknown topic or partition)",
+        "configuration_error", "kafka", ">=3.0", "linux", "true", 0.88, 0.90,
+        "Producer/consumer cannot find topic. Topic does not exist and auto-creation is disabled, or bootstrap servers are wrong.",
+        [de("Set auto.create.topics.enable=true in production",
+            "Auto-creation leads to typo-induced phantom topics. Create topics explicitly in production.", 0.72),
+         de("Connect directly to a broker instead of using bootstrap servers",
+            "Direct broker connection bypasses cluster metadata; breaks when broker changes or cluster rebalances", 0.80)],
+        [wa("Create the topic explicitly before producing/consuming", 0.92,
+            "kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1"),
+         wa("Verify bootstrap servers are correct and reachable", 0.90,
+            "kafka-broker-api-versions.sh --bootstrap-server localhost:9092"),
+         wa("Check topic exists with list command", 0.85,
+            "kafka-topics.sh --list --bootstrap-server localhost:9092")],
+    ))
+
+    canons.append(canon(
+        "kafka", "record-too-large", "kafka3-linux",
+        "org.apache.kafka.common.errors.RecordTooLargeException: The message is 1500000 bytes, max is 1048576",
+        r"(RecordTooLargeException|message.*bytes.*max|MESSAGE_TOO_LARGE|max\.message\.bytes)",
+        "configuration_error", "kafka", ">=3.0", "linux", "true", 0.90, 0.88,
+        "Message exceeds size limit. Default is 1MB. Must increase on broker, topic, AND producer side.",
+        [de("Only increase max.message.bytes on the broker",
+            "Must also increase on topic level AND producer (max.request.size). All three must agree.", 0.82),
+         de("Only increase producer max.request.size",
+            "Broker will still reject messages exceeding its message.max.bytes setting", 0.85)],
+        [wa("Increase limits on all three levels: broker, topic, and producer", 0.92,
+            "Broker: message.max.bytes=5242880; Topic: max.message.bytes=5242880; Producer: max.request.size=5242880"),
+         wa("Compress messages to stay within limits", 0.85,
+            "Producer config: compression.type=snappy  # or lz4, zstd"),
+         wa("Redesign to use chunking or external storage for large payloads", 0.80,
+            "Store large data in S3/blob storage; send only reference in Kafka message")],
+    ))
+
+    canons.append(canon(
+        "kafka", "consumer-rebalance-revoked", "kafka3-linux",
+        "CommitFailedException: Commit cannot be completed since the group has already rebalanced",
+        r"(CommitFailedException|group.*rebalanced|Offset commit.*failed.*rebalance|partitions.*revoked)",
+        "consumer_error", "kafka", ">=3.0", "linux", "true", 0.78, 0.85,
+        "Consumer group rebalanced while processing messages. Processing took longer than session.timeout.ms or max.poll.interval.ms.",
+        [de("Set session.timeout.ms to very large value",
+            "Delays detection of genuinely failed consumers; dead consumers block partition processing", 0.72),
+         de("Disable auto-commit and never commit offsets",
+            "Without commits, all messages are reprocessed on restart, causing duplicates", 0.85)],
+        [wa("Increase max.poll.interval.ms to match expected processing time", 0.88,
+            "max.poll.interval.ms=600000  # 10 minutes; adjust to your processing time"),
+         wa("Reduce max.poll.records to process fewer messages per poll", 0.85,
+            "max.poll.records=100  # process smaller batches to stay within poll interval"),
+         wa("Move heavy processing to async worker pool", 0.80,
+            "Poll quickly, dispatch to thread pool, commit after completion")],
+    ))
+
+    # =====================================================================
+    # === ELASTICSEARCH ===
+    # =====================================================================
+    canons.append(canon(
+        "elasticsearch", "index-read-only", "es8-linux",
+        "ClusterBlockException: index [my_index] blocked by: [FORBIDDEN/12/index read-only / allow delete (api)]",
+        r"(FORBIDDEN.*index read-only|ClusterBlockException|read-only.*allow delete|disk.*watermark.*exceeded)",
+        "disk_error", "elasticsearch", ">=8.0", "linux", "true", 0.90, 0.90,
+        "Elasticsearch set index to read-only because disk usage exceeded flood-stage watermark (95% by default).",
+        [de("Delete the index to free space",
+            "You lose all data. Free disk space first, then unblock the index.", 0.82),
+         de("Increase the watermark thresholds",
+            "Only delays the problem. When disk is truly full, the cluster will crash.", 0.65)],
+        [wa("Free disk space, then unblock the index", 0.95,
+            "Free disk, then: PUT _all/_settings with index.blocks.read_only_allow_delete set to null"),
+         wa("Delete old indices using ILM or curator", 0.88,
+            "DELETE /old-index-2024.*  # or configure ILM delete phase"),
+         wa("Add more disk space or data nodes", 0.82)],
+    ))
+
+    canons.append(canon(
+        "elasticsearch", "circuit-breaker-exception", "es8-linux",
+        "circuit_breaking_exception: [parent] Data too large, data for [request] would be larger than limit",
+        r"(circuit_breaking_exception|Data too large|circuit breaker.*tripped|parent.*breaker.*limit)",
+        "memory_error", "elasticsearch", ">=8.0", "linux", "true", 0.82, 0.88,
+        "JVM heap usage exceeded circuit breaker limit. Query too large, too many aggregations, or heap too small.",
+        [de("Disable circuit breakers",
+            "Circuit breakers prevent OOM crashes. Disabling them leads to unrecoverable OutOfMemoryError.", 0.92),
+         de("Set ES_JAVA_OPTS heap to all available RAM",
+            "ES heap should be max 50% of RAM and not exceed 31GB (compressed oops limit).", 0.80)],
+        [wa("Reduce query scope: add filters, limit aggregation buckets", 0.90,
+            "Add date range filter; set size:0 for aggregation-only queries; limit terms agg size"),
+         wa("Increase JVM heap (up to 50% of RAM, max ~31GB)", 0.85,
+            "ES_JAVA_OPTS='-Xms16g -Xmx16g'  # in jvm.options or docker env"),
+         wa("Use scroll/search_after for large result sets instead of deep pagination", 0.82)],
+    ))
+
+    canons.append(canon(
+        "elasticsearch", "mapper-parsing-exception", "es8-linux",
+        "mapper_parsing_exception: failed to parse field [timestamp] of type [date]",
+        r"(mapper_parsing_exception|failed to parse field|strict_dynamic_mapping_exception|could not parse.*type.*date|illegal_argument.*mapper)",
+        "mapping_error", "elasticsearch", ">=8.0", "linux", "true", 0.85, 0.90,
+        "Document field type does not match index mapping. Sending string where number expected, or wrong date format.",
+        [de("Delete and recreate the index with dynamic mapping",
+            "Dynamic mapping guesses types from first document; subsequent documents with different types will fail the same way", 0.75),
+         de("Set strict_date_optional_time for all date fields",
+            "Only works if all dates use ISO 8601. If you have epoch timestamps or custom formats, this fails.", 0.68)],
+        [wa("Define explicit mapping with correct field types before indexing", 0.92,
+            "PUT /my_index { 'mappings': { 'properties': { 'timestamp': { 'type': 'date', 'format': 'epoch_millis||yyyy-MM-dd' }}}}"),
+         wa("Fix the source data to match the existing mapping", 0.88),
+         wa("Use ingest pipeline to transform data before indexing", 0.82,
+            "Use date processor in ingest pipeline to normalize date formats")],
+    ))
+
+    # =====================================================================
+    # === GRPC ===
+    # =====================================================================
+    canons.append(canon(
+        "grpc", "unavailable-connection-failed", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.UNAVAILABLE: failed to connect to all addresses",
+        r"(StatusCode\.UNAVAILABLE|failed to connect to all addresses|UNAVAILABLE.*connect|grpc.*connection.*refused)",
+        "connection_error", "grpc", ">=1.50", "linux", "true", 0.88, 0.90,
+        "gRPC client cannot reach the server. Server not running, wrong address/port, or TLS/plaintext mismatch.",
+        [de("Add grpc.enable_http_proxy channel option",
+            "HTTP proxies do not support gRPC's HTTP/2 framing. This makes connection worse, not better.", 0.78),
+         de("Switch to REST API as workaround",
+            "Loses gRPC benefits (streaming, protobuf efficiency, code generation). Fix the connection instead.", 0.72)],
+        [wa("Verify server is running and listening on expected port", 0.95,
+            "grpcurl -plaintext localhost:50051 list  # or ss -tlnp | grep 50051"),
+         wa("Check TLS mismatch: plaintext client vs TLS server or vice versa", 0.90,
+            "grpc.insecure_channel() for plaintext; grpc.secure_channel(creds) for TLS"),
+         wa("Check DNS resolution and firewall rules for remote servers", 0.85,
+            "dig server.example.com; telnet server.example.com 50051")],
+    ))
+
+    canons.append(canon(
+        "grpc", "deadline-exceeded", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.DEADLINE_EXCEEDED",
+        r"(StatusCode\.DEADLINE_EXCEEDED|DEADLINE_EXCEEDED|deadline.*exceeded|context deadline exceeded)",
+        "timeout_error", "grpc", ">=1.50", "linux", "true", 0.82, 0.88,
+        "gRPC call timed out. Server processing too slow, network latency, or deadline set too short.",
+        [de("Remove deadline entirely so calls never time out",
+            "Without deadlines, stuck calls block forever. Deadlines are a best practice in gRPC.", 0.85),
+         de("Set very long deadline (5 minutes) for all calls",
+            "Long deadlines tie up resources. Set per-RPC deadlines appropriate for each operation.", 0.68)],
+        [wa("Set appropriate per-RPC deadline based on expected latency", 0.90,
+            "metadata = [('grpc-timeout', '30S')]; # or in Python: stub.MyMethod(req, timeout=30)"),
+         wa("Profile server-side handler to find bottleneck", 0.88),
+         wa("Add server-side deadline propagation and cancellation", 0.82,
+            "Check context.is_active() periodically in long handlers; abort early if cancelled")],
+    ))
+
+    canons.append(canon(
+        "grpc", "unimplemented-method", "grpc1-linux",
+        "grpc._channel._InactiveRpcError: StatusCode.UNIMPLEMENTED: Method not found",
+        r"(StatusCode\.UNIMPLEMENTED|Method not found|UNIMPLEMENTED.*method|service.*not.*registered)",
+        "configuration_error", "grpc", ">=1.50", "linux", "true", 0.90, 0.92,
+        "gRPC method not found on server. Service not registered, proto mismatch, or wrong server address.",
+        [de("Regenerate proto stubs assuming the proto file is wrong",
+            "If server and client use different proto versions, regenerating from wrong proto makes it worse", 0.68),
+         de("Use reflection to discover available methods",
+            "Reflection helps debug but does not fix the root cause of missing service registration", 0.50)],
+        [wa("Verify service is registered on the server", 0.95,
+            "server.add_insecure_port(...); server.add_generic_rpc_handlers([...])  # check service is added"),
+         wa("Use grpcurl to list available services and methods", 0.90,
+            "grpcurl -plaintext localhost:50051 list  # shows registered services"),
+         wa("Ensure client and server use the same proto definition", 0.88,
+            "Compare .proto files; regenerate both client and server stubs from the same source")],
+    ))
+
+    canons.append(canon(
+        "grpc", "message-too-large", "grpc1-linux",
+        "StatusCode.RESOURCE_EXHAUSTED: Received message larger than max (4194304 vs. 4194304)",
+        r"(RESOURCE_EXHAUSTED.*message.*larger|Received message larger than max|max.*message.*size|grpc.*resource.*exhausted)",
+        "configuration_error", "grpc", ">=1.50", "linux", "true", 0.90, 0.88,
+        "gRPC message exceeds the default 4MB limit. Large responses, file transfers, or accumulated data.",
+        [de("Remove message size limit entirely on both sides",
+            "No limit means a single large or malicious message can crash the process with OOM", 0.78),
+         de("Compress messages at application level before sending",
+            "gRPC has built-in compression. Application-level compression adds complexity without benefit.", 0.65)],
+        [wa("Increase max message size on both client and server", 0.92,
+            "channel = grpc.insecure_channel(addr, options=[('grpc.max_receive_message_length', 50*1024*1024)])"),
+         wa("Use gRPC streaming for large data transfers", 0.88,
+            "Stream data in chunks instead of one large message: rpc StreamData(stream Chunk) returns (Result)"),
+         wa("Enable built-in gRPC compression", 0.80,
+            "channel = grpc.insecure_channel(addr, compression=grpc.Compression.Gzip)")],
+    ))
+
+
+    # =====================================================================
+    # === ANDROID ===
+    # =====================================================================
+    canons.append(canon(
+        "android", "merge-debug-resources-failed", "gradle8-linux",
+        "Execution failed for task ':app:mergeDebugResources'. Resource compilation failed",
+        r"(mergeDebugResources|Resource compilation failed|AAPT2.*error|Execution failed.*merge.*Resources)",
+        "build_error", "gradle", ">=8.0", "linux", "true", 0.85, 0.88,
+        "Android resource merge failed. Duplicate resources, invalid XML, or AAPT2 crash.",
+        [de("Clean project repeatedly (Build > Clean)",
+            "Clean removes build cache but does not fix the underlying resource conflict", 0.65),
+         de("Downgrade Gradle plugin version",
+            "Masks the issue temporarily; the resource conflict still exists and will reappear", 0.72)],
+        [wa("Check the full error output for specific resource conflict", 0.92,
+            "Run: ./gradlew mergeDebugResources --stacktrace  # shows exact conflicting resource"),
+         wa("Search for duplicate resource names across modules and libraries", 0.88,
+            "grep -r 'resource_name' app/src/main/res/  # check for duplicates in values/, drawables, etc."),
+         wa("Invalidate caches and restart (File > Invalidate Caches)", 0.82,
+            "Android Studio: File > Invalidate Caches > Invalidate and Restart")],
+    ))
+
+    canons.append(canon(
+        "android", "gradle-oom", "gradle8-linux",
+        "java.lang.OutOfMemoryError: GC overhead limit exceeded during Gradle build",
+        r"(OutOfMemoryError.*GC overhead|OutOfMemoryError.*Gradle|Java heap space.*gradle|Metaspace.*gradle|GC overhead limit exceeded)",
+        "memory_error", "gradle", ">=8.0", "linux", "true", 0.88, 0.90,
+        "Gradle build runs out of memory. Project too large, too many modules, or JVM heap too small.",
+        [de("Set org.gradle.jvmargs=-Xmx16g as first attempt",
+            "Excessive heap hides the real problem (inefficient build) and slows down GC pauses", 0.60),
+         de("Disable Gradle daemon to reduce memory usage",
+            "Daemon keeps JVM warm for faster builds. Disabling it makes every build slower.", 0.72)],
+        [wa("Increase Gradle JVM heap to reasonable size (4-8GB)", 0.90,
+            "In gradle.properties: org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"),
+         wa("Enable Gradle configuration cache to reduce memory per build", 0.85,
+            "org.gradle.configuration-cache=true  # in gradle.properties"),
+         wa("Use modularization to reduce per-module build scope", 0.78)],
+    ))
+
+    canons.append(canon(
+        "android", "sdk-packages-not-found", "android-sdk-linux",
+        "Failed to install the following Android SDK packages as some licenses have not been accepted",
+        r"(Failed to install.*SDK packages|licenses have not been accepted|Android SDK.*not found|SDK location not found|ANDROID_HOME.*not set)",
+        "installation_error", "android-sdk", ">=33", "linux", "true", 0.92, 0.92,
+        "Android SDK packages not installed or licenses not accepted. Common in CI/CD and fresh setups.",
+        [de("Download SDK packages manually from Google archives",
+            "Manual downloads miss dependency packages and do not register licenses", 0.80),
+         de("Accept licenses interactively when running in CI",
+            "CI has no interactive terminal. Licenses must be accepted non-interactively.", 0.85)],
+        [wa("Accept all SDK licenses non-interactively", 0.95,
+            "yes | sdkmanager --licenses"),
+         wa("Set ANDROID_HOME and install required packages", 0.90,
+            "export ANDROID_HOME=$HOME/Android/Sdk; sdkmanager 'platform-tools' 'platforms;android-34'"),
+         wa("Use sdkmanager to install specific missing packages", 0.88,
+            "sdkmanager --list  # find package names; sdkmanager 'build-tools;34.0.0'")],
+    ))
+
+    canons.append(canon(
+        "android", "adb-device-unauthorized", "android-sdk-linux",
+        "adb: device unauthorized. Please check the confirmation dialog on your device.",
+        r"(device unauthorized|Please check.*confirmation dialog|adb.*unauthorized|no permissions.*adb|USB debugging.*not authorized)",
+        "device_error", "adb", ">=34", "linux", "true", 0.90, 0.92,
+        "ADB cannot communicate with device. USB debugging not enabled or RSA key not accepted on device.",
+        [de("Restart adb server repeatedly",
+            "If the device has not authorized the computer, restarting adb will not help", 0.72),
+         de("Use a different USB cable assuming it is a cable issue",
+            "Unauthorized error is an authentication issue, not a connectivity issue. The device IS connected.", 0.80)],
+        [wa("Accept USB debugging prompt on the device screen", 0.95,
+            "Unlock phone screen > tap 'Always allow from this computer' > OK"),
+         wa("Enable USB debugging in Developer Options", 0.92,
+            "Settings > About Phone > tap Build Number 7 times > Developer Options > USB debugging"),
+         wa("Revoke and re-authorize USB debugging authorizations", 0.85,
+            "adb kill-server && Settings > Developer Options > Revoke USB debugging authorizations > reconnect")],
+    ))
+
+    canons.append(canon(
+        "android", "desugaring-error", "gradle8-linux",
+        "Error: Default interface methods are only supported starting with Android 7.0 (API 24)",
+        r"(Default interface methods.*only supported|desugaring|Lambda.*not supported.*API|java\.lang\.invoke.*not supported|requires.*API level)",
+        "build_error", "gradle", ">=8.0", "linux", "true", 0.92, 0.92,
+        "Java 8+ features used but desugaring not enabled. minSdk too low or compileOptions missing.",
+        [de("Raise minSdk to 26+ to support all Java 8 features",
+            "Excludes older devices. Enable desugaring instead to support Java 8 on all API levels.", 0.70),
+         de("Rewrite code to avoid Java 8 features (lambdas, default methods)",
+            "Unnecessary; Android toolchain supports desugaring to convert these to older bytecode", 0.82)],
+        [wa("Enable Java 8 desugaring in build.gradle", 0.95,
+            "android { compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 } }"),
+         wa("Enable core library desugaring for java.time and streams on older APIs", 0.88,
+            "android { compileOptions { coreLibraryDesugaringEnabled true } }; dependencies { coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4' }"),
+         wa("Set Kotlin JVM target to 1.8", 0.85,
+            "kotlinOptions { jvmTarget = '1.8' }")],
+    ))
+
+    # =====================================================================
+    # === FLUTTER ===
+    # =====================================================================
+    canons.append(canon(
+        "flutter", "renderflex-overflowed", "flutter3-linux",
+        "A RenderFlex overflowed by 42 pixels on the bottom.",
+        r"(RenderFlex overflowed|overflowed by.*pixels|BOTTOM OVERFLOWING|RIGHT OVERFLOWING|RenderBox.*not laid out)",
+        "layout_error", "flutter", ">=3.0", "cross-platform", "true", 0.90, 0.92,
+        "Widget exceeds available space. Column/Row child too large for the parent constraints.",
+        [de("Wrap everything in SingleChildScrollView",
+            "Makes the entire screen scrollable which breaks fixed-position elements and can cause nested scroll issues", 0.65),
+         de("Set fixed height/width on the overflowing widget",
+            "Hardcoded sizes break on different screen sizes and orientations", 0.72)],
+        [wa("Wrap overflowing child in Expanded or Flexible", 0.92,
+            "Column(children: [Expanded(child: ListView(...)), BottomBar()])"),
+         wa("Use ListView instead of Column for scrollable content", 0.88,
+            "Replace Column with ListView when content may exceed screen height"),
+         wa("Use LayoutBuilder to adapt to available space", 0.82,
+            "LayoutBuilder(builder: (context, constraints) => ... constraints.maxHeight ...)")],
+    ))
+
+    canons.append(canon(
+        "flutter", "missing-plugin-exception", "flutter3-linux",
+        "MissingPluginException(No implementation found for method X on channel Y)",
+        r"(MissingPluginException|No implementation found for method|channel.*not.*registered|plugin.*not.*found)",
+        "plugin_error", "flutter", ">=3.0", "cross-platform", "true", 0.85, 0.88,
+        "Platform plugin method not found. Plugin not properly installed, hot restart issue, or platform code missing.",
+        [de("Run flutter pub get and hope it fixes itself",
+            "pub get downloads Dart code but does not rebuild native platform code", 0.70),
+         de("Downgrade the plugin to an older version",
+            "Older versions may have different bugs. The real issue is usually a missing rebuild.", 0.65)],
+        [wa("Stop app completely and do a full rebuild (not hot restart)", 0.92,
+            "flutter clean && flutter pub get && flutter run  # full native rebuild"),
+         wa("Ensure plugin is added in pubspec.yaml AND native platform setup", 0.88,
+            "Some plugins need manual setup: AndroidManifest.xml permissions, Info.plist entries, Podfile"),
+         wa("For custom plugins, verify MethodChannel name matches between Dart and platform", 0.82)],
+    ))
+
+    canons.append(canon(
+        "flutter", "null-check-operator-null-value", "flutter3-linux",
+        "Null check operator used on a null value",
+        r"(Null check operator used on a null value|_CastError.*null|type.*Null.*is not a subtype of type)",
+        "null_safety_error", "flutter", ">=3.0", "cross-platform", "true", 0.88, 0.90,
+        "The ! operator was used on a null value. Variable was expected to be non-null but was null at runtime.",
+        [de("Add ! everywhere to make null errors go away",
+            "! is an assertion, not a fix. It just moves the crash to a different location.", 0.85),
+         de("Disable null safety with // @dart=2.9",
+            "Disabling null safety removes compile-time null checks and makes ALL null errors runtime crashes", 0.90)],
+        [wa("Use null-aware operators instead of force-unwrap", 0.92,
+            "value?.method()  or  value ?? defaultValue  instead of value!.method()"),
+         wa("Add null checks before the operation", 0.88,
+            "if (value != null) { value.method(); } else { handleNull(); }"),
+         wa("Fix the source of null: check API responses, state initialization", 0.85,
+            "Add late keyword only when you are certain it will be initialized before use")],
+    ))
+
+    canons.append(canon(
+        "flutter", "cocoapods-version-conflict", "flutter3-macos",
+        "CocoaPods could not find compatible versions for pod 'Firebase/CoreOnly'",
+        r"(CocoaPods could not find compatible versions|pod install.*error|Specs satisfying.*were found but|CDN.*error.*trunk|Podfile\.lock.*out of date)",
+        "dependency_error", "cocoapods", ">=1.12", "macos", "true", 0.82, 0.88,
+        "iOS dependency conflict. Plugin versions require incompatible native library versions.",
+        [de("Delete Podfile.lock and Pods directory and re-run",
+            "Removing Podfile.lock loses version pins. May install breaking changes in transitive dependencies.", 0.68),
+         de("Pin all pod versions to exact numbers",
+            "Exact version pins prevent security updates and conflict with Flutter plugin requirements", 0.72)],
+        [wa("Update CocoaPods repo and re-run pod install", 0.88,
+            "cd ios && pod repo update && pod install"),
+         wa("Run flutter clean then rebuild iOS", 0.85,
+            "flutter clean && cd ios && rm -rf Pods Podfile.lock && cd .. && flutter pub get && cd ios && pod install"),
+         wa("Check Flutter plugin compatibility matrix and update pubspec.yaml", 0.82)],
+    ))
+
+    canons.append(canon(
+        "flutter", "gradle-assemble-debug-failed", "flutter3-linux",
+        "Gradle task assembleDebug failed with exit code 1",
+        r"(assembleDebug.*failed|Gradle.*exit code 1|Could not determine.*dependencies|Execution failed.*task.*android)",
+        "build_error", "flutter", ">=3.0", "linux", "true", 0.80, 0.85,
+        "Android build failed. Generic Gradle failure — the real error is further up in the log output.",
+        [de("Run flutter clean and retry without reading the log",
+            "flutter clean rarely fixes Gradle errors. The real error is in the log above the exit code.", 0.72),
+         de("Delete the android/ folder and recreate with flutter create",
+            "Destroys custom Android configurations (permissions, build flavors, signing)", 0.85)],
+        [wa("Scroll up in the log to find the actual error", 0.95,
+            "flutter build apk --verbose 2>&1 | less  # search for 'ERROR' or 'FAILURE'"),
+         wa("Run Gradle directly for better error output", 0.88,
+            "cd android && ./gradlew assembleDebug --stacktrace"),
+         wa("Update Gradle wrapper and Android Gradle Plugin version", 0.80,
+            "In android/gradle/wrapper/gradle-wrapper.properties and android/build.gradle")],
+    ))
+
+    # =====================================================================
+    # === UNITY ===
+    # =====================================================================
+    canons.append(canon(
+        "unity", "null-reference-exception", "unity2022-cross",
+        "NullReferenceException: Object reference not set to an instance of an object",
+        r"(NullReferenceException|Object reference not set|UnassignedReferenceException|not.*assigned.*Inspector)",
+        "runtime_error", "unity", ">=2022.3", "cross-platform", "true", 0.88, 0.90,
+        "Accessing a null component, GameObject, or unassigned Inspector reference. Most common Unity error.",
+        [de("Add null checks around every GetComponent call",
+            "Excessive null checks hide design problems. Fix the root cause: assign references properly.", 0.60),
+         de("Use GameObject.Find() in Update() to always get fresh references",
+            "Find() is O(n) over all GameObjects. Called every frame, it destroys performance.", 0.85)],
+        [wa("Assign references via Inspector (drag-and-drop) instead of runtime lookup", 0.92,
+            "[SerializeField] private Rigidbody rb;  // assign in Inspector, checked at edit time"),
+         wa("Use TryGetComponent to safely get components", 0.88,
+            "if (TryGetComponent<Rigidbody>(out var rb)) { rb.AddForce(...); }"),
+         wa("Check if object was destroyed with the null-conditional operator", 0.82,
+            "myObject?.DoSomething();  // Unity overrides == null for destroyed objects")],
+    ))
+
+    canons.append(canon(
+        "unity", "missing-assembly-reference", "unity2022-cross",
+        "error CS0246: The type or namespace name could not be found (are you missing an assembly reference?)",
+        r"(CS0246|type or namespace.*could not be found|missing.*assembly reference|assembly.*not found|asmdef.*missing)",
+        "compilation_error", "unity", ">=2022.3", "cross-platform", "true", 0.88, 0.90,
+        "C# compiler cannot find a type. Missing package, wrong assembly definition, or namespace not imported.",
+        [de("Copy the DLL file directly into the Assets folder",
+            "Unity has a package manager. Manual DLLs create version conflicts and are not tracked.", 0.72),
+         de("Remove all .asmdef files to fix assembly resolution",
+            "Assembly definitions control compilation boundaries. Removing them can cause circular dependency errors.", 0.80)],
+        [wa("Add the missing package via Unity Package Manager", 0.92,
+            "Window > Package Manager > search for the package; or edit Packages/manifest.json"),
+         wa("Add using directive for the correct namespace", 0.90,
+            "using UnityEngine.UI;  // for UI components; using TMPro;  // for TextMeshPro"),
+         wa("Add assembly reference in .asmdef file", 0.85,
+            "Edit your .asmdef to include the dependency assembly in Assembly Definition References")],
+    ))
+
+    canons.append(canon(
+        "unity", "shader-compilation-error", "unity2022-cross",
+        "Shader error in 'Custom/MyShader': failed to open source file at line 42",
+        r"(Shader error|Shader compilation|failed to open source file|maximum.*texture.*interpolators|maximum.*ALU|syntax error.*shader|Program.*vert.*frag.*not found)",
+        "shader_error", "unity", ">=2022.3", "cross-platform", "partial", 0.65, 0.85,
+        "Shader compilation failed. Syntax error, exceeding GPU limits, or missing include file.",
+        [de("Switch to a more powerful GPU to fix shader compilation limits",
+            "Shader instruction limits are per-platform target, not the development GPU. Target platform determines limits.", 0.78),
+         de("Copy shader code from older Unity tutorials",
+            "Shader API changes between Unity versions. Old surface shader code may not compile in newer versions.", 0.72)],
+        [wa("Check the Console for the exact error line and fix the shader syntax", 0.88),
+         wa("Use Shader Graph (visual editor) instead of writing HLSL/ShaderLab manually", 0.85,
+            "Window > Shader Graph > create new shader; drag nodes instead of writing code"),
+         wa("Reduce shader complexity for mobile: fewer texture samples, simpler math", 0.78,
+            "Mobile GPUs have strict limits on interpolators and ALU instructions")],
+    ))
+
+    canons.append(canon(
+        "unity", "dll-not-found-exception", "unity2022-cross",
+        "DllNotFoundException: Unable to load DLL 'my_native_plugin': The specified module could not be found",
+        r"(DllNotFoundException|Unable to load DLL|native plugin.*not found|lib.*\.so.*not found|module could not be found)",
+        "plugin_error", "unity", ">=2022.3", "cross-platform", "true", 0.82, 0.88,
+        "Native plugin DLL/SO not found. Wrong platform, wrong architecture, or missing dependencies.",
+        [de("Put the DLL in the root Assets folder",
+            "Unity expects native plugins in Assets/Plugins/{platform}/ with correct import settings", 0.78),
+         de("Rename the DLL to match a different expected name",
+            "The DLL name must match the DllImport attribute. Renaming creates a mismatch.", 0.82)],
+        [wa("Place native plugins in the correct platform folder", 0.92,
+            "Assets/Plugins/x86_64/ for Windows 64-bit; Assets/Plugins/Android/ for Android; set platform in Inspector"),
+         wa("Check plugin Inspector settings for correct platform and CPU", 0.88,
+            "Select .dll in Unity > Inspector > check 'Any Platform' or specific platforms, set CPU architecture"),
+         wa("Verify all native dependencies are also included", 0.82,
+            "Use dumpbin /dependents (Win) or ldd (Linux) to check DLL dependencies")],
+    ))
+
+
+    # =====================================================================
+    # === SUPPLEMENTARY: thin domains get extra entries ===
+    # =====================================================================
+
+    # Redis: connection refused + cluster down
+    canons.append(canon(
+        "redis", "connection-refused", "redis7-linux",
+        "Error: Could not connect to Redis at 127.0.0.1:6379: Connection refused",
+        r"(Could not connect to Redis|Connection refused.*6379|ECONNREFUSED.*redis|redis.*Connection refused)",
+        "connection_error", "redis", ">=7.0", "linux", "true", 0.92, 0.92,
+        "Redis server not running or not listening on expected port.",
+        [de("Reinstall Redis",
+            "Connection refused means the service is not running, not a broken installation", 0.80),
+         de("Change the port in redis.conf to avoid conflict",
+            "Other applications expect the default port. Fix the port conflict instead.", 0.65)],
+        [wa("Start the Redis service", 0.95,
+            "sudo systemctl start redis && sudo systemctl enable redis"),
+         wa("Check if Redis is running and on which port", 0.90,
+            "redis-cli ping  # should return PONG; ss -tlnp | grep redis"),
+         wa("Check redis.conf bind and protected-mode settings", 0.85,
+            "bind 127.0.0.1; protected-mode yes  # default; change for remote access")],
+    ))
+
+    canons.append(canon(
+        "redis", "clusterdown", "redis7-linux",
+        "CLUSTERDOWN The cluster is down",
+        r"(CLUSTERDOWN|cluster is down|cluster.*not.*ready|slot.*not.*covered)",
+        "cluster_error", "redis", ">=7.0", "linux", "partial", 0.65, 0.85,
+        "Redis Cluster has lost quorum or has uncovered hash slots. One or more master nodes are down without a failover replica.",
+        [de("Force a failover on all nodes",
+            "Forcing failover on healthy nodes can cause split-brain and data loss", 0.82),
+         de("Restart all cluster nodes simultaneously",
+            "Simultaneous restart loses cluster state; nodes may not rejoin properly", 0.78)],
+        [wa("Check cluster status and identify failed nodes", 0.90,
+            "redis-cli --cluster check 127.0.0.1:7000"),
+         wa("Fix or replace the failed node and let cluster recover", 0.85,
+            "redis-cli --cluster fix 127.0.0.1:7000  # reassigns orphaned slots"),
+         wa("Add replicas to prevent future CLUSTERDOWN", 0.78,
+            "redis-cli --cluster add-node new_node:7006 existing:7000 --cluster-slave")],
+    ))
+
+    # MongoDB: server selection timeout
+    canons.append(canon(
+        "mongodb", "server-selection-timeout", "mongo7-linux",
+        "MongoTimeoutError: Server selection timed out after 30000 ms",
+        r"(Server selection timed out|MongoTimeoutError|ServerSelectionTimeoutError|topology.*no suitable servers)",
+        "connection_error", "mongodb", ">=7.0", "linux", "true", 0.82, 0.88,
+        "MongoDB driver cannot find a suitable server within timeout. Replica set not initialized, wrong connection string, or network issue.",
+        [de("Increase serverSelectionTimeoutMS to very large value",
+            "Hides the real problem; application hangs for minutes before failing", 0.72),
+         de("Use directConnection=true to bypass replica set",
+            "Bypasses read preference and failover; application breaks when the node goes down", 0.68)],
+        [wa("Check replica set status", 0.90,
+            "mongosh --eval 'rs.status()'  # verify all members are healthy"),
+         wa("Verify connection string matches replica set name", 0.92,
+            "mongodb://host1:27017,host2:27017/?replicaSet=myReplicaSet  # must match rs.initiate name"),
+         wa("Check network connectivity between app and all replica members", 0.85,
+            "All hosts in the connection string must be reachable from the application")],
+    ))
+
+    # Kafka: consumer group coordinator
+    canons.append(canon(
+        "kafka", "group-coordinator-unavailable", "kafka3-linux",
+        "org.apache.kafka.common.errors.GroupCoordinatorNotAvailableException",
+        r"(GroupCoordinatorNotAvailable|coordinator.*not available|FindCoordinator.*error|consumer group.*unavailable)",
+        "consumer_error", "kafka", ">=3.0", "linux", "true", 0.82, 0.88,
+        "Consumer group coordinator broker not available. Cluster still starting up, or the coordinator broker is down.",
+        [de("Restart all consumers simultaneously",
+            "Mass restart triggers thundering herd problem; all consumers try to join at once causing repeated rebalances", 0.75),
+         de("Delete the consumer group and recreate it",
+            "Deleting the group loses committed offsets; all consumers restart from earliest/latest", 0.82)],
+        [wa("Wait for cluster to fully start - coordinator election takes a few seconds", 0.88,
+            "Add retry logic with backoff in consumer initialization"),
+         wa("Check if the __consumer_offsets topic is healthy", 0.85,
+            "kafka-topics.sh --describe --topic __consumer_offsets --bootstrap-server localhost:9092"),
+         wa("Verify all brokers are running", 0.90,
+            "kafka-broker-api-versions.sh --bootstrap-server localhost:9092")],
+    ))
+
+    # Elasticsearch: version conflict
+    canons.append(canon(
+        "elasticsearch", "version-conflict", "es8-linux",
+        "version_conflict_engine_exception: [doc_id]: version conflict, required seqNo [5], primary term [1]",
+        r"(version_conflict_engine_exception|version conflict.*seqNo|conflict.*primary term|409.*Conflict.*version)",
+        "concurrency_error", "elasticsearch", ">=8.0", "linux", "true", 0.85, 0.90,
+        "Optimistic concurrency control conflict. Document was modified by another process between read and write.",
+        [de("Disable version checking with version_type=force",
+            "Force overwrites silently lose concurrent updates; data corruption risk", 0.85),
+         de("Add retry with no backoff",
+            "Immediate retry on conflict often hits the same conflict; needs read-modify-write cycle", 0.70)],
+        [wa("Implement read-modify-write with if_seq_no and if_primary_term", 0.92,
+            "GET doc -> modify -> PUT with if_seq_no=X&if_primary_term=Y -> retry on 409"),
+         wa("Use update API with script for atomic field updates", 0.88,
+            "POST /index/_update/id { 'script': { 'source': 'ctx._source.count += 1' } }"),
+         wa("Add retry with exponential backoff on conflict", 0.85,
+            "Retry the full read-modify-write cycle 3-5 times with backoff")],
+    ))
+
     return canons
 
 

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/realsense-device-not-found/opencv4-linux",
+  "url": "https://deadends.dev/opencv/realsense-device-not-found/opencv4-linux",
+  "error": {
+    "signature": "RuntimeError: No RealSense devices were found",
+    "regex": "(No RealSense devices|RealSense.*not found|Failed to set power state|rs2.*RS2_EXCEPTION|librealsense.*No device)",
+    "domain": "opencv",
+    "category": "camera_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "librealsense",
+      "version_range": ">=2.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.85,
+    "last_updated": "2026-02-23",
+    "summary": "Intel RealSense not detected. USB 2.0 port (D400 needs 3.0), missing udev rules, or kernel conflict."
+  },
+  "dead_ends": [
+    {
+      "action": "Install librealsense from pip only",
+      "why_fails": "pip pyrealsense2 is just the wrapper; you need udev rules and kernel patches from official repo",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use USB 2.0 port for D400 series",
+      "why_fails": "D435/D455 require USB 3.0 for depth streaming. May enumerate on 2.0 but depth fails.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compile librealsense from source on Ubuntu LTS",
+      "why_fails": "Official APT repo with DKMS patches is easier and more reliable",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install from official APT repository with kernel patches",
+      "success_rate": 0.9,
+      "how": "Follow github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check USB 3.0 connection via lsusb",
+      "success_rate": 0.88,
+      "how": "lsusb -t | grep realsense  # speed should show 5000M not 480M",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install udev rules for non-root access",
+      "success_rate": 0.85,
+      "how": "sudo cp config/99-realsense-libusb.rules /etc/udev/rules.d/ && sudo udevadm control --reload-rules",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

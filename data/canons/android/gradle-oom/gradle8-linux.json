@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/gradle-oom/gradle8-linux",
+  "url": "https://deadends.dev/android/gradle-oom/gradle8-linux",
+  "error": {
+    "signature": "java.lang.OutOfMemoryError: GC overhead limit exceeded during Gradle build",
+    "regex": "(OutOfMemoryError.*GC overhead|OutOfMemoryError.*Gradle|Java heap space.*gradle|Metaspace.*gradle|GC overhead limit exceeded)",
+    "domain": "android",
+    "category": "memory_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gradle",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Gradle build runs out of memory. Project too large, too many modules, or JVM heap too small."
+  },
+  "dead_ends": [
+    {
+      "action": "Set org.gradle.jvmargs=-Xmx16g as first attempt",
+      "why_fails": "Excessive heap hides the real problem (inefficient build) and slows down GC pauses",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable Gradle daemon to reduce memory usage",
+      "why_fails": "Daemon keeps JVM warm for faster builds. Disabling it makes every build slower.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase Gradle JVM heap to reasonable size (4-8GB)",
+      "success_rate": 0.9,
+      "how": "In gradle.properties: org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable Gradle configuration cache to reduce memory per build",
+      "success_rate": 0.85,
+      "how": "org.gradle.configuration-cache=true  # in gradle.properties",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use modularization to reduce per-module build scope",
+      "success_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

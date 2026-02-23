@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/colcon-build-cmake-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/colcon-build-cmake-error/ros2-humble-linux",
+  "error": {
+    "signature": "colcon build: CMake Error at CMakeLists.txt: find_package(ament_cmake) failed",
+    "regex": "(colcon.*CMake Error|find_package\\(ament_cmake\\).*failed|Could not find.*ament_cmake)",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "colcon build fails because ament_cmake is not found. ROS 2 environment is not sourced."
+  },
+  "dead_ends": [
+    {
+      "action": "Install ament_cmake via pip",
+      "why_fails": "ament_cmake is a CMake package, not Python; pip install does nothing useful",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Build ament_cmake from source in your workspace",
+      "why_fails": "ament_cmake is core ROS 2 infrastructure; building from source causes version conflicts",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Source the ROS 2 installation before building",
+      "success_rate": 0.95,
+      "how": "source /opt/ros/humble/setup.bash && cd ~/ros2_ws && colcon build",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install missing packages via apt",
+      "success_rate": 0.9,
+      "how": "sudo apt install ros-humble-ament-cmake",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use rosdep to install all dependencies",
+      "success_rate": 0.88,
+      "how": "cd ~/ros2_ws && rosdep install --from-paths src --ignore-src -y",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

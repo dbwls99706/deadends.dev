@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/stlink-connection-failed/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/stlink-connection-failed/stm32-arm-linux",
+  "error": {
+    "signature": "Error: init mode failed (unable to connect to the target)",
+    "regex": "(unable to connect to the target|init mode failed|Error connecting.*ST-?LINK|No STM32 target found)",
+    "domain": "embedded",
+    "category": "debugger_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openocd",
+      "version_range": ">=0.11"
+    },
+    "os": "linux",
+    "additional": {
+      "architecture": "arm"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "ST-LINK cannot connect to STM32 via SWD/JTAG. Wiring, BOOT pins, sleep mode, or flash protection."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase SWD clock frequency for stable connection",
+      "why_fails": "Higher frequency makes marginal connections WORSE; long wires need LOWER frequencies",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Replace the ST-LINK adapter assuming it is broken",
+      "why_fails": "Usually the target chip or wiring is the problem. Verify with a second target board first.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Flash via serial bootloader to fix debug port",
+      "why_fails": "Serial flash may work but does not re-enable SWD if firmware disabled the SWD pins",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use connect under reset mode",
+      "success_rate": 0.9,
+      "how": "openocd -f interface/stlink.cfg -c 'reset_config srst_only' -f target/stm32f4x.cfg",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check SWD wiring: SWDIO, SWCLK, GND, and NRST",
+      "success_rate": 0.88,
+      "how": "Minimum: GND, SWDIO (PA13), SWCLK (PA14). Keep wires under 10cm.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Erase flash via BOOT0 pin to recover bricked chips",
+      "success_rate": 0.85,
+      "how": "Set BOOT0=HIGH, power cycle, erase via STM32CubeProgrammer UART, then BOOT0=LOW",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

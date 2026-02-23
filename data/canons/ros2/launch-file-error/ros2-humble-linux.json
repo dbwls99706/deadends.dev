@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/launch-file-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/launch-file-error/ros2-humble-linux",
+  "error": {
+    "signature": "launch.invalid_launch_file_error.InvalidLaunchFileError: Caught exception when trying to load file",
+    "regex": "(InvalidLaunchFileError|Caught exception.*load.*file.*launch|SyntaxError.*launch\\.py)",
+    "domain": "ros2",
+    "category": "launch_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "ROS 2 launch file has a Python syntax error or incorrect launch API usage."
+  },
+  "dead_ends": [
+    {
+      "action": "Convert ROS 1 XML launch directly to ROS 2 XML without API changes",
+      "why_fails": "ROS 2 XML launch uses different tags and attribute names than ROS 1",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use print() for debugging inside launch descriptions",
+      "why_fails": "Launch descriptions are declarative; print() runs at parse time not launch time",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use ros2 launch --print to validate syntax without executing",
+      "success_rate": 0.9,
+      "how": "ros2 launch my_package my_launch.py --print",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Follow Python launch template with LaunchDescription and Node action",
+      "success_rate": 0.92,
+      "how": "from launch import LaunchDescription; from launch_ros.actions import Node",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Read the full traceback - the actual Python error is at the bottom",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

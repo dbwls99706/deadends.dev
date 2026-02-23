@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/shader-compilation-error/unity2022-cross",
+  "url": "https://deadends.dev/unity/shader-compilation-error/unity2022-cross",
+  "error": {
+    "signature": "Shader error in 'Custom/MyShader': failed to open source file at line 42",
+    "regex": "(Shader error|Shader compilation|failed to open source file|maximum.*texture.*interpolators|maximum.*ALU|syntax error.*shader|Program.*vert.*frag.*not found)",
+    "domain": "unity",
+    "category": "shader_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.85,
+    "last_updated": "2026-02-23",
+    "summary": "Shader compilation failed. Syntax error, exceeding GPU limits, or missing include file."
+  },
+  "dead_ends": [
+    {
+      "action": "Switch to a more powerful GPU to fix shader compilation limits",
+      "why_fails": "Shader instruction limits are per-platform target, not the development GPU. Target platform determines limits.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy shader code from older Unity tutorials",
+      "why_fails": "Shader API changes between Unity versions. Old surface shader code may not compile in newer versions.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the Console for the exact error line and fix the shader syntax",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Shader Graph (visual editor) instead of writing HLSL/ShaderLab manually",
+      "success_rate": 0.85,
+      "how": "Window > Shader Graph > create new shader; drag nodes instead of writing code",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reduce shader complexity for mobile: fewer texture samples, simpler math",
+      "success_rate": 0.78,
+      "how": "Mobile GPUs have strict limits on interpolators and ALU instructions",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

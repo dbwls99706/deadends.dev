@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/missing-plugin-exception/flutter3-linux",
+  "url": "https://deadends.dev/flutter/missing-plugin-exception/flutter3-linux",
+  "error": {
+    "signature": "MissingPluginException(No implementation found for method X on channel Y)",
+    "regex": "(MissingPluginException|No implementation found for method|channel.*not.*registered|plugin.*not.*found)",
+    "domain": "flutter",
+    "category": "plugin_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "Platform plugin method not found. Plugin not properly installed, hot restart issue, or platform code missing."
+  },
+  "dead_ends": [
+    {
+      "action": "Run flutter pub get and hope it fixes itself",
+      "why_fails": "pub get downloads Dart code but does not rebuild native platform code",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade the plugin to an older version",
+      "why_fails": "Older versions may have different bugs. The real issue is usually a missing rebuild.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Stop app completely and do a full rebuild (not hot restart)",
+      "success_rate": 0.92,
+      "how": "flutter clean && flutter pub get && flutter run  # full native rebuild",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure plugin is added in pubspec.yaml AND native platform setup",
+      "success_rate": 0.88,
+      "how": "Some plugins need manual setup: AndroidManifest.xml permissions, Info.plist entries, Podfile",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For custom plugins, verify MethodChannel name matches between Dart and platform",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

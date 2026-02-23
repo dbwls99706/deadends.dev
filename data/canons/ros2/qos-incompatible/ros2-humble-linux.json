@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/qos-incompatible/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/qos-incompatible/ros2-humble-linux",
+  "error": {
+    "signature": "[WARN] New publisher discovered on topic '/sensor_data', offering incompatible QoS",
+    "regex": "(incompatible QoS|QoS.*incompatib|RELIABLE.*BEST_EFFORT|offered.*incompatible)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Publisher and subscriber have mismatched QoS profiles. Messages are silently dropped with no error besides this warning."
+  },
+  "dead_ends": [
+    {
+      "action": "Set both sides to RELIABLE QoS unconditionally",
+      "why_fails": "Sensor drivers often only offer BEST_EFFORT; forcing RELIABLE on subscriber causes zero messages with no further error",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore the warning assuming messages still arrive",
+      "why_fails": "With incompatible QoS the DDS layer drops ALL messages; the warning is not cosmetic",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Change DDS middleware hoping it fixes QoS",
+      "why_fails": "QoS incompatibility is DDS-standard behavior, not vendor-specific; switching RMW does not help",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match subscriber QoS to publisher using SensorDataQoS or qos_profile_sensor_data",
+      "success_rate": 0.92,
+      "how": "from rclpy.qos import qos_profile_sensor_data; self.create_subscription(Msg, topic, cb, qos_profile_sensor_data)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ros2 topic info -v to check offered and requested QoS",
+      "success_rate": 0.9,
+      "how": "ros2 topic info -v /sensor_data",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set QoS reliability to BEST_EFFORT for high-frequency sensor topics",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

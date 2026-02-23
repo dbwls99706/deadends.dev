@@ -77,6 +77,7 @@ MATCH_API={{ base_url }}/api/v1/match.json
 
   <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
 
+  <main>
   <h1>{{ domain | display_name }} errors</h1>
   <p class="meta">{{ total }} error entr{{ 'ies' if total != 1 else 'y' }} · Average fix rate: {{ avg_fix_rate }}% · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds</p>
 
@@ -93,6 +94,8 @@ MATCH_API={{ base_url }}/api/v1/match.json
     <span class="meta">{{ e.env_count }} env{{ 's' if e.env_count != 1 else '' }} · Best fix rate: {{ (e.fix_success_rate * 100)|int }}% · {{ e.dead_end_count }} dead ends · {{ e.workaround_count }} workarounds</span>
   </div>
   {% endfor %}
+
+  </main>
 
   <footer class="meta">
     <p><a href="{{ base_path }}/">deadends.dev</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>

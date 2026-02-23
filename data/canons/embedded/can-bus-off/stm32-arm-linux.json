@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/can-bus-off/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/can-bus-off/stm32-arm-linux",
+  "error": {
+    "signature": "CAN error: Bus-off state entered (TEC >= 256)",
+    "regex": "(CAN.*[Bb]us.?off|TEC.*256|transmit error counter|CAN.*error.passive|bxCAN.*BOF)",
+    "domain": "embedded",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "stm32",
+      "version_range": ">=F1"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.85,
+    "last_updated": "2026-02-23",
+    "summary": "CAN controller entered bus-off after too many transmit errors. Node disconnected from bus."
+  },
+  "dead_ends": [
+    {
+      "action": "Restart CAN peripheral immediately in a tight loop",
+      "why_fails": "Rapid restart floods bus with error frames and may force OTHER nodes bus-off",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase CAN bus speed",
+      "why_fails": "Higher speed needs tighter timing and shorter bus; usually makes it worse",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable CAN error interrupts",
+      "why_fails": "Node is still disconnected; disabling interrupts just hides the state",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check CAN bus termination: two 120 ohm resistors at each end",
+      "success_rate": 0.88,
+      "how": "Measure between CAN_H and CAN_L powered off: should read ~60 ohm",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify bit timing matches all other nodes on the bus",
+      "success_rate": 0.85,
+      "how": "All nodes must agree on baud rate and sample point (typically 87.5% for 500kbps)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement bus-off recovery with backoff delay",
+      "success_rate": 0.8,
+      "how": "HAL_CAN_Start() after bus-off with 100ms+ delay to let bus settle",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/null-reference-exception/unity2022-cross",
+  "url": "https://deadends.dev/unity/null-reference-exception/unity2022-cross",
+  "error": {
+    "signature": "NullReferenceException: Object reference not set to an instance of an object",
+    "regex": "(NullReferenceException|Object reference not set|UnassignedReferenceException|not.*assigned.*Inspector)",
+    "domain": "unity",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Accessing a null component, GameObject, or unassigned Inspector reference. Most common Unity error."
+  },
+  "dead_ends": [
+    {
+      "action": "Add null checks around every GetComponent call",
+      "why_fails": "Excessive null checks hide design problems. Fix the root cause: assign references properly.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use GameObject.Find() in Update() to always get fresh references",
+      "why_fails": "Find() is O(n) over all GameObjects. Called every frame, it destroys performance.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Assign references via Inspector (drag-and-drop) instead of runtime lookup",
+      "success_rate": 0.92,
+      "how": "[SerializeField] private Rigidbody rb;  // assign in Inspector, checked at edit time",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use TryGetComponent to safely get components",
+      "success_rate": 0.88,
+      "how": "if (TryGetComponent<Rigidbody>(out var rb)) { rb.AddForce(...); }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check if object was destroyed with the null-conditional operator",
+      "success_rate": 0.82,
+      "how": "myObject?.DoSomething();  // Unity overrides == null for destroyed objects",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

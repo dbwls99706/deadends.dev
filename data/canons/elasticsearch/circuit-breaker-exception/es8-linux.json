@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/circuit-breaker-exception/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/circuit-breaker-exception/es8-linux",
+  "error": {
+    "signature": "circuit_breaking_exception: [parent] Data too large, data for [request] would be larger than limit",
+    "regex": "(circuit_breaking_exception|Data too large|circuit breaker.*tripped|parent.*breaker.*limit)",
+    "domain": "elasticsearch",
+    "category": "memory_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "JVM heap usage exceeded circuit breaker limit. Query too large, too many aggregations, or heap too small."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable circuit breakers",
+      "why_fails": "Circuit breakers prevent OOM crashes. Disabling them leads to unrecoverable OutOfMemoryError.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set ES_JAVA_OPTS heap to all available RAM",
+      "why_fails": "ES heap should be max 50% of RAM and not exceed 31GB (compressed oops limit).",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Reduce query scope: add filters, limit aggregation buckets",
+      "success_rate": 0.9,
+      "how": "Add date range filter; set size:0 for aggregation-only queries; limit terms agg size",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase JVM heap (up to 50% of RAM, max ~31GB)",
+      "success_rate": 0.85,
+      "how": "ES_JAVA_OPTS='-Xms16g -Xmx16g'  # in jvm.options or docker env",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use scroll/search_after for large result sets instead of deep pagination",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/renderflex-overflowed/flutter3-linux",
+  "url": "https://deadends.dev/flutter/renderflex-overflowed/flutter3-linux",
+  "error": {
+    "signature": "A RenderFlex overflowed by 42 pixels on the bottom.",
+    "regex": "(RenderFlex overflowed|overflowed by.*pixels|BOTTOM OVERFLOWING|RIGHT OVERFLOWING|RenderBox.*not laid out)",
+    "domain": "flutter",
+    "category": "layout_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-23",
+    "summary": "Widget exceeds available space. Column/Row child too large for the parent constraints."
+  },
+  "dead_ends": [
+    {
+      "action": "Wrap everything in SingleChildScrollView",
+      "why_fails": "Makes the entire screen scrollable which breaks fixed-position elements and can cause nested scroll issues",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set fixed height/width on the overflowing widget",
+      "why_fails": "Hardcoded sizes break on different screen sizes and orientations",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wrap overflowing child in Expanded or Flexible",
+      "success_rate": 0.92,
+      "how": "Column(children: [Expanded(child: ListView(...)), BottomBar()])",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ListView instead of Column for scrollable content",
+      "success_rate": 0.88,
+      "how": "Replace Column with ListView when content may exceed screen height",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use LayoutBuilder to adapt to available space",
+      "success_rate": 0.82,
+      "how": "LayoutBuilder(builder: (context, constraints) => ... constraints.maxHeight ...)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

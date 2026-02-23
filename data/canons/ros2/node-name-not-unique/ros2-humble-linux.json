@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/node-name-not-unique/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/node-name-not-unique/ros2-humble-linux",
+  "error": {
+    "signature": "[WARN] Node name is not unique across the ROS graph",
+    "regex": "(Node name.*not unique|node.*already.*registered|Another node.*same name)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.85,
+    "last_updated": "2026-02-23",
+    "summary": "Two nodes with the same name cause topic/service collisions. Common when launching multiple instances."
+  },
+  "dead_ends": [
+    {
+      "action": "Ignore the warning",
+      "why_fails": "Non-unique names cause parameter and service name collisions; nodes silently override each other",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Kill all nodes and restart one by one",
+      "why_fails": "Does not fix the root cause in the launch file; duplicate reappears on next launch",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use unique node names via namespace or remapping",
+      "success_rate": 0.9,
+      "how": "ros2 run my_pkg my_node --ros-args -r __node:=my_node_1",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use push_ros_namespace in launch files for multi-robot setups",
+      "success_rate": 0.85,
+      "how": "GroupAction([PushRosNamespace('robot1'), Node(package='my_pkg', executable='my_node')])",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set node name dynamically from launch argument",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

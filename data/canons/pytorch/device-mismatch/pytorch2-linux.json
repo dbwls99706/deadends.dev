@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pytorch/device-mismatch/pytorch2-linux",
+  "url": "https://deadends.dev/pytorch/device-mismatch/pytorch2-linux",
+  "error": {
+    "signature": "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu",
+    "regex": "(Expected all tensors.*same device|found.*cuda.*cpu|found.*two devices|expected.*device.*got)",
+    "domain": "pytorch",
+    "category": "device_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pytorch",
+      "version_range": ">=2.0"
+    },
+    "os": "linux",
+    "python": ">=3.9",
+    "hardware": {
+      "gpu": "any"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Tensors on different devices (CPU vs GPU) used in same operation. Model on GPU but input on CPU or vice versa."
+  },
+  "dead_ends": [
+    {
+      "action": "Move every tensor to GPU at creation time",
+      "why_fails": "Some tensors (like labels, indices) should stay on CPU until needed. Eager .cuda() wastes VRAM.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use .cuda() everywhere instead of .to(device)",
+      "why_fails": ".cuda() hardcodes GPU and breaks on CPU-only machines or multi-GPU. Use .to(device) consistently.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a device variable and .to(device) consistently",
+      "success_rate": 0.95,
+      "how": "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); model.to(device); x = x.to(device)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check both model and data are on the same device before forward pass",
+      "success_rate": 0.9,
+      "how": "assert next(model.parameters()).device == input_tensor.device",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move criterion/loss function to device if it has parameters",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

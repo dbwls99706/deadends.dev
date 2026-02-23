@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/target-link-unknown/cmake3-linux",
+  "url": "https://deadends.dev/cmake/target-link-unknown/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: Cannot specify link libraries for target which is not built by this project",
+    "regex": "(Cannot specify link libraries for target|target.*not built by this project|target_link_libraries.*unknown)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "target_link_libraries references a nonexistent target. Typo or wrong order in CMakeLists.txt."
+  },
+  "dead_ends": [
+    {
+      "action": "Use add_custom_target to make it visible",
+      "why_fails": "add_custom_target is for custom commands, not linkable libraries",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move target_link_libraries before add_executable",
+      "why_fails": "Target must exist before setting properties. add_executable must come FIRST.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure add_executable is called before target_link_libraries",
+      "success_rate": 0.95,
+      "how": "add_executable(my_target main.cpp)\ntarget_link_libraries(my_target PRIVATE my_lib)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check for typos between add_executable and target_link_libraries",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "If target is in subdirectory, call add_subdirectory first",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

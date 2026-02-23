@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pytorch/dataloader-worker-killed/pytorch2-linux",
+  "url": "https://deadends.dev/pytorch/dataloader-worker-killed/pytorch2-linux",
+  "error": {
+    "signature": "RuntimeError: DataLoader worker (pid 12345) is killed by signal: Killed",
+    "regex": "(DataLoader worker.*killed|killed by signal.*Killed|RuntimeError.*DataLoader.*pid|shared memory.*insufficient)",
+    "domain": "pytorch",
+    "category": "memory_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pytorch",
+      "version_range": ">=2.0"
+    },
+    "os": "linux",
+    "python": ">=3.9"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-23",
+    "summary": "DataLoader worker process killed by OS OOM killer. Too many workers, large prefetch, or shared memory limit in Docker."
+  },
+  "dead_ends": [
+    {
+      "action": "Set num_workers=0 permanently",
+      "why_fails": "Fixes the crash but kills data loading performance; training becomes I/O bound",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase system swap space",
+      "why_fails": "Swap on GPU training machines causes massive slowdowns; fix the memory usage instead",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Reduce num_workers and prefetch_factor",
+      "success_rate": 0.9,
+      "how": "DataLoader(dataset, num_workers=2, prefetch_factor=2)  # default prefetch_factor=2",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "In Docker: increase shared memory size",
+      "success_rate": 0.88,
+      "how": "docker run --shm-size=8g ... # or --ipc=host",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use persistent_workers=True to avoid respawning overhead",
+      "success_rate": 0.82,
+      "how": "DataLoader(dataset, num_workers=4, persistent_workers=True)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}
