@@ -1,58 +1,175 @@
 {
-  "schema_version": "1.0",
-  "name": "deadends-dev",
-  "title": "deadends.dev",
-  "description": "Structured failure knowledge for AI agents — dead ends, workarounds, error chains. 1028 error entries across 20 domains.",
-  "version": "1.5.0",
+  "serverInfo": {
+    "name": "deadends-dev",
+    "version": "1.5.0"
+  },
   "homepage": "https://deadends.dev",
   "repository": "https://github.com/dbwls99706/deadends.dev",
   "license": "MIT",
-  "transport": {
-    "type": "http",
-    "url": "https://deadends-dev.vercel.app/api/mcp"
-  },
-  "capabilities": {
-    "tools": true,
-    "resources": true,
-    "prompts": true
-  },
+  "description": "Structured failure knowledge for AI agents — dead ends, workarounds, error chains. 1028 error entries across 20 domains.",
   "tools": [
     {
       "name": "lookup_error",
-      "description": "Match an error message against 1028 known patterns. Returns dead ends, workarounds, and error chains."
+      "description": "Match an error message against deadends.dev's database of known errors. Returns dead ends (what NOT to try), workarounds (what works), and error chains (what comes next).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "error_message": {
+            "type": "string",
+            "description": "The full error message to look up"
+          }
+        },
+        "required": ["error_message"]
+      }
     },
     {
       "name": "get_error_detail",
-      "description": "Get full details for a specific error by ID (e.g., python/modulenotfounderror/py311-linux)."
+      "description": "Get full details for a specific error by its ID (e.g., 'python/modulenotfounderror/py311-linux').",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "error_id": {
+            "type": "string",
+            "description": "The error ID (domain/slug/env)"
+          }
+        },
+        "required": ["error_id"]
+      }
     },
     {
       "name": "list_error_domains",
-      "description": "List all 20 error domains and their counts."
+      "description": "List all error domains and counts in the deadends.dev database.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_by": {
+            "type": "string",
+            "description": "Sort domains by: 'count' (default, most errors first) or 'name' (alphabetical)"
+          }
+        }
+      }
     },
     {
       "name": "search_errors",
-      "description": "Fuzzy keyword search across all domains."
+      "description": "Search errors by keyword across all domains. Uses fuzzy keyword search.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search keywords (e.g., 'memory limit', 'timeout', 'permission denied')"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Optional: filter to a specific domain (e.g., 'python', 'docker')"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max results to return (default: 10)"
+          }
+        },
+        "required": ["query"]
+      }
     },
     {
       "name": "list_errors_by_domain",
-      "description": "List all errors in a specific domain, sorted by fix rate, name, or confidence."
+      "description": "List all errors in a specific domain with their fix rates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "The domain to list errors for (e.g., 'python', 'kubernetes')"
+          },
+          "sort_by": {
+            "type": "string",
+            "description": "Sort by: 'fix_rate' (default), 'name', or 'confidence'"
+          }
+        },
+        "required": ["domain"]
+      }
     },
     {
       "name": "batch_lookup",
-      "description": "Look up multiple error messages at once (max 10)."
+      "description": "Look up multiple error messages at once. Returns the best match for each error.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "error_messages": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of error messages to look up (max 10)",
+            "maxItems": 10
+          }
+        },
+        "required": ["error_messages"]
+      }
     },
     {
       "name": "get_domain_stats",
-      "description": "Get quality metrics for a domain: avg fix rate, resolvability, confidence breakdown."
+      "description": "Get detailed statistics for a domain: error counts, average fix rate, resolvability breakdown.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "The domain to get stats for"
+          }
+        },
+        "required": ["domain"]
+      }
     },
     {
       "name": "get_error_chain",
-      "description": "Traverse the error transition graph: what errors follow, precede, or get confused with this one."
+      "description": "Traverse the error transition graph for a specific error. Shows leads_to, preceded_by, and frequently_confused_with.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "error_id": {
+            "type": "string",
+            "description": "The error ID (domain/slug/env) to get the transition graph for"
+          }
+        },
+        "required": ["error_id"]
+      }
     }
   ],
-  "domains": [
-    "python", "node", "docker", "kubernetes", "git", "go", "java",
-    "database", "aws", "typescript", "rust", "php", "cuda", "terraform",
-    "cicd", "react", "nextjs", "networking", "pip", "dotnet"
+  "resources": [
+    {
+      "uri": "deadends://domains",
+      "name": "Error Domains",
+      "description": "All 20 error domains with error counts and coverage statistics",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "deadends://index",
+      "name": "Error Index",
+      "description": "Complete index of all error patterns with IDs, signatures, domains, and fix rates",
+      "mimeType": "application/json"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "debug_error",
+      "description": "Get a structured debugging plan for an error, including dead ends to avoid and proven workarounds.",
+      "arguments": [
+        {
+          "name": "error_message",
+          "description": "The full error message to debug",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "domain_overview",
+      "description": "Get an overview of error patterns, fix rates, and common pitfalls for a specific technology domain.",
+      "arguments": [
+        {
+          "name": "domain",
+          "description": "Technology domain (e.g., python, docker, kubernetes)",
+          "required": true
+        }
+      ]
+    }
   ]
 }

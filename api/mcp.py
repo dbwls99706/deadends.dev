@@ -1198,6 +1198,7 @@ class handler(BaseHTTPRequestHandler):
             "notifications/initialized",
             "tools/list",
             "resources/list",
+            "prompts/list",
         }
         canons = [] if method in _LIGHT_METHODS else _load_canons()
         result = handle_mcp(
@@ -1208,7 +1209,8 @@ class handler(BaseHTTPRequestHandler):
         )
 
         if result is None:
-            self.send_response(204)
+            # MCP Streamable HTTP spec: notifications get 202 Accepted
+            self.send_response(202)
             self.end_headers()
             return
 
