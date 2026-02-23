@@ -485,6 +485,12 @@ def handle_mcp(method, params, canons, config=None):
                 "name": "deadends-dev",
                 "version": "1.5.0",
             },
+            "instructions": (
+                "Use lookup_error BEFORE attempting to fix any error to "
+                "avoid wasting time on known dead ends. Use search_errors "
+                "for vague descriptions, get_error_detail for full info by "
+                "ID, and get_error_chain to predict cascading failures."
+            ),
         }
     elif method == "ping":
         return {}
