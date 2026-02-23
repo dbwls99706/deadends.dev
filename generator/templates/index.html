@@ -129,6 +129,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <p>Stop trying what doesn't work.</p>
   </header>
 
+  <main>
   <div class="hero">
     <p>Every developer has wasted hours on a fix that was never going to work. Stack Overflow answers that are outdated, environment-specific, or just plain wrong for your setup.</p>
     <p><strong>deadends.dev</strong> tells you what <em>NOT</em> to try, what actually works (and under which conditions), and what error comes next if you take a particular path.</p>
@@ -141,8 +142,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <ul class="domain-list">
       {% for domain in domain_stats %}
       <li>
-        <a href="{{ base_path }}/{{ domain.slug }}/">{{ domain.slug | display_name }}</a>
-        <span class="count">— {{ domain.count }} error{{ 's' if domain.count != 1 else '' }}</span>
+        <a href="{{ base_path }}/{{ domain.slug }}/">{{ domain.slug | display_name }} <span class="count">— {{ domain.count }} error{{ 's' if domain.count != 1 else '' }}</span></a>
       </li>
       {% endfor %}
     </ul>
@@ -177,6 +177,8 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
       {% endfor %}
     </ul>
   </section>
+
+  </main>
 
   <footer class="meta">
     <p>deadends.dev · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
