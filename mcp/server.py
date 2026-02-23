@@ -611,7 +611,13 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         f"or lookup_error to search by error message."
                     )
             else:
-                text = json.dumps(canon, indent=2, ensure_ascii=False)
+                # Inject page_url (canonical summary URL) alongside the raw
+                # env-specific url field so consumers have the indexed page link
+                enriched = dict(canon)
+                enriched["page_url"] = (
+                    canon["url"].rstrip("/").rsplit("/", 1)[0] + "/"
+                )
+                text = json.dumps(enriched, indent=2, ensure_ascii=False)
             return {
                 "content": [{"type": "text", "text": text}],
             }

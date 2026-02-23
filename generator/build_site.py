@@ -1385,6 +1385,10 @@ def build_openapi_spec(canons: list[dict]) -> None:
                                                 f"{BASE_URL}/api/v1/python/"
                                                 "modulenotfounderror/py311-linux.json"
                                             ),
+                                            "page_url": (
+                                                f"{BASE_URL}/python/"
+                                                "modulenotfounderror/"
+                                            ),
                                         }],
                                     },
                                 }
@@ -1595,6 +1599,11 @@ def build_openapi_spec(canons: list[dict]) -> None:
                         },
                         "fix_success_rate": {"type": "number"},
                         "api_url": {"type": "string", "format": "uri"},
+                        "page_url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "Canonical HTML summary page URL",
+                        },
                     },
                 },
                 "ErrorCanon": {
