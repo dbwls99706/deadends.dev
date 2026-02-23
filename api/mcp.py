@@ -828,7 +828,9 @@ def handle_mcp(method, params, canons, config=None):
                         if w in wa["action"].lower():
                             score += 3
                 if score > 0:
-                    if config["preferred_domains"] and c.get("error", {}).get("domain") in config["preferred_domains"]:
+                    if config["preferred_domains"] and (
+                        c.get("error", {}).get("domain") in config["preferred_domains"]
+                    ):
                         score += 20
                     scored.append((score, c))
             scored.sort(key=lambda x: x[0], reverse=True)
@@ -1185,11 +1187,21 @@ class handler(BaseHTTPRequestHandler):
             )
             return
 
-        canons = _load_canons()
+        method = request.get("method", "")
         parsed_url = urlparse(self.path)
         config = _parse_config(parsed_url.query)
+        # Skip loading 1000+ canon files for lightweight handshake methods
+        # to avoid cold-start timeouts on Vercel (10 s limit).
+        _LIGHT_METHODS = {
+            "initialize",
+            "ping",
+            "notifications/initialized",
+            "tools/list",
+            "resources/list",
+        }
+        canons = [] if method in _LIGHT_METHODS else _load_canons()
         result = handle_mcp(
-            request.get("method", ""),
+            method,
             request.get("params", {}),
             canons,
             config,
@@ -1231,6 +1243,23 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        parsed_path = urlparse(self.path).path
+        if parsed_path == "/.well-known/mcp/server-card.json":
+            card_path = (
+                Path(__file__).parent.parent / ".well-known" / "mcp" / "server-card.json"
+            )
+            if card_path.exists():
+                body_out = card_path.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(body_out)
+            else:
+                self.send_response(404)
+                self.end_headers()
+            return
+
         canons = _load_canons()
         info = {
             "name": "deadends-dev",
