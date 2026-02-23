@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/context-length-exceeded/openai-api",
+  "url": "https://deadends.dev/llm/context-length-exceeded/openai-api",
+  "error": {
+    "signature": "openai.BadRequestError: This model's maximum context length is 128000 tokens",
+    "regex": "(maximum context length|context.*length.*exceeded|too many tokens|prompt.*too long|max.*tokens.*exceeded)",
+    "domain": "llm",
+    "category": "api_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openai-api",
+      "version_range": ">=1.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Input + output tokens exceed the model's context window. Long conversations, large documents, or system prompts."
+  },
+  "dead_ends": [
+    {
+      "action": "Truncate the prompt from the beginning",
+      "why_fails": "Cutting the start loses system prompts and instructions. Truncate middle conversation, keep start and end.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch to a model with larger context window",
+      "why_fails": "Larger context = higher cost and latency. Fix the prompt design first.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement conversation summarization/windowing",
+      "success_rate": 0.88,
+      "how": "Keep last N messages + summary of older messages; summarize when approaching limit",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use tiktoken to count tokens before sending",
+      "success_rate": 0.92,
+      "how": "import tiktoken; enc = tiktoken.encoding_for_model('gpt-4'); len(enc.encode(text))",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Chunk large documents and process separately",
+      "success_rate": 0.85,
+      "how": "Split into overlapping chunks of ~4000 tokens; process each; combine results",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

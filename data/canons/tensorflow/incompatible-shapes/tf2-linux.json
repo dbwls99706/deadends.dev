@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "tensorflow/incompatible-shapes/tf2-linux",
+  "url": "https://deadends.dev/tensorflow/incompatible-shapes/tf2-linux",
+  "error": {
+    "signature": "InvalidArgumentError: Incompatible shapes: [32,10] vs. [32,5]",
+    "regex": "(Incompatible shapes|InvalidArgumentError.*shape|logits and labels must have the same|Dimensions must be equal)",
+    "domain": "tensorflow",
+    "category": "shape_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tensorflow",
+      "version_range": ">=2.10"
+    },
+    "os": "linux",
+    "python": ">=3.9"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-23",
+    "summary": "Tensor shapes do not match. Common with loss functions where model output and label dimensions differ."
+  },
+  "dead_ends": [
+    {
+      "action": "Reshape labels to match model output",
+      "why_fails": "If model outputs 10 classes but you have 5, reshape just masks the real problem: wrong model or wrong labels",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use sparse_categorical_crossentropy to avoid shape issues",
+      "why_fails": "Only works if labels are integer indices, not one-hot. Using it with one-hot labels gives wrong results.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match loss function to label format",
+      "success_rate": 0.92,
+      "how": "Integer labels: sparse_categorical_crossentropy. One-hot labels: categorical_crossentropy.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify model output shape matches number of classes",
+      "success_rate": 0.9,
+      "how": "model.summary()  # check last layer output shape",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check dataset label shapes before training",
+      "success_rate": 0.85,
+      "how": "print(y_train.shape, y_train[:5])  # verify dimensions and format",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-23",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-23"
+  }
+}

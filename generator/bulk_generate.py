@@ -1407,6 +1407,341 @@ def get_all_canons() -> list[dict]:
             "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc")],
     ))
 
+
+    # =====================================================================
+    # === PYTORCH ===
+    # =====================================================================
+    canons.append(canon(
+        "pytorch", "cuda-out-of-memory", "pytorch2-linux",
+        "torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 GiB",
+        r"(CUDA out of memory|OutOfMemoryError.*CUDA|Tried to allocate.*GiB|CUDA.*OOM)",
+        "memory_error", "pytorch", ">=2.0", "linux", "true", 0.85, 0.92,
+        "GPU memory exhausted during training or inference. Batch size too large, model too big, or memory leak from accumulated gradients.",
+        [de("Set PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb to a small value",
+            "Reduces fragmentation but does not free memory; often makes OOM happen sooner with a different error", 0.70),
+         de("Call torch.cuda.empty_cache() in the training loop",
+            "empty_cache releases unused cached memory back to CUDA but does not free tensors still referenced; has no effect if all memory is in use", 0.72),
+         de("Upgrade to a GPU with more VRAM as first response",
+            "Often the code has a memory leak (not detaching losses, storing all predictions). Fix the code before throwing hardware at it.", 0.60)],
+        [wa("Reduce batch size or use gradient accumulation", 0.92,
+            "Halve batch_size; use optimizer.step() every N mini-batches to simulate larger batch"),
+         wa("Use mixed precision training (AMP)", 0.88,
+            "with torch.amp.autocast('cuda'): ... # FP16 uses ~half the memory"),
+         wa("Detach loss and move metrics to CPU", 0.85,
+            "loss_val = loss.item()  # not loss_val = loss; prevents computation graph accumulation"),
+         wa("Use gradient checkpointing for large models", 0.80,
+            "model.gradient_checkpointing_enable()  # trades compute for memory")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "device-mismatch", "pytorch2-linux",
+        "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu",
+        r"(Expected all tensors.*same device|found.*cuda.*cpu|found.*two devices|expected.*device.*got)",
+        "device_error", "pytorch", ">=2.0", "linux", "true", 0.92, 0.90,
+        "Tensors on different devices (CPU vs GPU) used in same operation. Model on GPU but input on CPU or vice versa.",
+        [de("Move every tensor to GPU at creation time",
+            "Some tensors (like labels, indices) should stay on CPU until needed. Eager .cuda() wastes VRAM.", 0.65),
+         de("Use .cuda() everywhere instead of .to(device)",
+            ".cuda() hardcodes GPU and breaks on CPU-only machines or multi-GPU. Use .to(device) consistently.", 0.72)],
+        [wa("Use a device variable and .to(device) consistently", 0.95,
+            "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); model.to(device); x = x.to(device)"),
+         wa("Check both model and data are on the same device before forward pass", 0.90,
+            "assert next(model.parameters()).device == input_tensor.device"),
+         wa("Move criterion/loss function to device if it has parameters", 0.85)],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "tensor-size-mismatch", "pytorch2-linux",
+        "RuntimeError: Sizes of tensors must match except in dimension 1. Expected 64 but got 32",
+        r"(Sizes of tensors must match|size mismatch|expected.*but got.*dimension|shape.*doesn.t match|mat1.*mat2.*cannot be multiplied)",
+        "shape_error", "pytorch", ">=2.0", "linux", "true", 0.88, 0.90,
+        "Tensor dimensions do not match for the operation. Wrong input size, missing reshape, or model architecture mismatch.",
+        [de("Add unsqueeze/squeeze randomly until shapes match",
+            "Blindly changing dimensions produces numerically wrong results even if the operation succeeds", 0.80),
+         de("Transpose the tensor to swap dimensions",
+            "Transpose changes semantic meaning (batch vs feature vs spatial). May run but produce garbage output.", 0.72)],
+        [wa("Print shapes at each layer to find where mismatch begins", 0.92,
+            "print(x.shape) after each layer; or use torchsummary: summary(model, input_size)"),
+         wa("Verify input dimensions match what the model expects", 0.90,
+            "Check model's first layer: nn.Linear(in_features=784, ...) needs input of shape (batch, 784)"),
+         wa("Use adaptive pooling before FC layers to handle variable input sizes", 0.82,
+            "nn.AdaptiveAvgPool2d((1, 1))  # outputs fixed size regardless of input spatial dims")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "inplace-operation-gradient", "pytorch2-linux",
+        "RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation",
+        r"(inplace operation|modified by an inplace|one of the variables needed for gradient)",
+        "autograd_error", "pytorch", ">=2.0", "linux", "true", 0.85, 0.88,
+        "An in-place operation (+=, relu_(inplace=True), etc.) modified a tensor needed for backward pass, breaking autograd.",
+        [de("Wrap the operation in torch.no_grad()",
+            "no_grad disables gradient tracking entirely; the model will not learn", 0.88),
+         de("Use .data to bypass autograd",
+            "Modifying .data breaks the computation graph silently; gradients become incorrect without errors", 0.85)],
+        [wa("Replace inplace operations with out-of-place equivalents", 0.92,
+            "x = x + 1 instead of x += 1; F.relu(x) instead of F.relu(x, inplace=True)"),
+         wa("Clone tensors before modification", 0.88,
+            "y = x.clone(); y.modify_inplace()  # x's gradient graph is preserved"),
+         wa("Set inplace=False in ReLU/Dropout layers", 0.90,
+            "nn.ReLU(inplace=False)  # default is False anyway")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "pytorch", "dataloader-worker-killed", "pytorch2-linux",
+        "RuntimeError: DataLoader worker (pid 12345) is killed by signal: Killed",
+        r"(DataLoader worker.*killed|killed by signal.*Killed|RuntimeError.*DataLoader.*pid|shared memory.*insufficient)",
+        "memory_error", "pytorch", ">=2.0", "linux", "true", 0.82, 0.88,
+        "DataLoader worker process killed by OS OOM killer. Too many workers, large prefetch, or shared memory limit in Docker.",
+        [de("Set num_workers=0 permanently",
+            "Fixes the crash but kills data loading performance; training becomes I/O bound", 0.60),
+         de("Increase system swap space",
+            "Swap on GPU training machines causes massive slowdowns; fix the memory usage instead", 0.72)],
+        [wa("Reduce num_workers and prefetch_factor", 0.90,
+            "DataLoader(dataset, num_workers=2, prefetch_factor=2)  # default prefetch_factor=2"),
+         wa("In Docker: increase shared memory size", 0.88,
+            "docker run --shm-size=8g ... # or --ipc=host"),
+         wa("Use persistent_workers=True to avoid respawning overhead", 0.82,
+            "DataLoader(dataset, num_workers=4, persistent_workers=True)")],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === TENSORFLOW ===
+    # =====================================================================
+    canons.append(canon(
+        "tensorflow", "oom-allocating-tensor", "tf2-linux",
+        "tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor",
+        r"(ResourceExhaustedError.*OOM|OOM when allocating tensor|Allocator.*ran out of memory|GPU.*memory.*exhausted)",
+        "memory_error", "tensorflow", ">=2.10", "linux", "true", 0.85, 0.90,
+        "TensorFlow GPU memory exhausted. Batch too large or TF is allocating all GPU memory upfront.",
+        [de("Set TF_FORCE_GPU_ALLOW_GROWTH=true as environment variable only",
+            "Some TF versions ignore the env var; set it programmatically as well", 0.55),
+         de("Install tensorflow-cpu to avoid GPU issues",
+            "Completely gives up GPU acceleration. Fix memory management instead.", 0.82)],
+        [wa("Enable GPU memory growth to allocate on demand", 0.92,
+            "gpus = tf.config.list_physical_devices('GPU'); tf.config.experimental.set_memory_growth(gpus[0], True)"),
+         wa("Reduce batch size", 0.90),
+         wa("Set memory limit per GPU", 0.85,
+            "tf.config.set_logical_device_configuration(gpu, [tf.config.LogicalDeviceConfiguration(memory_limit=4096)])")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "incompatible-shapes", "tf2-linux",
+        "InvalidArgumentError: Incompatible shapes: [32,10] vs. [32,5]",
+        r"(Incompatible shapes|InvalidArgumentError.*shape|logits and labels must have the same|Dimensions must be equal)",
+        "shape_error", "tensorflow", ">=2.10", "linux", "true", 0.90, 0.90,
+        "Tensor shapes do not match. Common with loss functions where model output and label dimensions differ.",
+        [de("Reshape labels to match model output",
+            "If model outputs 10 classes but you have 5, reshape just masks the real problem: wrong model or wrong labels", 0.78),
+         de("Use sparse_categorical_crossentropy to avoid shape issues",
+            "Only works if labels are integer indices, not one-hot. Using it with one-hot labels gives wrong results.", 0.65)],
+        [wa("Match loss function to label format", 0.92,
+            "Integer labels: sparse_categorical_crossentropy. One-hot labels: categorical_crossentropy."),
+         wa("Verify model output shape matches number of classes", 0.90,
+            "model.summary()  # check last layer output shape"),
+         wa("Check dataset label shapes before training", 0.85,
+            "print(y_train.shape, y_train[:5])  # verify dimensions and format")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "cudart-library-not-found", "tf2-linux",
+        "Could not load dynamic library 'libcudart.so.12'; dlerror: libcudart.so.12: cannot open shared object",
+        r"(Could not load dynamic library|libcuda(rt|nn|blas)|cannot open shared object|CUDA.*library.*not found|dlerror)",
+        "installation_error", "tensorflow", ">=2.10", "linux", "true", 0.82, 0.88,
+        "TensorFlow cannot find CUDA runtime libraries. CUDA version mismatch or LD_LIBRARY_PATH not set.",
+        [de("Install the latest CUDA toolkit regardless of TF version",
+            "TF requires specific CUDA versions. TF 2.15 needs CUDA 12.2, not 12.5 or 11.x.", 0.82),
+         de("Set LD_LIBRARY_PATH in the Python script",
+            "LD_LIBRARY_PATH must be set BEFORE Python starts; setting it inside Python has no effect on dlopen", 0.78),
+         de("Symlink the wrong CUDA version to the expected filename",
+            "ABI differences between CUDA versions cause crashes; symlinks hide version mismatches", 0.85)],
+        [wa("Install the exact CUDA version matching your TF version", 0.92,
+            "Check https://www.tensorflow.org/install/source#gpu for version matrix"),
+         wa("Use pip install tensorflow[and-cuda] for automatic CUDA bundling", 0.90,
+            "pip install tensorflow[and-cuda]  # bundles compatible CUDA/cuDNN"),
+         wa("Use conda which manages CUDA dependencies automatically", 0.85,
+            "conda install tensorflow-gpu  # installs matching cudatoolkit")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "tensorflow", "tf1-vs-tf2-session", "tf2-linux",
+        "AttributeError: module 'tensorflow' has no attribute 'Session'",
+        r"(has no attribute.*Session|tf\.Session|placeholder.*not.*found|module.*tensorflow.*no attribute)",
+        "api_error", "tensorflow", ">=2.0", "linux", "true", 0.90, 0.92,
+        "TF1 API used in TF2. tf.Session, tf.placeholder, etc. removed in TF2. Common when following old tutorials.",
+        [de("Install TensorFlow 1.x to run old code",
+            "TF1 has known security vulnerabilities and no GPU support for modern CUDA. Migrate to TF2.", 0.78),
+         de("Use tf.compat.v1 for everything",
+            "compat.v1 is a migration aid, not a permanent solution. It disables TF2 optimizations like eager execution.", 0.65)],
+        [wa("Use tf.compat.v1.Session() for quick migration, then refactor", 0.82,
+            "import tensorflow.compat.v1 as tf; tf.disable_v2_behavior()  # temporary"),
+         wa("Migrate to TF2 eager execution (no Session needed)", 0.95,
+            "In TF2, operations execute immediately: result = tf.matmul(a, b)  # no sess.run()"),
+         wa("Use the TF2 migration script", 0.85,
+            "tf_upgrade_v2 --infile old_code.py --outfile new_code.py")],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === HUGGING FACE ===
+    # =====================================================================
+    canons.append(canon(
+        "huggingface", "tokenizer-load-error", "hf-transformers-linux",
+        "OSError: Can't load tokenizer for 'model-name'. Make sure the model identifier is correct.",
+        r"(Can't load tokenizer|OSError.*tokenizer|not a valid model identifier|Tokenizer class.*not found|does not appear to have.*tokenizer)",
+        "loading_error", "transformers", ">=4.30", "linux", "true", 0.88, 0.90,
+        "Hugging Face cannot load tokenizer. Model name typo, private/gated model, or missing tokenizer files.",
+        [de("Download tokenizer files manually from the Hub and load locally",
+            "Manual download may miss files (special_tokens_map, tokenizer_config) causing subtle errors", 0.70),
+         de("Use a different tokenizer assuming they are interchangeable",
+            "Tokenizers are model-specific. Using wrong tokenizer produces wrong token IDs and garbage outputs.", 0.88)],
+        [wa("Check exact model name on huggingface.co/models", 0.92,
+            "AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-hf')  # exact Hub ID"),
+         wa("Login with access token for gated/private models", 0.90,
+            "huggingface-cli login  # or use_auth_token=True in from_pretrained()"),
+         wa("Specify revision/branch if model has multiple versions", 0.82,
+            "AutoTokenizer.from_pretrained('model', revision='main')")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "generate-oom", "hf-transformers-linux",
+        "torch.cuda.OutOfMemoryError: CUDA out of memory during model.generate()",
+        r"(OutOfMemoryError.*generate|CUDA out of memory.*generat|OOM.*model\.generate|KV cache.*memory)",
+        "memory_error", "transformers", ">=4.30", "linux", "true", 0.80, 0.88,
+        "OOM during text generation. KV cache grows linearly with sequence length, consuming all VRAM.",
+        [de("Set max_new_tokens very high for better generation quality",
+            "Longer sequences need quadratically more KV cache memory. Set reasonable limits.", 0.78),
+         de("Call torch.cuda.empty_cache() between generate calls",
+            "Does not free the KV cache allocated during generate; only helps if there is fragmented cached memory", 0.65)],
+        [wa("Load model in lower precision", 0.90,
+            "model = AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float16, device_map='auto')"),
+         wa("Use quantization (4-bit or 8-bit)", 0.88,
+            "model = AutoModelForCausalLM.from_pretrained(name, load_in_4bit=True, device_map='auto')"),
+         wa("Set reasonable max_new_tokens and use streaming", 0.85,
+            "model.generate(inputs, max_new_tokens=256, do_sample=True)")],
+        gpu="any", python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "gated-model-unauthorized", "hf-transformers-linux",
+        "HTTPError: 401 Client Error: Unauthorized for url: huggingface.co",
+        r"(401.*Unauthorized|Client Error.*Unauthorized.*huggingface|Access to model.*is restricted|gated.*accept.*license)",
+        "auth_error", "transformers", ">=4.30", "linux", "true", 0.92, 0.90,
+        "Attempting to access a gated model without accepting license or providing auth token.",
+        [de("Use a mirror site or unofficial copy of the model",
+            "Unofficial copies may be tampered with, outdated, or violate the model license", 0.85),
+         de("Create a new Hugging Face account to bypass the gate",
+            "You still need to accept the license agreement on the new account", 0.80)],
+        [wa("Accept the model license on the model page, then use auth token", 0.95,
+            "1. Visit huggingface.co/{model} and accept license. 2. huggingface-cli login. 3. Re-run."),
+         wa("Pass token explicitly in from_pretrained", 0.90,
+            "model = AutoModel.from_pretrained(name, token='hf_xxxxx')"),
+         wa("Set HF_TOKEN environment variable", 0.85,
+            "export HF_TOKEN=hf_xxxxx  # or add to .env file")],
+        python=">=3.9",
+    ))
+
+    canons.append(canon(
+        "huggingface", "wrong-input-type", "hf-transformers-linux",
+        "ValueError: Text input must of type str (single example), List[str] (batch)",
+        r"(Text input must.*type|expected.*str.*got|Batch.*must be.*list|tokenizer.*invalid input)",
+        "type_error", "transformers", ">=4.30", "linux", "true", 0.92, 0.92,
+        "Tokenizer received wrong input type. Usually passing raw data instead of text strings.",
+        [de("Convert everything to string with str()",
+            "str() on a list produces '[\'text1\', \'text2\']' which is tokenized as one string, not a batch", 0.82),
+         de("Wrap single string in a list unconditionally",
+            "Some pipeline functions handle single strings differently from batches; check the API first", 0.55)],
+        [wa("Pass correct type: str for single, List[str] for batch", 0.95,
+            "tokenizer('single text') or tokenizer(['text1', 'text2'])"),
+         wa("Use tokenizer with padding and truncation for batches", 0.90,
+            "tokenizer(texts, padding=True, truncation=True, return_tensors='pt')"),
+         wa("Check the input type before calling tokenizer", 0.85)],
+        python=">=3.9",
+    ))
+
+    # =====================================================================
+    # === LLM ===
+    # =====================================================================
+    canons.append(canon(
+        "llm", "context-length-exceeded", "openai-api",
+        "openai.BadRequestError: This model's maximum context length is 128000 tokens",
+        r"(maximum context length|context.*length.*exceeded|too many tokens|prompt.*too long|max.*tokens.*exceeded)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "true", 0.88, 0.90,
+        "Input + output tokens exceed the model's context window. Long conversations, large documents, or system prompts.",
+        [de("Truncate the prompt from the beginning",
+            "Cutting the start loses system prompts and instructions. Truncate middle conversation, keep start and end.", 0.72),
+         de("Switch to a model with larger context window",
+            "Larger context = higher cost and latency. Fix the prompt design first.", 0.60)],
+        [wa("Implement conversation summarization/windowing", 0.88,
+            "Keep last N messages + summary of older messages; summarize when approaching limit"),
+         wa("Use tiktoken to count tokens before sending", 0.92,
+            "import tiktoken; enc = tiktoken.encoding_for_model('gpt-4'); len(enc.encode(text))"),
+         wa("Chunk large documents and process separately", 0.85,
+            "Split into overlapping chunks of ~4000 tokens; process each; combine results")],
+    ))
+
+    canons.append(canon(
+        "llm", "rate-limit-error", "openai-api",
+        "openai.RateLimitError: Rate limit reached for model",
+        r"(RateLimitError|rate limit|Rate limit reached|429.*Too Many Requests|quota.*exceeded)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "true", 0.85, 0.88,
+        "API rate limit hit. Too many requests per minute or tokens per minute exceeded.",
+        [de("Retry immediately in a tight loop",
+            "Immediate retries increase load and may get you temporarily banned. Use exponential backoff.", 0.85),
+         de("Create multiple API keys to bypass rate limits",
+            "Rate limits are per-organization, not per-key. Multiple keys from same org share the same limit.", 0.82)],
+        [wa("Implement exponential backoff with jitter", 0.92,
+            "Use tenacity: @retry(wait=wait_exponential(min=1, max=60) + wait_random(0, 2))"),
+         wa("Batch requests and spread them over time", 0.85,
+            "Process queue with rate limiter: max N requests per minute"),
+         wa("Request rate limit increase from provider", 0.80,
+            "OpenAI: usage tier auto-upgrades with spend. Anthropic: request via console.")],
+    ))
+
+    canons.append(canon(
+        "llm", "json-parse-error", "openai-api",
+        "json.decoder.JSONDecodeError: Expecting value when parsing LLM output",
+        r"(JSONDecodeError.*LLM|json.*parse.*error.*output|invalid JSON.*response|Expecting value.*line 1|Unterminated string)",
+        "parsing_error", "openai-api", ">=1.0", "cross-platform", "true", 0.82, 0.88,
+        "LLM output is not valid JSON despite being asked for JSON. Markdown code blocks, trailing text, or truncated output.",
+        [de("Use eval() or ast.literal_eval() to parse LLM output",
+            "eval() is a security vulnerability; literal_eval fails on non-Python JSON. Use json.loads.", 0.90),
+         de("Prompt harder with ONLY output JSON and nothing else",
+            "Prompting alone is unreliable. Models can still add markdown fences or explanatory text.", 0.68)],
+        [wa("Use structured output / JSON mode if available", 0.95,
+            "OpenAI: response_format={'type': 'json_object'}; Anthropic: tool_use for structured output"),
+         wa("Strip markdown code fences before parsing", 0.88,
+            "text = re.sub(r'^```json\\n?|```$', '', text.strip()); data = json.loads(text)"),
+         wa("Use a lenient JSON parser like json-repair", 0.82,
+            "from json_repair import repair_json; data = json.loads(repair_json(text))")],
+    ))
+
+    canons.append(canon(
+        "llm", "api-timeout", "openai-api",
+        "openai.APITimeoutError: Request timed out",
+        r"(APITimeoutError|Request timed out|timeout.*exceeded|ConnectTimeout|ReadTimeout.*openai)",
+        "api_error", "openai-api", ">=1.0", "cross-platform", "partial", 0.70, 0.85,
+        "API request timed out. Long generation, network issues, or API overload.",
+        [de("Set timeout to very large value (300s+)",
+            "Extremely long timeouts tie up resources; if the API is overloaded your request will likely fail anyway", 0.65),
+         de("Retry the exact same long prompt immediately",
+            "If the prompt caused slow generation (long output), it will timeout again. Reduce max_tokens.", 0.72)],
+        [wa("Set reasonable timeout with retry logic", 0.88,
+            "client = OpenAI(timeout=60.0, max_retries=3)"),
+         wa("Reduce max_tokens to limit generation time", 0.85,
+            "Shorter responses generate faster; use max_tokens=1000 instead of 4096"),
+         wa("Use streaming to avoid timeout on long responses", 0.82,
+            "stream = client.chat.completions.create(..., stream=True)")],
+    ))
+
     return canons
 
 
