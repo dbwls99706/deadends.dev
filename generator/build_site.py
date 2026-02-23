@@ -1112,7 +1112,7 @@ def build_search_page(
             "fix_success_rate": canon["verdict"]["fix_success_rate"],
             "dead_end_count": len(canon["dead_ends"]),
             "workaround_count": len(canon.get("workarounds", [])),
-            "page_url": f"{BASE_PATH}/{canon['id']}/",
+            "page_url": f"{BASE_PATH}/{'/'.join(canon['id'].split('/')[:2])}/",
         })
 
     # Group by domain for the "all errors" section
