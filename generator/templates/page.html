@@ -34,11 +34,12 @@
   {% endif %}
 
   <!-- Open Graph -->
-  {% set canonical_url = url if url.endswith('/') else url ~ '/' %}
+  {% set id_parts = id.split('/') %}
+  {% set summary_url = base_url ~ '/' ~ id_parts[0] ~ '/' ~ id_parts[1] ~ '/' %}
   <meta property="og:title" content="{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid">
-  <meta property="og:description" content="Don't waste time on dead-end fixes. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% fix rate. {{ env_summary }}.">
+  <meta property="og:description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% fix rate.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:url" content="{{ summary_url }}">
   <meta property="og:site_name" content="deadends.dev">
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -52,8 +53,6 @@
   <meta name="twitter:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
-  {% set id_parts = id.split('/') %}
-  {% set summary_url = base_url ~ '/' ~ id_parts[0] ~ '/' ~ id_parts[1] ~ '/' %}
   <link rel="canonical" href="{{ summary_url }}">
 
   <!-- BreadcrumbList for Google rich results -->
