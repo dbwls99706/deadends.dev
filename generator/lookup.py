@@ -89,55 +89,60 @@ def lookup_all(error_message: str) -> list[dict]:
     for canon in canons:
         try:
             pattern = re.compile(canon["error"]["regex"], re.IGNORECASE)
-        except re.error:
+        except re.error as e:
+            print(f"[lookup] skipping canon with invalid regex: {e}", file=sys.stderr)
             continue
 
-        score = 0
+        try:
+            score = 0
 
-        # Regex match (highest priority)
-        if pattern.search(error_message):
-            score += 100
+            # Regex match (highest priority)
+            if pattern.search(error_message):
+                score += 100
 
-        # Signature substring match
-        sig = canon["error"]["signature"].lower()
-        msg = error_message.lower()
-        if sig in msg or msg in sig:
-            score += 50
+            # Signature substring match
+            sig = canon["error"]["signature"].lower()
+            msg = error_message.lower()
+            if sig in msg or msg in sig:
+                score += 50
 
-        # Word overlap (excluding stopwords)
-        sig_words = set(re.split(r"\W+", sig))
-        msg_words = set(re.split(r"\W+", msg))
-        overlap = (sig_words & msg_words) - _STOPWORDS
-        score += len(overlap) * 5
+            # Word overlap (excluding stopwords)
+            sig_words = set(re.split(r"\W+", sig))
+            msg_words = set(re.split(r"\W+", msg))
+            overlap = (sig_words & msg_words) - _STOPWORDS
+            score += len(overlap) * 5
 
-        if score > 0:
-            matches.append({
-                "score": score,
-                "id": canon["id"],
-                "signature": canon["error"]["signature"],
-                "domain": canon["error"]["domain"],
-                "resolvable": canon["verdict"]["resolvable"],
-                "fix_success_rate": canon["verdict"]["fix_success_rate"],
-                "summary": canon["verdict"]["summary"],
-                "dead_ends": [
-                    {
-                        "action": d["action"],
-                        "why_fails": d["why_fails"],
-                        "fail_rate": d["fail_rate"],
-                    }
-                    for d in canon["dead_ends"]
-                ],
-                "workarounds": [
-                    {
-                        "action": w["action"],
-                        "success_rate": w["success_rate"],
-                        "how": w.get("how", ""),
-                    }
-                    for w in canon.get("workarounds", [])
-                ],
-                "freshness": _compute_freshness(canon),
-                "url": canon["url"],
-            })
+            if score > 0:
+                matches.append({
+                    "score": score,
+                    "id": canon["id"],
+                    "signature": canon["error"]["signature"],
+                    "domain": canon["error"]["domain"],
+                    "resolvable": canon["verdict"]["resolvable"],
+                    "fix_success_rate": canon["verdict"]["fix_success_rate"],
+                    "summary": canon["verdict"]["summary"],
+                    "dead_ends": [
+                        {
+                            "action": d["action"],
+                            "why_fails": d["why_fails"],
+                            "fail_rate": d["fail_rate"],
+                        }
+                        for d in canon["dead_ends"]
+                    ],
+                    "workarounds": [
+                        {
+                            "action": w["action"],
+                            "success_rate": w["success_rate"],
+                            "how": w.get("how", ""),
+                        }
+                        for w in canon.get("workarounds", [])
+                    ],
+                    "freshness": _compute_freshness(canon),
+                    "url": canon["url"],
+                })
+        except (KeyError, TypeError) as e:
+            print(f"[lookup] skipping malformed canon {canon.get('id', '?')}: {e}", file=sys.stderr)
+            continue
 
     # Sort by: score DESC, then fix_success_rate DESC
     matches.sort(
