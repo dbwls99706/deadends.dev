@@ -1906,6 +1906,78 @@ def build_well_known(canons: list[dict]) -> None:
     )
     print("  Generated: .well-known/mcp.json")
 
+    # Smithery server-card.json — enables automatic scanning without live connection
+    mcp_subdir = well_known_dir / "mcp"
+    mcp_subdir.mkdir(parents=True, exist_ok=True)
+    server_card = {
+        "schema_version": "1.0",
+        "name": "deadends-dev",
+        "title": "deadends.dev",
+        "description": (
+            f"Structured failure knowledge for AI agents — dead ends, "
+            f"workarounds, error chains. {len(canons)} error entries across "
+            f"{len(domains)} domains."
+        ),
+        "version": "1.5.0",
+        "homepage": BASE_URL,
+        "repository": "https://github.com/dbwls99706/deadends.dev",
+        "license": "MIT",
+        "transport": {
+            "type": "http",
+            "url": "https://deadends-dev.vercel.app/api/mcp",
+        },
+        "capabilities": {
+            "tools": True,
+            "resources": True,
+            "prompts": True,
+        },
+        "tools": [
+            {
+                "name": "lookup_error",
+                "description": (
+                    f"Match an error message against {len(canons)} known "
+                    "patterns. Returns dead ends, workarounds, and error chains."
+                ),
+            },
+            {
+                "name": "get_error_detail",
+                "description": (
+                    "Get full details for a specific error by ID "
+                    "(e.g., python/modulenotfounderror/py311-linux)."
+                ),
+            },
+            {
+                "name": "list_error_domains",
+                "description": f"List all {len(domains)} error domains and their counts.",
+            },
+            {
+                "name": "search_errors",
+                "description": "Fuzzy keyword search across all domains.",
+            },
+            {
+                "name": "list_errors_by_domain",
+                "description": "List all errors in a specific domain, sorted by fix rate, name, or confidence.",
+            },
+            {
+                "name": "batch_lookup",
+                "description": "Look up multiple error messages at once (max 10).",
+            },
+            {
+                "name": "get_domain_stats",
+                "description": "Get quality metrics for a domain: avg fix rate, resolvability, confidence breakdown.",
+            },
+            {
+                "name": "get_error_chain",
+                "description": "Traverse the error transition graph: what errors follow, precede, or get confused with this one.",
+            },
+        ],
+        "domains": domains,
+    }
+    (mcp_subdir / "server-card.json").write_text(
+        json.dumps(server_card, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("  Generated: .well-known/mcp/server-card.json")
+
     # Copy MCP Registry domain verification file if it exists
     mcp_auth_src = PROJECT_ROOT / ".well-known" / "mcp-registry-auth"
     if mcp_auth_src.exists():
