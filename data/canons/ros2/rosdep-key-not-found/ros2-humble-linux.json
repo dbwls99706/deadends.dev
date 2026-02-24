@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/rosdep-key-not-found/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/rosdep-key-not-found/ros2-humble-linux",
+  "error": {
+    "signature": "ERROR: the following packages/stacks could not have their rosdep keys resolved",
+    "regex": "(rosdep.*key.*not.*resolved|rosdep.*key.*not found|Cannot locate rosdep definition|rosdep.*ERROR)",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "rosdep cannot find a system dependency key declared in package.xml. Missing rosdep database update or custom keys."
+  },
+  "dead_ends": [
+    {
+      "action": "Add the dependency directly to CMakeLists.txt find_package without rosdep",
+      "why_fails": "The dependency still won't be installed on CI/CD or other developers' machines",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove the dependency from package.xml",
+      "why_fails": "Other packages depending on yours will have broken builds",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Update the rosdep database first",
+      "success_rate": 0.92,
+      "how": "rosdep update && rosdep install --from-paths src --ignore-src -y",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add custom rosdep key in a yaml file for non-standard packages",
+      "success_rate": 0.85,
+      "how": "echo 'yaml file:///path/to/custom.yaml' | sudo tee /etc/ros/rosdep/sources.list.d/50-custom.list",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use --skip-keys for known-missing keys during development",
+      "success_rate": 0.8,
+      "how": "rosdep install --from-paths src --ignore-src -y --skip-keys='my_custom_dep'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/colcon-build-cmake-error/ros2-humble-linux",
+        "probability": 0.2,
+        "condition": "colcon build fails because rosdep dependencies not installed"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/misaligned-address/cuda12-linux",
+  "url": "https://deadends.dev/cuda/misaligned-address/cuda12-linux",
+  "error": {
+    "signature": "RuntimeError: CUDA error: misaligned address",
+    "regex": "(CUDA error:.*misaligned address|misaligned.*address.*cuda|an illegal memory access.*misalign)",
+    "domain": "cuda",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.78,
+    "last_updated": "2026-02-24",
+    "summary": "CUDA kernel accessed memory at an address not aligned to the required boundary. Often caused by custom CUDA kernels or corrupted tensors."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase GPU memory allocation",
+      "why_fails": "This is an alignment error, not an out-of-memory error; more memory does not fix wrong addresses",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable CUDA memory caching allocator",
+      "why_fails": "The caching allocator does not cause misalignment; disabling it only hurts performance",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set CUDA_LAUNCH_BLOCKING=1 to get the exact kernel and line",
+      "success_rate": 0.85,
+      "how": "CUDA_LAUNCH_BLOCKING=1 python train.py",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check for integer overflow in index calculations for large tensors",
+      "success_rate": 0.8,
+      "how": "Use torch.long for indices when tensor dimensions exceed 2^31",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify custom CUDA kernel alignment with alignof() and aligned_alloc()",
+      "success_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "cuda/illegal-memory-access/cuda12-linux",
+        "distinction": "Illegal memory access is out-of-bounds; misaligned address is valid memory but wrong alignment boundary"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

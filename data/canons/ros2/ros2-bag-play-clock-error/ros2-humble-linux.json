@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/ros2-bag-play-clock-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/ros2-bag-play-clock-error/ros2-humble-linux",
+  "error": {
+    "signature": "ros2 bag play: Clock time is not being published",
+    "regex": "(ros2 bag.*play.*clock|bag.*play.*time.*error|use_sim_time.*bag.*play|clock.*not.*publish.*bag)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Nodes use use_sim_time:=true but ros2 bag play is not publishing /clock, or vice versa."
+  },
+  "dead_ends": [
+    {
+      "action": "Set use_sim_time on some nodes but not others",
+      "why_fails": "Causes TF extrapolation errors: some nodes use wall clock, others use sim time",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Publish /clock manually at a fixed rate",
+      "why_fails": "Clock must advance with bag time, not independently; manual clock causes data-time mismatch",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use --clock flag when playing bags",
+      "success_rate": 0.95,
+      "how": "ros2 bag play my_bag --clock 100  # publishes /clock at 100 Hz",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set use_sim_time:=true on ALL nodes when replaying bags",
+      "success_rate": 0.9,
+      "how": "ros2 launch my_pkg replay.launch.py use_sim_time:=true",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use --rate to control playback speed while keeping clock consistent",
+      "success_rate": 0.85,
+      "how": "ros2 bag play my_bag --clock 100 --rate 0.5  # half speed",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

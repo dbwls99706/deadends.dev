@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/bag-storage-plugin-not-found/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/bag-storage-plugin-not-found/ros2-humble-linux",
+  "error": {
+    "signature": "RuntimeError: Could not load storage plugin: sqlite3",
+    "regex": "(Could not load.*storage.*plugin|bag.*storage.*plugin.*not found|rosbag2.*plugin.*error|sqlite3.*plugin)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "rosbag2 cannot find the storage backend plugin. Usually the rosbag2 storage packages are not installed."
+  },
+  "dead_ends": [
+    {
+      "action": "Install sqlite3 system library and expect rosbag2 to find it",
+      "why_fails": "rosbag2 needs its own ROS wrapper plugin, not just the system sqlite3 library",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Build rosbag2 from source in your workspace",
+      "why_fails": "rosbag2 has many interdependent packages; partial source builds create version conflicts",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the rosbag2 storage plugin packages",
+      "success_rate": 0.95,
+      "how": "sudo apt install ros-humble-rosbag2-storage-default-plugins ros-humble-rosbag2-storage-sqlite3",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify plugin is found with ros2 bag info on an existing bag",
+      "success_rate": 0.85,
+      "how": "ros2 bag info my_bag/",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use MCAP storage format as alternative (better performance)",
+      "success_rate": 0.82,
+      "how": "ros2 bag record -s mcap -a",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

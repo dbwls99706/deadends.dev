@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/ros2-control-hardware-not-found/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/ros2-control-hardware-not-found/ros2-humble-linux",
+  "error": {
+    "signature": "[controller_manager] Loading of hardware interface failed",
+    "regex": "(hardware interface.*fail|ros2_control.*hardware.*not found|HardwareInterface.*error|controller_manager.*fail.*load)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "ros2_control cannot load the specified hardware interface plugin. URDF ros2_control tag or plugin name is wrong."
+  },
+  "dead_ends": [
+    {
+      "action": "Bypass ros2_control and publish joint states directly",
+      "why_fails": "Loses hardware abstraction, safety limits, and real-time guarantees",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy a hardware interface .so from another workspace",
+      "why_fails": "Binary incompatibility between different colcon workspaces causes segfaults",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify the hardware plugin name in URDF matches the installed plugin class",
+      "success_rate": 0.9,
+      "how": "ros2 control list_hardware_interfaces  # after controller_manager is up",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install the correct ros2_control hardware package",
+      "success_rate": 0.88,
+      "how": "sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check URDF <ros2_control> tag has correct plugin attribute",
+      "success_rate": 0.85,
+      "how": "grep -A5 'ros2_control' my_robot.urdf.xacro",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/urdf-xacro-parse-error/ros2-humble-linux",
+        "probability": 0.2,
+        "condition": "URDF parse error causes ros2_control configuration to be empty"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

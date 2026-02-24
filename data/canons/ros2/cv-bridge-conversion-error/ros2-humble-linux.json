@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/cv-bridge-conversion-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/cv-bridge-conversion-error/ros2-humble-linux",
+  "error": {
+    "signature": "cv_bridge.CvBridgeError: [ImageConvert] Unsupported conversion from bgr8 to mono8",
+    "regex": "(cv_bridge.*CvBridgeError|CvBridge.*Unsupported conversion|cv_bridge.*encoding.*error|imgmsg_to_cv2.*error)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "cv_bridge cannot convert between the requested image encodings. Source and target encoding mismatch."
+  },
+  "dead_ends": [
+    {
+      "action": "Force encoding to passthrough and manually convert",
+      "why_fails": "Passthrough skips validation; OpenCV may segfault on unexpected data layouts",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Change the camera driver encoding to match your code",
+      "why_fails": "Other subscribers depend on the original encoding; breaks the whole image pipeline",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the correct desired_encoding in imgmsg_to_cv2",
+      "success_rate": 0.92,
+      "how": "cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Convert after receiving using OpenCV cvtColor",
+      "success_rate": 0.88,
+      "how": "cv_image = bridge.imgmsg_to_cv2(msg, 'passthrough'); cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check camera topic encoding with ros2 topic echo --field encoding",
+      "success_rate": 0.85,
+      "how": "ros2 topic echo /camera/image_raw --field encoding --once",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

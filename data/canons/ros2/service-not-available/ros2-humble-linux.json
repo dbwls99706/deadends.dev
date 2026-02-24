@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/service-not-available/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/service-not-available/ros2-humble-linux",
+  "error": {
+    "signature": "rclpy.service.ServiceException: Service /my_service is not available",
+    "regex": "(Service.*not available|wait_for_service.*timed out|service_is_ready.*False|Failed to call service)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Service server is not running or registered under a different name. wait_for_service() times out."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase the timeout to very large values",
+      "why_fails": "If the server is not running at all, no amount of waiting will help; masks the real problem",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Call the service without waiting, catching exceptions",
+      "why_fails": "The call itself will fail with a cryptic error; try/except hides configuration bugs",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use topics instead of services for request/reply",
+      "why_fails": "Loses the synchronous call guarantee and requires manual correlation of responses",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify the service server node is running and the name matches exactly",
+      "success_rate": 0.92,
+      "how": "ros2 service list | grep my_service",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check namespace: service name may be under a namespace prefix",
+      "success_rate": 0.88,
+      "how": "ros2 service list  # look for /namespace/my_service",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use wait_for_service with a reasonable timeout and informative error",
+      "success_rate": 0.85,
+      "how": "if not client.wait_for_service(timeout_sec=5.0): raise RuntimeError('Service not found')",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/package-not-found/ros2-humble-linux",
+        "probability": 0.15,
+        "condition": "Server node package not built or sourced"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

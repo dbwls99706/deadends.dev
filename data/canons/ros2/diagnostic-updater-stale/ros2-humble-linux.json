@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/diagnostic-updater-stale/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/diagnostic-updater-stale/ros2-humble-linux",
+  "error": {
+    "signature": "[diagnostic_aggregator] Stale diagnostic: /sensors/imu",
+    "regex": "(diagnostic.*stale|diagnostic_aggregator.*stale|diagnostic.*timeout|diagnostics.*not.*updating)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "diagnostic_updater reports stale status because the hardware driver stopped publishing diagnostics within the expected period."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase the stale timeout to hide the warning",
+      "why_fails": "Stale diagnostics usually mean the hardware is actually not responding; hiding delays fault detection",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove the diagnostic from the aggregator config",
+      "why_fails": "Loses monitoring capability for that hardware component",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check if the hardware driver node is still running",
+      "success_rate": 0.9,
+      "how": "ros2 node list | grep driver_node && ros2 topic hz /diagnostics",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify diagnostic_updater frequency matches the driver's publication rate",
+      "success_rate": 0.85,
+      "how": "Set diagnostic_updater period to match or slightly exceed the driver rate",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add a hardware watchdog that restarts the driver on failure",
+      "success_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

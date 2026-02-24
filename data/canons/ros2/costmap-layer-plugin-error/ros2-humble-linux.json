@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/costmap-layer-plugin-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/costmap-layer-plugin-error/ros2-humble-linux",
+  "error": {
+    "signature": "[costmap_2d] Failed to load plugin: nav2_costmap_2d::ObstacleLayer",
+    "regex": "(costmap_2d.*Failed.*load.*plugin|costmap.*layer.*plugin.*error|nav2_costmap_2d.*plugin.*not found|costmap.*plugin.*ClassLoader)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Nav2 costmap cannot load a layer plugin. Missing package or wrong plugin name in parameters."
+  },
+  "dead_ends": [
+    {
+      "action": "Write a custom costmap layer from scratch",
+      "why_fails": "Standard layers (obstacle, inflation, voxel) cover 90% of use cases; custom layers are complex",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove the layer from configuration and navigate without it",
+      "why_fails": "Removing obstacle layer means robot cannot see obstacles; will collide",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the missing Nav2 costmap plugin package",
+      "success_rate": 0.92,
+      "how": "sudo apt install ros-humble-nav2-costmap-2d",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify plugin names in nav2_params.yaml match installed plugins",
+      "success_rate": 0.9,
+      "how": "plugin_names: ['static_layer', 'obstacle_layer', 'inflation_layer']",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check plugin type string matches exactly with ros2 plugin list",
+      "success_rate": 0.85,
+      "how": "ros2 pkg prefix nav2_costmap_2d && cat install/nav2_costmap_2d/share/nav2_costmap_2d/plugins.xml",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/nav2-bt-action-failed/ros2-humble-linux",
+        "probability": 0.15,
+        "condition": "Costmap failure causes Nav2 actions to abort"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

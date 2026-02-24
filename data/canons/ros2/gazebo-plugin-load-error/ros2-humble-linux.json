@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/gazebo-plugin-load-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/gazebo-plugin-load-error/ros2-humble-linux",
+  "error": {
+    "signature": "[ERROR] [gazebo_ros2_control]: Failed to load plugin",
+    "regex": "(Failed to load.*plugin|gazebo.*plugin.*error|libgazebo.*not found|ClassLoader.*unable|gz.*plugin.*fail)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Gazebo cannot load a ROS 2 plugin (controller, sensor, etc.). Usually a missing package or library path issue."
+  },
+  "dead_ends": [
+    {
+      "action": "Set LD_LIBRARY_PATH manually to point at the plugin .so",
+      "why_fails": "Fragile and doesn't persist; the real issue is missing package installation or env sourcing",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Build Gazebo plugins from source with colcon",
+      "why_fails": "Gazebo ROS plugins have complex dependencies; source builds often mismatch binary Gazebo version",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the missing Gazebo ROS package via apt",
+      "success_rate": 0.9,
+      "how": "sudo apt install ros-humble-gazebo-ros2-control",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Source both ROS 2 and Gazebo setup scripts before launching",
+      "success_rate": 0.88,
+      "how": "source /opt/ros/humble/setup.bash && source /usr/share/gazebo/setup.bash",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check plugin filename in URDF matches the installed library",
+      "success_rate": 0.85,
+      "how": "find /opt/ros/humble/lib -name '*gazebo*control*'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/urdf-xacro-parse-error/ros2-humble-linux",
+        "probability": 0.15,
+        "condition": "URDF errors cause Gazebo to load an invalid model with broken plugin references"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

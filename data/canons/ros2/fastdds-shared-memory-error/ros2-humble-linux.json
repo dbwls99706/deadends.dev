@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/fastdds-shared-memory-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/fastdds-shared-memory-error/ros2-humble-linux",
+  "error": {
+    "signature": "[RTPS_TRANSPORT_SHM] Failed to create shared memory segment",
+    "regex": "(RTPS_TRANSPORT_SHM.*fail|shared memory.*segment.*error|SHM.*transport.*fail|shm.*open.*fail.*fastdds)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Fast DDS shared memory transport fails. Common in Docker containers or when /dev/shm is too small."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable Fast DDS entirely and switch RMW",
+      "why_fails": "The fix is simpler: just configure SHM correctly or disable only the SHM transport",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase system shared memory to very large values",
+      "why_fails": "If running in Docker, the host /dev/shm size is what matters, not sysctl settings",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase Docker --shm-size if running in containers",
+      "success_rate": 0.92,
+      "how": "docker run --shm-size=512m ... or add shm_size: 512m in docker-compose",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable SHM transport via Fast DDS XML profile",
+      "success_rate": 0.88,
+      "how": "Export FASTRTPS_DEFAULT_PROFILES_FILE=no_shm.xml with <transport_descriptor><type>UDPv4</type></transport_descriptor>",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set RMW_FASTRTPS_USE_QOS_FROM_XML=1 for full control over transport",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

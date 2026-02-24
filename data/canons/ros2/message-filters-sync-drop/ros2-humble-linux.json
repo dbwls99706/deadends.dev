@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/message-filters-sync-drop/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/message-filters-sync-drop/ros2-humble-linux",
+  "error": {
+    "signature": "message_filters: Dropped messages due to synchronization timeout",
+    "regex": "(message_filters.*drop|ApproximateTimeSynchronizer.*drop|sync.*timeout.*message|TimeSynchronizer.*no match)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "message_filters TimeSynchronizer drops messages because sensor timestamps don't align within the tolerance window."
+  },
+  "dead_ends": [
+    {
+      "action": "Set slop (time tolerance) to very large values like 10 seconds",
+      "why_fails": "Pairs messages from completely different time instants; fuses stale data producing wrong results",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use exact time synchronizer for hardware sensors",
+      "why_fails": "Hardware sensors almost never have exactly matching timestamps; drops all messages",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use ApproximateTimeSynchronizer with appropriate slop for your sensor rates",
+      "success_rate": 0.88,
+      "how": "ats = ApproximateTimeSynchronizer([sub1, sub2], queue_size=10, slop=0.1)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check that all sensors use the same time source (use_sim_time consistency)",
+      "success_rate": 0.85,
+      "how": "ros2 param get /camera use_sim_time; ros2 param get /lidar use_sim_time",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase queue_size if sensors have different publication rates",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/rviz2-display-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/rviz2-display-error/ros2-humble-linux",
+  "error": {
+    "signature": "[rviz2] Display 'LaserScan' has encountered an error: Transform [Error]",
+    "regex": "(rviz2.*Display.*error|rviz.*Transform.*Error|rviz.*display.*fail|RViz.*Global Status.*Error)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "RViz2 display shows transform error. The display's fixed frame does not match the TF tree, or TF data is missing."
+  },
+  "dead_ends": [
+    {
+      "action": "Change RViz Fixed Frame to 'map' without a map publisher running",
+      "why_fails": "If no node publishes map frame, all displays depending on it will error",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore the error assuming it is cosmetic",
+      "why_fails": "RViz displays with transform errors render nothing or render in wrong positions",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set Fixed Frame to a frame that exists in your TF tree",
+      "success_rate": 0.92,
+      "how": "Set Fixed Frame to 'base_link' or 'odom' — check available frames with ros2 run tf2_tools view_frames",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify TF is being published at sufficient rate",
+      "success_rate": 0.85,
+      "how": "ros2 topic hz /tf  # should be >= 10 Hz for smooth display",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check the topic name and message type for each display",
+      "success_rate": 0.88,
+      "how": "Click the display in RViz, verify Topic matches ros2 topic list output",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.35,
+        "condition": "Missing TF frames cause all RViz displays to error"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

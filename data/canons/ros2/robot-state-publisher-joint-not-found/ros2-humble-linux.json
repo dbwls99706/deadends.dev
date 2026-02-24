@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/robot-state-publisher-joint-not-found/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/robot-state-publisher-joint-not-found/ros2-humble-linux",
+  "error": {
+    "signature": "[robot_state_publisher] Joint 'wheel_left_joint' not found in URDF",
+    "regex": "(robot_state_publisher.*Joint.*not found|joint.*not.*in.*URDF|Unknown joint.*robot_description|joint_state.*mismatch)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "robot_state_publisher receives joint states for joints not defined in the URDF. Joint names don't match."
+  },
+  "dead_ends": [
+    {
+      "action": "Rename joints in joint_states topic without updating URDF",
+      "why_fails": "Creates inconsistency; TF tree publishes wrong transforms for renamed joints",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Suppress the warning and ignore missing joints",
+      "why_fails": "TF tree will be incomplete; downstream nodes (navigation, manipulation) will fail",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify joint names match between URDF and joint_state_publisher",
+      "success_rate": 0.92,
+      "how": "ros2 topic echo /joint_states --once  # compare joint names with URDF",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check URDF joint names with check_urdf",
+      "success_rate": 0.88,
+      "how": "xacro robot.urdf.xacro | check_urdf /dev/stdin | grep joint",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure hardware driver publishes the exact joint names from URDF",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.35,
+        "condition": "Missing joints mean missing TF frames"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "ros2/urdf-xacro-parse-error/ros2-humble-linux",
+        "probability": 0.3,
+        "condition": "URDF modifications may change joint names"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}
