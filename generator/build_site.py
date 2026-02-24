@@ -5,6 +5,7 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -99,16 +100,41 @@ def build_env_summary(canon: dict) -> str:
     return " · ".join(parts)
 
 
+def _is_safe_url(url: str) -> bool:
+    """Validate that a URL uses http/https scheme (prevent javascript: injection)."""
+    try:
+        parsed = urlparse(url)
+        return parsed.scheme in ("http", "https")
+    except Exception:
+        return False
+
+
+def _sanitize_sources(sources: list[str]) -> list[str]:
+    """Filter source URLs to only allow safe http/https URLs."""
+    return [s for s in sources if s and _is_safe_url(s)]
+
+
+def _safe_json_ld(data: dict) -> str:
+    """Serialize data to JSON-LD string safe for embedding in <script> tags.
+
+    Escapes </ to prevent </script> breakout and escapes HTML entities
+    that could break out of the JSON-LD context.
+    """
+    result = json.dumps(data, indent=2, ensure_ascii=False)
+    result = result.replace("</", r"<\/")
+    return result
+
+
 def collect_sources(canon: dict) -> list[str]:
-    """Collect all unique source URLs from a canon."""
+    """Collect all unique, validated source URLs from a canon."""
     sources = set()
     for de in canon.get("dead_ends", []):
         for src in de.get("sources", []):
-            if src:
+            if src and _is_safe_url(src):
                 sources.add(src)
     for wa in canon.get("workarounds", []):
         for src in wa.get("sources", []):
-            if src:
+            if src and _is_safe_url(src):
                 sources.add(src)
     return sorted(sources)
 
@@ -137,6 +163,15 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         error_id = canon["id"]
         env_summary = build_env_summary(canon)
         all_sources = collect_sources(canon)
+
+        # Sanitize source URLs in dead_ends and workarounds to prevent
+        # javascript: or data: URI injection in href attributes
+        for de in canon.get("dead_ends", []):
+            if "sources" in de:
+                de["sources"] = _sanitize_sources(de["sources"])
+        for wa in canon.get("workarounds", []):
+            if "sources" in wa:
+                wa["sources"] = _sanitize_sources(wa["sources"])
 
         # Use canonical summary URL for JSON-LD — env-specific pages have noindex
         # and their <link rel="canonical"> also points to the summary page
@@ -169,8 +204,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             # Full ErrorCanon data embedded
             "deadend:errorCanon": canon,
         }
-        json_ld = json.dumps(json_ld_data, indent=2, ensure_ascii=False)
-        json_ld = json_ld.replace("</", r"<\/")
+        json_ld = _safe_json_ld(json_ld_data)
 
         # FAQPage schema — dead ends as FAQ questions for Google rich snippets
         faq_entities = []
@@ -189,9 +223,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "@type": "FAQPage",
             "mainEntity": faq_entities,
         }
-        faq_json_ld = json.dumps(
-            faq_json_ld_data, indent=2, ensure_ascii=False
-        ).replace("</", r"<\/")
+        faq_json_ld = _safe_json_ld(faq_json_ld_data)
 
         # HowTo schema — workarounds as step-by-step fix instructions
         howto_json_ld = ""
@@ -215,9 +247,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "description": canon["verdict"]["summary"],
                 "step": howto_steps,
             }
-            howto_json_ld = json.dumps(
-                howto_data, indent=2, ensure_ascii=False
-            ).replace("</", r"<\/")
+            howto_json_ld = _safe_json_ld(howto_data)
 
         # Same-domain errors for internal linking (exclude self)
         current_slug = error_id.rsplit("/", 1)[0]
@@ -771,6 +801,16 @@ def build_stylesheet() -> None:
         "#all-errors { margin-top: 2rem; }",
         ".error-entry { padding: 0.4rem 0;",
         "  border-bottom: 1px solid #161b22; }",
+        ".search-box { margin: 1.5rem 0; }",
+        "",
+        "/* Shared card section (TL;DR, domain stats) */",
+        ".card-section { background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 6px;",
+        "  padding: 1rem; margin: 1rem 0; }",
+        "",
+        "/* Hidden AI summary block */",
+        ".ai-summary { display: none; }",
         "",
     ])
     (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
@@ -1037,37 +1077,33 @@ def build_error_summary_pages(
             for c in slug_canons
             if c["error"].get("first_seen")
         ]
-        summary_json_ld = json.dumps(
-            {
-                "@context": "https://schema.org",
-                "@type": "TechArticle",
-                "name": signature,
-                "headline": f"Fix {signature}",
-                "description": (
-                    f"{len(environments)} environments, "
-                    f"{len(common_dead_ends)} dead ends, "
-                    f"{len(common_workarounds)} workarounds. "
-                    f"Fix rates: {min_rate}%–{max_rate}%."
-                ),
-                "url": f"{BASE_URL}/{domain}/{slug}/",
-                "datePublished": min(first_seen_dates)
-                if first_seen_dates
-                else "",
-                "dateModified": max(dates) if dates else "",
-                "image": f"{BASE_URL}/og-image.png",
-                "publisher": {
-                    "@type": "Organization",
-                    "name": "deadends.dev",
-                    "url": BASE_URL,
-                },
-                "about": {
-                    "@type": "SoftwareSourceCode",
-                    "programmingLanguage": domain,
-                },
+        summary_json_ld = _safe_json_ld({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "name": signature,
+            "headline": f"Fix {signature}",
+            "description": (
+                f"{len(environments)} environments, "
+                f"{len(common_dead_ends)} dead ends, "
+                f"{len(common_workarounds)} workarounds. "
+                f"Fix rates: {min_rate}%–{max_rate}%."
+            ),
+            "url": f"{BASE_URL}/{domain}/{slug}/",
+            "datePublished": min(first_seen_dates)
+            if first_seen_dates
+            else "",
+            "dateModified": max(dates) if dates else "",
+            "image": f"{BASE_URL}/og-image.png",
+            "publisher": {
+                "@type": "Organization",
+                "name": "deadends.dev",
+                "url": BASE_URL,
             },
-            indent=2,
-            ensure_ascii=False,
-        ).replace("</", r"<\/")
+            "about": {
+                "@type": "SoftwareSourceCode",
+                "programmingLanguage": domain,
+            },
+        })
 
         # Same-domain errors for cross-linking (exclude self)
         same_domain = [
@@ -1145,9 +1181,9 @@ def build_search_page(
         total_errors=len(canons),
         domain_count=len(by_domain),
         domain_errors=domain_errors,
-        search_data=json.dumps(search_data, ensure_ascii=False).replace(
-            "</", r"<\/"
-        ),
+        search_data=json.dumps(
+            search_data, ensure_ascii=False
+        ).replace("</", r"<\/"),
     )
 
     search_dir = SITE_DIR / "search"

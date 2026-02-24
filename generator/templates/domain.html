@@ -67,13 +67,11 @@
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
 <body class="pg-domain">
-  {% autoescape false %}
-  <pre id="ai-summary" style="display:none;">DOMAIN={{ domain }}
+  <pre id="ai-summary" class="ai-summary">DOMAIN={{ domain }}
 TOTAL_ERRORS={{ total }}
 MATCH_API={{ base_url }}/api/v1/match.json
 {% for e in entries %}ENTRY={{ e.slug_key }} | envs={{ e.env_count }} | best_rate={{ e.fix_success_rate }}
 {% endfor %}</pre>
-  {% endautoescape %}
 
   <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
 
@@ -81,7 +79,7 @@ MATCH_API={{ base_url }}/api/v1/match.json
   <h1>{{ domain | display_name }} errors</h1>
   <p class="meta">{{ total }} error entr{{ 'ies' if total != 1 else 'y' }} · Average fix rate: {{ avg_fix_rate }}% · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds</p>
 
-  <section id="domain-stats" style="background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem;margin:1rem 0;">
+  <section id="domain-stats" class="card-section">
     <strong>Overview:</strong>
     <span class="verdict-true">{{ resolvable_counts.true }} fixable</span> ·
     <span class="verdict-partial">{{ resolvable_counts.partial }} partial</span> ·

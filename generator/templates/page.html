@@ -80,8 +80,7 @@
 </head>
 <body class="pg-detail">
   <!-- AI-PARSEABLE STRUCTURED SUMMARY — Use /api/v1/{{ id }}.json for full data -->
-  {% autoescape false %}
-  <pre id="ai-summary" style="display:none;">ERROR_ID={{ id }}
+  <pre id="ai-summary" class="ai-summary">ERROR_ID={{ id }}
 SIGNATURE={{ error.signature }}
 REGEX={{ error.regex }}
 DOMAIN={{ error.domain }}
@@ -97,7 +96,6 @@ WORKAROUNDS={% for wa in workarounds|default([]) %}{{ wa.action }} (success_rate
 {% endif %}JSON_API={{ base_url }}/api/v1/{{ id }}.json
 MATCH_API={{ base_url }}/api/v1/match.json
 STATS_API={{ base_url }}/api/v1/stats.json</pre>
-  {% endautoescape %}
 
   <!-- HUMAN-READABLE SECTION -->
   <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ error.domain }}/">{{ error.domain | display_name }}</a></nav>
@@ -114,7 +112,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   </header>
 
   <!-- TL;DR — AI coding agents can read just this block for a quick decision -->
-  <section id="tldr" style="background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem;margin:1rem 0;">
+  <section id="tldr" class="card-section">
     <strong>TL;DR:</strong>
     {% if verdict.resolvable == "true" %}This error is <span class="verdict-true">fixable</span> ({{ (verdict.fix_success_rate * 100)|int }}% success rate).
     {% elif verdict.resolvable == "partial" %}This error is <span class="verdict-partial">partially fixable</span> ({{ (verdict.fix_success_rate * 100)|int }}% success rate).
