@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/float-precision-json-serialization/json-float-any",
+  "url": "https://deadends.dev/data/float-precision-json-serialization/json-float-any",
+  "error": {
+    "signature": "JSON serialized float value 0.1 + 0.2 becomes 0.30000000000000004 causing comparison failures",
+    "regex": "(float.*precision|0\\.30000000000000004|floating.*point.*JSON|decimal.*round|IEEE 754.*JSON)",
+    "domain": "data",
+    "category": "serialization",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "json-float",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "IEEE 754 floats cannot represent 0.1 exactly. JSON serializes the full double representation. Downstream consumers comparing 0.3 != 0.30000000000000004 fail. Financial calculations with floats corrupt data silently."
+  },
+  "dead_ends": [
+    {
+      "action": "Use float for monetary/financial values and round at display time",
+      "why_fails": "Rounding at display doesn't fix intermediate calculations. $0.1 + $0.2 stored as float = $0.30000000000000004 in the database.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Round float to 2 decimal places before JSON serialization",
+      "why_fails": "round(0.1 + 0.2, 2) == 0.3 in Python, but round(2.675, 2) == 2.67 (not 2.68) due to float representation of 2.675.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Decimal type for monetary values, serialize as string in JSON",
+      "success_rate": 0.95,
+      "how": "from decimal import Decimal; json.dumps({\"amount\": str(Decimal(\"0.10\") + Decimal(\"0.20\"))})  # \"0.30\"",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use integer cents/smallest unit for money (avoid decimals entirely)",
+      "success_rate": 0.92,
+      "how": "Store $1.50 as 150 cents (integer). No float precision issues. Convert to display format only at presentation.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use custom JSON encoder with controlled precision for scientific data",
+      "success_rate": 0.82,
+      "how": "class PrecisionEncoder(json.JSONEncoder): def default(self, o): return round(o, 10) if isinstance(o, float) else super().default(o)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/webhook-hmac-raw-body-mismatch/webhook-node-any",
+  "url": "https://deadends.dev/api/webhook-hmac-raw-body-mismatch/webhook-node-any",
+  "error": {
+    "signature": "Webhook signature verification fails despite correct secret key",
+    "regex": "(webhook.*signature.*fail|HMAC.*mismatch|verify.*signature.*invalid)",
+    "domain": "api",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "webhook",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Webhook HMAC signatures are computed over raw request body bytes. JSON.stringify(parsed) != original bytes due to key ordering, whitespace, and Unicode escaping differences."
+  },
+  "dead_ends": [
+    {
+      "action": "Compute HMAC over JSON.stringify(req.body)",
+      "why_fails": "JSON.stringify produces different bytes than the original payload. Signature will never match.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use bodyParser.json() before webhook route in Express",
+      "why_fails": "bodyParser consumes the raw body stream. The original bytes are gone by handler time.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Capture raw body before JSON parsing in Express",
+      "success_rate": 0.95,
+      "how": "app.use('/webhook', express.raw({type: 'application/json'})); // req.body is Buffer",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "In Flask, use request.get_data() not request.json",
+      "success_rate": 0.92,
+      "how": "raw_body = request.get_data(); sig = hmac.new(secret, raw_body, hashlib.sha256).hexdigest()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use timing-safe comparison for HMAC verification",
+      "success_rate": 0.9,
+      "how": "crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(received))",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -17,8 +17,18 @@ class TestSchemaEdgeCases:
             "git", "rust", "typescript", "go", "kubernetes",
             "terraform", "aws", "nextjs", "react",
             "java", "database", "cicd", "php", "dotnet", "networking",
+            # Robotics / Embedded / Vision
+            "ros2", "embedded", "opencv", "cmake",
+            # ML / AI
+            "pytorch", "tensorflow", "huggingface", "llm",
+            # Infrastructure / Middleware
+            "nginx", "redis", "mongodb", "kafka", "elasticsearch", "grpc",
+            # Mobile / Cross-platform
+            "android", "flutter", "unity",
+            # Quirk domains
+            "api", "cloud", "data", "security", "policy", "communication",
             # Reserved for future expansion
-            "mcp", "http", "auth", "llm",
+            "mcp", "http", "auth",
         ]
         for domain in valid_domains:
             canon = make_canon()

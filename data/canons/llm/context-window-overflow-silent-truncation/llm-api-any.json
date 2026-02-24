@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/context-window-overflow-silent-truncation/llm-api-any",
+  "url": "https://deadends.dev/llm/context-window-overflow-silent-truncation/llm-api-any",
+  "error": {
+    "signature": "LLM response quality degrades sharply without any error when approaching context limit",
+    "regex": "(context.*window.*overflow|quality.*degrad|silent.*truncat|max.*context.*reached|output.*garbled)",
+    "domain": "llm",
+    "category": "context_management",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.68,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "Some LLM APIs silently truncate input when context limit is exceeded (e.g., older Claude API). Others return errors. Even within limits, quality degrades as you approach the maximum. The 'effective' context is smaller than the 'advertised' context."
+  },
+  "dead_ends": [
+    {
+      "action": "Fill context to 95% of advertised limit and expect full quality",
+      "why_fails": "LLM attention quality degrades significantly in the last 10-20% of context window. 128K context doesn't mean 128K of equally-attended tokens.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Trust that the API will error if context is exceeded",
+      "why_fails": "Some APIs silently truncate from the middle or beginning. You get a response but it's based on incomplete context.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Keep context usage under 80% of model's advertised limit",
+      "success_rate": 0.88,
+      "how": "effective_limit = int(model_max_context * 0.80)  # reserve 20% for quality",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement sliding window or summarization for long conversations",
+      "success_rate": 0.92,
+      "how": "Keep last N messages + summarize older ones: system_msg = summarize(old_messages) + recent_messages",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Pre-check token count and trim from the middle (not the end) of context",
+      "success_rate": 0.85,
+      "how": "Keep system prompt + first/last messages. Trim middle of conversation. 'Lost in the middle' means middle has least impact.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

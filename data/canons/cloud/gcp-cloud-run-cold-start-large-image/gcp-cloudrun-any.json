@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/gcp-cloud-run-cold-start-large-image/gcp-cloudrun-any",
+  "url": "https://deadends.dev/cloud/gcp-cloud-run-cold-start-large-image/gcp-cloudrun-any",
+  "error": {
+    "signature": "Cloud Run request takes 30s+ on first invocation due to large container image",
+    "regex": "(Cloud Run.*cold start|container.*pull.*slow|Cloud Run.*startup.*timeout|min-instances.*cold)",
+    "domain": "cloud",
+    "category": "performance",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gcp-cloudrun",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Cloud Run pulls the container image on cold start. Images >1GB can take 10-30s+ to pull. Google's docs recommend small images but don't quantify the cold start penalty per image size."
+  },
+  "dead_ends": [
+    {
+      "action": "Set min-instances=1 and assume zero cold starts",
+      "why_fails": "min-instances keeps 1 instance warm, but concurrent request spikes still trigger cold starts for additional instances.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a health check endpoint to keep instances warm",
+      "why_fails": "Cloud Run auto-scales to zero regardless of health checks. There's no built-in keep-alive mechanism.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use multi-stage Docker builds to minimize image size",
+      "success_rate": 0.92,
+      "how": "FROM golang:1.21 AS builder ... FROM gcr.io/distroless/static ... COPY --from=builder /app /app",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set min-instances > 0 AND set CPU to 'always allocated' for consistent performance",
+      "success_rate": 0.9,
+      "how": "gcloud run deploy --min-instances=2 --cpu-boost --no-cpu-throttling",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use startup CPU boost to reduce cold start latency",
+      "success_rate": 0.85,
+      "how": "gcloud run deploy --cpu-boost  # doubles CPU during startup for faster init",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

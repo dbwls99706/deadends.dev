@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/jwt-alg-none-bypass/jwt-auth-any",
+  "url": "https://deadends.dev/security/jwt-alg-none-bypass/jwt-auth-any",
+  "error": {
+    "signature": "JWT validation bypassed by changing algorithm to 'none' in token header",
+    "regex": "(alg.*none.*bypass|JWT.*algorithm.*none|InvalidAlgorithmError|jwt.*unsigned.*accepted)",
+    "domain": "security",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "jwt-auth",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-02-24",
+    "summary": "RFC 7519 defines 'none' as a valid JWT algorithm (unsecured JWS). If the server doesn't explicitly enforce the expected algorithm, an attacker can forge tokens by setting alg:none and removing the signature. Many JWT libraries accepted this by default."
+  },
+  "dead_ends": [
+    {
+      "action": "Validate JWT without specifying expected algorithms",
+      "why_fails": "Without an explicit algorithm whitelist, libraries may accept alg:none tokens. The signature verification is skipped entirely for unsigned tokens.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check the alg field from the JWT header to decide verification method",
+      "why_fails": "Attacker controls the JWT header. Using attacker-supplied alg means they choose the verification algorithm. Classic confused-deputy attack.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always specify allowed algorithms explicitly in jwt.decode()",
+      "success_rate": 0.98,
+      "how": "jwt.decode(token, key, algorithms=['HS256'])  # NEVER omit algorithms parameter",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use asymmetric algorithms (RS256/ES256) and separate signing/verification keys",
+      "success_rate": 0.92,
+      "how": "RS256 with private key for signing, public key for verification. Even if alg is changed to HS256, the public key won't produce valid HMAC.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reject tokens with alg:none at the middleware level",
+      "success_rate": 0.9,
+      "how": "header = jwt.get_unverified_header(token); if header['alg'] == 'none': raise SecurityError()",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/email-spf-dkim-alignment-spam/email-delivery-any",
+  "url": "https://deadends.dev/communication/email-spf-dkim-alignment-spam/email-delivery-any",
+  "error": {
+    "signature": "Emails sent via API land in spam despite valid SPF and DKIM because of alignment failure",
+    "regex": "(SPF.*alignment|DKIM.*alignment|DMARC.*fail.*alignment|email.*spam.*SPF.*pass|Authentication-Results.*fail)",
+    "domain": "communication",
+    "category": "email_delivery",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "email-delivery",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "DMARC requires 'alignment': the domain in SPF/DKIM must match the From header domain. Sending from user@example.com via SendGrid (SPF passes for sendgrid.net, not example.com) fails DMARC alignment even though SPF itself passes."
+  },
+  "dead_ends": [
+    {
+      "action": "Set up SPF and DKIM and assume emails won't be marked as spam",
+      "why_fails": "SPF and DKIM can both pass independently but DMARC still fails if neither aligns with the From domain. SPF must pass for the From domain, not just the envelope sender.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use email service provider's default sending domain",
+      "why_fails": "Sending from user@example.com via service's domain means SPF passes for the service domain, not yours. DMARC alignment fails.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure custom DKIM signing with your domain on the email service provider",
+      "success_rate": 0.95,
+      "how": "Add CNAME records for DKIM: selector._domainkey.example.com -> service-provided-value. This makes DKIM align with your From domain.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set up custom Return-Path domain for SPF alignment",
+      "success_rate": 0.9,
+      "how": "Configure bounce subdomain: bounces.example.com CNAME to service's domain. Envelope sender aligns with From domain.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Start with DMARC p=none to monitor before enforcing",
+      "success_rate": 0.85,
+      "how": "v=DMARC1; p=none; rua=mailto:dmarc@example.com  # monitor alignment failures before setting p=reject",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

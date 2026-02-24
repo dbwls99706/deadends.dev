@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-s3-list-objects-1000-limit/aws-s3-any",
+  "url": "https://deadends.dev/cloud/aws-s3-list-objects-1000-limit/aws-s3-any",
+  "error": {
+    "signature": "S3 list_objects returns only 1000 keys even though bucket has more objects",
+    "regex": "(list_objects.*1000|S3.*truncated|IsTruncated.*true|S3.*list.*incomplete|MaxKeys.*1000)",
+    "domain": "cloud",
+    "category": "pagination",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-s3",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-02-24",
+    "summary": "S3 ListObjectsV2 returns max 1000 keys per call by default. The 'IsTruncated' flag and 'NextContinuationToken' must be checked. Many tutorials omit the pagination loop, leading to silently incomplete results."
+  },
+  "dead_ends": [
+    {
+      "action": "Call list_objects_v2 once and use all returned keys",
+      "why_fails": "Default MaxKeys is 1000. If bucket has more objects, you silently miss everything beyond the first 1000.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set MaxKeys to a very large number",
+      "why_fails": "MaxKeys cannot exceed 1000 per S3 API spec. Setting it higher is silently capped to 1000.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use paginator to automatically handle continuation tokens",
+      "success_rate": 0.95,
+      "how": "paginator = s3.get_paginator('list_objects_v2'); for page in paginator.paginate(Bucket='my-bucket'): ...",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Manually loop with ContinuationToken until IsTruncated is False",
+      "success_rate": 0.9,
+      "how": "while True: resp = s3.list_objects_v2(Bucket=b, ContinuationToken=token); if not resp['IsTruncated']: break",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

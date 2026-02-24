@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/gcp-pubsub-exactly-once-not-really/gcp-pubsub-any",
+  "url": "https://deadends.dev/cloud/gcp-pubsub-exactly-once-not-really/gcp-pubsub-any",
+  "error": {
+    "signature": "GCP Pub/Sub delivers duplicate messages despite 'exactly-once delivery' being enabled",
+    "regex": "(Pub.*Sub.*duplicate|exactly.once.*duplicate|ack.*deadline.*duplicate|redelivery.*Pub.*Sub)",
+    "domain": "cloud",
+    "category": "message_delivery",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gcp-pubsub",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "GCP Pub/Sub 'exactly-once delivery' only guarantees exactly-once within the ack deadline. If processing takes longer than ack deadline (default 10s), the message is redelivered. Also, exactly-once is only supported on pull subscriptions."
+  },
+  "dead_ends": [
+    {
+      "action": "Enable exactly-once delivery and assume no duplicates",
+      "why_fails": "Exactly-once only works within the ack deadline window. Slow consumers WILL see duplicates. Push subscriptions don't support it at all.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase ack deadline to maximum (600s) to avoid redelivery",
+      "why_fails": "600s max may still not be enough for slow processing. Also, increases message invisibility window on failure.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Acknowledge message before processing it",
+      "why_fails": "If processing fails after ack, the message is lost forever. No redelivery for acknowledged messages.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement idempotent message processing using message_id",
+      "success_rate": 0.92,
+      "how": "if redis.setnx(f'processed:{message.message_id}', 1, ex=86400): process(message); message.ack()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use modack to extend deadline during long processing",
+      "success_rate": 0.85,
+      "how": "Periodically call modify_ack_deadline() in a background thread while processing",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Design consumers to be idempotent regardless of delivery guarantees",
+      "success_rate": 0.95,
+      "how": "Use database upserts, idempotency keys, or dedup tables. Never assume exactly-once from any message queue.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

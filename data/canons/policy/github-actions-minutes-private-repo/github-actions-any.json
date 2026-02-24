@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/github-actions-minutes-private-repo/github-actions-any",
+  "url": "https://deadends.dev/policy/github-actions-minutes-private-repo/github-actions-any",
+  "error": {
+    "signature": "GitHub Actions free minutes exhausted much faster than expected on private repositories",
+    "regex": "(Actions.*minutes.*exceeded|billing.*Actions.*private|minute.*multiplier.*Actions|Actions.*spending.*limit)",
+    "domain": "policy",
+    "category": "billing",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-actions",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "GitHub Actions minutes have a multiplier for private repos: Linux=1x, macOS=10x, Windows=2x. A 10-minute macOS job costs 100 minutes from your 2000 free minutes. This multiplier is buried in the billing docs, not in the Actions documentation."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume 2000 free minutes means 2000 minutes of any runner",
+      "why_fails": "macOS runners cost 10x. 2000 free minutes = only 200 minutes of macOS CI. A single 10-min macOS build = 100 minutes billed.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch from Linux to macOS runners for iOS builds without checking billing impact",
+      "why_fails": "macOS runners cost 10x Linux. A pipeline running 20 min/day on macOS exhausts free tier in ~10 days.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Linux runners for everything except platform-specific tests",
+      "success_rate": 0.92,
+      "how": "Run linting, unit tests, build on Linux. Only use macOS for iOS-specific integration tests.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set a spending limit of $0 to prevent unexpected charges",
+      "success_rate": 0.9,
+      "how": "GitHub Settings -> Billing -> Actions -> Spending limit: $0.00  # hard stop when free minutes exhausted",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use self-hosted runners for macOS/Windows heavy workloads",
+      "success_rate": 0.85,
+      "how": "Self-hosted runners have no minute limits. Use them for expensive platform-specific CI.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

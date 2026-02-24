@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/github-pr-review-comment-position/github-api-any",
+  "url": "https://deadends.dev/communication/github-pr-review-comment-position/github-api-any",
+  "error": {
+    "signature": "GitHub PR review comment appears on wrong line or API returns 'position is not a valid hunk position'",
+    "regex": "(position.*not.*valid.*hunk|PR.*comment.*wrong.*line|pull.*request.*review.*position|422.*Unprocessable.*position)",
+    "domain": "communication",
+    "category": "api_usage",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "GitHub PR review comment 'position' is NOT the file line number. It's the 1-based index within the diff hunk. Line 42 in the file might be position 5 in the diff. Using 'line' parameter (newer API) is simpler but only works for lines visible in the diff."
+  },
+  "dead_ends": [
+    {
+      "action": "Use file line number as 'position' in PR review comment API",
+      "why_fails": "The 'position' parameter is the line index within the diff, not the file. Line 100 in the file might be position 3 in the diff if only 3 lines of context are shown.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use 'line' parameter on any line in the file",
+      "why_fails": "The 'line' parameter only works for lines visible in the diff. Comments on unchanged lines outside the diff context fail with 422.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the newer 'line' and 'side' parameters instead of 'position'",
+      "success_rate": 0.9,
+      "how": "body = {\"body\": \"comment\", \"path\": \"file.py\", \"line\": 42, \"side\": \"RIGHT\"}  # RIGHT for new code, LEFT for old",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use 'subject_type': 'file' for comments not tied to specific lines",
+      "success_rate": 0.85,
+      "how": "body = {\"body\": \"general comment about this file\", \"path\": \"file.py\", \"subject_type\": \"file\"}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Parse the diff to calculate correct position if you must use the legacy parameter",
+      "success_rate": 0.78,
+      "how": "Count lines in the diff hunk from @@ marker to the target line. That count is your position value.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

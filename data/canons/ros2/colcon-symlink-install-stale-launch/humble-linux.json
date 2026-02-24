@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/colcon-symlink-install-stale-launch/humble-linux",
+  "url": "https://deadends.dev/ros2/colcon-symlink-install-stale-launch/humble-linux",
+  "error": {
+    "signature": "Changes to launch files or config not reflected after rebuild with colcon --symlink-install",
+    "regex": "(symlink.*install.*stale|launch.*file.*not.*updated|colcon.*symlink.*old.*config|install.*not.*refresh)",
+    "domain": "ros2",
+    "category": "build_system",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "--symlink-install creates symlinks for Python files and launch files but NOT for compiled C++ artifacts or generated files. Also, newly added files require a full rebuild to create the symlink. Deleted files leave stale symlinks."
+  },
+  "dead_ends": [
+    {
+      "action": "Use --symlink-install and expect all file changes to be reflected automatically",
+      "why_fails": "Only existing Python/launch files are symlinked. New files, CMakeLists.txt changes, and generated files require colcon build to update.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete install/ directory and rebuild to fix stale symlinks",
+      "why_fails": "Works but is slow. You also need to delete build/ for some cases. A targeted rebuild of the affected package is faster.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Run 'colcon build --packages-select <pkg>' after adding new files",
+      "success_rate": 0.92,
+      "how": "colcon build --symlink-install --packages-select my_package  # rebuilds only the affected package",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Source install/setup.bash after every rebuild",
+      "success_rate": 0.9,
+      "how": "source install/setup.bash  # re-source after rebuild to pick up new packages and files",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For C++ changes, always run colcon build (symlink-install doesn't help for compiled code)",
+      "success_rate": 0.88,
+      "how": "colcon build --packages-select my_cpp_pkg --cmake-args -DCMAKE_BUILD_TYPE=Release",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

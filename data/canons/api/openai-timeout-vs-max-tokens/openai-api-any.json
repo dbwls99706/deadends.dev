@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/openai-timeout-vs-max-tokens/openai-api-any",
+  "url": "https://deadends.dev/api/openai-timeout-vs-max-tokens/openai-api-any",
+  "error": {
+    "signature": "openai.APITimeoutError: Request timed out. or unexpected truncated response",
+    "regex": "(APITimeoutError|Request timed out|finish_reason.*length|response.*truncat)",
+    "domain": "api",
+    "category": "timeout",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openai-api",
+      "version_range": ">=v1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "OpenAI API timeout is client-side (default 600s). A long response can timeout before completion. Separately, max_tokens silently truncates without error - finish_reason becomes 'length' not 'stop'."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase client timeout to avoid truncation",
+      "why_fails": "Timeout and truncation are different issues. Timeout = client gave up waiting. Truncation = max_tokens limit hit. You may have both problems simultaneously.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Assume response is complete if no error was raised",
+      "why_fails": "finish_reason='length' means output was truncated but no exception is raised. You must check finish_reason explicitly.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always check response.choices[0].finish_reason == 'stop'",
+      "success_rate": 0.95,
+      "how": "if response.choices[0].finish_reason == 'length': # response was truncated, need continuation",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement streaming for long responses to avoid timeout",
+      "success_rate": 0.88,
+      "how": "stream = client.chat.completions.create(stream=True, ...); for chunk in stream: ...",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

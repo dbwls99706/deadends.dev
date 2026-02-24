@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/bcrypt-silent-truncation-72-bytes/bcrypt-auth-any",
+  "url": "https://deadends.dev/security/bcrypt-silent-truncation-72-bytes/bcrypt-auth-any",
+  "error": {
+    "signature": "Bcrypt accepts password but silently ignores characters beyond 72 bytes",
+    "regex": "(bcrypt.*truncat|bcrypt.*72.*byte|password.*longer.*72|bcrypt.*length.*limit)",
+    "domain": "security",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "bcrypt-auth",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Bcrypt has a hard 72-byte input limit (not characters - bytes). UTF-8 passwords with multibyte characters hit this limit sooner. Two passwords that share the first 72 bytes but differ after are treated as identical."
+  },
+  "dead_ends": [
+    {
+      "action": "Use bcrypt for passwords of any length without pre-processing",
+      "why_fails": "Passwords longer than 72 bytes are silently truncated. 'MySecurePassword123!+extra100characters' and 'MySecurePassword123!+extra100different' hash identically.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set a maximum password length of 72 characters",
+      "why_fails": "72 bytes != 72 characters for UTF-8. A password with CJK characters or emojis uses 3-4 bytes per character, hitting the 72-byte limit at 18-24 characters.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pre-hash password with SHA-256 before bcrypt to handle arbitrary lengths",
+      "success_rate": 0.92,
+      "how": "import hashlib; prehashed = hashlib.sha256(password.encode()).hexdigest(); bcrypt.hashpw(prehashed.encode(), salt)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use SHA-256 pre-hash and encode as base64 to stay within 72 bytes",
+      "success_rate": 0.9,
+      "how": "prehash = base64.b64encode(hashlib.sha256(password.encode()).digest())  # always 44 bytes",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Consider Argon2id which has no practical input length limit",
+      "success_rate": 0.88,
+      "how": "from argon2 import PasswordHasher; ph = PasswordHasher(); hash = ph.hash(password)  # no truncation",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

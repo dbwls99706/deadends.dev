@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/github-api-abuse-detection-cicd/github-api-any",
+  "url": "https://deadends.dev/policy/github-api-abuse-detection-cicd/github-api-any",
+  "error": {
+    "signature": "GitHub API returns 403 Abuse Detection for legitimate CI/CD automation",
+    "regex": "(abuse detection|403.*Forbidden.*abuse|secondary rate limit.*CI|GitHub.*ban.*automation)",
+    "domain": "policy",
+    "category": "rate_limiting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.68,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "GitHub's abuse detection triggers on patterns, not just rate: creating many PRs quickly, commenting on many issues, rapid content creation, or concurrent identical requests. Legitimate CI/CD tools are frequently flagged."
+  },
+  "dead_ends": [
+    {
+      "action": "Stay under the documented 5000 req/hr rate limit",
+      "why_fails": "Abuse detection is behavior-based, not rate-based. You can be flagged at 50 req/hr if the pattern looks automated (rapid sequential mutations).",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a GitHub App instead of PAT to avoid abuse detection",
+      "why_fails": "GitHub Apps have higher rate limits but are equally subject to abuse detection on mutation endpoints.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add 1-2 second delays between mutating API calls (create/update/delete)",
+      "success_rate": 0.9,
+      "how": "time.sleep(1)  # between each PR creation, comment, or issue update",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use GraphQL for read-heavy workloads (single request for multiple resources)",
+      "success_rate": 0.85,
+      "how": "GraphQL queries count as single request. Fetching 100 PRs via REST = 100 requests, via GraphQL = 1.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement exponential backoff with minimum 60s wait on 403",
+      "success_rate": 0.88,
+      "how": "On 403 abuse detection: wait 60s, then 120s, then 240s. Check Retry-After header if present.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

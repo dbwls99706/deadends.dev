@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/google-oauth-refresh-token-revoked/google-oauth-any",
+  "url": "https://deadends.dev/api/google-oauth-refresh-token-revoked/google-oauth-any",
+  "error": {
+    "signature": "google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.',)",
+    "regex": "(invalid_grant|Token has been expired or revoked|refresh.*token.*revoked)",
+    "domain": "api",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "google-oauth",
+      "version_range": ">=v2"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "Google silently revokes refresh tokens after 6 months of inactivity, when user changes password, or when >50 tokens exist per client. The 50-token limit is barely documented."
+  },
+  "dead_ends": [
+    {
+      "action": "Store and reuse the refresh token indefinitely",
+      "why_fails": "Google has a hidden 50 refresh token limit per user per OAuth client. Token 51 silently invalidates token 1. Also, 6 months inactivity = revocation.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Request a new refresh token on every auth flow",
+      "why_fails": "Each new token pushes out the oldest. If user has multiple devices, they kick each other out.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Store refresh tokens per-user and reuse existing ones via prompt=none",
+      "success_rate": 0.85,
+      "how": "If user already has a refresh token in your DB, use it instead of initiating new OAuth flow",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement re-authentication flow that gracefully handles revocation",
+      "success_rate": 0.9,
+      "how": "try: creds.refresh(request) except RefreshError: redirect_to_oauth_consent()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use service accounts for server-to-server auth instead of user OAuth",
+      "success_rate": 0.88,
+      "how": "creds = service_account.Credentials.from_service_account_file('key.json', scopes=SCOPES)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

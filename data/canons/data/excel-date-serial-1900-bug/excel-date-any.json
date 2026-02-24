@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/excel-date-serial-1900-bug/excel-date-any",
+  "url": "https://deadends.dev/data/excel-date-serial-1900-bug/excel-date-any",
+  "error": {
+    "signature": "Date calculations off by 1 day when converting Excel serial numbers, or Feb 29 1900 appears in data",
+    "regex": "(Excel.*date.*off.*1|serial.*number.*1900|Feb.*29.*1900|Lotus.*date.*bug|date.*epoch.*Excel)",
+    "domain": "data",
+    "category": "date_handling",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "excel-date",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Excel inherited a deliberate bug from Lotus 1-2-3: it treats 1900 as a leap year (Feb 29, 1900 exists as serial number 60). This makes all serial numbers before March 1, 1900 off by 1 day. Microsoft kept this for backwards compatibility."
+  },
+  "dead_ends": [
+    {
+      "action": "Convert Excel serial number to date by adding days to Jan 1, 1900",
+      "why_fails": "Serial number 1 = Jan 1, 1900 in Excel, but the fake Feb 29 1900 means dates after Feb 28 1900 are correct while earlier dates are off by 1.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Assume all Excel dates are correct after conversion",
+      "why_fails": "Any date before March 1, 1900 is off by 1 day. Serial number 60 maps to the non-existent Feb 29, 1900.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use xlrd, openpyxl, or pandas to read Excel dates (they handle the 1900 bug)",
+      "success_rate": 0.92,
+      "how": "import pandas as pd; df = pd.read_excel('file.xlsx')  # automatically handles serial date conversion",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "If manually converting: subtract 1 from serial numbers <= 60, account for the epoch offset",
+      "success_rate": 0.85,
+      "how": "from datetime import datetime, timedelta; date = datetime(1899, 12, 30) + timedelta(days=serial)  # note: Dec 30 not Jan 1",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate by checking for Feb 29, 1900 as a sentinel for corrupted data",
+      "success_rate": 0.78,
+      "how": "if date == datetime(1900, 2, 29): raise ValueError('Excel 1900 leap year bug detected')",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

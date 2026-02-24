@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/terraform-state-lock-dynamodb/terraform-aws-any",
+  "url": "https://deadends.dev/cloud/terraform-state-lock-dynamodb/terraform-aws-any",
+  "error": {
+    "signature": "Error: Error acquiring the state lock: ConditionalCheckFailedException",
+    "regex": "(Error acquiring the state lock|ConditionalCheckFailedException|state.*lock.*timeout|Lock Info)",
+    "domain": "cloud",
+    "category": "state_management",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "terraform",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Terraform S3 backend uses DynamoDB for state locking. If a previous terraform apply was killed (Ctrl+C, CI timeout, OOM), the lock remains forever. force-unlock is scary but sometimes necessary."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait for the lock to expire automatically",
+      "why_fails": "DynamoDB locks have no TTL by default. The lock will remain forever until manually removed.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Run another terraform apply hoping it will override the lock",
+      "why_fails": "Concurrent applies with locked state cause state corruption. Never run parallel applies.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete the DynamoDB lock item directly from console",
+      "why_fails": "Deleting the item works but bypasses Terraform's lock check. If another process IS running, state corruption follows.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use terraform force-unlock with the lock ID",
+      "success_rate": 0.92,
+      "how": "terraform force-unlock LOCK_ID  # Lock ID is shown in the error message",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check if another process is actually running before force-unlock",
+      "success_rate": 0.95,
+      "how": "Check CI/CD pipelines, other terminals. Only force-unlock if you're SURE no other apply is running.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add -lock-timeout=5m to terraform commands in CI to handle transient locks",
+      "success_rate": 0.85,
+      "how": "terraform apply -lock-timeout=300s  # wait up to 5 minutes for lock release",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

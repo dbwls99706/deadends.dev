@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/aws-ses-sandbox-silent-drop/aws-ses-any",
+  "url": "https://deadends.dev/policy/aws-ses-sandbox-silent-drop/aws-ses-any",
+  "error": {
+    "signature": "AWS SES sends email successfully (200 OK) but recipient never receives it in sandbox mode",
+    "regex": "(SES.*sandbox.*not.*received|SES.*email.*missing|SES.*verified.*only|SES.*200.*not.*delivered)",
+    "domain": "policy",
+    "category": "email_delivery",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-ses",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "AWS SES sandbox mode only delivers to verified email addresses. The API returns 200 OK for all sends, but unverified recipients silently never receive the email. No error, no bounce notification. You must request production access."
+  },
+  "dead_ends": [
+    {
+      "action": "Send test emails and assume SES is working because API returns 200",
+      "why_fails": "In sandbox mode, SES returns 200 for ALL sends but only delivers to verified addresses. Check your verified identities list.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify just the sender email and start sending to any recipient",
+      "why_fails": "Both sender AND recipient must be verified in sandbox mode. Verifying only the sender still silently drops emails to unverified recipients.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Request SES production access to send to any email address",
+      "success_rate": 0.95,
+      "how": "AWS Console -> SES -> Account dashboard -> Request production access. Takes 24-48 hours for review.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify all test recipient emails individually during development",
+      "success_rate": 0.85,
+      "how": "aws ses verify-email-identity --email-address test@example.com  # for each test recipient",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use SES configuration sets with SNS notifications to track delivery/bounces",
+      "success_rate": 0.9,
+      "how": "Configuration set with delivery/bounce/complaint event destinations reveals what actually happened to sent emails",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

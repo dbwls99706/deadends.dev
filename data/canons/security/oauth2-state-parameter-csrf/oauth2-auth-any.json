@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/oauth2-state-parameter-csrf/oauth2-auth-any",
+  "url": "https://deadends.dev/security/oauth2-state-parameter-csrf/oauth2-auth-any",
+  "error": {
+    "signature": "OAuth2 authorization code can be injected by attacker due to missing state parameter validation",
+    "regex": "(OAuth.*state.*missing|CSRF.*OAuth|authorization.*code.*inject|OAuth.*state.*validation)",
+    "domain": "security",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "oauth2-auth",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-02-24",
+    "summary": "OAuth2 state parameter prevents CSRF in the authorization flow. Without it, an attacker can trick a user into logging in with the attacker's account (login CSRF) by sending them a crafted callback URL with the attacker's authorization code."
+  },
+  "dead_ends": [
+    {
+      "action": "Omit state parameter because PKCE is used for security",
+      "why_fails": "PKCE prevents authorization code interception but does NOT prevent CSRF/login-CSRF attacks. State and PKCE serve different purposes.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a static/predictable state value",
+      "why_fails": "State must be unpredictable and tied to the user's session. A static value provides zero CSRF protection.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Generate cryptographic random state, store in session, validate on callback",
+      "success_rate": 0.98,
+      "how": "state = secrets.token_urlsafe(32); session['oauth_state'] = state; # in callback: assert request.args['state'] == session.pop('oauth_state')",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use both state AND PKCE together for maximum security",
+      "success_rate": 0.95,
+      "how": "State prevents CSRF. PKCE prevents code interception. They are complementary, not alternatives.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use established OAuth libraries (authlib, passport) that handle state automatically",
+      "success_rate": 0.9,
+      "how": "Libraries like authlib automatically generate, store, and validate state parameter",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

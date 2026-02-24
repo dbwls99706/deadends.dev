@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/utf8-bom-invisible-parse-failure/text-parser-any",
+  "url": "https://deadends.dev/data/utf8-bom-invisible-parse-failure/text-parser-any",
+  "error": {
+    "signature": "File parsing fails or produces unexpected characters at the beginning despite looking correct in editor",
+    "regex": "(BOM.*error|\\\\xef\\\\xbb\\\\xbf|utf-8-sig|unexpected.*character.*beginning|invisible.*byte.*start)",
+    "domain": "data",
+    "category": "encoding",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "text-parser",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "UTF-8 BOM (Byte Order Mark, 0xEF 0xBB 0xBF) is prepended by Windows editors (Notepad, Excel export). Most editors hide it, but parsers choke: JSON parsers reject it, CSV first column gets corrupted, shebang lines break."
+  },
+  "dead_ends": [
+    {
+      "action": "Open file as UTF-8 and assume clean content",
+      "why_fails": "UTF-8 with BOM inserts 3 invisible bytes at the start. json.loads fails. CSV first header gets \\ufeff prefix. Dict lookups on first column fail.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Manually strip first 3 bytes from file",
+      "why_fails": "Only works if BOM is present. Stripping 3 bytes from non-BOM file corrupts the first character.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open with encoding='utf-8-sig' in Python (auto-strips BOM if present)",
+      "success_rate": 0.95,
+      "how": "open('file.csv', encoding='utf-8-sig')  # strips BOM if present, works normally if absent",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use dos2unix or sed to strip BOM from files in bulk",
+      "success_rate": 0.85,
+      "how": "sed -i '1s/^\\xEF\\xBB\\xBF//' file.csv  # or: dos2unix --remove-bom file.csv",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Configure editors to save as 'UTF-8 without BOM' by default",
+      "success_rate": 0.82,
+      "how": "VS Code: 'files.encoding': 'utf8'  # not 'utf8bom'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

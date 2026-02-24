@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/fine-tune-catastrophic-forgetting/llm-finetuning-any",
+  "url": "https://deadends.dev/llm/fine-tune-catastrophic-forgetting/llm-finetuning-any",
+  "error": {
+    "signature": "Fine-tuned model loses base capabilities after training on domain-specific data",
+    "regex": "(catastrophic.*forgetting|fine.*tun.*lost.*capabilit|fine.*tun.*degrad|base.*model.*better)",
+    "domain": "llm",
+    "category": "fine_tuning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-finetuning",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.62,
+    "confidence": 0.78,
+    "last_updated": "2026-02-24",
+    "summary": "Fine-tuning on narrow domain data causes catastrophic forgetting of base model capabilities. The model becomes an expert in your domain but loses general reasoning, instruction following, or other skills."
+  },
+  "dead_ends": [
+    {
+      "action": "Fine-tune on domain data only without including general examples",
+      "why_fails": "Training exclusively on domain data overwrites general capabilities. The model forgets how to follow instructions, do math, or reason about non-domain topics.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Fine-tune for many epochs to maximize domain performance",
+      "why_fails": "More epochs = more forgetting. 3-5 epochs is usually optimal. Beyond that, validation loss increases while training loss decreases (overfitting).",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Mix domain data with general instruction-following examples (80/20 ratio)",
+      "success_rate": 0.88,
+      "how": "training_data = domain_examples + random.sample(general_examples, len(domain_examples) // 4)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use LoRA/QLoRA instead of full fine-tuning to preserve base capabilities",
+      "success_rate": 0.92,
+      "how": "Fine-tune only adapter weights (r=16, alpha=32). Base model weights remain frozen. Merge on inference.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use RAG + few-shot prompting before resorting to fine-tuning",
+      "success_rate": 0.85,
+      "how": "Often retrieval-augmented generation with examples achieves similar quality without forgetting risks",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

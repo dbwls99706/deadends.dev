@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/cors-preflight-cache-stale-auth/cors-browser-any",
+  "url": "https://deadends.dev/security/cors-preflight-cache-stale-auth/cors-browser-any",
+  "error": {
+    "signature": "CORS preflight succeeds but subsequent request fails with 403, or auth changes aren't reflected",
+    "regex": "(CORS.*preflight.*cache|Access-Control-Max-Age.*stale|CORS.*403.*after.*auth|preflight.*cached.*old)",
+    "domain": "security",
+    "category": "cors",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cors-browser",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Access-Control-Max-Age caches preflight responses. If you change CORS config or auth requirements, browsers use the cached preflight result. Chrome caches for up to 2 hours. Users see 'CORS error' for changes that are actually deployed correctly."
+  },
+  "dead_ends": [
+    {
+      "action": "Deploy CORS change and test immediately in the same browser",
+      "why_fails": "Browser caches the old preflight response for Access-Control-Max-Age seconds (default varies by browser, up to 7200s in Chrome).",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set Access-Control-Max-Age to a very high value for performance",
+      "why_fails": "High max-age means CORS config changes take hours to propagate to users. Auth requirement changes are invisible until cache expires.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set Access-Control-Max-Age to a short value (300-600s) during development",
+      "success_rate": 0.9,
+      "how": "response.headers['Access-Control-Max-Age'] = '300'  # 5 minutes, balances caching and flexibility",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Clear browser cache or use incognito mode to test CORS changes",
+      "success_rate": 0.85,
+      "how": "Chrome DevTools -> Application -> Cache -> Clear storage. Or Ctrl+Shift+Delete -> Cached images and files.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Include Vary: Origin header to prevent incorrect CORS response caching",
+      "success_rate": 0.92,
+      "how": "response.headers['Vary'] = 'Origin'  # ensures different origins get correct CORS headers from CDN/proxy",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

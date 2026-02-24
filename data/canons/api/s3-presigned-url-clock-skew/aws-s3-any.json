@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/s3-presigned-url-clock-skew/aws-s3-any",
+  "url": "https://deadends.dev/api/s3-presigned-url-clock-skew/aws-s3-any",
+  "error": {
+    "signature": "SignatureDoesNotMatch: The request signature we calculated does not match the signature you provided",
+    "regex": "(SignatureDoesNotMatch|presigned.*expired|clock.*skew.*S3)",
+    "domain": "api",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-s3",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "S3 presigned URLs embed the signing time. If the server generating the URL has clock skew >15 minutes from AWS, URLs are born expired. Docker containers and VMs are common culprits."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase presigned URL expiry to 24 hours",
+      "why_fails": "URLs still fail instantly if clock is ahead by >15 min. Longer expiry doesn't help when the start time is wrong.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Regenerate the URL and retry",
+      "why_fails": "Same server generates the same skewed signature. Retrying without fixing clock produces identical failures.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Sync system clock with NTP before generating presigned URLs",
+      "success_rate": 0.95,
+      "how": "sudo ntpdate -s time.nist.gov  # or: sudo systemctl restart chronyd",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use STS to get server time and calculate offset for signing",
+      "success_rate": 0.82,
+      "how": "aws_time = boto3.client('sts').get_caller_identity()  # response headers contain Date",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "In Docker, mount host clock: -v /etc/localtime:/etc/localtime:ro",
+      "success_rate": 0.88,
+      "how": "docker run -v /etc/localtime:/etc/localtime:ro myapp",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

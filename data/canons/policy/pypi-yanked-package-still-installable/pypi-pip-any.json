@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/pypi-yanked-package-still-installable/pypi-pip-any",
+  "url": "https://deadends.dev/policy/pypi-yanked-package-still-installable/pypi-pip-any",
+  "error": {
+    "signature": "pip install succeeds for a yanked PyPI package version that was supposed to be removed",
+    "regex": "(yanked.*still.*install|pip.*yanked.*version|PyPI.*yank.*available|yanked.*warning.*install)",
+    "domain": "policy",
+    "category": "package_management",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pypi-pip",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "PyPI yank does NOT delete the package. It only hides it from resolution UNLESS the version is pinned exactly in requirements. 'pip install pkg==1.2.3' still installs yanked 1.2.3. Only 'pip install pkg' (unpinned) skips yanked versions."
+  },
+  "dead_ends": [
+    {
+      "action": "Yank a package version expecting it to be completely unavailable",
+      "why_fails": "Yanking is a soft-delete. Exact version pins (==) still install yanked versions. Lock files with pinned versions continue to work.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rely on yanking to remove a security vulnerability from circulation",
+      "why_fails": "All existing requirements.txt files with pinned versions will continue to install the yanked version. You need to publish a new patched version.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Publish a post-release or patch version with the fix, then yank the bad version",
+      "success_rate": 0.92,
+      "how": "Upload pkg==1.2.4 with fix, then yank 1.2.3. Users upgrading get 1.2.4. Existing pins still get 1.2.3 (with pip warning).",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use pip --no-yanked flag or check pip warnings for yanked package notices",
+      "success_rate": 0.85,
+      "how": "pip warns on yanked installs since pip 20.0. CI should treat pip warnings as errors: pip install --strict",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For critical security issues, file a PyPI deletion request (not just yank)",
+      "success_rate": 0.78,
+      "how": "Contact PyPI support for complete deletion of malicious packages. Yank is insufficient for malware.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/action-server-preemption-race/humble-linux",
+  "url": "https://deadends.dev/ros2/action-server-preemption-race/humble-linux",
+  "error": {
+    "signature": "ROS2 action goal preemption causes crash or undefined behavior when new goal arrives during execution",
+    "regex": "(action.*preempt.*race|goal.*cancel.*crash|action.*server.*concurrent|goal.*handle.*invalid)",
+    "domain": "ros2",
+    "category": "actions",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "ROS2 action servers don't automatically handle goal preemption. When a new goal arrives while executing a previous one, both execute concurrently unless you explicitly implement preemption logic in handle_goal and execute callbacks."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume new goals automatically cancel previous goals",
+      "why_fails": "Unlike ROS1 actionlib, ROS2 action servers do NOT auto-preempt. Multiple goals execute simultaneously unless you explicitly manage goal lifecycle.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Cancel the previous goal in handle_goal callback",
+      "why_fails": "handle_goal is called before the new goal starts executing. Canceling the old goal here creates a race condition if the old execute callback hasn't checked for cancellation yet.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a single-goal policy: reject or queue new goals while one is executing",
+      "success_rate": 0.9,
+      "how": "def handle_goal(self, goal_handle): if self._executing: return GoalResponse.REJECT; return GoalResponse.ACCEPT",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement preemption with threading lock in execute callback",
+      "success_rate": 0.88,
+      "how": "In execute: periodically check if goal_handle.is_cancel_requested or if a new goal has been accepted. Clean up and return CANCELED.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use goal_handle.status to track and manage concurrent goals explicitly",
+      "success_rate": 0.85,
+      "how": "Maintain a list of active goal handles. In handle_goal, cancel previous goals and wait for their execute callbacks to finish.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

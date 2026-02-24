@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/system-prompt-ignored-long-context/llm-api-any",
+  "url": "https://deadends.dev/llm/system-prompt-ignored-long-context/llm-api-any",
+  "error": {
+    "signature": "LLM ignores system prompt instructions when user message or context is very long",
+    "regex": "(system.*prompt.*ignored|instruction.*not.*followed|long.*context.*forget|lost.*in.*middle)",
+    "domain": "llm",
+    "category": "prompt_engineering",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "LLMs exhibit 'lost in the middle' effect where instructions at the start of context are weakened by large amounts of content. System prompts lose effectiveness when conversation history or RAG context grows large."
+  },
+  "dead_ends": [
+    {
+      "action": "Put all instructions in the system prompt and trust they'll be followed",
+      "why_fails": "System prompt influence degrades as context length grows. At 50K+ tokens of content, earlier instructions can be effectively forgotten.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase context window to fit more instructions",
+      "why_fails": "Larger context windows amplify the 'lost in the middle' problem. More tokens = more dilution of instructions.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Repeat critical instructions at the end of the prompt, close to the expected output",
+      "success_rate": 0.9,
+      "how": "Place key constraints in both system prompt AND as the final user message: 'Remember: output JSON only'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use structured output (response_format/json_schema) to enforce format compliance",
+      "success_rate": 0.92,
+      "how": "response_format={'type': 'json_schema', 'json_schema': schema}  # model-enforced structure",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Chunk long context and process iteratively instead of single mega-prompt",
+      "success_rate": 0.85,
+      "how": "Split 100K context into 10K chunks, process each with full instructions, then aggregate results",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

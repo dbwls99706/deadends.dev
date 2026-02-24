@@ -116,6 +116,13 @@ class TestSeedSignatures:
             "python", "cuda", "node", "pip", "docker",
             "git", "mcp", "http", "auth", "db", "rust", "llm",
             "java", "database", "cicd", "php", "dotnet", "networking",
+            "ros2", "embedded", "opencv", "cmake",
+            "pytorch", "tensorflow", "huggingface",
+            "nginx", "redis", "mongodb", "kafka", "elasticsearch", "grpc",
+            "android", "flutter", "unity",
+            "api", "cloud", "data", "security", "policy", "communication",
+            "typescript", "go", "kubernetes", "terraform", "aws",
+            "nextjs", "react",
         }
         for seed in SEED_SIGNATURES:
             assert seed["domain"] in valid_domains, (

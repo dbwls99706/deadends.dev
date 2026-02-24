@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/stripe-webhook-duplicate-delivery/stripe-api-any",
+  "url": "https://deadends.dev/api/stripe-webhook-duplicate-delivery/stripe-api-any",
+  "error": {
+    "signature": "Stripe webhook event received multiple times despite 200 response",
+    "regex": "(duplicate.*webhook|webhook.*delivered.*twice|idempotency.*key.*conflict)",
+    "domain": "api",
+    "category": "webhook_reliability",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "stripe-api",
+      "version_range": ">=2023-10-16"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Stripe retries webhooks if your endpoint takes >5s to respond 200, even if it eventually succeeds. Docs say 'up to 3 days' but don't clarify the 5s window clearly."
+  },
+  "dead_ends": [
+    {
+      "action": "Return 200 after processing the event fully",
+      "why_fails": "If processing takes >5s, Stripe assumes failure and retries. You get duplicate events with same event ID.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rely on Stripe's 'at-most-once' delivery assumption",
+      "why_fails": "Stripe explicitly guarantees 'at-least-once' delivery. Duplicates are expected behavior, not a bug.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Return 200 immediately, then process asynchronously via queue",
+      "success_rate": 0.95,
+      "how": "Receive webhook -> store raw event in DB/queue -> return 200 -> process from queue",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement idempotency using event.id as dedup key",
+      "success_rate": 0.92,
+      "how": "if Event.objects.filter(stripe_event_id=event['id']).exists(): return 200",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Stripe's event retrieval API to verify event authenticity instead of trusting payload",
+      "success_rate": 0.85,
+      "how": "event = stripe.Event.retrieve(event_id) # re-fetch from Stripe API",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

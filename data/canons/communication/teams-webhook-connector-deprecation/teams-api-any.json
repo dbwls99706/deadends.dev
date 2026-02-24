@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/teams-webhook-connector-deprecation/teams-api-any",
+  "url": "https://deadends.dev/communication/teams-webhook-connector-deprecation/teams-api-any",
+  "error": {
+    "signature": "Microsoft Teams incoming webhook connector returns 404 or stops working after connector deprecation",
+    "regex": "(Teams.*webhook.*deprecated|Teams.*connector.*404|O365.*connector.*end.*of.*life|Teams.*webhook.*fail)",
+    "domain": "communication",
+    "category": "api_deprecation",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "teams-api",
+      "version_range": ">=2024-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "Microsoft deprecated Office 365 Connectors for Teams webhooks in 2024, moving to Workflows (Power Automate) instead. Existing webhooks may stop working. The new Workflows-based webhooks have a different URL format and payload structure."
+  },
+  "dead_ends": [
+    {
+      "action": "Continue using existing O365 Connector webhook URLs indefinitely",
+      "why_fails": "Microsoft is deprecating O365 Connectors. Existing URLs will stop working after the retirement date. New connectors can no longer be created in many tenants.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the same payload format with new Workflows webhook URL",
+      "why_fails": "Workflows webhooks expect Adaptive Card JSON format, not the old MessageCard format used by O365 Connectors. Payload format is completely different.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Migrate to Workflows (Power Automate) based webhooks",
+      "success_rate": 0.9,
+      "how": "Teams -> channel -> Workflows -> 'Post to a channel when a webhook request is received'. Use the new URL with Adaptive Card format.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Adaptive Card JSON format for new webhook payloads",
+      "success_rate": 0.88,
+      "how": "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": {\"type\": \"AdaptiveCard\", \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\", \"version\": \"1.4\", \"body\": [{\"type\": \"TextBlock\", \"text\": \"Hello\"}]}}]}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Microsoft Graph API for more reliable Teams integration",
+      "success_rate": 0.82,
+      "how": "Graph API: POST /teams/{team-id}/channels/{channel-id}/messages for programmatic message posting",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

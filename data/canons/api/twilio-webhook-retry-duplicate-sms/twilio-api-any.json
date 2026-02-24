@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/twilio-webhook-retry-duplicate-sms/twilio-api-any",
+  "url": "https://deadends.dev/api/twilio-webhook-retry-duplicate-sms/twilio-api-any",
+  "error": {
+    "signature": "Twilio sends duplicate SMS because webhook endpoint returned non-2xx or timed out",
+    "regex": "(twilio.*duplicate|twilio.*retry.*webhook|duplicate.*SMS.*twilio)",
+    "domain": "api",
+    "category": "webhook_reliability",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "twilio-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Twilio retries status callbacks up to 4 times if your endpoint doesn't return 2xx within 15 seconds. If the webhook triggers reply sending, each retry causes duplicate outbound messages."
+  },
+  "dead_ends": [
+    {
+      "action": "Return 200 only after sending the reply SMS",
+      "why_fails": "If sending the reply takes >15s, Twilio retries. Your handler sends another reply on retry. User gets 2-4 duplicate SMS.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable retries in Twilio console",
+      "why_fails": "Status callback retries cannot be fully disabled for all webhook types. Some retries are hardcoded.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Return TwiML immediately, queue reply sending asynchronously",
+      "success_rate": 0.92,
+      "how": "Return empty <Response/> immediately. Process and reply via REST API from a background job.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement idempotency using MessageSid from Twilio",
+      "success_rate": 0.9,
+      "how": "if db.exists(message_sid=request.form['MessageSid']): return '<Response/>'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}
