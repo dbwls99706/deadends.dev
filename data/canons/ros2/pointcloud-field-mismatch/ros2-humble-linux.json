@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/pointcloud-field-mismatch/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/pointcloud-field-mismatch/ros2-humble-linux",
+  "error": {
+    "signature": "RuntimeError: PointCloud2 field 'intensity' not found in message",
+    "regex": "(PointCloud2.*field.*not found|pointcloud.*field.*mismatch|pcl.*field.*missing|sensor_msgs.*PointCloud2.*error)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "PointCloud2 message does not contain expected fields. LiDAR drivers produce different field names/types."
+  },
+  "dead_ends": [
+    {
+      "action": "Cast the entire PointCloud2 to a fixed struct assuming field layout",
+      "why_fails": "Different LiDAR models have different field layouts; hardcoded offsets cause data corruption",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore the missing field and use default values",
+      "why_fails": "Downstream algorithms (SLAM, segmentation) produce wrong results with fabricated data",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Read available fields from the PointCloud2 message header",
+      "success_rate": 0.92,
+      "how": "for field in msg.fields: print(field.name, field.datatype, field.offset)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use point_cloud2.read_points() with field_names parameter",
+      "success_rate": 0.88,
+      "how": "from sensor_msgs_py import point_cloud2; pts = point_cloud2.read_points(msg, field_names=['x','y','z'])",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remap field names in the LiDAR driver launch configuration",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

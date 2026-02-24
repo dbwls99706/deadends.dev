@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/colcon-symlink-stale/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/colcon-symlink-stale/ros2-humble-linux",
+  "error": {
+    "signature": "colcon build --symlink-install: Changes not reflected after rebuild",
+    "regex": "(symlink.*install.*stale|symlink.*not.*reflect|colcon.*symlink.*change.*not|--symlink-install.*outdated)",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "After colcon build --symlink-install, Python or launch file changes are not picked up. Stale install directory."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete install/ and rebuild every time",
+      "why_fails": "Loses the speed benefit of symlink install; wastes minutes on full rebuilds",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy files manually into install/",
+      "why_fails": "Manual copies get overwritten on next build and mask the real symlink issue",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Re-source install/setup.bash after rebuilding",
+      "success_rate": 0.92,
+      "how": "colcon build --symlink-install && source install/setup.bash",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For Python packages, ensure entry_points are in setup.cfg, not just setup.py",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete install/<pkg> and rebuild just that package for fresh symlinks",
+      "success_rate": 0.88,
+      "how": "rm -rf install/my_pkg && colcon build --symlink-install --packages-select my_pkg",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

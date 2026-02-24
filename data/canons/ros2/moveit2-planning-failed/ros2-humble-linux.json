@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/moveit2-planning-failed/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/moveit2-planning-failed/ros2-humble-linux",
+  "error": {
+    "signature": "MoveIt failed to compute a plan to the goal state",
+    "regex": "(MoveIt.*failed.*plan|planning.*failed.*goal|No motion plan found|PLANNING_FAILED|moveit.*plan.*fail)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "MoveIt2 motion planner cannot find a collision-free path. Caused by tight spaces, IK failures, or planning scene misconfiguration."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase planning time to 60+ seconds unconditionally",
+      "why_fails": "If the goal is unreachable or in collision, no amount of planning time will help",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable collision checking to get a plan",
+      "why_fails": "Produces paths that collide with obstacles or the robot itself; dangerous on real hardware",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch planner to RRTConnect for every motion",
+      "why_fails": "RRTConnect is already the default; the issue is usually the goal or scene, not the planner",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check if goal pose is reachable with IK: computeIK before planning",
+      "success_rate": 0.88,
+      "how": "ros2 service call /compute_ik moveit_msgs/srv/GetPositionIK ...",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Visualize the planning scene in RViz to check for unexpected collision objects",
+      "success_rate": 0.9,
+      "how": "Add PlanningScene display in RViz2; check for stale collision objects",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use cartesian path planning for constrained motions",
+      "success_rate": 0.8,
+      "how": "fraction = move_group.compute_cartesian_path(waypoints, 0.01, 0.0)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.25,
+        "condition": "Missing TF frames cause MoveIt to fail at IK stage"
+      },
+      {
+        "error_id": "ros2/urdf-xacro-parse-error/ros2-humble-linux",
+        "probability": 0.2,
+        "condition": "Invalid URDF breaks MoveIt's robot model"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

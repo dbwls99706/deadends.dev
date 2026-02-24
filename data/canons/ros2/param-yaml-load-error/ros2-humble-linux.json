@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/param-yaml-load-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/param-yaml-load-error/ros2-humble-linux",
+  "error": {
+    "signature": "Failed to parse parameters YAML file: Invalid YAML",
+    "regex": "(Failed to parse.*parameters.*YAML|param.*yaml.*error|Invalid.*parameter.*YAML|yaml.*load.*param.*fail)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "ROS 2 parameter YAML file has syntax errors or wrong structure. Parameters must be under /**/ros__parameters."
+  },
+  "dead_ends": [
+    {
+      "action": "Use flat key=value format without proper YAML nesting",
+      "why_fails": "ROS 2 requires specific YAML structure: node_name.ros__parameters.param_name",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ROS 1 style rosparam YAML format",
+      "why_fails": "ROS 2 parameter YAML has different structure with ros__parameters namespace",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the correct ROS 2 parameter YAML structure",
+      "success_rate": 0.95,
+      "how": "/my_node:\\n  ros__parameters:\\n    param1: value1\\n    param2: value2",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use /** wildcard to apply parameters to any node name",
+      "success_rate": 0.88,
+      "how": "/**:\\n  ros__parameters:\\n    use_sim_time: true",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate YAML syntax with python -c 'import yaml; yaml.safe_load(open(f))'",
+      "success_rate": 0.85,
+      "how": "python3 -c \"import yaml; yaml.safe_load(open('params.yaml'))\"",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

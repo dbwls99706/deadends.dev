@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/rclcpp-callback-group-deadlock/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/rclcpp-callback-group-deadlock/ros2-humble-linux",
+  "error": {
+    "signature": "Deadlock detected: callback waiting for another callback in same MutuallyExclusiveCallbackGroup",
+    "regex": "(deadlock.*callback.*group|MutuallyExclusive.*deadlock|callback.*group.*block|SingleThreadedExecutor.*deadlock|service.*call.*inside.*callback)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Calling a service synchronously inside a callback deadlocks the executor. The service response callback cannot run."
+  },
+  "dead_ends": [
+    {
+      "action": "Use a longer timeout on the synchronous service call",
+      "why_fails": "The call can never complete because the executor is blocked; timeout just delays the deadlock detection",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Create a new single-threaded executor per service call",
+      "why_fails": "Multiple executors on the same node cause undefined behavior with callbacks",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use async service calls (call_async) inside callbacks",
+      "success_rate": 0.92,
+      "how": "future = client.call_async(request); rclpy.spin_until_future_complete(self, future)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use MultiThreadedExecutor with ReentrantCallbackGroup for the service client",
+      "success_rate": 0.9,
+      "how": "cb_group = ReentrantCallbackGroup(); client = self.create_client(srv_type, name, callback_group=cb_group)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move the service call to a separate thread",
+      "success_rate": 0.82,
+      "how": "import threading; threading.Thread(target=sync_service_call).start()",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

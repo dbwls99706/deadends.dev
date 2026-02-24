@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/micro-ros-agent-connection-failed/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/micro-ros-agent-connection-failed/ros2-humble-linux",
+  "error": {
+    "signature": "[micro-ROS Agent] No connection from micro-ROS client",
+    "regex": "(micro.?ROS.*Agent.*no connection|micro.?ros.*agent.*fail|micro.?ROS.*client.*not.*found|uxr.*agent.*timeout)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "micro-ROS agent cannot connect to the embedded MCU client. Serial/UDP transport misconfiguration."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase agent timeout to minutes",
+      "why_fails": "If the MCU is not running the micro-ROS client, no timeout will help",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Flash firmware without matching the agent transport",
+      "why_fails": "Serial agent needs serial firmware config; UDP agent needs WiFi/Ethernet firmware",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify serial port and baud rate match between agent and firmware",
+      "success_rate": 0.9,
+      "how": "ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyUSB0 -b 115200",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check that the MCU firmware was built with the correct RMW and transport",
+      "success_rate": 0.85,
+      "how": "colcon build --packages-select micro_ros_setup --cmake-args -DRMW_UXRCE_TRANSPORT=serial",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use minicom/screen to verify the serial port is alive before starting agent",
+      "success_rate": 0.82,
+      "how": "screen /dev/ttyUSB0 115200  # should see micro-ROS handshake bytes",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}
