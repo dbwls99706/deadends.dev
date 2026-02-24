@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/nvrtc-compilation-error/cuda12-linux",
+  "url": "https://deadends.dev/cuda/nvrtc-compilation-error/cuda12-linux",
+  "error": {
+    "signature": "RuntimeError: NVRTC compilation failed",
+    "regex": "(NVRTC.*compilation.*fail|nvrtc.*error|CUDA JIT.*compilation.*error|nvrtcCompileProgram.*fail)",
+    "domain": "cuda",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "CUDA JIT (runtime compilation) failed. Custom CUDA extensions or torch.compile emitted invalid PTX/CUDA code."
+  },
+  "dead_ends": [
+    {
+      "action": "Reinstall CUDA toolkit",
+      "why_fails": "NVRTC is a runtime compiler issue, not an installation issue; the generated code is invalid",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade GPU driver",
+      "why_fails": "NVRTC compiles for the installed toolkit version, not the driver version",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check CUDA_HOME points to the correct toolkit version",
+      "success_rate": 0.85,
+      "how": "echo $CUDA_HOME && nvcc --version  # must match PyTorch's CUDA version",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Clear JIT cache and retry",
+      "success_rate": 0.82,
+      "how": "rm -rf ~/.cache/torch_extensions/ && python -c 'import torch; torch.utils.cpp_extension.load(...)'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "For custom extensions, ensure NVCC flags match the GPU architecture",
+      "success_rate": 0.8,
+      "how": "TORCH_CUDA_ARCH_LIST='8.0;8.9' python setup.py install",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

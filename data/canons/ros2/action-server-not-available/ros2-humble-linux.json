@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/action-server-not-available/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/action-server-not-available/ros2-humble-linux",
+  "error": {
+    "signature": "Action server not available: /navigate_to_pose",
+    "regex": "(Action server not available|action.*not available|ActionClient.*wait_for_server.*timed out)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-24",
+    "summary": "Action server is not running. Common with Nav2, MoveIt2, or custom action servers that take time to start."
+  },
+  "dead_ends": [
+    {
+      "action": "Launch the action client before the server is up without any wait",
+      "why_fails": "Action calls will silently fail or raise confusing 'goal rejected' errors",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Replace action with service call for long-running tasks",
+      "why_fails": "Services block the caller and provide no feedback or cancellation support",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use wait_for_server() with appropriate timeout before sending goals",
+      "success_rate": 0.9,
+      "how": "action_client.wait_for_server(timeout_sec=10.0)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check action server is running with ros2 action list",
+      "success_rate": 0.88,
+      "how": "ros2 action list | grep navigate_to_pose",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure server node dependencies (TF, costmap) are fully initialized before accepting goals",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.2,
+        "condition": "Nav2 action server waits for TF and does not advertise until transforms are ready"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

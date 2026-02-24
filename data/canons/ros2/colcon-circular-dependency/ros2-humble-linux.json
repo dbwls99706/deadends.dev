@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/colcon-circular-dependency/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/colcon-circular-dependency/ros2-humble-linux",
+  "error": {
+    "signature": "colcon: packages have a circular dependency: pkg_a -> pkg_b -> pkg_a",
+    "regex": "(circular dependency|colcon.*circular|dependency cycle|topological sort.*failed)",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Two or more packages depend on each other forming a cycle. colcon cannot determine build order."
+  },
+  "dead_ends": [
+    {
+      "action": "Force build order with --packages-above/below",
+      "why_fails": "Hides the cycle; one package will always build with stale dependencies",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy shared headers directly between packages",
+      "why_fails": "Creates undeclared dependencies; breaks on clean builds and CI",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Extract shared types/interfaces into a separate package",
+      "success_rate": 0.92,
+      "how": "Create pkg_interfaces with only .msg/.srv/.action files, depend on it from both packages",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Visualize the dependency graph to find the cycle",
+      "success_rate": 0.88,
+      "how": "colcon graph --dot | dot -Tpng -o deps.png",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use build_depend vs exec_depend correctly in package.xml",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

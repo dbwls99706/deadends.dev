@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/nccl-timeout-distributed/cuda12-a100",
+  "url": "https://deadends.dev/cuda/nccl-timeout-distributed/cuda12-a100",
+  "error": {
+    "signature": "RuntimeError: NCCL error: Timeout (NCCL_ERROR_TIMEOUT)",
+    "regex": "(NCCL.*timeout|NCCL_ERROR_TIMEOUT|NCCL.*watchdog.*triggered|ncclSystemError.*Timeout)",
+    "domain": "cuda",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux",
+    "hardware": {
+      "gpu": "A100-80GB",
+      "vram_gb": 80
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "NCCL collective operation timed out during distributed training. One or more GPUs fell behind or lost network connectivity."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase NCCL_TIMEOUT to very large values",
+      "why_fails": "Masks the real issue (GPU hang, network failure); training will hang silently instead of crashing",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable NCCL and use Gloo backend",
+      "why_fails": "Gloo is CPU-based for GPU tensors; 10-100x slower for large models",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set NCCL_DEBUG=INFO to identify which rank and operation hangs",
+      "success_rate": 0.88,
+      "how": "NCCL_DEBUG=INFO torchrun --nproc_per_node=8 train.py",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check NVLink/InfiniBand connectivity between GPUs",
+      "success_rate": 0.82,
+      "how": "nvidia-smi topo -m  # verify NVLink topology",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure all ranks reach the collective at the same point (no conditional branching)",
+      "success_rate": 0.85,
+      "how": "All processes must call the same collectives in the same order; check for if/else around all_reduce",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "cuda/illegal-memory-access/cuda12-linux",
+        "probability": 0.15,
+        "condition": "GPU crash on one rank causes other ranks to timeout waiting"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

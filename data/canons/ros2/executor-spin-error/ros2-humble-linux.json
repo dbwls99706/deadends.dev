@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/executor-spin-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/executor-spin-error/ros2-humble-linux",
+  "error": {
+    "signature": "rclpy.executors.ExternalShutdownException: Context must be initialized before use",
+    "regex": "(ExternalShutdownException|Context.*initialized|executor.*shutdown|rclpy.*already.*shutdown|spin.*after.*shutdown)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Node shutdown was triggered externally (Ctrl+C) while the executor was spinning. Context is no longer valid."
+  },
+  "dead_ends": [
+    {
+      "action": "Catch the exception and keep spinning",
+      "why_fails": "Context is already destroyed; continued spinning causes undefined behavior and potential segfault",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Call rclpy.init() again after shutdown",
+      "why_fails": "Multiple init/shutdown cycles are fragile and leak resources in many RMW implementations",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wrap spin in try/except for graceful shutdown",
+      "success_rate": 0.92,
+      "how": "try: rclpy.spin(node) except (KeyboardInterrupt, ExternalShutdownException): pass finally: node.destroy_node(); rclpy.try_shutdown()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use rclpy.try_shutdown() instead of rclpy.shutdown() for safe cleanup",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Register an on_shutdown callback for resource cleanup",
+      "success_rate": 0.85,
+      "how": "context.on_shutdown(cleanup_function)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

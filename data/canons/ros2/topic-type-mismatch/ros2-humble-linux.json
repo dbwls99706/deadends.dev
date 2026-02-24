@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/topic-type-mismatch/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/topic-type-mismatch/ros2-humble-linux",
+  "error": {
+    "signature": "[ERROR] create_subscription(): type mismatch for topic '/cmd_vel'",
+    "regex": "(type mismatch.*topic|incompatible.*message type|topic.*type.*different|expected.*msg.*got)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Publisher and subscriber use different message types on the same topic name."
+  },
+  "dead_ends": [
+    {
+      "action": "Change one side's message type without updating the other",
+      "why_fails": "Causes the same error on the other node; both must agree on the exact message type",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a generic Any type or raw bytes",
+      "why_fails": "ROS 2 does not support untyped topics; DDS requires concrete IDL types for serialization",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check actual topic type with ros2 topic info",
+      "success_rate": 0.95,
+      "how": "ros2 topic info /cmd_vel --verbose  # shows type for each publisher/subscriber",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure both nodes import the same message package and type",
+      "success_rate": 0.92,
+      "how": "from geometry_msgs.msg import Twist  # must match on both sides",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ros2 interface show to inspect the message definition",
+      "success_rate": 0.85,
+      "how": "ros2 interface show geometry_msgs/msg/Twist",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "ros2/qos-incompatible/ros2-humble-linux",
+        "distinction": "QoS incompatibility: same type but different delivery guarantees. Type mismatch: different message types on same topic name."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

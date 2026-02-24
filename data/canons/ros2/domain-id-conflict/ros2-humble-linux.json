@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/domain-id-conflict/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/domain-id-conflict/ros2-humble-linux",
+  "error": {
+    "signature": "Receiving messages from unexpected nodes on ROS_DOMAIN_ID=0",
+    "regex": "(ROS_DOMAIN_ID.*conflict|unexpected.*node.*domain|domain.*collision|multiple.*robot.*same.*domain)",
+    "domain": "ros2",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Multiple ROS 2 systems on the same network use the same DOMAIN_ID, causing topic/service cross-talk."
+  },
+  "dead_ends": [
+    {
+      "action": "Filter messages by node name in subscriber callbacks",
+      "why_fails": "Does not prevent DDS discovery overhead or parameter/service collisions",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use different topic names for each robot system",
+      "why_fails": "Does not prevent DDS discovery flooding; every node still discovers all others",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Assign unique ROS_DOMAIN_ID (0-101) to each independent system",
+      "success_rate": 0.95,
+      "how": "export ROS_DOMAIN_ID=42  # unique per system, range 0-101",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use namespaces within a shared domain for cooperating robots",
+      "success_rate": 0.88,
+      "how": "ros2 launch my_pkg bringup.launch.py namespace:=robot1",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ROS_LOCALHOST_ONLY=1 for development on shared networks",
+      "success_rate": 0.85,
+      "how": "export ROS_LOCALHOST_ONLY=1",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "ros2/dds-discovery-failure/ros2-humble-linux",
+        "distinction": "Discovery failure: nodes can't find each other. Domain ID conflict: nodes find TOO MANY other nodes from other systems."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

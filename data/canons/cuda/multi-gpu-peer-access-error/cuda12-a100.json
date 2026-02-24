@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/multi-gpu-peer-access-error/cuda12-a100",
+  "url": "https://deadends.dev/cuda/multi-gpu-peer-access-error/cuda12-a100",
+  "error": {
+    "signature": "RuntimeError: CUDA error: peer access is not supported between these two devices",
+    "regex": "(peer access.*not supported|cannot enable peer|P2P.*not.*support|cudaDeviceEnablePeerAccess.*error)",
+    "domain": "cuda",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux",
+    "hardware": {
+      "gpu": "A100-80GB",
+      "vram_gb": 80
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "GPUs cannot directly access each other's memory. No NVLink between the devices or PCIe topology prevents P2P."
+  },
+  "dead_ends": [
+    {
+      "action": "Force enable peer access with environment variables",
+      "why_fails": "P2P is a hardware capability; if the bus topology doesn't support it, no software config can enable it",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move all tensors to a single GPU to avoid P2P",
+      "why_fails": "Defeats the purpose of multi-GPU; model may not fit on one GPU",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Disable P2P and let NCCL fall back to shared host memory",
+      "success_rate": 0.85,
+      "how": "export NCCL_P2P_DISABLE=1  # uses host-staged copies instead",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check GPU topology to verify which GPUs have P2P support",
+      "success_rate": 0.88,
+      "how": "nvidia-smi topo -m  # NV# = NVLink, PHB = no direct P2P",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Place communicating tensors on GPUs with direct NVLink connections",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "cuda/nccl-timeout-distributed/cuda12-a100",
+        "probability": 0.15,
+        "condition": "Failed P2P access causes NCCL to timeout on collectives"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

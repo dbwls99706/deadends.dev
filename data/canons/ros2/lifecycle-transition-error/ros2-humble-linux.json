@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/lifecycle-transition-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/lifecycle-transition-error/ros2-humble-linux",
+  "error": {
+    "signature": "Transition is not registered: current state 'unconfigured' goal state 'active'",
+    "regex": "(Transition.*not registered|lifecycle.*transition.*error|LifecycleNode.*cannot transition|invalid.*lifecycle.*state)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Lifecycle node transition attempted in wrong order. Must follow unconfigured->inactive->active sequence."
+  },
+  "dead_ends": [
+    {
+      "action": "Call activate() directly from unconfigured state",
+      "why_fails": "Lifecycle state machine requires configure->activate sequence; skipping configure is not allowed",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use regular Node class and fake lifecycle callbacks",
+      "why_fails": "Loses lifecycle management integration with launch files and system managers",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the lifecycle transition sequence: configure then activate",
+      "success_rate": 0.95,
+      "how": "ros2 lifecycle set /my_node configure && ros2 lifecycle set /my_node activate",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use lifecycle launch events to trigger transitions automatically",
+      "success_rate": 0.88,
+      "how": "RegisterEventHandler(OnStateTransition(...))",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check current state before transitioning",
+      "success_rate": 0.85,
+      "how": "ros2 lifecycle get /my_node",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

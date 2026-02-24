@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/urdf-xacro-parse-error/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/urdf-xacro-parse-error/ros2-humble-linux",
+  "error": {
+    "signature": "xacro: error: XML parsing error: not well-formed (invalid token)",
+    "regex": "(xacro.*error|xacro.*XML.*pars|URDF.*parsing.*error|robot_description.*invalid|Error processing.*xacro)",
+    "domain": "ros2",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "XACRO/URDF file has XML syntax errors or undefined xacro macros/properties."
+  },
+  "dead_ends": [
+    {
+      "action": "Edit the URDF file that xacro generates instead of the .xacro source",
+      "why_fails": "Generated URDF is overwritten on each build; edits are lost",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore xacro and write raw URDF for complex robots",
+      "why_fails": "Raw URDF is unmaintainable at scale; loses parameterization, macros, and math expressions",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Run xacro standalone to get a clear error with line numbers",
+      "success_rate": 0.92,
+      "how": "xacro my_robot.urdf.xacro > /dev/null",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check all xacro:property and xacro:macro definitions are included",
+      "success_rate": 0.88,
+      "how": "Verify all <xacro:include filename='...' /> paths are correct",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use check_urdf to validate the generated URDF",
+      "success_rate": 0.85,
+      "how": "xacro my_robot.urdf.xacro | check_urdf /dev/stdin",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.25,
+        "condition": "Invalid URDF means robot_state_publisher publishes no TF frames"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

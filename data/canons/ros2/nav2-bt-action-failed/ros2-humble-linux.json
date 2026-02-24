@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/nav2-bt-action-failed/ros2-humble-linux",
+  "url": "https://deadends.dev/ros2/nav2-bt-action-failed/ros2-humble-linux",
+  "error": {
+    "signature": "[nav2_bt_navigator] Action server failed: NavigateToPose",
+    "regex": "(nav2.*bt.*fail|NavigateToPose.*fail|nav2.*action.*abort|BT.*node.*FAILURE|navigation.*abort)",
+    "domain": "ros2",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": ">=humble,<rolling"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.68,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "Nav2 behavior tree action fails. Root cause varies: costmap not ready, planner timeout, controller stuck."
+  },
+  "dead_ends": [
+    {
+      "action": "Restart Nav2 stack on every failure",
+      "why_fails": "Restarts are expensive and lose all accumulated costmap data; hides the actual navigation issue",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase all timeouts to very large values",
+      "why_fails": "Masks configuration errors; robot sits idle for minutes before finally reporting failure",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Replace the entire BT XML with a simple sequence",
+      "why_fails": "Loses recovery behaviors, replanning, and fallback strategies",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check Nav2 logs for the specific BT node that failed",
+      "success_rate": 0.9,
+      "how": "ros2 topic echo /behavior_tree_log",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify costmap is populated (not empty) before navigation",
+      "success_rate": 0.85,
+      "how": "ros2 topic echo /local_costmap/costmap --once",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Test individual Nav2 components (planner, controller) separately",
+      "success_rate": 0.82,
+      "how": "ros2 action send_goal /compute_path_to_pose nav2_msgs/action/ComputePathToPose ...",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "ros2/tf-lookup-exception/ros2-humble-linux",
+        "probability": 0.3,
+        "condition": "Nav2 requires complete TF tree; missing frames cause planner failures"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}

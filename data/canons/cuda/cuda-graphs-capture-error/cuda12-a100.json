@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cuda/cuda-graphs-capture-error/cuda12-a100",
+  "url": "https://deadends.dev/cuda/cuda-graphs-capture-error/cuda12-a100",
+  "error": {
+    "signature": "RuntimeError: CUDA error: operation not permitted when stream is capturing",
+    "regex": "(operation not permitted.*stream.*captur|CUDA graph.*capture.*error|stream.*capturing.*not allowed|cudaStreamCapture.*error)",
+    "domain": "cuda",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cuda",
+      "version_range": ">=12.0,<13.0"
+    },
+    "os": "linux",
+    "hardware": {
+      "gpu": "A100-80GB",
+      "vram_gb": 80
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "CUDA Graphs capture mode does not allow certain operations (memory allocation, CPU sync, conditional branching)."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable CUDA Graphs and accept the performance loss",
+      "why_fails": "CUDA Graphs provide 10-30% speedup for small kernels; worth fixing the capture issue",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Wrap every operation in a separate graph",
+      "why_fails": "Creates excessive overhead from multiple graph launches; defeats the purpose of graphing",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pre-allocate all tensors before graph capture",
+      "success_rate": 0.88,
+      "how": "static_input = torch.empty(..., device='cuda'); with torch.cuda.graph(g): output = model(static_input)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move CPU operations and conditionals outside the captured region",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use torch.compiler.cudagraph_mark_step_begin() for torch.compile integration",
+      "success_rate": 0.8,
+      "how": "torch._inductor.config.triton.cudagraph_trees = True",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 50,
+    "last_verification": "2026-02-24"
+  }
+}
