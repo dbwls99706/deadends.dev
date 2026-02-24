@@ -39,12 +39,10 @@
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
 <body class="pg-search">
-  {% autoescape false %}
-  <pre id="ai-summary" style="display:none;">PAGE: Error Search
+  <pre id="ai-summary" class="ai-summary">PAGE: Error Search
 PURPOSE: Match error messages against {{ total_errors }} known patterns across {{ domain_count }} domains
 USAGE: Fetch /api/v1/index.json to get all error signatures with regex patterns. Match your error against regexes. Fetch the matching error's api_url for full dead_ends and workarounds.
 API_INDEX: {{ base_url }}/api/v1/index.json</pre>
-  {% endautoescape %}
 
   <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
 
@@ -52,7 +50,7 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
   <h1>Error Search</h1>
   <p>Paste your error message below. We'll match it against {{ total_errors }} known error patterns.</p>
 
-  <div style="margin: 1.5rem 0;">
+  <div class="search-box">
     <textarea id="search-input" rows="3" placeholder="Paste your error message here, e.g. ModuleNotFoundError: No module named 'torch'"></textarea>
   </div>
 
@@ -81,9 +79,10 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
     <p><a href="{{ base_path }}/">deadends.dev</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>
   </footer>
 
+  <script type="application/json" id="search-data">{{ search_data | safe }}</script>
   <script>
     (function() {
-      var errors = {{ search_data | safe }};
+      var errors = JSON.parse(document.getElementById('search-data').textContent);
       var input = document.getElementById('search-input');
       var resultsDiv = document.getElementById('results');
       var noResults = document.getElementById('no-results');

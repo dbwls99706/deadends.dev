@@ -50,8 +50,7 @@
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
 <body class="pg-summary">
-  {% autoescape false %}
-  <pre id="ai-summary" style="display:none;">ERROR={{ signature }}
+  <pre id="ai-summary" class="ai-summary">ERROR={{ signature }}
 REGEX={{ regex }}
 DOMAIN={{ domain }}
 ENVIRONMENTS={{ environments|length }}
@@ -62,7 +61,6 @@ FIX_RATE_RANGE={{ min_rate }}%-{{ max_rate }}%
 {% endfor %}DEAD_ENDS={% for de in common_dead_ends %}{{ de.action }} (fail_rate={{ de.fail_rate }}){% if not loop.last %}; {% endif %}{% endfor %}
 JSON_API_PATTERN={{ base_url }}/api/v1/{{ domain }}/{{ slug }}/{env}.json
 MATCH_API={{ base_url }}/api/v1/match.json</pre>
-  {% endautoescape %}
 
   <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ domain }}/">{{ domain | display_name }}</a></nav>
 
@@ -73,7 +71,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </header>
 
   <!-- TL;DR for AI coding agents -->
-  <section id="tldr" style="background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem;margin:1rem 0;">
+  <section id="tldr" class="card-section">
     <strong>TL;DR:</strong> Fix rates range from {{ min_rate }}% to {{ max_rate }}% across {{ environments|length }} environments.
     {% if common_dead_ends %}Top dead end: <em>{{ common_dead_ends[0].action }}</em> ({{ (common_dead_ends[0].fail_rate * 100)|int }}% fail).{% endif %}
     {% if common_workarounds %}Top workaround: <em>{{ common_workarounds[0].action }}</em> ({{ (common_workarounds[0].success_rate * 100)|int }}% success).{% endif %}

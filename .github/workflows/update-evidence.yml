@@ -35,16 +35,21 @@ jobs:
       - name: Validate generated site
         run: python -m generator.validate --site-only
 
-      - name: Check for changes
-        id: changes
+      - name: Check for data changes
+        id: data_changes
         run: |
           git diff --quiet data/ || echo "changed=true" >> $GITHUB_OUTPUT
 
+      - name: Check for site changes
+        id: site_changes
+        run: |
+          git diff --quiet site/ || echo "changed=true" >> $GITHUB_OUTPUT
+
       - name: Commit and push updates
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.data_changes.outputs.changed == 'true' || steps.site_changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          git commit -m "chore: weekly evidence update $(date +%Y-%m-%d)"
+          git add data/ site/
+          git diff --cached --quiet || git commit -m "chore: weekly evidence update $(date +%Y-%m-%d)"
           git push
