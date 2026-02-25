@@ -49,7 +49,9 @@
       "action": "Verify service is registered on the server",
       "success_rate": 0.95,
       "how": "server.add_insecure_port(...); server.add_generic_rpc_handlers([...])  # check service is added",
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {

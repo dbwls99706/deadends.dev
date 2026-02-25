@@ -50,7 +50,9 @@
       "action": "Use tf.compat.v1.Session() for quick migration, then refactor",
       "success_rate": 0.82,
       "how": "import tensorflow.compat.v1 as tf; tf.disable_v2_behavior()  # temporary",
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs/python/tf"
+      ],
       "condition": ""
     },
     {

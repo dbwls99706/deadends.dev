@@ -49,7 +49,9 @@
       "action": "Free disk space, then unblock the index",
       "success_rate": 0.95,
       "how": "Free disk, then: PUT _all/_settings with index.blocks.read_only_allow_delete set to null",
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {

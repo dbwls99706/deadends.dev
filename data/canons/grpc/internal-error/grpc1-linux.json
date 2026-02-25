@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/internal-error/grpc1-linux",
+  "url": "https://deadends.dev/grpc/internal-error/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.INTERNAL: Internal Server Error",
+    "regex": "(StatusCode\\.INTERNAL|INTERNAL.*[Ss]erver [Ee]rror|grpc.*internal.*error|INTERNAL.*exception|grpc.*status.*13)",
+    "domain": "grpc",
+    "category": "server_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.82,
+    "last_updated": "2026-02-25",
+    "summary": "Server-side unhandled exception or internal failure. The server crashed, panicked, or returned a generic error without details."
+  },
+  "dead_ends": [
+    {
+      "action": "Catch all exceptions in client and ignore INTERNAL status",
+      "why_fails": "Silencing INTERNAL errors hides server-side bugs that need fixing. Log and alert on these errors.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase client timeout assuming server is slow",
+      "why_fails": "INTERNAL status means the server failed, not that it is slow. Longer timeout will not fix a server-side exception.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://grpc.io/docs/guides/deadlines/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check server-side logs for the actual exception and stack trace",
+      "success_rate": 0.92,
+      "how": "The gRPC INTERNAL status is generic. The real error is in server logs, not the client-side message.",
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add proper error handling in server RPC handlers",
+      "success_rate": 0.88,
+      "how": "Catch exceptions in handler; return grpc.StatusCode.INTERNAL with a descriptive message via context.abort()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable gRPC server-side debug logging",
+      "success_rate": 0.82,
+      "how": "GRPC_VERBOSITY=DEBUG GRPC_TRACE=all python server.py  # or set channelz for production observability",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

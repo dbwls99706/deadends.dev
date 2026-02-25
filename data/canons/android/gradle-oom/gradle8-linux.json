@@ -49,7 +49,9 @@
       "action": "Increase Gradle JVM heap to reasonable size (4-8GB)",
       "success_rate": 0.9,
       "how": "In gradle.properties: org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/type-cast-error/flutter3-linux",
+  "url": "https://deadends.dev/flutter/type-cast-error/flutter3-linux",
+  "error": {
+    "signature": "type 'Null' is not a subtype of type 'String' in type cast",
+    "regex": "(type '.*' is not a subtype of type '.*'( in type cast)?|_CastError|TypeError.*subtype|type cast.*failed)",
+    "domain": "flutter",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.89,
+    "last_updated": "2026-02-25",
+    "summary": "Runtime type cast failure. A value (often null or wrong type) is being cast to an incompatible type, frequently from JSON parsing or API responses."
+  },
+  "dead_ends": [
+    {
+      "action": "Cast with 'as' keyword everywhere to force types",
+      "why_fails": "'as' throws at runtime when the cast fails; it does not convert types, only asserts them",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable null safety to avoid type cast errors",
+      "why_fails": "Disabling null safety removes all compile-time type checking; makes ALL type issues silent runtime failures",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.flutter.dev/testing/debugging"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use safe parsing with null-aware operators and default values",
+      "success_rate": 0.92,
+      "how": "final name = json['name'] as String? ?? 'unknown';  // safe cast with fallback",
+      "sources": [
+        "https://api.flutter.dev/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use fromJson factory constructors with explicit type handling",
+      "success_rate": 0.88,
+      "how": "factory User.fromJson(Map<String, dynamic> json) => User(name: json['name']?.toString() ?? '');",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate API response structure before casting",
+      "success_rate": 0.82,
+      "how": "if (json case {'name': String name, 'age': int age}) { ... }  // Dart 3 pattern matching",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -50,7 +50,9 @@
       "action": "Print shapes at each layer to find where mismatch begins",
       "success_rate": 0.92,
       "how": "print(x.shape) after each layer; or use torchsummary: summary(model, input_size)",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {

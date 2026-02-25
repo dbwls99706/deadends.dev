@@ -49,7 +49,9 @@
       "action": "Ensure add_executable is called before target_link_libraries",
       "success_rate": 0.95,
       "how": "add_executable(my_target main.cpp)\ntarget_link_libraries(my_target PRIVATE my_lib)",
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {

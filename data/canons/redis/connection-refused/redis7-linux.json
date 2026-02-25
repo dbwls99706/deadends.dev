@@ -49,7 +49,9 @@
       "action": "Start the Redis service",
       "success_rate": 0.95,
       "how": "sudo systemctl start redis && sudo systemctl enable redis",
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {

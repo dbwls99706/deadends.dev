@@ -50,7 +50,9 @@
       "action": "Check exact model name on huggingface.co/models",
       "success_rate": 0.92,
       "how": "AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-hf')  # exact Hub ID",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {

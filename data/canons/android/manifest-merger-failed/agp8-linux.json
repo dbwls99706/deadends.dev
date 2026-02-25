@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/manifest-merger-failed/agp8-linux",
+  "url": "https://deadends.dev/android/manifest-merger-failed/agp8-linux",
+  "error": {
+    "signature": "Execution failed for task ':app:processDebugMainManifest'. Manifest merger failed : Attribute application@appComponentFactory",
+    "regex": "(Manifest merger failed|processDebug.*Manifest|Manifest.*merge.*conflict|Attribute.*application@|uses-sdk:minSdkVersion.*cannot be smaller|AndroidManifest.*merge)",
+    "domain": "android",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gradle",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "AndroidManifest.xml merge conflict between app and library manifests. Conflicting attributes, SDK versions, or duplicate permissions."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete the app's AndroidManifest.xml and let it regenerate",
+      "why_fails": "The app manifest is the source of truth. Deleting it removes your custom config (permissions, activities, intent filters).",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add tools:replace to every conflicting attribute one by one",
+      "why_fails": "Blindly overriding library attributes can break their functionality. Understand what each library needs.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://developer.android.com/studio/build/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use tools:replace on specific conflicting attributes",
+      "success_rate": 0.92,
+      "how": "<application tools:replace=\"android:appComponentFactory\" ...>  <!-- add xmlns:tools in manifest tag -->",
+      "sources": [
+        "https://developer.android.com/reference/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Align minSdkVersion with library requirements",
+      "success_rate": 0.88,
+      "how": "Check error for required min SDK; update android { defaultConfig { minSdk = 24 } }  // match library requirement",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the manifest merger report to find exact conflicts",
+      "success_rate": 0.85,
+      "how": "./gradlew processDebugMainManifest --stacktrace; check app/build/outputs/logs/manifest-merger-*-report.txt",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

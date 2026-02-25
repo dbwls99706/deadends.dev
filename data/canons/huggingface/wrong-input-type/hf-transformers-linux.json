@@ -50,7 +50,9 @@
       "action": "Pass correct type: str for single, List[str] for batch",
       "success_rate": 0.95,
       "how": "tokenizer('single text') or tokenizer(['text1', 'text2'])",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {

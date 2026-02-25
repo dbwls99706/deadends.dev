@@ -50,7 +50,9 @@
       "action": "Accept the model license on the model page, then use auth token",
       "success_rate": 0.95,
       "how": "1. Visit huggingface.co/{model} and accept license. 2. huggingface-cli login. 3. Re-run.",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {

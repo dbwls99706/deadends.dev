@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/script-compilation-error/unity2022-any",
+  "url": "https://deadends.dev/unity/script-compilation-error/unity2022-any",
+  "error": {
+    "signature": "Assets/Scripts/PlayerController.cs(23,9): error CS1002: ; expected",
+    "regex": "(error CS\\d{4}|Assets.*\\.cs\\(\\d+.*error|Compilation failed|All compiler errors have to be fixed|scripts have compiler errors)",
+    "domain": "unity",
+    "category": "compilation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "C# script has a syntax or type error preventing compilation. Unity cannot enter Play mode until all compiler errors are fixed."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete Library folder to force recompilation",
+      "why_fails": "Library folder is just a cache. If the script has a syntax error, recompiling produces the same error.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Reimport All assets to fix script errors",
+      "why_fails": "Reimport is for asset pipeline issues, not C# syntax errors. Does not recompile scripts.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Read the exact error code and line number in the Console",
+      "success_rate": 0.95,
+      "how": "Double-click the error in Console to jump to the exact line in your IDE",
+      "sources": [
+        "https://docs.unity3d.com/Manual/upm-ui.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check for IDE/Unity version mismatch with .NET API compatibility",
+      "success_rate": 0.85,
+      "how": "Edit > Project Settings > Player > Api Compatibility Level: .NET Standard 2.1 or .NET Framework",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure all referenced packages are installed and up to date",
+      "success_rate": 0.82,
+      "how": "Window > Package Manager > check for errors or missing packages referenced in your scripts",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

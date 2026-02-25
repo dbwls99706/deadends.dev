@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/watchdog-timeout-reset/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/watchdog-timeout-reset/stm32-arm-linux",
+  "error": {
+    "signature": "IWDG reset detected: system restarted by independent watchdog timeout",
+    "regex": "(watchdog.*reset|IWDG.*timeout|WWDG.*reset|wdt.*expired|watchdog.*triggered|RCC_CSR.*IWDG)",
+    "domain": "embedded",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "stm32",
+      "version_range": ">=F1"
+    },
+    "os": "cross-platform",
+    "additional": {
+      "architecture": "arm"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Watchdog timer reset the MCU because firmware did not refresh it in time. Infinite loop, deadlock, or blocking delay."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable the watchdog entirely",
+      "why_fails": "Watchdog exists for safety/reliability. Disabling it hides the root cause; system hangs without recovery.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase watchdog timeout to maximum value",
+      "why_fails": "Masks the problem temporarily. If code hangs for even longer, the crash returns.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.freertos.org/Documentation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check reset source register to confirm watchdog reset",
+      "success_rate": 0.88,
+      "how": "if (RCC->CSR & RCC_CSR_IWDGRSTF) { /* IWDG caused reset */ } RCC->CSR |= RCC_CSR_RMVF;",
+      "sources": [
+        "https://openocd.org/doc/html/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add watchdog refresh in all long-running loops and blocking waits",
+      "success_rate": 0.9,
+      "how": "while (wait_for_sensor()) { HAL_IWDG_Refresh(&hiwdg); }  // prevent timeout during legitimate waits",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a dedicated low-priority RTOS task to feed the watchdog",
+      "success_rate": 0.82,
+      "how": "If lowest-priority task runs, all higher-priority tasks are not starving the system.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

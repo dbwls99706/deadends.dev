@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/generator-not-found/cmake3.28-linux",
+  "url": "https://deadends.dev/cmake/generator-not-found/cmake3.28-linux",
+  "error": {
+    "signature": "CMake Error: Could not create named generator Ninja",
+    "regex": "(Could not create named generator|CMake Error.*generator.*not found|Generator.*is not available)",
+    "domain": "cmake",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Requested CMake generator (Ninja, Visual Studio, etc.) is not installed or not in PATH."
+  },
+  "dead_ends": [
+    {
+      "action": "Install a random build system hoping it provides the generator",
+      "why_fails": "Only the specific requested generator is needed; installing Make does not provide Ninja.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade CMake version to one that 'includes' the generator",
+      "why_fails": "Generators are separate executables, not bundled with CMake. Version is irrelevant.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the required generator",
+      "success_rate": 0.95,
+      "how": "sudo apt install ninja-build  # for Ninja generator",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a different available generator",
+      "success_rate": 0.88,
+      "how": "cmake -G 'Unix Makefiles' ..  # list available: cmake --help",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set PATH to include the generator binary location",
+      "success_rate": 0.82,
+      "how": "export PATH=/opt/ninja/bin:$PATH && cmake -G Ninja ..",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

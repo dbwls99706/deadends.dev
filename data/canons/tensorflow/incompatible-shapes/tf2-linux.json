@@ -50,7 +50,9 @@
       "action": "Match loss function to label format",
       "success_rate": 0.92,
       "how": "Integer labels: sparse_categorical_crossentropy. One-hot labels: categorical_crossentropy.",
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs/python/tf"
+      ],
       "condition": ""
     },
     {

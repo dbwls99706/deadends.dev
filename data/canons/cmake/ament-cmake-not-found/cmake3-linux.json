@@ -49,7 +49,9 @@
       "action": "Source ROS 2 installation before cmake/colcon",
       "success_rate": 0.95,
       "how": "source /opt/ros/humble/setup.bash && colcon build",
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {

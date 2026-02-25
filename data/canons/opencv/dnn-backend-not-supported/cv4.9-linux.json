@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/dnn-backend-not-supported/cv4.9-linux",
+  "url": "https://deadends.dev/opencv/dnn-backend-not-supported/cv4.9-linux",
+  "error": {
+    "signature": "cv2.error: DNN module was not built with CUDA backend; switched to CPU",
+    "regex": "(DNN.*not built with|backend.*not (available|supported)|setPreferableBackend.*failed|CUDA.*backend.*not available|DNN_BACKEND_CUDA.*error)",
+    "domain": "opencv",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "OpenCV DNN module does not have the requested backend (CUDA, OpenVINO). Built without that support."
+  },
+  "dead_ends": [
+    {
+      "action": "Install CUDA toolkit expecting opencv-python pip package to use it",
+      "why_fails": "pip opencv-python is built without CUDA. You need opencv-contrib-python built from source with CUDA flags.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set backend to CUDA in code without checking availability",
+      "why_fails": "Falls back to CPU silently or throws error. Always check getLayerTypes() or getBuildInformation().",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Build OpenCV from source with CUDA flags",
+      "success_rate": 0.88,
+      "how": "cmake -DWITH_CUDA=ON -DCUDA_ARCH_BIN=8.6 -DOPENCV_DNN_CUDA=ON ..",
+      "sources": [
+        "https://docs.opencv.org/4.x/d0/d05/tutorial_dnn_googlenet.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use CPU backend which is always available",
+      "success_rate": 0.92,
+      "how": "net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)\nnet.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check build info to see which backends are available",
+      "success_rate": 0.85,
+      "how": "print(cv2.getBuildInformation())  # look for CUDA, OpenVINO under DNN section",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

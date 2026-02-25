@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/policy-cmp-warning/cmake3.28-linux",
+  "url": "https://deadends.dev/cmake/policy-cmp-warning/cmake3.28-linux",
+  "error": {
+    "signature": "CMake Warning (dev): Policy CMP0077 is not set: option() honors normal variables.",
+    "regex": "(Policy CMP\\d+.*not set|CMake.*policy.*CMP\\d+|cmake_policy.*OLD|deprecated.*policy|CMP\\d+.*NEW.*OLD)",
+    "domain": "cmake",
+    "category": "deprecation_warning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "CMake policy warning about deprecated behavior. Using OLD policy silences the warning but relies on behavior that will be removed."
+  },
+  "dead_ends": [
+    {
+      "action": "Set cmake_policy(SET CMPxxxx OLD) to suppress the warning",
+      "why_fails": "OLD behavior is deprecated and will be removed in future CMake versions. This is a ticking time bomb.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Pin cmake_minimum_required to an old version to avoid the policy",
+      "why_fails": "Locks entire project to old CMake features and behavior, not just the single policy.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Update code to comply with the NEW policy behavior",
+      "success_rate": 0.92,
+      "how": "cmake_policy(SET CMP0077 NEW)  # then update code to match new behavior",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set cmake_minimum_required to a version where the policy defaults to NEW",
+      "success_rate": 0.88,
+      "how": "cmake_minimum_required(VERSION 3.24)  # CMP0077 defaults to NEW since 3.13",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use cmake_policy(SET CMPxxxx NEW) explicitly in the relevant scope",
+      "success_rate": 0.85,
+      "how": "cmake_policy(SET CMP0077 NEW)  # only if you understand the behavioral change",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

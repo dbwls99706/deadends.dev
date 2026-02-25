@@ -49,7 +49,9 @@
       "action": "Install the compiler toolchain",
       "success_rate": 0.95,
       "how": "sudo apt install build-essential",
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {

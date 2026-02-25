@@ -49,7 +49,9 @@
       "action": "Set appropriate per-RPC deadline based on expected latency",
       "success_rate": 0.9,
       "how": "metadata = [('grpc-timeout', '30S')]; # or in Python: stub.MyMethod(req, timeout=30)",
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {

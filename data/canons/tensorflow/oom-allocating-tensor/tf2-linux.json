@@ -53,7 +53,9 @@
       "action": "Enable GPU memory growth to allocate on demand",
       "success_rate": 0.92,
       "how": "gpus = tf.config.list_physical_devices('GPU'); tf.config.experimental.set_memory_growth(gpus[0], True)",
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs/python/tf"
+      ],
       "condition": ""
     },
     {

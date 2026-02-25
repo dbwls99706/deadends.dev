@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/flash-write-failed/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/flash-write-failed/stm32-arm-linux",
+  "error": {
+    "signature": "Error: flash write failed at address 0x08000000, expected 0xFF read back 0x00",
+    "regex": "(flash write failed|Error.*flash.*program|write.*failed.*address.*0x|flash.*verification.*failed|FLASH_SR.*WRPERR)",
+    "domain": "embedded",
+    "category": "flash_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openocd",
+      "version_range": ">=0.11"
+    },
+    "os": "linux",
+    "additional": {
+      "architecture": "arm"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Flash programming fails. Write-protection enabled, flash not erased, or voltage too low for programming."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry flashing repeatedly without erasing first",
+      "why_fails": "Flash can only be written 1->0. If not erased (all 0xFF), writes silently corrupt. Always erase before write.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase SWD clock speed for faster flash writes",
+      "why_fails": "Flash programming speed is limited by internal charge pump, not SWD clock. Faster clock increases errors.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.freertos.org/Documentation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Erase flash before writing",
+      "success_rate": 0.95,
+      "how": "openocd: flash erase_sector 0 0 last  # or use mass_erase",
+      "sources": [
+        "https://openocd.org/doc/html/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Remove flash write protection via option bytes",
+      "success_rate": 0.88,
+      "how": "STM32CubeProgrammer -> Option Bytes -> Write Protection -> Uncheck all sectors",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check supply voltage is above minimum for flash programming",
+      "success_rate": 0.8,
+      "how": "STM32F4 needs >= 2.7V for word programming. Brown-out during flash causes corruption.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

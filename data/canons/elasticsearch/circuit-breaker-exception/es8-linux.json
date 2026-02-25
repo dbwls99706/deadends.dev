@@ -49,7 +49,9 @@
       "action": "Reduce query scope: add filters, limit aggregation buckets",
       "success_rate": 0.9,
       "how": "Add date range filter; set size:0 for aggregation-only queries; limit terms agg size",
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {

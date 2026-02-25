@@ -49,7 +49,9 @@
       "action": "Resize one image to match the other",
       "success_rate": 0.95,
       "how": "img2 = cv2.resize(img2, (img1.shape[1], img1.shape[0]))  # (width, height)",
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {

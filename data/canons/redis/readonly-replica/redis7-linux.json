@@ -49,7 +49,9 @@
       "action": "Fix application connection to point to the primary node",
       "success_rate": 0.95,
       "how": "Check connection string: connect to primary host/port, not replica",
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {

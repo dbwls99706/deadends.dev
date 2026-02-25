@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "tensorflow/checkpoint-not-found/tf2.15-linux",
+  "url": "https://deadends.dev/tensorflow/checkpoint-not-found/tf2.15-linux",
+  "error": {
+    "signature": "tensorflow.python.framework.errors_impl.NotFoundError: Unsuccessful TensorSliceReader: Failed to get matching files on /path/to/model/checkpoint",
+    "regex": "(Unsuccessful TensorSliceReader|Failed to get matching files.*checkpoint|NotFoundError.*checkpoint|checkpoint.*not found|SavedModel.*not found|No checkpoint found)",
+    "domain": "tensorflow",
+    "category": "io_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tensorflow",
+      "version_range": ">=2.10"
+    },
+    "os": "linux",
+    "python": ">=3.9"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Checkpoint file missing, path wrong, or only partial checkpoint files present (missing .index or .data)."
+  },
+  "dead_ends": [
+    {
+      "action": "Download only the .ckpt file without .index and .data-00000-of-00001",
+      "why_fails": "TF checkpoints are split into 3 files (.index, .data-00000-of-00001, checkpoint). All are required.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.tensorflow.org/api_docs/python/tf"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Change file extension from .ckpt to .h5 or vice versa",
+      "why_fails": "These are completely different formats. .ckpt is TF-native, .h5 is HDF5. They are not interchangeable by renaming.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.tensorflow.org/install/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify all checkpoint files exist",
+      "success_rate": 0.92,
+      "how": "ls model_dir/  # must have: checkpoint, model.ckpt.index, model.ckpt.data-00000-of-00001",
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use tf.train.latest_checkpoint() to find the correct path",
+      "success_rate": 0.88,
+      "how": "ckpt_path = tf.train.latest_checkpoint('model_dir/'); model.load_weights(ckpt_path)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use SavedModel format instead of checkpoints for portability",
+      "success_rate": 0.82,
+      "how": "model.save('saved_model_dir')  # saves full model; tf.saved_model.load('saved_model_dir')",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

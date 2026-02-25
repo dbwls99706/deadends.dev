@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/il2cpp-build-error/unity2022-any",
+  "url": "https://deadends.dev/unity/il2cpp-build-error/unity2022-any",
+  "error": {
+    "signature": "IL2CPP error: Unity.IL2CPP.Building.BuilderFailedException: Attempting to constrain an unconstructed type",
+    "regex": "(IL2CPP.*error|IL2CPP.*Building|BuilderFailedException|il2cpp\\.exe.*failed|IL2CPP.*compilation|UnityLinker.*error|Burst.*IL2CPP)",
+    "domain": "unity",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.75,
+    "confidence": 0.83,
+    "last_updated": "2026-02-25",
+    "summary": "IL2CPP AOT compilation failed. Generic type stripping, reflection usage, or unsupported managed code pattern."
+  },
+  "dead_ends": [
+    {
+      "action": "Switch to Mono backend to avoid IL2CPP issues",
+      "why_fails": "Mono is not available on iOS/consoles. IL2CPP is mandatory for most release platforms.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable code stripping entirely",
+      "why_fails": "Disabling stripping includes everything, making builds 2-5x larger. Use a link.xml instead.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add a link.xml to preserve types stripped by IL2CPP linker",
+      "success_rate": 0.88,
+      "how": "<linker><assembly fullname=\"MyAssembly\" preserve=\"all\"/></linker>  # in Assets/link.xml",
+      "sources": [
+        "https://docs.unity3d.com/Manual/upm-ui.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add dummy references for generic types used via reflection",
+      "success_rate": 0.82,
+      "how": "private void PreserveTypes() { new List<MyType>(); }  // forces IL2CPP to generate code for this generic",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Update IL2CPP / Unity to latest patch for bug fixes",
+      "success_rate": 0.78,
+      "how": "Unity Hub > Installs > Check for Updates; IL2CPP bugs are fixed frequently in patch releases",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

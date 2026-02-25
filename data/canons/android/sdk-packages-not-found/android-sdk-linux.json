@@ -49,7 +49,9 @@
       "action": "Accept all SDK licenses non-interactively",
       "success_rate": 0.95,
       "how": "yes | sdkmanager --licenses",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {

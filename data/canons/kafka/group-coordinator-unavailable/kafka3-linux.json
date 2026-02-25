@@ -49,7 +49,9 @@
       "action": "Wait for cluster to fully start - coordinator election takes a few seconds",
       "success_rate": 0.88,
       "how": "Add retry logic with backoff in consumer initialization",
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {

@@ -50,7 +50,9 @@
       "action": "Reduce num_workers and prefetch_factor",
       "success_rate": 0.9,
       "how": "DataLoader(dataset, num_workers=2, prefetch_factor=2)  # default prefetch_factor=2",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {

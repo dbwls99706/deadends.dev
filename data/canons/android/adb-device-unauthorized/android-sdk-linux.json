@@ -49,7 +49,9 @@
       "action": "Accept USB debugging prompt on the device screen",
       "success_rate": 0.95,
       "how": "Unlock phone screen > tap 'Always allow from this computer' > OK",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {

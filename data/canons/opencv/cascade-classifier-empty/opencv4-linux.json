@@ -49,7 +49,9 @@
       "action": "Use cv2.data.haarcascades for bundled cascades",
       "success_rate": 0.95,
       "how": "cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')",
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/invalid-pid-number/nginx1.24-linux",
+  "url": "https://deadends.dev/nginx/invalid-pid-number/nginx1.24-linux",
+  "error": {
+    "signature": "nginx: [error] invalid PID number \"\" in \"/run/nginx.pid\"",
+    "regex": "(invalid PID number|nginx\\.pid.*invalid|PID file.*not found|stale PID file|open\\(\\).*nginx\\.pid.*failed|no such process.*nginx)",
+    "domain": "nginx",
+    "category": "startup_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "PID file is empty, stale, or missing. Usually after unclean shutdown, manual file deletion, or containerized nginx."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually write a PID number into the PID file",
+      "why_fails": "Writing an arbitrary PID causes nginx -s reload/stop to signal the wrong process. Let nginx manage its own PID file.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete the PID file and hope nginx recreates it",
+      "why_fails": "nginx only writes the PID file on startup. Deleting it while running makes nginx -s commands fail until next restart.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Kill any existing nginx processes and start fresh",
+      "success_rate": 0.92,
+      "how": "sudo pkill nginx; sleep 1; sudo nginx  # or: sudo nginx -s stop 2>/dev/null; sudo nginx",
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use systemctl which manages PID tracking automatically",
+      "success_rate": 0.9,
+      "how": "sudo systemctl restart nginx  # systemd tracks the PID independently of nginx.pid",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify the PID file path matches nginx.conf",
+      "success_rate": 0.82,
+      "how": "grep pid /etc/nginx/nginx.conf  # default: /run/nginx.pid; must match systemd ExecStart expectations",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

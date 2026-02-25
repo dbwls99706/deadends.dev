@@ -50,7 +50,9 @@
       "action": "Replace inplace operations with out-of-place equivalents",
       "success_rate": 0.92,
       "how": "x = x + 1 instead of x += 1; F.relu(x) instead of F.relu(x, inplace=True)",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {

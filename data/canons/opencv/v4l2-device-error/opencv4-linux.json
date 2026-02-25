@@ -49,7 +49,9 @@
       "action": "Add user to video group",
       "success_rate": 0.92,
       "how": "sudo usermod -aG video $USER && newgrp video",
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {

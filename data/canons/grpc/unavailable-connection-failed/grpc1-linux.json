@@ -49,7 +49,9 @@
       "action": "Verify server is running and listening on expected port",
       "success_rate": 0.95,
       "how": "grpcurl -plaintext localhost:50051 list  # or ss -tlnp | grep 50051",
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {

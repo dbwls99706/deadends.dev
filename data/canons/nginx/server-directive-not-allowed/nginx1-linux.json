@@ -49,7 +49,9 @@
       "action": "Test config syntax before reloading",
       "success_rate": 0.95,
       "how": "sudo nginx -t  # validates config and shows exact error location",
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {

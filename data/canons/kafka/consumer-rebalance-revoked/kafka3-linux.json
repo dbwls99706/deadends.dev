@@ -49,7 +49,9 @@
       "action": "Increase max.poll.interval.ms to match expected processing time",
       "success_rate": 0.88,
       "how": "max.poll.interval.ms=600000  # 10 minutes; adjust to your processing time",
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {

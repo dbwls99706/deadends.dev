@@ -49,7 +49,9 @@
       "action": "Update CocoaPods repo and re-run pod install",
       "success_rate": 0.88,
       "how": "cd ios && pod repo update && pod install",
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {

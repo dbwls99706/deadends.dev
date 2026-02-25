@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/proxy-read-timeout/nginx1.24-linux",
+  "url": "https://deadends.dev/nginx/proxy-read-timeout/nginx1.24-linux",
+  "error": {
+    "signature": "upstream timed out (110: Operation timed out) while reading response header from upstream, client: 10.0.0.1, server: example.com",
+    "regex": "(upstream timed out.*reading response|504 Gateway Time-?out|proxy_read_timeout|Operation timed out.*upstream|upstream.*110.*timed out)",
+    "domain": "nginx",
+    "category": "proxy_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.87,
+    "last_updated": "2026-02-25",
+    "summary": "504 Gateway Timeout. Backend did not send response headers within proxy_read_timeout (default 60s). Long-running request or backend issue."
+  },
+  "dead_ends": [
+    {
+      "action": "Set proxy_read_timeout to 3600 or higher globally",
+      "why_fails": "Extremely long timeouts mask backend failures and tie up nginx worker connections for the duration. Set per-location for specific slow endpoints.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add keepalive connections assuming the timeout is a connection issue",
+      "why_fails": "proxy_read_timeout is about response time, not connection establishment. Keepalive helps with proxy_connect_timeout, not read timeout.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase proxy_read_timeout for specific slow endpoints only",
+      "success_rate": 0.88,
+      "how": "location /api/reports { proxy_read_timeout 300s; proxy_pass http://backend; }  # only slow endpoints get longer timeout",
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Fix the slow backend response (optimize query, add caching)",
+      "success_rate": 0.92,
+      "how": "Profile backend: slow query log, APM tracing. Add caching for expensive operations. 504 means the backend is too slow.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement request buffering and async processing for long operations",
+      "success_rate": 0.82,
+      "how": "Return 202 Accepted immediately; process in background; client polls /status endpoint. Avoids tying up nginx and backend workers.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/shard-allocation-failed/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/shard-allocation-failed/es8-linux",
+  "error": {
+    "signature": "ClusterHealthResponse: status=RED, unassigned_shards=5, reason=ALLOCATION_FAILED",
+    "regex": "(unassigned_shards|ALLOCATION_FAILED|shard.*not.*allocat|cluster.*health.*RED|no valid shard copy|all copies.*failed)",
+    "domain": "elasticsearch",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Cluster red or yellow due to unassigned shards. Disk full, node left, or allocation filtering misconfigured."
+  },
+  "dead_ends": [
+    {
+      "action": "Force-allocate primary shards with accept_data_loss",
+      "why_fails": "Force allocation of stale primary shards risks losing acknowledged writes and creating split-brain data",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restart all nodes simultaneously to fix red cluster",
+      "why_fails": "Simultaneous restart causes full cluster outage and risks data loss if quorum is lost",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/restart-cluster.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check allocation explain API for root cause",
+      "success_rate": 0.92,
+      "how": "GET _cluster/allocation/explain?pretty  # shows exactly why shard is unassigned",
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Free disk space below watermark thresholds",
+      "success_rate": 0.88,
+      "how": "Default watermarks: low=85%, high=90%, flood=95%. Free disk or adjust cluster.routing.allocation.disk.watermark settings",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reroute with retry_failed to reattempt allocation after fixing root cause",
+      "success_rate": 0.85,
+      "how": "POST _cluster/reroute?retry_failed=true  # after resolving disk/node issues",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

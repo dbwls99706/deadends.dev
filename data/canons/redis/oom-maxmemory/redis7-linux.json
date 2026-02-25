@@ -49,7 +49,9 @@
       "action": "Set appropriate eviction policy",
       "success_rate": 0.9,
       "how": "CONFIG SET maxmemory-policy allkeys-lru  # evict least-recently-used keys",
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {

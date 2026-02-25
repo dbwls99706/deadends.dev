@@ -49,7 +49,9 @@
       "action": "Enable Java 8 desugaring in build.gradle",
       "success_rate": 0.95,
       "how": "android { compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 } }",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {

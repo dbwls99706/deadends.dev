@@ -53,7 +53,9 @@
       "action": "Use a device variable and .to(device) consistently",
       "success_rate": 0.95,
       "how": "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); model.to(device); x = x.to(device)",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {

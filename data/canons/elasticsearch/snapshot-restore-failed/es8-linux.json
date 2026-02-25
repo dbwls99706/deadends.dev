@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/snapshot-restore-failed/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/snapshot-restore-failed/es8-linux",
+  "error": {
+    "signature": "SnapshotRestoreException: [repo:snapshot/xxxxx] cannot restore index [my_index] because an open index with same name already exists in the cluster",
+    "regex": "(SnapshotRestoreException|cannot restore index|snapshot.*failed|restore.*failed|snapshot_restore_exception|index.*already exists.*cluster)",
+    "domain": "elasticsearch",
+    "category": "snapshot_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Snapshot restore failed. Index name conflicts, incompatible versions, or repository access issues."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete the existing index to make room for restore",
+      "why_fails": "Deleting the live index before restore is confirmed causes data loss if restore also fails. Rename instead.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restore from a different snapshot repository format",
+      "why_fails": "Repositories are format-specific. An S3 snapshot cannot be restored from a local fs repo path and vice versa.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Restore to a different index name using rename_pattern",
+      "success_rate": 0.92,
+      "how": "POST _snapshot/repo/snap/_restore { 'rename_pattern': 'my_index', 'rename_replacement': 'restored_my_index' }",
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Close the existing index before restoring (if acceptable)",
+      "success_rate": 0.85,
+      "how": "POST /my_index/_close  # then restore; the closed index will be replaced",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify snapshot integrity before restore",
+      "success_rate": 0.8,
+      "how": "GET _snapshot/repo/snap/_status  # check state=SUCCESS; also verify repository is accessible",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

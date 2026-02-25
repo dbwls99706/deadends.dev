@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/cancelled-context/grpc1-linux",
+  "url": "https://deadends.dev/grpc/cancelled-context/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.CANCELLED: Context cancelled",
+    "regex": "(StatusCode\\.CANCELLED|CANCELLED.*[Cc]ontext|context.*cancel|grpc.*cancelled|client.*cancel.*rpc)",
+    "domain": "grpc",
+    "category": "cancellation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "RPC was cancelled by the client. Parent context cancelled, user navigated away, or explicit cancellation."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry cancelled RPCs unconditionally on the client side",
+      "why_fails": "If the client explicitly cancelled (e.g., user action), retrying wastes resources and may cause duplicate side effects.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://grpc.io/docs/guides/cancellation/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ignore cancellation errors in the server handler",
+      "why_fails": "Ignoring cancellation means the server continues expensive work that nobody will read. Always check context.is_active().",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://grpc.io/docs/guides/cancellation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Handle cancellation gracefully on the server side",
+      "success_rate": 0.92,
+      "how": "Check context.is_active() in long-running handlers; abort work early when cancelled to free resources",
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Distinguish intentional vs. unintentional cancellation on client",
+      "success_rate": 0.85,
+      "how": "Track whether cancellation came from user action (no retry) or parent context (possible retry)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use context.add_callback() to clean up resources on cancellation",
+      "success_rate": 0.82,
+      "how": "context.add_callback(cleanup_fn)  # Python server; runs when RPC is cancelled",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

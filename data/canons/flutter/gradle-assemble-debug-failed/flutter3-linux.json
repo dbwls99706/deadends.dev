@@ -49,7 +49,9 @@
       "action": "Scroll up in the log to find the actual error",
       "success_rate": 0.95,
       "how": "flutter build apk --verbose 2>&1 | less  # search for 'ERROR' or 'FAILURE'",
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {

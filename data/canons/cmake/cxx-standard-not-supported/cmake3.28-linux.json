@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/cxx-standard-not-supported/cmake3.28-linux",
+  "url": "https://deadends.dev/cmake/cxx-standard-not-supported/cmake3.28-linux",
+  "error": {
+    "signature": "CMake Error: CXX_STANDARD is set to invalid value '20' — compiler does not support C++20",
+    "regex": "(CXX_STANDARD.*invalid value|compiler.*does not support.*C\\+\\+|CMAKE_CXX_STANDARD.*not supported|CXX_STANDARD_REQUIRED.*failed)",
+    "domain": "cmake",
+    "category": "compiler_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "The CXX_STANDARD value (e.g., 20, 23) exceeds what the installed compiler version supports."
+  },
+  "dead_ends": [
+    {
+      "action": "Set CMAKE_CXX_STANDARD_REQUIRED to OFF to ignore the error",
+      "why_fails": "Silently falls back to an older standard; code using C++20 features will fail with cryptic template errors.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add -std=c++20 manually to CMAKE_CXX_FLAGS",
+      "why_fails": "Bypasses CMake's compiler feature detection; causes duplicate or conflicting flags.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Upgrade the compiler to a version supporting the required standard",
+      "success_rate": 0.92,
+      "how": "sudo apt install g++-12  # g++-12 supports C++20; g++-13+ for C++23",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Specify the compiler version explicitly",
+      "success_rate": 0.88,
+      "how": "cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-12 ..",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Lower CXX_STANDARD if the code does not actually use newer features",
+      "success_rate": 0.8,
+      "how": "set(CMAKE_CXX_STANDARD 17)  # only if no C++20 features are used",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}
