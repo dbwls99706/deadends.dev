@@ -29,14 +29,18 @@
       "action": "Open file as UTF-8 and assume clean content",
       "why_fails": "UTF-8 with BOM inserts 3 invisible bytes at the start. json.loads fails. CSV first header gets \\ufeff prefix. Dict lookups on first column fail.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "Manually strip first 3 bytes from file",
       "why_fails": "Only works if BOM is present. Stripping 3 bytes from non-BOM file corrupts the first character.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

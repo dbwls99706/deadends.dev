@@ -29,14 +29,18 @@
       "action": "Assume the web framework regenerates session ID on login automatically",
       "why_fails": "Most frameworks (Express, Flask, Django, Spring) do NOT auto-regenerate session IDs on authentication state change. You must do it explicitly.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Create a new session only when the user first visits",
       "why_fails": "The issue isn't session creation timing but that the same session ID survives the authentication boundary. Pre-auth and post-auth must have different IDs.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "distributed_communication",
     "first_seen": "2023-07-15",
-    "last_confirmed": "2025-05-22"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -32,7 +32,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.74,
     "confidence": 0.72,
-    "last_updated": "2025-05-22",
+    "last_updated": "2026-02-24",
     "summary": "NCCL timeout errors in multi-GPU PyTorch 2.1 setups are caused by network misconfiguration, asymmetric GPU workloads, or NCCL selecting the wrong network interface. Diagnosing with NCCL_DEBUG=INFO and fixing the network configuration resolves most cases. The root cause is almost never NCCL itself but rather the networking layer it operates over."
   },
   "dead_ends": [

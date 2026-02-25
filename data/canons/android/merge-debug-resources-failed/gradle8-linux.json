@@ -29,14 +29,18 @@
       "action": "Clean project repeatedly (Build > Clean)",
       "why_fails": "Clean removes build cache but does not fix the underlying resource conflict",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     },
     {
       "action": "Downgrade Gradle plugin version",
       "why_fails": "Masks the issue temporarily; the resource conflict still exists and will reappear",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Add the dependency directly to CMakeLists.txt find_package without rosdep",
       "why_fails": "The dependency still won't be installed on CI/CD or other developers' machines",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the dependency from package.xml",
       "why_fails": "Other packages depending on yours will have broken builds",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +82,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

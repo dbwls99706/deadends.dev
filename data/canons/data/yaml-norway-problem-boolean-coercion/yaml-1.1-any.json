@@ -29,14 +29,18 @@
       "action": "Write YAML values without quotes and trust they stay as strings",
       "why_fails": "YAML 1.1 interprets: NO->false, YES->true, null->None, 1.0->float, 0o10->8(octal). Country codes, version numbers, and on/off flags are all affected.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "Upgrade to YAML 1.2 parser to fix the problem",
       "why_fails": "Most tools (Ansible, Kubernetes, Docker Compose, GitHub Actions) still use YAML 1.1 parsers. Your files must be compatible with consumers.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

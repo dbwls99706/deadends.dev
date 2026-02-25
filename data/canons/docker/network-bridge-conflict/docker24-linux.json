@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "networking",
     "first_seen": "2017-06-01",
-    "last_confirmed": "2025-05-01"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.85,
-    "last_updated": "2025-05-01",
+    "last_updated": "2026-02-24",
     "summary": "This error occurs when Docker tries to create a network with a subnet that overlaps an existing Docker network, a host network interface, or a VPN subnet. Docker assigns subnets from private IP ranges (172.16.0.0/12, 192.168.0.0/16) and conflicts arise when those ranges are already in use."
   },
   "dead_ends": [

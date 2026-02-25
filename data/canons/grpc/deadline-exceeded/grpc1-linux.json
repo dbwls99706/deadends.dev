@@ -29,14 +29,18 @@
       "action": "Remove deadline entirely so calls never time out",
       "why_fails": "Without deadlines, stuck calls block forever. Deadlines are a best practice in gRPC.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
       "condition": ""
     },
     {
       "action": "Set very long deadline (5 minutes) for all calls",
       "why_fails": "Long deadlines tie up resources. Set per-RPC deadlines appropriate for each operation.",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

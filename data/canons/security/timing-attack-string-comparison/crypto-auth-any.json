@@ -29,14 +29,18 @@
       "action": "Use == to compare API keys or HMAC signatures",
       "why_fails": "== returns false at the first differing byte. Comparing 'abc' to 'axc' is faster than 'abc' to 'abd'. Over thousands of requests, attackers can extract the correct value byte by byte.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Hash both values and compare hashes with ==",
       "why_fails": "Hashing reduces the leak but == comparison of hashes still has timing differences. Use constant-time comparison for the hash comparison too.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

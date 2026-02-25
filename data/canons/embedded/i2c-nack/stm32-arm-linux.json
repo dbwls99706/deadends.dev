@@ -29,21 +29,27 @@
       "action": "Add more pull-up resistors in parallel",
       "why_fails": "Too-low resistance causes signal distortion. Standard: 4.7k for 100kHz, 2.2k for 400kHz.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase I2C clock speed to reduce NACK",
       "why_fails": "NACKs are not timing-related. Higher speed makes bus problems worse.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Brute-force scan all addresses",
       "why_fails": "Some devices (EEPROMs) respond to scan with side effects like data corruption",
       "fail_rate": 0.55,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +84,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

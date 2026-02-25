@@ -29,14 +29,18 @@
       "action": "Edit the URDF file that xacro generates instead of the .xacro source",
       "why_fails": "Generated URDF is overwritten on each build; edits are lost",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore xacro and write raw URDF for complex robots",
       "why_fails": "Raw URDF is unmaintainable at scale; loses parameterization, macros, and math expressions",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +82,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

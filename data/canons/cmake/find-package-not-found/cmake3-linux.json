@@ -29,21 +29,27 @@
       "action": "Set CMAKE_PREFIX_PATH to the source directory",
       "why_fails": "Should point to INSTALL prefix (where lib/cmake/ lives), not the source tree",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy .cmake files into your project",
       "why_fails": "Bundling third-party cmake configs creates version mismatches",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use find_library() as drop-in replacement",
       "why_fails": "find_library() only finds .so/.a but not headers, definitions, or transitive deps",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

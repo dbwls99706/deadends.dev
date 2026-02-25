@@ -33,14 +33,18 @@
       "action": "Cast all tensors to float16 manually",
       "why_fails": "Loss computation and gradient accumulation in float16 causes numerical instability and NaN gradients",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable mixed precision entirely",
       "why_fails": "Loses 2x memory savings and training speed; not necessary if autocast is used correctly",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     }
   ],
@@ -76,7 +80,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

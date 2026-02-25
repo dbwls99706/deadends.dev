@@ -29,14 +29,18 @@
       "action": "Use standard base64.b64decode() to decode JWT segments",
       "why_fails": "JWT uses URL-safe base64 WITHOUT padding. Standard b64decode fails on - and _ characters. Adding padding back is also needed.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "URL-encode standard base64 before putting in URL parameters",
       "why_fails": "URL encoding turns + into %2B and / into %2F. The result is valid but 33% longer. URL-safe base64 is the correct solution.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

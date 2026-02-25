@@ -29,21 +29,27 @@
       "action": "Reinstall ROS 2 entirely",
       "why_fails": "Discovery issues are network/DDS configuration problems, not installation problems",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch RMW vendor blindly",
       "why_fails": "Discovery failure usually stems from network config (firewall, multicast), not the DDS vendor",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Set ROS_LOCALHOST_ONLY on multi-machine setups",
       "why_fails": "This disables network discovery entirely; nodes on other machines become invisible",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -84,7 +90,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

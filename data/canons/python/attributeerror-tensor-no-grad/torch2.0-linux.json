@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "autograd_error",
     "first_seen": "2020-01-15",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -25,7 +25,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.78,
     "confidence": 0.76,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "In PyTorch 2.0, this error can occur both from the standard requires_grad misconfiguration and from torch.compile() interactions with the autograd engine. torch.compile() may transform the computation graph in ways that disconnect tensors from gradient tracking, particularly when using the 'reduce-overhead' or 'max-autotune' modes. The lazy tensor subsystem in PyTorch 2.0 can also defer materialization, causing .grad access to fail before the tensor is materialized."
   },
   "dead_ends": [

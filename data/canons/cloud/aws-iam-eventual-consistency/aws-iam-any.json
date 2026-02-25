@@ -29,21 +29,27 @@
       "action": "Attach IAM policy and immediately make API call",
       "why_fails": "IAM is eventually consistent. Policy may take 10-60 seconds to propagate. First call almost always fails.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Detach and reattach the policy thinking it didn't apply",
       "why_fails": "Reattaching resets the propagation timer. Makes the problem worse.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Add a hardcoded sleep(5) after policy attachment",
       "why_fails": "5 seconds is often not enough. Propagation can take up to 60 seconds in some regions.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

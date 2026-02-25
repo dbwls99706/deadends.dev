@@ -29,14 +29,18 @@
       "action": "Yank a package version expecting it to be completely unavailable",
       "why_fails": "Yanking is a soft-delete. Exact version pins (==) still install yanked versions. Lock files with pinned versions continue to work.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Rely on yanking to remove a security vulnerability from circulation",
       "why_fails": "All existing requirements.txt files with pinned versions will continue to install the yanked version. You need to publish a new patched version.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/azure-blob-lease-conflict/azure-storage-any",
+  "url": "https://deadends.dev/cloud/azure-blob-lease-conflict/azure-storage-any",
+  "error": {
+    "signature": "409 Conflict — There is currently a lease on the blob",
+    "regex": "409.*Conflict.*lease|LeaseIdMissing|There is currently a lease",
+    "domain": "cloud",
+    "category": "storage",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Azure Blob",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Attempting to modify or delete a blob that has an active lease without providing the lease ID."
+  },
+  "dead_ends": [
+    {
+      "action": "Force delete the blob without breaking lease first",
+      "why_fails": "Delete fails with 409 Conflict when a lease is active",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://learn.microsoft.com/en-us/rest/api/storageservices/lease-blob"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Wait for lease to expire naturally",
+      "why_fails": "Infinite leases never expire; even finite leases can be 60s",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://learn.microsoft.com/en-us/rest/api/storageservices/lease-blob"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Break the lease before modifying or deleting the blob",
+      "success_rate": 0.93,
+      "how": "blob_client.break_lease()",
+      "sources": [
+        "https://learn.microsoft.com/en-us/rest/api/storageservices/lease-blob"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Include x-ms-lease-id header if you hold the lease",
+      "success_rate": 0.9,
+      "how": "blob_client.delete_blob(lease=lease_id)",
+      "sources": [
+        "https://learn.microsoft.com/en-us/rest/api/storageservices/lease-blob"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

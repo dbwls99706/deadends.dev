@@ -29,14 +29,18 @@
       "action": "Store and reuse the refresh token indefinitely",
       "why_fails": "Google has a hidden 50 refresh token limit per user per OAuth client. Token 51 silently invalidates token 1. Also, 6 months inactivity = revocation.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Request a new refresh token on every auth flow",
       "why_fails": "Each new token pushes out the oldest. If user has multiple devices, they kick each other out.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -30,14 +30,18 @@
       "action": "Convert everything to string with str()",
       "why_fails": "str() on a list produces '['text1', 'text2']' which is tokenized as one string, not a batch",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
       "action": "Wrap single string in a list unconditionally",
       "why_fails": "Some pipeline functions handle single strings differently from batches; check the API first",
       "fail_rate": 0.55,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

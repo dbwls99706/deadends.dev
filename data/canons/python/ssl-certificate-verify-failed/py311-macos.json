@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "network_error",
     "first_seen": "2018-08-01",
-    "last_confirmed": "2025-05-20"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.92,
-    "last_updated": "2025-05-20",
+    "last_updated": "2026-02-24",
     "summary": "On macOS, the official python.org installer ships with its own OpenSSL that does not use the macOS Keychain certificate store. The installer includes an 'Install Certificates.command' script that installs the certifi CA bundle, but users often skip this step. Running the script or manually installing certifi resolves the issue in nearly all cases."
   },
   "dead_ends": [

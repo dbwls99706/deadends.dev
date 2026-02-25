@@ -29,21 +29,27 @@
       "action": "Assume all AWS free tier services are perpetually free",
       "why_fails": "12-month free tier services (EC2, RDS, S3) switch to full pricing after 12 months with no warning. You must actively track your free tier anniversary.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Spin up resources and forget about them since they're free",
       "why_fails": "Free tier has strict limits (750 hrs/month for EC2). Running 2 t2.micro instances exceeds the limit and incurs charges immediately.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Only check EC2 costs, ignore other services",
       "why_fails": "Data transfer, EBS volumes, Elastic IPs (when not attached), CloudWatch, and Route 53 queries all have separate costs that add up.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

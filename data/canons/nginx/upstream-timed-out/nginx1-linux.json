@@ -29,14 +29,18 @@
       "action": "Set proxy_read_timeout to extremely large value (3600s)",
       "why_fails": "Masks backend performance problems; ties up nginx worker connections; may hit client-side timeouts anyway",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase worker_connections to handle more concurrent requests",
       "why_fails": "worker_connections does not fix slow backends; it only helps with concurrent connection capacity",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

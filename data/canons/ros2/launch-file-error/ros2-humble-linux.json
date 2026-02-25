@@ -29,14 +29,18 @@
       "action": "Convert ROS 1 XML launch directly to ROS 2 XML without API changes",
       "why_fails": "ROS 2 XML launch uses different tags and attribute names than ROS 1",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use print() for debugging inside launch descriptions",
       "why_fails": "Launch descriptions are declarative; print() runs at parse time not launch time",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

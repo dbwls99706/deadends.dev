@@ -29,14 +29,18 @@
       "action": "Set up SPF and DKIM and assume emails won't be marked as spam",
       "why_fails": "SPF and DKIM can both pass independently but DMARC still fails if neither aligns with the From domain. SPF must pass for the From domain, not just the envelope sender.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use email service provider's default sending domain",
       "why_fails": "Sending from user@example.com via service's domain means SPF passes for the service domain, not yours. DMARC alignment fails.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

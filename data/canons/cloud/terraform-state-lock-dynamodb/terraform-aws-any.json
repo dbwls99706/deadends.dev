@@ -29,21 +29,27 @@
       "action": "Wait for the lock to expire automatically",
       "why_fails": "DynamoDB locks have no TTL by default. The lock will remain forever until manually removed.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Run another terraform apply hoping it will override the lock",
       "why_fails": "Concurrent applies with locked state cause state corruption. Never run parallel applies.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Delete the DynamoDB lock item directly from console",
       "why_fails": "Deleting the item works but bypasses Terraform's lock check. If another process IS running, state corruption follows.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

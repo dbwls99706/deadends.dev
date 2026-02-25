@@ -29,14 +29,18 @@
       "action": "Assume ROS2 nodes on the same network will auto-discover each other",
       "why_fails": "DDS multicast discovery requires multicast routing between subnets. Most enterprise networks, VPNs, and cloud VPCs block multicast.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch DDS implementations to fix discovery issues",
       "why_fails": "All DDS implementations (FastDDS, CycloneDDS, Connext) use the same multicast discovery by default. Switching DDS doesn't fix network-level multicast blocking.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

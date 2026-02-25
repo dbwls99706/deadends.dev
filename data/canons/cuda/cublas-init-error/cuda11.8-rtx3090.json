@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "library_initialization",
     "first_seen": "2022-08-05",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -31,7 +31,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.81,
     "confidence": 0.76,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "CUBLAS_STATUS_NOT_INITIALIZED on RTX 3090 with CUDA 11.8 is typically caused by cuBLAS library version drift after partial CUDA updates, or by insufficient GPU memory for cuBLAS workspace allocation. The RTX 3090's 24 GB VRAM makes workspace allocation failures less common than on lower-VRAM GPUs, so library version mismatches are the primary cause."
   },
   "dead_ends": [
@@ -42,7 +42,7 @@
       "sources": [
         "https://github.com/pytorch/pytorch/issues/94292"
       ],
-      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository \u2014 if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
+      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository — if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
     },
     {
       "action": "Calling torch.cuda.init() before any CUDA operations",

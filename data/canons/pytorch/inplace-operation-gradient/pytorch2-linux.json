@@ -30,14 +30,18 @@
       "action": "Wrap the operation in torch.no_grad()",
       "why_fails": "no_grad disables gradient tracking entirely; the model will not learn",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Use .data to bypass autograd",
       "why_fails": "Modifying .data breaks the computation graph silently; gradients become incorrect without errors",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],
@@ -73,7 +77,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

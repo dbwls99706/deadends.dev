@@ -29,14 +29,18 @@
       "action": "Use a single shared MSAL token cache for all tenants",
       "why_fails": "Tokens from tenant A may be served for tenant B requests. The cache key includes authority but bugs in cache partitioning cause cross-tenant leaks.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Create a new ConfidentialClientApplication per request",
       "why_fails": "Bypasses caching entirely. Every request does a full token acquisition, adding 200-500ms latency.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

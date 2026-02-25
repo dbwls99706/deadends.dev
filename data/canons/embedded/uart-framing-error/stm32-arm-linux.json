@@ -29,21 +29,27 @@
       "action": "Swap TX and RX wires assuming they are crossed",
       "why_fails": "TX/RX swap produces silence, not framing errors. Framing errors mean data arrives but cannot be decoded.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Add pull-up resistors to TX/RX lines",
       "why_fails": "UART is push-pull, not open-drain. Pull-ups do not fix framing errors.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase baud rate for faster communication",
       "why_fails": "The issue is mismatch, not speed. Both sides must agree on identical settings.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

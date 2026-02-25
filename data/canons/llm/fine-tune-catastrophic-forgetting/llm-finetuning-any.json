@@ -29,14 +29,18 @@
       "action": "Fine-tune on domain data only without including general examples",
       "why_fails": "Training exclusively on domain data overwrites general capabilities. The model forgets how to follow instructions, do math, or reason about non-domain topics.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Fine-tune for many epochs to maximize domain performance",
       "why_fails": "More epochs = more forgetting. 3-5 epochs is usually optimal. Beyond that, validation loss increases while training loss decreases (overfitting).",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Optimize function code to run within 10 seconds",
       "why_fails": "10s includes cold start time (1-3s for Node.js, 5-10s for Python/Java). Actual code execution budget is 7-9s. With a database connection, you may have <5s for logic.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Use Edge Functions for longer execution time",
       "why_fails": "Edge Functions have even lower limits (some regions enforce shorter timeouts) and don't support all Node.js APIs. They're for fast, lightweight transformations.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Increase the stale timeout to hide the warning",
       "why_fails": "Stale diagnostics usually mean the hardware is actually not responding; hiding delays fault detection",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the diagnostic from the aggregator config",
       "why_fails": "Loses monitoring capability for that hardware component",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

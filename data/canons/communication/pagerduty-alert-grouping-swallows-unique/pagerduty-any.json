@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/pagerduty-alert-grouping-swallows-unique/pagerduty-any",
+  "url": "https://deadends.dev/communication/pagerduty-alert-grouping-swallows-unique/pagerduty-any",
+  "error": {
+    "signature": "Unique alerts grouped into existing incident — PagerDuty grouping too aggressive",
+    "regex": "[Aa]lert.*grouped|[Pp]agerduty.*grouping|incident.*merge|swallow.*alert",
+    "domain": "communication",
+    "category": "alerting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "PagerDuty",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "PagerDuty intelligent grouping merges distinct alerts into one incident."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable alert grouping entirely",
+      "why_fails": "Without grouping, alert storms create hundreds of incidents",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://support.pagerduty.com/docs/intelligent-alert-grouping"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set grouping window to very short (1 minute)",
+      "why_fails": "Short windows still group rapid-fire alerts",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://support.pagerduty.com/docs/intelligent-alert-grouping"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use content-based alert grouping with specific dedup_key patterns",
+      "success_rate": 0.88,
+      "how": "Set dedup_key to include service + error_type",
+      "sources": [
+        "https://support.pagerduty.com/docs/intelligent-alert-grouping"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Configure time-based grouping with appropriate window",
+      "success_rate": 0.82,
+      "how": "Set 5-minute window; review grouped incidents weekly to tune",
+      "sources": [
+        "https://support.pagerduty.com/docs/intelligent-alert-grouping"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

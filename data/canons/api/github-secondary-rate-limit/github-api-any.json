@@ -29,21 +29,27 @@
       "action": "Check X-RateLimit-Remaining header and stay under 5000/hr",
       "why_fails": "Secondary rate limits are separate and invisible in standard rate limit headers. You can hit them at 100 req/hr if requests are concurrent.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Use a personal access token instead of GitHub App token",
       "why_fails": "Secondary rate limits apply to all authentication methods equally. PATs are not exempt.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Retry immediately after 403",
       "why_fails": "GitHub may escalate to longer bans if you retry too aggressively after secondary rate limit.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

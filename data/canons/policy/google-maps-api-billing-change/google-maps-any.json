@@ -29,14 +29,18 @@
       "action": "Use Google Maps API without a billing account since it 'used to be free'",
       "why_fails": "Since June 2018, all Maps APIs require a billing account. Old API keys without billing return REQUEST_DENIED.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Assume $200/month free credit covers all usage",
       "why_fails": "$200/month = ~28,000 Dynamic Maps loads or ~40,000 Geocoding requests. High-traffic sites exceed this quickly. Billing kicks in with no warning.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

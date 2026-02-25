@@ -29,14 +29,18 @@
       "action": "Define enum in function schema and trust the model to respect it",
       "why_fails": "Function calling schemas are treated as suggestions, not constraints. The model can return any string for an enum field.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use JSON mode (response_format: json_object) and assume schema compliance",
       "why_fails": "JSON mode only guarantees valid JSON syntax, NOT schema compliance. Fields can be missing, wrong type, or have invalid enum values.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

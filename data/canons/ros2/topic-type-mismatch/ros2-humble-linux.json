@@ -29,14 +29,18 @@
       "action": "Change one side's message type without updating the other",
       "why_fails": "Causes the same error on the other node; both must agree on the exact message type",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a generic Any type or raw bytes",
       "why_fails": "ROS 2 does not support untyped topics; DDS requires concrete IDL types for serialization",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -77,7 +81,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

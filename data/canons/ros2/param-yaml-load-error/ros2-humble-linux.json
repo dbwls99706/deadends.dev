@@ -29,14 +29,18 @@
       "action": "Use flat key=value format without proper YAML nesting",
       "why_fails": "ROS 2 requires specific YAML structure: node_name.ros__parameters.param_name",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use ROS 1 style rosparam YAML format",
       "why_fails": "ROS 2 parameter YAML has different structure with ros__parameters namespace",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

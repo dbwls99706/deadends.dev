@@ -29,14 +29,18 @@
       "action": "Register parameter callback and expect it to fire on declare_parameter",
       "why_fails": "add_on_set_parameters_callback only triggers on set_parameter/set_parameters calls, NOT on declare_parameter with initial value.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a single parameter callback for all parameters in a composed container",
       "why_fails": "Each component node has its own parameter namespace. Callbacks are per-node, not per-container. But parameter events from other nodes in the composition can interfere.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

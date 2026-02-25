@@ -29,14 +29,18 @@
       "action": "Reinstall Redis",
       "why_fails": "Connection refused means the service is not running, not a broken installation",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Change the port in redis.conf to avoid conflict",
       "why_fails": "Other applications expect the default port. Fix the port conflict instead.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

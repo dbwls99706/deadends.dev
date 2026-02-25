@@ -29,14 +29,18 @@
       "action": "Delete Podfile.lock and Pods directory and re-run",
       "why_fails": "Removing Podfile.lock loses version pins. May install breaking changes in transitive dependencies.",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Pin all pod versions to exact numbers",
       "why_fails": "Exact version pins prevent security updates and conflict with Flutter plugin requirements",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Call activate() directly from unconfigured state",
       "why_fails": "Lifecycle state machine requires configure->activate sequence; skipping configure is not allowed",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use regular Node class and fake lifecycle callbacks",
       "why_fails": "Loses lifecycle management integration with launch files and system managers",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

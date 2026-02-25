@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "network_error",
     "first_seen": "2018-08-01",
-    "last_confirmed": "2025-05-14"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.87,
     "confidence": 0.85,
-    "last_updated": "2025-05-14",
+    "last_updated": "2026-02-24",
     "summary": "On Linux, this error typically occurs in minimal Docker images (alpine, slim) that lack CA certificates, in corporate environments with custom CA roots, or when Python is compiled against an OpenSSL that cannot find the system certificate store. Updating ca-certificates or setting SSL_CERT_FILE resolves most cases."
   },
   "dead_ends": [

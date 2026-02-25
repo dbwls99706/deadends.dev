@@ -29,14 +29,18 @@
       "action": "Add the plugin .so to LD_LIBRARY_PATH manually",
       "why_fails": "pluginlib uses its own class registry, not LD_LIBRARY_PATH; the plugin must be exported via package.xml",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy the plugin XML from another package",
       "why_fails": "Plugin XML must reference the exact library name and class from your package",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/tool-calling-parallel-race-condition/llm-api-any",
+  "url": "https://deadends.dev/llm/tool-calling-parallel-race-condition/llm-api-any",
+  "error": {
+    "signature": "Tool results conflict — parallel tool calls create race condition",
+    "regex": "[Pp]arallel.*tool.*call|race.*condition|conflicting.*tool.*results",
+    "domain": "llm",
+    "category": "function_calling",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "LLM API",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "LLM issues multiple tool calls in parallel that modify the same resource."
+  },
+  "dead_ends": [
+    {
+      "action": "Execute all parallel tool calls concurrently as requested",
+      "why_fails": "Concurrent execution of dependent tool calls causes race conditions",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ignore the parallel flag and run sequentially always",
+      "why_fails": "Running everything sequentially defeats the performance benefit",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Detect resource dependencies and serialize conflicting tool calls",
+      "success_rate": 0.85,
+      "how": "Group tool calls by target resource; run independent groups in parallel",
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Make tool implementations idempotent and conflict-safe",
+      "success_rate": 0.82,
+      "how": "Use optimistic locking or compare-and-swap patterns",
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

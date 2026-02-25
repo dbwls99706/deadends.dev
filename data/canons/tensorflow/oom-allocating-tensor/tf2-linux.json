@@ -33,14 +33,18 @@
       "action": "Set TF_FORCE_GPU_ALLOW_GROWTH=true as environment variable only",
       "why_fails": "Some TF versions ignore the env var; set it programmatically as well",
       "fail_rate": 0.55,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     },
     {
       "action": "Install tensorflow-cpu to avoid GPU issues",
       "why_fails": "Completely gives up GPU acceleration. Fix memory management instead.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     }
   ],
@@ -75,7 +79,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

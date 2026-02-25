@@ -29,14 +29,18 @@
       "action": "Rebuild only the message package after changing .msg definition",
       "why_fails": "All packages that depend on the message must also be rebuilt. Their compiled bindings reference the old type hash. Partial rebuild = type hash mismatch at runtime.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Restart nodes without rebuilding after .msg change",
       "why_fails": "Compiled message types are baked into the binaries. Restarting without rebuilding uses the same old binaries with old type hashes.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

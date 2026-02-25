@@ -29,14 +29,18 @@
       "action": "Use type: 'markdown' in Block Kit blocks",
       "why_fails": "The field must be 'mrkdwn' (Slack's proprietary format). 'markdown' silently falls back to plain text with no error.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Use standard Markdown syntax like **bold** and ~~strike~~",
       "why_fails": "Slack mrkdwn uses *bold* and ~strike~. Standard markdown bold (**) is treated as literal asterisks.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

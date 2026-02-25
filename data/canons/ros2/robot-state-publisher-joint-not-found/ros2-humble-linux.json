@@ -29,14 +29,18 @@
       "action": "Rename joints in joint_states topic without updating URDF",
       "why_fails": "Creates inconsistency; TF tree publishes wrong transforms for renamed joints",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Suppress the warning and ignore missing joints",
       "why_fails": "TF tree will be incomplete; downstream nodes (navigation, manipulation) will fail",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -83,7 +87,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

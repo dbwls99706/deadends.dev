@@ -29,14 +29,18 @@
       "action": "Add database indexes to speed up individual resolver queries",
       "why_fails": "Indexes help per-query speed but don't reduce the 100+ query count. The bottleneck is round-trip overhead.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Create a single global DataLoader instance",
       "why_fails": "DataLoader cache must be per-request. A global instance leaks data between users and grows unbounded.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

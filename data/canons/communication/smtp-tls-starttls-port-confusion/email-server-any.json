@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/smtp-tls-starttls-port-confusion/email-server-any",
+  "url": "https://deadends.dev/communication/smtp-tls-starttls-port-confusion/email-server-any",
+  "error": {
+    "signature": "SMTP connection fails — TLS vs STARTTLS port confusion (465 vs 587)",
+    "regex": "SMTP.*TLS.*fail|STARTTLS.*465|port.*587.*SSL|connection.*refused.*SMTP",
+    "domain": "communication",
+    "category": "email_config",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "SMTP",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "Using implicit TLS (port 465) settings with STARTTLS port (587) or vice versa."
+  },
+  "dead_ends": [
+    {
+      "action": "Use port 465 with STARTTLS",
+      "why_fails": "Port 465 expects implicit TLS; STARTTLS is an upgrade from plaintext",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8314"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use port 587 with implicit SSL/TLS",
+      "why_fails": "Port 587 starts plaintext and upgrades via STARTTLS",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8314"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use port 587 with STARTTLS for submission (RFC 8314)",
+      "success_rate": 0.93,
+      "how": "smtplib.SMTP('smtp.example.com', 587); server.starttls()",
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8314"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use port 465 with implicit TLS when STARTTLS is not supported",
+      "success_rate": 0.88,
+      "how": "smtplib.SMTP_SSL('smtp.example.com', 465)",
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8314"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

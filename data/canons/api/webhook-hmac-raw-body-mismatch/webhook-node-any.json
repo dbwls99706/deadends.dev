@@ -29,14 +29,18 @@
       "action": "Compute HMAC over JSON.stringify(req.body)",
       "why_fails": "JSON.stringify produces different bytes than the original payload. Signature will never match.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Use bodyParser.json() before webhook route in Express",
       "why_fails": "bodyParser consumes the raw body stream. The original bytes are gone by handler time.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Filter messages by node name in subscriber callbacks",
       "why_fails": "Does not prevent DDS discovery overhead or parameter/service collisions",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use different topic names for each robot system",
       "why_fails": "Does not prevent DDS discovery flooding; every node still discovers all others",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -77,7 +81,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

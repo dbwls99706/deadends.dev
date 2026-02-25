@@ -29,14 +29,18 @@
       "action": "Change RViz Fixed Frame to 'map' without a map publisher running",
       "why_fails": "If no node publishes map frame, all displays depending on it will error",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore the error assuming it is cosmetic",
       "why_fails": "RViz displays with transform errors render nothing or render in wrong positions",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +82,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

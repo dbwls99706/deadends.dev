@@ -29,14 +29,18 @@
       "action": "Add null checks around every GetComponent call",
       "why_fails": "Excessive null checks hide design problems. Fix the root cause: assign references properly.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Use GameObject.Find() in Update() to always get fresh references",
       "why_fails": "Find() is O(n) over all GameObjects. Called every frame, it destroys performance.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

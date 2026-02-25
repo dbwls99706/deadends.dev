@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/sentry-event-dropped-rate-limit/sentry-any",
+  "url": "https://deadends.dev/communication/sentry-event-dropped-rate-limit/sentry-any",
+  "error": {
+    "signature": "Sentry events silently dropped — rate limit or quota exceeded",
+    "regex": "[Ss]entry.*rate.*limit|events.*dropped|quota.*exceeded|429.*sentry",
+    "domain": "communication",
+    "category": "observability",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Sentry",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Sentry drops events silently when project rate limit or org quota is exceeded."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase Sentry plan quota blindly",
+      "why_fails": "The root cause is often noisy errors flooding the quota",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://docs.sentry.io/product/accounts/quotas/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable rate limiting on the Sentry project",
+      "why_fails": "Without rate limits, a single noisy error can consume the entire org quota",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.sentry.io/product/accounts/quotas/manage-event-stream-guide/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure beforeSend to filter out noisy, low-value errors",
+      "success_rate": 0.92,
+      "how": "Sentry.init({beforeSend(event) { if (event.message?.match(/ResizeObserver/)) return null; }})",
+      "sources": [
+        "https://docs.sentry.io/platforms/javascript/configuration/filtering/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set per-key rate limits and use inbound filters",
+      "success_rate": 0.88,
+      "how": "Project Settings > Client Keys > Rate Limits + Inbound Filters",
+      "sources": [
+        "https://docs.sentry.io/product/accounts/quotas/manage-event-stream-guide/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

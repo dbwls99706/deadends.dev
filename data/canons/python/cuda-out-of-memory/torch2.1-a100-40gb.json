@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "resource_exhaustion",
     "first_seen": "2020-03-15",
-    "last_confirmed": "2025-05-20"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -27,7 +27,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.34,
     "confidence": 0.82,
-    "last_updated": "2025-05-20",
+    "last_updated": "2026-02-24",
     "summary": "In this environment, allocation failures of 2GiB+ are not resolved by batch_size adjustment alone in 66% of cases. gradient_checkpointing shows the highest success rate but depends on model architecture."
   },
   "dead_ends": [

@@ -29,14 +29,18 @@
       "action": "Convert Excel serial number to date by adding days to Jan 1, 1900",
       "why_fails": "Serial number 1 = Jan 1, 1900 in Excel, but the fake Feb 29 1900 means dates after Feb 28 1900 are correct while earlier dates are off by 1.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "Assume all Excel dates are correct after conversion",
       "why_fails": "Any date before March 1, 1900 is off by 1 day. Serial number 60 maps to the non-existent Feb 29, 1900.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

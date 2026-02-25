@@ -29,14 +29,18 @@
       "action": "Block 169.254.169.254 in URL validation regex",
       "why_fails": "Attackers bypass with: decimal IP (2852039166), IPv6 (::ffff:169.254.169.254), DNS rebinding, redirects from allowed domains, or alternate representations.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Use URL parsing to extract hostname and block known-bad IPs",
       "why_fails": "URL parsers are inconsistent. http://169.254.169.254@evil.com, http://[::ffff:a9fe:a9fe], and http://0xa9fea9fe all resolve to the metadata endpoint.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

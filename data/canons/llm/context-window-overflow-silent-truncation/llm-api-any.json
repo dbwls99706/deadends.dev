@@ -29,14 +29,18 @@
       "action": "Fill context to 95% of advertised limit and expect full quality",
       "why_fails": "LLM attention quality degrades significantly in the last 10-20% of context window. 128K context doesn't mean 128K of equally-attended tokens.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Trust that the API will error if context is exceeded",
       "why_fails": "Some APIs silently truncate from the middle or beginning. You get a response but it's based on incomplete context.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,21 +29,27 @@
       "action": "Install librealsense from pip only",
       "why_fails": "pip pyrealsense2 is just the wrapper; you need udev rules and kernel patches from official repo",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use USB 2.0 port for D400 series",
       "why_fails": "D435/D455 require USB 3.0 for depth streaming. May enumerate on 2.0 but depth fails.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Compile librealsense from source on Ubuntu LTS",
       "why_fails": "Official APT repo with DKMS patches is easier and more reliable",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

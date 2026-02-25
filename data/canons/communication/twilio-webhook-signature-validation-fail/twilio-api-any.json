@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/twilio-webhook-signature-validation-fail/twilio-api-any",
+  "url": "https://deadends.dev/communication/twilio-webhook-signature-validation-fail/twilio-api-any",
+  "error": {
+    "signature": "Twilio webhook signature validation fails — URL mismatch with proxy",
+    "regex": "[Tt]wilio.*signature.*fail|X-Twilio-Signature.*invalid|webhook.*validat.*fail",
+    "domain": "communication",
+    "category": "webhook_security",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Twilio",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Twilio signature validation fails because URL used for validation does not match what Twilio sees."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable signature validation as a workaround",
+      "why_fails": "Disabling validation exposes the webhook to spoofed requests",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.twilio.com/docs/usage/webhooks/webhooks-security"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Hardcode the webhook URL in validation",
+      "why_fails": "Hardcoded URL becomes wrong when deployment URL changes",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.twilio.com/docs/usage/webhooks/webhooks-security"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use X-Forwarded-Proto and X-Forwarded-Host to reconstruct the original URL",
+      "success_rate": 0.9,
+      "how": "Reconstruct URL from forwarded headers for signature validation",
+      "sources": [
+        "https://www.twilio.com/docs/usage/webhooks/webhooks-security"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Configure Twilio webhook URL to match the exact public-facing URL",
+      "success_rate": 0.88,
+      "how": "Use https:// in Twilio console matching the exact URL your proxy exposes",
+      "sources": [
+        "https://www.twilio.com/docs/usage/webhooks/webhooks-security"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

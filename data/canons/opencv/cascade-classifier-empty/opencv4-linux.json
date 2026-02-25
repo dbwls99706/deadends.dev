@@ -29,14 +29,18 @@
       "action": "Download XML from random GitHub repo",
       "why_fails": "Third-party files may be incompatible. Use official OpenCV data files.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use relative path assuming cwd is script location",
       "why_fails": "Python cwd is where you ran the command, not where the script lives",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

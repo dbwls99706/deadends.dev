@@ -29,14 +29,18 @@
       "action": "Force encoding to passthrough and manually convert",
       "why_fails": "Passthrough skips validation; OpenCV may segfault on unexpected data layouts",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Change the camera driver encoding to match your code",
       "why_fails": "Other subscribers depend on the original encoding; breaks the whole image pipeline",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

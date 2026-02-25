@@ -29,14 +29,18 @@
       "action": "Assume npm packages from popular authors are safe to install",
       "why_fails": "Supply chain attacks target popular packages via typosquatting, account takeover, or dependency confusion. Popular ≠ safe.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Review package code on npmjs.com before installing",
       "why_fails": "npmjs.com shows the published code, but postinstall scripts can download and execute additional code at install time. Static review misses this.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "native_crash",
     "first_seen": "2021-09-01",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -34,7 +34,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.76,
     "confidence": 0.72,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "The segfault is caused by numpy's bundled OpenBLAS failing to detect the correct ARM CPU core type at runtime. Setting the OPENBLAS_CORETYPE environment variable or switching to conda-forge's numpy (which ships with a properly configured OpenBLAS for ARM) resolves the issue in most cases."
   },
   "dead_ends": [

@@ -29,21 +29,27 @@
       "action": "Increase Lambda timeout to 5 minutes to handle cold start",
       "why_fails": "Longer timeout masks the problem. Users still experience 10s+ delays on every cold start.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a CloudWatch scheduled event to keep Lambda warm",
       "why_fails": "Warming pings only keep 1 concurrent instance warm. Second concurrent request still cold starts.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove VPC configuration to eliminate cold start",
       "why_fails": "Function loses access to VPC resources (RDS, ElastiCache, etc.). Defeats the purpose of VPC placement.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

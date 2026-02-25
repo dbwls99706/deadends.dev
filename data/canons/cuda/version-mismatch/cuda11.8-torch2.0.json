@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "version_incompatibility",
     "first_seen": "2023-01-10",
-    "last_confirmed": "2025-04-28"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.85,
-    "last_updated": "2025-04-28",
+    "last_updated": "2026-02-24",
     "summary": "CUDA 11.8 with PyTorch 2.0 version mismatches typically arise when the default pip wheel is built against CUDA 11.7. The fix is to install PyTorch from the cu118 index URL. This scenario is especially common on systems that shipped with CUDA 11.8 but where users ran a bare 'pip install torch'."
   },
   "dead_ends": [

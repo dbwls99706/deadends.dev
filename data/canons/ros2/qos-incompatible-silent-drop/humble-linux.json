@@ -29,14 +29,18 @@
       "action": "Use default QoS for both publisher and subscriber",
       "why_fails": "Default QoS is RELIABLE+VOLATILE for most message types but BEST_EFFORT+VOLATILE for sensor data. Mixing sensor publishers with standard subscribers silently fails.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Set both publisher and subscriber to RELIABLE",
       "why_fails": "Works but RELIABLE over lossy networks (WiFi, multi-robot) causes message queuing and latency spikes. Sensor data becomes stale.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

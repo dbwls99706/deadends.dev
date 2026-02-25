@@ -29,21 +29,27 @@
       "action": "Install opencv-python-headless to fix camera issues",
       "why_fails": "Headless variant REMOVES GUI and camera support. Use opencv-python or opencv-contrib-python.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use camera index 0 assuming it is always the first camera",
       "why_fails": "On multi-camera systems, indices shift. /dev/video0 may be a metadata device.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Set CAP_PROP_FPS before opening capture",
       "why_fails": "Properties cannot be set before device is open; the open itself is failing",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

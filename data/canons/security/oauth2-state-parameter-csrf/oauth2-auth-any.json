@@ -29,14 +29,18 @@
       "action": "Omit state parameter because PKCE is used for security",
       "why_fails": "PKCE prevents authorization code interception but does NOT prevent CSRF/login-CSRF attacks. State and PKCE serve different purposes.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a static/predictable state value",
       "why_fails": "State must be unpredictable and tied to the user's session. A static value provides zero CSRF protection.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

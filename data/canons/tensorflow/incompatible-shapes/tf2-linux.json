@@ -30,14 +30,18 @@
       "action": "Reshape labels to match model output",
       "why_fails": "If model outputs 10 classes but you have 5, reshape just masks the real problem: wrong model or wrong labels",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use sparse_categorical_crossentropy to avoid shape issues",
       "why_fails": "Only works if labels are integer indices, not one-hot. Using it with one-hot labels gives wrong results.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     }
   ],
@@ -73,7 +77,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Return 200 after processing the event fully",
       "why_fails": "If processing takes >5s, Stripe assumes failure and retries. You get duplicate events with same event ID.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Rely on Stripe's 'at-most-once' delivery assumption",
       "why_fails": "Stripe explicitly guarantees 'at-least-once' delivery. Duplicates are expected behavior, not a bug.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

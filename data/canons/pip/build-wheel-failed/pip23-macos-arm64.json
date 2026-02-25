@@ -8,7 +8,7 @@
     "domain": "pip",
     "category": "build",
     "first_seen": "2020-11-01",
-    "last_confirmed": "2025-05-08"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -25,7 +25,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.76,
     "confidence": 0.8,
-    "last_updated": "2025-05-08",
+    "last_updated": "2026-02-24",
     "summary": "Wheel build failures on macOS ARM64 (Apple Silicon M1/M2/M3) are caused by packages lacking native ARM64 wheels, C extensions compiled for x86_64 but not arm64, or missing Xcode Command Line Tools. Some packages require Rosetta 2 translation or explicit architecture flags. The transition from x86_64 to ARM64 on macOS created a wave of compatibility issues that has largely but not completely resolved."
   },
   "dead_ends": [

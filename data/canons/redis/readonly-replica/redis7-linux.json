@@ -29,14 +29,18 @@
       "action": "Set replica-read-only no on the replica",
       "why_fails": "Writes to replica are not replicated to primary; they get overwritten on next sync, causing data loss",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Promote replica to primary",
       "why_fails": "Only appropriate during failover. Otherwise you end up with split-brain: two primaries.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

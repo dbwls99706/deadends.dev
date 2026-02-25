@@ -29,14 +29,18 @@
       "action": "Parse LLM output with rigid regex or exact string matching",
       "why_fails": "Model updates change phrasing, formatting, and structure. Regex that worked yesterday fails after a silent model update.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use model alias (e.g., 'gpt-4') for production stability",
       "why_fails": "Aliases like 'gpt-4' are redirected to new snapshots periodically. Use pinned versions like 'gpt-4-0613' for stability.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

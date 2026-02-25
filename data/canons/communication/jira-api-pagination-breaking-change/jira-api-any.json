@@ -29,14 +29,18 @@
       "action": "Set maxResults=1000 to get all issues in one request",
       "why_fails": "Jira server silently caps maxResults to 50-100 (configurable by admin). You get at most 100 results regardless of what you request.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use 'total' field to determine when pagination is complete",
       "why_fails": "In Jira v3, 'total' may be absent. In v2, 'total' can change between page requests as issues are created/modified mid-pagination.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

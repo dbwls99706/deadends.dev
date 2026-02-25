@@ -29,14 +29,18 @@
       "action": "Use --symlink-install and expect all file changes to be reflected automatically",
       "why_fails": "Only existing Python/launch files are symlinked. New files, CMakeLists.txt changes, and generated files require colcon build to update.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Delete install/ directory and rebuild to fix stale symlinks",
       "why_fails": "Works but is slow. You also need to delete build/ for some cases. A targeted rebuild of the affected package is faster.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

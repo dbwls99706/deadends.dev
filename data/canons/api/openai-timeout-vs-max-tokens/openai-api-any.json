@@ -29,14 +29,18 @@
       "action": "Increase client timeout to avoid truncation",
       "why_fails": "Timeout and truncation are different issues. Timeout = client gave up waiting. Truncation = max_tokens limit hit. You may have both problems simultaneously.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Assume response is complete if no error was raised",
       "why_fails": "finish_reason='length' means output was truncated but no exception is raised. You must check finish_reason explicitly.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

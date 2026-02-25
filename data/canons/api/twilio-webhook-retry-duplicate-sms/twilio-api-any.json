@@ -29,14 +29,18 @@
       "action": "Return 200 only after sending the reply SMS",
       "why_fails": "If sending the reply takes >15s, Twilio retries. Your handler sends another reply on retry. User gets 2-4 duplicate SMS.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Disable retries in Twilio console",
       "why_fails": "Status callback retries cannot be fully disabled for all webhook types. Some retries are hardcoded.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

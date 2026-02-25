@@ -29,14 +29,18 @@
       "action": "Set session.timeout.ms to very large value",
       "why_fails": "Delays detection of genuinely failed consumers; dead consumers block partition processing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable auto-commit and never commit offsets",
       "why_fails": "Without commits, all messages are reprocessed on restart, causing duplicates",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

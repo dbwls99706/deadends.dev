@@ -29,14 +29,18 @@
       "action": "Force a failover on all nodes",
       "why_fails": "Forcing failover on healthy nodes can cause split-brain and data loss",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Restart all cluster nodes simultaneously",
       "why_fails": "Simultaneous restart loses cluster state; nodes may not rejoin properly",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

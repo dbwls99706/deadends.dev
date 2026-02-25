@@ -29,14 +29,18 @@
       "action": "Use tiktoken.encode(prompt_text) to count total prompt tokens",
       "why_fails": "Chat completions add ~4 tokens per message for role/delimiters, plus tokens for function schemas that aren't in your message text. Real count is always higher.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Calculate context budget as model_max_tokens - tiktoken_count",
       "why_fails": "Underestimating prompt tokens means overestimating available completion tokens, leading to context length exceeded errors.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

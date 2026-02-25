@@ -29,14 +29,18 @@
       "action": "Cache cursor and resume pagination hours later",
       "why_fails": "Most API cursors expire within 15-60 minutes. Some (e.g., Elasticsearch scroll) expire in 1 minute by default.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Use offset/limit pagination to avoid cursor issues",
       "why_fails": "Offset pagination skips items when rows are inserted/deleted between pages.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

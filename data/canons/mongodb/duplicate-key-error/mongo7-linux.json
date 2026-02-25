@@ -29,14 +29,18 @@
       "action": "Remove the unique index to stop the error",
       "why_fails": "The unique constraint exists for data integrity. Removing it allows corrupt duplicate data.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     },
     {
       "action": "Catch the error and silently ignore it",
       "why_fails": "Ignoring duplicates may mean lost updates or inconsistent data",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

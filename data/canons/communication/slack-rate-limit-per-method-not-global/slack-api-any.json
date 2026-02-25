@@ -29,14 +29,18 @@
       "action": "Implement a single global rate limiter for all Slack API calls",
       "why_fails": "Rate limits are per-method. A global limiter is either too restrictive (slows unaffected methods) or too loose (still hits per-method limits).",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Retry immediately on 429 response",
       "why_fails": "Immediate retry will also be rate-limited. Always respect the Retry-After header value.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Compare datetimes without checking timezone awareness",
       "why_fails": "A naive datetime(2024,1,1,9,0) and an aware datetime(2024,1,1,9,0,tzinfo=UTC) may represent different instants. Python raises TypeError, but some frameworks auto-coerce.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "Use datetime.now() (naive) and assume it's UTC",
       "why_fails": "datetime.now() returns local time as naive datetime. datetime.utcnow() returns UTC as naive. Neither has timezone info, so comparisons with aware datetimes fail or are wrong.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

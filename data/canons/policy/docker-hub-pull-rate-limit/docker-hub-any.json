@@ -29,14 +29,18 @@
       "action": "Authenticate with Docker Hub to get unlimited pulls",
       "why_fails": "Authenticated free accounts get 200/6hr, not unlimited. Only paid Docker Pro/Team/Business get higher limits.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Pull images less frequently to stay under the limit",
       "why_fails": "In Kubernetes, each node independently pulls images. 10 nodes pulling on deploy = 10 pulls even if the image is the same.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

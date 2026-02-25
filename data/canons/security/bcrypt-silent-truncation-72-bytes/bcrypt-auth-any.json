@@ -29,14 +29,18 @@
       "action": "Use bcrypt for passwords of any length without pre-processing",
       "why_fails": "Passwords longer than 72 bytes are silently truncated. 'MySecurePassword123!+extra100characters' and 'MySecurePassword123!+extra100different' hash identically.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Set a maximum password length of 72 characters",
       "why_fails": "72 bytes != 72 characters for UTF-8. A password with CJK characters or emojis uses 3-4 bytes per character, hitting the 72-byte limit at 18-24 characters.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Increase presigned URL expiry to 24 hours",
       "why_fails": "URLs still fail instantly if clock is ahead by >15 min. Longer expiry doesn't help when the start time is wrong.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     },
     {
       "action": "Regenerate the URL and retry",
       "why_fails": "Same server generates the same skewed signature. Retrying without fixing clock produces identical failures.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

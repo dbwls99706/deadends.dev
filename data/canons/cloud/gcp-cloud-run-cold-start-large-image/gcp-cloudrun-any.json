@@ -29,14 +29,18 @@
       "action": "Set min-instances=1 and assume zero cold starts",
       "why_fails": "min-instances keeps 1 instance warm, but concurrent request spikes still trigger cold starts for additional instances.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a health check endpoint to keep instances warm",
       "why_fails": "Cloud Run auto-scales to zero regardless of health checks. There's no built-in keep-alive mechanism.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

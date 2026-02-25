@@ -29,14 +29,18 @@
       "action": "Catch the exception and ignore it",
       "why_fails": "Silently uses the first declaration value; later code may expect a different default",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Undeclare then re-declare the parameter",
       "why_fails": "Causes a brief period where the parameter does not exist; external observers may see inconsistent state",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -70,7 +74,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

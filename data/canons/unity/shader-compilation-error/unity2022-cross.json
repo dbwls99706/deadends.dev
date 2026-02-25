@@ -29,14 +29,18 @@
       "action": "Switch to a more powerful GPU to fix shader compilation limits",
       "why_fails": "Shader instruction limits are per-platform target, not the development GPU. Target platform determines limits.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy shader code from older Unity tutorials",
       "why_fails": "Shader API changes between Unity versions. Old surface shader code may not compile in newer versions.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

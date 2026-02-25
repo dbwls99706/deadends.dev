@@ -29,14 +29,18 @@
       "action": "Allow trailing commas because JSON is 'just JavaScript object notation'",
       "why_fails": "JSON is NOT JavaScript. JSON is a strict subset. Trailing commas, single quotes, unquoted keys, and comments are all invalid JSON.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     },
     {
       "action": "Use eval() or Function() to parse JSON with trailing commas",
       "why_fails": "eval() is a critical security vulnerability for untrusted data. Never use eval() to parse JSON.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

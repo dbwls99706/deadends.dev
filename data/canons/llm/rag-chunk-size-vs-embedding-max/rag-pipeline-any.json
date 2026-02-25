@@ -29,14 +29,18 @@
       "action": "Use large chunk sizes (10K+ tokens) for more context per chunk",
       "why_fails": "Embedding model silently truncates beyond its max tokens. A 10K token chunk with 8191 limit embeds only the first 82%. The answer might be in the truncated part.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use very small chunks (50-100 tokens) for precision",
       "why_fails": "Small chunks lose surrounding context. 'It was resolved in v2.3' means nothing without knowing what 'it' refers to.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

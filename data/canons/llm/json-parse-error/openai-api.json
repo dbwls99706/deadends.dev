@@ -29,14 +29,18 @@
       "action": "Use eval() or ast.literal_eval() to parse LLM output",
       "why_fails": "eval() is a security vulnerability; literal_eval fails on non-Python JSON. Use json.loads.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Prompt harder with ONLY output JSON and nothing else",
       "why_fails": "Prompting alone is unreliable. Models can still add markdown fences or explanatory text.",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

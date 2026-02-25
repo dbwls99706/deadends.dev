@@ -29,14 +29,18 @@
       "action": "Set org.gradle.jvmargs=-Xmx16g as first attempt",
       "why_fails": "Excessive heap hides the real problem (inefficient build) and slows down GC pauses",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     },
     {
       "action": "Disable Gradle daemon to reduce memory usage",
       "why_fails": "Daemon keeps JVM warm for faster builds. Disabling it makes every build slower.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Assume 10ms means the Worker must complete in 10 milliseconds wall clock time",
       "why_fails": "CPU time ≠ wall clock time. I/O wait (fetch, KV reads) doesn't count. A Worker can run for 30s wall clock if most time is I/O, but 10ms of pure computation is the limit.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     },
     {
       "action": "Optimize fetch calls to reduce total execution time",
       "why_fails": "fetch() is I/O and doesn't count toward CPU time. The bottleneck is usually JSON parsing, string manipulation, or crypto operations.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

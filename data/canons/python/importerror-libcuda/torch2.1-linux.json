@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "native_dependency_error",
     "first_seen": "2019-03-01",
-    "last_confirmed": "2025-05-19"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.79,
     "confidence": 0.83,
-    "last_updated": "2025-05-19",
+    "last_updated": "2026-02-24",
     "summary": "libcuda.so.1 is provided by the NVIDIA GPU driver (not the CUDA toolkit). This error means the driver is either not installed, not accessible (common in containers), or the library path is not configured. On systems with an NVIDIA GPU and driver installed, setting LD_LIBRARY_PATH or creating the proper symlink resolves the issue. In Docker, nvidia-container-toolkit must be configured."
   },
   "dead_ends": [

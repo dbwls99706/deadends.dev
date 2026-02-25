@@ -29,14 +29,18 @@
       "action": "Parse delta.tool_calls[0].function.arguments as JSON per chunk",
       "why_fails": "Each streaming chunk contains a partial JSON string fragment like '{\"na' or 'me\": \"'. Parsing individual chunks always fails.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Wait for finish_reason='function_call' then parse the last chunk",
       "why_fails": "The last chunk doesn't contain the full arguments. You need ALL chunks concatenated. finish_reason='tool_calls' signals completion.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

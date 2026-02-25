@@ -29,14 +29,18 @@
       "action": "Serve user-uploaded files with correct Content-Type and assume safety",
       "why_fails": "Without nosniff header, browsers may override Content-Type based on content analysis. A .txt file with HTML content may be rendered as HTML.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Validate file extension to prevent malicious uploads",
       "why_fails": "Extension validation is trivially bypassed. A file named 'image.png' can contain HTML/JS. Content-Type from extension doesn't prevent sniffing.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

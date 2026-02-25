@@ -29,14 +29,18 @@
       "action": "Delete the index to free space",
       "why_fails": "You lose all data. Free disk space first, then unblock the index.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase the watermark thresholds",
       "why_fails": "Only delays the problem. When disk is truly full, the cluster will crash.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

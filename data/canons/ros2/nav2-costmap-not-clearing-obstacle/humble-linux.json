@@ -29,14 +29,18 @@
       "action": "Assume costmap automatically clears obstacles when sensor no longer sees them",
       "why_fails": "Clearing happens via raytrace from sensor origin. If sensor origin frame is wrong, clearing rays miss the old obstacles. If obstacle_max_range < actual sensor range, far obstacles are never cleared.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase costmap resolution to fix stale obstacles",
       "why_fails": "Higher resolution makes the problem worse - more cells to clear. The issue is clearing behavior configuration, not resolution.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

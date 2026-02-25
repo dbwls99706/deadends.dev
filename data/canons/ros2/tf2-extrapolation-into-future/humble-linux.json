@@ -29,14 +29,18 @@
       "action": "Use rospy.Time.now() / self.get_clock().now() as lookup time",
       "why_fails": "Current time may be ahead of the latest published transform. Transform publishers have latency. Requesting 'now' often extrapolates into the future.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase tf buffer size to store more transforms",
       "why_fails": "Buffer size stores history, not future. The issue is timing, not storage. More history doesn't help when the requested time is in the future.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

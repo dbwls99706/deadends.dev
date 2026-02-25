@@ -29,14 +29,18 @@
       "action": "Put all instructions in the system prompt and trust they'll be followed",
       "why_fails": "System prompt influence degrades as context length grows. At 50K+ tokens of content, earlier instructions can be effectively forgotten.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase context window to fit more instructions",
       "why_fails": "Larger context windows amplify the 'lost in the middle' problem. More tokens = more dilution of instructions.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/prompt-injection-system-prompt-leak/llm-api-any",
+  "url": "https://deadends.dev/llm/prompt-injection-system-prompt-leak/llm-api-any",
+  "error": {
+    "signature": "System prompt leaked via prompt injection — user input not sanitized",
+    "regex": "[Ss]ystem.*prompt.*leak|prompt.*injection|ignore.*previous.*instructions",
+    "domain": "llm",
+    "category": "security",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "LLM API",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Adversarial user input can leak system prompts or override behavior."
+  },
+  "dead_ends": [
+    {
+      "action": "Filter exact phrase ignore previous instructions",
+      "why_fails": "Trivially bypassed by rephrasing, unicode tricks, or multilingual variants",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Put system prompt at the end of context",
+      "why_fails": "LLMs attend to all positions; placement alone does not prevent extraction",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://simonwillison.net/2023/Apr/14/worst-that-can-happen/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a separate system message role and enforce input/output guardrails",
+      "success_rate": 0.75,
+      "how": "Use role:system for instructions + apply output filtering",
+      "sources": [
+        "https://platform.openai.com/docs/guides/safety-best-practices"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Implement layered defense: input sanitization + output filtering + canary tokens",
+      "success_rate": 0.7,
+      "how": "Add unique canary string to system prompt; monitor outputs for its presence",
+      "sources": [
+        "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

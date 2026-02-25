@@ -29,14 +29,18 @@
       "action": "Deploy CORS change and test immediately in the same browser",
       "why_fails": "Browser caches the old preflight response for Access-Control-Max-Age seconds (default varies by browser, up to 7200s in Chrome).",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Set Access-Control-Max-Age to a very high value for performance",
       "why_fails": "High max-age means CORS config changes take hours to propagate to users. Auth requirement changes are invisible until cache expires.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

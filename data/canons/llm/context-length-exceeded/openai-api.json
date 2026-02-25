@@ -29,14 +29,18 @@
       "action": "Truncate the prompt from the beginning",
       "why_fails": "Cutting the start loses system prompts and instructions. Truncate middle conversation, keep start and end.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to a model with larger context window",
       "why_fails": "Larger context = higher cost and latency. Fix the prompt design first.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

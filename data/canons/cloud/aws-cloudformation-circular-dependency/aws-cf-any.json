@@ -29,14 +29,18 @@
       "action": "Add explicit DependsOn to break the cycle",
       "why_fails": "DependsOn only adds dependencies, never removes them. Adding more DependsOn to a cycle makes it worse.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Merge the circular resources into one resource",
       "why_fails": "Merging security groups loses fine-grained access control and makes the template harder to maintain.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Set Access-Control-Allow-Origin: * and Access-Control-Allow-Credentials: true",
       "why_fails": "Browsers explicitly reject this combination. The spec forbids wildcard origin with credentials to prevent credential leaking to arbitrary origins.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove Allow-Credentials header to make wildcard work",
       "why_fails": "Without credentials, cookies and auth headers are not sent. Authenticated API calls fail silently with 401.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

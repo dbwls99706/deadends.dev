@@ -29,14 +29,18 @@
       "action": "Delete and recreate the index with dynamic mapping",
       "why_fails": "Dynamic mapping guesses types from first document; subsequent documents with different types will fail the same way",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {
       "action": "Set strict_date_optional_time for all date fields",
       "why_fails": "Only works if all dates use ISO 8601. If you have epoch timestamps or custom formats, this fails.",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Add grpc.enable_http_proxy channel option",
       "why_fails": "HTTP proxies do not support gRPC's HTTP/2 framing. This makes connection worse, not better.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to REST API as workaround",
       "why_fails": "Loses gRPC benefits (streaming, protobuf efficiency, code generation). Fix the connection instead.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

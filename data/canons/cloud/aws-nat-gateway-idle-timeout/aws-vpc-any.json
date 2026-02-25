@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-nat-gateway-idle-timeout/aws-vpc-any",
+  "url": "https://deadends.dev/cloud/aws-nat-gateway-idle-timeout/aws-vpc-any",
+  "error": {
+    "signature": "Connection drops after 350s idle — NAT Gateway idle timeout",
+    "regex": "NAT.*[Gg]ateway.*idle.*timeout|350.*seconds|connection.*drop.*NAT",
+    "domain": "cloud",
+    "category": "networking",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "AWS VPC",
+      "version_range": ">=any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "AWS NAT Gateway silently drops idle TCP connections after 350 seconds."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase OS TCP timeout beyond 350s",
+      "why_fails": "NAT Gateway drops the mapping regardless of OS settings",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-troubleshooting.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use longer connection pool idle timeout",
+      "why_fails": "Application-level idle timeout does not prevent NAT Gateway from dropping the mapping",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-troubleshooting.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enable TCP keepalive with interval under 350 seconds",
+      "success_rate": 0.92,
+      "how": "sysctl -w net.ipv4.tcp_keepalive_time=120",
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-troubleshooting.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use VPC endpoints to bypass NAT Gateway entirely",
+      "success_rate": 0.88,
+      "how": "VPC endpoints route traffic internally; no NAT Gateway involvement",
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

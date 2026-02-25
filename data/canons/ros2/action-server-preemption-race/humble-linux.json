@@ -29,14 +29,18 @@
       "action": "Assume new goals automatically cancel previous goals",
       "why_fails": "Unlike ROS1 actionlib, ROS2 action servers do NOT auto-preempt. Multiple goals execute simultaneously unless you explicitly manage goal lifecycle.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Cancel the previous goal in handle_goal callback",
       "why_fails": "handle_goal is called before the new goal starts executing. Canceling the old goal here creates a race condition if the old execute callback hasn't checked for cancellation yet.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

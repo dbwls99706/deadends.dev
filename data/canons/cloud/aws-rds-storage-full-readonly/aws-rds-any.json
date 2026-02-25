@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-rds-storage-full-readonly/aws-rds-any",
+  "url": "https://deadends.dev/cloud/aws-rds-storage-full-readonly/aws-rds-any",
+  "error": {
+    "signature": "RDS instance becomes read-only — storage full auto-scaling lag",
+    "regex": "[Rr]ead.only|storage.*full|cannot.*write|The table.*is full",
+    "domain": "cloud",
+    "category": "database",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "AWS RDS",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "RDS storage auto-scaling has a 6-hour cooldown. Instance goes read-only if storage fills between scaling events."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually increase storage during read-only state",
+      "why_fails": "Manual scaling is also subject to the 6-hour cooldown",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Restart the RDS instance to clear read-only",
+      "why_fails": "Restart does not free storage; instance goes read-only again immediately",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Status.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set generous max storage threshold for auto-scaling with CloudWatch alarm at 80 percent",
+      "success_rate": 0.9,
+      "how": "aws rds modify-db-instance --max-allocated-storage 500 --db-instance-identifier mydb",
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Purge old data or archive to S3 to free space",
+      "success_rate": 0.85,
+      "how": "DELETE FROM logs WHERE created_at < NOW() - INTERVAL 90 DAY;",
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

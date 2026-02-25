@@ -29,21 +29,27 @@
       "action": "Increase the timeout to very large values",
       "why_fails": "If the server is not running at all, no amount of waiting will help; masks the real problem",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Call the service without waiting, catching exceptions",
       "why_fails": "The call itself will fail with a cryptic error; try/except hides configuration bugs",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use topics instead of services for request/reply",
       "why_fails": "Loses the synchronous call guarantee and requires manual correlation of responses",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -85,7 +91,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

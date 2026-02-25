@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/path-traversal-dotdot-normalization/filesystem-any",
+  "url": "https://deadends.dev/security/path-traversal-dotdot-normalization/filesystem-any",
+  "error": {
+    "signature": "Path traversal — ../ sequences bypass file access control",
+    "regex": "path.*traversal|\\.\\./|directory.*traversal|LFI",
+    "domain": "security",
+    "category": "file_security",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Filesystem",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "User input containing ../ allows access to files outside the intended directory."
+  },
+  "dead_ends": [
+    {
+      "action": "Filter out ../ with string replace",
+      "why_fails": "Attackers use URL encoding, double encoding, or OS-specific separators to bypass",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check if path starts with allowed directory using startswith",
+      "why_fails": "Path may resolve differently after symlink resolution",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Resolve the full canonical path and verify it is within the allowed directory",
+      "success_rate": 0.93,
+      "how": "real = os.path.realpath(os.path.join(base, user_input)); assert real.startswith(os.path.realpath(base))",
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a whitelist of allowed filenames",
+      "success_rate": 0.9,
+      "how": "allowed = {'report.pdf': '/data/reports/report.pdf'}; path = allowed.get(user_input)",
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "autograd_error",
     "first_seen": "2020-01-15",
-    "last_confirmed": "2025-05-17"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -23,7 +23,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.87,
     "confidence": 0.85,
-    "last_updated": "2025-05-17",
+    "last_updated": "2026-02-24",
     "summary": "The tensor's .grad attribute is None (or inaccessible) because requires_grad was not set to True before the forward pass and backward() call. In PyTorch 2.1+, accessing .grad on a tensor that never participated in gradient computation raises AttributeError. The fix is to ensure requires_grad=True is set at tensor creation time."
   },
   "dead_ends": [

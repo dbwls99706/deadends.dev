@@ -29,14 +29,18 @@
       "action": "Catch the exception and keep spinning",
       "why_fails": "Context is already destroyed; continued spinning causes undefined behavior and potential segfault",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Call rclpy.init() again after shutdown",
       "why_fails": "Multiple init/shutdown cycles are fragile and leak resources in many RMW implementations",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

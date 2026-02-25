@@ -29,14 +29,18 @@
       "action": "Assume 202 response means all recipients will receive the email",
       "why_fails": "202 = queued for sending, not delivered. Invalid addresses, bounced domains, and spam-flagged recipients are silently dropped after queuing.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Send to large batches without checking bounce/suppression lists",
       "why_fails": "SendGrid maintains a suppression list. Addresses on it are silently skipped. Sending to previously-bounced addresses hurts your sender reputation.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

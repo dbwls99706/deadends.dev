@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "distributed_communication",
     "first_seen": "2023-01-20",
-    "last_confirmed": "2025-04-30"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -32,18 +32,18 @@
     "resolvable": "true",
     "fix_success_rate": 0.72,
     "confidence": 0.7,
-    "last_updated": "2025-04-30",
+    "last_updated": "2026-02-24",
     "summary": "NCCL timeout errors on PyTorch 2.0 multi-GPU consumer setups (RTX 4090) are commonly caused by NCCL selecting the wrong network interface or by PCIe topology issues. Consumer motherboards with multiple PCIe slots may have asymmetric topologies that confuse NCCL's automatic transport selection. Setting NCCL_SOCKET_IFNAME and NCCL_DEBUG=INFO are the primary diagnostic and resolution steps."
   },
   "dead_ends": [
     {
       "action": "Increasing the timeout alone (torch.distributed.init_process_group timeout parameter)",
-      "why_fails": "The default NCCL timeout in PyTorch 2.0 is 1800 seconds (30 minutes). If the operation has not completed in 30 minutes, adding more time will not help \u2014 the communication is completely stalled due to interface misconfiguration or routing failure, not slowness.",
+      "why_fails": "The default NCCL timeout in PyTorch 2.0 is 1800 seconds (30 minutes). If the operation has not completed in 30 minutes, adding more time will not help — the communication is completely stalled due to interface misconfiguration or routing failure, not slowness.",
       "fail_rate": 0.87,
       "sources": [
         "https://pytorch.org/docs/stable/distributed.html#torch.distributed.init_process_group"
       ],
-      "common_misconception": "Users believe that NCCL operations are 'slow but progressing' when they time out. In reality, a timeout means zero bytes were transferred in the timeout window \u2014 the path is broken, not slow."
+      "common_misconception": "Users believe that NCCL operations are 'slow but progressing' when they time out. In reality, a timeout means zero bytes were transferred in the timeout window — the path is broken, not slow."
     },
     {
       "action": "Restarting the training process without fixing the network configuration",

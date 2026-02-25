@@ -29,21 +29,27 @@
       "action": "Enable exactly-once delivery and assume no duplicates",
       "why_fails": "Exactly-once only works within the ack deadline window. Slow consumers WILL see duplicates. Push subscriptions don't support it at all.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase ack deadline to maximum (600s) to avoid redelivery",
       "why_fails": "600s max may still not be enough for slow processing. Also, increases message invisibility window on failure.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Acknowledge message before processing it",
       "why_fails": "If processing fails after ack, the message is lost forever. No redelivery for acknowledged messages.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

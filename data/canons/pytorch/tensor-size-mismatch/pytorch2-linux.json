@@ -30,14 +30,18 @@
       "action": "Add unsqueeze/squeeze randomly until shapes match",
       "why_fails": "Blindly changing dimensions produces numerically wrong results even if the operation succeeds",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Transpose the tensor to swap dimensions",
       "why_fails": "Transpose changes semantic meaning (batch vs feature vs spatial). May run but produce garbage output.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],
@@ -73,7 +77,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

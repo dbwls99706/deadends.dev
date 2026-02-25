@@ -29,14 +29,18 @@
       "action": "Reinstall MongoDB to fix connection issues",
       "why_fails": "Connection refused means the service is not listening, not that the installation is broken",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     },
     {
       "action": "Use localhost instead of 127.0.0.1 or vice versa",
       "why_fails": "Both resolve to the same address. The issue is the service not running, not the address format.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

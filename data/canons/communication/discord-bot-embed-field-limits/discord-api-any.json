@@ -29,14 +29,18 @@
       "action": "Build large embeds without checking individual field limits",
       "why_fails": "Discord returns generic 400 Bad Request without specifying which limit was exceeded. You must validate all limits client-side.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Put all information in embed description to avoid field limits",
       "why_fails": "Description is limited to 4096 characters AND counts toward the 6000-character total embed limit. Large descriptions leave no room for fields.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

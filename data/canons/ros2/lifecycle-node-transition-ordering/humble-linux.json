@@ -29,14 +29,18 @@
       "action": "Call activate immediately after creating the lifecycle node",
       "why_fails": "The node starts in 'unconfigured' state. You must call configure() first, wait for it to reach 'inactive', then call activate().",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Assume transition callbacks are synchronous and immediate",
       "why_fails": "Transition callbacks (on_configure, on_activate) can fail. If on_configure returns FAILURE, the node stays unconfigured. You must check return codes.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

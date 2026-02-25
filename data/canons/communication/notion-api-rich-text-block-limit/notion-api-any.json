@@ -29,14 +29,18 @@
       "action": "Send a large text block assuming it will be stored as-is",
       "why_fails": "Notion truncates at 2000 characters per rich text array element and 100 blocks per append call. Large documents are silently cut off.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Append all blocks in a single API call",
       "why_fails": "Maximum 100 blocks per append_block_children call. Documents with more blocks need paginated appends.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "serialization_error",
     "first_seen": "2015-01-01",
-    "last_confirmed": "2025-05-18"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.55,
     "confidence": 0.74,
-    "last_updated": "2025-05-18",
+    "last_updated": "2026-02-24",
     "summary": "The error indicates the data being unpickled is not valid pickle format. Common causes: the file was saved in a different format (safetensors, HDF5, JSON) but loaded with pickle, the file was corrupted during transfer (incomplete download, text-mode FTP), or there is a pickle protocol version mismatch. Resolution depends on whether the original data is recoverable."
   },
   "dead_ends": [

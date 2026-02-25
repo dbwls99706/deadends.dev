@@ -29,14 +29,18 @@
       "action": "Set temperature=0 and expect identical outputs every time",
       "why_fails": "GPU parallel float operations have non-deterministic rounding. Different GPUs, batch sizes, or model shards produce different softmax distributions.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use seed parameter and assume perfect reproducibility",
       "why_fails": "OpenAI's seed parameter is 'best-effort'. system_fingerprint changes when infrastructure updates happen, breaking reproducibility.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

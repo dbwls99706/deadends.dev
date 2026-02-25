@@ -29,14 +29,18 @@
       "action": "Call list_objects_v2 once and use all returned keys",
       "why_fails": "Default MaxKeys is 1000. If bucket has more objects, you silently miss everything beyond the first 1000.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Set MaxKeys to a very large number",
       "why_fails": "MaxKeys cannot exceed 1000 per S3 API spec. Setting it higher is silently capped to 1000.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],
@@ -65,7 +69,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

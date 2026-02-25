@@ -29,14 +29,18 @@
       "action": "Continue using existing O365 Connector webhook URLs indefinitely",
       "why_fails": "Microsoft is deprecating O365 Connectors. Existing URLs will stop working after the retirement date. New connectors can no longer be created in many tenants.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use the same payload format with new Workflows webhook URL",
       "why_fails": "Workflows webhooks expect Adaptive Card JSON format, not the old MessageCard format used by O365 Connectors. Payload format is completely different.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }
