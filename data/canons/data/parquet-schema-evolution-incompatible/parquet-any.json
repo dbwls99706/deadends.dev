@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/parquet-schema-evolution-incompatible/parquet-any",
+  "url": "https://deadends.dev/data/parquet-schema-evolution-incompatible/parquet-any",
+  "error": {
+    "signature": "ArrowInvalid: Schema mismatch — Parquet files have incompatible schemas",
+    "regex": "ArrowInvalid.*[Ss]chema|[Ss]chema.*mismatch.*[Pp]arquet|incompatible.*column",
+    "domain": "data",
+    "category": "serialization",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Apache Arrow",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Reading multiple Parquet files fails because column types differ between files."
+  },
+  "dead_ends": [
+    {
+      "action": "Force cast all columns to string",
+      "why_fails": "Casting to string destroys type information and breaks downstream numeric operations",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://arrow.apache.org/docs/python/parquet.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use schema from first file for all files",
+      "why_fails": "First file schema may be outdated; newer files with added columns will lose data",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://arrow.apache.org/docs/python/parquet.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use unify_schemas to create a merged schema",
+      "success_rate": 0.9,
+      "how": "pa.unify_schemas([f.schema_arrow for f in files])",
+      "sources": [
+        "https://arrow.apache.org/docs/python/parquet.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Read with pyarrow dataset API which handles schema evolution natively",
+      "success_rate": 0.88,
+      "how": "import pyarrow.dataset as ds; dataset = ds.dataset('data/', format='parquet')",
+      "sources": [
+        "https://arrow.apache.org/docs/python/dataset.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

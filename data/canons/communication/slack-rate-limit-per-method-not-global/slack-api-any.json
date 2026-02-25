@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/slack-rate-limit-per-method-not-global/slack-api-any",
+  "url": "https://deadends.dev/communication/slack-rate-limit-per-method-not-global/slack-api-any",
+  "error": {
+    "signature": "Slack API returns 429 Too Many Requests on one method while other methods work fine",
+    "regex": "(Slack.*429|Slack.*rate.*limit|Slack.*too.*many.*requests|Slack.*Retry-After)",
+    "domain": "communication",
+    "category": "rate_limiting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "slack-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Slack rate limits are per-method and per-workspace, not global. chat.postMessage has ~1 req/sec per channel. conversations.list has different limits. Hitting the limit on one method doesn't affect others. The Retry-After header tells you exactly how long to wait."
+  },
+  "dead_ends": [
+    {
+      "action": "Implement a single global rate limiter for all Slack API calls",
+      "why_fails": "Rate limits are per-method. A global limiter is either too restrictive (slows unaffected methods) or too loose (still hits per-method limits).",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Retry immediately on 429 response",
+      "why_fails": "Immediate retry will also be rate-limited. Always respect the Retry-After header value.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement per-method rate limiting using Slack's published tier limits",
+      "success_rate": 0.92,
+      "how": "Tier 1: 1/min, Tier 2: 20/min, Tier 3: 50/min, Tier 4: 100/min. chat.postMessage is Tier 2-3 depending on context.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Always respect the Retry-After header on 429 responses",
+      "success_rate": 0.95,
+      "how": "retry_after = int(response.headers.get('Retry-After', 1)); time.sleep(retry_after)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Slack's Web API with built-in rate limit handling (slack_sdk)",
+      "success_rate": 0.88,
+      "how": "from slack_sdk import WebClient; client = WebClient(token=token)  # automatically handles rate limits with retries",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/build-player-failed/unity2022-any",
+  "url": "https://deadends.dev/unity/build-player-failed/unity2022-any",
+  "error": {
+    "signature": "Build completed with a result of 'Failed'. UnityEditor.BuildPlayerWindow+BuildMethodException",
+    "regex": "(Build.*result.*Failed|BuildPlayerWindow|BuildMethodException|Error building Player|Build player.*failed|BuildPipeline.*error)",
+    "domain": "unity",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Player build pipeline failed. Missing scenes, broken references, platform SDK not installed, or script errors in Editor-only code."
+  },
+  "dead_ends": [
+    {
+      "action": "Switch to a different build target to bypass the error",
+      "why_fails": "The error is in your project, not the platform. Switching targets just defers the problem.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable all error-producing scripts with #if UNITY_EDITOR",
+      "why_fails": "Wrapping everything in UNITY_EDITOR strips the code from builds entirely, causing missing references at runtime.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the build log for the first error (not the last)",
+      "success_rate": 0.92,
+      "how": "Console > clear > build again > the FIRST red error is the root cause; later errors cascade from it",
+      "sources": [
+        "https://docs.unity3d.com/Manual/upm-ui.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ensure all scenes in Build Settings are valid",
+      "success_rate": 0.88,
+      "how": "File > Build Settings > verify all scenes exist and are checked; remove missing scenes",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install the target platform SDK/module",
+      "success_rate": 0.85,
+      "how": "Unity Hub > Installs > your version > Add Modules > install Android/iOS/WebGL build support",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

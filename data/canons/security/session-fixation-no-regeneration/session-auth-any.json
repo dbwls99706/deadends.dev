@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/session-fixation-no-regeneration/session-auth-any",
+  "url": "https://deadends.dev/security/session-fixation-no-regeneration/session-auth-any",
+  "error": {
+    "signature": "Session hijacking possible because session ID is not regenerated after login",
+    "regex": "(session.*fixation|session.*regenerat|session.*id.*reuse.*login|session.*hijack.*login)",
+    "domain": "security",
+    "category": "session_management",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "session-auth",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "If the session ID remains the same after login, an attacker who knows the pre-auth session ID (e.g., via URL, XSS, or shared computer) automatically gains authenticated access. Most web frameworks do NOT auto-regenerate session IDs on login."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume the web framework regenerates session ID on login automatically",
+      "why_fails": "Most frameworks (Express, Flask, Django, Spring) do NOT auto-regenerate session IDs on authentication state change. You must do it explicitly.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a new session only when the user first visits",
+      "why_fails": "The issue isn't session creation timing but that the same session ID survives the authentication boundary. Pre-auth and post-auth must have different IDs.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Explicitly regenerate session ID after successful authentication",
+      "success_rate": 0.95,
+      "how": "Flask: session.regenerate(); Django: request.session.cycle_key(); Express: req.session.regenerate(cb)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Invalidate old session and create entirely new one on login",
+      "success_rate": 0.9,
+      "how": "Destroy existing session completely, create new session with new ID, then populate with user data",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set session cookies with Secure, HttpOnly, SameSite=Lax attributes",
+      "success_rate": 0.85,
+      "how": "response.set_cookie('session', value, httponly=True, secure=True, samesite='Lax')",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

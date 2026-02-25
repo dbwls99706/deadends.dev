@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/add-subdirectory-not-found/cmake3.28-linux",
+  "url": "https://deadends.dev/cmake/add-subdirectory-not-found/cmake3.28-linux",
+  "error": {
+    "signature": "CMake Error: The source directory /path/to/sub does not contain a CMakeLists.txt file.",
+    "regex": "(does not contain a CMakeLists\\.txt|add_subdirectory.*not exist|source directory.*CMakeLists|CMakeLists\\.txt.*missing.*subdirectory)",
+    "domain": "cmake",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "add_subdirectory() points to a directory that lacks a CMakeLists.txt. Missing submodule, typo, or wrong path."
+  },
+  "dead_ends": [
+    {
+      "action": "Create an empty CMakeLists.txt in the subdirectory",
+      "why_fails": "An empty file silences the error but the subdirectory's targets will not be defined, causing link errors later.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use EXCLUDE_FROM_ALL option to skip the directory",
+      "why_fails": "EXCLUDE_FROM_ALL only skips default build; it does not skip configuration. CMake still needs the file to exist.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Initialize git submodules if the directory is a submodule",
+      "success_rate": 0.95,
+      "how": "git submodule update --init --recursive",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check for typos in the directory path in CMakeLists.txt",
+      "success_rate": 0.9,
+      "how": "# Verify: ls -la path/to/subdirectory/CMakeLists.txt",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Guard with if(EXISTS) for optional subdirectories",
+      "success_rate": 0.82,
+      "how": "if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/optional_sub/CMakeLists.txt)\n  add_subdirectory(optional_sub)\nendif()",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

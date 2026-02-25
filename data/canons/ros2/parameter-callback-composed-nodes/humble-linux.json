@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/parameter-callback-composed-nodes/humble-linux",
+  "url": "https://deadends.dev/ros2/parameter-callback-composed-nodes/humble-linux",
+  "error": {
+    "signature": "ROS2 parameter change callback not firing in composed (component) nodes",
+    "regex": "(parameter.*callback.*not.*fir|composed.*node.*parameter|component.*parameter.*event|on_set_parameters.*silent)",
+    "domain": "ros2",
+    "category": "parameters",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Parameter callbacks in composed nodes can silently fail when multiple component nodes register callbacks. The parameter event publisher topic is shared, and callback ordering depends on composition order. Also, add_on_set_parameters_callback only fires for set_parameter, not declare_parameter."
+  },
+  "dead_ends": [
+    {
+      "action": "Register parameter callback and expect it to fire on declare_parameter",
+      "why_fails": "add_on_set_parameters_callback only triggers on set_parameter/set_parameters calls, NOT on declare_parameter with initial value.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a single parameter callback for all parameters in a composed container",
+      "why_fails": "Each component node has its own parameter namespace. Callbacks are per-node, not per-container. But parameter events from other nodes in the composition can interfere.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use add_on_set_parameters_callback and set values explicitly after declaration",
+      "success_rate": 0.9,
+      "how": "self.declare_parameter('speed', 1.0); self.add_on_set_parameters_callback(self.param_cb); # callback fires on future set_parameter calls",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use parameter event subscribers for cross-node parameter monitoring",
+      "success_rate": 0.85,
+      "how": "from rcl_interfaces.msg import ParameterEvent; self.create_subscription(ParameterEvent, '/parameter_events', self.param_event_cb, 10)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Separate parameter namespaces explicitly in composed nodes",
+      "success_rate": 0.88,
+      "how": "Use node name as namespace: Node('my_node', namespace='robot1', parameter_overrides=[...])",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

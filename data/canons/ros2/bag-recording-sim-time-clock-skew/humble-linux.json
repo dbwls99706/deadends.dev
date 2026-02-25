@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/bag-recording-sim-time-clock-skew/humble-linux",
+  "url": "https://deadends.dev/ros2/bag-recording-sim-time-clock-skew/humble-linux",
+  "error": {
+    "signature": "ROS2 bag recording timestamps don't match message timestamps when using sim_time",
+    "regex": "(rosbag.*timestamp.*mismatch|bag.*sim.*time.*skew|bag.*recording.*time.*wrong|rosbag.*clock.*drift)",
+    "domain": "ros2",
+    "category": "recording",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "ros2 bag record uses wall clock for recording timestamps by default, even when nodes use sim_time. Messages are recorded with wall-clock receive time, not the sim_time publish time. This causes misalignment on playback."
+  },
+  "dead_ends": [
+    {
+      "action": "Record bag and assume timestamps match simulation time",
+      "why_fails": "ros2 bag record uses wall clock for the bag metadata timestamps. Sim_time message headers have correct sim_time but the bag index uses wall clock.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use --use-sim-time flag on ros2 bag record",
+      "why_fails": "This changes the bag recorder's clock to sim_time but can cause recording gaps if clock publishes are delayed or irregular.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use --use-sim-time with a reliable clock source (e.g., Gazebo clock)",
+      "success_rate": 0.88,
+      "how": "ros2 bag record --use-sim-time /topic1 /topic2 /clock  # always record /clock topic",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Always record the /clock topic alongside other topics",
+      "success_rate": 0.92,
+      "how": "ros2 bag record -a --include-hidden-topics  # or explicitly: ros2 bag record /clock /cmd_vel /scan",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use message header timestamps (not bag timestamps) for time-critical analysis",
+      "success_rate": 0.85,
+      "how": "When processing bag data, use msg.header.stamp not the bag receive timestamp for accurate timing",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

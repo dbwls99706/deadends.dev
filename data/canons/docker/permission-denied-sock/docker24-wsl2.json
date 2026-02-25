@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "permissions",
     "first_seen": "2020-01-01",
-    "last_confirmed": "2025-05-08"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.82,
-    "last_updated": "2025-05-08",
+    "last_updated": "2026-02-24",
     "summary": "Docker socket permission denied on WSL2 has multiple root causes beyond the standard Linux group membership issue. Docker Desktop for Windows manages the socket differently through WSL integration, and the socket may not be properly forwarded if Docker Desktop's WSL2 integration is misconfigured or the WSL distro is not enabled in Docker Desktop settings."
   },
   "dead_ends": [

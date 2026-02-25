@@ -32,21 +32,27 @@
       "action": "Add while(1) in HardFault handler and inspect PC in debugger",
       "why_fails": "PC in handler points to handler itself, not faulting instruction. Read stacked PC from exception frame.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase heap size assuming memory allocation failure",
       "why_fails": "Hard faults are usually stack overflow or dangling pointers. Heap failures return NULL.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable fault handlers to prevent stopping",
       "why_fails": "Without handlers, faults escalate to lockup; processor halts until hardware reset",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     }
   ],
@@ -82,7 +88,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,14 +29,18 @@
       "action": "Use add_custom_target to make it visible",
       "why_fails": "add_custom_target is for custom commands, not linkable libraries",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Move target_link_libraries before add_executable",
       "why_fails": "Target must exist before setting properties. add_executable must come FIRST.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Ensure add_executable is called before target_link_libraries",
       "success_rate": 0.95,
       "how": "add_executable(my_target main.cpp)\ntarget_link_libraries(my_target PRIVATE my_lib)",
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
@@ -70,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

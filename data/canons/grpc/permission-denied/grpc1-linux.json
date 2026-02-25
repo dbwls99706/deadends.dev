@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/permission-denied/grpc1-linux",
+  "url": "https://deadends.dev/grpc/permission-denied/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.PERMISSION_DENIED: Access denied",
+    "regex": "(StatusCode\\.PERMISSION_DENIED|PERMISSION_DENIED|Access denied|permission.*denied.*grpc|unauthenticated.*token.*invalid)",
+    "domain": "grpc",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "gRPC call rejected due to missing or invalid authentication credentials. Token expired, wrong scopes, or misconfigured interceptor."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable authentication on server for testing",
+      "why_fails": "Disabling auth in production is a security vulnerability. Use proper test tokens or a test environment.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Hardcode credentials in client source code",
+      "why_fails": "Hardcoded credentials get committed to version control and cannot be rotated. Use environment variables or credential files.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Attach auth metadata via client interceptor or call credentials",
+      "success_rate": 0.92,
+      "how": "creds = grpc.access_token_call_credentials(token); channel = grpc.secure_channel(addr, grpc.composite_channel_credentials(grpc.ssl_channel_credentials(), creds))",
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Verify token validity and expiration before sending",
+      "success_rate": 0.88,
+      "how": "Check token expiry time; refresh OAuth2/JWT tokens before they expire",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check server-side auth interceptor configuration and required scopes",
+      "success_rate": 0.82,
+      "how": "Ensure the server interceptor expects the same token format and scopes that the client is sending",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

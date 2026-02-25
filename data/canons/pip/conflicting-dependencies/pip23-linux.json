@@ -8,7 +8,7 @@
     "domain": "pip",
     "category": "dependency-resolution",
     "first_seen": "2020-10-01",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.82,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "Pip's modern dependency resolver (introduced in pip 20.3) correctly detects conflicting version requirements between packages. This error means two or more packages require incompatible versions of a shared dependency. Resolution requires identifying compatible version combinations or using tools like pip-compile to find a valid resolution."
   },
   "dead_ends": [

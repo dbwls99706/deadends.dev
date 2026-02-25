@@ -29,14 +29,18 @@
       "action": "Add ! everywhere to make null errors go away",
       "why_fails": "! is an assertion, not a fix. It just moves the crash to a different location.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable null safety with // @dart=2.9",
       "why_fails": "Disabling null safety removes compile-time null checks and makes ALL null errors runtime crashes",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Use null-aware operators instead of force-unwrap",
       "success_rate": 0.92,
       "how": "value?.method()  or  value ?? defaultValue  instead of value!.method()",
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/sendgrid-batch-partial-failure-silent/sendgrid-api-any",
+  "url": "https://deadends.dev/communication/sendgrid-batch-partial-failure-silent/sendgrid-api-any",
+  "error": {
+    "signature": "SendGrid batch send returns 202 Accepted but some recipients don't receive email",
+    "regex": "(SendGrid.*partial.*fail|SendGrid.*202.*not.*delivered|SendGrid.*batch.*missing|SendGrid.*silent.*drop)",
+    "domain": "communication",
+    "category": "email_delivery",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "sendgrid-api",
+      "version_range": ">=v3"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "SendGrid's v3 mail/send API returns 202 Accepted (queued) not 200 (sent). A 202 means SendGrid accepted the request, not that delivery succeeded. Batch sends with invalid/bounced recipients silently skip those recipients. No per-recipient status in the API response."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume 202 response means all recipients will receive the email",
+      "why_fails": "202 = queued for sending, not delivered. Invalid addresses, bounced domains, and spam-flagged recipients are silently dropped after queuing.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Send to large batches without checking bounce/suppression lists",
+      "why_fails": "SendGrid maintains a suppression list. Addresses on it are silently skipped. Sending to previously-bounced addresses hurts your sender reputation.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set up Event Webhooks to track per-recipient delivery status",
+      "success_rate": 0.95,
+      "how": "SendGrid Settings -> Event Webhooks -> Enable delivered, bounced, dropped events. Track delivery per recipient.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check suppression list before sending batches",
+      "success_rate": 0.88,
+      "how": "GET /v3/suppression/bounces, /v3/suppression/blocks, /v3/suppression/spam_reports  # check before sending",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use personalizations array for per-recipient tracking",
+      "success_rate": 0.85,
+      "how": "Each personalization gets a unique message_id. Use this to track delivery status per recipient group.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

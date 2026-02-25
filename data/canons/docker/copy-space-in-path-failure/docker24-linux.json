@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "docker/copy-space-in-path-failure/docker24-linux",
+  "url": "https://deadends.dev/docker/copy-space-in-path-failure/docker24-linux",
+  "error": {
+    "signature": "COPY failed: file not found — Dockerfile COPY with spaces in path",
+    "regex": "COPY failed.*file not found|ADD.*failed.*space|COPY.*no such file.*space",
+    "domain": "docker",
+    "category": "path_handling",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker",
+      "version_range": ">=24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "Dockerfile COPY instruction fails when source or destination path contains spaces without proper quoting."
+  },
+  "dead_ends": [
+    {
+      "action": "Escape spaces with backslash in COPY instruction",
+      "why_fails": "Backslash escaping is inconsistent across Docker versions and platforms",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.docker.com/reference/dockerfile/#copy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use shell glob to match the file with spaces",
+      "why_fails": "COPY does not expand shell globs the same way; glob matching is for ADD with URLs only",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.docker.com/reference/dockerfile/#copy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use JSON array form for COPY with paths containing spaces",
+      "success_rate": 0.95,
+      "how": "COPY [\"src/my file.txt\", \"/app/my file.txt\"]  # JSON array form handles spaces correctly",
+      "sources": [
+        "https://docs.docker.com/reference/dockerfile/#copy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Rename files to remove spaces before COPY, or use .dockerignore and a staging step",
+      "success_rate": 0.82,
+      "how": "RUN mv '/app/my file.txt' /app/my_file.txt  # normalize after copy",
+      "sources": [
+        "https://docs.docker.com/reference/dockerfile/#copy"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

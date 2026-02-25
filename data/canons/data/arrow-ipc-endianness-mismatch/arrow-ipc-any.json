@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/arrow-ipc-endianness-mismatch/arrow-ipc-any",
+  "url": "https://deadends.dev/data/arrow-ipc-endianness-mismatch/arrow-ipc-any",
+  "error": {
+    "signature": "Arrow IPC read fails — endianness mismatch between writer and reader",
+    "regex": "[Ee]ndian.*mismatch|byte.*order.*incompatible|Arrow.*IPC.*read.*fail",
+    "domain": "data",
+    "category": "serialization",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Apache Arrow IPC",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.82,
+    "last_updated": "2026-02-25",
+    "summary": "Arrow IPC files written on big-endian systems cannot be read on little-endian."
+  },
+  "dead_ends": [
+    {
+      "action": "Force little-endian byte order in application code",
+      "why_fails": "Arrow IPC uses native endianness; application-level byte swapping does not affect IPC format",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://arrow.apache.org/docs/format/Columnar.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Arrow Flight instead of IPC files",
+      "why_fails": "Arrow Flight also uses native endianness",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://arrow.apache.org/docs/format/Flight.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Standardize on little-endian and convert during write on BE systems",
+      "success_rate": 0.85,
+      "how": "Most modern systems are little-endian; convert at write time on BE",
+      "sources": [
+        "https://arrow.apache.org/docs/format/Columnar.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Parquet format instead of IPC for cross-platform exchange",
+      "success_rate": 0.9,
+      "how": "Parquet has defined endianness (little-endian); portable across all architectures",
+      "sources": [
+        "https://parquet.apache.org/documentation/latest/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

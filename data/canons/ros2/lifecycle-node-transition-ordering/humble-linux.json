@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/lifecycle-node-transition-ordering/humble-linux",
+  "url": "https://deadends.dev/ros2/lifecycle-node-transition-ordering/humble-linux",
+  "error": {
+    "signature": "ROS2 lifecycle node fails during transition with 'transition is not valid from current state'",
+    "regex": "(transition.*not.*valid|lifecycle.*state.*error|invalid.*transition|configure.*before.*activate)",
+    "domain": "ros2",
+    "category": "lifecycle",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "ROS2 lifecycle nodes must follow strict state transitions: unconfigured->configuring->inactive->activating->active. You cannot skip states (e.g., unconfigured->active). The 'configure' transition must complete before 'activate' can be called."
+  },
+  "dead_ends": [
+    {
+      "action": "Call activate immediately after creating the lifecycle node",
+      "why_fails": "The node starts in 'unconfigured' state. You must call configure() first, wait for it to reach 'inactive', then call activate().",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Assume transition callbacks are synchronous and immediate",
+      "why_fails": "Transition callbacks (on_configure, on_activate) can fail. If on_configure returns FAILURE, the node stays unconfigured. You must check return codes.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the full transition sequence with state verification",
+      "success_rate": 0.95,
+      "how": "node.trigger_configure(); assert node.get_state() == State.INACTIVE; node.trigger_activate(); assert node.get_state() == State.ACTIVE",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement on_configure/on_activate callbacks with proper error handling",
+      "success_rate": 0.9,
+      "how": "def on_configure(self, state): try: self.setup_hardware(); return TransitionCallbackReturn.SUCCESS except: return TransitionCallbackReturn.FAILURE",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use launch_ros lifecycle node launcher for automated transitions",
+      "success_rate": 0.85,
+      "how": "Use lifecycle_node launch actions with 'configure' and 'activate' events in launch files",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

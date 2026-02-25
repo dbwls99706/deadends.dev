@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/token-limit-silent-input-truncation/llm-api-any",
+  "url": "https://deadends.dev/llm/token-limit-silent-input-truncation/llm-api-any",
+  "error": {
+    "signature": "Input silently truncated — total tokens exceed model context window",
+    "regex": "[Tt]runcate|[Mm]ax.*tokens.*exceeded|context.*length.*exceeded",
+    "domain": "llm",
+    "category": "context_management",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "LLM API",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Some APIs silently truncate input that exceeds the context window."
+  },
+  "dead_ends": [
+    {
+      "action": "Just increase max_tokens parameter",
+      "why_fails": "max_tokens controls output length, not input",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/chat/create"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Split input into multiple sequential API calls",
+      "why_fails": "Sequential calls do not share context",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://platform.openai.com/docs/guides/rate-limits"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Count tokens with tiktoken before sending and chunk within limits",
+      "success_rate": 0.92,
+      "how": "import tiktoken; enc = tiktoken.encoding_for_model('gpt-4'); len(enc.encode(text))",
+      "sources": [
+        "https://github.com/openai/tiktoken"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a sliding window or map-reduce pattern for long documents",
+      "success_rate": 0.85,
+      "how": "Split into overlapping chunks, process each, then combine",
+      "sources": [
+        "https://python.langchain.com/docs/how_to/summarize_stuff/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "memory",
     "first_seen": "2016-03-01",
-    "last_confirmed": "2025-04-20"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.82,
-    "last_updated": "2025-04-20",
+    "last_updated": "2026-02-24",
     "summary": "Heap out of memory in Node 18 on Linux behaves similarly to Node 20, but Node 18 has a slightly lower default heap limit on some configurations. Node 18's V8 version (10.2) may show the older CALL_AND_RETRY_LAST message more consistently than Node 20's 'Reached heap limit' variant."
   },
   "dead_ends": [

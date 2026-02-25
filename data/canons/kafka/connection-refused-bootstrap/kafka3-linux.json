@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/connection-refused-bootstrap/kafka3-linux",
+  "url": "https://deadends.dev/kafka/connection-refused-bootstrap/kafka3-linux",
+  "error": {
+    "signature": "org.apache.kafka.common.KafkaException: Failed to construct kafka consumer: Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.",
+    "regex": "(Connection.*could not be established|Failed to construct kafka|bootstrap.*connection refused|Connection refused.*9092|broker.*not available.*bootstrap)",
+    "domain": "kafka",
+    "category": "connection_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Cannot connect to Kafka bootstrap server. Broker not running, wrong address, firewall blocking, or advertised.listeners misconfigured."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the ZooKeeper address as bootstrap server",
+      "why_fails": "Clients connect to Kafka brokers, not ZooKeeper. ZooKeeper port (2181) is not the broker port (9092).",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Only check if broker is running and assume network is fine",
+      "why_fails": "advertised.listeners misconfiguration is the #1 cause in Docker/cloud. Broker runs fine but clients cannot reach the advertised address.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify broker is running and listening on expected port",
+      "success_rate": 0.92,
+      "how": "ss -tlnp | grep 9092; sudo journalctl -u kafka --tail=50",
+      "sources": [
+        "https://kafka.apache.org/documentation/#brokerconfigs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check advertised.listeners matches how clients reach the broker",
+      "success_rate": 0.9,
+      "how": "In server.properties: advertised.listeners=PLAINTEXT://actual-hostname:9092  # must be routable from client",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Test connectivity from client machine",
+      "success_rate": 0.85,
+      "how": "nc -zv broker-host 9092  # or: kafkacat -b broker-host:9092 -L",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

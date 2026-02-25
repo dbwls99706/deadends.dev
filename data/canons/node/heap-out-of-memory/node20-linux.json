@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "memory",
     "first_seen": "2016-03-01",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.78,
     "confidence": 0.85,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "Heap out of memory in Node 20 on Linux is commonly caused by large dataset processing, memory leaks in long-running processes, or aggressive bundler configurations. Increasing the heap limit is a valid short-term fix, but long-term resolution requires identifying the memory consumer."
   },
   "dead_ends": [

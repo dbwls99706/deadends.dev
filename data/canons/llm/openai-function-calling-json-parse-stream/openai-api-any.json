@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/openai-function-calling-json-parse-stream/openai-api-any",
+  "url": "https://deadends.dev/llm/openai-function-calling-json-parse-stream/openai-api-any",
+  "error": {
+    "signature": "json.decoder.JSONDecodeError when parsing OpenAI function call arguments in streaming mode",
+    "regex": "(JSONDecodeError.*function.*call|function_call.*argument.*parse|streaming.*tool_calls.*incomplete)",
+    "domain": "llm",
+    "category": "streaming",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openai-api",
+      "version_range": ">=v1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "In streaming mode, function/tool call arguments arrive as partial JSON chunks. Each delta.tool_calls[].function.arguments is a string fragment, not valid JSON. You must concatenate all chunks before parsing."
+  },
+  "dead_ends": [
+    {
+      "action": "Parse delta.tool_calls[0].function.arguments as JSON per chunk",
+      "why_fails": "Each streaming chunk contains a partial JSON string fragment like '{\"na' or 'me\": \"'. Parsing individual chunks always fails.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Wait for finish_reason='function_call' then parse the last chunk",
+      "why_fails": "The last chunk doesn't contain the full arguments. You need ALL chunks concatenated. finish_reason='tool_calls' signals completion.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accumulate argument string chunks, parse only after finish_reason='tool_calls'",
+      "success_rate": 0.95,
+      "how": "args_str = ''; for chunk in stream: delta = chunk.choices[0].delta; if delta.tool_calls: args_str += delta.tool_calls[0].function.arguments; # parse after stream ends",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use non-streaming mode for function calling if latency permits",
+      "success_rate": 0.85,
+      "how": "response = client.chat.completions.create(stream=False, tools=tools)  # complete JSON in one response",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use structured output mode (response_format) instead of function calling for complex schemas",
+      "success_rate": 0.82,
+      "how": "response_format={'type': 'json_schema', 'json_schema': {...}}  # enforced valid JSON output",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

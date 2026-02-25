@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/crossslot-keys-error/redis7-linux",
+  "url": "https://deadends.dev/redis/crossslot-keys-error/redis7-linux",
+  "error": {
+    "signature": "CROSSSLOT Keys in request don't hash to the same slot",
+    "regex": "(CROSSSLOT|keys.*don't hash.*same slot|cross.?slot|multiple keys.*different.*slots)",
+    "domain": "redis",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.89,
+    "last_updated": "2026-02-25",
+    "summary": "Multi-key command (MGET, MSET, pipeline, transaction) sent to Redis Cluster with keys in different hash slots. Cluster requires all keys in a multi-key operation to be in the same slot."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable cluster mode and use standalone Redis to avoid slot issues",
+      "why_fails": "Loses all cluster benefits: high availability, horizontal scaling, automatic failover",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://redis.io/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use separate single-key commands for every operation",
+      "why_fails": "Replacing MGET with N GET commands increases latency by N round trips and loses atomicity",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://redis.io/docs/latest/commands/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use hash tags to force related keys into the same slot",
+      "success_rate": 0.92,
+      "how": "Use {user:123}:profile and {user:123}:settings — the part in {} determines the slot",
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Redesign data model to co-locate related keys",
+      "success_rate": 0.88,
+      "how": "Store related data in a single hash: HSET user:123 profile '...' settings '...'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Lua scripting for atomic multi-key operations within the same slot",
+      "success_rate": 0.82,
+      "how": "EVAL 'return redis.call(\"MGET\", KEYS[1], KEYS[2])' 2 {tag}:key1 {tag}:key2",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

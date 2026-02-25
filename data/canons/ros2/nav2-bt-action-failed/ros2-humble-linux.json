@@ -29,21 +29,27 @@
       "action": "Restart Nav2 stack on every failure",
       "why_fails": "Restarts are expensive and lose all accumulated costmap data; hides the actual navigation issue",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase all timeouts to very large values",
       "why_fails": "Masks configuration errors; robot sits idle for minutes before finally reporting failure",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Replace the entire BT XML with a simple sequence",
       "why_fails": "Loses recovery behaviors, replanning, and fallback strategies",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -85,7 +91,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

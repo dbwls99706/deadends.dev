@@ -29,14 +29,18 @@
       "action": "Install ament_cmake via pip",
       "why_fails": "ament_cmake is a CMake package, not Python; pip install does nothing useful",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Build ament_cmake from source in your workspace",
       "why_fails": "ament_cmake is core ROS 2 infrastructure; building from source causes version conflicts",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

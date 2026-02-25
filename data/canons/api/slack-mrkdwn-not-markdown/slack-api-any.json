@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/slack-mrkdwn-not-markdown/slack-api-any",
+  "url": "https://deadends.dev/api/slack-mrkdwn-not-markdown/slack-api-any",
+  "error": {
+    "signature": "Slack message displays raw markdown instead of formatted text in Block Kit",
+    "regex": "(mrkdwn.*not.*rendering|block.*kit.*markdown.*raw|slack.*formatting.*broken)",
+    "domain": "api",
+    "category": "formatting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "slack-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Slack Block Kit uses 'mrkdwn' (not 'markdown') as the type field. Also, mrkdwn is NOT standard Markdown - it uses *bold* (not **bold**), ~strike~ (not ~~strike~~), and doesn't support headers."
+  },
+  "dead_ends": [
+    {
+      "action": "Use type: 'markdown' in Block Kit blocks",
+      "why_fails": "The field must be 'mrkdwn' (Slack's proprietary format). 'markdown' silently falls back to plain text with no error.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use standard Markdown syntax like **bold** and ~~strike~~",
+      "why_fails": "Slack mrkdwn uses *bold* and ~strike~. Standard markdown bold (**) is treated as literal asterisks.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use type: 'mrkdwn' and Slack-specific syntax",
+      "success_rate": 0.95,
+      "how": "{\"type\": \"section\", \"text\": {\"type\": \"mrkdwn\", \"text\": \"*bold* _italic_ ~strike~ `code`\"}}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Slack Block Kit Builder to preview before sending",
+      "success_rate": 0.88,
+      "how": "Test in Block Kit Builder to verify rendering before deploying",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

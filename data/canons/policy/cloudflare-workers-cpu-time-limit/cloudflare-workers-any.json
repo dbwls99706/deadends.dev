@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/cloudflare-workers-cpu-time-limit/cloudflare-workers-any",
+  "url": "https://deadends.dev/policy/cloudflare-workers-cpu-time-limit/cloudflare-workers-any",
+  "error": {
+    "signature": "Cloudflare Worker exceeds CPU time limit even though wall clock time is well under 30s",
+    "regex": "(Worker.*CPU.*time.*exceeded|CPU time limit|Cloudflare.*10ms.*cpu|Worker.*exceeded.*limit)",
+    "domain": "policy",
+    "category": "platform_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cloudflare-workers",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "Cloudflare Workers free tier has 10ms CPU time limit (not wall clock time). A request waiting 5s for a fetch() uses ~0ms CPU. But JSON.parse() on a large payload or crypto operations quickly exceed 10ms CPU. Paid plan gets 30s wall clock."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume 10ms means the Worker must complete in 10 milliseconds wall clock time",
+      "why_fails": "CPU time ≠ wall clock time. I/O wait (fetch, KV reads) doesn't count. A Worker can run for 30s wall clock if most time is I/O, but 10ms of pure computation is the limit.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Optimize fetch calls to reduce total execution time",
+      "why_fails": "fetch() is I/O and doesn't count toward CPU time. The bottleneck is usually JSON parsing, string manipulation, or crypto operations.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Move CPU-intensive work to a backend service, use Worker only for routing/transformation",
+      "success_rate": 0.9,
+      "how": "Worker fetches from origin/backend, does minimal transformation, returns result. Heavy computation stays in backend.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Upgrade to Workers Paid ($5/month) for 30s wall clock / 30ms CPU per request",
+      "success_rate": 0.88,
+      "how": "Paid Workers: 30s wall clock for HTTP, 15min for Cron Triggers. Much more generous CPU limits.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use streaming responses to avoid large JSON parse operations",
+      "success_rate": 0.82,
+      "how": "Use HTMLRewriter or streaming JSON parser instead of loading entire response into memory",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

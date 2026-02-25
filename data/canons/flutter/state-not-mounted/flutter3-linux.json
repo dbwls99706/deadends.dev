@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/state-not-mounted/flutter3-linux",
+  "url": "https://deadends.dev/flutter/state-not-mounted/flutter3-linux",
+  "error": {
+    "signature": "setState() called after dispose()",
+    "regex": "(setState.*called after dispose|setState\\(\\) called in.*State.*no longer appears|This widget has been unmounted)",
+    "domain": "flutter",
+    "category": "lifecycle_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.0"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "setState called on a widget that is no longer in the widget tree. Async callback fires after widget is disposed."
+  },
+  "dead_ends": [
+    {
+      "action": "Wrap setState in try/catch to silence the error",
+      "why_fails": "Masks the lifecycle bug; the async operation is still running and wasting resources after dispose",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add mounted check only at the setState call site",
+      "why_fails": "Root cause is async operation not being cancelled in dispose(); it keeps running in background",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.flutter.dev/testing/debugging"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cancel async operations in dispose()",
+      "success_rate": 0.92,
+      "how": "Timer? _timer; StreamSubscription? _sub; @override void dispose() { _timer?.cancel(); _sub?.cancel(); super.dispose(); }",
+      "sources": [
+        "https://api.flutter.dev/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use mounted check combined with proper cleanup pattern",
+      "success_rate": 0.88,
+      "how": "if (mounted) setState(() { ... }); — but also cancel the underlying async work in dispose()",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Convert to StatelessWidget with provider/bloc for state management",
+      "success_rate": 0.8,
+      "how": "Move async logic to a provider or cubit; widget just rebuilds from stream, no manual setState needed",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

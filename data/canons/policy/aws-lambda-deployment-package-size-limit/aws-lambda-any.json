@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/aws-lambda-deployment-package-size-limit/aws-lambda-any",
+  "url": "https://deadends.dev/policy/aws-lambda-deployment-package-size-limit/aws-lambda-any",
+  "error": {
+    "signature": "RequestEntityTooLargeException — Lambda deployment package exceeds 50MB/250MB",
+    "regex": "RequestEntityTooLargeException|[Dd]eployment.*package.*size|[Ee]xceeds.*[0-9]+MB",
+    "domain": "policy",
+    "category": "service_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "AWS Lambda",
+      "version_range": ">=any"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Lambda has 50MB zipped / 250MB unzipped deployment limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Compress the package more aggressively",
+      "why_fails": "Most dependencies are already compressed efficiently",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Split into multiple Lambda functions",
+      "why_fails": "If the oversized component is a shared dependency, splitting does not help",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Lambda layers for shared dependencies",
+      "success_rate": 0.88,
+      "how": "aws lambda publish-layer-version --layer-name deps --zip-file fileb://layer.zip",
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use container image packaging (up to 10GB)",
+      "success_rate": 0.92,
+      "how": "FROM public.ecr.aws/lambda/python:3.12",
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/images-create.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

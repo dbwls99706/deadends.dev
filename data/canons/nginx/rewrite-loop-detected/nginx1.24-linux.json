@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/rewrite-loop-detected/nginx1.24-linux",
+  "url": "https://deadends.dev/nginx/rewrite-loop-detected/nginx1.24-linux",
+  "error": {
+    "signature": "nginx: rewrite or internal redirection cycle while processing \"/index.html\"",
+    "regex": "(rewrite or internal redirection cycle|rewrite.*cycle|too many redirects|ERR_TOO_MANY_REDIRECTS.*nginx|redirect loop|internal redirect.*loop)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Infinite redirect loop in nginx rewrite rules or try_files. Request bounces between locations or rewrites indefinitely."
+  },
+  "dead_ends": [
+    {
+      "action": "Add more rewrite rules to try to break the loop",
+      "why_fails": "Adding rewrites to fix rewrites increases complexity. Simplify the existing rules instead of layering more.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use proxy_pass to localhost to escape the rewrite loop",
+      "why_fails": "Proxying to self creates a new request that hits the same rewrite rules, causing the same loop.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add a break or last flag to stop rewrite processing",
+      "success_rate": 0.92,
+      "how": "rewrite ^/old(.*)$ /new$1 last;  # 'last' restarts location matching; 'break' stops all rewriting",
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use return instead of rewrite for simple redirects",
+      "success_rate": 0.9,
+      "how": "return 301 https://$host$request_uri;  # return is simpler and cannot loop within the same server block",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use 'if' with specific conditions to prevent recursive matches",
+      "success_rate": 0.82,
+      "how": "if ($request_uri !~ ^/new) { rewrite ^/(.*)$ /new/$1 last; }  # guard against re-matching",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

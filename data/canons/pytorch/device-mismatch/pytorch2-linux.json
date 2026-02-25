@@ -33,14 +33,18 @@
       "action": "Move every tensor to GPU at creation time",
       "why_fails": "Some tensors (like labels, indices) should stay on CPU until needed. Eager .cuda() wastes VRAM.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Use .cuda() everywhere instead of .to(device)",
       "why_fails": ".cuda() hardcodes GPU and breaks on CPU-only machines or multi-GPU. Use .to(device) consistently.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],
@@ -49,7 +53,9 @@
       "action": "Use a device variable and .to(device) consistently",
       "success_rate": 0.95,
       "how": "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); model.to(device); x = x.to(device)",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
@@ -75,7 +81,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

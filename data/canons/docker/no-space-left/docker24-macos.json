@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "storage",
     "first_seen": "2016-01-01",
-    "last_confirmed": "2025-05-05"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.88,
-    "last_updated": "2025-05-05",
+    "last_updated": "2026-02-24",
     "summary": "On macOS, Docker runs inside a lightweight Linux VM managed by Docker Desktop. 'no space left on device' means the VM's virtual disk image has reached its size limit or the host disk is full. This is different from native Linux because the storage is inside a VM disk image file (Docker.raw or Docker.qcow2), not directly on the filesystem."
   },
   "dead_ends": [

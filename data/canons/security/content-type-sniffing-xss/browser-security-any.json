@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/content-type-sniffing-xss/browser-security-any",
+  "url": "https://deadends.dev/security/content-type-sniffing-xss/browser-security-any",
+  "error": {
+    "signature": "XSS attack succeeds via uploaded file because browser sniffs content type instead of respecting Content-Type header",
+    "regex": "(content.*type.*sniff|X-Content-Type-Options|MIME.*sniff.*XSS|nosniff.*missing)",
+    "domain": "security",
+    "category": "xss",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "browser-security",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "Browsers may ignore Content-Type header and 'sniff' the actual content. A file served as text/plain but containing <script> tags may be executed as HTML. The X-Content-Type-Options: nosniff header prevents this but is often missing."
+  },
+  "dead_ends": [
+    {
+      "action": "Serve user-uploaded files with correct Content-Type and assume safety",
+      "why_fails": "Without nosniff header, browsers may override Content-Type based on content analysis. A .txt file with HTML content may be rendered as HTML.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Validate file extension to prevent malicious uploads",
+      "why_fails": "Extension validation is trivially bypassed. A file named 'image.png' can contain HTML/JS. Content-Type from extension doesn't prevent sniffing.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add X-Content-Type-Options: nosniff header to all responses",
+      "success_rate": 0.95,
+      "how": "response.headers['X-Content-Type-Options'] = 'nosniff'  # prevents MIME sniffing",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Serve user uploads from a separate domain/subdomain",
+      "success_rate": 0.92,
+      "how": "Serve from uploads.example.com, not example.com. Same-origin policy prevents uploaded content from accessing main site cookies/data.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set Content-Disposition: attachment for all user-uploaded files",
+      "success_rate": 0.88,
+      "how": "response.headers['Content-Disposition'] = 'attachment'  # forces download instead of rendering",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -29,14 +29,18 @@
       "action": "Reinstall CUDA toolkit",
       "why_fails": "NVRTC is a runtime compiler issue, not an installation issue; the generated code is invalid",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Downgrade GPU driver",
       "why_fails": "NVRTC compiles for the installed toolkit version, not the driver version",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

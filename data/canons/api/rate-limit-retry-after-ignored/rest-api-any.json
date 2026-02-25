@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/rate-limit-retry-after-ignored/rest-api-any",
+  "url": "https://deadends.dev/api/rate-limit-retry-after-ignored/rest-api-any",
+  "error": {
+    "signature": "429 Too Many Requests — Retry-After header ignored by client",
+    "regex": "429\\s+Too Many Requests",
+    "domain": "api",
+    "category": "rate_limiting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "HTTP",
+      "version_range": ">=1.1"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Client ignores Retry-After header causing progressive backoff escalation or IP ban."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately in a tight loop",
+      "why_fails": "Hammering a 429 endpoint causes progressive penalty escalation",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Only add a fixed 1-second delay",
+      "why_fails": "Fixed delay ignores the Retry-After value",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Parse Retry-After header and sleep for the specified duration",
+      "success_rate": 0.93,
+      "how": "const retryAfter = parseInt(res.headers['retry-after'], 10) || 1; await sleep(retryAfter * 1000);",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Implement exponential backoff with jitter",
+      "success_rate": 0.9,
+      "how": "delay = min(base * 2^attempt + random_jitter, max_delay)",
+      "sources": [
+        "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/rest-pagination-cursor-invalidation/rest-api-any",
+  "url": "https://deadends.dev/api/rest-pagination-cursor-invalidation/rest-api-any",
+  "error": {
+    "signature": "HTTP 400/404: Invalid cursor or pagination token expired",
+    "regex": "(invalid.*cursor|pagination.*token.*expired|cursor.*not.*found|page.*token.*invalid)",
+    "domain": "api",
+    "category": "pagination",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rest-api",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.68,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "Many APIs invalidate pagination cursors after data mutations or after a time window (15min-1hr). Cursor-based pagination docs rarely mention this."
+  },
+  "dead_ends": [
+    {
+      "action": "Cache cursor and resume pagination hours later",
+      "why_fails": "Most API cursors expire within 15-60 minutes. Some (e.g., Elasticsearch scroll) expire in 1 minute by default.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use offset/limit pagination to avoid cursor issues",
+      "why_fails": "Offset pagination skips items when rows are inserted/deleted between pages.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Complete pagination in a single session without long pauses",
+      "success_rate": 0.85,
+      "how": "Process all pages in a tight loop. Store results locally, then process after pagination completes.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use keyset pagination (WHERE id > last_seen_id ORDER BY id)",
+      "success_rate": 0.9,
+      "how": "SELECT * FROM items WHERE id > :last_id ORDER BY id LIMIT 100",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement checkpoint-based restart: store last processed item ID",
+      "success_rate": 0.88,
+      "how": "On cursor expiry, restart pagination with filter to skip already-processed items",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

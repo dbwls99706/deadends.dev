@@ -29,14 +29,18 @@
       "action": "Publish joint states manually from your own node",
       "why_fails": "Bypasses ros2_control safety and timing guarantees; joint states may be inconsistent with actual hardware",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Load the broadcaster before controller_manager is ready",
       "why_fails": "Controller manager must be fully initialized before loading controllers; race condition",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +82,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

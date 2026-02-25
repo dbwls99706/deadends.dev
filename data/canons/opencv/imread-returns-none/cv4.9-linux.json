@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/imread-returns-none/cv4.9-linux",
+  "url": "https://deadends.dev/opencv/imread-returns-none/cv4.9-linux",
+  "error": {
+    "signature": "cv2.error: (-215:Assertion failed) !_src.empty() — imread returned None for valid file path",
+    "regex": "(!_src\\.empty\\(\\)|imread.*None|imread.*returned None|image.*is empty|NoneType.*has no attribute.*shape)",
+    "domain": "opencv",
+    "category": "io_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "cv2.imread returns None silently when it cannot read the file. Path typo, missing codec, or permission issue."
+  },
+  "dead_ends": [
+    {
+      "action": "Wrap imread in try/except to catch the error",
+      "why_fails": "imread does not raise exceptions on failure; it returns None. try/except catches nothing.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Convert path to raw string assuming backslash issue on Linux",
+      "why_fails": "Linux uses forward slashes. Raw strings only matter on Windows with backslash paths.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check return value of imread before using the image",
+      "success_rate": 0.95,
+      "how": "img = cv2.imread(path)\nif img is None:\n    raise FileNotFoundError(f'imread failed: {path}')",
+      "sources": [
+        "https://docs.opencv.org/4.x/d0/d05/tutorial_dnn_googlenet.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Verify the file exists and is a supported format",
+      "success_rate": 0.9,
+      "how": "import os; assert os.path.isfile(path), f'File not found: {path}'  # also check file is not 0 bytes",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use absolute path to avoid working directory issues",
+      "success_rate": 0.85,
+      "how": "img = cv2.imread(os.path.abspath(path))  # relative paths depend on cwd, not script location",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

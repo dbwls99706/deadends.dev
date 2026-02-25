@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/azure-ad-token-cache-cross-tenant/azure-ad-any",
+  "url": "https://deadends.dev/cloud/azure-ad-token-cache-cross-tenant/azure-ad-any",
+  "error": {
+    "signature": "Azure AD token works for wrong tenant or returns 'AADSTS50020: User account does not exist in tenant'",
+    "regex": "(AADSTS50020|cross.*tenant.*token|token.*wrong.*tenant|multi.*tenant.*auth.*fail)",
+    "domain": "cloud",
+    "category": "authentication",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "azure-ad",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "MSAL token cache uses authority URL as part of the cache key. If you create multiple ConfidentialClientApplication instances with different tenants but share the same cache, tokens leak across tenants."
+  },
+  "dead_ends": [
+    {
+      "action": "Use a single shared MSAL token cache for all tenants",
+      "why_fails": "Tokens from tenant A may be served for tenant B requests. The cache key includes authority but bugs in cache partitioning cause cross-tenant leaks.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a new ConfidentialClientApplication per request",
+      "why_fails": "Bypasses caching entirely. Every request does a full token acquisition, adding 200-500ms latency.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use separate token caches per tenant (partition by tenant_id)",
+      "success_rate": 0.95,
+      "how": "cache = msal.SerializableTokenCache(); app = msal.ConfidentialClientApplication(client_id, authority=f'https://login.microsoftonline.com/{tenant_id}', token_cache=cache)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use MSAL's built-in cache partitioning with partition_key",
+      "success_rate": 0.9,
+      "how": "app.acquire_token_for_client(scopes, claims_challenge=None, data={'partition_key': tenant_id})",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

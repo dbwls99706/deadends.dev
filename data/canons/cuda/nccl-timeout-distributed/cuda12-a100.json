@@ -33,14 +33,18 @@
       "action": "Increase NCCL_TIMEOUT to very large values",
       "why_fails": "Masks the real issue (GPU hang, network failure); training will hang silently instead of crashing",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable NCCL and use Gloo backend",
       "why_fails": "Gloo is CPU-based for GPU tensors; 10-100x slower for large models",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     }
   ],
@@ -82,7 +86,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/cuda-module-not-compiled/cv4.9-linux",
+  "url": "https://deadends.dev/opencv/cuda-module-not-compiled/cv4.9-linux",
+  "error": {
+    "signature": "cv2.error: OpenCV was built without CUDA support; cv2.cuda is not available",
+    "regex": "(built without CUDA|cv2\\.cuda.*not available|CUDA.*not (compiled|enabled|built)|cuda.*module.*not found|No CUDA.*support)",
+    "domain": "opencv",
+    "category": "configuration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.5"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "OpenCV cv2.cuda module is not available because the installed build was compiled without CUDA support."
+  },
+  "dead_ends": [
+    {
+      "action": "pip install opencv-contrib-python expecting CUDA support",
+      "why_fails": "PyPI wheels are not built with CUDA. Even opencv-contrib-python from pip has no CUDA.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Install CUDA toolkit after opencv-python hoping it activates CUDA",
+      "why_fails": "OpenCV must be compiled with CUDA at build time. Installing CUDA later has no effect on existing OpenCV.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Build OpenCV from source with CUDA enabled",
+      "success_rate": 0.9,
+      "how": "cmake -DWITH_CUDA=ON -DCUDA_ARCH_BIN=8.6 -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ..",
+      "sources": [
+        "https://docs.opencv.org/4.x/d0/d05/tutorial_dnn_googlenet.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use pre-built CUDA-enabled OpenCV packages",
+      "success_rate": 0.85,
+      "how": "conda install -c conda-forge opencv  # some conda builds include CUDA",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use CPU equivalents of CUDA functions for portability",
+      "success_rate": 0.88,
+      "how": "# Instead of cv2.cuda.GpuMat, use regular cv2.Mat operations which run on CPU",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

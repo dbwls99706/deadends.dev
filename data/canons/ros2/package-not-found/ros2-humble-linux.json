@@ -29,21 +29,27 @@
       "action": "Re-run colcon build without sourcing the workspace first",
       "why_fails": "Building and running in the same terminal without sourcing install/setup.bash means the new package is invisible to ros2 CLI",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Manually copy the package into /opt/ros/humble/share/",
       "why_fails": "System install paths are managed by apt; manual copies get overwritten and break dependency resolution",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Add the package path to AMENT_PREFIX_PATH by hand",
       "why_fails": "Does not persist across terminals and masks the real issue: the workspace overlay is not sourced",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +84,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

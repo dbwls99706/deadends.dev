@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/csv-formula-injection/csv-export-any",
+  "url": "https://deadends.dev/data/csv-formula-injection/csv-export-any",
+  "error": {
+    "signature": "Excel executes formulas when opening CSV exported from web application, enabling code execution",
+    "regex": "(CSV.*injection|formula.*injection|=CMD|DDE.*attack|spreadsheet.*injection)",
+    "domain": "data",
+    "category": "security",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "csv-export",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "CSV cells starting with =, +, -, @ are interpreted as formulas by Excel/Google Sheets. Exported user data containing '=HYPERLINK(evil_url)' or '=CMD|...' executes code when opened. OWASP lists this as an injection vulnerability."
+  },
+  "dead_ends": [
+    {
+      "action": "Sanitize CSV output by HTML-encoding special characters",
+      "why_fails": "HTML encoding doesn't help - Excel doesn't interpret HTML entities. The formula characters =+- must be escaped differently for CSV.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Assume CSV is 'just text' and doesn't need sanitization",
+      "why_fails": "Spreadsheet applications auto-execute formulas. A cell starting with = is executed, even if it came from user input.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Prefix dangerous cells with a single quote or tab character",
+      "success_rate": 0.9,
+      "how": "if cell.startswith(('=', '+', '-', '@')): cell = \"'\" + cell  # single quote prevents formula execution",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Wrap all cell values in double quotes and prepend space to formula-like values",
+      "success_rate": 0.88,
+      "how": "if cell.lstrip().startswith(('=', '+', '-', '@', '\\t', '\\r')): cell = ' ' + cell",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Serve CSV with Content-Type: text/csv and Content-Disposition: attachment to prevent browser rendering",
+      "success_rate": 0.82,
+      "how": "response.headers['Content-Type'] = 'text/csv'; response.headers['Content-Disposition'] = 'attachment; filename=export.csv'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

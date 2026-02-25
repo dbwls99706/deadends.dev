@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/busy-script-running/redis7-linux",
+  "url": "https://deadends.dev/redis/busy-script-running/redis7-linux",
+  "error": {
+    "signature": "BUSY Redis is busy running a script. You can only call SCRIPT KILL or SHUTDOWN NOSAVE.",
+    "regex": "(BUSY.*running a script|BUSY Redis|SCRIPT KILL|busy.*lua|script.*busy)",
+    "domain": "redis",
+    "category": "scripting_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "A Lua script or Redis function is running longer than lua-time-limit (default 5s), blocking all other commands."
+  },
+  "dead_ends": [
+    {
+      "action": "Use SHUTDOWN NOSAVE to stop the script",
+      "why_fails": "SHUTDOWN terminates the entire Redis server; all connected clients lose their connection and unsaved data is lost",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://redis.io/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase lua-time-limit to avoid the BUSY error",
+      "why_fails": "Longer limit means longer blocking periods; all other clients are frozen while Lua executes",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://redis.io/docs/latest/commands/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use SCRIPT KILL to terminate the running script",
+      "success_rate": 0.92,
+      "how": "redis-cli SCRIPT KILL  # only works if the script has NOT performed any writes yet",
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If script has written data, use SHUTDOWN NOSAVE only as last resort",
+      "success_rate": 0.75,
+      "how": "SCRIPT KILL fails after writes; SHUTDOWN NOSAVE + restart loses unsaved changes. Consider the tradeoff.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Fix the Lua script to avoid long execution",
+      "success_rate": 0.88,
+      "how": "Break large operations into batches; use SCAN instead of KEYS; avoid O(n) operations on large sets",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

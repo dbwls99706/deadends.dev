@@ -29,14 +29,18 @@
       "action": "Download SDK packages manually from Google archives",
       "why_fails": "Manual downloads miss dependency packages and do not register licenses",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     },
     {
       "action": "Accept licenses interactively when running in CI",
       "why_fails": "CI has no interactive terminal. Licenses must be accepted non-interactively.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Accept all SDK licenses non-interactively",
       "success_rate": 0.95,
       "how": "yes | sdkmanager --licenses",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

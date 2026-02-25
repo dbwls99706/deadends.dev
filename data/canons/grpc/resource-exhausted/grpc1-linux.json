@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/resource-exhausted/grpc1-linux",
+  "url": "https://deadends.dev/grpc/resource-exhausted/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.RESOURCE_EXHAUSTED: Quota exceeded; rate limit reached",
+    "regex": "(StatusCode\\.RESOURCE_EXHAUSTED|RESOURCE_EXHAUSTED.*quota|rate limit.*exceeded|resource.*exhausted|too many requests.*grpc)",
+    "domain": "grpc",
+    "category": "throttle_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "gRPC call rejected due to rate limiting or resource quota exceeded. Server-side concurrency limit or external quota."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately without backoff",
+      "why_fails": "Immediate retries during rate limiting flood the server and extend the backoff window. Use exponential backoff.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://grpc.io/docs/guides/retry/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Open multiple channels to bypass rate limits",
+      "why_fails": "Server-side rate limits typically apply per-user or per-API-key, not per-connection. Multiple channels hit the same limit.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://grpc.io/docs/guides/performance/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement exponential backoff with jitter on RESOURCE_EXHAUSTED",
+      "success_rate": 0.92,
+      "how": "Retry with base_delay * 2^attempt + random_jitter; respect Retry-After header if present in trailing metadata",
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use client-side rate limiting to stay below quota",
+      "success_rate": 0.88,
+      "how": "Implement a token bucket or leaky bucket limiter on the client side to smooth out request bursts",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Request quota increase from the service provider if limits are too low",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

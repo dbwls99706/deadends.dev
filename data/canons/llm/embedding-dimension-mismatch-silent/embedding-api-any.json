@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/embedding-dimension-mismatch-silent/embedding-api-any",
+  "url": "https://deadends.dev/llm/embedding-dimension-mismatch-silent/embedding-api-any",
+  "error": {
+    "signature": "Cosine similarity returns nonsense results or vector DB rejects insert due to dimension mismatch",
+    "regex": "(dimension.*mismatch|vector.*size.*differ|embedding.*dimension.*wrong|InvalidDimension)",
+    "domain": "llm",
+    "category": "embedding",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedding-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "Different embedding models produce different dimension vectors (OpenAI ada-002=1536, text-embedding-3-small=1536, text-embedding-3-large=3072). Mixing models in the same vector DB index corrupts similarity search silently with no error."
+  },
+  "dead_ends": [
+    {
+      "action": "Switch embedding model and keep using the existing vector index",
+      "why_fails": "New model produces different-dimension or differently-distributed vectors. Similarity scores become meaningless. Some DBs accept any dimension silently.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Truncate or pad vectors to match dimensions",
+      "why_fails": "Truncating loses semantic information. Padding with zeros distorts distance calculations. Neither preserves similarity semantics.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Re-embed all documents when changing embedding models",
+      "success_rate": 0.95,
+      "how": "Switching models requires full re-indexing. Store original text alongside embeddings for re-embedding.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use model name as part of the vector index name for isolation",
+      "success_rate": 0.9,
+      "how": "index_name = f'docs_{model_name}_{dimension}'  # separate index per model",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use OpenAI's dimensions parameter to control output size if supported",
+      "success_rate": 0.82,
+      "how": "client.embeddings.create(model='text-embedding-3-small', input=text, dimensions=512)  # Matryoshka embedding",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

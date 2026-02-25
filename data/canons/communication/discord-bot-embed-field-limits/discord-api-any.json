@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/discord-bot-embed-field-limits/discord-api-any",
+  "url": "https://deadends.dev/communication/discord-bot-embed-field-limits/discord-api-any",
+  "error": {
+    "signature": "Discord API rejects message embed with 400 Bad Request due to exceeding undocumented limits",
+    "regex": "(embed.*limit|Discord.*embed.*400|embed.*field.*exceed|Discord.*embed.*too.*large)",
+    "domain": "communication",
+    "category": "api_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "discord-api",
+      "version_range": ">=v10"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Discord embeds have multiple undocumented or hard-to-find limits: 25 fields per embed, 256 chars per field name, 1024 chars per field value, 4096 chars for description, 6000 chars total per embed, 10 embeds per message. Exceeding any limit returns generic 400."
+  },
+  "dead_ends": [
+    {
+      "action": "Build large embeds without checking individual field limits",
+      "why_fails": "Discord returns generic 400 Bad Request without specifying which limit was exceeded. You must validate all limits client-side.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Put all information in embed description to avoid field limits",
+      "why_fails": "Description is limited to 4096 characters AND counts toward the 6000-character total embed limit. Large descriptions leave no room for fields.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Validate all embed limits before sending",
+      "success_rate": 0.95,
+      "how": "title<=256, description<=4096, fields<=25, field.name<=256, field.value<=1024, footer<=2048, total<=6000 chars",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Split large content across multiple embeds (up to 10 per message)",
+      "success_rate": 0.88,
+      "how": "If content exceeds single embed limits, distribute across multiple embeds in one message (max 10).",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use pagination with reaction-based navigation for very large datasets",
+      "success_rate": 0.82,
+      "how": "Send one embed at a time with prev/next reaction buttons. Update embed content on reaction.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

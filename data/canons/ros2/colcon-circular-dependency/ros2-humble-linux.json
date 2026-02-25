@@ -29,14 +29,18 @@
       "action": "Force build order with --packages-above/below",
       "why_fails": "Hides the cycle; one package will always build with stale dependencies",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy shared headers directly between packages",
       "why_fails": "Creates undeclared dependencies; breaks on clean builds and CI",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

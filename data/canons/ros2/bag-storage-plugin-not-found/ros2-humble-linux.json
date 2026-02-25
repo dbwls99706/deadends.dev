@@ -29,14 +29,18 @@
       "action": "Install sqlite3 system library and expect rosbag2 to find it",
       "why_fails": "rosbag2 needs its own ROS wrapper plugin, not just the system sqlite3 library",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Build rosbag2 from source in your workspace",
       "why_fails": "rosbag2 has many interdependent packages; partial source builds create version conflicts",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

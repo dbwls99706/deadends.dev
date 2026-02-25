@@ -30,14 +30,18 @@
       "action": "Use a mirror site or unofficial copy of the model",
       "why_fails": "Unofficial copies may be tampered with, outdated, or violate the model license",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
       "action": "Create a new Hugging Face account to bypass the gate",
       "why_fails": "You still need to accept the license agreement on the new account",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     }
   ],
@@ -46,7 +50,9 @@
       "action": "Accept the model license on the model page, then use auth token",
       "success_rate": 0.95,
       "how": "1. Visit huggingface.co/{model} and accept license. 2. huggingface-cli login. 3. Re-run.",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
@@ -73,7 +79,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

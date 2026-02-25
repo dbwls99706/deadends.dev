@@ -29,21 +29,27 @@
       "action": "Add a sleep/retry loop waiting for the transform",
       "why_fails": "Masks a configuration error; if the frame publisher is misconfigured the transform never appears",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode the transform as a 4x4 matrix instead of using TF2",
       "why_fails": "Defeats TF2 purpose, breaks when robot moves, unmaintainable",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase TF buffer cache time to very large values",
       "why_fails": "The frame was never published, not expired from cache",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

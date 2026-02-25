@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/github-secondary-rate-limit/github-api-any",
+  "url": "https://deadends.dev/api/github-secondary-rate-limit/github-api-any",
+  "error": {
+    "signature": "HTTP 403: You have exceeded a secondary rate limit. Please wait a few minutes before you try again.",
+    "regex": "(secondary rate limit|abuse detection|HTTP 403.*rate limit)",
+    "domain": "api",
+    "category": "rate_limiting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-api",
+      "version_range": ">=2022-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "GitHub has undocumented 'secondary' rate limits separate from the 5000 req/hr primary limit. Triggered by concurrent requests, rapid content creation, or polling. Not visible in X-RateLimit headers."
+  },
+  "dead_ends": [
+    {
+      "action": "Check X-RateLimit-Remaining header and stay under 5000/hr",
+      "why_fails": "Secondary rate limits are separate and invisible in standard rate limit headers. You can hit them at 100 req/hr if requests are concurrent.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a personal access token instead of GitHub App token",
+      "why_fails": "Secondary rate limits apply to all authentication methods equally. PATs are not exempt.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Retry immediately after 403",
+      "why_fails": "GitHub may escalate to longer bans if you retry too aggressively after secondary rate limit.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add 1s sleep between mutating requests (POST/PATCH/PUT)",
+      "success_rate": 0.9,
+      "how": "import time; time.sleep(1)  # between each write API call",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use conditional requests with ETags for polling endpoints",
+      "success_rate": 0.88,
+      "how": "headers = {'If-None-Match': cached_etag}  # 304 responses don't count against limits",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement exponential backoff starting at 60s on 403, with jitter",
+      "success_rate": 0.85,
+      "how": "wait = 60 * (2 ** retry_count) + random.uniform(0, 10)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

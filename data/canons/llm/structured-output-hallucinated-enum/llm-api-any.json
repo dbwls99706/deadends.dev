@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/structured-output-hallucinated-enum/llm-api-any",
+  "url": "https://deadends.dev/llm/structured-output-hallucinated-enum/llm-api-any",
+  "error": {
+    "signature": "LLM returns values not in the specified enum when generating structured JSON output",
+    "regex": "(hallucinated.*enum|invalid.*enum.*value|JSON.*schema.*violation|structured.*output.*invalid)",
+    "domain": "llm",
+    "category": "structured_output",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.8,
+    "last_updated": "2026-02-24",
+    "summary": "Even with JSON mode or function calling, LLMs can hallucinate enum values not in the schema. The model 'understands' the schema but doesn't guarantee constraint satisfaction. Only json_schema response_format with strict:true in OpenAI actually enforces enums."
+  },
+  "dead_ends": [
+    {
+      "action": "Define enum in function schema and trust the model to respect it",
+      "why_fails": "Function calling schemas are treated as suggestions, not constraints. The model can return any string for an enum field.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use JSON mode (response_format: json_object) and assume schema compliance",
+      "why_fails": "JSON mode only guarantees valid JSON syntax, NOT schema compliance. Fields can be missing, wrong type, or have invalid enum values.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use strict: true with json_schema response_format (OpenAI)",
+      "success_rate": 0.95,
+      "how": "response_format={'type': 'json_schema', 'json_schema': {'name': 'output', 'strict': True, 'schema': {...}}}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate LLM output against schema and retry on violation",
+      "success_rate": 0.88,
+      "how": "for attempt in range(3): output = llm_call(); if validate(output, schema): return output  # retry loop",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Post-process enum fields with fuzzy matching to nearest valid value",
+      "success_rate": 0.78,
+      "how": "from difflib import get_close_matches; valid = get_close_matches(output_val, enum_values, n=1)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

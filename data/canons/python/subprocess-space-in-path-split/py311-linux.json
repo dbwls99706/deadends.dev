@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "python/subprocess-space-in-path-split/py311-linux",
+  "url": "https://deadends.dev/python/subprocess-space-in-path-split/py311-linux",
+  "error": {
+    "signature": "FileNotFoundError: No such file or directory — subprocess fails on path with spaces",
+    "regex": "FileNotFoundError.*No such file|subprocess.*space|OSError.*Errno 2.*space",
+    "domain": "python",
+    "category": "path_handling",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "python",
+      "version_range": ">=3.11,<3.13"
+    },
+    "os": "linux",
+    "python": ">=3.11,<3.13"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.93,
+    "last_updated": "2026-02-25",
+    "summary": "subprocess.run() with shell=False splits path containing spaces into multiple arguments instead of treating it as one path."
+  },
+  "dead_ends": [
+    {
+      "action": "Use os.system() instead of subprocess",
+      "why_fails": "os.system() is less secure (shell injection) and has the same quoting issues",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.python.org/3/library/subprocess.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add backslash escapes to the path string",
+      "why_fails": "Backslash escaping is shell-level; subprocess with shell=False does not interpret shell escapes",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.python.org/3/library/subprocess.html#subprocess.run"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pass command as a list of separate arguments, not a single string",
+      "success_rate": 0.95,
+      "how": "subprocess.run(['ls', '/path/with spaces/file.txt'])  # list form, not string",
+      "sources": [
+        "https://docs.python.org/3/library/subprocess.html#subprocess.run"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If shell=True is needed, use shlex.quote() to properly escape paths",
+      "success_rate": 0.88,
+      "how": "import shlex; subprocess.run(f'cat {shlex.quote(path)}', shell=True)",
+      "sources": [
+        "https://docs.python.org/3/library/shlex.html#shlex.quote"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

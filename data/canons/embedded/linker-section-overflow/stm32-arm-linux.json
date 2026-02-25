@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/linker-section-overflow/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/linker-section-overflow/stm32-arm-linux",
+  "error": {
+    "signature": "arm-none-eabi-ld: region 'FLASH' overflowed by 4128 bytes",
+    "regex": "(region.*overflowed by|will not fit in region|section.*is too large|ld.*FLASH.*overflow|ld.*RAM.*overflow|output.*exceeds.*region)",
+    "domain": "embedded",
+    "category": "linker_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gcc-arm",
+      "version_range": ">=10.0"
+    },
+    "os": "cross-platform",
+    "additional": {
+      "architecture": "arm"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Compiled code or data exceeds the microcontroller's memory region. Too much code for FLASH or too much data for RAM."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase memory region size in linker script beyond physical limits",
+      "why_fails": "Linker script sizes must match physical memory. Exceeding them causes writes to unmapped memory and hard faults.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable all compiler warnings to reduce binary size",
+      "why_fails": "Warnings are compile-time text, not code. Disabling them has zero effect on binary size.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.freertos.org/Documentation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Compile with -Os to optimize for size",
+      "success_rate": 0.9,
+      "how": "set(CMAKE_C_FLAGS_RELEASE \"-Os\")  # or -Og for debug with some size savings",
+      "sources": [
+        "https://openocd.org/doc/html/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Enable link-time optimization (LTO) to remove unused code",
+      "success_rate": 0.88,
+      "how": "add_compile_options(-flto) and add_link_options(-flto)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Analyze section sizes and remove large unused modules",
+      "success_rate": 0.85,
+      "how": "arm-none-eabi-nm --size-sort --print-size build/firmware.elf | tail -20  # find largest symbols",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

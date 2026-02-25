@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/deserialization-error/kafka3-linux",
+  "url": "https://deadends.dev/kafka/deserialization-error/kafka3-linux",
+  "error": {
+    "signature": "org.apache.kafka.common.errors.SerializationException: Error deserializing key/value for partition my_topic-0. If needed, please seek past the record to continue consumption.",
+    "regex": "(SerializationException|Error deserializing|deserialization error|DeserializationException|cannot deserialize.*message|seek past the record)",
+    "domain": "kafka",
+    "category": "serialization_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Consumer cannot deserialize message. Schema mismatch, wrong deserializer configured, or producer sent corrupted/different format data."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip the bad message by seeking past it without logging",
+      "why_fails": "Silently losing messages leads to data gaps. Always log or dead-letter failed messages for later analysis.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Change the consumer deserializer to StringDeserializer as a quick fix",
+      "why_fails": "Masking the format mismatch pushes the parsing failure downstream. Fix the root cause (schema mismatch) instead.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement an ErrorHandlingDeserializer to catch and route bad messages",
+      "success_rate": 0.88,
+      "how": "Spring: ErrorHandlingDeserializer wraps your deserializer and sends failures to error handler. Confluent: use DeadLetterQueueReporter.",
+      "sources": [
+        "https://kafka.apache.org/documentation/#brokerconfigs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Verify producer and consumer use matching serializer/deserializer",
+      "success_rate": 0.9,
+      "how": "Producer: value.serializer=AvroSerializer; Consumer: value.deserializer=AvroDeserializer  # must match",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Schema Registry to enforce schema compatibility",
+      "success_rate": 0.82,
+      "how": "schema.registry.url=http://localhost:8081; value.subject.name.strategy=TopicNameStrategy",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

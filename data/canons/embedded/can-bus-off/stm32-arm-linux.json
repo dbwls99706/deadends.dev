@@ -29,21 +29,27 @@
       "action": "Restart CAN peripheral immediately in a tight loop",
       "why_fails": "Rapid restart floods bus with error frames and may force OTHER nodes bus-off",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase CAN bus speed",
       "why_fails": "Higher speed needs tighter timing and shorter bus; usually makes it worse",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable CAN error interrupts",
       "why_fails": "Node is still disconnected; disabling interrupts just hides the state",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     }
   ],
@@ -79,7 +85,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

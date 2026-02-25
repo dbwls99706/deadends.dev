@@ -73,6 +73,18 @@ ERRORCANON_SCHEMA = {
                         "android",
                         "flutter",
                         "unity",
+                        # API / Service quirks
+                        "api",
+                        # Cloud / Infrastructure quirks
+                        "cloud",
+                        # Data format quirks
+                        "data",
+                        # Security / Auth quirks
+                        "security",
+                        # Service policy quirks
+                        "policy",
+                        # Communication / Documentation quirks
+                        "communication",
                         # Reserved for future expansion
                         "mcp",
                         "http",

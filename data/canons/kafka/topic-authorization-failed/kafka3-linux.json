@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/topic-authorization-failed/kafka3-linux",
+  "url": "https://deadends.dev/kafka/topic-authorization-failed/kafka3-linux",
+  "error": {
+    "signature": "org.apache.kafka.common.errors.TopicAuthorizationException: Not authorized to access topics: [my_topic]",
+    "regex": "(TopicAuthorizationException|Not authorized to access topic|TOPIC_AUTHORIZATION_FAILED|authorization failed.*topic|ACL.*denied.*topic)",
+    "domain": "kafka",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Kafka ACLs deny the client access to the topic. Missing ACL entry, wrong principal, or authorizer misconfigured."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable the authorizer to make it work",
+      "why_fails": "Disabling authorization removes all access control. Any client can read/write any topic. Security risk in production.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Grant all permissions with a wildcard ACL on all resources",
+      "why_fails": "Wildcard ACLs defeat the purpose of access control. Grant minimum required permissions per principal.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add the specific ACL for the client principal",
+      "success_rate": 0.92,
+      "how": "kafka-acls.sh --add --allow-principal User:my-app --operation Read --operation Describe --topic my_topic --bootstrap-server localhost:9092",
+      "sources": [
+        "https://kafka.apache.org/documentation/#brokerconfigs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Verify the client is authenticating with the correct principal",
+      "success_rate": 0.88,
+      "how": "Check JAAS config: sasl.jaas.config=...username=\"my-app\"...; kafka-acls.sh --list --topic my_topic",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check authorizer logs for the exact denial reason",
+      "success_rate": 0.82,
+      "how": "grep 'Denied' /var/log/kafka/kafka-authorizer.log  # shows principal, operation, resource",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -29,14 +29,18 @@
       "action": "Remove maxmemory limit entirely",
       "why_fails": "Without limits, Redis grows until the OS OOM killer terminates it, losing all data",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Flush all data (FLUSHALL) to free memory",
       "why_fails": "Destroys all data. Only appropriate if data is a rebuildable cache.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Set appropriate eviction policy",
       "success_rate": 0.9,
       "how": "CONFIG SET maxmemory-policy allkeys-lru  # evict least-recently-used keys",
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/deserialization-rce-untrusted-input/serialization-any",
+  "url": "https://deadends.dev/security/deserialization-rce-untrusted-input/serialization-any",
+  "error": {
+    "signature": "Remote code execution — unsafe deserialization of untrusted data",
+    "regex": "[Dd]eserializ.*RCE|pickle.*untrusted|ObjectInputStream.*untrusted|insecure.*deserializ",
+    "domain": "security",
+    "category": "deserialization",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Serialization",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "Using pickle or Java ObjectInputStream on untrusted input allows arbitrary code execution."
+  },
+  "dead_ends": [
+    {
+      "action": "Validate the serialized data before deserializing",
+      "why_fails": "The exploit triggers during deserialization itself, not after",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a custom ObjectInputStream with class whitelist alone",
+      "why_fails": "Gadget chains can use allowed classes to achieve code execution",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Replace unsafe deserializers with safe formats like JSON or Protobuf",
+      "success_rate": 0.95,
+      "how": "json.loads(data) instead of pickle.loads(data)",
+      "sources": [
+        "https://docs.python.org/3/library/pickle.html#restricting-globals"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If pickle is required, use RestrictedUnpickler with strict class allowlist",
+      "success_rate": 0.78,
+      "how": "class SafeUnpickler(pickle.Unpickler): def find_class(self, module, name): ...",
+      "sources": [
+        "https://docs.python.org/3/library/pickle.html#restricting-globals"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

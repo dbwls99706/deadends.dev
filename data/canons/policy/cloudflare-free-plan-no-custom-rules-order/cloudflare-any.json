@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/cloudflare-free-plan-no-custom-rules-order/cloudflare-any",
+  "url": "https://deadends.dev/policy/cloudflare-free-plan-no-custom-rules-order/cloudflare-any",
+  "error": {
+    "signature": "Cloudflare rules fire in wrong order — free plan has no rule ordering control",
+    "regex": "[Cc]loudflare.*rule.*order|[Pp]age [Rr]ule.*priority|free.*plan.*rules",
+    "domain": "policy",
+    "category": "service_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Cloudflare",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.8,
+    "last_updated": "2026-02-25",
+    "summary": "Cloudflare free plan limits Page Rules to 3 with no execution order control."
+  },
+  "dead_ends": [
+    {
+      "action": "Add more Page Rules to handle all edge cases",
+      "why_fails": "Free plan is limited to 3 Page Rules",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://developers.cloudflare.com/rules/page-rules/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Workers to supplement Page Rules on free plan",
+      "why_fails": "Free Workers plan has 100K requests/day limit",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://developers.cloudflare.com/workers/platform/limits/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Upgrade to Pro plan for 20 Page Rules and rule ordering",
+      "success_rate": 0.85,
+      "how": "$20/month Pro plan includes 20 Page Rules with explicit priority",
+      "sources": [
+        "https://developers.cloudflare.com/rules/page-rules/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Consolidate rules using a single Worker with explicit routing logic",
+      "success_rate": 0.8,
+      "how": "Single Worker with if/else routing handles all rule logic deterministically",
+      "sources": [
+        "https://developers.cloudflare.com/workers/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

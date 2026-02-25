@@ -29,21 +29,27 @@
       "action": "Set both sides to RELIABLE QoS unconditionally",
       "why_fails": "Sensor drivers often only offer BEST_EFFORT; forcing RELIABLE on subscriber causes zero messages with no further error",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore the warning assuming messages still arrive",
       "why_fails": "With incompatible QoS the DDS layer drops ALL messages; the warning is not cosmetic",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Change DDS middleware hoping it fixes QoS",
       "why_fails": "QoS incompatibility is DDS-standard behavior, not vendor-specific; switching RMW does not help",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -78,7 +84,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

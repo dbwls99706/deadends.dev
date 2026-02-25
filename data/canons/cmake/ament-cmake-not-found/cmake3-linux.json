@@ -29,14 +29,18 @@
       "action": "Install ament_cmake via pip",
       "why_fails": "ament_cmake is CMake-based, distributed via apt, not pip",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Add ament_cmake as git submodule",
       "why_fails": "Core ROS 2 infrastructure; source build causes version conflicts",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Source ROS 2 installation before cmake/colcon",
       "success_rate": 0.95,
       "how": "source /opt/ros/humble/setup.bash && colcon build",
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

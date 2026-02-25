@@ -29,14 +29,18 @@
       "action": "Cast the entire PointCloud2 to a fixed struct assuming field layout",
       "why_fails": "Different LiDAR models have different field layouts; hardcoded offsets cause data corruption",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore the missing field and use default values",
       "why_fails": "Downstream algorithms (SLAM, segmentation) produce wrong results with fabricated data",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

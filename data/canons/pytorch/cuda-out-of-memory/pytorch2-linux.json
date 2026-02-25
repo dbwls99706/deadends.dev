@@ -33,21 +33,27 @@
       "action": "Set PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb to a small value",
       "why_fails": "Reduces fragmentation but does not free memory; often makes OOM happen sooner with a different error",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Call torch.cuda.empty_cache() in the training loop",
       "why_fails": "empty_cache releases unused cached memory back to CUDA but does not free tensors still referenced; has no effect if all memory is in use",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Upgrade to a GPU with more VRAM as first response",
       "why_fails": "Often the code has a memory leak (not detaching losses, storing all predictions). Fix the code before throwing hardware at it.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],
@@ -90,7 +96,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

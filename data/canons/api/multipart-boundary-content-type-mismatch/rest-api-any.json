@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/multipart-boundary-content-type-mismatch/rest-api-any",
+  "url": "https://deadends.dev/api/multipart-boundary-content-type-mismatch/rest-api-any",
+  "error": {
+    "signature": "400 Bad Request — multipart boundary in Content-Type does not match body",
+    "regex": "multipart.*boundary.*mismatch|400.*[Bb]ad [Rr]equest.*multipart",
+    "domain": "api",
+    "category": "file_upload",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "HTTP",
+      "version_range": ">=1.1"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Manually setting Content-Type with wrong boundary causes multipart parse failure."
+  },
+  "dead_ends": [
+    {
+      "action": "Manually set Content-Type: multipart/form-data header",
+      "why_fails": "When you set Content-Type manually, the boundary will not match what the HTTP library generates",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Copy boundary from a previous request",
+      "why_fails": "Each multipart request generates a unique boundary; reusing old ones causes mismatch",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc2046#section-5.1"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Let the HTTP library set Content-Type automatically for multipart",
+      "success_rate": 0.95,
+      "how": "requests.post(url, files={'file': open('f.txt','rb')})",
+      "sources": [
+        "https://docs.python-requests.org/en/latest/user/quickstart/#post-a-multipart-encoded-file"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If manual boundary is needed, ensure exact match between header and body",
+      "success_rate": 0.85,
+      "how": "boundary='myboundary'; headers={'Content-Type': f'multipart/form-data; boundary={boundary}'}",
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc2046#section-5.1"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

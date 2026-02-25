@@ -29,14 +29,18 @@
       "action": "Disable version checking with version_type=force",
       "why_fails": "Force overwrites silently lose concurrent updates; data corruption risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {
       "action": "Add retry with no backoff",
       "why_fails": "Immediate retry on conflict often hits the same conflict; needs read-modify-write cycle",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Implement read-modify-write with if_seq_no and if_primary_term",
       "success_rate": 0.92,
       "how": "GET doc -> modify -> PUT with if_seq_no=X&if_primary_term=Y -> retry on 409",
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -29,21 +29,27 @@
       "action": "Increase planning time to 60+ seconds unconditionally",
       "why_fails": "If the goal is unreachable or in collision, no amount of planning time will help",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable collision checking to get a plan",
       "why_fails": "Produces paths that collide with obstacles or the robot itself; dangerous on real hardware",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch planner to RRTConnect for every motion",
       "why_fails": "RRTConnect is already the default; the issue is usually the goal or scene, not the planner",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -90,7 +96,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

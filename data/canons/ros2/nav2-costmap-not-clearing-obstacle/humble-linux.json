@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/nav2-costmap-not-clearing-obstacle/humble-linux",
+  "url": "https://deadends.dev/ros2/nav2-costmap-not-clearing-obstacle/humble-linux",
+  "error": {
+    "signature": "Nav2 costmap shows obstacles that have been removed, robot avoids phantom obstacles",
+    "regex": "(costmap.*not.*clearing|phantom.*obstacle|costmap.*stale|obstacle.*layer.*not.*clear|nav2.*costmap.*stuck)",
+    "domain": "ros2",
+    "category": "navigation",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Nav2 costmap obstacle layer has separate 'marking' (adding obstacles) and 'clearing' (removing obstacles) behaviors. If the sensor's clearing parameters are misconfigured, obstacles are added but never removed. Raytrace clearing requires correct sensor origin and max range."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume costmap automatically clears obstacles when sensor no longer sees them",
+      "why_fails": "Clearing happens via raytrace from sensor origin. If sensor origin frame is wrong, clearing rays miss the old obstacles. If obstacle_max_range < actual sensor range, far obstacles are never cleared.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase costmap resolution to fix stale obstacles",
+      "why_fails": "Higher resolution makes the problem worse - more cells to clear. The issue is clearing behavior configuration, not resolution.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure obstacle layer with correct clearing parameters",
+      "success_rate": 0.92,
+      "how": "obstacle_layer: clearing: true, obstacle_max_range: 5.0, raytrace_max_range: 6.0  # raytrace must be >= obstacle max range",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set correct sensor_frame and ensure TF from sensor to robot is published",
+      "success_rate": 0.9,
+      "how": "observation_sources: scan: {sensor_frame: laser_frame, clearing: true, marking: true, data_type: LaserScan}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add a voxel layer instead of obstacle layer for 3D clearing",
+      "success_rate": 0.82,
+      "how": "Voxel layer handles 3D raytrace clearing better than 2D obstacle layer for sensors with variable height",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

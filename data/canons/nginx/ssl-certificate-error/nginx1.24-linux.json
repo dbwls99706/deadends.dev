@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/ssl-certificate-error/nginx1.24-linux",
+  "url": "https://deadends.dev/nginx/ssl-certificate-error/nginx1.24-linux",
+  "error": {
+    "signature": "nginx: [emerg] SSL_CTX_use_certificate_chain_file(\"/etc/nginx/ssl/cert.pem\") failed (SSL: error:0200100D:system library:fopen:Permission denied)",
+    "regex": "(SSL_CTX_use_certificate|SSL.*certificate.*failed|SSL.*error.*PEM|cannot load certificate|ssl_certificate.*failed|PEM_read_bio)",
+    "domain": "nginx",
+    "category": "ssl_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "SSL certificate cannot be loaded. File not found, wrong permissions, invalid PEM format, or incomplete certificate chain."
+  },
+  "dead_ends": [
+    {
+      "action": "Generate a self-signed certificate for production",
+      "why_fails": "Self-signed certificates trigger browser warnings and are rejected by most clients. Use Let's Encrypt for free valid certificates.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set ssl_verify_client off assuming it fixes the error",
+      "why_fails": "ssl_verify_client controls client certificate verification, not server certificate loading. Different directive entirely.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check file permissions and ownership on certificate files",
+      "success_rate": 0.92,
+      "how": "ls -la /etc/nginx/ssl/; chown root:root cert.pem key.pem; chmod 644 cert.pem; chmod 600 key.pem",
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Verify the certificate chain is complete and in correct order",
+      "success_rate": 0.9,
+      "how": "openssl verify -CAfile ca-bundle.crt cert.pem; cat cert.pem intermediate.pem > fullchain.pem  # server cert first, then intermediates",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate PEM format and key match",
+      "success_rate": 0.85,
+      "how": "openssl x509 -noout -modulus -in cert.pem | md5sum; openssl rsa -noout -modulus -in key.pem | md5sum  # must match",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

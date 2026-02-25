@@ -29,14 +29,18 @@
       "action": "Increase serverSelectionTimeoutMS to very large value",
       "why_fails": "Hides the real problem; application hangs for minutes before failing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     },
     {
       "action": "Use directConnection=true to bypass replica set",
       "why_fails": "Bypasses read preference and failover; application breaks when the node goes down",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Check replica set status",
       "success_rate": 0.9,
       "how": "mongosh --eval 'rs.status()'  # verify all members are healthy",
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

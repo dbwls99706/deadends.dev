@@ -29,14 +29,18 @@
       "action": "Only increase max.message.bytes on the broker",
       "why_fails": "Must also increase on topic level AND producer (max.request.size). All three must agree.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Only increase producer max.request.size",
       "why_fails": "Broker will still reject messages exceeding its message.max.bytes setting",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Increase limits on all three levels: broker, topic, and producer",
       "success_rate": 0.92,
       "how": "Broker: message.max.bytes=5242880; Topic: max.message.bytes=5242880; Producer: max.request.size=5242880",
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

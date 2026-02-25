@@ -29,14 +29,18 @@
       "action": "Restart adb server repeatedly",
       "why_fails": "If the device has not authorized the computer, restarting adb will not help",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     },
     {
       "action": "Use a different USB cable assuming it is a cable issue",
       "why_fails": "Unauthorized error is an authentication issue, not a connectivity issue. The device IS connected.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Accept USB debugging prompt on the device screen",
       "success_rate": 0.95,
       "how": "Unlock phone screen > tap 'Always allow from this computer' > OK",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

@@ -30,14 +30,18 @@
       "action": "Download tokenizer files manually from the Hub and load locally",
       "why_fails": "Manual download may miss files (special_tokens_map, tokenizer_config) causing subtle errors",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
       "action": "Use a different tokenizer assuming they are interchangeable",
       "why_fails": "Tokenizers are model-specific. Using wrong tokenizer produces wrong token IDs and garbage outputs.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     }
   ],
@@ -46,7 +50,9 @@
       "action": "Check exact model name on huggingface.co/models",
       "success_rate": 0.92,
       "how": "AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-hf')  # exact Hub ID",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
@@ -73,7 +79,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

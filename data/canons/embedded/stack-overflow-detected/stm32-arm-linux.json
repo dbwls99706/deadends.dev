@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/stack-overflow-detected/stm32-arm-linux",
+  "url": "https://deadends.dev/embedded/stack-overflow-detected/stm32-arm-linux",
+  "error": {
+    "signature": "FreeRTOS: Stack overflow detected in task 'MainTask' (high water mark: 0)",
+    "regex": "(stack overflow|vApplicationStackOverflowHook|uxTaskGetStackHighWaterMark.*0|configCHECK_FOR_STACK_OVERFLOW|stack.*corrupt)",
+    "domain": "embedded",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "freertos",
+      "version_range": ">=10.0"
+    },
+    "os": "cross-platform",
+    "additional": {
+      "architecture": "arm"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "RTOS task stack overflowed. Stack too small for call depth, large local arrays, or recursive calls."
+  },
+  "dead_ends": [
+    {
+      "action": "Double all task stack sizes blindly",
+      "why_fails": "Wastes precious SRAM. Identify the offending task and size its stack based on actual usage.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Disable stack overflow checking to hide the error",
+      "why_fails": "Stack corruption continues silently, corrupting adjacent task stacks or heap, causing random crashes.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.freertos.org/Documentation/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check high water mark and increase offending task stack",
+      "success_rate": 0.92,
+      "how": "UBaseType_t hwm = uxTaskGetStackHighWaterMark(NULL); // words remaining. Increase stack by deficit + margin.",
+      "sources": [
+        "https://openocd.org/doc/html/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Move large local arrays to static or heap allocation",
+      "success_rate": 0.88,
+      "how": "static uint8_t buf[1024]; // instead of stack-allocated. Or use pvPortMalloc().",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable configCHECK_FOR_STACK_OVERFLOW=2 for early detection",
+      "success_rate": 0.85,
+      "how": "#define configCHECK_FOR_STACK_OVERFLOW 2  // checks watermark on every context switch",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/stripe-api-version-pinning-silent-break/stripe-api-any",
+  "url": "https://deadends.dev/policy/stripe-api-version-pinning-silent-break/stripe-api-any",
+  "error": {
+    "signature": "Stripe webhook payload format changed — API version not pinned",
+    "regex": "[Ss]tripe.*API.*version|webhook.*format.*changed|api_version.*mismatch",
+    "domain": "policy",
+    "category": "api_versioning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Stripe",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Stripe dashboard API version upgrade changes webhook payload format silently."
+  },
+  "dead_ends": [
+    {
+      "action": "Always use the latest API version without pinning",
+      "why_fails": "Unpinned version auto-upgrades when Stripe updates; webhook format changes break handlers",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://stripe.com/docs/api/versioning"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Only pin version in code but not in webhook endpoint settings",
+      "why_fails": "Webhook events use the endpoint API version, not the code version",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://stripe.com/docs/webhooks/api-versions"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pin API version in both SDK and webhook endpoint configuration",
+      "success_rate": 0.93,
+      "how": "stripe.api_version = '2023-10-16'  # also pin in Dashboard > Webhooks",
+      "sources": [
+        "https://stripe.com/docs/api/versioning"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Test webhook payloads with Stripe CLI before upgrading",
+      "success_rate": 0.85,
+      "how": "stripe trigger payment_intent.succeeded --api-version 2023-10-16",
+      "sources": [
+        "https://stripe.com/docs/webhooks/api-versions"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

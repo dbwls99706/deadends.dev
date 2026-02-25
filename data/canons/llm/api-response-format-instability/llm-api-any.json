@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/api-response-format-instability/llm-api-any",
+  "url": "https://deadends.dev/llm/api-response-format-instability/llm-api-any",
+  "error": {
+    "signature": "LLM API response format changes between calls or after model updates",
+    "regex": "(response.*format.*changed|API.*breaking.*change|model.*update.*broke|parsing.*fail.*update)",
+    "domain": "llm",
+    "category": "api_stability",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.78,
+    "last_updated": "2026-02-24",
+    "summary": "LLM providers update models silently behind version aliases (e.g., 'gpt-4' points to different snapshots over time). Response formatting, JSON structure, and even reasoning patterns can change without notice."
+  },
+  "dead_ends": [
+    {
+      "action": "Parse LLM output with rigid regex or exact string matching",
+      "why_fails": "Model updates change phrasing, formatting, and structure. Regex that worked yesterday fails after a silent model update.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use model alias (e.g., 'gpt-4') for production stability",
+      "why_fails": "Aliases like 'gpt-4' are redirected to new snapshots periodically. Use pinned versions like 'gpt-4-0613' for stability.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use pinned model versions (date-stamped) in production",
+      "success_rate": 0.92,
+      "how": "model='gpt-4-0613'  # pinned, not 'gpt-4' which changes",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement robust output parsing with fallbacks and validation",
+      "success_rate": 0.9,
+      "how": "try: parse_json(output) except: try: parse_markdown(output) except: raw_text_fallback(output)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use structured output mode to decouple format from model behavior",
+      "success_rate": 0.88,
+      "how": "response_format with strict schema enforcement is more stable across model updates than free-form output",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

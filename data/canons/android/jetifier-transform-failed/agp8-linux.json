@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/jetifier-transform-failed/agp8-linux",
+  "url": "https://deadends.dev/android/jetifier-transform-failed/agp8-linux",
+  "error": {
+    "signature": "Failed to transform artifact 'support-v4.aar' using Jetifier. Reason: Cannot find a mapping for support class",
+    "regex": "(Jetifier.*failed|Failed to transform.*Jetifier|Cannot.*mapping.*support class|android\\.enableJetifier|support.*AndroidX.*conflict)",
+    "domain": "android",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gradle",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.87,
+    "last_updated": "2026-02-25",
+    "summary": "Jetifier cannot convert a legacy Android Support Library artifact to AndroidX. Unmapped class or corrupt dependency."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable Jetifier (android.enableJetifier=false) without migrating",
+      "why_fails": "Disabling Jetifier while support-library dependencies remain causes ClassNotFoundException at runtime.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Manually repackage the AAR file with AndroidX namespaces",
+      "why_fails": "Fragile and error-prone. Updates to the library will require re-repackaging every time.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://developer.android.com/studio/build/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Find and replace the old support-library dependency with its AndroidX equivalent",
+      "success_rate": 0.92,
+      "how": "Replace 'com.android.support:support-v4:28.0.0' with 'androidx.legacy:legacy-support-v4:1.0.0'",
+      "sources": [
+        "https://developer.android.com/reference/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Run the AndroidX migration tool",
+      "success_rate": 0.88,
+      "how": "Android Studio: Refactor > Migrate to AndroidX; updates imports and gradle dependencies automatically",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Exclude the problematic transitive dependency",
+      "success_rate": 0.8,
+      "how": "implementation('com.example:lib:1.0') { exclude group: 'com.android.support', module: 'support-v4' }",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

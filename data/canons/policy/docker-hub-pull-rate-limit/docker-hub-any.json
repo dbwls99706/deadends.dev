@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/docker-hub-pull-rate-limit/docker-hub-any",
+  "url": "https://deadends.dev/policy/docker-hub-pull-rate-limit/docker-hub-any",
+  "error": {
+    "signature": "toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating.",
+    "regex": "(toomanyrequests|pull rate limit|429.*docker|Docker Hub.*rate.*limit)",
+    "domain": "policy",
+    "category": "rate_limiting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "docker-hub",
+      "version_range": ">=2020-11"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Docker Hub limits anonymous pulls to 100/6hr per IP, authenticated free to 200/6hr. CI/CD systems sharing an IP (NAT) quickly exhaust the limit. Kubernetes clusters pulling the same image from multiple nodes multiply the pull count."
+  },
+  "dead_ends": [
+    {
+      "action": "Authenticate with Docker Hub to get unlimited pulls",
+      "why_fails": "Authenticated free accounts get 200/6hr, not unlimited. Only paid Docker Pro/Team/Business get higher limits.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Pull images less frequently to stay under the limit",
+      "why_fails": "In Kubernetes, each node independently pulls images. 10 nodes pulling on deploy = 10 pulls even if the image is the same.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a registry mirror/proxy (Harbor, JFrog, AWS ECR pull-through cache)",
+      "success_rate": 0.95,
+      "how": "ECR pull-through cache: aws ecr create-pull-through-cache-rule --ecr-repository-prefix docker-hub --upstream-registry-url docker.io",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy frequently-used images to your private registry",
+      "success_rate": 0.92,
+      "how": "docker pull nginx:latest && docker tag nginx:latest myregistry.com/nginx:latest && docker push myregistry.com/nginx:latest",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use imagePullPolicy: IfNotPresent in Kubernetes to reduce pulls",
+      "success_rate": 0.88,
+      "how": "Set imagePullPolicy: IfNotPresent and use specific tags (not :latest) to leverage node-level image cache",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

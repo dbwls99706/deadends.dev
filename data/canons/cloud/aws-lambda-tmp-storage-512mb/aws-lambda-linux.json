@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-lambda-tmp-storage-512mb/aws-lambda-linux",
+  "url": "https://deadends.dev/cloud/aws-lambda-tmp-storage-512mb/aws-lambda-linux",
+  "error": {
+    "signature": "OSError: [Errno 28] No space left on device in AWS Lambda /tmp",
+    "regex": "(No space left on device|ENOSPC|Lambda.*/tmp.*full|Errno 28.*Lambda)",
+    "domain": "cloud",
+    "category": "resource_limit",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-lambda",
+      "version_range": ">=2023-01"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Lambda /tmp is limited to 512MB by default (expandable to 10GB since 2022). But /tmp persists across warm invocations! Previous invocation's temp files eat into the next invocation's quota."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase Lambda memory to get more /tmp space",
+      "why_fails": "Lambda memory and /tmp storage are independent. More memory does NOT increase /tmp. You must configure ephemeral storage separately.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Write temp files and assume they're cleaned up between invocations",
+      "why_fails": "/tmp is NOT cleaned between warm invocations. Files from previous invocations persist and accumulate.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Clean /tmp at the start of each invocation",
+      "success_rate": 0.92,
+      "how": "import shutil, os; [os.remove(os.path.join('/tmp', f)) for f in os.listdir('/tmp')]",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Configure ephemeral storage up to 10GB in Lambda config",
+      "success_rate": 0.95,
+      "how": "aws lambda update-function-configuration --function-name my-func --ephemeral-storage '{\"Size\": 5120}'",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use S3 or EFS for large file processing instead of /tmp",
+      "success_rate": 0.88,
+      "how": "Mount EFS filesystem or stream data to/from S3 instead of downloading to /tmp",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

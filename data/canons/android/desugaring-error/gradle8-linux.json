@@ -29,14 +29,18 @@
       "action": "Raise minSdk to 26+ to support all Java 8 features",
       "why_fails": "Excludes older devices. Enable desugaring instead to support Java 8 on all API levels.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     },
     {
       "action": "Rewrite code to avoid Java 8 features (lambdas, default methods)",
       "why_fails": "Unnecessary; Android toolchain supports desugaring to convert these to older bytecode",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Enable Java 8 desugaring in build.gradle",
       "success_rate": 0.95,
       "how": "android { compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 } }",
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

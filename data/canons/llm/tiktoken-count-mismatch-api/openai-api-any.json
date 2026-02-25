@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/tiktoken-count-mismatch-api/openai-api-any",
+  "url": "https://deadends.dev/llm/tiktoken-count-mismatch-api/openai-api-any",
+  "error": {
+    "signature": "tiktoken token count doesn't match actual API token usage in response",
+    "regex": "(tiktoken.*mismatch|token.*count.*differ|prompt_tokens.*unexpected|context.*length.*exceeded.*estimated)",
+    "domain": "llm",
+    "category": "token_counting",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "openai-api",
+      "version_range": ">=v1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "tiktoken counts raw text tokens but doesn't account for chat message formatting overhead. Each message has ~4 tokens of overhead (role, delimiters). System messages, function definitions, and tool schemas add significant hidden tokens."
+  },
+  "dead_ends": [
+    {
+      "action": "Use tiktoken.encode(prompt_text) to count total prompt tokens",
+      "why_fails": "Chat completions add ~4 tokens per message for role/delimiters, plus tokens for function schemas that aren't in your message text. Real count is always higher.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Calculate context budget as model_max_tokens - tiktoken_count",
+      "why_fails": "Underestimating prompt tokens means overestimating available completion tokens, leading to context length exceeded errors.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use tiktoken with chat message overhead formula",
+      "success_rate": 0.88,
+      "how": "tokens = sum(4 + len(enc.encode(m['content'])) for m in messages) + 2  # +2 for assistant reply priming",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the API's actual token count from response.usage as ground truth for future estimates",
+      "success_rate": 0.9,
+      "how": "actual = response.usage.prompt_tokens  # compare with your estimate to calibrate",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reserve 10-15% token budget as safety margin for overhead",
+      "success_rate": 0.85,
+      "how": "safe_budget = int(model_max_tokens * 0.85) - estimated_prompt_tokens",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

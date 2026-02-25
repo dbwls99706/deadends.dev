@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/worker-connections-exceeded/nginx1.24-linux",
+  "url": "https://deadends.dev/nginx/worker-connections-exceeded/nginx1.24-linux",
+  "error": {
+    "signature": "nginx: [alert] 1024 worker_connections are not enough",
+    "regex": "(worker_connections are not enough|worker_connections.*not enough|accept\\(\\) failed.*Resource temporarily unavailable|too many connections.*worker)",
+    "domain": "nginx",
+    "category": "resource_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "nginx worker process ran out of connection slots. Default 1024 is too low for high-traffic sites."
+  },
+  "dead_ends": [
+    {
+      "action": "Set worker_connections to extremely high value like 1000000",
+      "why_fails": "Each connection uses memory (~1-2KB). Unreachable high values waste kernel resources. Set based on actual peak + headroom.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Only increase worker_connections without checking ulimit",
+      "why_fails": "OS file descriptor limit (ulimit -n) must be >= worker_connections. nginx cannot open more FDs than the OS allows.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase worker_connections to match expected concurrency",
+      "success_rate": 0.92,
+      "how": "events { worker_connections 4096; }  # in nginx.conf; rule of thumb: 2-4x expected concurrent connections",
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase OS file descriptor limits",
+      "success_rate": 0.9,
+      "how": "In /etc/security/limits.conf: nginx soft nofile 65536; nginx hard nofile 65536; also: worker_rlimit_nofile 65536; in nginx.conf",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable multi_accept to handle multiple connections per event",
+      "success_rate": 0.82,
+      "how": "events { multi_accept on; use epoll; }  # accept all pending connections at once instead of one by one",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -33,14 +33,18 @@
       "action": "Install an older version of flash-attn",
       "why_fails": "No version of flash-attn supports pre-Ampere GPUs; the hardware limitation is fundamental",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set CUDA_VISIBLE_DEVICES to a different GPU hoping it works",
       "why_fails": "If no Ampere+ GPU is available on the machine, no device will work",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.nvidia.com/cuda/cuda-runtime-api/index.html"
+      ],
       "condition": ""
     }
   ],
@@ -76,7 +80,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

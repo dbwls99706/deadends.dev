@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/imported-target-not-found/cmake3.28-linux",
+  "url": "https://deadends.dev/cmake/imported-target-not-found/cmake3.28-linux",
+  "error": {
+    "signature": "CMake Error: Imported target 'Boost::filesystem' includes non-existent path",
+    "regex": "(Imported target.*non-existent|IMPORTED_LOCATION.*not set|imported target.*not found|target.*IMPORTED.*NOTFOUND)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "An imported target references paths that do not exist on disk. Library was moved, uninstalled, or partially installed."
+  },
+  "dead_ends": [
+    {
+      "action": "Create the missing path manually",
+      "why_fails": "Manually creating library directories does not provide the actual libraries and headers.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Remove CMakeCache.txt and assume reconfigure will find it",
+      "why_fails": "If the library is not installed, reconfiguring still will not find it. Cache removal alone is not a fix.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Reinstall the dependency that provides the imported target",
+      "success_rate": 0.92,
+      "how": "sudo apt install libboost-filesystem-dev  # provides Boost::filesystem target",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete CMakeCache.txt AND install the missing library, then reconfigure",
+      "success_rate": 0.9,
+      "how": "rm -rf build/ && sudo apt install libfoo-dev && cmake -B build",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set the package DIR variable to the correct install prefix",
+      "success_rate": 0.82,
+      "how": "cmake -DBoost_DIR=/opt/boost/lib/cmake/Boost-1.83.0 ..",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

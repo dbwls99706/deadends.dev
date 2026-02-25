@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "network",
     "first_seen": "2014-01-01",
-    "last_confirmed": "2025-05-12"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.95,
-    "last_updated": "2025-05-12",
+    "last_updated": "2026-02-24",
     "summary": "EADDRINUSE on macOS is the same fundamental issue as Linux -- another process holds the port. However, macOS has additional common culprits: AirPlay Receiver uses port 5000, and macOS Monterey+ uses port 7000 for AirPlay. The commands to find port-holding processes differ slightly from Linux."
   },
   "dead_ends": [

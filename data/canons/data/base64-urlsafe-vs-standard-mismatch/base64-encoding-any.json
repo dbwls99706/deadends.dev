@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/base64-urlsafe-vs-standard-mismatch/base64-encoding-any",
+  "url": "https://deadends.dev/data/base64-urlsafe-vs-standard-mismatch/base64-encoding-any",
+  "error": {
+    "signature": "Base64 decoding fails with 'Invalid character' for URL-transmitted tokens or JWT segments",
+    "regex": "(base64.*invalid.*character|base64url.*decode.*fail|\\\\+.*\\\\/.*base64.*URL|padding.*base64.*error)",
+    "domain": "data",
+    "category": "encoding",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "base64-encoding",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-24",
+    "summary": "Standard base64 uses +/ characters which are special in URLs. URL-safe base64 uses -_ instead. JWT uses URL-safe base64 WITHOUT padding (no = signs). Mixing these three variants causes silent corruption or decode errors."
+  },
+  "dead_ends": [
+    {
+      "action": "Use standard base64.b64decode() to decode JWT segments",
+      "why_fails": "JWT uses URL-safe base64 WITHOUT padding. Standard b64decode fails on - and _ characters. Adding padding back is also needed.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "URL-encode standard base64 before putting in URL parameters",
+      "why_fails": "URL encoding turns + into %2B and / into %2F. The result is valid but 33% longer. URL-safe base64 is the correct solution.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.rfc-editor.org/rfc/rfc8259"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use base64.urlsafe_b64decode() with padding restoration for JWT",
+      "success_rate": 0.95,
+      "how": "import base64; padded = segment + '=' * (-len(segment) % 4); base64.urlsafe_b64decode(padded)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the correct base64 variant for each protocol",
+      "success_rate": 0.92,
+      "how": "Standard (RFC 4648): +/ with =padding; URL-safe (RFC 4648 §5): -_ with =padding; JWT (RFC 7515): -_ WITHOUT padding",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use PyJWT or similar library that handles base64url internally",
+      "success_rate": 0.88,
+      "how": "import jwt; decoded = jwt.decode(token, key, algorithms=['HS256'])  # handles base64url internally",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

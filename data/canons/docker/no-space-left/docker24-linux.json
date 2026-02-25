@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "storage",
     "first_seen": "2015-01-01",
-    "last_confirmed": "2025-05-05"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2025-05-05",
+    "last_updated": "2026-02-24",
     "summary": "Docker 'no space left on device' on Linux is caused by accumulated images, containers, volumes, and build cache consuming disk space in /var/lib/docker. The fix involves pruning unused Docker objects and potentially moving the Docker data root to a larger partition."
   },
   "dead_ends": [

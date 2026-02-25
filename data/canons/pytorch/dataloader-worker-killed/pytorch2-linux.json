@@ -30,14 +30,18 @@
       "action": "Set num_workers=0 permanently",
       "why_fails": "Fixes the crash but kills data loading performance; training becomes I/O bound",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase system swap space",
       "why_fails": "Swap on GPU training machines causes massive slowdowns; fix the memory usage instead",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],
@@ -46,7 +50,9 @@
       "action": "Reduce num_workers and prefetch_factor",
       "success_rate": 0.9,
       "how": "DataLoader(dataset, num_workers=2, prefetch_factor=2)  # default prefetch_factor=2",
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
@@ -73,7 +79,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

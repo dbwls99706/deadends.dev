@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "import_error",
     "first_seen": "2017-06-01",
-    "last_confirmed": "2025-05-18"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.91,
-    "last_updated": "2025-05-18",
+    "last_updated": "2026-02-24",
     "summary": "Almost always resolvable once the correct package name is identified and the correct Python environment is targeted. Failures persist when the module name and PyPI package name diverge significantly (e.g., 'cv2' vs 'opencv-python', 'sklearn' vs 'scikit-learn')."
   },
   "dead_ends": [

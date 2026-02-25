@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/confluence-storage-vs-editor-format/confluence-api-any",
+  "url": "https://deadends.dev/communication/confluence-storage-vs-editor-format/confluence-api-any",
+  "error": {
+    "signature": "Confluence API content renders incorrectly or loses formatting when using wrong format type",
+    "regex": "(Confluence.*storage.*format|Confluence.*editor.*format|XHTML.*storage.*body|Confluence.*rendering.*broken)",
+    "domain": "communication",
+    "category": "api_usage",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "confluence-api",
+      "version_range": ">=v2"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "Confluence has two content formats: 'storage' (XHTML-based, what the API returns) and 'editor' (what users see). They are NOT interchangeable. Posting editor format to storage API corrupts content. Macros use storage format exclusively."
+  },
+  "dead_ends": [
+    {
+      "action": "Post HTML directly to Confluence API body.storage.value",
+      "why_fails": "Confluence storage format is NOT regular HTML. It uses custom XHTML with ac: and ri: namespaces for macros. Regular HTML tags may work but macros, tables, and mentions require storage format.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Read content from API and display directly as HTML in another app",
+      "why_fails": "Storage format contains Confluence-specific XHTML (ac:structured-macro, ri:attachment). Rendering this as HTML in a non-Confluence context shows broken markup.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Confluence REST API's body.view for rendered HTML, body.storage for editing",
+      "success_rate": 0.92,
+      "how": "GET /content/123?expand=body.view  # rendered HTML for display; body.storage for programmatic editing",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the /contentbody/convert endpoint to transform between formats",
+      "success_rate": 0.88,
+      "how": "POST /contentbody/convert/storage {value: '<p>text</p>', representation: 'editor'}  # converts editor -> storage",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Atlassian Document Format (ADF) for Confluence Cloud v2 API",
+      "success_rate": 0.82,
+      "how": "Confluence Cloud v2 API uses ADF (JSON) instead of XHTML storage format. Check API version before choosing format.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

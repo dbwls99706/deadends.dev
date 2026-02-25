@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/failed-precondition/grpc1-linux",
+  "url": "https://deadends.dev/grpc/failed-precondition/grpc1-linux",
+  "error": {
+    "signature": "grpc._channel._InactiveRpcError: StatusCode.FAILED_PRECONDITION: Operation rejected, system is not in required state",
+    "regex": "(StatusCode\\.FAILED_PRECONDITION|FAILED_PRECONDITION|precondition.*failed|system.*not.*required state|operation.*rejected.*state)",
+    "domain": "grpc",
+    "category": "state_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.87,
+    "last_updated": "2026-02-25",
+    "summary": "Server rejected the operation because a required precondition was not met. Wrong system state, missing setup step, or ordering violation."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry the same RPC without changing state",
+      "why_fails": "FAILED_PRECONDITION means state must change before the operation can succeed. Blind retry hits the same error.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ignore the error and continue with next operation",
+      "why_fails": "Operations often have ordering dependencies. Skipping a failed precondition may cause cascading failures.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://grpc.io/docs/guides/error/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Read the error details to determine which precondition failed",
+      "success_rate": 0.92,
+      "how": "Check status.details() or trailing metadata for specific precondition information from the server",
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Ensure required setup or ordering steps are completed first",
+      "success_rate": 0.88,
+      "how": "Common causes: resource not initialized, wrong lifecycle state, missing prior API call",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement a state machine on the client to track valid operation ordering",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

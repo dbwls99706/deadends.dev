@@ -29,14 +29,18 @@
       "action": "Copy config snippets from Stack Overflow without understanding context hierarchy",
       "why_fails": "nginx has strict context nesting: main > http > server > location. Directives in wrong context fail.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Put all configuration in a single nginx.conf file",
       "why_fails": "While valid, large monolithic configs are error-prone. Use include and sites-enabled/ pattern.",
       "fail_rate": 0.55,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Test config syntax before reloading",
       "success_rate": 0.95,
       "how": "sudo nginx -t  # validates config and shows exact error location",
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

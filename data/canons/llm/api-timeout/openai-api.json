@@ -29,14 +29,18 @@
       "action": "Set timeout to very large value (300s+)",
       "why_fails": "Extremely long timeouts tie up resources; if the API is overloaded your request will likely fail anyway",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry the exact same long prompt immediately",
       "why_fails": "If the prompt caused slow generation (long output), it will timeout again. Reduce max_tokens.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

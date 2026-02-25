@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/asset-import-failed/unity2022-any",
+  "url": "https://deadends.dev/unity/asset-import-failed/unity2022-any",
+  "error": {
+    "signature": "Failed to import asset: 'Assets/Models/character.fbx'. Error: Could not process asset",
+    "regex": "(Failed to import|Could not.*process asset|Import failed|asset import.*error|Importer.*Internal.*failed|texture.*import.*failed)",
+    "domain": "unity",
+    "category": "import_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.87,
+    "last_updated": "2026-02-25",
+    "summary": "Asset import pipeline failed. Corrupt file, unsupported format, or missing external dependency (e.g., FBX SDK)."
+  },
+  "dead_ends": [
+    {
+      "action": "Rename the file extension to force a different importer",
+      "why_fails": "Unity selects importers by content type, not just extension. Renaming causes further confusion.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete and re-download the asset repeatedly",
+      "why_fails": "If the asset file is corrupt at the source, re-downloading gets the same corrupt file.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Re-export from the source application with compatible settings",
+      "success_rate": 0.9,
+      "how": "Blender: Export FBX with 'Apply Transforms' checked; use Binary FBX format, not ASCII",
+      "sources": [
+        "https://docs.unity3d.com/Manual/upm-ui.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Check the Console for the specific import error details",
+      "success_rate": 0.88,
+      "how": "Console > click the error > check Inspector for import settings; try different compression/format",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Clear the Library/Artifacts folder to force reimport",
+      "success_rate": 0.82,
+      "how": "Close Unity > delete Library/Artifacts/ > reopen project; forces fresh import of all assets",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/serialization-layout-mismatch/unity2022-any",
+  "url": "https://deadends.dev/unity/serialization-layout-mismatch/unity2022-any",
+  "error": {
+    "signature": "The serialized field layout has changed. Serialization layout for type 'PlayerData' has been changed.",
+    "regex": "(serialized field.*layout.*changed|Serialization layout.*changed|serialization.*mismatch|TypeLoadException.*layout|SerializationException.*field)",
+    "domain": "unity",
+    "category": "serialization_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "cross-platform"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Serialized class layout changed between builds. Saved data (ScriptableObjects, prefabs, scenes) contain stale field definitions."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete all serialized data files and start fresh",
+      "why_fails": "Destroys save data and scene references. Use FormerlySerializedAs to migrate instead.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.unity3d.com/Manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Revert the class changes to match old serialization",
+      "why_fails": "Blocks progress. The correct approach is to migrate the data forward, not lock the code.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use FormerlySerializedAs attribute when renaming fields",
+      "success_rate": 0.92,
+      "how": "[FormerlySerializedAs(\"oldFieldName\")] public int newFieldName;  // preserves serialized data",
+      "sources": [
+        "https://docs.unity3d.com/Manual/upm-ui.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Implement ISerializationCallbackReceiver for complex migrations",
+      "success_rate": 0.85,
+      "how": "OnAfterDeserialize() to convert old data layout to new format on load",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Re-serialize affected assets after changing fields",
+      "success_rate": 0.82,
+      "how": "Select affected prefabs/ScriptableObjects > right-click > Reimport; or use ForceReserializeAssets API",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

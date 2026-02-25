@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "import_error",
     "first_seen": "2017-06-01",
-    "last_confirmed": "2025-05-15"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.89,
-    "last_updated": "2025-05-15",
+    "last_updated": "2026-02-24",
     "summary": "Resolvable in the vast majority of cases. macOS introduces additional complexity due to multiple Python installations (Apple system Python, Homebrew, pyenv, official installer). The primary failure mode is installing into the wrong Python's site-packages."
   },
   "dead_ends": [

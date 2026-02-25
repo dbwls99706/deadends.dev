@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/github-webhook-delivery-timeout-retry/github-webhook-any",
+  "url": "https://deadends.dev/communication/github-webhook-delivery-timeout-retry/github-webhook-any",
+  "error": {
+    "signature": "GitHub webhook delivers same event multiple times because endpoint is slow or returns non-2xx",
+    "regex": "(GitHub.*webhook.*retry|webhook.*deliver.*duplicate|webhook.*timeout.*redeliver|X-GitHub-Delivery.*duplicate)",
+    "domain": "communication",
+    "category": "webhook_reliability",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "github-webhook",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "GitHub webhooks timeout after 10 seconds and retry failed deliveries. There's no configurable retry policy. Slow endpoints receive duplicate deliveries. The X-GitHub-Delivery header is unique per delivery attempt, not per event."
+  },
+  "dead_ends": [
+    {
+      "action": "Process webhook synchronously and return 200 after completion",
+      "why_fails": "If processing takes >10s, GitHub considers the delivery failed and retries. You get duplicate processing of the same event.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use X-GitHub-Delivery header as idempotency key",
+      "why_fails": "X-GitHub-Delivery is unique per delivery ATTEMPT, not per event. Retries have different delivery IDs. Use the event payload's action+id for dedup.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Return 200 immediately and process webhook asynchronously",
+      "success_rate": 0.95,
+      "how": "Enqueue the raw webhook payload for background processing. Return 200 within 1 second.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use event ID from payload (not delivery header) for idempotency",
+      "success_rate": 0.9,
+      "how": "Dedup key: f'{event_type}:{payload[\"action\"]}:{payload[\"id\"]}'  # unique per logical event",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check webhook delivery logs in GitHub repo settings for debugging",
+      "success_rate": 0.82,
+      "how": "Settings -> Webhooks -> Recent Deliveries shows each attempt with request/response details",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

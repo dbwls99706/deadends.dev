@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pytorch/cudnn-rnn-backward-error/torch2-linux",
+  "url": "https://deadends.dev/pytorch/cudnn-rnn-backward-error/torch2-linux",
+  "error": {
+    "signature": "RuntimeError: cuDNN error: CUDNN_STATUS_EXECUTION_FAILED when calling cudnnRNNBackwardData",
+    "regex": "(cuDNN.*RNN.*Backward|CUDNN_STATUS_EXECUTION_FAILED.*RNN|cudnnRNN.*error|cuDNN.*LSTM.*backward|RNN.*backward.*cuDNN)",
+    "domain": "pytorch",
+    "category": "cuda_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pytorch",
+      "version_range": ">=2.0"
+    },
+    "os": "linux",
+    "python": ">=3.9",
+    "hardware": {
+      "gpu": "any"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "cuDNN RNN backward pass fails. Often caused by non-contiguous hidden states, wrong CUDA/cuDNN version, or variable-length sequences without packing."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable cuDNN entirely with torch.backends.cudnn.enabled=False",
+      "why_fails": "Disabling cuDNN massively slows down RNN operations (10-50x slower); fix the root cause instead",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade to a much older PyTorch version",
+      "why_fails": "Older versions have different cuDNN bugs; the real fix is proper input handling",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/cuda.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Make hidden states contiguous before passing to RNN",
+      "success_rate": 0.9,
+      "how": "hidden = hidden.contiguous()  # or h_0, c_0 = h_0.contiguous(), c_0.contiguous()",
+      "sources": [
+        "https://pytorch.org/tutorials/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use pack_padded_sequence for variable-length inputs",
+      "success_rate": 0.88,
+      "how": "packed = nn.utils.rnn.pack_padded_sequence(input, lengths, batch_first=True, enforce_sorted=False)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set torch.backends.cudnn.deterministic=True as a diagnostic step",
+      "success_rate": 0.8,
+      "how": "If deterministic mode works, the issue is a cuDNN non-deterministic kernel bug; update CUDA/cuDNN",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

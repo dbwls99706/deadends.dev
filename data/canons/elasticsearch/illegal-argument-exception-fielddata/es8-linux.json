@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/illegal-argument-exception-fielddata/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/illegal-argument-exception-fielddata/es8-linux",
+  "error": {
+    "signature": "illegal_argument_exception: Fielddata is disabled on [message] in [my_index]. Text fields are not optimised for operations that require per-document field data like aggregations and sorting.",
+    "regex": "(Fielddata is disabled|illegal_argument.*fielddata|Text fields are not optimised|set fielddata=true|fielddata.*aggregat)",
+    "domain": "elasticsearch",
+    "category": "mapping_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Attempting to sort or aggregate on a text field. Text fields use inverted index, not doc values needed for these operations."
+  },
+  "dead_ends": [
+    {
+      "action": "Enable fielddata=true on the text field",
+      "why_fails": "Fielddata on text fields loads all unique terms into JVM heap. Causes massive memory usage and OOM on high-cardinality fields.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Convert the field to keyword type on an existing index",
+      "why_fails": "You cannot change field type on an existing index. Requires reindex to a new index with updated mapping.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the .keyword multi-field for aggregations and sorting",
+      "success_rate": 0.95,
+      "how": "GET /my_index/_search { 'aggs': { 'top_messages': { 'terms': { 'field': 'message.keyword' }}}}",
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add a keyword sub-field to the mapping and reindex",
+      "success_rate": 0.85,
+      "how": "PUT /my_index/_mapping { 'properties': { 'message': { 'type': 'text', 'fields': { 'keyword': { 'type': 'keyword' }}}}}",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use composite aggregation with keyword field for large cardinality",
+      "success_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

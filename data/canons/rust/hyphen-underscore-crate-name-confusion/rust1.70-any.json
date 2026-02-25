@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rust/hyphen-underscore-crate-name-confusion/rust1.70-any",
+  "url": "https://deadends.dev/rust/hyphen-underscore-crate-name-confusion/rust1.70-any",
+  "error": {
+    "signature": "can't find crate — Rust crate name has hyphens but use/extern expects underscores",
+    "regex": "can't find crate|unresolved import.*-|extern crate.*not found",
+    "domain": "rust",
+    "category": "naming",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rust",
+      "version_range": ">=1.70"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.93,
+    "last_updated": "2026-02-25",
+    "summary": "Cargo allows hyphens in crate names (my-crate) but Rust source code requires underscores (my_crate) for use/extern statements."
+  },
+  "dead_ends": [
+    {
+      "action": "Use hyphens in use statement matching Cargo.toml",
+      "why_fails": "Rust identifiers cannot contain hyphens; the compiler parses my-crate as my minus crate",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Rename the Cargo.toml package name to remove hyphens",
+      "why_fails": "This changes the published crate name; breaks existing dependents and crates.io registry entry",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/manifest.html#the-name-field"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use underscores in Rust source code: use my_crate (Cargo auto-maps hyphens to underscores)",
+      "success_rate": 0.98,
+      "how": "use my_crate::something;  // Cargo.toml has [dependencies] my-crate = \"1.0\" but Rust uses underscores",
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If renaming is needed, use the [lib] name field in Cargo.toml to set a custom lib name",
+      "success_rate": 0.82,
+      "how": "[lib]\nname = \"my_custom_name\"  # explicit lib name separate from package name",
+      "sources": [
+        "https://doc.rust-lang.org/cargo/reference/cargo-targets.html#the-name-field"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -29,14 +29,18 @@
       "action": "Restart all consumers simultaneously",
       "why_fails": "Mass restart triggers thundering herd problem; all consumers try to join at once causing repeated rebalances",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Delete the consumer group and recreate it",
       "why_fails": "Deleting the group loses committed offsets; all consumers restart from earliest/latest",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Wait for cluster to fully start - coordinator election takes a few seconds",
       "success_rate": 0.88,
       "how": "Add retry logic with backoff in consumer initialization",
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

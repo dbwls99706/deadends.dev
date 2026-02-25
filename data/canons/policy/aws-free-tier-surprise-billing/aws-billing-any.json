@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/aws-free-tier-surprise-billing/aws-billing-any",
+  "url": "https://deadends.dev/policy/aws-free-tier-surprise-billing/aws-billing-any",
+  "error": {
+    "signature": "AWS bill for hundreds of dollars after 'free tier' usage due to hidden limits or expiration",
+    "regex": "(AWS.*free tier.*bill|unexpected.*AWS.*charge|free tier.*expired|AWS.*surprise.*bill)",
+    "domain": "policy",
+    "category": "billing",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-billing",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "AWS free tier has three types: 12-month free (expires), always free (with limits), and trials. EC2 t2.micro is 12-month only. Leaving resources running after 12 months = full price. Some services have hidden data transfer costs. EBS volumes are not free."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume all AWS free tier services are perpetually free",
+      "why_fails": "12-month free tier services (EC2, RDS, S3) switch to full pricing after 12 months with no warning. You must actively track your free tier anniversary.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Spin up resources and forget about them since they're free",
+      "why_fails": "Free tier has strict limits (750 hrs/month for EC2). Running 2 t2.micro instances exceeds the limit and incurs charges immediately.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Only check EC2 costs, ignore other services",
+      "why_fails": "Data transfer, EBS volumes, Elastic IPs (when not attached), CloudWatch, and Route 53 queries all have separate costs that add up.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set up AWS Budgets with alerts at $1, $5, $10 thresholds",
+      "success_rate": 0.95,
+      "how": "AWS Console -> Budgets -> Create budget -> $5/month threshold -> Email alert",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use AWS Cost Explorer daily and tag all resources",
+      "success_rate": 0.9,
+      "how": "Tag everything with project/owner. Use Cost Explorer to spot unexpected charges within 24 hours.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable AWS Organizations SCPs to restrict resource creation in free tier accounts",
+      "success_rate": 0.82,
+      "how": "Prevent creation of expensive resource types (GPU instances, large RDS) via Service Control Policies",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

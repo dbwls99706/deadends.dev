@@ -33,14 +33,18 @@
       "action": "Set max_new_tokens very high for better generation quality",
       "why_fails": "Longer sequences need quadratically more KV cache memory. Set reasonable limits.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
       "action": "Call torch.cuda.empty_cache() between generate calls",
       "why_fails": "Does not free the KV cache allocated during generate; only helps if there is fragmented cached memory",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     }
   ],
@@ -49,7 +53,9 @@
       "action": "Load model in lower precision",
       "success_rate": 0.9,
       "how": "model = AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float16, device_map='auto')",
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
       "condition": ""
     },
     {
@@ -76,7 +82,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

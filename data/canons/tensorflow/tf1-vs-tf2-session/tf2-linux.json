@@ -30,14 +30,18 @@
       "action": "Install TensorFlow 1.x to run old code",
       "why_fails": "TF1 has known security vulnerabilities and no GPU support for modern CUDA. Migrate to TF2.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use tf.compat.v1 for everything",
       "why_fails": "compat.v1 is a migration aid, not a permanent solution. It disables TF2 optimizations like eager execution.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     }
   ],
@@ -46,7 +50,9 @@
       "action": "Use tf.compat.v1.Session() for quick migration, then refactor",
       "success_rate": 0.82,
       "how": "import tensorflow.compat.v1 as tf; tf.disable_v2_behavior()  # temporary",
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs/python/tf"
+      ],
       "condition": ""
     },
     {
@@ -73,7 +79,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

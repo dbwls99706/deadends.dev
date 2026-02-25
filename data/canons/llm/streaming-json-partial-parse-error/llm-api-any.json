@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/streaming-json-partial-parse-error/llm-api-any",
+  "url": "https://deadends.dev/llm/streaming-json-partial-parse-error/llm-api-any",
+  "error": {
+    "signature": "JSON parse error during streaming — incomplete JSON in stream chunk",
+    "regex": "JSON.*parse.*error.*stream|Unexpected.*end.*JSON|partial.*JSON",
+    "domain": "llm",
+    "category": "streaming",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "LLM API",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "Parsing JSON from streamed LLM output fails because chunks contain incomplete JSON."
+  },
+  "dead_ends": [
+    {
+      "action": "JSON.parse each chunk individually",
+      "why_fails": "Stream chunks are arbitrary byte boundaries, not JSON boundaries",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Wait for a closing brace to trigger parsing",
+      "why_fails": "Nested objects have multiple closing braces; triggering on first } gives incomplete parse",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accumulate stream chunks into a buffer and parse only when complete",
+      "success_rate": 0.93,
+      "how": "buffer += chunk; try: result = json.loads(buffer) except: continue",
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use a streaming JSON parser that handles partial input",
+      "success_rate": 0.88,
+      "how": "Use libraries like partial-json-parser or ijson",
+      "sources": [
+        "https://github.com/promplate/partial-json-parser"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/embedding-cosine-similarity-threshold-arbitrary/embedding-api-any",
+  "url": "https://deadends.dev/llm/embedding-cosine-similarity-threshold-arbitrary/embedding-api-any",
+  "error": {
+    "signature": "RAG retrieval misses relevant docs — cosine similarity threshold too high",
+    "regex": "cosine.*similarity.*threshold|no.*relevant.*documents|retrieval.*miss",
+    "domain": "llm",
+    "category": "retrieval",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "Embedding API",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-25",
+    "summary": "Hardcoded cosine similarity threshold misses semantically relevant documents."
+  },
+  "dead_ends": [
+    {
+      "action": "Set a universal threshold like 0.8 for all embedding models",
+      "why_fails": "Different models have different similarity distributions",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Euclidean distance instead of cosine for normalized embeddings",
+      "why_fails": "For normalized vectors, cosine and Euclidean are monotonically related",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.pinecone.io/learn/vector-similarity/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Calibrate threshold per embedding model using a validation set",
+      "success_rate": 0.88,
+      "how": "Find the threshold that maximizes F1 score on known-relevant docs",
+      "sources": [
+        "https://www.pinecone.io/learn/vector-similarity/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use top-K retrieval instead of threshold-based filtering",
+      "success_rate": 0.9,
+      "how": "retriever = vectorstore.as_retriever(search_kwargs={'k': 5})",
+      "sources": [
+        "https://python.langchain.com/docs/how_to/vectorstore_retriever/"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

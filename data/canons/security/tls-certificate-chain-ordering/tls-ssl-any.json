@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/tls-certificate-chain-ordering/tls-ssl-any",
+  "url": "https://deadends.dev/security/tls-certificate-chain-ordering/tls-ssl-any",
+  "error": {
+    "signature": "SSL: CERTIFICATE_VERIFY_FAILED - unable to get local issuer certificate, even though cert is valid",
+    "regex": "(CERTIFICATE_VERIFY_FAILED|unable to get local issuer|SSL.*certificate.*chain|intermediate.*cert.*missing)",
+    "domain": "security",
+    "category": "tls",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tls-ssl",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "TLS requires the full certificate chain: leaf cert -> intermediate(s) -> root CA. Browsers often cache intermediates and work anyway, but programmatic clients (curl, Python requests, Node.js) fail. The server must send intermediates; the client only trusts root CAs."
+  },
+  "dead_ends": [
+    {
+      "action": "Install leaf certificate only, assuming clients have intermediate certs",
+      "why_fails": "Browsers cache intermediate certs from previous visits. curl, Python, and Node.js don't cache intermediates. They fail on every connection.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Add root CA cert to the server's chain file",
+      "why_fails": "Root CA should NOT be in the chain. Clients already have root CAs in their trust store. Including it wastes bandwidth and can confuse some TLS implementations.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Test TLS with a browser and assume all clients will work",
+      "why_fails": "Browsers have intermediate certificate caching (AIA fetching). Programmatic clients don't. Browser testing misses missing intermediate cert issues.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://owasp.org/www-project-top-ten/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Include full chain in order: leaf, intermediate(s), but NOT root",
+      "success_rate": 0.95,
+      "how": "cat server.crt intermediate.crt > fullchain.pem  # leaf first, then intermediate(s)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Test with openssl s_client or SSL Labs, not just a browser",
+      "success_rate": 0.92,
+      "how": "openssl s_client -connect example.com:443 -showcerts  # verify full chain is sent",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ACME/certbot which automatically includes the correct chain",
+      "success_rate": 0.88,
+      "how": "certbot uses fullchain.pem by default which includes leaf + intermediates in correct order",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

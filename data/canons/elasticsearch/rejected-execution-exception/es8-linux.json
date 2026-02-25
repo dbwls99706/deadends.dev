@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/rejected-execution-exception/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/rejected-execution-exception/es8-linux",
+  "error": {
+    "signature": "EsRejectedExecutionException: rejected execution of coordinating operation [coordinating_and_primary_bytes=0, replica_bytes=0, all_bytes=0, coordinating_operation_bytes=xxxx, max_coordinating_and_primary_bytes=xxx]",
+    "regex": "(EsRejectedExecutionException|rejected execution|bulk.*reject|thread pool.*queue.*full|TOO_MANY_REQUESTS.*queue)",
+    "domain": "elasticsearch",
+    "category": "throughput_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.87,
+    "last_updated": "2026-02-25",
+    "summary": "Thread pool queue is full, rejecting new operations. Indexing or search rate exceeds cluster capacity."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase thread pool queue size to a very large value",
+      "why_fails": "Large queues just delay rejection while consuming more heap memory. The real issue is ingestion rate exceeding throughput.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-threadpool.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set refresh_interval=-1 to speed up indexing",
+      "why_fails": "Disabling refresh makes recently indexed docs invisible to search and does not address queue capacity",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement client-side backoff and retry on 429/rejected responses",
+      "success_rate": 0.92,
+      "how": "Catch 429 TOO_MANY_REQUESTS and retry with exponential backoff; bulk API returns per-item status",
+      "sources": [
+        "https://www.elastic.co/guide/en/elasticsearch/reference/current/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Reduce bulk request size and concurrent bulk threads",
+      "success_rate": 0.88,
+      "how": "Start with 5-15 MB bulk size and 1-2 bulk threads per node; increase gradually while monitoring rejections",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Scale out by adding data nodes to distribute load",
+      "success_rate": 0.82,
+      "how": "More shards across more nodes increases write throughput linearly",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

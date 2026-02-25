@@ -29,14 +29,18 @@
       "action": "Ignore the warning",
       "why_fails": "Non-unique names cause parameter and service name collisions; nodes silently override each other",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Kill all nodes and restart one by one",
       "why_fails": "Does not fix the root cause in the launch file; duplicate reappears on next launch",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

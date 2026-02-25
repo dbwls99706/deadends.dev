@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ros2/tf2-extrapolation-into-future/humble-linux",
+  "url": "https://deadends.dev/ros2/tf2-extrapolation-into-future/humble-linux",
+  "error": {
+    "signature": "tf2.ExtrapolationException: Lookup would require extrapolation into the future",
+    "regex": "(ExtrapolationException|extrapolation.*future|tf2.*lookup.*future|transform.*not.*yet.*available)",
+    "domain": "ros2",
+    "category": "transforms",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ros2",
+      "version_range": "humble"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "tf2 transform lookup fails when requesting a transform at a timestamp newer than the latest available transform. Common when sensor data timestamp is slightly ahead of tf broadcaster, or when using sim_time with clock skew between nodes."
+  },
+  "dead_ends": [
+    {
+      "action": "Use rospy.Time.now() / self.get_clock().now() as lookup time",
+      "why_fails": "Current time may be ahead of the latest published transform. Transform publishers have latency. Requesting 'now' often extrapolates into the future.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Increase tf buffer size to store more transforms",
+      "why_fails": "Buffer size stores history, not future. The issue is timing, not storage. More history doesn't help when the requested time is in the future.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use tf2_ros.Buffer.lookup_transform with timeout for blocking wait",
+      "success_rate": 0.92,
+      "how": "transform = tf_buffer.lookup_transform('map', 'base_link', rclpy.time.Time(), timeout=Duration(seconds=1.0))",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Time(0) to get the latest available transform instead of a specific timestamp",
+      "success_rate": 0.9,
+      "how": "transform = tf_buffer.lookup_transform('map', 'base_link', rclpy.time.Time())  # latest available, no extrapolation",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "When using sim_time, ensure all nodes use use_sim_time:=true consistently",
+      "success_rate": 0.85,
+      "how": "ros2 launch my_pkg my_launch.py use_sim_time:=true  # all nodes must agree on time source",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

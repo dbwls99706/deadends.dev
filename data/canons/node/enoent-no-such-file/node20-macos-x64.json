@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "filesystem",
     "first_seen": "2015-01-01",
-    "last_confirmed": "2025-05-15"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.8,
-    "last_updated": "2025-05-15",
+    "last_updated": "2026-02-24",
     "summary": "ENOENT on macOS x64 is most commonly caused by missing files after incomplete npm installs, broken symlinks, or path assumptions that break when moving between case-insensitive HFS+ (default) and case-sensitive APFS volumes. Since macOS is case-insensitive by default, this error less often stems from case mismatches and more often from genuinely missing files or stale symlinks."
   },
   "dead_ends": [

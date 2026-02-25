@@ -8,7 +8,7 @@
     "domain": "git",
     "category": "merge",
     "first_seen": "2016-10-01",
-    "last_confirmed": "2025-05-12"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2025-05-12",
+    "last_updated": "2026-02-24",
     "summary": "This error was introduced in Git 2.9 as a safety measure. It occurs when merging or pulling two branches that do not share a common ancestor commit. The most common scenarios are: (1) a GitHub repo was created with a README and the local repo was initialized separately, (2) two unrelated repos are being merged, or (3) the repo history was rewritten with filter-branch or filter-repo."
   },
   "dead_ends": [

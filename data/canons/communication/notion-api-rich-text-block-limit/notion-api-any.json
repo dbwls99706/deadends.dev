@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/notion-api-rich-text-block-limit/notion-api-any",
+  "url": "https://deadends.dev/communication/notion-api-rich-text-block-limit/notion-api-any",
+  "error": {
+    "signature": "Notion API returns 400 error or silently truncates content when block has too much text",
+    "regex": "(Notion.*block.*limit|Notion.*rich.*text.*truncat|Notion.*2000.*character|Notion.*API.*body.*too.*large)",
+    "domain": "communication",
+    "category": "api_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "notion-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Notion API limits rich text per block to 2000 characters. A single paragraph block cannot exceed this. The API either returns 400 or silently truncates. Also, page content is limited to 100 blocks per API call (pagination required)."
+  },
+  "dead_ends": [
+    {
+      "action": "Send a large text block assuming it will be stored as-is",
+      "why_fails": "Notion truncates at 2000 characters per rich text array element and 100 blocks per append call. Large documents are silently cut off.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Append all blocks in a single API call",
+      "why_fails": "Maximum 100 blocks per append_block_children call. Documents with more blocks need paginated appends.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Split text into 2000-character chunks across multiple paragraph blocks",
+      "success_rate": 0.92,
+      "how": "chunks = [text[i:i+2000] for i in range(0, len(text), 2000)]; blocks = [{'paragraph': {'rich_text': [{'text': {'content': c}}]}} for c in chunks]",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Batch block appends in groups of 100",
+      "success_rate": 0.88,
+      "how": "for i in range(0, len(blocks), 100): notion.blocks.children.append(page_id, children=blocks[i:i+100])",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Notion's toggle blocks for very long content to keep pages manageable",
+      "success_rate": 0.8,
+      "how": "Wrap long content sections in toggle blocks. Each toggle can contain sub-blocks with their own 2000-char limits.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

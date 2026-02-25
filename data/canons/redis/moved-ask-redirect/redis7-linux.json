@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/moved-ask-redirect/redis7-linux",
+  "url": "https://deadends.dev/redis/moved-ask-redirect/redis7-linux",
+  "error": {
+    "signature": "MOVED 3999 127.0.0.1:7002",
+    "regex": "(MOVED \\d+|ASK \\d+|MOVED.*redirect|ASK.*redirect|slot.*moved|cluster.*redirect)",
+    "domain": "redis",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Redis Cluster redirecting commands to the correct node. Client sent command to a node that does not own the target hash slot."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry the command on the same node hoping the slot migrates back",
+      "why_fails": "MOVED is permanent; the slot belongs to a different node. Retrying on the same node always fails.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://redis.io/docs/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Connect to a single cluster node and ignore redirects",
+      "why_fails": "Single-node connection misses all keys not in that node's slots; most operations fail",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://redis.io/docs/latest/commands/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a cluster-aware client library",
+      "success_rate": 0.95,
+      "how": "redis-py: RedisCluster(host='...', port=7000); Jedis: JedisCluster; ioredis: new Cluster([{host, port}])",
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Handle MOVED by updating the slot-to-node mapping in the client",
+      "success_rate": 0.88,
+      "how": "Cluster-aware clients do this automatically; raw clients must parse MOVED and reconnect to the target node",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Handle ASK by sending ASKING command followed by the original command to the target node",
+      "success_rate": 0.82,
+      "how": "ASK means slot is migrating; send ASKING + command to target node (temporary redirect, unlike MOVED)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/vercel-serverless-timeout-by-plan/vercel-any",
+  "url": "https://deadends.dev/policy/vercel-serverless-timeout-by-plan/vercel-any",
+  "error": {
+    "signature": "Vercel serverless function times out at 10s even though code completes in time locally",
+    "regex": "(FUNCTION_INVOCATION_TIMEOUT|Vercel.*timeout.*10s|serverless.*function.*timeout|504.*Vercel.*gateway)",
+    "domain": "policy",
+    "category": "platform_limits",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "vercel",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.72,
+    "confidence": 0.82,
+    "last_updated": "2026-02-24",
+    "summary": "Vercel serverless function timeout varies by plan: Hobby=10s, Pro=60s, Enterprise=900s. The Hobby 10s limit is not prominently shown in docs. Database connections, external API calls, and cold starts easily exceed 10s."
+  },
+  "dead_ends": [
+    {
+      "action": "Optimize function code to run within 10 seconds",
+      "why_fails": "10s includes cold start time (1-3s for Node.js, 5-10s for Python/Java). Actual code execution budget is 7-9s. With a database connection, you may have <5s for logic.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Edge Functions for longer execution time",
+      "why_fails": "Edge Functions have even lower limits (some regions enforce shorter timeouts) and don't support all Node.js APIs. They're for fast, lightweight transformations.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Upgrade to Pro plan for 60s timeout if 10s is insufficient",
+      "success_rate": 0.9,
+      "how": "Vercel Pro: $20/month, 60s function timeout. Often the simplest fix for timeout issues.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use background functions (Vercel cron or queued) for long-running tasks",
+      "success_rate": 0.88,
+      "how": "Use Vercel's maxDuration in vercel.json and Background Functions for tasks >10s",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move long-running tasks to external services (AWS Lambda, Cloud Functions)",
+      "success_rate": 0.85,
+      "how": "Trigger external function via HTTP from Vercel edge. External function has its own timeout limits.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

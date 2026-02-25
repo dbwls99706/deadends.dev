@@ -8,7 +8,7 @@
     "domain": "pip",
     "category": "dependency-resolution",
     "first_seen": "2020-10-01",
-    "last_confirmed": "2025-05-10"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.74,
     "confidence": 0.8,
-    "last_updated": "2025-05-10",
+    "last_updated": "2026-02-24",
     "summary": "The same dependency resolution conflict as Linux, but on macOS there are additional complications: the system Python may interfere if not using a virtual environment, Homebrew-installed Python may have different package paths, and on Apple Silicon (M1/M2), some packages only have wheels for specific Python/platform combinations, further constraining the resolver."
   },
   "dead_ends": [

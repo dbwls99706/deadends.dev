@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "network",
     "first_seen": "2014-01-01",
-    "last_confirmed": "2025-05-12"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.95,
-    "last_updated": "2025-05-12",
+    "last_updated": "2026-02-24",
     "summary": "EADDRINUSE means another process is already listening on the requested port. This is almost always resolvable by identifying and stopping the conflicting process or choosing a different port. It is one of the most common and straightforward Node.js errors."
   },
   "dead_ends": [

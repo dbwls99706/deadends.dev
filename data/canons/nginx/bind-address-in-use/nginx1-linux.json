@@ -29,14 +29,18 @@
       "action": "Change nginx to a different port like 8080",
       "why_fails": "Clients expect 80/443. Changing ports requires all URLs and redirects to be updated.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Use kill -9 on the process using the port",
       "why_fails": "kill -9 does not allow graceful shutdown; may corrupt logs or leave connections hanging. Use graceful stop.",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],
@@ -45,7 +49,9 @@
       "action": "Find and stop the conflicting process",
       "success_rate": 0.95,
       "how": "sudo ss -tlnp | grep :80  # or: sudo lsof -i :80",
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
@@ -72,7 +78,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

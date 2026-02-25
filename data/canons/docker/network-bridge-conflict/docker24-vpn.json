@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "networking",
     "first_seen": "2017-06-01",
-    "last_confirmed": "2025-05-01"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.78,
     "confidence": 0.8,
-    "last_updated": "2025-05-01",
+    "last_updated": "2026-02-24",
     "summary": "When a VPN is active, it typically claims large private IP ranges (often 10.0.0.0/8 or 172.16.0.0/12) via routing table entries. Docker's default network allocation overlaps with these VPN-claimed ranges, causing 'Pool overlaps' errors. This is particularly common with corporate VPNs (Cisco AnyConnect, OpenVPN, WireGuard) that route broad subnets."
   },
   "dead_ends": [

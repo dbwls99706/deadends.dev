@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/document-too-large/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/document-too-large/mongo7-linux",
+  "error": {
+    "signature": "MongoServerError: BSONObjectTooLarge: object to insert exceeds maximum BSON document size (16793600 > 16777216)",
+    "regex": "(BSONObjectTooLarge|exceeds maximum.*size|document.*too large|object to insert exceeds|16777216|16MB.*limit)",
+    "domain": "mongodb",
+    "category": "data_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "Document exceeds MongoDB's 16MB BSON size limit. Usually caused by unbounded arrays growing over time."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase the BSON document size limit",
+      "why_fails": "The 16MB limit is a hard server-side constraint compiled into MongoDB. It cannot be changed via configuration.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Compress the document before insertion",
+      "why_fails": "BSON size is measured after serialization. Application-level compression does not bypass the BSON size limit check.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/error-codes/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Refactor unbounded arrays into separate collection with references",
+      "success_rate": 0.92,
+      "how": "Instead of: { comments: [...10000] }, use comments collection: { postId: ObjectId, text: '...' }",
+      "sources": [
+        "https://www.mongodb.com/docs/manual/administration/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use GridFS for large binary data",
+      "success_rate": 0.9,
+      "how": "const bucket = new GridFSBucket(db); bucket.openUploadStream('largefile.bin')  # chunks data across documents",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use the bucket pattern to limit array growth",
+      "success_rate": 0.85,
+      "how": "Split into buckets: { postId: 1, bucket: 0, comments: [...200] }, { postId: 1, bucket: 1, comments: [...200] }",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

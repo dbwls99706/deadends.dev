@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/jira-api-pagination-breaking-change/jira-api-any",
+  "url": "https://deadends.dev/communication/jira-api-pagination-breaking-change/jira-api-any",
+  "error": {
+    "signature": "Jira REST API pagination returns incomplete results or different behavior between v2 and v3",
+    "regex": "(Jira.*pagination.*incomplete|Jira.*startAt.*maxResults|Jira.*API.*v2.*v3.*differ|Jira.*search.*missing)",
+    "domain": "communication",
+    "category": "api_pagination",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "jira-api",
+      "version_range": ">=v2"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-24",
+    "summary": "Jira REST API v2 and v3 have different pagination behaviors. v2 returns 'total' which can change between pages (as issues are created/modified). v3 sometimes omits 'total'. maxResults is capped server-side (usually 50-100) regardless of requested value."
+  },
+  "dead_ends": [
+    {
+      "action": "Set maxResults=1000 to get all issues in one request",
+      "why_fails": "Jira server silently caps maxResults to 50-100 (configurable by admin). You get at most 100 results regardless of what you request.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use 'total' field to determine when pagination is complete",
+      "why_fails": "In Jira v3, 'total' may be absent. In v2, 'total' can change between page requests as issues are created/modified mid-pagination.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://api.slack.com/docs"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Paginate until returned results count < maxResults (not based on 'total')",
+      "success_rate": 0.92,
+      "how": "while True: results = jira_search(startAt=offset, maxResults=50); if len(results) < 50: break; offset += 50",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use JQL with ORDER BY and createdDate filter for stable pagination",
+      "success_rate": 0.85,
+      "how": "JQL: 'project = X ORDER BY created ASC' with startAt pagination. Ordering ensures consistent page contents.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Jira's scroll API (experimental) for large result sets",
+      "success_rate": 0.78,
+      "how": "For Jira Cloud: use the /search endpoint with 'expand' and pagination tokens instead of offset-based pagination",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

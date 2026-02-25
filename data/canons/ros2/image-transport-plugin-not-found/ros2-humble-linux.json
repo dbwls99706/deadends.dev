@@ -29,14 +29,18 @@
       "action": "Manually compress images in the subscriber callback",
       "why_fails": "Bypasses image_transport entirely; loses bandwidth-efficient transport and standard interface",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use raw transport and accept the bandwidth cost",
       "why_fails": "Raw HD images over WiFi or limited bandwidth saturate the link; drops frames",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

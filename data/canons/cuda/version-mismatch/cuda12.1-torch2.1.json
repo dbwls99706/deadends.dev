@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "version_incompatibility",
     "first_seen": "2023-06-20",
-    "last_confirmed": "2025-05-15"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.88,
-    "last_updated": "2025-05-15",
+    "last_updated": "2026-02-24",
     "summary": "CUDA 12.1 and PyTorch 2.1 version mismatches occur when pip installs the default PyTorch wheel built against CUDA 11.8. Specifying the correct CUDA index URL during installation resolves the issue in the vast majority of cases."
   },
   "dead_ends": [

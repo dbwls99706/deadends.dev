@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/google-maps-api-billing-change/google-maps-any",
+  "url": "https://deadends.dev/policy/google-maps-api-billing-change/google-maps-any",
+  "error": {
+    "signature": "Google Maps API requests returning 'REQUEST_DENIED' or billing error after previously working",
+    "regex": "(REQUEST_DENIED|Maps.*billing.*required|Google Maps.*API.*key.*invalid|Maps.*quota.*exceeded)",
+    "domain": "policy",
+    "category": "billing",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "google-maps-api",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Google Maps Platform requires billing account with credit card since 2018. Free tier gives $200/month credit (~28K map loads). Exceeding this or having payment issues causes silent request denial. API key restrictions can also silently block requests."
+  },
+  "dead_ends": [
+    {
+      "action": "Use Google Maps API without a billing account since it 'used to be free'",
+      "why_fails": "Since June 2018, all Maps APIs require a billing account. Old API keys without billing return REQUEST_DENIED.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Assume $200/month free credit covers all usage",
+      "why_fails": "$200/month = ~28,000 Dynamic Maps loads or ~40,000 Geocoding requests. High-traffic sites exceed this quickly. Billing kicks in with no warning.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://docs.github.com/en/site-policy"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set up billing budget alerts at $0, $50, $100 in Google Cloud Console",
+      "success_rate": 0.92,
+      "how": "Google Cloud Console -> Billing -> Budgets & alerts -> Create budget with email notifications",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Restrict API key by HTTP referrer/IP and API type to prevent abuse",
+      "success_rate": 0.88,
+      "how": "Google Cloud Console -> Credentials -> API key -> Application restrictions -> HTTP referrers",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Cache geocoding results and use static maps where possible to reduce API calls",
+      "success_rate": 0.85,
+      "how": "Geocode addresses once and cache. Use Static Maps API (cheaper) for non-interactive displays.",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

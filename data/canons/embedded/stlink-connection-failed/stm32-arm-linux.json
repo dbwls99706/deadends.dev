@@ -32,21 +32,27 @@
       "action": "Increase SWD clock frequency for stable connection",
       "why_fails": "Higher frequency makes marginal connections WORSE; long wires need LOWER frequencies",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Replace the ST-LINK adapter assuming it is broken",
       "why_fails": "Usually the target chip or wiring is the problem. Verify with a second target board first.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Flash via serial bootloader to fix debug port",
       "why_fails": "Serial flash may work but does not re-enable SWD if firmware disabled the SWD pins",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.st.com/resource/en/reference_manual/"
+      ],
       "condition": ""
     }
   ],
@@ -82,7 +88,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

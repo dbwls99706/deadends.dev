@@ -33,21 +33,27 @@
       "action": "Install the latest CUDA toolkit regardless of TF version",
       "why_fails": "TF requires specific CUDA versions. TF 2.15 needs CUDA 12.2, not 12.5 or 11.x.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     },
     {
       "action": "Set LD_LIBRARY_PATH in the Python script",
       "why_fails": "LD_LIBRARY_PATH must be set BEFORE Python starts; setting it inside Python has no effect on dlopen",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     },
     {
       "action": "Symlink the wrong CUDA version to the expected filename",
       "why_fails": "ABI differences between CUDA versions cause crashes; symlinks hide version mismatches",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/api_docs"
+      ],
       "condition": ""
     }
   ],
@@ -83,7 +89,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

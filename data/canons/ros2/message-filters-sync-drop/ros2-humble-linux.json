@@ -29,14 +29,18 @@
       "action": "Set slop (time tolerance) to very large values like 10 seconds",
       "why_fails": "Pairs messages from completely different time instants; fuses stale data producing wrong results",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Use exact time synchronizer for hardware sensors",
       "why_fails": "Hardware sensors almost never have exactly matching timestamps; drops all messages",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

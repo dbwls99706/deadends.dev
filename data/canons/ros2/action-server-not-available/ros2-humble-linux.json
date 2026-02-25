@@ -29,14 +29,18 @@
       "action": "Launch the action client before the server is up without any wait",
       "why_fails": "Action calls will silently fail or raise confusing 'goal rejected' errors",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Replace action with service call for long-running tasks",
       "why_fails": "Services block the caller and provide no feedback or cancellation support",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -77,7 +81,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

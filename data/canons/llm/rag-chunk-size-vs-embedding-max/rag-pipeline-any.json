@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/rag-chunk-size-vs-embedding-max/rag-pipeline-any",
+  "url": "https://deadends.dev/llm/rag-chunk-size-vs-embedding-max/rag-pipeline-any",
+  "error": {
+    "signature": "RAG retrieval returns irrelevant results despite relevant documents existing in the index",
+    "regex": "(RAG.*irrelevant|chunk.*too.*large|retrieval.*poor|semantic.*search.*miss|embedding.*truncat)",
+    "domain": "llm",
+    "category": "retrieval",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "rag-pipeline",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Embedding models have max token limits (e.g., 8191 for ada-002). Text beyond the limit is silently truncated. If chunks are larger than the embedding model's limit, only the beginning is semantically captured. Small chunks lose context."
+  },
+  "dead_ends": [
+    {
+      "action": "Use large chunk sizes (10K+ tokens) for more context per chunk",
+      "why_fails": "Embedding model silently truncates beyond its max tokens. A 10K token chunk with 8191 limit embeds only the first 82%. The answer might be in the truncated part.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use very small chunks (50-100 tokens) for precision",
+      "why_fails": "Small chunks lose surrounding context. 'It was resolved in v2.3' means nothing without knowing what 'it' refers to.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set chunk size to 50-80% of embedding model's max token limit with overlap",
+      "success_rate": 0.92,
+      "how": "chunk_size=512, chunk_overlap=64  # for models with 8191 max tokens. Overlap preserves context boundaries.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use parent-child chunking: embed small chunks but retrieve parent documents",
+      "success_rate": 0.88,
+      "how": "Embed 256-token chunks. On retrieval, return the 2048-token parent document containing the matched chunk.",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add metadata (title, section headers) to each chunk before embedding",
+      "success_rate": 0.85,
+      "how": "chunk_text = f'Document: {title}\\nSection: {header}\\n\\n{chunk}'  # provides context for embedding",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "pip",
     "category": "build",
     "first_seen": "2018-01-01",
-    "last_confirmed": "2025-05-08"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.78,
     "confidence": 0.83,
-    "last_updated": "2025-05-08",
+    "last_updated": "2026-02-24",
     "summary": "Wheel build failures on Linux ARM64 are predominantly caused by missing C/C++ build tools and development headers, or by packages that do not publish prebuilt ARM64 wheels on PyPI. ARM64 Linux has significantly fewer prebuilt wheels available compared to x86_64, forcing pip to compile from source distributions which requires build dependencies."
   },
   "dead_ends": [

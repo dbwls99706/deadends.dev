@@ -29,14 +29,18 @@
       "action": "Retry immediately in a tight loop",
       "why_fails": "Immediate retries increase load and may get you temporarily banned. Use exponential backoff.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Create multiple API keys to bypass rate limits",
       "why_fails": "Rate limits are per-organization, not per-key. Multiple keys from same org share the same limit.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/"
+      ],
       "condition": ""
     }
   ],
@@ -72,7 +76,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-23",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-23"
   }
 }

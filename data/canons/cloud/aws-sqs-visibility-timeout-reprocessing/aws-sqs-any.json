@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-sqs-visibility-timeout-reprocessing/aws-sqs-any",
+  "url": "https://deadends.dev/cloud/aws-sqs-visibility-timeout-reprocessing/aws-sqs-any",
+  "error": {
+    "signature": "Message reprocessed — SQS visibility timeout too short for processing time",
+    "regex": "visibility.*timeout|message.*reprocessed|duplicate.*processing",
+    "domain": "cloud",
+    "category": "messaging",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "AWS SQS",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "SQS visibility timeout shorter than processing time causes message to become visible again."
+  },
+  "dead_ends": [
+    {
+      "action": "Set visibility timeout equal to average processing time",
+      "why_fails": "Average is not max; longer processing will cause reprocessing",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Delete message before processing completes",
+      "why_fails": "If processing fails after delete, the message is lost forever",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set visibility timeout to 6x max processing time and extend with ChangeMessageVisibility",
+      "success_rate": 0.93,
+      "how": "sqs.change_message_visibility(QueueUrl=q, ReceiptHandle=rh, VisibilityTimeout=300)",
+      "sources": [
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Make processing idempotent so reprocessing has no side effects",
+      "success_rate": 0.9,
+      "how": "Use a deduplication key and check before processing",
+      "sources": [
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

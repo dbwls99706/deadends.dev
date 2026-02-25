@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/aws-ecs-task-def-deregister-running/aws-ecs-any",
+  "url": "https://deadends.dev/cloud/aws-ecs-task-def-deregister-running/aws-ecs-any",
+  "error": {
+    "signature": "Deregistered ECS task definition but old tasks are still running with old image",
+    "regex": "(task definition.*deregister.*still running|ECS.*old.*image|service.*not.*updating|ECS.*rolling.*stuck)",
+    "domain": "cloud",
+    "category": "deployment",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-ecs",
+      "version_range": ">=2023-01"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-24",
+    "summary": "Deregistering an ECS task definition does NOT stop running tasks using it. It only prevents new tasks from using that revision. You must force a new deployment to replace running tasks."
+  },
+  "dead_ends": [
+    {
+      "action": "Deregister old task definition expecting running tasks to stop",
+      "why_fails": "Deregistering only marks the revision as INACTIVE. Running tasks continue indefinitely with the old config.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Update the task definition and wait for ECS to auto-deploy",
+      "why_fails": "ECS services don't auto-deploy new task definitions. You must explicitly update the service or force a new deployment.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Force new deployment after updating task definition",
+      "success_rate": 0.95,
+      "how": "aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Update the service to use the new task definition revision",
+      "success_rate": 0.92,
+      "how": "aws ecs update-service --cluster my-cluster --service my-service --task-definition my-task:NEW_REVISION",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use deployment circuit breaker to auto-rollback failed deployments",
+      "success_rate": 0.85,
+      "how": "--deployment-configuration 'deploymentCircuitBreaker={enable=true,rollback=true}'",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

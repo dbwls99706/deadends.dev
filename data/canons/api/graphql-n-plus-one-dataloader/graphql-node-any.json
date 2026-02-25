@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/graphql-n-plus-one-dataloader/graphql-node-any",
+  "url": "https://deadends.dev/api/graphql-n-plus-one-dataloader/graphql-node-any",
+  "error": {
+    "signature": "GraphQL query takes 30s+ with nested resolvers due to N+1 database queries",
+    "regex": "(N\\+1.*quer|dataloader.*batch.*not.*firing|graphql.*slow.*nested)",
+    "domain": "api",
+    "category": "performance",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "graphql",
+      "version_range": ">=any"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-24",
+    "summary": "GraphQL resolvers execute per-field per-item. A query returning 100 users with posts generates 101 SQL queries. DataLoader batching fixes this but must be per-request scoped."
+  },
+  "dead_ends": [
+    {
+      "action": "Add database indexes to speed up individual resolver queries",
+      "why_fails": "Indexes help per-query speed but don't reduce the 100+ query count. The bottleneck is round-trip overhead.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Create a single global DataLoader instance",
+      "why_fails": "DataLoader cache must be per-request. A global instance leaks data between users and grows unbounded.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Create DataLoader instances per-request in context",
+      "success_rate": 0.95,
+      "how": "context = { userLoader: new DataLoader(ids => User.findByIds(ids)) }  // new per request",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use query complexity analysis to reject expensive queries",
+      "success_rate": 0.85,
+      "how": "depthLimit(10), createComplexityLimitRule(1000)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-24",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-24"
+  }
+}

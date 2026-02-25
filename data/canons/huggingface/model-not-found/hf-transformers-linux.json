@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/model-not-found/hf-transformers-linux",
+  "url": "https://deadends.dev/huggingface/model-not-found/hf-transformers-linux",
+  "error": {
+    "signature": "OSError: model-org/model-name is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'",
+    "regex": "(is not a local folder|not a valid model identifier|RepositoryNotFoundError|404.*model.*not found|repository.*not.*found.*huggingface)",
+    "domain": "huggingface",
+    "category": "loading_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux",
+    "python": ">=3.9"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-25",
+    "summary": "Model identifier not found on Hugging Face Hub. Typo in model name, private repo, or model was deleted/renamed."
+  },
+  "dead_ends": [
+    {
+      "action": "Search for the model on external mirror sites",
+      "why_fails": "External mirrors may host outdated, tampered, or license-violating copies. Always use the official Hub.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://huggingface.co/docs/hub/models"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Assume the Hub is down and retry later",
+      "why_fails": "If the model ID is wrong, retrying will never work. Verify the model name first.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://huggingface.co/docs/huggingface_hub/guides/download"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify exact model ID on huggingface.co/models",
+      "success_rate": 0.95,
+      "how": "Model IDs are case-sensitive and include the org: 'meta-llama/Llama-2-7b-hf' not 'llama-2-7b'",
+      "sources": [
+        "https://huggingface.co/docs/transformers/"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Authenticate for private or gated models",
+      "success_rate": 0.88,
+      "how": "huggingface-cli login  # then: AutoModel.from_pretrained('model_id', token=True)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check if model was renamed or deprecated and find the new ID",
+      "success_rate": 0.82,
+      "how": "Search huggingface.co/models for the model family; check the model card for migration notes",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-25"
+  }
+}

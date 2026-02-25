@@ -29,14 +29,18 @@
       "action": "Delete install/ and rebuild every time",
       "why_fails": "Loses the speed benefit of symlink install; wastes minutes on full rebuilds",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy files manually into install/",
       "why_fails": "Manual copies get overwritten on next build and mask the real symlink issue",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.ros.org/en/humble/"
+      ],
       "condition": ""
     }
   ],
@@ -71,7 +75,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
-    "evidence_count": 50,
+    "evidence_count": 3,
     "last_verification": "2026-02-24"
   }
 }

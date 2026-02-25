@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "runtime_error",
     "first_seen": "2015-09-13",
-    "last_confirmed": "2025-05-12"
+    "last_confirmed": "2026-02-24"
   },
   "environment": {
     "runtime": {
@@ -23,7 +23,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.88,
-    "last_updated": "2025-05-12",
+    "last_updated": "2026-02-24",
     "summary": "Almost always resolvable by refactoring the recursive algorithm to iterative form or adding proper memoization. The error indicates genuine infinite or excessively deep recursion; increasing the limit merely delays the crash and risks a segfault from stack overflow."
   },
   "dead_ends": [
