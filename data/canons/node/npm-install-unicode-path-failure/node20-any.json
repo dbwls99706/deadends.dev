@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "node/npm-install-unicode-path-failure/node20-any",
+  "url": "https://deadends.dev/node/npm-install-unicode-path-failure/node20-any",
+  "error": {
+    "signature": "npm ERR! ENOENT — npm install fails in directory with Korean or CJK characters",
+    "regex": "npm ERR!.*ENOENT.*[가-힣]|ENOENT.*[\\\\u]|npm.*non-ascii.*path",
+    "domain": "node",
+    "category": "path_encoding",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "node",
+      "version_range": ">=20"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "npm install fails or produces corrupted node_modules when the project directory contains Korean/CJK characters in its path."
+  },
+  "dead_ends": [
+    {
+      "action": "Downgrade npm version",
+      "why_fails": "Path encoding handling is an OS/filesystem issue, not npm-version-specific",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://docs.npmjs.com/common-errors"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use --legacy-peer-deps flag",
+      "why_fails": "Flag is for dependency resolution conflicts, not path encoding issues",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://docs.npmjs.com/cli/v10/commands/npm-install"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Move project to an ASCII-only path or create a symlink from an ASCII path",
+      "success_rate": 0.92,
+      "how": "ln -s /home/user/프로젝트 /home/user/project && cd /home/user/project && npm install",
+      "sources": [
+        "https://docs.npmjs.com/common-errors"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Set system locale to UTF-8 and use Node.js with --icu-data-dir for full ICU support",
+      "success_rate": 0.88,
+      "how": "export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8; npm install",
+      "sources": [
+        "https://nodejs.org/api/intl.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

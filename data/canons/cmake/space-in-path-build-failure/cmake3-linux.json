@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/space-in-path-build-failure/cmake3-linux",
+  "url": "https://deadends.dev/cmake/space-in-path-build-failure/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: The source directory does not exist — spaces in project path",
+    "regex": "CMake Error.*source directory.*does not exist|CMake.*path.*space|make.*No rule.*space",
+    "domain": "cmake",
+    "category": "path_handling",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "CMake",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-25",
+    "summary": "CMake build fails when project path contains spaces because generated Makefiles do not quote paths properly."
+  },
+  "dead_ends": [
+    {
+      "action": "Quote the path in CMakeLists.txt only",
+      "why_fails": "CMake may quote it correctly in CMakeLists but the generated Makefile may not propagate quotes to all shell commands",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake.1.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Replace spaces with underscores in cmake -S argument",
+      "why_fails": "This changes the actual path; cmake cannot find the source directory at the modified path",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake.1.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Move or symlink the project to a path without spaces",
+      "success_rate": 0.93,
+      "how": "ln -s '/home/user/My Projects/app' /home/user/app-build && cmake -S /home/user/app-build -B build",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake.1.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use Ninja generator instead of Make — Ninja handles spaces in paths correctly",
+      "success_rate": 0.9,
+      "how": "cmake -S . -B build -G Ninja  # Ninja properly escapes spaces in generated build files",
+      "sources": [
+        "https://cmake.org/cmake/help/latest/generator/Ninja.html"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}

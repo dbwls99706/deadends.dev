@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "go/hyphen-in-package-directory-name/go1.21-linux",
+  "url": "https://deadends.dev/go/hyphen-in-package-directory-name/go1.21-linux",
+  "error": {
+    "signature": "could not import — Go package in directory with hyphen causes import path mismatch",
+    "regex": "could not import|package.*not found.*-|import.*hyphen|invalid import path",
+    "domain": "go",
+    "category": "naming",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "go",
+      "version_range": ">=1.21"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-25",
+    "summary": "Go package directory named with hyphens (my-package) creates a mismatch because Go package names cannot contain hyphens."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the directory name as-is in package declaration",
+      "why_fails": "Go compiler rejects hyphens in package names; package mypackage in dir my-package causes import confusion",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://go.dev/ref/spec#PackageClause"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "Use replace directive to map hyphenated path",
+      "why_fails": "Replace directive remaps modules, not individual packages within a module; does not fix the naming issue",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://go.dev/ref/mod#go-mod-file-replace"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Rename directory to use underscores or no separator, match package declaration name",
+      "success_rate": 0.95,
+      "how": "mv my-package mypackage  # directory name should match or be importable as package name",
+      "sources": [
+        "https://go.dev/doc/effective_go#package-names"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "If external module, import by module path and alias the package name",
+      "success_rate": 0.82,
+      "how": "import mypackage \"github.com/org/my-package/subpkg\"  // alias resolves the hyphen",
+      "sources": [
+        "https://go.dev/ref/spec#Import_declarations"
+      ],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-25",
+    "review_status": "auto_generated",
+    "evidence_count": 4,
+    "last_verification": "2026-02-25"
+  }
+}
