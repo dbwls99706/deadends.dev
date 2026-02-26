@@ -11,7 +11,7 @@ Reading the response:
 
 This saves tokens and time by avoiding known-failed approaches.
 
-Supported domains: python, node, docker, cuda, git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs, react, java, database, cicd, php, dotnet, networking.
+Supported domains (43): python, node, docker, cuda, git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs, react, java, database, cicd, php, dotnet, networking, android, api, cloud, cmake, communication, data, elasticsearch, embedded, flutter, grpc, huggingface, kafka, llm, mongodb, nginx, opencv, policy, pytorch, redis, ros2, security, tensorflow, unity.
 
 MCP tools: lookup_error, get_error_detail, search_errors, batch_lookup, get_error_chain, list_error_domains, list_errors_by_domain, get_domain_stats.
 
