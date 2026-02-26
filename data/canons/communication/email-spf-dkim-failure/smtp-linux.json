@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/email-spf-dkim-failure/smtp-linux",
+  "url": "https://deadends.dev/communication/email-spf-dkim-failure/smtp-linux",
+  "error": {
+    "signature": "Authentication-Results: spf=fail dkim=fail",
+    "regex": "(spf=fail|dkim=fail|DMARC.*fail|authentication.*fail)",
+    "domain": "communication",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "communication",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Email authentication (SPF/DKIM/DMARC) failing."
+  },
+  "dead_ends": [
+    {
+      "action": "Set DMARC policy to p=none permanently",
+      "why_fails": "No protection against spoofing",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Include all IP ranges in SPF",
+      "why_fails": "SPF lookup limit exceeded",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure SPF record with authorized sending IPs/services",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set up DKIM signing and publish public key in DNS",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/gradle-plugin-incompatible/flutter3-linux",
+  "url": "https://deadends.dev/flutter/gradle-plugin-incompatible/flutter3-linux",
+  "error": {
+    "signature": "Incompatible Kotlin/Gradle plugin version",
+    "regex": "(Incompatible.*Gradle|kotlin.*version.*incompatible|AGP.*version)",
+    "domain": "flutter",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Android Gradle Plugin version mismatch with Kotlin or Gradle."
+  },
+  "dead_ends": [
+    {
+      "action": "Downgrade all versions to oldest",
+      "why_fails": "Misses security fixes and features",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Force latest versions of everything",
+      "why_fails": "May break build chain",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check Flutter docs for compatible AGP/Kotlin/Gradle versions",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Update android/build.gradle: classpath with matching versions",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

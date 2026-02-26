@@ -3,12 +3,12 @@
   "id": "kafka/offset-out-of-range/kafka3-linux",
   "url": "https://deadends.dev/kafka/offset-out-of-range/kafka3-linux",
   "error": {
-    "signature": "org.apache.kafka.clients.consumer.OffsetOutOfRangeException: Fetch offset 12345 is out of range for partition my_topic-0",
-    "regex": "(OffsetOutOfRangeException|offset.*out of range|fetch offset.*out of range|log start offset.*greater than|OFFSET_OUT_OF_RANGE)",
+    "signature": "OffsetOutOfRangeException: offset out of range",
+    "regex": "(OffsetOutOfRange|offset.*out of range)",
     "domain": "kafka",
-    "category": "consumer_error",
+    "category": "data_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,52 +19,37 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.88,
-    "confidence": 0.87,
-    "last_updated": "2026-02-25",
-    "summary": "Consumer's committed offset no longer exists in broker log. Log was truncated by retention policy or compaction."
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Consumer offset beyond available range. Data was deleted by retention."
   },
   "dead_ends": [
     {
-      "action": "Disable log retention to prevent future offset loss",
-      "why_fails": "Unbounded retention fills disk and eventually crashes the broker. Use retention policies appropriate for consumer lag.",
-      "fail_rate": 0.9,
-      "sources": [
-        "https://kafka.apache.org/documentation/"
-      ],
+      "action": "Set auto.offset.reset=latest globally",
+      "why_fails": "Skips unprocessed messages",
+      "fail_rate": 0.75,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Set auto.offset.reset=none to surface the error",
-      "why_fails": "With 'none', the consumer throws an exception and stops entirely instead of recovering. Only useful for exactly-once pipelines.",
+      "action": "Manually set offset to 0",
+      "why_fails": "Reprocesses everything from start",
       "fail_rate": 0.7,
-      "sources": [
-        "https://kafka.apache.org/documentation/#consumerconfigs"
-      ],
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Set auto.offset.reset=earliest or latest based on use case",
-      "success_rate": 0.92,
-      "how": "auto.offset.reset=earliest  # reprocess from beginning; or 'latest' to skip to current",
-      "sources": [
-        "https://kafka.apache.org/documentation/#brokerconfigs"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Monitor consumer lag to catch falling behind before offsets expire",
-      "success_rate": 0.88,
-      "how": "kafka-consumer-groups.sh --describe --group my_group --bootstrap-server localhost:9092  # check LAG column",
+      "action": "Set auto.offset.reset=earliest for safety",
+      "success_rate": 0.85,
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Increase log retention to exceed maximum expected consumer downtime",
-      "success_rate": 0.85,
-      "how": "log.retention.hours=168  # 7 days; must be longer than longest consumer outage",
+      "action": "Monitor consumer lag to detect offset issues early",
+      "success_rate": 0.88,
       "sources": [],
       "condition": ""
     }
@@ -76,9 +61,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

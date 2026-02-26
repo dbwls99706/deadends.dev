@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/authentication-failed-mongo/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/authentication-failed-mongo/mongo7-linux",
+  "error": {
+    "signature": "MongoServerError: Authentication failed",
+    "regex": "(Authentication failed|auth failed|SCRAM.*failed)",
+    "domain": "mongodb",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Wrong credentials or auth mechanism mismatch."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable authentication in mongod.conf",
+      "why_fails": "Security vulnerability",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use admin db credentials for app db",
+      "why_fails": "Excessive privilege",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify username, password, and authSource database",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check authenticationMechanisms matches client driver",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

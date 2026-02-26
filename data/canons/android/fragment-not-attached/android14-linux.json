@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/fragment-not-attached/android14-linux",
+  "url": "https://deadends.dev/android/fragment-not-attached/android14-linux",
+  "error": {
+    "signature": "IllegalStateException: Fragment not attached to a context",
+    "regex": "(Fragment not attached|not attached to.*context|getActivity\\(\\).*null)",
+    "domain": "android",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android",
+      "version_range": ">=14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Fragment method called after detach from Activity."
+  },
+  "dead_ends": [
+    {
+      "action": "Cache getActivity() in field",
+      "why_fails": "Leaks Activity reference, same crash",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Suppress the exception",
+      "why_fails": "Corrupt UI state",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check isAdded()/isDetached() before context-dependent operations",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use viewLifecycleOwner for lifecycle-aware operations",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

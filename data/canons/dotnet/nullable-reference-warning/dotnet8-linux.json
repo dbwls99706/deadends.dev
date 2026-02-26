@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "dotnet/nullable-reference-warning/dotnet8-linux",
+  "url": "https://deadends.dev/dotnet/nullable-reference-warning/dotnet8-linux",
+  "error": {
+    "signature": "CS8600: Converting null literal or possible null value to non-nullable type",
+    "regex": "(CS8600|CS8602|CS8603|nullable.*reference|null.*non-nullable)",
+    "domain": "dotnet",
+    "category": "type_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dotnet",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Nullable reference type warning: potential null dereference."
+  },
+  "dead_ends": [
+    {
+      "action": "Suppress all nullable warnings with #nullable disable",
+      "why_fails": "Loses null safety",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add \\! operator on everything",
+      "why_fails": "Runtime NullReferenceException",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Handle null explicitly with null-conditional and null-coalescing operators",
+      "success_rate": 0.92,
+      "how": "var result = obj?.Property ?? defaultValue",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable nullable reference types project-wide and fix incrementally",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

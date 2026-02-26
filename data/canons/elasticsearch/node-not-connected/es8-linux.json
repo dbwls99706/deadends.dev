@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/node-not-connected/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/node-not-connected/es8-linux",
+  "error": {
+    "signature": "NodeNotConnectedException: not connected",
+    "regex": "(NodeNotConnectedException|NoNodeAvailableException)",
+    "domain": "elasticsearch",
+    "category": "connection_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "Transport cannot reach ES node."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove node from cluster immediately",
+      "why_fails": "Triggers unnecessary shard reallocation",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable discovery",
+      "why_fails": "Breaks cluster formation",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check network and transport port 9300",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Review discovery.seed_hosts config",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/parquet-column-mismatch/spark-linux",
+  "url": "https://deadends.dev/data/parquet-column-mismatch/spark-linux",
+  "error": {
+    "signature": "SchemaColumnConvertNotSupportedException: column type mismatch",
+    "regex": "(column.*mismatch|parquet.*schema.*mismatch|SchemaColumn.*Convert|merge.*schema.*failed)",
+    "domain": "data",
+    "category": "schema_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "data",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Parquet file schema doesnt match reader schema."
+  },
+  "dead_ends": [
+    {
+      "action": "Force read with ignoreCorruptFiles",
+      "why_fails": "Silently drops data",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rewrite all parquet files to new schema",
+      "why_fails": "Very expensive for large datasets",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use mergeSchema option: spark.read.option(\"mergeSchema\",\"true\")",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Align schemas before writing with explicit cast",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

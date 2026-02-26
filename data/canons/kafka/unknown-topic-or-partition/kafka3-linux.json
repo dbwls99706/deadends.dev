@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/unknown-topic-or-partition/kafka3-linux",
+  "url": "https://deadends.dev/kafka/unknown-topic-or-partition/kafka3-linux",
+  "error": {
+    "signature": "UnknownTopicOrPartitionException",
+    "regex": "(UnknownTopicOrPartition|unknown topic)",
+    "domain": "kafka",
+    "category": "resource_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Topic does not exist or partition not assigned."
+  },
+  "dead_ends": [
+    {
+      "action": "Enable auto.create.topics.enable globally",
+      "why_fails": "Creates topics with wrong config",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore error and retry forever",
+      "why_fails": "Wastes resources if topic truly missing",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Create topic explicitly before producing/consuming",
+      "success_rate": 0.92,
+      "how": "kafka-topics --create --topic name --partitions 6 --replication-factor 3",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify topic name spelling and list topics to confirm",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

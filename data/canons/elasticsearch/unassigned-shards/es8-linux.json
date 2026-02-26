@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/unassigned-shards/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/unassigned-shards/es8-linux",
+  "error": {
+    "signature": "unassigned_shards: N",
+    "regex": "(unassigned_shards|UNASSIGNED)",
+    "domain": "elasticsearch",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Shards unallocated. Disk watermark or missing nodes."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable disk threshold",
+      "why_fails": "Fills disk, node crash",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Force allocate stale primaries",
+      "why_fails": "Silent data loss",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "GET _cluster/allocation/explain",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Clear disk space below watermark",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

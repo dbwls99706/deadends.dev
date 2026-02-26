@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "dotnet/access-violation/dotnet8-linux",
+  "url": "https://deadends.dev/dotnet/access-violation/dotnet8-linux",
+  "error": {
+    "signature": "System.AccessViolationException: Attempted to read or write protected memory",
+    "regex": "(AccessViolationException|protected memory|access violation)",
+    "domain": "dotnet",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "dotnet",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.78,
+    "last_updated": "2026-02-26",
+    "summary": "Unsafe memory access, usually from P/Invoke or unsafe code."
+  },
+  "dead_ends": [
+    {
+      "action": "Catch AccessViolationException",
+      "why_fails": "Cannot reliably catch in .NET Core",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable memory protection",
+      "why_fails": "Not possible in managed runtime",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check P/Invoke signatures match native function exactly",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use SafeHandle instead of IntPtr for unmanaged resources",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

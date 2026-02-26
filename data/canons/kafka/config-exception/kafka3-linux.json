@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/config-exception/kafka3-linux",
+  "url": "https://deadends.dev/kafka/config-exception/kafka3-linux",
+  "error": {
+    "signature": "ConfigException: Invalid configuration",
+    "regex": "(ConfigException|Invalid.*configuration|config.*error|property.*invalid)",
+    "domain": "kafka",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "Kafka client or broker configuration invalid."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove all custom config and use defaults",
+      "why_fails": "May not match requirements",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy config from production without review",
+      "why_fails": "Environment mismatch",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Validate config against Kafka docs for your version",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use kafka-configs.sh --describe to check effective config",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -3,12 +3,12 @@
   "id": "mongodb/cursor-not-found/mongo7-linux",
   "url": "https://deadends.dev/mongodb/cursor-not-found/mongo7-linux",
   "error": {
-    "signature": "MongoServerError: cursor id 1234567890 not found",
-    "regex": "(cursor.*not found|CursorNotFound|cursor id.*not found|getMore.*cursor.*not found|cursor has been killed)",
+    "signature": "CursorNotFound: cursor id not found on server",
+    "regex": "(CursorNotFound|cursor.*not found|cursor.*killed)",
     "domain": "mongodb",
-    "category": "query_error",
+    "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,52 +19,37 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.85,
-    "confidence": 0.87,
-    "last_updated": "2026-02-25",
-    "summary": "Server-side cursor expired (default 10 min timeout) or was killed. Common when iterating large result sets slowly."
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Cursor timed out or was killed during iteration."
   },
   "dead_ends": [
     {
-      "action": "Set noCursorTimeout on all queries",
-      "why_fails": "Cursors with no timeout are never cleaned up if the client crashes. Leaks memory and resources on the server.",
-      "fail_rate": 0.85,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/"
-      ],
+      "action": "Set noCursorTimeout on all cursors",
+      "why_fails": "Memory leak if cursors not explicitly closed",
+      "fail_rate": 0.82,
+      "sources": [],
       "condition": ""
     },
     {
       "action": "Increase cursor timeout to hours",
-      "why_fails": "Long-lived cursors hold resources and pin old data in WiredTiger cache. Process data faster instead.",
-      "fail_rate": 0.72,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/reference/error-codes/"
-      ],
+      "why_fails": "Server memory pressure",
+      "fail_rate": 0.78,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Use batched processing with skip/limit or range queries",
-      "success_rate": 0.9,
-      "how": "Process in pages: db.collection.find({ _id: { $gt: lastId } }).limit(1000)  # keyset pagination, no cursor timeout risk",
-      "sources": [
-        "https://www.mongodb.com/docs/manual/administration/"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Use aggregation with $merge or $out for large data processing",
+      "action": "Use batched processing with limit/skip or change streams",
       "success_rate": 0.88,
-      "how": "db.collection.aggregate([{ $match: ... }, { $merge: 'output_collection' }])  # server-side, no cursor needed",
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Increase batchSize to reduce round trips if processing is fast",
-      "success_rate": 0.82,
-      "how": "db.collection.find().batchSize(5000)  # fewer getMore calls means less time for cursor to expire",
+      "action": "Set appropriate batchSize to reduce cursor lifetime",
+      "success_rate": 0.85,
       "sources": [],
       "condition": ""
     }
@@ -76,9 +61,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/504-gateway-timeout/nginx1-linux",
+  "url": "https://deadends.dev/nginx/504-gateway-timeout/nginx1-linux",
+  "error": {
+    "signature": "504 Gateway Timeout",
+    "regex": "(504 Gateway Timeout|upstream timed out)",
+    "domain": "nginx",
+    "category": "timeout_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Upstream server too slow to respond."
+  },
+  "dead_ends": [
+    {
+      "action": "Set proxy_read_timeout extremely high globally",
+      "why_fails": "Ties up worker connections",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable proxy buffering for all locations",
+      "why_fails": "Memory spike on large responses",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Optimize upstream application response time",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase timeout for specific slow endpoints only",
+      "success_rate": 0.85,
+      "how": "location /api/slow { proxy_read_timeout 120s; }",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

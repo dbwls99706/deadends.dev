@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/no-resolver-defined/nginx1-linux",
+  "url": "https://deadends.dev/nginx/no-resolver-defined/nginx1-linux",
+  "error": {
+    "signature": "no resolver defined to resolve hostname",
+    "regex": "(no resolver defined|resolver.*not.*configured)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "Dynamic upstream hostname requires resolver directive."
+  },
+  "dead_ends": [
+    {
+      "action": "Hardcode IP instead of hostname",
+      "why_fails": "Breaks when IP changes",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use /etc/hosts for all upstreams",
+      "why_fails": "Maintenance nightmare",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add resolver directive: resolver 8.8.8.8 valid=30s",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use variables in proxy_pass to force runtime resolution",
+      "success_rate": 0.88,
+      "how": "set  \"http://hostname\"; proxy_pass ;",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

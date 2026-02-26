@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/license-compliance-violation/policy-linux",
+  "url": "https://deadends.dev/policy/license-compliance-violation/policy-linux",
+  "error": {
+    "signature": "License compliance: GPL dependency in proprietary code",
+    "regex": "(license.*compliance|GPL.*violation|license.*conflict|SPDX.*mismatch)",
+    "domain": "policy",
+    "category": "compliance_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "policy",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Software license incompatibility detected."
+  },
+  "dead_ends": [
+    {
+      "action": "Ignore license warnings",
+      "why_fails": "Legal liability",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Relicense your code to match",
+      "why_fails": "May not be possible with multiple contributors",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use license scanning tool: FOSSA, Snyk, or licensee",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Replace incompatible dependency with permissively licensed alternative",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

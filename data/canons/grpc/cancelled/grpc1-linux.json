@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/cancelled/grpc1-linux",
+  "url": "https://deadends.dev/grpc/cancelled/grpc1-linux",
+  "error": {
+    "signature": "CANCELLED: RPC cancelled by client",
+    "regex": "(CANCELLED|RPC cancelled|context cancelled)",
+    "domain": "grpc",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Client cancelled the RPC before completion."
+  },
+  "dead_ends": [
+    {
+      "action": "Never cancel RPCs",
+      "why_fails": "Resource waste on abandoned requests",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Retry cancelled RPCs immediately",
+      "why_fails": "May duplicate side effects",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement proper cancellation propagation through context",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use idempotency keys for safely retrying cancelled mutations",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

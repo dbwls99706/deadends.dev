@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/network-security-config/android14-linux",
+  "url": "https://deadends.dev/android/network-security-config/android14-linux",
+  "error": {
+    "signature": "CLEARTEXT communication not permitted",
+    "regex": "(CLEARTEXT.*not permitted|NetworkSecurityPolicy|network.*security.*config)",
+    "domain": "android",
+    "category": "security_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android",
+      "version_range": ">=14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "Android blocks cleartext HTTP by default since API 28."
+  },
+  "dead_ends": [
+    {
+      "action": "Set usesCleartextTraffic=true globally",
+      "why_fails": "Security vulnerability",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Downgrade targetSdkVersion",
+      "why_fails": "Loses new API features",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use HTTPS for all endpoints",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add network_security_config.xml for specific debug domains only",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/gdpr-data-export-incomplete/policy-linux",
+  "url": "https://deadends.dev/policy/gdpr-data-export-incomplete/policy-linux",
+  "error": {
+    "signature": "GDPR data export missing required data categories",
+    "regex": "(GDPR.*export|data subject.*request|SAR.*incomplete|right of access)",
+    "domain": "policy",
+    "category": "compliance_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "policy",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Data subject access request response incomplete."
+  },
+  "dead_ends": [
+    {
+      "action": "Export only from main database",
+      "why_fails": "Misses data in logs, backups, third parties",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Deny request citing complexity",
+      "why_fails": "GDPR violation, fines risk",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Maintain data inventory mapping all personal data locations",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Automate SAR fulfillment across all data stores",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

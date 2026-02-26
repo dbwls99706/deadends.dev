@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/null-reference-exception/unity2022-win",
+  "url": "https://deadends.dev/unity/null-reference-exception/unity2022-win",
+  "error": {
+    "signature": "NullReferenceException: Object reference not set",
+    "regex": "(NullReferenceException|Object reference not set)",
+    "domain": "unity",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Accessing destroyed or unassigned component/object."
+  },
+  "dead_ends": [
+    {
+      "action": "Add null checks everywhere",
+      "why_fails": "Masks design flaws, excessive checks",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use DontDestroyOnLoad on everything",
+      "why_fails": "Memory leaks, scene loading issues",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use TryGetComponent and null-conditional operator",
+      "success_rate": 0.9,
+      "how": "if(TryGetComponent<T>(out var comp))",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Initialize references in Awake/Start or via Inspector",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

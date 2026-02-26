@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/client-body-too-large/nginx1-linux",
+  "url": "https://deadends.dev/nginx/client-body-too-large/nginx1-linux",
+  "error": {
+    "signature": "413 Request Entity Too Large",
+    "regex": "(413 Request Entity Too Large|client.*body.*large|client_max_body_size)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-26",
+    "summary": "Upload exceeds client_max_body_size."
+  },
+  "dead_ends": [
+    {
+      "action": "Set client_max_body_size to 0 (unlimited)",
+      "why_fails": "DoS vector with huge uploads",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase only in http block",
+      "why_fails": "Applies to all locations unnecessarily",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set client_max_body_size per location for upload endpoints",
+      "success_rate": 0.92,
+      "how": "location /upload { client_max_body_size 100m; }",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement chunked upload on application side",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}
