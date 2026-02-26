@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/perspective-transform-error/cv4-linux",
+  "url": "https://deadends.dev/opencv/perspective-transform-error/cv4-linux",
+  "error": {
+    "signature": "cv::getPerspectiveTransform: invalid input points",
+    "regex": "(getPerspectiveTransform.*error|perspective.*invalid|warpPerspective.*error|4 points.*required)",
+    "domain": "opencv",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.8"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Perspective transform received invalid or collinear points."
+  },
+  "dead_ends": [
+    {
+      "action": "Use affine transform as fallback",
+      "why_fails": "Only 3-point mapping",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add random jitter to points",
+      "why_fails": "Inaccurate transform",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure 4 non-collinear points in correct order (TL, TR, BR, BL)",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate points form a convex quadrilateral before transformation",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

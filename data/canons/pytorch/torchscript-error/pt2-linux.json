@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pytorch/torchscript-error/pt2-linux",
+  "url": "https://deadends.dev/pytorch/torchscript-error/pt2-linux",
+  "error": {
+    "signature": "RuntimeError: TorchScript failed to compile model",
+    "regex": "(TorchScript.*failed|torch.jit.script.*error|compilation.*error.*script)",
+    "domain": "pytorch",
+    "category": "compilation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pytorch",
+      "version_range": ">=2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "TorchScript compilation failed due to unsupported Python features."
+  },
+  "dead_ends": [
+    {
+      "action": "Use torch.jit.trace instead",
+      "why_fails": "Only captures one execution path",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove TorchScript entirely",
+      "why_fails": "Loses deployment optimization",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Annotate types in forward(): use Tensor, int, float, bool",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Avoid dynamic Python features: comprehensions, **kwargs, generators",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

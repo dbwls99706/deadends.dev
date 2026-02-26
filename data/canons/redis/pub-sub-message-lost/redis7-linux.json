@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/pub-sub-message-lost/redis7-linux",
+  "url": "https://deadends.dev/redis/pub-sub-message-lost/redis7-linux",
+  "error": {
+    "signature": "Pub/Sub: messages lost during subscriber disconnect",
+    "regex": "(pub.*sub.*lost|message.*lost|subscriber.*disconnect|pubsub.*gap)",
+    "domain": "redis",
+    "category": "data_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "Redis Pub/Sub messages lost when subscriber disconnects."
+  },
+  "dead_ends": [
+    {
+      "action": "Use large buffer to store messages",
+      "why_fails": "Memory exhaustion",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Send messages multiple times",
+      "why_fails": "Duplicates for connected subscribers",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Redis Streams instead of Pub/Sub for durable messaging",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement message acknowledgment with consumer groups",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

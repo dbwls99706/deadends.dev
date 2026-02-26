@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/unity-build-error/cmake3-linux",
+  "url": "https://deadends.dev/cmake/unity-build-error/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: unity build compilation failed",
+    "regex": "(unity build.*failed|UNITY_BUILD.*error|jumbo.*build.*error)",
+    "domain": "cmake",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "CMake unity (jumbo) build failed due to symbol conflicts."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable unity build globally",
+      "why_fails": "Slower compilation",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Merge all sources into one file",
+      "why_fails": "Manual and unmaintainable",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Exclude problematic files: set_source_files_properties(f PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use anonymous namespaces to prevent symbol conflicts",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

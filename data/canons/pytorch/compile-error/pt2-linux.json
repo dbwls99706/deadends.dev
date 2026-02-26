@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pytorch/compile-error/pt2-linux",
+  "url": "https://deadends.dev/pytorch/compile-error/pt2-linux",
+  "error": {
+    "signature": "RuntimeError: torch.compile failed for model",
+    "regex": "(torch.compile.*failed|dynamo.*error|compile.*backend.*error|inductor.*error)",
+    "domain": "pytorch",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pytorch",
+      "version_range": ">=2.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "torch.compile() failed on model graph."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable torch.compile entirely",
+      "why_fails": "Loses 2x speedup",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Force fullgraph=True",
+      "why_fails": "Fails on more models",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use mode=\"reduce-overhead\" for most models",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Wrap problematic operations in torch.compiler.disable()",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

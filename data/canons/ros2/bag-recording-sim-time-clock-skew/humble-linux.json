@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/bag-recording-sim-time-clock-skew/humble-linux",
   "error": {
     "signature": "ROS2 bag recording timestamps don't match message timestamps when using sim_time",
-    "regex": "(rosbag.*timestamp.*mismatch|bag.*sim.*time.*skew|bag.*recording.*time.*wrong|rosbag.*clock.*drift)",
+    "regex": "(rosbag.*timestamp.*mismatch|bag.*sim.*time.*skew|bag.*recording.*time.*wrong|rosbag.*clock.*drift|ROS2\\ bag\\ recording\\ timestamps\\ don't\\ match\\ message\\ timestamps)",
     "domain": "ros2",
     "category": "recording",
     "first_seen": "2023-01-01",

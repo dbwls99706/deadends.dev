@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "opencv/color-conversion-error/cv4-linux",
+  "url": "https://deadends.dev/opencv/color-conversion-error/cv4-linux",
+  "error": {
+    "signature": "cv::error: Assertion failed in cvtColor: invalid conversion code",
+    "regex": "(cvtColor.*error|invalid conversion|color.*conversion.*assertion)",
+    "domain": "opencv",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "opencv",
+      "version_range": ">=4.8"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Color space conversion code invalid for input image."
+  },
+  "dead_ends": [
+    {
+      "action": "Chain multiple conversions",
+      "why_fails": "Loses color information at each step",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Skip color conversion",
+      "why_fails": "Wrong color space for algorithm",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match conversion code to input channels: BGR2GRAY for 3-channel",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check input image channels: img.shape to verify before conversion",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

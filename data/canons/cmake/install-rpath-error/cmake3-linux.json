@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/install-rpath-error/cmake3-linux",
+  "url": "https://deadends.dev/cmake/install-rpath-error/cmake3-linux",
+  "error": {
+    "signature": "Runtime error: shared library not found after install",
+    "regex": "(shared library.*not found|RPATH.*error|ld.so.*cannot find|install.*rpath)",
+    "domain": "cmake",
+    "category": "link_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Installed binary cant find shared libraries at runtime."
+  },
+  "dead_ends": [
+    {
+      "action": "Set LD_LIBRARY_PATH globally",
+      "why_fails": "Not portable, fragile",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use -Wl,-rpath with absolute paths",
+      "why_fails": "Breaks on different install prefix",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set CMAKE_INSTALL_RPATH: set(CMAKE_INSTALL_RPATH \"/../lib\")",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable CMAKE_INSTALL_RPATH_USE_LINK_RPATH for build-tree rpaths",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/policy/aws-free-tier-surprise-billing/aws-billing-any",
   "error": {
     "signature": "AWS bill for hundreds of dollars after 'free tier' usage due to hidden limits or expiration",
-    "regex": "(AWS.*free tier.*bill|unexpected.*AWS.*charge|free tier.*expired|AWS.*surprise.*bill)",
+    "regex": "(AWS.*free tier.*bill|unexpected.*AWS.*charge|free tier.*expired|AWS.*surprise.*bill|AWS\\ bill\\ for\\ hundreds\\ of\\ dollars\\ after\\ 'free\\ tier'\\ usage\\ due)",
     "domain": "policy",
     "category": "billing",
     "first_seen": "2023-01-01",

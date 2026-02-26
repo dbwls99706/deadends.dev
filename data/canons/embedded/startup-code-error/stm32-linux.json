@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/startup-code-error/stm32-linux",
+  "url": "https://deadends.dev/embedded/startup-code-error/stm32-linux",
+  "error": {
+    "signature": "HardFault immediately after reset: startup code error",
+    "regex": "(HardFault.*reset|startup.*error|vector table.*wrong|Reset_Handler.*fault)",
+    "domain": "embedded",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.78,
+    "last_updated": "2026-02-26",
+    "summary": "Firmware crashes at startup due to initialization error."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable all initialization code",
+      "why_fails": "Peripherals not configured",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Boot from RAM",
+      "why_fails": "Volatile, lost on power cycle",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify vector table address matches linker script: VTOR register",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check stack pointer initialization and heap/stack overlap",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/dma-buffer-cache-coherency/mcu-all",
+  "url": "https://deadends.dev/embedded/dma-buffer-cache-coherency/mcu-all",
+  "error": {
+    "signature": "DMA transfer returns stale data from cache",
+    "regex": "(DMA.*cache|cache.*coherency|stale.*data.*DMA|SCB_InvalidateDCache)",
+    "domain": "embedded",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded-mcu",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "DMA reads memory directly but CPU cache holds different data, causing coherency issues."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable all caching",
+      "why_fails": "Destroys performance; D-cache provides 2-10x speedup.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use volatile keyword on DMA buffers",
+      "why_fails": "volatile only prevents compiler optimization, not hardware cache.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Place DMA buffers in non-cacheable MPU region",
+      "success_rate": 0.88,
+      "how": "Configure MPU region as Device or Non-cacheable for DMA buffers",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Invalidate/clean D-cache before/after DMA transfers",
+      "success_rate": 0.85,
+      "how": "SCB_InvalidateDCache_by_Addr(buf,size) after DMA RX complete",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

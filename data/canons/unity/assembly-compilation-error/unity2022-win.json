@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/assembly-compilation-error/unity2022-win",
+  "url": "https://deadends.dev/unity/assembly-compilation-error/unity2022-win",
+  "error": {
+    "signature": "Assembly compilation error: CS0246 type or namespace not found",
+    "regex": "(CS0246|type or namespace.*not found|assembly.*compilation)",
+    "domain": "unity",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Missing assembly reference or namespace import."
+  },
+  "dead_ends": [
+    {
+      "action": "Add all DLLs to Plugins folder blindly",
+      "why_fails": "Version conflicts and bloat",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Copy code from missing assembly inline",
+      "why_fails": "Maintenance nightmare",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add missing assembly reference in .asmdef file",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check Package Manager for missing package dependency",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

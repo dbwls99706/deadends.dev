@@ -3,8 +3,8 @@
   "id": "cicd/github-actions-space-in-path-artifact/github-actions-any",
   "url": "https://deadends.dev/cicd/github-actions-space-in-path-artifact/github-actions-any",
   "error": {
-    "signature": "upload-artifact fails — path with spaces not properly quoted in GitHub Actions",
-    "regex": "upload-artifact.*not found|actions.*artifact.*space|ENOENT.*artifact",
+    "signature": "upload-artifact fails \u2014 path with spaces not properly quoted in GitHub Actions",
+    "regex": "(upload-artifact.*not found|actions.*artifact.*space|ENOENT.*artifact|upload\\-artifact\\ fails\\ \u2014\\ path\\ with\\ spaces\\ not\\ properly\\ quoted)",
     "domain": "cicd",
     "category": "path_handling",
     "first_seen": "2023-01-01",

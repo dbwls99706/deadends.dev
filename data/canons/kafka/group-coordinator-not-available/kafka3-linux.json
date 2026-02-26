@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/group-coordinator-not-available/kafka3-linux",
+  "url": "https://deadends.dev/kafka/group-coordinator-not-available/kafka3-linux",
+  "error": {
+    "signature": "GroupCoordinatorNotAvailableException",
+    "regex": "(GroupCoordinator.*NotAvailable|coordinator.*not available|group.*coordinator)",
+    "domain": "kafka",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Consumer group coordinator broker unavailable."
+  },
+  "dead_ends": [
+    {
+      "action": "Switch consumer group name",
+      "why_fails": "Loses committed offsets",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable group management",
+      "why_fails": "Loses auto-rebalancing",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wait and retry: coordinator elected automatically after broker recovery",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check broker cluster health and ensure offsets topic is replicated",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

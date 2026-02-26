@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/github-lfs-bandwidth/gh-all",
+  "url": "https://deadends.dev/policy/github-lfs-bandwidth/gh-all",
+  "error": {
+    "signature": "Error: Git LFS bandwidth limit exceeded",
+    "regex": "(LFS bandwidth|lfs.*limit|bandwidth.*exceeded)",
+    "domain": "policy",
+    "category": "quota_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "git-lfs",
+      "version_range": ">=3.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Git LFS bandwidth quota exceeded for the billing period. Free tier has 1GB bandwidth/month."
+  },
+  "dead_ends": [
+    {
+      "action": "Keep retrying the push",
+      "why_fails": "Bandwidth is a monthly quota - retrying consumes more bandwidth.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch to different GitHub account",
+      "why_fails": "LFS objects are tied to the repo, not the account.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use git-lfs-migrate to move large files to external storage",
+      "success_rate": 0.85,
+      "how": "git lfs migrate export --include=\"*.bin\" --everything",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Upgrade GitHub plan or purchase additional LFS data packs",
+      "success_rate": 0.9,
+      "how": "GitHub Settings > Billing > Git LFS Data",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

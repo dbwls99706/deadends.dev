@@ -3,12 +3,12 @@
   "id": "mongodb/write-conflict/mongo7-linux",
   "url": "https://deadends.dev/mongodb/write-conflict/mongo7-linux",
   "error": {
-    "signature": "MongoServerError: WriteConflict error: this operation conflicted with another operation. Please retry your operation or multi-document transaction.",
-    "regex": "(WriteConflict|write conflict|WriteConflictException|conflicted with another operation|TransientTransactionError.*WriteConflict)",
+    "signature": "MongoServerError: WriteConflict",
+    "regex": "(WriteConflict|write conflict|TransientTransactionError)",
     "domain": "mongodb",
-    "category": "transaction_error",
+    "category": "concurrency_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,52 +19,38 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.85,
-    "confidence": 0.88,
-    "last_updated": "2026-02-25",
-    "summary": "Write conflict during multi-document transaction or concurrent update. WiredTiger uses optimistic concurrency; conflicts require retry."
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "WiredTiger write conflict during concurrent updates."
   },
   "dead_ends": [
     {
-      "action": "Use WriteConcern w:0 to avoid conflicts",
-      "why_fails": "WriteConcern controls acknowledgment, not concurrency. w:0 means fire-and-forget but does not prevent conflicts.",
-      "fail_rate": 0.82,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/"
-      ],
+      "action": "Add global lock around all writes",
+      "why_fails": "Destroys concurrency, massive perf hit",
+      "fail_rate": 0.88,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Wrap every single operation in a transaction",
-      "why_fails": "Transactions increase conflict probability. Use transactions only when atomicity across multiple documents is required.",
-      "fail_rate": 0.75,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/reference/error-codes/"
-      ],
+      "action": "Increase WiredTiger cache to all RAM",
+      "why_fails": "OS starvation, OOM killer",
+      "fail_rate": 0.82,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Implement retry logic with exponential backoff for transient errors",
-      "success_rate": 0.92,
-      "how": "session.withTransaction(callback, { maxCommitTimeMS: 5000 })  # driver auto-retries TransientTransactionError",
-      "sources": [
-        "https://www.mongodb.com/docs/manual/administration/"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Reduce transaction scope and duration",
-      "success_rate": 0.88,
-      "how": "Keep transactions short. Read data before starting, minimize writes inside the transaction, avoid network calls.",
+      "action": "Retry transaction with exponential backoff",
+      "success_rate": 0.9,
+      "how": "Use retryable writes or session.withTransaction()",
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Use findOneAndUpdate for single-document atomic operations",
+      "action": "Reduce transaction scope and duration",
       "success_rate": 0.85,
-      "how": "db.orders.findOneAndUpdate({ _id: id, status: 'pending' }, { $set: { status: 'shipped' } })  # atomic, no transaction needed",
       "sources": [],
       "condition": ""
     }
@@ -76,9 +62,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

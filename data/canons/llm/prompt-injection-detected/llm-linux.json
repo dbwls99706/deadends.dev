@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/prompt-injection-detected/llm-linux",
+  "url": "https://deadends.dev/llm/prompt-injection-detected/llm-linux",
+  "error": {
+    "signature": "Prompt injection attempt detected in user input",
+    "regex": "(prompt injection|jailbreak|instruction.*override|ignore.*previous.*instructions)",
+    "domain": "llm",
+    "category": "security_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.78,
+    "last_updated": "2026-02-26",
+    "summary": "User attempting to override system prompt via injection."
+  },
+  "dead_ends": [
+    {
+      "action": "Filter specific known injection phrases",
+      "why_fails": "Easily bypassed with paraphrasing",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Trust LLM to self-police injection",
+      "why_fails": "Model can be manipulated",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use separate system/user message roles and input sanitization",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement output validation and guardrails post-generation",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

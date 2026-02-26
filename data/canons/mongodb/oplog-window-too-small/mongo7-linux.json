@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/oplog-window-too-small/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/oplog-window-too-small/mongo7-linux",
+  "error": {
+    "signature": "OplogOutOfOrderError: replication window insufficient",
+    "regex": "(oplog.*window|replication.*behind|oplog.*insufficient|sync source.*ahead)",
+    "domain": "mongodb",
+    "category": "replication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Secondary fell behind and oplog window is too small to catch up."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete secondary data and resync",
+      "why_fails": "Very slow for large databases",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Increase oplog to fill entire disk",
+      "why_fails": "Disk space for data reduced",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase oplog size: db.adminCommand({replSetResizeOplog:1, size:10000})",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Monitor replication lag and oplog window size regularly",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/client-header-timeout/nginx1-linux",
+  "url": "https://deadends.dev/nginx/client-header-timeout/nginx1-linux",
+  "error": {
+    "signature": "408 Request Timeout: client header timeout",
+    "regex": "(408.*Request Timeout|client_header_timeout|header.*timeout)",
+    "domain": "nginx",
+    "category": "timeout_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Client took too long to send request headers."
+  },
+  "dead_ends": [
+    {
+      "action": "Set client_header_timeout very high",
+      "why_fails": "Slowloris attack vector",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable timeout entirely",
+      "why_fails": "DoS vulnerability",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set reasonable timeout: client_header_timeout 10s",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use rate limiting module to protect against slow clients",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

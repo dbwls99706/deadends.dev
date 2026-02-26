@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/replicaset-no-primary/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/replicaset-no-primary/mongo7-linux",
+  "error": {
+    "signature": "MongoServerSelectionError: no primary available",
+    "regex": "(no primary|MongoServerSelection|primary.*not.*available|ReplicaSetNoPrimary)",
+    "domain": "mongodb",
+    "category": "cluster_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Replica set has no elected primary."
+  },
+  "dead_ends": [
+    {
+      "action": "Force step-down on all members",
+      "why_fails": "Worsens election, no primary",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Convert to standalone",
+      "why_fails": "Loses replication benefits",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check rs.status() and ensure majority of members are reachable",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify network connectivity between replica set members",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

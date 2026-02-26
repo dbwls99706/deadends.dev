@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/max-bson-size/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/max-bson-size/mongo7-linux",
+  "error": {
+    "signature": "MongoServerError: BSONObj size exceeds 16MB limit",
+    "regex": "(BSONObj.*size.*exceeds|document.*too large|16MB|BSON.*limit)",
+    "domain": "mongodb",
+    "category": "data_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Document exceeds 16MB BSON size limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase BSON limit",
+      "why_fails": "Not configurable in MongoDB",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compress document contents",
+      "why_fails": "Still exceeds limit after decompression for queries",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use GridFS for large binary data",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Normalize data: split large arrays into separate collection with references",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

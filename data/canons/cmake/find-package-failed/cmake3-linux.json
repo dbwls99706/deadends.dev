@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/find-package-failed/cmake3-linux",
+  "url": "https://deadends.dev/cmake/find-package-failed/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: Could not find a package configuration file for",
+    "regex": "(Could not find.*package|find_package.*REQUIRED.*failed|Config.*not found)",
+    "domain": "cmake",
+    "category": "dependency_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-02-26",
+    "summary": "CMake cant find required dependency."
+  },
+  "dead_ends": [
+    {
+      "action": "Set CMAKE_PREFIX_PATH to random dirs",
+      "why_fails": "Finds wrong or incompatible version",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Skip find_package with FORCE",
+      "why_fails": "Build fails later at link time",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install dev package: apt-get install libfoo-dev",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set CMAKE_PREFIX_PATH to correct install location",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/imported-target-missing/cmake3-any",
+  "url": "https://deadends.dev/cmake/imported-target-missing/cmake3-any",
+  "error": {
+    "signature": "CMake Error: IMPORTED_LOCATION not set for imported target",
+    "regex": "(IMPORTED_LOCATION|imported target.*not.*found|set_target_properties.*IMPORTED|find_package.*target.*missing)",
+    "domain": "cmake",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Imported target from find_package does not have location property set."
+  },
+  "dead_ends": [
+    {
+      "action": "Set IMPORTED_LOCATION to a guessed library path",
+      "why_fails": "Path may not exist on all systems or architectures.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Skip the find_package and hardcode library path",
+      "why_fails": "Breaks portability across different OS and install locations.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use find_library to locate the actual library file",
+      "success_rate": 0.88,
+      "how": "find_library(FOO_LIB foo PATHS /usr/lib /usr/local/lib)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Install the missing package and ensure CMake config files exist",
+      "success_rate": 0.85,
+      "how": "sudo apt install libfoo-dev provides FooConfig.cmake",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

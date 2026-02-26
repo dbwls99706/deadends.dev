@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/schema-registry-evolution-error/sr-linux",
+  "url": "https://deadends.dev/data/schema-registry-evolution-error/sr-linux",
+  "error": {
+    "signature": "SchemaRegistryException: schema evolution rejected",
+    "regex": "(SchemaRegistry.*evolution|schema.*rejected|compatibility.*violation|registry.*error)",
+    "domain": "data",
+    "category": "schema_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "data",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Schema Registry rejected schema change as incompatible."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete old schema versions",
+      "why_fails": "Breaks existing consumers",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable compatibility checks",
+      "why_fails": "Schema drift risk",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow compatibility rules for your mode: BACKWARD, FORWARD, FULL",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add new fields with defaults, never remove or rename existing fields",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

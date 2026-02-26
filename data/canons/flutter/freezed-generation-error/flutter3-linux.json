@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/freezed-generation-error/flutter3-linux",
+  "url": "https://deadends.dev/flutter/freezed-generation-error/flutter3-linux",
+  "error": {
+    "signature": "InvalidGenerationSourceError: freezed annotation error",
+    "regex": "(freezed.*annotation|InvalidGenerationSource|code generation.*freezed)",
+    "domain": "flutter",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Freezed code generation failed due to annotation error."
+  },
+  "dead_ends": [
+    {
+      "action": "Write data classes manually",
+      "why_fails": "Verbose, misses equality/copyWith",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use json_serializable only",
+      "why_fails": "Loses union types and freezed features",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure class follows freezed pattern: @freezed class Foo with _",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Run: dart run build_runner build --delete-conflicting-outputs",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

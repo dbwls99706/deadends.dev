@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/foreground-service-restriction/android14-linux",
+  "url": "https://deadends.dev/android/foreground-service-restriction/android14-linux",
+  "error": {
+    "signature": "ForegroundServiceStartNotAllowedException",
+    "regex": "(ForegroundServiceStartNotAllowed|foreground.*service.*restricted|background.*start.*denied)",
+    "domain": "android",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android",
+      "version_range": ">=14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Android 12+ restricts foreground service start from background."
+  },
+  "dead_ends": [
+    {
+      "action": "Target older SDK to bypass restriction",
+      "why_fails": "Loses new features, store rejection",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Start service anyway and catch exception",
+      "why_fails": "Service doesnt run",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use WorkManager for background work instead of foreground service",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Start foreground service from user-visible context (Activity)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

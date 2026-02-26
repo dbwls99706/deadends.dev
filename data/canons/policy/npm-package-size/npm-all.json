@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/npm-package-size/npm-all",
+  "url": "https://deadends.dev/policy/npm-package-size/npm-all",
+  "error": {
+    "signature": "Error: Package size exceeds the limit of 200MB",
+    "regex": "(package size.*exceeds|npm.*200MB|payload too large|ERR.*PACKAGE_SIZE)",
+    "domain": "policy",
+    "category": "size_limit_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "npm",
+      "version_range": ">=7.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "npm package exceeds maximum publishable size of ~200MB."
+  },
+  "dead_ends": [
+    {
+      "action": "Split into multiple packages over 200MB each",
+      "why_fails": "Each package has the same limit.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compress assets within the package",
+      "why_fails": "npm publishes the tarball; internal compression does not help.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use .npmignore to exclude test fixtures, docs, and build artifacts",
+      "success_rate": 0.9,
+      "how": ".npmignore: test/ docs/ *.map coverage/",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move large assets to CDN and reference by URL in package",
+      "success_rate": 0.85,
+      "how": "Host binaries on GitHub Releases or S3",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

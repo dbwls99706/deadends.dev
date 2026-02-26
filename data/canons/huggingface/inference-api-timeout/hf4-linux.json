@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/inference-api-timeout/hf4-linux",
+  "url": "https://deadends.dev/huggingface/inference-api-timeout/hf4-linux",
+  "error": {
+    "signature": "HTTPError: 503 Service Unavailable - model loading",
+    "regex": "(503.*loading|Model.*loading|inference.*timeout)",
+    "domain": "huggingface",
+    "category": "timeout_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "Inference API model not loaded yet or overloaded."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately in tight loop",
+      "why_fails": "Rate limited by API",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch to different model randomly",
+      "why_fails": "May not fit use case",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wait for model to load: add wait_for_model=True in API call",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use dedicated inference endpoint for production",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

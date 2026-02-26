@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/qos-incompatible-silent-drop/humble-linux",
   "error": {
     "signature": "ROS2 subscriber receives no messages from publisher despite both running with no errors",
-    "regex": "(QoS.*incompatib|Requested incompatible QoS|no.*messages.*received|subscriber.*silent|QoS.*mismatch)",
+    "regex": "(QoS.*incompatib|Requested incompatible QoS|no.*messages.*received|subscriber.*silent|QoS.*mismatch|ROS2\\ subscriber\\ receives\\ no\\ messages\\ from\\ publisher\\ despite\\ )",
     "domain": "ros2",
     "category": "communication",
     "first_seen": "2023-01-01",

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/json-schema-validation-error/data-linux",
+  "url": "https://deadends.dev/data/json-schema-validation-error/data-linux",
+  "error": {
+    "signature": "ValidationError: data does not match JSON schema",
+    "regex": "(ValidationError|JSON schema|does not match|jsonschema.*error)",
+    "domain": "data",
+    "category": "validation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "data",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Data doesnt conform to JSON Schema."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable schema validation",
+      "why_fails": "Bad data enters pipeline",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Auto-fix data to match schema",
+      "why_fails": "May create semantically wrong data",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Validate data at ingestion and route failures to dead letter queue",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Update schema with backward-compatible changes when needed",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

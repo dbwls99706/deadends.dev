@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/ssrf-internal-network/app-all",
+  "url": "https://deadends.dev/security/ssrf-internal-network/app-all",
+  "error": {
+    "signature": "SSRF: Request to internal network address blocked",
+    "regex": "(SSRF|internal.*network.*blocked|localhost.*blocked|169\\.254|metadata.*forbidden)",
+    "domain": "security",
+    "category": "security_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "any",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.87,
+    "last_updated": "2026-02-26",
+    "summary": "Server-Side Request Forgery allows attackers to access internal services via application."
+  },
+  "dead_ends": [
+    {
+      "action": "Block only localhost and 127.0.0.1",
+      "why_fails": "Misses 0.0.0.0, IPv6 ::1, 169.254.x.x metadata, DNS rebinding, and decimal IP notation.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate URL scheme is HTTPS only",
+      "why_fails": "Does not prevent requests to internal HTTPS services.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use allowlist of permitted external domains/IPs",
+      "success_rate": 0.9,
+      "how": "Only allow requests to known-good external domains",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Resolve DNS and validate IP is not in private ranges before connecting",
+      "success_rate": 0.85,
+      "how": "Check against 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

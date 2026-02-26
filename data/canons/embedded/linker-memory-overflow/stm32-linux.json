@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/linker-memory-overflow/stm32-linux",
+  "url": "https://deadends.dev/embedded/linker-memory-overflow/stm32-linux",
+  "error": {
+    "signature": "ld: section .bss will not fit in region RAM",
+    "regex": "(will not fit.*RAM|RAM.*overflow|section.*bss.*exceeded|SRAM.*overflow)",
+    "domain": "embedded",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Static RAM usage exceeds chip SRAM capacity."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase stack/heap size",
+      "why_fails": "Worsens the overflow",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move everything to flash",
+      "why_fails": "Only const data can go to flash",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Reduce global/static variable sizes, use dynamic allocation carefully",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use const for lookup tables to place in flash, not RAM",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

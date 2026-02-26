@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/data/timezone-naive-comparison-silent-wrong/datetime-any",
   "error": {
     "signature": "Datetime comparison produces silently wrong results when mixing timezone-aware and naive datetimes",
-    "regex": "(can't compare offset-naive|TypeError.*naive.*aware|timezone.*comparison.*wrong|datetime.*timezone.*silent)",
+    "regex": "(can't compare offset-naive|TypeError.*naive.*aware|timezone.*comparison.*wrong|datetime.*timezone.*silent|Datetime\\ comparison\\ produces\\ silently\\ wrong\\ results\\ when\\ mix)",
     "domain": "data",
     "category": "datetime",
     "first_seen": "2023-01-01",

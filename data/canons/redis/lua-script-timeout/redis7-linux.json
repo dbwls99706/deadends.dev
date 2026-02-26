@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/lua-script-timeout/redis7-linux",
+  "url": "https://deadends.dev/redis/lua-script-timeout/redis7-linux",
+  "error": {
+    "signature": "BUSY Redis is busy running a script",
+    "regex": "(BUSY.*running.*script|lua.*timeout|script.*timeout|BUSY.*redis)",
+    "domain": "redis",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Lua script execution exceeded lua-time-limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Use SCRIPT KILL without checking if script has writes",
+      "why_fails": "If script did writes, KILL fails",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set lua-time-limit to 0",
+      "why_fails": "Scripts can block Redis forever",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Optimize Lua script to be faster or break into smaller operations",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use SCRIPT KILL if no writes, or SHUTDOWN NOSAVE as last resort",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

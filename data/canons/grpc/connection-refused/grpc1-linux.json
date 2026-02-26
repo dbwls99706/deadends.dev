@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/connection-refused/grpc1-linux",
+  "url": "https://deadends.dev/grpc/connection-refused/grpc1-linux",
+  "error": {
+    "signature": "failed to connect: connection refused",
+    "regex": "(connection refused|connect.*ECONNREFUSED)",
+    "domain": "grpc",
+    "category": "connection_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Server not listening on expected port."
+  },
+  "dead_ends": [
+    {
+      "action": "Change client to random port",
+      "why_fails": "Will never connect",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable firewall entirely",
+      "why_fails": "Security risk",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify server process is running and bound to correct port",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check firewall rules allow traffic on gRPC port",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

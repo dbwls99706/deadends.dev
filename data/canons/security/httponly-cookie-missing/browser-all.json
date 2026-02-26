@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/httponly-cookie-missing/browser-all",
+  "url": "https://deadends.dev/security/httponly-cookie-missing/browser-all",
+  "error": {
+    "signature": "Warning: Cookie set without HttpOnly flag",
+    "regex": "(HttpOnly.*missing|cookie.*httponly|Set-Cookie.*without.*HttpOnly)",
+    "domain": "security",
+    "category": "security_warning",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "browser",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "Cookies without HttpOnly flag are accessible via JavaScript, enabling XSS cookie theft."
+  },
+  "dead_ends": [
+    {
+      "action": "Set cookie via JavaScript document.cookie",
+      "why_fails": "JS-set cookies cannot have HttpOnly flag - must be set server-side.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Rely on SameSite alone for protection",
+      "why_fails": "SameSite prevents CSRF but not XSS-based cookie theft.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set HttpOnly flag on all session/auth cookies server-side",
+      "success_rate": 0.95,
+      "how": "Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use framework session middleware that sets HttpOnly by default",
+      "success_rate": 0.9,
+      "how": "EXPRESS_SESSION, Django SESSION_COOKIE_HTTPONLY=True",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

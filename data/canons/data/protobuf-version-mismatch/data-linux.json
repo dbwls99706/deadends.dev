@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/protobuf-version-mismatch/data-linux",
+  "url": "https://deadends.dev/data/protobuf-version-mismatch/data-linux",
+  "error": {
+    "signature": "TypeError: Descriptors cannot be created from ProtoBuf",
+    "regex": "(Descriptors cannot.*created|protobuf.*version|proto.*mismatch|incompatible.*protobuf)",
+    "domain": "data",
+    "category": "version_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "data",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Protobuf library version incompatible with generated code."
+  },
+  "dead_ends": [
+    {
+      "action": "Pin protobuf to old version",
+      "why_fails": "Misses security fixes",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Regenerate proto files without matching library",
+      "why_fails": "Same error with different versions",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match protobuf library version to generated code version",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Regenerate: protoc --python_out=. with matching protobuf version",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

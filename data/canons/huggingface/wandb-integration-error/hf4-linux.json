@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/wandb-integration-error/hf4-linux",
+  "url": "https://deadends.dev/huggingface/wandb-integration-error/hf4-linux",
+  "error": {
+    "signature": "wandb.errors.Error: wandb integration failed",
+    "regex": "(wandb.*error|wandb.*failed|W&B.*integration|WANDB.*error)",
+    "domain": "huggingface",
+    "category": "integration_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Weights & Biases logging integration failed."
+  },
+  "dead_ends": [
+    {
+      "action": "Set WANDB_DISABLED=true globally",
+      "why_fails": "No experiment tracking",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Catch all wandb errors silently",
+      "why_fails": "Misses logging issues",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Set WANDB_API_KEY and verify login: wandb login",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use report_to=\"none\" in TrainingArguments to disable if not needed",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

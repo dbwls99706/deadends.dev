@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/find-library-wrong-arch/cmake3-linux",
+  "url": "https://deadends.dev/cmake/find-library-wrong-arch/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: found library with wrong architecture",
+    "regex": "(wrong architecture|library.*arch.*mismatch|32-bit.*64-bit|arm.*x86)",
+    "domain": "cmake",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Found library compiled for different CPU architecture."
+  },
+  "dead_ends": [
+    {
+      "action": "Force link with -L and ignore arch",
+      "why_fails": "Linker error or crash",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use file from wrong sysroot",
+      "why_fails": "ABI mismatch",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install correct architecture library: apt-get install lib:amd64",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set CMAKE_SYSTEM_PROCESSOR and CMAKE_FIND_ROOT_PATH for cross-compilation",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

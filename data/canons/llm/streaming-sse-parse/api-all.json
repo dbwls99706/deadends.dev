@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/streaming-sse-parse/api-all",
+  "url": "https://deadends.dev/llm/streaming-sse-parse/api-all",
+  "error": {
+    "signature": "Error: Failed to parse SSE stream: unexpected end of data",
+    "regex": "(SSE.*parse|stream.*unexpected.*end|event.*source.*error|data:.*\\[DONE\\])",
+    "domain": "llm",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Server-Sent Events stream from LLM API failed to parse correctly."
+  },
+  "dead_ends": [
+    {
+      "action": "Buffer entire stream before parsing",
+      "why_fails": "Defeats the purpose of streaming and may OOM on large responses.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use WebSocket instead of SSE",
+      "why_fails": "Most LLM APIs only support SSE for streaming.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Handle partial chunks and reconnection in SSE client",
+      "success_rate": 0.85,
+      "how": "Buffer partial data lines; reconnect with Last-Event-ID header",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use official SDK streaming helpers",
+      "success_rate": 0.9,
+      "how": "openai.chat.completions.create(stream=True) handles SSE parsing",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

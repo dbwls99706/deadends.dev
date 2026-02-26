@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "data/arrow-schema-mismatch/arrow-linux",
+  "url": "https://deadends.dev/data/arrow-schema-mismatch/arrow-linux",
+  "error": {
+    "signature": "ArrowInvalid: schema mismatch between record batches",
+    "regex": "(ArrowInvalid|schema mismatch|record batch.*schema|Arrow.*schema)",
+    "domain": "data",
+    "category": "schema_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "data",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Apache Arrow record batches have incompatible schemas."
+  },
+  "dead_ends": [
+    {
+      "action": "Force cast all columns",
+      "why_fails": "Data loss on incompatible types",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore schema differences",
+      "why_fails": "Crashes on column access",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Unify schemas before combining: pa.unify_schemas()",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Cast record batches to target schema: batch.cast(target_schema)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

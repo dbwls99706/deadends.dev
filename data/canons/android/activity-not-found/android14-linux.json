@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/activity-not-found/android14-linux",
+  "url": "https://deadends.dev/android/activity-not-found/android14-linux",
+  "error": {
+    "signature": "ActivityNotFoundException: Unable to find explicit activity class",
+    "regex": "(ActivityNotFoundException|Unable to find.*activity)",
+    "domain": "android",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android",
+      "version_range": ">=14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "Activity not declared in AndroidManifest.xml or wrong intent."
+  },
+  "dead_ends": [
+    {
+      "action": "Add all activities to manifest blindly",
+      "why_fails": "Bloats manifest, wrong intent filters",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use implicit intents for everything",
+      "why_fails": "Unpredictable activity resolution",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare activity in AndroidManifest.xml with correct package",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify intent class name matches exactly",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

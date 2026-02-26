@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/dma-buffer-overrun/stm32-linux",
+  "url": "https://deadends.dev/embedded/dma-buffer-overrun/stm32-linux",
+  "error": {
+    "signature": "DMA transfer error: buffer overrun",
+    "regex": "(DMA.*overrun|buffer overrun|DMA.*error|transfer.*overflow)",
+    "domain": "embedded",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "DMA writing faster than software can process."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase buffer to huge size",
+      "why_fails": "Wastes limited SRAM",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable DMA and use polling",
+      "why_fails": "Misses data at high rates",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use double buffering with DMA half-transfer interrupt",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ensure DMA priority and FIFO threshold are configured correctly",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

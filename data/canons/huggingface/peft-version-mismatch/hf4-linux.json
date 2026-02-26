@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/peft-version-mismatch/hf4-linux",
+  "url": "https://deadends.dev/huggingface/peft-version-mismatch/hf4-linux",
+  "error": {
+    "signature": "ValueError: PEFT version incompatible with adapter",
+    "regex": "(PEFT.*version.*incompatible|adapter.*version|peft.*mismatch)",
+    "domain": "huggingface",
+    "category": "version_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "PEFT library version doesnt match saved adapter."
+  },
+  "dead_ends": [
+    {
+      "action": "Downgrade PEFT to very old version",
+      "why_fails": "Misses bug fixes",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Re-train adapter from scratch",
+      "why_fails": "Loses training time and data",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match PEFT version to adapter metadata: pip install peft==version",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check adapter_config.json for required PEFT version",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

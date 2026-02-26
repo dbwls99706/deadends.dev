@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/multimodal-image-token-cost/api-all",
+  "url": "https://deadends.dev/llm/multimodal-image-token-cost/api-all",
+  "error": {
+    "signature": "BillingError: Image input token count exceeded budget",
+    "regex": "(image.*token.*cost|vision.*expensive|multimodal.*billing|image.*input.*tokens|BillingError:\\ Image\\ input\\ token\\ count\\ exceeded\\ budget)",
+    "domain": "llm",
+    "category": "cost_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "High-resolution images consume many tokens, causing unexpected API costs."
+  },
+  "dead_ends": [
+    {
+      "action": "Send full-resolution images assuming tokens are cheap",
+      "why_fails": "A single 4K image can use 10K+ tokens at high detail.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Convert images to base64 to reduce token count",
+      "why_fails": "Base64 encoding does not affect token count; it is how images are transmitted.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Resize images to the minimum resolution needed",
+      "success_rate": 0.88,
+      "how": "Resize to 512x512 or use detail:\"low\" for thumbnails",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use detail parameter to control image token usage",
+      "success_rate": 0.85,
+      "how": "detail:\"low\" uses 85 tokens; detail:\"high\" uses up to 1445 per tile",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

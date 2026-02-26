@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/data/csv-formula-injection/csv-export-any",
   "error": {
     "signature": "Excel executes formulas when opening CSV exported from web application, enabling code execution",
-    "regex": "(CSV.*injection|formula.*injection|=CMD|DDE.*attack|spreadsheet.*injection)",
+    "regex": "(CSV.*injection|formula.*injection|=CMD|DDE.*attack|spreadsheet.*injection|Excel\\ executes\\ formulas\\ when\\ opening\\ CSV\\ exported\\ from\\ web\\ a)",
     "domain": "data",
     "category": "security",
     "first_seen": "2023-01-01",

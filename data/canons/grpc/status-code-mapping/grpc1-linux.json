@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/status-code-mapping/grpc1-linux",
+  "url": "https://deadends.dev/grpc/status-code-mapping/grpc1-linux",
+  "error": {
+    "signature": "UNKNOWN: unexpected error from server",
+    "regex": "(UNKNOWN.*error|unexpected.*status|unmapped.*error)",
+    "domain": "grpc",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Server returned UNKNOWN status without proper error mapping."
+  },
+  "dead_ends": [
+    {
+      "action": "Map all errors to OK status",
+      "why_fails": "Hides failures from client",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Return stack traces in status message",
+      "why_fails": "Security information leak",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Map server exceptions to proper gRPC status codes",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use status.WithDetails() for structured error information",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

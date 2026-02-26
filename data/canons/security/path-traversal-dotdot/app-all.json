@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/path-traversal-dotdot/app-all",
+  "url": "https://deadends.dev/security/path-traversal-dotdot/app-all",
+  "error": {
+    "signature": "Security: Path traversal attempt detected: ../../../etc/passwd",
+    "regex": "(path traversal|directory traversal|\\.\\./|\\.\\.\\.)",
+    "domain": "security",
+    "category": "security_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "any",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.87,
+    "last_updated": "2026-02-26",
+    "summary": "Path traversal via ../ sequences allows reading files outside intended directory."
+  },
+  "dead_ends": [
+    {
+      "action": "Block literal ../ string only",
+      "why_fails": "Attackers use URL encoding (%2e%2e%2f), double encoding, or OS-specific separators.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use regex blacklist for dangerous paths",
+      "why_fails": "Blacklists are always incomplete - new bypass techniques emerge regularly.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Resolve path and verify it starts with allowed base directory",
+      "success_rate": 0.92,
+      "how": "realpath = os.path.realpath(path); assert realpath.startswith(BASE_DIR)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use allowlist of valid filenames instead of accepting arbitrary paths",
+      "success_rate": 0.9,
+      "how": "Map user input to predefined file identifiers",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

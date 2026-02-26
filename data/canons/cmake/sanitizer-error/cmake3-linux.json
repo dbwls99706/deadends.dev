@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/sanitizer-error/cmake3-linux",
+  "url": "https://deadends.dev/cmake/sanitizer-error/cmake3-linux",
+  "error": {
+    "signature": "AddressSanitizer: heap-buffer-overflow detected by CMake test",
+    "regex": "(AddressSanitizer|heap.*buffer.*overflow|sanitizer.*error|ASAN.*detected)",
+    "domain": "cmake",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Address/memory sanitizer detected issue in CMake build."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable sanitizers",
+      "why_fails": "Hides memory bugs",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Suppress all sanitizer findings",
+      "why_fails": "Same as disabling",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Fix memory bugs flagged by sanitizer: check array bounds, use-after-free",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add sanitizer flags: -fsanitize=address,undefined in CMAKE_CXX_FLAGS",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

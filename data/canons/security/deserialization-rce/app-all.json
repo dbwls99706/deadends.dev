@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/deserialization-rce/app-all",
+  "url": "https://deadends.dev/security/deserialization-rce/app-all",
+  "error": {
+    "signature": "java.io.ObjectInputStream: Deserialization of untrusted data",
+    "regex": "(deserialization.*untrusted|ObjectInputStream|pickle\\.loads?.*untrusted|yaml\\.load\\()",
+    "domain": "security",
+    "category": "security_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "any",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Deserializing untrusted data (Java ObjectInputStream, Python pickle, YAML) enables RCE."
+  },
+  "dead_ends": [
+    {
+      "action": "Add a class whitelist to ObjectInputStream",
+      "why_fails": "Whitelist can be bypassed through gadget chains in allowed classes.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate serialized data before deserializing",
+      "why_fails": "Validation requires deserialization first, creating a chicken-and-egg problem.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use safe serialization formats (JSON, protobuf) instead",
+      "success_rate": 0.92,
+      "how": "Replace pickle.loads with json.loads; use Jackson instead of ObjectInputStream",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use yaml.safe_load instead of yaml.load",
+      "success_rate": 0.95,
+      "how": "yaml.safe_load(data) blocks arbitrary Python object construction",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

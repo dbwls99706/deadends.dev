@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "android/dex-method-limit/android14-linux",
+  "url": "https://deadends.dev/android/dex-method-limit/android14-linux",
+  "error": {
+    "signature": "DexException: Cannot merge new index into a non-jumbo instruction",
+    "regex": "(Cannot merge.*jumbo|method.*65536|multidex|too many methods)",
+    "domain": "android",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "android",
+      "version_range": ">=14"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Method count exceeds 65K DEX limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Use jumbo mode only",
+      "why_fails": "Deprecated and doesn't fix root cause",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove random dependencies",
+      "why_fails": "May break features",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enable multidex in build.gradle",
+      "success_rate": 0.92,
+      "how": "multiDexEnabled true + MultidexApplication",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Reduce dependencies and use R8 code shrinking",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

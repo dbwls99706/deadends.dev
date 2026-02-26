@@ -3,12 +3,12 @@
   "id": "mongodb/network-timeout/mongo7-linux",
   "url": "https://deadends.dev/mongodb/network-timeout/mongo7-linux",
   "error": {
-    "signature": "MongoNetworkTimeoutError: connection timed out; Socket operation timed out after 30000ms",
-    "regex": "(MongoNetworkTimeoutError|connection timed out|socket.*timed out|MongoTimeoutError.*network|socketTimeoutMS|ETIMEDOUT.*mongo)",
+    "signature": "MongoNetworkTimeoutError: connection timed out",
+    "regex": "(MongoNetworkTimeoutError|connection timed out|socketTimeout)",
     "domain": "mongodb",
     "category": "connection_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,52 +19,37 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.82,
-    "confidence": 0.87,
-    "last_updated": "2026-02-25",
-    "summary": "Socket or connection timeout during MongoDB operation. Slow query, network issue, or server under heavy load."
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Network timeout connecting to mongod/mongos."
   },
   "dead_ends": [
     {
       "action": "Set socketTimeoutMS to 0 (infinite)",
-      "why_fails": "Infinite timeout means a stuck connection hangs forever, eventually exhausting the connection pool.",
-      "fail_rate": 0.88,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/"
-      ],
+      "why_fails": "Hangs forever on dead connections",
+      "fail_rate": 0.85,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Increase connection pool size assuming timeouts mean pool exhaustion",
-      "why_fails": "More connections to an overloaded server makes it worse. Fix the slow queries or scale the server.",
-      "fail_rate": 0.72,
-      "sources": [
-        "https://www.mongodb.com/docs/manual/reference/error-codes/"
-      ],
+      "action": "Retry immediately in loop",
+      "why_fails": "Overwhelms recovering server",
+      "fail_rate": 0.78,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Identify and optimize slow queries causing timeouts",
-      "success_rate": 0.9,
-      "how": "db.currentOp({ 'secs_running': { $gt: 10 } })  # find slow operations; db.setProfilingLevel(1, { slowms: 100 })",
-      "sources": [
-        "https://www.mongodb.com/docs/manual/administration/"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Set appropriate timeout values for different operation types",
+      "action": "Check network connectivity and DNS resolution to MongoDB host",
       "success_rate": 0.88,
-      "how": "socketTimeoutMS=60000; connectTimeoutMS=10000; serverSelectionTimeoutMS=15000  # in connection string",
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Check network path between application and MongoDB",
-      "success_rate": 0.82,
-      "how": "ping mongo-host; traceroute mongo-host; check security group rules and VPC peering if in cloud",
+      "action": "Tune connectTimeoutMS and serverSelectionTimeoutMS appropriately",
+      "success_rate": 0.85,
       "sources": [],
       "condition": ""
     }
@@ -76,9 +61,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

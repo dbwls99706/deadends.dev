@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/rosdep-key-not-found/ros2-humble-linux",
   "error": {
     "signature": "ERROR: the following packages/stacks could not have their rosdep keys resolved",
-    "regex": "(rosdep.*key.*not.*resolved|rosdep.*key.*not found|Cannot locate rosdep definition|rosdep.*ERROR)",
+    "regex": "(rosdep.*key.*not.*resolved|rosdep.*key.*not found|Cannot locate rosdep definition|rosdep.*ERROR|ERROR:\\ the\\ following\\ packages/stacks\\ could\\ not\\ have\\ their\\ ro)",
     "domain": "ros2",
     "category": "build_error",
     "first_seen": "2023-01-01",

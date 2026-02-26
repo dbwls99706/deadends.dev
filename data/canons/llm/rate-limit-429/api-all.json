@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/rate-limit-429/api-all",
+  "url": "https://deadends.dev/llm/rate-limit-429/api-all",
+  "error": {
+    "signature": "Error 429: Too Many Requests - Rate limit exceeded",
+    "regex": "(429|rate.?limit|too many requests|quota.*exceeded|tokens per minute)",
+    "domain": "llm",
+    "category": "rate_limit_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "LLM API rate limit exceeded (requests/min or tokens/min)."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately without backoff",
+      "why_fails": "Hammering the API worsens rate limiting and may cause IP blocks.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Switch API keys rapidly to bypass limits",
+      "why_fails": "Most providers rate-limit per organization, not per key.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Implement exponential backoff with jitter",
+      "success_rate": 0.92,
+      "how": "wait = min(base * 2**attempt + random.uniform(0,1), max_wait)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use token bucket or leaky bucket rate limiter",
+      "success_rate": 0.85,
+      "how": "Proactively throttle requests to stay under limit",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

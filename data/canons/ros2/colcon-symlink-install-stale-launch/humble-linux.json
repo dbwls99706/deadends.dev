@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/colcon-symlink-install-stale-launch/humble-linux",
   "error": {
     "signature": "Changes to launch files or config not reflected after rebuild with colcon --symlink-install",
-    "regex": "(symlink.*install.*stale|launch.*file.*not.*updated|colcon.*symlink.*old.*config|install.*not.*refresh)",
+    "regex": "(symlink.*install.*stale|launch.*file.*not.*updated|colcon.*symlink.*old.*config|install.*not.*refresh|Changes\\ to\\ launch\\ files\\ or\\ config\\ not\\ reflected\\ after\\ rebuil)",
     "domain": "ros2",
     "category": "build_system",
     "first_seen": "2023-01-01",

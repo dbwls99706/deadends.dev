@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/model-not-found/hf4-linux",
+  "url": "https://deadends.dev/huggingface/model-not-found/hf4-linux",
+  "error": {
+    "signature": "OSError: model not found on HuggingFace Hub",
+    "regex": "(OSError.*not found.*Hub|RepositoryNotFoundError|404 Client Error)",
+    "domain": "huggingface",
+    "category": "resource_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-02-26",
+    "summary": "Model ID does not exist or is private."
+  },
+  "dead_ends": [
+    {
+      "action": "Hardcode random model name",
+      "why_fails": "Will never resolve",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Clone repo manually without LFS",
+      "why_fails": "Missing model weights",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify exact model ID on huggingface.co",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set HF_TOKEN for private/gated models",
+      "success_rate": 0.9,
+      "how": "export HF_TOKEN=hf_xxxxx",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

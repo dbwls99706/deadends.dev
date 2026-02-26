@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/i2c-bus-error/stm32-linux",
+  "url": "https://deadends.dev/embedded/i2c-bus-error/stm32-linux",
+  "error": {
+    "signature": "I2C bus error: NACK received or bus busy",
+    "regex": "(I2C.*error|NACK|bus busy|I2C.*timeout|SCL.*stuck)",
+    "domain": "embedded",
+    "category": "communication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "I2C communication failure. Bus stuck, wrong address, or missing pullups."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase I2C speed to maximum",
+      "why_fails": "More errors on noisy/long bus",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove pull-up resistors",
+      "why_fails": "Bus cant reach high level",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check pull-up resistors (4.7k typical) on SDA and SCL",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify slave address (7-bit vs 8-bit) and bus recovery sequence",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

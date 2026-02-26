@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/authority-mismatch/grpc1-linux",
+  "url": "https://deadends.dev/grpc/authority-mismatch/grpc1-linux",
+  "error": {
+    "signature": "UNAVAILABLE: authority mismatch between target and certificate",
+    "regex": "(authority.*mismatch|host.*mismatch|:authority.*invalid)",
+    "domain": "grpc",
+    "category": "tls_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "gRPC :authority header doesnt match server TLS certificate."
+  },
+  "dead_ends": [
+    {
+      "action": "Override authority header arbitrarily",
+      "why_fails": "Breaks TLS verification",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable hostname verification",
+      "why_fails": "MITM vulnerability",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure dial target matches TLS certificate CN/SAN",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use grpc.WithAuthority() to set correct authority for proxied connections",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

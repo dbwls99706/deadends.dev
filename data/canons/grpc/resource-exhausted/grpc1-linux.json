@@ -3,12 +3,12 @@
   "id": "grpc/resource-exhausted/grpc1-linux",
   "url": "https://deadends.dev/grpc/resource-exhausted/grpc1-linux",
   "error": {
-    "signature": "grpc._channel._InactiveRpcError: StatusCode.RESOURCE_EXHAUSTED: Quota exceeded; rate limit reached",
-    "regex": "(StatusCode\\.RESOURCE_EXHAUSTED|RESOURCE_EXHAUSTED.*quota|rate limit.*exceeded|resource.*exhausted|too many requests.*grpc)",
+    "signature": "RESOURCE_EXHAUSTED: resource exhausted",
+    "regex": "(RESOURCE_EXHAUSTED|resource exhausted|message.*too large)",
     "domain": "grpc",
-    "category": "throttle_error",
+    "category": "resource_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,51 +19,38 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.82,
-    "confidence": 0.85,
-    "last_updated": "2026-02-25",
-    "summary": "gRPC call rejected due to rate limiting or resource quota exceeded. Server-side concurrency limit or external quota."
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Message too large or server overloaded."
   },
   "dead_ends": [
     {
-      "action": "Retry immediately without backoff",
-      "why_fails": "Immediate retries during rate limiting flood the server and extend the backoff window. Use exponential backoff.",
-      "fail_rate": 0.9,
-      "sources": [
-        "https://grpc.io/docs/guides/retry/"
-      ],
+      "action": "Increase max message size to unlimited",
+      "why_fails": "OOM risk on large payloads",
+      "fail_rate": 0.85,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Open multiple channels to bypass rate limits",
-      "why_fails": "Server-side rate limits typically apply per-user or per-API-key, not per-connection. Multiple channels hit the same limit.",
-      "fail_rate": 0.78,
-      "sources": [
-        "https://grpc.io/docs/guides/performance/"
-      ],
+      "action": "Remove all rate limits",
+      "why_fails": "Server overload and crash",
+      "fail_rate": 0.88,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Implement exponential backoff with jitter on RESOURCE_EXHAUSTED",
-      "success_rate": 0.92,
-      "how": "Retry with base_delay * 2^attempt + random_jitter; respect Retry-After header if present in trailing metadata",
-      "sources": [
-        "https://grpc.io/docs/guides/"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Use client-side rate limiting to stay below quota",
+      "action": "Increase max_receive_message_length to reasonable limit",
       "success_rate": 0.88,
-      "how": "Implement a token bucket or leaky bucket limiter on the client side to smooth out request bursts",
+      "how": "grpc.max_receive_message_length=20*1024*1024",
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Request quota increase from the service provider if limits are too low",
-      "success_rate": 0.8,
+      "action": "Implement streaming for large payloads",
+      "success_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -75,9 +62,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

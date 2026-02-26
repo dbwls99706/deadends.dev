@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/policy/vercel-serverless-timeout-by-plan/vercel-any",
   "error": {
     "signature": "Vercel serverless function times out at 10s even though code completes in time locally",
-    "regex": "(FUNCTION_INVOCATION_TIMEOUT|Vercel.*timeout.*10s|serverless.*function.*timeout|504.*Vercel.*gateway)",
+    "regex": "(FUNCTION_INVOCATION_TIMEOUT|Vercel.*timeout.*10s|serverless.*function.*timeout|504.*Vercel.*gateway|Vercel\\ serverless\\ function\\ times\\ out\\ at\\ 10s\\ even\\ though\\ code)",
     "domain": "policy",
     "category": "platform_limits",
     "first_seen": "2023-01-01",

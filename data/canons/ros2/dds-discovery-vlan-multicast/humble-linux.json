@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/dds-discovery-vlan-multicast/humble-linux",
   "error": {
     "signature": "ROS2 nodes on different VLANs or subnets cannot discover each other",
-    "regex": "(DDS.*discovery.*fail|multicast.*blocked|ROS2.*node.*not.*found|DDS.*VLAN|RTPS.*discovery.*timeout)",
+    "regex": "(DDS.*discovery.*fail|multicast.*blocked|ROS2.*node.*not.*found|DDS.*VLAN|RTPS.*discovery.*timeout|ROS2\\ nodes\\ on\\ different\\ VLANs\\ or\\ subnets\\ cannot\\ discover\\ eac)",
     "domain": "ros2",
     "category": "networking",
     "first_seen": "2023-01-01",

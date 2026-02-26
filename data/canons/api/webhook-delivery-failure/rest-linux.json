@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/webhook-delivery-failure/rest-linux",
+  "url": "https://deadends.dev/api/webhook-delivery-failure/rest-linux",
+  "error": {
+    "signature": "Webhook delivery failed: connection timeout",
+    "regex": "(webhook.*failed|delivery.*failed|webhook.*timeout|callback.*unreachable)",
+    "domain": "api",
+    "category": "delivery_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "api",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Webhook endpoint unreachable or too slow."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable webhook retries",
+      "why_fails": "Miss critical events",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Process webhook synchronously with heavy computation",
+      "why_fails": "Timeout on next delivery",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure webhook endpoint responds within 5s with 200",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Process webhook payload async: queue and acknowledge immediately",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/communication/notion-api-rich-text-block-limit/notion-api-any",
   "error": {
     "signature": "Notion API returns 400 error or silently truncates content when block has too much text",
-    "regex": "(Notion.*block.*limit|Notion.*rich.*text.*truncat|Notion.*2000.*character|Notion.*API.*body.*too.*large)",
+    "regex": "(Notion.*block.*limit|Notion.*rich.*text.*truncat|Notion.*2000.*character|Notion.*API.*body.*too.*large|Notion\\ API\\ returns\\ 400\\ error\\ or\\ silently\\ truncates\\ content\\ w)",
     "domain": "communication",
     "category": "api_limits",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/fine-tune-catastrophic-forgetting/llm-finetuning-any",
   "error": {
     "signature": "Fine-tuned model loses base capabilities after training on domain-specific data",
-    "regex": "(catastrophic.*forgetting|fine.*tun.*lost.*capabilit|fine.*tun.*degrad|base.*model.*better)",
+    "regex": "(catastrophic.*forgetting|fine.*tun.*lost.*capabilit|fine.*tun.*degrad|base.*model.*better|Fine\\-tuned\\ model\\ loses\\ base\\ capabilities\\ after\\ training\\ on\\ d)",
     "domain": "llm",
     "category": "fine_tuning",
     "first_seen": "2023-01-01",

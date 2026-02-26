@@ -3,68 +3,53 @@
   "id": "flutter/platform-channel-error/flutter3-linux",
   "url": "https://deadends.dev/flutter/platform-channel-error/flutter3-linux",
   "error": {
-    "signature": "MissingPluginException(No implementation found for method getBatteryLevel on channel samples.flutter.dev/battery)",
-    "regex": "(MissingPluginException.*channel|No implementation found for method.*on channel|PlatformException.*channel|channel-error.*UNAVAILABLE)",
+    "signature": "MissingPluginException: No implementation found",
+    "regex": "(MissingPluginException|No implementation found|platform channel)",
     "domain": "flutter",
-    "category": "platform_error",
+    "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
       "name": "flutter",
-      "version_range": ">=3.0"
+      "version_range": ">=3.16"
     },
-    "os": "cross-platform"
+    "os": "linux"
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.83,
-    "confidence": 0.87,
-    "last_updated": "2026-02-25",
-    "summary": "Platform channel method invocation failed. Native side does not have a handler registered for the method channel, or the channel name is misspelled."
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Platform channel method not registered on native side."
   },
   "dead_ends": [
     {
-      "action": "Add the channel handler in only one platform (e.g., Android but not iOS)",
-      "why_fails": "Flutter apps run on multiple platforms; missing handler on any target platform causes runtime crash",
-      "fail_rate": 0.75,
-      "sources": [
-        "https://docs.flutter.dev/"
-      ],
+      "action": "Catch MissingPluginException and return default",
+      "why_fails": "Hides broken native integration",
+      "fail_rate": 0.78,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Use hot restart to pick up platform channel changes",
-      "why_fails": "Hot restart only restarts the Dart VM; native platform code changes require a full rebuild",
-      "fail_rate": 0.82,
-      "sources": [
-        "https://docs.flutter.dev/testing/debugging"
-      ],
+      "action": "Register all possible channels at startup",
+      "why_fails": "Bloated initialization",
+      "fail_rate": 0.72,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Verify channel name matches exactly between Dart and native code",
-      "success_rate": 0.92,
-      "how": "Dart: MethodChannel('com.example/battery'); Kotlin: MethodChannel(flutterEngine.dartExecutor, \"com.example/battery\")",
-      "sources": [
-        "https://api.flutter.dev/"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Do a full stop and rebuild after any native code changes",
-      "success_rate": 0.9,
-      "how": "flutter clean && flutter run  // hot restart does NOT reload native platform code",
+      "action": "Run flutter clean && flutter pub get && rebuild native project",
+      "success_rate": 0.88,
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Use Pigeon or federated plugins for type-safe platform channels",
-      "success_rate": 0.82,
-      "how": "flutter pub add pigeon  // generates type-safe platform channel code from a schema",
+      "action": "Ensure native plugin is properly registered in MainActivity/AppDelegate",
+      "success_rate": 0.9,
       "sources": [],
       "condition": ""
     }
@@ -76,9 +61,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

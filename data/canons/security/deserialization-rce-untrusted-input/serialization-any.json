@@ -3,8 +3,8 @@
   "id": "security/deserialization-rce-untrusted-input/serialization-any",
   "url": "https://deadends.dev/security/deserialization-rce-untrusted-input/serialization-any",
   "error": {
-    "signature": "Remote code execution — unsafe deserialization of untrusted data",
-    "regex": "[Dd]eserializ.*RCE|pickle.*untrusted|ObjectInputStream.*untrusted|insecure.*deserializ",
+    "signature": "Remote code execution \u2014 unsafe deserialization of untrusted data",
+    "regex": "([Dd]eserializ.*RCE|pickle.*untrusted|ObjectInputStream.*untrusted|insecure.*deserializ|Remote\\ code\\ execution\\ \u2014\\ unsafe\\ deserialization\\ of\\ untrusted\\ )",
     "domain": "security",
     "category": "deserialization",
     "first_seen": "2023-01-01",

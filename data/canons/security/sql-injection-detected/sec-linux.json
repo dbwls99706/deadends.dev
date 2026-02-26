@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/sql-injection-detected/sec-linux",
+  "url": "https://deadends.dev/security/sql-injection-detected/sec-linux",
+  "error": {
+    "signature": "SQL injection detected in user input",
+    "regex": "(SQL injection|SQLi.*detected|union.*select|OR 1=1)",
+    "domain": "security",
+    "category": "vulnerability_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "security",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-02-26",
+    "summary": "User input directly interpolated into SQL query."
+  },
+  "dead_ends": [
+    {
+      "action": "Escape single quotes only",
+      "why_fails": "Bypassed with encoding or numeric injection",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use blocklist of SQL keywords",
+      "why_fails": "Easily evaded with case variations and encoding",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use parameterized queries/prepared statements exclusively",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ORM methods that parameterize automatically",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

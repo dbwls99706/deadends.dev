@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/cxx-standard-not-propagated/cmake3-any",
+  "url": "https://deadends.dev/cmake/cxx-standard-not-propagated/cmake3-any",
+  "error": {
+    "signature": "error: use of undeclared identifier - C++17 feature used without C++17 enabled",
+    "regex": "(undeclared identifier.*C\\+\\+|std=c\\+\\+17|CXX_STANDARD|cxx_std_17)",
+    "domain": "cmake",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "C++ standard not properly propagated to all targets."
+  },
+  "dead_ends": [
+    {
+      "action": "Set CMAKE_CXX_FLAGS directly with -std=c++17",
+      "why_fails": "Does not propagate to dependent targets and overrides other flags.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set CXX_STANDARD on the library but not the executable",
+      "why_fails": "Consumers need the standard requirement propagated via INTERFACE.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use target_compile_features with PUBLIC/INTERFACE",
+      "success_rate": 0.9,
+      "how": "target_compile_features(mylib PUBLIC cxx_std_17)",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set CXX_STANDARD and CXX_STANDARD_REQUIRED on each target",
+      "success_rate": 0.82,
+      "how": "set_target_properties(app PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

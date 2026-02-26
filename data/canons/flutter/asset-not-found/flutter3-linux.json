@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/asset-not-found/flutter3-linux",
+  "url": "https://deadends.dev/flutter/asset-not-found/flutter3-linux",
+  "error": {
+    "signature": "FlutterError: Unable to load asset",
+    "regex": "(Unable to load asset|asset.*not found|AssetBundle.*error)",
+    "domain": "flutter",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Asset file not declared in pubspec.yaml or path wrong."
+  },
+  "dead_ends": [
+    {
+      "action": "Use hardcoded file paths",
+      "why_fails": "Not portable across platforms",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Load from network instead",
+      "why_fails": "Requires connectivity",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare asset in pubspec.yaml assets section with exact path",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify file exists and path matches case-sensitively",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

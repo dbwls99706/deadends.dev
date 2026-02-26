@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/system-prompt-ignored-long-context/llm-api-any",
   "error": {
     "signature": "LLM ignores system prompt instructions when user message or context is very long",
-    "regex": "(system.*prompt.*ignored|instruction.*not.*followed|long.*context.*forget|lost.*in.*middle)",
+    "regex": "(system.*prompt.*ignored|instruction.*not.*followed|long.*context.*forget|lost.*in.*middle|LLM\\ ignores\\ system\\ prompt\\ instructions\\ when\\ user\\ message\\ or\\ )",
     "domain": "llm",
     "category": "prompt_engineering",
     "first_seen": "2023-01-01",

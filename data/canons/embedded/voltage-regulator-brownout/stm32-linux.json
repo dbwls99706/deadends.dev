@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/voltage-regulator-brownout/stm32-linux",
+  "url": "https://deadends.dev/embedded/voltage-regulator-brownout/stm32-linux",
+  "error": {
+    "signature": "BOR: brownout reset detected",
+    "regex": "(brownout.*reset|BOR.*detected|voltage.*drop|power.*supply.*error)",
+    "domain": "embedded",
+    "category": "hardware_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "Supply voltage dropped below brownout threshold causing reset."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable brownout detection",
+      "why_fails": "Runs at unsafe voltage, data corruption",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Lower brownout threshold",
+      "why_fails": "Chip operates out of spec",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check power supply decoupling capacitors (100nF + 10uF near VDD)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add bulk capacitance for transient loads",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

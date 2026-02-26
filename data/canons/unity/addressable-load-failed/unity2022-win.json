@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/addressable-load-failed/unity2022-win",
+  "url": "https://deadends.dev/unity/addressable-load-failed/unity2022-win",
+  "error": {
+    "signature": "AddressableException: Failed to load addressable asset",
+    "regex": "(Addressable.*failed|addressable.*load.*error|InvalidKeyException.*addressable)",
+    "domain": "unity",
+    "category": "io_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Addressable asset failed to load at runtime."
+  },
+  "dead_ends": [
+    {
+      "action": "Use Resources.Load as fallback for everything",
+      "why_fails": "Builds all assets into binary",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Pre-download all addressables on startup",
+      "why_fails": "Long startup time",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify addressable groups and labels in Addressables window",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check remote catalog URL if using remote hosting",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

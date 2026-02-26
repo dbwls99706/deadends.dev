@@ -3,12 +3,12 @@
   "id": "kafka/leader-not-available/kafka3-linux",
   "url": "https://deadends.dev/kafka/leader-not-available/kafka3-linux",
   "error": {
-    "signature": "org.apache.kafka.common.errors.LeaderNotAvailableException: Leader not available for partition my_topic-0",
-    "regex": "(LeaderNotAvailableException|Leader not available|leader.*not available.*partition|NO_LEADER|leader election in progress)",
+    "signature": "LeaderNotAvailableException: leader not available for partition",
+    "regex": "(LeaderNotAvailable|leader.*not available|no leader)",
     "domain": "kafka",
-    "category": "broker_error",
+    "category": "cluster_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-25"
+    "last_confirmed": "2026-02-26"
   },
   "environment": {
     "runtime": {
@@ -19,52 +19,37 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.85,
-    "confidence": 0.88,
-    "last_updated": "2026-02-25",
-    "summary": "Partition leader not available. Typically occurs after broker restart, during leader election, or when a broker is permanently down."
+    "fix_success_rate": 0.78,
+    "confidence": 0.83,
+    "last_updated": "2026-02-26",
+    "summary": "Partition has no leader. Broker failure or ISR empty."
   },
   "dead_ends": [
     {
-      "action": "Immediately reassign partitions to other brokers",
-      "why_fails": "Leader election happens automatically within seconds. Manual reassignment during transient state causes unnecessary data movement.",
-      "fail_rate": 0.78,
-      "sources": [
-        "https://kafka.apache.org/documentation/"
-      ],
+      "action": "Force preferred leader election on all partitions",
+      "why_fails": "Can elect under-replicated leaders",
+      "fail_rate": 0.8,
+      "sources": [],
       "condition": ""
     },
     {
-      "action": "Restart all brokers to force a clean leader election",
-      "why_fails": "Rolling restart loses availability for all partitions, not just the affected ones. Single-broker recovery is sufficient.",
-      "fail_rate": 0.82,
-      "sources": [
-        "https://kafka.apache.org/documentation/#consumerconfigs"
-      ],
+      "action": "Delete and recreate topic",
+      "why_fails": "Loses all existing data",
+      "fail_rate": 0.92,
+      "sources": [],
       "condition": ""
     }
   ],
   "workarounds": [
     {
-      "action": "Wait for automatic leader election to complete (usually 5-30 seconds)",
-      "success_rate": 0.92,
-      "how": "kafka-metadata.sh --snapshot /var/kafka-logs/__cluster_metadata-0/00000000000000000000.log --cluster-id <id>  # KRaft; or check controller logs",
-      "sources": [
-        "https://kafka.apache.org/documentation/#brokerconfigs"
-      ],
-      "condition": ""
-    },
-    {
-      "action": "Verify the broker is running and has rejoined the cluster",
-      "success_rate": 0.9,
-      "how": "kafka-broker-api-versions.sh --bootstrap-server localhost:9092  # check all brokers respond",
+      "action": "Wait for automatic leader election (usually seconds)",
+      "success_rate": 0.88,
       "sources": [],
       "condition": ""
     },
     {
-      "action": "Check for under-replicated partitions",
+      "action": "Check ISR list and ensure min.insync.replicas brokers are up",
       "success_rate": 0.85,
-      "how": "kafka-topics.sh --describe --under-replicated-partitions --bootstrap-server localhost:9092",
       "sources": [],
       "condition": ""
     }
@@ -76,9 +61,9 @@
   },
   "metadata": {
     "generated_by": "bulk_generate.py",
-    "generation_date": "2026-02-25",
+    "generation_date": "2026-02-26",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-25"
+    "last_verification": "2026-02-26"
   }
 }

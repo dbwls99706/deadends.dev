@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/module-load-error/redis7-linux",
+  "url": "https://deadends.dev/redis/module-load-error/redis7-linux",
+  "error": {
+    "signature": "Module: error loading shared library",
+    "regex": "(Module.*error.*loading|module.*load.*failed|shared library.*error)",
+    "domain": "redis",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Redis module failed to load."
+  },
+  "dead_ends": [
+    {
+      "action": "Compile module from source without matching Redis version",
+      "why_fails": "ABI mismatch",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Load module in production without testing",
+      "why_fails": "May crash Redis",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match module version to Redis server version",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Load in redis.conf: loadmodule /path/to/module.so",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

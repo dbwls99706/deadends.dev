@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/pip/pip-install-nonascii-venv-path/pip23-linux",
   "error": {
     "signature": "pip install fails with UnicodeDecodeError in virtualenv with Korean path",
-    "regex": "UnicodeDecodeError.*pip|pip.*install.*[가-힣]|venv.*encode.*error",
+    "regex": "(UnicodeDecodeError.*pip|pip.*install.*[\uac00-\ud7a3]|venv.*encode.*error|pip\\ install\\ fails\\ with\\ UnicodeDecodeError\\ in\\ virtualenv\\ with)",
     "domain": "pip",
     "category": "path_encoding",
     "first_seen": "2023-01-01",

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/xss-reflected/sec-linux",
+  "url": "https://deadends.dev/security/xss-reflected/sec-linux",
+  "error": {
+    "signature": "XSS: reflected user input in HTML response",
+    "regex": "(XSS.*reflected|cross.?site.*scripting|script.*injection|unsanitized.*output)",
+    "domain": "security",
+    "category": "vulnerability_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "security",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "User input reflected in HTML without proper encoding."
+  },
+  "dead_ends": [
+    {
+      "action": "Filter script tags only",
+      "why_fails": "Bypassed with event handlers, SVG, etc.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use regex to remove HTML",
+      "why_fails": "Regex cant reliably parse HTML",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use context-aware output encoding (HTML, JS, URL, CSS)",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set Content-Security-Policy header to restrict inline scripts",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

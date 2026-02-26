@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/temperature-zero-not-deterministic/llm-api-any",
   "error": {
     "signature": "LLM produces different outputs for identical prompts even with temperature=0",
-    "regex": "(temperature.*0.*different|deterministic.*LLM|same.*prompt.*different.*output|non.*deterministic.*temperature)",
+    "regex": "(temperature.*0.*different|deterministic.*LLM|same.*prompt.*different.*output|non.*deterministic.*temperature|LLM\\ produces\\ different\\ outputs\\ for\\ identical\\ prompts\\ even\\ wi)",
     "domain": "llm",
     "category": "reproducibility",
     "first_seen": "2023-01-01",

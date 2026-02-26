@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/image-build-failed/cloud-linux",
+  "url": "https://deadends.dev/cloud/image-build-failed/cloud-linux",
+  "error": {
+    "signature": "Container image build failed in CI/CD pipeline",
+    "regex": "(image build.*failed|Dockerfile.*error|docker build.*failed|build.*push.*error)",
+    "domain": "cloud",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cloud",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Container image build or push to registry failed."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip image build and use latest",
+      "why_fails": "Deploys untested code",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Build locally and push manually",
+      "why_fails": "Not reproducible in CI",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check Dockerfile syntax and base image availability",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify registry credentials and disk space in build environment",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

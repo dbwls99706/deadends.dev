@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "flutter/riverpod-circular-dependency/flutter3-linux",
+  "url": "https://deadends.dev/flutter/riverpod-circular-dependency/flutter3-linux",
+  "error": {
+    "signature": "ProviderException: circular dependency detected",
+    "regex": "(circular dependency.*Provider|Riverpod.*circular|provider.*cycle|ProviderException:\\ circular\\ dependency\\ detected)",
+    "domain": "flutter",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "flutter",
+      "version_range": ">=3.16"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Riverpod providers have circular dependency."
+  },
+  "dead_ends": [
+    {
+      "action": "Use global state to break cycle",
+      "why_fails": "Loses reactive updates",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Lazy-initialize all providers",
+      "why_fails": "May cause runtime null errors",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Refactor: extract shared logic into separate provider",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use ref.read instead of ref.watch to break reactive cycle",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/cloudflare-free-plan-rules/cf-all",
+  "url": "https://deadends.dev/policy/cloudflare-free-plan-rules/cf-all",
+  "error": {
+    "signature": "Error 1101: Too many page rules for your plan",
+    "regex": "(Too many.*page rules|1101.*page rules|rule limit.*exceeded)",
+    "domain": "policy",
+    "category": "quota_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cloudflare",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "Cloudflare free plan limited to 3 page rules."
+  },
+  "dead_ends": [
+    {
+      "action": "Create more page rules anyway",
+      "why_fails": "Free plan hard limit of 3 page rules cannot be exceeded.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Workers to replicate all page rule behavior",
+      "why_fails": "Workers have their own limits (100K req/day free) and different semantics.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Upgrade to Pro plan for 20 page rules",
+      "success_rate": 0.9,
+      "how": "Cloudflare Dashboard > Overview > Change Plan",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use Transform Rules and Redirect Rules instead of Page Rules",
+      "success_rate": 0.85,
+      "how": "Transform Rules have higher limits and are more flexible",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

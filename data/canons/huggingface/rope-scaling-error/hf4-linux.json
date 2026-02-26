@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "huggingface/rope-scaling-error/hf4-linux",
+  "url": "https://deadends.dev/huggingface/rope-scaling-error/hf4-linux",
+  "error": {
+    "signature": "ValueError: RoPE scaling configuration is invalid",
+    "regex": "(RoPE.*scaling.*invalid|rope_scaling.*error|position.*embedding.*error)",
+    "domain": "huggingface",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "transformers",
+      "version_range": ">=4.30"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Rotary Position Embedding scaling config invalid."
+  },
+  "dead_ends": [
+    {
+      "action": "Remove rope_scaling entirely",
+      "why_fails": "Limited to original context length",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set arbitrary scaling factor",
+      "why_fails": "Quality degradation beyond training window",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use supported rope_scaling types: linear or dynamic",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set factor based on desired context extension ratio",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

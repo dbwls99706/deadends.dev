@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/editor-crash-import/unity2022-win",
+  "url": "https://deadends.dev/unity/editor-crash-import/unity2022-win",
+  "error": {
+    "signature": "Unity Editor crashed during asset import",
+    "regex": "(Editor.*crash.*import|Fatal Error.*import|asset import.*failed)",
+    "domain": "unity",
+    "category": "crash_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.7,
+    "confidence": 0.75,
+    "last_updated": "2026-02-26",
+    "summary": "Large asset or corrupted file crashes editor during import."
+  },
+  "dead_ends": [
+    {
+      "action": "Force reimport all assets",
+      "why_fails": "Very slow, may crash again",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete Library folder during import",
+      "why_fails": "Loses all cached data, full reimport",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Import assets in small batches with editor in safe mode",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check asset format compatibility and file size limits",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

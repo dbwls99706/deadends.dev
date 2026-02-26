@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/serialization-error/grpc1-linux",
+  "url": "https://deadends.dev/grpc/serialization-error/grpc1-linux",
+  "error": {
+    "signature": "INTERNAL: failed to serialize/deserialize message",
+    "regex": "(failed to serialize|failed to deserialize|marshal.*error|unmarshal.*error)",
+    "domain": "grpc",
+    "category": "data_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Protobuf serialization or deserialization failed."
+  },
+  "dead_ends": [
+    {
+      "action": "Use JSON transcoding for everything",
+      "why_fails": "Performance penalty, loses proto benefits",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore unknown fields globally",
+      "why_fails": "May miss important data",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure proto files match between client and server versions",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Validate message before sending: check required fields",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}
