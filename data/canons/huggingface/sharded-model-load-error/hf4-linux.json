@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/huggingface/sharded-model-load-error/hf4-linux",
   "error": {
     "signature": "OSError: error loading sharded checkpoint",
-    "regex": "(sharded.*checkpoint.*error|shard.*missing|model.*shard.*not found)",
+    "regex": "(sharded.*checkpoint.*error|shard.*missing|model.*shard.*not found|OSError:\\ error\\ loading\\ sharded\\ checkpoint)",
     "domain": "huggingface",
     "category": "io_error",
     "first_seen": "2023-01-01",

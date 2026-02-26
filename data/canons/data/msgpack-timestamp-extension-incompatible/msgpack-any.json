@@ -3,8 +3,8 @@
   "id": "data/msgpack-timestamp-extension-incompatible/msgpack-any",
   "url": "https://deadends.dev/data/msgpack-timestamp-extension-incompatible/msgpack-any",
   "error": {
-    "signature": "Timestamp deserialization fails — msgpack extension type mismatch across languages",
-    "regex": "msgpack.*timestamp|extension.*type.*-1|[Dd]eserializ.*time.*fail",
+    "signature": "Timestamp deserialization fails \u2014 msgpack extension type mismatch across languages",
+    "regex": "(msgpack.*timestamp|extension.*type.*-1|[Dd]eserializ.*time.*fail|Timestamp\\ deserialization\\ fails\\ \u2014\\ msgpack\\ extension\\ type\\ mis)",
     "domain": "data",
     "category": "serialization",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/api-response-format-instability/llm-api-any",
   "error": {
     "signature": "LLM API response format changes between calls or after model updates",
-    "regex": "(response.*format.*changed|API.*breaking.*change|model.*update.*broke|parsing.*fail.*update)",
+    "regex": "(response.*format.*changed|API.*breaking.*change|model.*update.*broke|parsing.*fail.*update|LLM\\ API\\ response\\ format\\ changes\\ between\\ calls\\ or\\ after\\ model)",
     "domain": "llm",
     "category": "api_stability",
     "first_seen": "2023-01-01",

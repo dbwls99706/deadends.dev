@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/android/compose-recomposition/android14-linux",
   "error": {
     "signature": "Excessive recomposition detected in Compose UI",
-    "regex": "(recomposition.*excessive|Compose.*performance|remember.*missing|recompose.*loop)",
+    "regex": "(recomposition.*excessive|Compose.*performance|remember.*missing|recompose.*loop|Excessive\\ recomposition\\ detected\\ in\\ Compose\\ UI)",
     "domain": "android",
     "category": "performance_error",
     "first_seen": "2023-01-01",

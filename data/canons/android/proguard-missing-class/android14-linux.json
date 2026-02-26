@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/android/proguard-missing-class/android14-linux",
   "error": {
     "signature": "Warning: class not found: com.example.SomeClass",
-    "regex": "(class not found.*proguard|Missing class|R8.*warning)",
+    "regex": "(class not found.*proguard|Missing class|R8.*warning|Warning:\\ class\\ not\\ found:\\ com\\.example\\.SomeClass)",
     "domain": "android",
     "category": "build_error",
     "first_seen": "2023-01-01",

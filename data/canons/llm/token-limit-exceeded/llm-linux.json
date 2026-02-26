@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/token-limit-exceeded/llm-linux",
   "error": {
     "signature": "InvalidRequestError: total tokens exceed model maximum",
-    "regex": "(token.*limit.*exceeded|maximum.*tokens|too many tokens|token.*budget)",
+    "regex": "(token.*limit.*exceeded|maximum.*tokens|too many tokens|token.*budget|InvalidRequestError:\\ total\\ tokens\\ exceed\\ model\\ maximum)",
     "domain": "llm",
     "category": "input_error",
     "first_seen": "2023-01-01",

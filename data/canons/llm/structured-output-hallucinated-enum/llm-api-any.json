@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/structured-output-hallucinated-enum/llm-api-any",
   "error": {
     "signature": "LLM returns values not in the specified enum when generating structured JSON output",
-    "regex": "(hallucinated.*enum|invalid.*enum.*value|JSON.*schema.*violation|structured.*output.*invalid)",
+    "regex": "(hallucinated.*enum|invalid.*enum.*value|JSON.*schema.*violation|structured.*output.*invalid|LLM\\ returns\\ values\\ not\\ in\\ the\\ specified\\ enum\\ when\\ generating)",
     "domain": "llm",
     "category": "structured_output",
     "first_seen": "2023-01-01",

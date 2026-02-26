@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/cloud/gcp-cloud-run-cold-start-large-image/gcp-cloudrun-any",
   "error": {
     "signature": "Cloud Run request takes 30s+ on first invocation due to large container image",
-    "regex": "(Cloud Run.*cold start|container.*pull.*slow|Cloud Run.*startup.*timeout|min-instances.*cold)",
+    "regex": "(Cloud Run.*cold start|container.*pull.*slow|Cloud Run.*startup.*timeout|min-instances.*cold|Cloud\\ Run\\ request\\ takes\\ 30s\\+\\ on\\ first\\ invocation\\ due\\ to\\ larg)",
     "domain": "cloud",
     "category": "performance",
     "first_seen": "2023-01-01",

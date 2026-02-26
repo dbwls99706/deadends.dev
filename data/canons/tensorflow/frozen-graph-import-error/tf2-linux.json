@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/tensorflow/frozen-graph-import-error/tf2-linux",
   "error": {
     "signature": "RuntimeError: cannot import frozen graph in TF2",
-    "regex": "(frozen graph.*import|GraphDef.*error|saved_model.*frozen|pb.*import.*error)",
+    "regex": "(frozen graph.*import|GraphDef.*error|saved_model.*frozen|pb.*import.*error|RuntimeError:\\ cannot\\ import\\ frozen\\ graph\\ in\\ TF2)",
     "domain": "tensorflow",
     "category": "compatibility_error",
     "first_seen": "2023-01-01",

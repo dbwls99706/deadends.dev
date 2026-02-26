@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/cloud/private-endpoint-dns-error/cloud-linux",
   "error": {
     "signature": "Could not resolve private endpoint hostname",
-    "regex": "(private endpoint.*resolve|private.*DNS.*failed|privatelink.*not found)",
+    "regex": "(private endpoint.*resolve|private.*DNS.*failed|privatelink.*not found|Could\\ not\\ resolve\\ private\\ endpoint\\ hostname)",
     "domain": "cloud",
     "category": "network_error",
     "first_seen": "2023-01-01",

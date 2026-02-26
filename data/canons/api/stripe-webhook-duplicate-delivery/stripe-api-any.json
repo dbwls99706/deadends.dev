@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/api/stripe-webhook-duplicate-delivery/stripe-api-any",
   "error": {
     "signature": "Stripe webhook event received multiple times despite 200 response",
-    "regex": "(duplicate.*webhook|webhook.*delivered.*twice|idempotency.*key.*conflict)",
+    "regex": "(duplicate.*webhook|webhook.*delivered.*twice|idempotency.*key.*conflict|Stripe\\ webhook\\ event\\ received\\ multiple\\ times\\ despite\\ 200\\ res)",
     "domain": "api",
     "category": "webhook_reliability",
     "first_seen": "2023-01-01",

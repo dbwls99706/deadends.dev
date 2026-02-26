@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/redis/eviction-policy-issue/redis7-linux",
   "error": {
     "signature": "Keys being evicted unexpectedly",
-    "regex": "(eviction.*unexpected|evicted.*keys|maxmemory-policy|key.*disappeared)",
+    "regex": "(eviction.*unexpected|evicted.*keys|maxmemory-policy|key.*disappeared|Keys\\ being\\ evicted\\ unexpectedly)",
     "domain": "redis",
     "category": "config_error",
     "first_seen": "2023-01-01",

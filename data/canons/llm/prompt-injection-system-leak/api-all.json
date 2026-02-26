@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/prompt-injection-system-leak/api-all",
   "error": {
     "signature": "LLM output contained system prompt content",
-    "regex": "(system prompt.*leaked|prompt injection|instruction.*extraction|ignore.*previous.*instructions)",
+    "regex": "(system prompt.*leaked|prompt injection|instruction.*extraction|ignore.*previous.*instructions|LLM\\ output\\ contained\\ system\\ prompt\\ content)",
     "domain": "llm",
     "category": "security_error",
     "first_seen": "2023-01-01",

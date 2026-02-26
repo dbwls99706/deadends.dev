@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/huggingface/attention-sink-oom/hf4-linux",
   "error": {
     "signature": "OutOfMemoryError during attention computation",
-    "regex": "(attention.*OOM|attention.*out of memory|self.?attention.*memory)",
+    "regex": "(attention.*OOM|attention.*out of memory|self.?attention.*memory|OutOfMemoryError\\ during\\ attention\\ computation)",
     "domain": "huggingface",
     "category": "memory_error",
     "first_seen": "2023-01-01",

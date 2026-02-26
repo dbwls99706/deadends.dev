@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/unity/coroutine-null-reference/unity2022-win",
   "error": {
     "signature": "NullReferenceException in coroutine MoveNext",
-    "regex": "(coroutine.*NullReference|MoveNext.*NullReference)",
+    "regex": "(coroutine.*NullReference|MoveNext.*NullReference|NullReferenceException\\ in\\ coroutine\\ MoveNext)",
     "domain": "unity",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/api/slack-mrkdwn-not-markdown/slack-api-any",
   "error": {
     "signature": "Slack message displays raw markdown instead of formatted text in Block Kit",
-    "regex": "(mrkdwn.*not.*rendering|block.*kit.*markdown.*raw|slack.*formatting.*broken)",
+    "regex": "(mrkdwn.*not.*rendering|block.*kit.*markdown.*raw|slack.*formatting.*broken|Slack\\ message\\ displays\\ raw\\ markdown\\ instead\\ of\\ formatted\\ tex)",
     "domain": "api",
     "category": "formatting",
     "first_seen": "2023-01-01",

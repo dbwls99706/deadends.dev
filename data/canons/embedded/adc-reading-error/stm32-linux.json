@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/embedded/adc-reading-error/stm32-linux",
   "error": {
     "signature": "ADC: conversion result out of expected range",
-    "regex": "(ADC.*error|conversion.*out of range|analog.*read.*error|ADC.*timeout)",
+    "regex": "(ADC.*error|conversion.*out of range|analog.*read.*error|ADC.*timeout|ADC:\\ conversion\\ result\\ out\\ of\\ expected\\ range)",
     "domain": "embedded",
     "category": "hardware_error",
     "first_seen": "2023-01-01",

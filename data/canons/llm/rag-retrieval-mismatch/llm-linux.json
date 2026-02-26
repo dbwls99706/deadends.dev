@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/rag-retrieval-mismatch/llm-linux",
   "error": {
     "signature": "RAG: retrieved context irrelevant to query",
-    "regex": "(retrieval.*irrelevant|RAG.*mismatch|context.*not relevant|search.*quality)",
+    "regex": "(retrieval.*irrelevant|RAG.*mismatch|context.*not relevant|search.*quality|RAG:\\ retrieved\\ context\\ irrelevant\\ to\\ query)",
     "domain": "llm",
     "category": "quality_error",
     "first_seen": "2023-01-01",

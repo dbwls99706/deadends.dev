@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/grpc/proto-version-mismatch/grpc1-linux",
   "error": {
     "signature": "INTERNAL: proto3 message has proto2 syntax fields",
-    "regex": "(proto.*version.*mismatch|proto2.*proto3|syntax.*incompatible)",
+    "regex": "(proto.*version.*mismatch|proto2.*proto3|syntax.*incompatible|INTERNAL:\\ proto3\\ message\\ has\\ proto2\\ syntax\\ fields)",
     "domain": "grpc",
     "category": "config_error",
     "first_seen": "2023-01-01",

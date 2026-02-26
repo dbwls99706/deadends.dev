@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/multimodal-image-token-cost/api-all",
   "error": {
     "signature": "BillingError: Image input token count exceeded budget",
-    "regex": "(image.*token.*cost|vision.*expensive|multimodal.*billing|image.*input.*tokens)",
+    "regex": "(image.*token.*cost|vision.*expensive|multimodal.*billing|image.*input.*tokens|BillingError:\\ Image\\ input\\ token\\ count\\ exceeded\\ budget)",
     "domain": "llm",
     "category": "cost_error",
     "first_seen": "2023-01-01",

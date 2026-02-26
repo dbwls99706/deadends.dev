@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/tiktoken-count-mismatch-api/openai-api-any",
   "error": {
     "signature": "tiktoken token count doesn't match actual API token usage in response",
-    "regex": "(tiktoken.*mismatch|token.*count.*differ|prompt_tokens.*unexpected|context.*length.*exceeded.*estimated)",
+    "regex": "(tiktoken.*mismatch|token.*count.*differ|prompt_tokens.*unexpected|context.*length.*exceeded.*estimated|tiktoken\\ token\\ count\\ doesn't\\ match\\ actual\\ API\\ token\\ usage\\ in)",
     "domain": "llm",
     "category": "token_counting",
     "first_seen": "2023-01-01",

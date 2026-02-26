@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/security/cors-misconfiguration/sec-linux",
   "error": {
     "signature": "Access-Control-Allow-Origin: * with credentials",
-    "regex": "(CORS.*misconfiguration|Access-Control.*wildcard.*credentials|origin.*reflect)",
+    "regex": "(CORS.*misconfiguration|Access-Control.*wildcard.*credentials|origin.*reflect|Access\\-Control\\-Allow\\-Origin:\\ \\*\\ with\\ credentials)",
     "domain": "security",
     "category": "config_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/mongodb/view-performance/mongo7-linux",
   "error": {
     "signature": "Slow query on view: aggregation pipeline not optimized",
-    "regex": "(view.*slow|view.*performance|aggregation.*view.*timeout)",
+    "regex": "(view.*slow|view.*performance|aggregation.*view.*timeout|Slow\\ query\\ on\\ view:\\ aggregation\\ pipeline\\ not\\ optimized)",
     "domain": "mongodb",
     "category": "performance_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/policy/aws-ses-sandbox-silent-drop/aws-ses-any",
   "error": {
     "signature": "AWS SES sends email successfully (200 OK) but recipient never receives it in sandbox mode",
-    "regex": "(SES.*sandbox.*not.*received|SES.*email.*missing|SES.*verified.*only|SES.*200.*not.*delivered)",
+    "regex": "(SES.*sandbox.*not.*received|SES.*email.*missing|SES.*verified.*only|SES.*200.*not.*delivered|AWS\\ SES\\ sends\\ email\\ successfully\\ \\(200\\ OK\\)\\ but\\ recipient\\ neve)",
     "domain": "policy",
     "category": "email_delivery",
     "first_seen": "2023-01-01",

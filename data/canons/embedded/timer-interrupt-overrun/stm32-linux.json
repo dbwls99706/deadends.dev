@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/embedded/timer-interrupt-overrun/stm32-linux",
   "error": {
     "signature": "Timer: interrupt handler not completing before next period",
-    "regex": "(timer.*overrun|interrupt.*overrun|ISR.*too long|timer.*period.*exceeded)",
+    "regex": "(timer.*overrun|interrupt.*overrun|ISR.*too long|timer.*period.*exceeded|Timer:\\ interrupt\\ handler\\ not\\ completing\\ before\\ next\\ period)",
     "domain": "embedded",
     "category": "performance_error",
     "first_seen": "2023-01-01",

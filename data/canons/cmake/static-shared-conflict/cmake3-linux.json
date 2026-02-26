@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/cmake/static-shared-conflict/cmake3-linux",
   "error": {
     "signature": "CMake Error: cannot use STATIC and SHARED library together",
-    "regex": "(STATIC.*SHARED.*conflict|library type.*mismatch|position independent.*error)",
+    "regex": "(STATIC.*SHARED.*conflict|library type.*mismatch|position independent.*error|CMake\\ Error:\\ cannot\\ use\\ STATIC\\ and\\ SHARED\\ library\\ together)",
     "domain": "cmake",
     "category": "config_error",
     "first_seen": "2023-01-01",

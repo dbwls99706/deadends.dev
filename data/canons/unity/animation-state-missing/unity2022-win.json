@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/unity/animation-state-missing/unity2022-win",
   "error": {
     "signature": "AnimatorStateNotFoundError: state not in controller",
-    "regex": "(Animator.*state.*not found|animation.*missing|controller.*state.*error)",
+    "regex": "(Animator.*state.*not found|animation.*missing|controller.*state.*error|AnimatorStateNotFoundError:\\ state\\ not\\ in\\ controller)",
     "domain": "unity",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

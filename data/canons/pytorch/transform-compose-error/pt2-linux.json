@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/pytorch/transform-compose-error/pt2-linux",
   "error": {
     "signature": "TypeError: transform compose received wrong input type",
-    "regex": "(transform.*compose.*error|Compose.*type.*error|transform.*wrong type)",
+    "regex": "(transform.*compose.*error|Compose.*type.*error|transform.*wrong type|TypeError:\\ transform\\ compose\\ received\\ wrong\\ input\\ type)",
     "domain": "pytorch",
     "category": "type_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/ros2/action-server-preemption-race/humble-linux",
   "error": {
     "signature": "ROS2 action goal preemption causes crash or undefined behavior when new goal arrives during execution",
-    "regex": "(action.*preempt.*race|goal.*cancel.*crash|action.*server.*concurrent|goal.*handle.*invalid)",
+    "regex": "(action.*preempt.*race|goal.*cancel.*crash|action.*server.*concurrent|goal.*handle.*invalid|ROS2\\ action\\ goal\\ preemption\\ causes\\ crash\\ or\\ undefined\\ behavi)",
     "domain": "ros2",
     "category": "actions",
     "first_seen": "2023-01-01",

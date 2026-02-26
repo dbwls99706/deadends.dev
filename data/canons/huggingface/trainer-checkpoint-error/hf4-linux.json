@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/huggingface/trainer-checkpoint-error/hf4-linux",
   "error": {
     "signature": "RuntimeError: failed to save/load training checkpoint",
-    "regex": "(checkpoint.*error|save.*checkpoint.*failed|resume.*training.*error)",
+    "regex": "(checkpoint.*error|save.*checkpoint.*failed|resume.*training.*error|RuntimeError:\\ failed\\ to\\ save/load\\ training\\ checkpoint)",
     "domain": "huggingface",
     "category": "io_error",
     "first_seen": "2023-01-01",

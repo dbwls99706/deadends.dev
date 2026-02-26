@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/opencv/optical-flow-error/cv4-linux",
   "error": {
     "signature": "cv::calcOpticalFlowPyrLK: input images must be grayscale",
-    "regex": "(optical flow.*error|calcOpticalFlow.*assertion|grayscale.*required.*flow)",
+    "regex": "(optical flow.*error|calcOpticalFlow.*assertion|grayscale.*required.*flow|cv::calcOpticalFlowPyrLK:\\ input\\ images\\ must\\ be\\ grayscale)",
     "domain": "opencv",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

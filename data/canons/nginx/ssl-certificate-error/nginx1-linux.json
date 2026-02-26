@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/nginx/ssl-certificate-error/nginx1-linux",
   "error": {
     "signature": "SSL: error:0A000086:SSL routines::certificate verify failed",
-    "regex": "(SSL.*certificate.*error|SSL_CTX_use_certificate|ssl_certificate.*failed)",
+    "regex": "(SSL.*certificate.*error|SSL_CTX_use_certificate|ssl_certificate.*failed|SSL:\\ error:0A000086:SSL\\ routines::certificate\\ verify\\ failed)",
     "domain": "nginx",
     "category": "tls_error",
     "first_seen": "2023-01-01",

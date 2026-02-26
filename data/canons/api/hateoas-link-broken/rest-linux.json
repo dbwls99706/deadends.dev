@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/api/hateoas-link-broken/rest-linux",
   "error": {
     "signature": "404: HATEOAS link target not found",
-    "regex": "(HATEOAS.*link.*broken|hypermedia.*link.*404|_links.*not found)",
+    "regex": "(HATEOAS.*link.*broken|hypermedia.*link.*404|_links.*not found|404:\\ HATEOAS\\ link\\ target\\ not\\ found)",
     "domain": "api",
     "category": "resource_error",
     "first_seen": "2023-01-01",

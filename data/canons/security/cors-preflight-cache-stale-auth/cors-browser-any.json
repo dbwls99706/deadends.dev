@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/security/cors-preflight-cache-stale-auth/cors-browser-any",
   "error": {
     "signature": "CORS preflight succeeds but subsequent request fails with 403, or auth changes aren't reflected",
-    "regex": "(CORS.*preflight.*cache|Access-Control-Max-Age.*stale|CORS.*403.*after.*auth|preflight.*cached.*old)",
+    "regex": "(CORS.*preflight.*cache|Access-Control-Max-Age.*stale|CORS.*403.*after.*auth|preflight.*cached.*old|CORS\\ preflight\\ succeeds\\ but\\ subsequent\\ request\\ fails\\ with\\ 40)",
     "domain": "security",
     "category": "cors",
     "first_seen": "2023-01-01",

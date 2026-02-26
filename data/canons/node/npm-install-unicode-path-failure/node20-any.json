@@ -3,8 +3,8 @@
   "id": "node/npm-install-unicode-path-failure/node20-any",
   "url": "https://deadends.dev/node/npm-install-unicode-path-failure/node20-any",
   "error": {
-    "signature": "npm ERR! ENOENT — npm install fails in directory with Korean or CJK characters",
-    "regex": "npm ERR!.*ENOENT.*[가-힣]|ENOENT.*[\\\\u]|npm.*non-ascii.*path",
+    "signature": "npm ERR! ENOENT \u2014 npm install fails in directory with Korean or CJK characters",
+    "regex": "(npm ERR!.*ENOENT.*[\uac00-\ud7a3]|ENOENT.*[\\\\u]|npm.*non-ascii.*path|npm\\ ERR!\\ ENOENT\\ \u2014\\ npm\\ install\\ fails\\ in\\ directory\\ with\\ Korean)",
     "domain": "node",
     "category": "path_encoding",
     "first_seen": "2023-01-01",
@@ -48,7 +48,7 @@
     {
       "action": "Move project to an ASCII-only path or create a symlink from an ASCII path",
       "success_rate": 0.92,
-      "how": "ln -s /home/user/프로젝트 /home/user/project && cd /home/user/project && npm install",
+      "how": "ln -s /home/user/\ud504\ub85c\uc81d\ud2b8 /home/user/project && cd /home/user/project && npm install",
       "sources": [
         "https://docs.npmjs.com/common-errors"
       ],

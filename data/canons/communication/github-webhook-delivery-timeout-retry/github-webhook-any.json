@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/communication/github-webhook-delivery-timeout-retry/github-webhook-any",
   "error": {
     "signature": "GitHub webhook delivers same event multiple times because endpoint is slow or returns non-2xx",
-    "regex": "(GitHub.*webhook.*retry|webhook.*deliver.*duplicate|webhook.*timeout.*redeliver|X-GitHub-Delivery.*duplicate)",
+    "regex": "(GitHub.*webhook.*retry|webhook.*deliver.*duplicate|webhook.*timeout.*redeliver|X-GitHub-Delivery.*duplicate|GitHub\\ webhook\\ delivers\\ same\\ event\\ multiple\\ times\\ because\\ en)",
     "domain": "communication",
     "category": "webhook_reliability",
     "first_seen": "2023-01-01",

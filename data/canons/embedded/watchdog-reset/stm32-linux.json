@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/embedded/watchdog-reset/stm32-linux",
   "error": {
     "signature": "System reset by watchdog timer",
-    "regex": "(watchdog.*reset|IWDG.*reset|WDT.*timeout|unexpected reset)",
+    "regex": "(watchdog.*reset|IWDG.*reset|WDT.*timeout|unexpected reset|System\\ reset\\ by\\ watchdog\\ timer)",
     "domain": "embedded",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

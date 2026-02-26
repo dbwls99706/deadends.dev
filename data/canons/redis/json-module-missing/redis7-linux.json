@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/redis/json-module-missing/redis7-linux",
   "error": {
     "signature": "ERR unknown command ",
-    "regex": "(unknown command.*JSON|RedisJSON.*not.*loaded|module.*rejson|ERR.*JSON\\.)",
+    "regex": "(unknown command.*JSON|RedisJSON.*not.*loaded|module.*rejson|ERR.*JSON\\.|ERR\\ unknown\\ command\\ )",
     "domain": "redis",
     "category": "module_error",
     "first_seen": "2023-01-01",

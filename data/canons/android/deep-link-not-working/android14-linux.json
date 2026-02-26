@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/android/deep-link-not-working/android14-linux",
   "error": {
     "signature": "Intent: no Activity found to handle deep link",
-    "regex": "(deep link.*not.*handled|no Activity.*intent|AppLinks.*verification.*failed)",
+    "regex": "(deep link.*not.*handled|no Activity.*intent|AppLinks.*verification.*failed|Intent:\\ no\\ Activity\\ found\\ to\\ handle\\ deep\\ link)",
     "domain": "android",
     "category": "config_error",
     "first_seen": "2023-01-01",

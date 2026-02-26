@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/opencv/import-cv2-failed/cv4-linux",
   "error": {
     "signature": "ImportError: libGL.so.1: cannot open shared object file",
-    "regex": "(ImportError.*cv2|libGL.*not found|cannot open.*libGL|No module named.*cv2)",
+    "regex": "(ImportError.*cv2|libGL.*not found|cannot open.*libGL|No module named.*cv2|ImportError:\\ libGL\\.so\\.1:\\ cannot\\ open\\ shared\\ object\\ file)",
     "domain": "opencv",
     "category": "import_error",
     "first_seen": "2023-01-01",

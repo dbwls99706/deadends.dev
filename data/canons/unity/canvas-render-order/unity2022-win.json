@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/unity/canvas-render-order/unity2022-win",
   "error": {
     "signature": "UI elements not rendering in correct order",
-    "regex": "(render order|sorting order|Canvas.*overlay|UI.*behind)",
+    "regex": "(render order|sorting order|Canvas.*overlay|UI.*behind|UI\\ elements\\ not\\ rendering\\ in\\ correct\\ order)",
     "domain": "unity",
     "category": "rendering_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/policy/api-key-rotation-failure/policy-linux",
   "error": {
     "signature": "Policy violation: API key not rotated within required period",
-    "regex": "(key.*rotation|API key.*expired|rotation.*policy|key.*lifecycle)",
+    "regex": "(key.*rotation|API key.*expired|rotation.*policy|key.*lifecycle|Policy\\ violation:\\ API\\ key\\ not\\ rotated\\ within\\ required\\ period)",
     "domain": "policy",
     "category": "compliance_error",
     "first_seen": "2023-01-01",

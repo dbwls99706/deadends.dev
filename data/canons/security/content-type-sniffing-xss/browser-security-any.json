@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/security/content-type-sniffing-xss/browser-security-any",
   "error": {
     "signature": "XSS attack succeeds via uploaded file because browser sniffs content type instead of respecting Content-Type header",
-    "regex": "(content.*type.*sniff|X-Content-Type-Options|MIME.*sniff.*XSS|nosniff.*missing)",
+    "regex": "(content.*type.*sniff|X-Content-Type-Options|MIME.*sniff.*XSS|nosniff.*missing|XSS\\ attack\\ succeeds\\ via\\ uploaded\\ file\\ because\\ browser\\ sniffs)",
     "domain": "security",
     "category": "xss",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/security/cors-wildcard-credentials/browser-all",
   "error": {
     "signature": "Access-Control-Allow-Origin cannot be wildcard when credentials flag is true",
-    "regex": "(CORS.*wildcard.*credentials|Access-Control-Allow-Origin.*\\*.*credentials|credential.*not.*supported.*wildcard)",
+    "regex": "(CORS.*wildcard.*credentials|Access-Control-Allow-Origin.*\\*.*credentials|credential.*not.*supported.*wildcard|Access\\-Control\\-Allow\\-Origin\\ cannot\\ be\\ wildcard\\ when\\ credenti)",
     "domain": "security",
     "category": "config_error",
     "first_seen": "2023-01-01",

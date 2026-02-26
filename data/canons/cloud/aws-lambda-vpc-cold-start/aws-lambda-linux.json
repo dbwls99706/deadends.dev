@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/cloud/aws-lambda-vpc-cold-start/aws-lambda-linux",
   "error": {
     "signature": "AWS Lambda function times out or takes 10s+ on first invocation when in VPC",
-    "regex": "(Lambda.*VPC.*cold.*start|Lambda.*timeout.*VPC|ENI.*creation.*slow|Task timed out after)",
+    "regex": "(Lambda.*VPC.*cold.*start|Lambda.*timeout.*VPC|ENI.*creation.*slow|Task timed out after|AWS\\ Lambda\\ function\\ times\\ out\\ or\\ takes\\ 10s\\+\\ on\\ first\\ invocat)",
     "domain": "cloud",
     "category": "performance",
     "first_seen": "2023-01-01",

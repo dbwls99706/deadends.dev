@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/mongodb/compound-index-limit/mongo7-linux",
   "error": {
     "signature": "MongoServerError: compound index has too many fields",
-    "regex": "(compound.*index.*limit|too many.*index fields|index.*key.*too large)",
+    "regex": "(compound.*index.*limit|too many.*index fields|index.*key.*too large|MongoServerError:\\ compound\\ index\\ has\\ too\\ many\\ fields)",
     "domain": "mongodb",
     "category": "config_error",
     "first_seen": "2023-01-01",

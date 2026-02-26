@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/opencv/morphology-kernel-error/cv4-linux",
   "error": {
     "signature": "cv::error: bad kernel size for morphological operation",
-    "regex": "(morphology.*kernel.*error|kernel size.*odd|structuring element.*error)",
+    "regex": "(morphology.*kernel.*error|kernel size.*odd|structuring element.*error|cv::error:\\ bad\\ kernel\\ size\\ for\\ morphological\\ operation)",
     "domain": "opencv",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

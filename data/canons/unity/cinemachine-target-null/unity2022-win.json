@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/unity/cinemachine-target-null/unity2022-win",
   "error": {
     "signature": "NullReferenceException in CinemachineVirtualCamera.Follow",
-    "regex": "(Cinemachine.*null|CinemachineVirtualCamera.*error|Follow.*target.*null)",
+    "regex": "(Cinemachine.*null|CinemachineVirtualCamera.*error|Follow.*target.*null|NullReferenceException\\ in\\ CinemachineVirtualCamera\\.Follow)",
     "domain": "unity",
     "category": "runtime_error",
     "first_seen": "2023-01-01",

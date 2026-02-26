@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/cloud/cross-account-access-denied/cloud-linux",
   "error": {
     "signature": "AccessDenied: cross-account IAM role assumption failed",
-    "regex": "(cross.?account.*denied|AssumeRole.*failed|trust policy.*error)",
+    "regex": "(cross.?account.*denied|AssumeRole.*failed|trust policy.*error|AccessDenied:\\ cross\\-account\\ IAM\\ role\\ assumption\\ failed)",
     "domain": "cloud",
     "category": "auth_error",
     "first_seen": "2023-01-01",

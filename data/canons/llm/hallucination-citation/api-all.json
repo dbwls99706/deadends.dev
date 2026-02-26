@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/llm/hallucination-citation/api-all",
   "error": {
     "signature": "Verification failed: LLM cited non-existent source",
-    "regex": "(hallucin|fabricated.*source|non-existent.*reference|fake.*citation|made.?up.*URL)",
+    "regex": "(hallucin|fabricated.*source|non-existent.*reference|fake.*citation|made.?up.*URL|Verification\\ failed:\\ LLM\\ cited\\ non\\-existent\\ source)",
     "domain": "llm",
     "category": "output_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/communication/sendgrid-batch-partial-failure-silent/sendgrid-api-any",
   "error": {
     "signature": "SendGrid batch send returns 202 Accepted but some recipients don't receive email",
-    "regex": "(SendGrid.*partial.*fail|SendGrid.*202.*not.*delivered|SendGrid.*batch.*missing|SendGrid.*silent.*drop)",
+    "regex": "(SendGrid.*partial.*fail|SendGrid.*202.*not.*delivered|SendGrid.*batch.*missing|SendGrid.*silent.*drop|SendGrid\\ batch\\ send\\ returns\\ 202\\ Accepted\\ but\\ some\\ recipients)",
     "domain": "communication",
     "category": "email_delivery",
     "first_seen": "2023-01-01",

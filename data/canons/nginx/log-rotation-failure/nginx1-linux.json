@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/nginx/log-rotation-failure/nginx1-linux",
   "error": {
     "signature": "nginx: [error] open() /var/log/nginx/access.log failed: Too many open files",
-    "regex": "(log.*open.*failed|log.*rotation|logrotate.*nginx|access.log.*error)",
+    "regex": "(log.*open.*failed|log.*rotation|logrotate.*nginx|access.log.*error|nginx:\\ \\[error\\]\\ open\\(\\)\\ /var/log/nginx/access\\.log\\ failed:\\ Too\\ )",
     "domain": "nginx",
     "category": "io_error",
     "first_seen": "2023-01-01",

@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/opencv/codec-not-found/cv4-linux",
   "error": {
     "signature": "Could not find encoder/decoder for codec",
-    "regex": "(codec.*not found|encoder.*not found|fourcc.*not supported|VideoWriter.*failed)",
+    "regex": "(codec.*not found|encoder.*not found|fourcc.*not supported|VideoWriter.*failed|Could\\ not\\ find\\ encoder/decoder\\ for\\ codec)",
     "domain": "opencv",
     "category": "config_error",
     "first_seen": "2023-01-01",

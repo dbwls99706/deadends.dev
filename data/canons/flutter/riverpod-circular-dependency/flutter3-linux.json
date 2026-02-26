@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/flutter/riverpod-circular-dependency/flutter3-linux",
   "error": {
     "signature": "ProviderException: circular dependency detected",
-    "regex": "(circular dependency.*Provider|Riverpod.*circular|provider.*cycle)",
+    "regex": "(circular dependency.*Provider|Riverpod.*circular|provider.*cycle|ProviderException:\\ circular\\ dependency\\ detected)",
     "domain": "flutter",
     "category": "config_error",
     "first_seen": "2023-01-01",

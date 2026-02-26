@@ -4,7 +4,7 @@
   "url": "https://deadends.dev/communication/webhook-signature-invalid/http-linux",
   "error": {
     "signature": "Webhook signature verification failed",
-    "regex": "(webhook.*signature.*invalid|HMAC.*verification.*failed|webhook.*verify.*error)",
+    "regex": "(webhook.*signature.*invalid|HMAC.*verification.*failed|webhook.*verify.*error|Webhook\\ signature\\ verification\\ failed)",
     "domain": "communication",
     "category": "auth_error",
     "first_seen": "2023-01-01",
