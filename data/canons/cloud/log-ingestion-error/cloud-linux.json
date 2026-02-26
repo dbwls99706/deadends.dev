@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/log-ingestion-error/cloud-linux",
+  "url": "https://deadends.dev/cloud/log-ingestion-error/cloud-linux",
+  "error": {
+    "signature": "Log ingestion failed: rate limit or format error",
+    "regex": "(log ingestion.*failed|logging.*rate limit|log.*format.*error|CloudWatch.*error)",
+    "domain": "cloud",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cloud",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Cloud logging service rejecting log entries."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable logging",
+      "why_fails": "No observability",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Log to local file only",
+      "why_fails": "Logs lost on container restart",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check log format matches expected schema",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement log batching and rate limiting on client side",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

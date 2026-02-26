@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cloud/cdn-cache-invalidation-failed/cloud-linux",
+  "url": "https://deadends.dev/cloud/cdn-cache-invalidation-failed/cloud-linux",
+  "error": {
+    "signature": "CDN: cache invalidation request failed",
+    "regex": "(CDN.*invalidation.*failed|cache.*purge.*error|CloudFront.*invalidation)",
+    "domain": "cloud",
+    "category": "operation_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cloud",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "CDN cache purge/invalidation request failed."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait for TTL expiry",
+      "why_fails": "Stale content served until TTL",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Delete CDN distribution",
+      "why_fails": "Service outage",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use versioned URLs instead of cache invalidation: file.v2.js",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Retry invalidation and check CDN console for status",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

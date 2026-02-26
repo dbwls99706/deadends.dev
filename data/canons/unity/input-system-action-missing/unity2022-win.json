@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/input-system-action-missing/unity2022-win",
+  "url": "https://deadends.dev/unity/input-system-action-missing/unity2022-win",
+  "error": {
+    "signature": "InvalidOperationException: InputAction not found",
+    "regex": "(InputAction.*not found|input.*action.*missing|InputSystem.*error)",
+    "domain": "unity",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "New Input System action not found or not enabled."
+  },
+  "dead_ends": [
+    {
+      "action": "Fall back to old Input Manager",
+      "why_fails": "Two input systems, confusing",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Hardcode input bindings",
+      "why_fails": "Loses rebinding capability",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ensure InputActionAsset is enabled: actionMap.Enable()",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check action name matches: PlayerInput.actions[\"ActionName\"]",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

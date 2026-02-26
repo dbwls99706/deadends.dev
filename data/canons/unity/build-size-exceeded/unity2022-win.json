@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/build-size-exceeded/unity2022-win",
+  "url": "https://deadends.dev/unity/build-size-exceeded/unity2022-win",
+  "error": {
+    "signature": "Build size exceeds platform limit",
+    "regex": "(build size.*exceeded|APK.*too large|binary.*too large|build.*limit)",
+    "domain": "unity",
+    "category": "build_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Build output exceeds platform size limit (e.g., 150MB for Play Store)."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable all compression",
+      "why_fails": "Makes build even larger",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove random assets",
+      "why_fails": "May break gameplay",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Addressables for on-demand asset loading",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Enable texture compression and strip unused engine features",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

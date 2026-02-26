@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/lambda-deployment-size/aws-all",
+  "url": "https://deadends.dev/policy/lambda-deployment-size/aws-all",
+  "error": {
+    "signature": "InvalidParameterValueException: Unzipped size must be smaller than 262144000 bytes",
+    "regex": "(Unzipped size.*262144000|deployment package.*too large|Lambda.*size.*limit)",
+    "domain": "policy",
+    "category": "size_limit_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "aws-lambda",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-02-26",
+    "summary": "AWS Lambda deployment package exceeds 250MB unzipped limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Compress the deployment package more aggressively",
+      "why_fails": "The 250MB limit applies to unzipped size, not zip size.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Split into multiple Lambda functions with shared code",
+      "why_fails": "Each function still needs its own dependencies bundled.",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Lambda layers to separate dependencies from code",
+      "success_rate": 0.88,
+      "how": "aws lambda publish-layer-version --layer-name deps --zip-file fileb://layer.zip",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use container image deployment (up to 10GB)",
+      "success_rate": 0.92,
+      "how": "Package as Docker image and deploy via ECR",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

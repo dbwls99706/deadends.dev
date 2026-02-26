@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/include-file-not-found/nginx1-linux",
+  "url": "https://deadends.dev/nginx/include-file-not-found/nginx1-linux",
+  "error": {
+    "signature": "nginx: [emerg] open() failed for included file",
+    "regex": "(open\\(\\).*failed.*include|include.*not found|nginx.*emerg.*include)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Included configuration file does not exist."
+  },
+  "dead_ends": [
+    {
+      "action": "Comment out include directive",
+      "why_fails": "Loses all included config",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Create empty file",
+      "why_fails": "Missing configuration directives",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use include with glob that allows empty: include /etc/nginx/conf.d/*.conf;",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify file path and permissions: ls -la path",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

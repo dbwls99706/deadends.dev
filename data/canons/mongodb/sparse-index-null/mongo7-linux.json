@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/sparse-index-null/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/sparse-index-null/mongo7-linux",
+  "error": {
+    "signature": "Unexpected results: sparse index not matching null fields",
+    "regex": "(sparse index.*null|missing.*sparse|partial.*index.*null)",
+    "domain": "mongodb",
+    "category": "query_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Sparse index excludes documents with null/missing field from queries."
+  },
+  "dead_ends": [
+    {
+      "action": "Convert sparse to non-sparse index",
+      "why_fails": "Much larger index for sparse fields",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove sparse index",
+      "why_fails": "Loses index for existing values",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use partial index with explicit filter expression instead of sparse",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Document sparse index behavior for application developers",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

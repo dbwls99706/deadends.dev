@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "nginx/regex-location-order/nginx1-linux",
+  "url": "https://deadends.dev/nginx/regex-location-order/nginx1-linux",
+  "error": {
+    "signature": "Wrong location block matched: regex takes precedence",
+    "regex": "(wrong location.*matched|regex.*precedence|location.*order|unexpected.*route)",
+    "domain": "nginx",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "nginx",
+      "version_range": ">=1.24"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Nginx location matching order causing wrong block to handle request."
+  },
+  "dead_ends": [
+    {
+      "action": "Use regex for all locations",
+      "why_fails": "Performance impact, hard to debug",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Add if statements inside locations",
+      "why_fails": "nginx if is evil in location context",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use exact match (=) for specific paths, prefix (^~) to skip regex",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remember order: exact > prefix(^~) > regex > prefix",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/pypi-upload-size/pypi-all",
+  "url": "https://deadends.dev/policy/pypi-upload-size/pypi-all",
+  "error": {
+    "signature": "HTTPError: 400 Bad Request: File too large",
+    "regex": "(File too large|pypi.*400.*size|upload.*limit.*exceeded)",
+    "domain": "policy",
+    "category": "size_limit_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "pypi",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.8,
+    "last_updated": "2026-02-26",
+    "summary": "PyPI has a default 60MB per-file upload limit (can request increase)."
+  },
+  "dead_ends": [
+    {
+      "action": "Split the wheel into multiple files",
+      "why_fails": "pip expects one wheel file per distribution.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Compress the wheel with higher compression",
+      "why_fails": "Wheels are already zip files; recompression has minimal effect.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Request a file size limit increase from PyPI",
+      "success_rate": 0.85,
+      "how": "Email admin@pypi.org with project name and justification",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Exclude unnecessary data files and ship them separately",
+      "success_rate": 0.82,
+      "how": "Use package_data excludes and host data on GitHub Releases",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

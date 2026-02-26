@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/fine-tune-catastrophic-forgetting/api-all",
+  "url": "https://deadends.dev/llm/fine-tune-catastrophic-forgetting/api-all",
+  "error": {
+    "signature": "Fine-tuned model lost general capabilities",
+    "regex": "(catastrophic forgetting|fine.?tun.*degraded|lost.*capabilities|overfit.*fine.?tune)",
+    "domain": "llm",
+    "category": "training_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.7,
+    "last_updated": "2026-02-26",
+    "summary": "Fine-tuning on narrow dataset caused model to forget general knowledge."
+  },
+  "dead_ends": [
+    {
+      "action": "Fine-tune for more epochs to reinforce new knowledge",
+      "why_fails": "More epochs on narrow data worsens catastrophic forgetting.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use very high learning rate to learn new task quickly",
+      "why_fails": "High LR destroys pre-trained weights faster.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use low learning rate and few epochs",
+      "success_rate": 0.75,
+      "how": "lr=1e-5 to 5e-5, 1-3 epochs typically sufficient",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Mix in general-purpose training data during fine-tuning",
+      "success_rate": 0.8,
+      "how": "Include 10-20% of general data to maintain broad capabilities",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

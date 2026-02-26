@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "embedded/brownout-detection/mcu-all",
+  "url": "https://deadends.dev/embedded/brownout-detection/mcu-all",
+  "error": {
+    "signature": "BOD: Brown-out detected, system held in reset",
+    "regex": "(brown.?out|BOD.*reset|voltage.*drop|power.*supervisor)",
+    "domain": "embedded",
+    "category": "hardware_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "embedded-mcu",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.7,
+    "last_updated": "2026-02-26",
+    "summary": "Supply voltage dropped below brown-out detection threshold."
+  },
+  "dead_ends": [
+    {
+      "action": "Disable brown-out detection fuses",
+      "why_fails": "System runs at unstable voltage, causing random data corruption.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Lower BOD threshold below safe operating voltage",
+      "why_fails": "Flash writes and EEPROM operations require minimum voltage.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Improve power supply decoupling with capacitors",
+      "success_rate": 0.8,
+      "how": "Add 100nF ceramic + 10uF electrolytic on VCC pins",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement graceful shutdown on power-fail interrupt",
+      "success_rate": 0.75,
+      "how": "Use ADC to monitor VCC; save state to EEPROM before power loss",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

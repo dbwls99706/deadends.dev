@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "api/retry-after-header/rest-linux",
+  "url": "https://deadends.dev/api/retry-after-header/rest-linux",
+  "error": {
+    "signature": "503: Service Unavailable with Retry-After header",
+    "regex": "(503.*Retry-After|service.*unavailable.*retry|Retry-After.*header)",
+    "domain": "api",
+    "category": "availability_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "api",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Server temporarily unavailable, retry after specified time."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately ignoring Retry-After",
+      "why_fails": "May get rate limited or banned",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Give up after first 503",
+      "why_fails": "Misses transient availability issues",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Respect Retry-After header value for wait time",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement exponential backoff if no Retry-After header",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

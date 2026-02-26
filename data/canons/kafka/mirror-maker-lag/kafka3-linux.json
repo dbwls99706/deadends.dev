@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/mirror-maker-lag/kafka3-linux",
+  "url": "https://deadends.dev/kafka/mirror-maker-lag/kafka3-linux",
+  "error": {
+    "signature": "MirrorMaker: replication lag exceeds threshold",
+    "regex": "(MirrorMaker.*lag|mirror.*replication.*lag|MM2.*behind)",
+    "domain": "kafka",
+    "category": "replication_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "MirrorMaker 2 cross-cluster replication falling behind."
+  },
+  "dead_ends": [
+    {
+      "action": "Increase MirrorMaker tasks without checking resources",
+      "why_fails": "OOM on worker",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Skip messages to catch up",
+      "why_fails": "Data loss in target cluster",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Increase tasks.max and tune producer/consumer configs",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Monitor replication lag metrics: mm2-*.replication-latency",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

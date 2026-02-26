@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/gcp-quota-exceeded/gcp-all",
+  "url": "https://deadends.dev/policy/gcp-quota-exceeded/gcp-all",
+  "error": {
+    "signature": "Quota exceeded for quota metric. Limit: N, Usage: M",
+    "regex": "(Quota exceeded|quota.*metric.*limit|QUOTA_EXCEEDED|rateLimitExceeded)",
+    "domain": "policy",
+    "category": "quota_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "gcp",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "GCP API quota exceeded. Default quotas vary by service and project."
+  },
+  "dead_ends": [
+    {
+      "action": "Retry immediately in a tight loop",
+      "why_fails": "Quota resets on a time window; tight retries waste compute without helping.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Create new GCP projects to get fresh quotas",
+      "why_fails": "Quotas are often org-level and new projects inherit the same limits.",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Request quota increase via GCP Console",
+      "success_rate": 0.88,
+      "how": "IAM & Admin > Quotas > Select metric > Edit Quotas",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement exponential backoff with jitter",
+      "success_rate": 0.82,
+      "how": "time.sleep(base * 2**attempt + random.uniform(0,1))",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

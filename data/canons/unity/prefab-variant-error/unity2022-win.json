@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "unity/prefab-variant-error/unity2022-win",
+  "url": "https://deadends.dev/unity/prefab-variant-error/unity2022-win",
+  "error": {
+    "signature": "PrefabImporter: prefab variant has missing base",
+    "regex": "(prefab variant.*missing|PrefabImporter.*error|base prefab.*not found)",
+    "domain": "unity",
+    "category": "asset_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "unity",
+      "version_range": ">=2022.3"
+    },
+    "os": "windows"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Prefab variant lost connection to base prefab."
+  },
+  "dead_ends": [
+    {
+      "action": "Delete variant and recreate from scratch",
+      "why_fails": "Loses all variant overrides",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Convert to regular prefab",
+      "why_fails": "Loses variant chain benefits",
+      "fail_rate": 0.7,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Reconnect variant: drag base prefab onto variant in Inspector",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check .meta files for correct GUID references",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

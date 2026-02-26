@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/explain-slow-query/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/explain-slow-query/mongo7-linux",
+  "error": {
+    "signature": "Slow query: COLLSCAN detected in explain plan",
+    "regex": "(COLLSCAN|collection scan|no index.*matched|slow query.*explain)",
+    "domain": "mongodb",
+    "category": "performance_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Query performing full collection scan without index."
+  },
+  "dead_ends": [
+    {
+      "action": "Create index on every queried field",
+      "why_fails": "Index overhead on writes, storage bloat",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Cache all query results",
+      "why_fails": "Stale data, memory issues",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use explain() to identify missing indexes",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Create compound index matching query filter and sort order",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

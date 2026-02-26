@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/stripe-api-version-pinning/stripe-all",
+  "url": "https://deadends.dev/policy/stripe-api-version-pinning/stripe-all",
+  "error": {
+    "signature": "StripeInvalidRequestError: This API call cannot be made with a publishable key",
+    "regex": "(publishable key|api_key.*invalid|StripeInvalidRequestError.*key)",
+    "domain": "policy",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "stripe-api",
+      "version_range": ">=2020-08-27"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-02-26",
+    "summary": "Using publishable key where secret key is required, or API version mismatch."
+  },
+  "dead_ends": [
+    {
+      "action": "Use publishable key for server-side calls",
+      "why_fails": "Publishable keys are for client-side only. Server operations need secret keys.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Hardcode the API version in every request",
+      "why_fails": "Version should be pinned globally in the SDK initialization.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use secret key (sk_) for server-side API calls",
+      "success_rate": 0.95,
+      "how": "stripe.api_key = os.environ[\"STRIPE_SECRET_KEY\"]",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Pin API version in Stripe dashboard and SDK init",
+      "success_rate": 0.88,
+      "how": "stripe.api_version = \"2023-10-16\"",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

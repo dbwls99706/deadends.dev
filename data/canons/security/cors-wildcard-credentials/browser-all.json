@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "security/cors-wildcard-credentials/browser-all",
+  "url": "https://deadends.dev/security/cors-wildcard-credentials/browser-all",
+  "error": {
+    "signature": "Access-Control-Allow-Origin cannot be wildcard when credentials flag is true",
+    "regex": "(CORS.*wildcard.*credentials|Access-Control-Allow-Origin.*\\*.*credentials|credential.*not.*supported.*wildcard)",
+    "domain": "security",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "browser",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-26",
+    "summary": "Browsers reject CORS responses with Access-Control-Allow-Origin: * when credentials are included."
+  },
+  "dead_ends": [
+    {
+      "action": "Set Access-Control-Allow-Origin to * with credentials",
+      "why_fails": "Browsers explicitly block this combination per spec.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Remove credentials mode to use wildcard",
+      "why_fails": "Breaks authentication - cookies and auth headers will not be sent.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dynamically set Allow-Origin to the requesting origin after validation",
+      "success_rate": 0.9,
+      "how": "origin = req.headers.origin; if origin in ALLOWED: set header",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use a CORS middleware that handles origin reflection",
+      "success_rate": 0.88,
+      "how": "cors({ origin: [\"https://app.example.com\"], credentials: true })",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

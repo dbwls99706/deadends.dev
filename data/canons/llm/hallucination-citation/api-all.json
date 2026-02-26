@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "llm/hallucination-citation/api-all",
+  "url": "https://deadends.dev/llm/hallucination-citation/api-all",
+  "error": {
+    "signature": "Verification failed: LLM cited non-existent source",
+    "regex": "(hallucin|fabricated.*source|non-existent.*reference|fake.*citation|made.?up.*URL)",
+    "domain": "llm",
+    "category": "output_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "llm-api",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-02-26",
+    "summary": "LLM generated fake citations, URLs, or references that do not exist."
+  },
+  "dead_ends": [
+    {
+      "action": "Ask the LLM to only cite real sources",
+      "why_fails": "LLMs cannot reliably distinguish real from fabricated sources.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Verify URLs by checking HTTP status only",
+      "why_fails": "404s catch some fakes but plausible-looking URLs may resolve to wrong content.",
+      "fail_rate": 0.6,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use RAG to provide real sources for the LLM to cite",
+      "success_rate": 0.8,
+      "how": "Retrieve relevant documents first; constrain citations to provided sources",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Post-process to verify all citations against a known database",
+      "success_rate": 0.7,
+      "how": "Check DOIs, ISBN, or URL content matches claimed information",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

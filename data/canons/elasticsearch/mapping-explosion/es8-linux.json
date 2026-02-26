@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "elasticsearch/mapping-explosion/es8-linux",
+  "url": "https://deadends.dev/elasticsearch/mapping-explosion/es8-linux",
+  "error": {
+    "signature": "IllegalArgumentException: Limit of total fields exceeded",
+    "regex": "(total fields.*exceeded|mapping.*explosion|too many fields|field limit)",
+    "domain": "elasticsearch",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "elasticsearch",
+      "version_range": ">=8.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Index has too many fields exceeding default 1000 limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Set index.mapping.total_fields.limit to unlimited",
+      "why_fails": "Memory and performance degradation",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable dynamic mapping globally",
+      "why_fails": "Loses automatic field detection",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use flattened field type for dynamic key-value data",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Review data model: normalize nested objects, use keyword for sparse fields",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

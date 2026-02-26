@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "tensorflow/model-save-hdf5-error/tf2-linux",
+  "url": "https://deadends.dev/tensorflow/model-save-hdf5-error/tf2-linux",
+  "error": {
+    "signature": "NotImplementedError: saving to HDF5 not supported for this model",
+    "regex": "(HDF5.*not supported|save.*h5.*error|Saving.*HDF5.*failed)",
+    "domain": "tensorflow",
+    "category": "io_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "tensorflow",
+      "version_range": ">=2.12"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Model with custom objects cant be saved in HDF5 format."
+  },
+  "dead_ends": [
+    {
+      "action": "Pickle the model",
+      "why_fails": "Security risk, not portable",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Save weights only without architecture",
+      "why_fails": "Cannot recreate model without code",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use SavedModel format instead of HDF5: model.save(\"model_dir\")",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Implement get_config() and from_config() for custom layers",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

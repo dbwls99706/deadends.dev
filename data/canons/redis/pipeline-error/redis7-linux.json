@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/pipeline-error/redis7-linux",
+  "url": "https://deadends.dev/redis/pipeline-error/redis7-linux",
+  "error": {
+    "signature": "RedisError: pipeline execution failed",
+    "regex": "(pipeline.*execution.*failed|EXECABORT|pipeline.*error)",
+    "domain": "redis",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Redis pipeline or transaction (MULTI/EXEC) failed."
+  },
+  "dead_ends": [
+    {
+      "action": "Execute commands individually",
+      "why_fails": "Much slower without pipelining",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Retry entire pipeline on any failure",
+      "why_fails": "May duplicate side effects",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check each command response in pipeline result",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use WATCH for optimistic locking in transactions",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

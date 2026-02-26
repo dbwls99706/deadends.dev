@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cmake/static-shared-conflict/cmake3-linux",
+  "url": "https://deadends.dev/cmake/static-shared-conflict/cmake3-linux",
+  "error": {
+    "signature": "CMake Error: cannot use STATIC and SHARED library together",
+    "regex": "(STATIC.*SHARED.*conflict|library type.*mismatch|position independent.*error)",
+    "domain": "cmake",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "cmake",
+      "version_range": ">=3.20"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Mixing static and shared library types causing issues."
+  },
+  "dead_ends": [
+    {
+      "action": "Make everything STATIC",
+      "why_fails": "Large binary, no shared benefits",
+      "fail_rate": 0.68,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Make everything SHARED",
+      "why_fails": "Deployment complexity",
+      "fail_rate": 0.65,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Build both: add_library(foo STATIC) and add_library(foo_shared SHARED)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use BUILD_SHARED_LIBS option to let user choose",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

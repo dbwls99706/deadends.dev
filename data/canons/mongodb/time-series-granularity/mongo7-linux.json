@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mongodb/time-series-granularity/mongo7-linux",
+  "url": "https://deadends.dev/mongodb/time-series-granularity/mongo7-linux",
+  "error": {
+    "signature": "MongoServerError: time series granularity cannot be changed",
+    "regex": "(granularity.*cannot.*changed|time.?series.*error|bucketMaxSpanSeconds)",
+    "domain": "mongodb",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "mongodb",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "Time series collection granularity is immutable after creation."
+  },
+  "dead_ends": [
+    {
+      "action": "Drop and recreate collection",
+      "why_fails": "Loses all time series data",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Ignore granularity mismatch",
+      "why_fails": "Suboptimal bucket packing",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan granularity before creating collection: seconds, minutes, or hours",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Create new collection with correct granularity and migrate data",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

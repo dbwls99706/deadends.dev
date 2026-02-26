@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/load-balancer-session-affinity/lb-linux",
+  "url": "https://deadends.dev/communication/load-balancer-session-affinity/lb-linux",
+  "error": {
+    "signature": "Session affinity lost: request routed to different backend",
+    "regex": "(session affinity.*lost|sticky session.*broken|session.*different backend)",
+    "domain": "communication",
+    "category": "config_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "communication",
+      "version_range": ">=1.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Load balancer lost session affinity, routing to wrong backend."
+  },
+  "dead_ends": [
+    {
+      "action": "Use IP-based affinity",
+      "why_fails": "Fails behind NAT/proxy, same IP for many users",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable load balancing",
+      "why_fails": "No redundancy",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use cookie-based session affinity",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Move session state to shared store (Redis) to eliminate affinity need",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

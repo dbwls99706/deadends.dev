@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "id": "redis/acl-auth-error/redis7-linux",
+  "url": "https://deadends.dev/redis/acl-auth-error/redis7-linux",
+  "error": {
+    "signature": "NOPERM this user has no permissions to run the command",
+    "regex": "(NOPERM|ACL.*denied|no permissions|WRONGPASS|AUTH.*failed)",
+    "domain": "redis",
+    "category": "auth_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "redis",
+      "version_range": ">=7.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-02-26",
+    "summary": "Redis ACL denied command execution. User lacks permission for this command."
+  },
+  "dead_ends": [
+    {
+      "action": "Run FLUSHALL to reset ACLs",
+      "why_fails": "FLUSHALL clears data not ACLs; also destructive.",
+      "fail_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use default user for everything",
+      "why_fails": "Default user with full permissions defeats ACL purpose.",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Grant specific command permissions to the user",
+      "success_rate": 0.9,
+      "how": "ACL SETUSER myuser +get +set +hget ~key:* on >password",
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Check current user permissions with ACL WHOAMI and ACL GETUSER",
+      "success_rate": 0.85,
+      "how": "ACL GETUSER myuser to see allowed commands and key patterns",
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

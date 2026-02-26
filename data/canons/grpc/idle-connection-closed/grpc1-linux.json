@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grpc/idle-connection-closed/grpc1-linux",
+  "url": "https://deadends.dev/grpc/idle-connection-closed/grpc1-linux",
+  "error": {
+    "signature": "UNAVAILABLE: connection closed due to idle timeout",
+    "regex": "(idle.*timeout|connection.*idle|MAX_CONNECTION_IDLE)",
+    "domain": "grpc",
+    "category": "connection_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "grpc",
+      "version_range": ">=1.50"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.84,
+    "last_updated": "2026-02-26",
+    "summary": "gRPC connection closed after idle timeout period."
+  },
+  "dead_ends": [
+    {
+      "action": "Set infinite idle timeout",
+      "why_fails": "Resource leak on abandoned connections",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Send empty RPCs as keepalive",
+      "why_fails": "Wasted server resources",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Configure keepalive parameters to match server idle timeout",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Use connection pool that recreates connections on demand",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}

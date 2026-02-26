@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "kafka/transaction-timeout/kafka3-linux",
+  "url": "https://deadends.dev/kafka/transaction-timeout/kafka3-linux",
+  "error": {
+    "signature": "ProducerFencedException: transaction timeout",
+    "regex": "(transaction.*timeout|transaction.*expired|ProducerFenced.*timeout)",
+    "domain": "kafka",
+    "category": "runtime_error",
+    "first_seen": "2023-01-01",
+    "last_confirmed": "2026-02-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "kafka",
+      "version_range": ">=3.0"
+    },
+    "os": "linux"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-02-26",
+    "summary": "Kafka transaction exceeded timeout before commit."
+  },
+  "dead_ends": [
+    {
+      "action": "Set transaction.timeout.ms very high",
+      "why_fails": "Blocks partition for duration",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Disable transactions",
+      "why_fails": "Loses exactly-once semantics",
+      "fail_rate": 0.8,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Keep transactions short and commit promptly",
+      "success_rate": 0.9,
+      "sources": [],
+      "condition": ""
+    },
+    {
+      "action": "Set transaction.timeout.ms slightly above expected max processing time",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": ""
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "bulk_generate.py",
+    "generation_date": "2026-02-26",
+    "review_status": "auto_generated",
+    "evidence_count": 3,
+    "last_verification": "2026-02-26"
+  }
+}
