@@ -691,11 +691,18 @@ Sitemap: {BASE_URL}/sitemap.xml
 
 # Redirect map: old slug → new slug (for merged duplicate canons)
 REDIRECTS = {
+    # Same-domain duplicates (merged)
     "cmake/compiler-not-found": "cmake/no-cxx-compiler-found",
     "redis/busy-loading-dataset": "redis/loading-dataset-in-memory",
     "mongodb/authentication-failed-mongo": "mongodb/authentication-failed",
     "redis/noauth-required": "redis/auth-required",
     "flutter/null-check-operator-null": "flutter/null-check-operator-null-value",
+    # Cross-domain duplicates (redirect to more specific domain)
+    "api/cors-preflight-failure": "networking/cors-preflight-failed",
+    "cuda/tensor-device-mismatch": "pytorch/device-mismatch",
+    "database/elasticsearch-index-read-only": "elasticsearch/index-read-only",
+    "database/redis-maxmemory-policy": "redis/oom-maxmemory",
+    "docker/bind-address-already-in-use": "docker/port-already-allocated",
 }
 
 

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d1117">
   <title>deadends.dev — Stop Trying What Doesn't Work | Error Fixes for Developers</title>
   <meta name="description" content="Don't waste time on dead-end fixes. deadends.dev tells you what NOT to try, what actually works, and what error comes next. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
-  <meta name="robots" content="index, follow, max-snippet:-1">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   {% if google_verification %}<meta name="google-site-verification" content="{{ google_verification }}">{% endif %}
   {% if bing_verification %}<meta name="msvalidate.01" content="{{ bing_verification }}">{% endif %}
@@ -124,6 +124,8 @@ STATS_API={{ base_url }}/api/v1/stats.json
 FEED={{ base_url }}/feed.xml
 MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search_errors, batch_lookup, get_error_chain, list_error_domains, list_errors_by_domain, get_domain_stats)</pre>
 
+  <nav><a href="{{ base_path }}/">deadends.dev</a> · <a href="{{ base_path }}/search/">Search</a></nav>
+
   <header>
     <h1>deadends.dev</h1>
     <p>Stop trying what doesn't work.</p>
@@ -134,7 +136,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <p>Every developer has wasted hours on a fix that was never going to work. Stack Overflow answers that are outdated, environment-specific, or just plain wrong for your setup.</p>
     <p><strong>deadends.dev</strong> tells you what <em>NOT</em> to try, what actually works (and under which conditions), and what error comes next if you take a particular path.</p>
     <p><strong><a href="{{ base_path }}/search/">Paste your error message here to find matches instantly.</a></strong></p>
-    <p class="meta">{{ total_errors }} verified error entries across {{ domains | length }} domains. All data available as <a href="https://github.com/dbwls99706/deadends.dev">open source JSON</a>.</p>
+    <p class="meta">{{ total_errors }} verified error entries across {{ domains | length }} domains. All data available as <a href="https://github.com/dbwls99706/deadends.dev" rel="noopener">open source JSON</a>.</p>
   </div>
 
   <section>
@@ -181,7 +183,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   </main>
 
   <footer class="meta">
-    <p>deadends.dev · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
+    <p>deadends.dev · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev" rel="noopener">GitHub</a> · Data licensed under CC BY 4.0</p>
   </footer>
 </body>
 </html>

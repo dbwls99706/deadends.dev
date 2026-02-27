@@ -75,7 +75,7 @@
     ],
     "preceded_by": [
       {
-        "error_id": "docker/bind-address-already-in-use/docker27-linux",
+        "error_id": "docker/port-already-allocated/docker24-linux",
         "probability": 0.2,
         "condition": "Changed port but service not yet running on new port"
       },

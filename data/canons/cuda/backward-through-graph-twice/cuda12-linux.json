@@ -24,7 +24,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-13",
     "summary": "PyTorch frees the computation graph after the first backward() call. Calling backward() again on the same graph without retain_graph=True, or reusing a non-detached tensor across multiple losses, triggers this error."
   },
@@ -32,7 +32,7 @@
     {
       "action": "Always set retain_graph=True on every backward() call",
       "why_fails": "retain_graph=True prevents graph memory from being freed, causing massive GPU memory leaks that eventually lead to OOM; it is a workaround, not a fix, and masks the real architectural problem",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [
         "https://pytorch.org/docs/stable/generated/torch.Tensor.backward.html"
       ],
@@ -69,7 +69,7 @@
     },
     {
       "action": "Use .detach() on tensors shared between independent computation paths",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "For GAN training: fake_images = generator(z)\nd_loss = discriminator(fake_images.detach())  # detach so D backward doesn't traverse G graph\ng_loss = discriminator(fake_images)  # separate forward for G backward",
       "sources": [
         "https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html"
@@ -90,14 +90,14 @@
     "leads_to": [
       {
         "error_id": "python/cuda-out-of-memory/torch2.1-rtx3090",
-        "probability": 0.30,
+        "probability": 0.3,
         "condition": "Using retain_graph=True as a blanket fix causes GPU memory to accumulate"
       }
     ],
     "preceded_by": [
       {
-        "error_id": "cuda/tensor-device-mismatch/cuda12-linux",
-        "probability": 0.10,
+        "error_id": "pytorch/device-mismatch/pytorch2-linux",
+        "probability": 0.1,
         "condition": "After fixing device placement, training loop logic errors surface"
       }
     ],

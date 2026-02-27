@@ -50,7 +50,7 @@
     {
       "action": "Downgrade PyTorch version to bypass the device check",
       "why_fails": "The device validation has existed across all modern PyTorch versions; downgrading introduces compatibility issues without fixing the root cause",
-      "fail_rate": 0.90,
+      "fail_rate": 0.9,
       "sources": [
         "https://pytorch.org/docs/stable/generated/torch.load.html"
       ],
@@ -89,7 +89,7 @@
   "transition_graph": {
     "leads_to": [
       {
-        "error_id": "cuda/tensor-device-mismatch/cuda12-linux",
+        "error_id": "pytorch/device-mismatch/pytorch2-linux",
         "probability": 0.25,
         "condition": "After loading to CPU, running inference without moving the model to GPU causes device mismatch with CUDA inputs"
       }
@@ -102,13 +102,13 @@
       },
       {
         "error_id": "cuda/torch-not-compiled-cuda/cuda12-rtx4090",
-        "probability": 0.20,
+        "probability": 0.2,
         "condition": "CPU-only PyTorch installation causes torch.cuda.is_available() to return False"
       }
     ],
     "frequently_confused_with": [
       {
-        "error_id": "cuda/tensor-device-mismatch/cuda12-linux",
+        "error_id": "pytorch/device-mismatch/pytorch2-linux",
         "distinction": "Device mismatch occurs during computation when tensors are on different devices; checkpoint-device-mismatch occurs during deserialization before any computation"
       },
       {

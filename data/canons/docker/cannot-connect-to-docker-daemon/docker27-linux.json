@@ -67,7 +67,7 @@
   "transition_graph": {
     "leads_to": [
       {
-        "error_id": "docker/bind-address-already-in-use/docker27-linux",
+        "error_id": "docker/port-already-allocated/docker24-linux",
         "probability": 0.15,
         "condition": "Daemon starts but previous containers left ports allocated"
       },
@@ -79,7 +79,7 @@
     ],
     "preceded_by": [
       {
-        "error_id": "docker/bind-address-already-in-use/docker27-linux",
+        "error_id": "docker/port-already-allocated/docker24-linux",
         "probability": 0.1,
         "condition": "Restarted daemon to fix port issue but daemon didn't come back up"
       }
