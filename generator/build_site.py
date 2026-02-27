@@ -173,8 +173,8 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if "sources" in wa:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
-        # Use canonical summary URL for JSON-LD — env-specific pages have noindex
-        # and their <link rel="canonical"> also points to the summary page
+        # Use canonical summary URL for JSON-LD — env-specific pages have
+        # <link rel="canonical"> pointing to the summary page
         id_parts = error_id.split("/")
         page_url = f"{BASE_URL}/{id_parts[0]}/{id_parts[1]}/"
         json_ld_data = {
@@ -2398,7 +2398,7 @@ def build_indexnow(canons: list[dict]) -> None:
             urls.append(f"{BASE_URL}/{domain}/")
 
     # Use summary URLs (domain/slug/) not env-specific URLs (domain/slug/env/)
-    # because env-specific pages have noindex — submitting them wastes IndexNow quota
+    # because env-specific pages canonicalize to summary — submitting them wastes IndexNow quota
     seen_slugs: set[str] = set()
     for canon in sorted(canons, key=lambda c: c["id"]):
         parts = canon["id"].split("/")
@@ -2462,7 +2462,7 @@ def build_feed(canons: list[dict]) -> None:
         )
 
         # Link to summary page (domain/slug/) not env-specific page (domain/slug/env/)
-        # because env-specific pages have noindex — feed should point to canonical URL
+        # because env-specific pages canonicalize to summary — feed should point to canonical URL
         slug_key = "/".join(cid.split("/")[:2])
         SubElement(entry, "title").text = f"[{domain}] {sig}"
         elink = SubElement(entry, "link")
