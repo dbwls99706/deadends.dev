@@ -62,6 +62,35 @@ BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
 INDEXNOW_KEY = "deadend-dev-indexnow-key"
 
 
+def setup_jinja_env() -> Environment:
+    """Create and configure the Jinja2 environment with all filters."""
+    jinja_env = Environment(
+        loader=FileSystemLoader(str(TEMPLATE_DIR)),
+        autoescape=True,
+    )
+    jinja_env.globals["base_path"] = BASE_PATH
+    jinja_env.globals["base_url"] = BASE_URL
+    jinja_env.filters["display_name"] = domain_display_name
+
+    def _json_escape(s: str) -> Markup:
+        """JSON-safe string for use inside JSON-LD <script> blocks."""
+        escaped = json.dumps(s)[1:-1]
+        escaped = escaped.replace("</", r"<\/")
+        return Markup(escaped)
+
+    jinja_env.filters["json_escape"] = _json_escape
+
+    def _truncate(s: str, length: int = 50, suffix: str = "…") -> str:
+        """Truncate string to length, adding suffix if truncated."""
+        if len(s) <= length:
+            return s
+        return s[:length].rsplit(" ", 1)[0] + suffix
+
+    jinja_env.filters["truncate_sig"] = _truncate
+
+    return jinja_env
+
+
 def load_canons(data_dir: Path) -> list[dict]:
     """Load all ErrorCanon JSON files from the data directory."""
     canons = []
@@ -658,6 +687,42 @@ Sitemap: {BASE_URL}/sitemap.xml
 """
     (SITE_DIR / "robots.txt").write_text(content, encoding="utf-8")
     print("  Generated: robots.txt")
+
+
+# Redirect map: old slug → new slug (for merged duplicate canons)
+REDIRECTS = {
+    "cmake/compiler-not-found": "cmake/no-cxx-compiler-found",
+    "redis/busy-loading-dataset": "redis/loading-dataset-in-memory",
+    "mongodb/authentication-failed-mongo": "mongodb/authentication-failed",
+    "redis/noauth-required": "redis/auth-required",
+    "flutter/null-check-operator-null": "flutter/null-check-operator-null-value",
+}
+
+
+def build_redirects() -> None:
+    """Generate redirect pages for merged duplicate canons."""
+    redirect_html = (
+        '<!DOCTYPE html>\n<html lang="en"><head>\n'
+        '<meta charset="utf-8">\n'
+        '<meta http-equiv="refresh" content="0; url={url}">\n'
+        '<link rel="canonical" href="{full_url}">\n'
+        '<meta name="robots" content="noindex">\n'
+        "<title>Redirecting…</title>\n"
+        "</head><body>\n"
+        '<p>Moved to <a href="{url}">{url}</a></p>\n'
+        "</body></html>"
+    )
+    count = 0
+    for old_slug, new_slug in REDIRECTS.items():
+        url = f"{BASE_PATH}/{new_slug}/"
+        full_url = f"{BASE_URL}/{new_slug}/"
+        html = redirect_html.format(url=url, full_url=full_url)
+        redir_dir = SITE_DIR / old_slug
+        redir_dir.mkdir(parents=True, exist_ok=True)
+        (redir_dir / "index.html").write_text(html, encoding="utf-8")
+        count += 1
+        print(f"  Redirect: /{old_slug}/ → /{new_slug}/")
+    print(f"  Generated {count} redirect(s)")
 
 
 def build_404_page() -> None:
@@ -2510,22 +2575,7 @@ def main():
     print(f"  Found {len(canons)} canon(s)\n")
 
     # Set up Jinja2
-    jinja_env = Environment(
-        loader=FileSystemLoader(str(TEMPLATE_DIR)),
-        autoescape=True,
-    )
-    jinja_env.globals["base_path"] = BASE_PATH
-    jinja_env.globals["base_url"] = BASE_URL
-    jinja_env.filters["display_name"] = domain_display_name
-    def _json_escape(s: str) -> Markup:
-        """JSON-safe string for use inside JSON-LD <script> blocks.
-        Returns Markup to bypass Jinja2 autoescape (the value is already
-        properly escaped by json.dumps). Also escapes </ to prevent XSS."""
-        escaped = json.dumps(s)[1:-1]  # strip outer quotes
-        escaped = escaped.replace("</", r"<\/")  # prevent </script> breakout
-        return Markup(escaped)
-
-    jinja_env.filters["json_escape"] = _json_escape
+    jinja_env = setup_jinja_env()
 
     # Build pages
     print("Generating error pages...")
@@ -2554,6 +2604,10 @@ def main():
 
     print("Generating robots.txt...")
     build_robots_txt()
+    print()
+
+    print("Generating redirects for merged duplicates...")
+    build_redirects()
     print()
 
     print("Generating 404.html...")

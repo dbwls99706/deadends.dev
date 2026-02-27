@@ -24,10 +24,6 @@ DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
 def built_site(tmp_path_factory):
     """Build the full site into a temp directory and return the path."""
 
-    from jinja2 import Environment, FileSystemLoader
-
-    project_root = Path(__file__).parent.parent
-    template_dir = project_root / "generator" / "templates"
     site_dir = tmp_path_factory.mktemp("site")
 
     # Monkey-patch SITE_DIR for the build
@@ -39,22 +35,7 @@ def built_site(tmp_path_factory):
         canons = load_canons(DATA_DIR)
         assert len(canons) >= 3, "Need at least 3 canons for integration test"
 
-        jinja_env = Environment(
-            loader=FileSystemLoader(str(template_dir)),
-            autoescape=True,
-        )
-        jinja_env.globals["base_path"] = bs.BASE_PATH
-        jinja_env.globals["base_url"] = bs.BASE_URL
-        jinja_env.filters["display_name"] = bs.domain_display_name
-
-        from markupsafe import Markup
-
-        def _json_escape(s: str) -> Markup:
-            escaped = json.dumps(s)[1:-1]
-            escaped = escaped.replace("</", r"<\/")
-            return Markup(escaped)
-
-        jinja_env.filters["json_escape"] = _json_escape
+        jinja_env = bs.setup_jinja_env()
 
         build_error_pages(canons, jinja_env)
         build_domain_pages(canons, jinja_env)

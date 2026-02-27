@@ -21,6 +21,8 @@
   <meta property="og:image:alt" content="deadends.dev error search — find dead ends and verified fixes">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Search Error Fixes — deadends.dev">
+  <meta name="twitter:description" content="Search {{ total_errors }} errors across {{ domain_count }} domains. Find dead ends to avoid and verified workarounds.">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
   <meta name="twitter:image:alt" content="deadends.dev error search — find dead ends and verified fixes">
 
@@ -36,7 +38,26 @@
   }
   </script>
 
+  <!-- WebSite + SearchAction for Google Sitelinks Searchbox -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "{{ base_url }}/",
+    "name": "deadends.dev",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ base_url }}/search/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="{{ base_path }}/style.css">
+  <link rel="alternate" type="application/atom+xml" title="deadends.dev — New Errors" href="{{ base_url }}/feed.xml">
 </head>
 <body class="pg-search">
   <pre id="ai-summary" class="ai-summary">PAGE: Error Search

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
-  <title>{{ signature }} [{{ domain | display_name }}] — How to Fix It ({{ total_dead_ends }} Dead Ends to Avoid) | deadends.dev</title>
-  <meta name="description" content="Fix {{ signature }} with {{ total_workarounds }} step-by-step workarounds (up to {{ max_rate }}% success rate). Skip {{ total_dead_ends }} common approaches that waste your time. Covers {{ environments|length }} environment{% if environments|length != 1 %}s{% endif %}.">
+  <title>{{ signature | truncate_sig(30) }} — Fix Guide [{{ domain | display_name }}] | deadends.dev</title>
+  <meta name="description" content="Fix {{ signature | truncate_sig(70) }}. {{ total_workarounds }} workarounds ({{ max_rate }}% success). {{ total_dead_ends }} dead ends to avoid.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ signature }}, {{ domain }}, error fix, troubleshooting, dead end, workaround, how to fix, solve{% for env in environments %}, {{ env.env_summary }}{% endfor %}{% for v in common_variations|default([]) %}, {{ v }}{% endfor %}">
@@ -13,7 +13,7 @@
   <link rel="canonical" href="{{ base_url }}/{{ domain }}/{{ slug }}/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ signature }} — {{ total_dead_ends }} Dead Ends to Avoid, {{ total_workarounds }} Verified Fixes">
+  <meta property="og:title" content="{{ signature | truncate_sig(45) }} — {{ total_dead_ends }} Dead Ends, {{ total_workarounds }} Fixes">
   <meta property="og:description" content="Don't waste time on dead-end fixes. {{ total_workarounds }} verified workarounds across {{ environments|length }} environments. Fix rates: {{ min_rate }}%–{{ max_rate }}%.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/{{ slug }}/">
@@ -24,6 +24,8 @@
   <meta property="og:image:alt" content="{{ signature }} — dead ends and verified fixes">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ signature | truncate_sig(45) }} [{{ domain | display_name }}] — Fix">
+  <meta name="twitter:description" content="Fix {{ signature | truncate_sig(60) }}. {{ total_workarounds }} workarounds ({{ max_rate }}% success). {{ total_dead_ends }} dead ends to avoid.">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
   <meta name="twitter:image:alt" content="{{ signature }} — dead ends and verified fixes">
 
@@ -48,6 +50,7 @@
   {% endif %}
 
   <link rel="stylesheet" href="{{ base_path }}/style.css">
+  <link rel="alternate" type="application/atom+xml" title="deadends.dev — New Errors" href="{{ base_url }}/feed.xml">
 </head>
 <body class="pg-summary">
   <pre id="ai-summary" class="ai-summary">ERROR={{ signature }}
