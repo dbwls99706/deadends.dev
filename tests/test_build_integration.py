@@ -36,6 +36,7 @@ def built_site(tmp_path_factory):
         assert len(canons) >= 3, "Need at least 3 canons for integration test"
 
         jinja_env = bs.setup_jinja_env()
+        jinja_env.globals["css_hash"] = "test"
 
         build_error_pages(canons, jinja_env)
         build_domain_pages(canons, jinja_env)

@@ -88,6 +88,19 @@ def setup_jinja_env() -> Environment:
 
     jinja_env.filters["truncate_sig"] = _truncate
 
+    def _url_domain(url: str) -> str:
+        """Extract readable domain from URL for anchor text."""
+        try:
+            parsed = urlparse(url)
+            host = parsed.hostname or ""
+            if host.startswith("www."):
+                host = host[4:]
+            return host
+        except Exception:
+            return url
+
+    jinja_env.filters["url_domain"] = _url_domain
+
     return jinja_env
 
 
@@ -742,25 +755,27 @@ def build_404_page() -> None:
         '<meta name="theme-color" content="#0d1117">\n'
         "<title>404 — Error Not Found | deadends.dev</title>\n"
         '<meta name="robots" content="noindex">\n'
-        f'<link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">\n'
-        "<style>\n"
-        "body{font-family:system-ui,-apple-system,sans-serif;max-width:800px;"
-        "margin:2rem auto;padding:0 1rem;color:#e0e0e0;background:#0d1117;}\n"
-        "a{color:#58a6ff;}h1{font-size:1.6rem;}"
-        "nav a{color:#8b949e;text-decoration:none;}nav a:hover{color:#58a6ff;}\n"
-        ".links{margin:2rem 0;}.links a{display:inline-block;margin:0.5rem 1rem 0.5rem 0;}\n"
-        "</style>\n"
+        f'<link rel="icon" href="{BASE_PATH}/favicon.svg"'
+        ' type="image/svg+xml">\n'
+        f'<link rel="stylesheet" href="{BASE_PATH}/style.css">\n'
         "</head><body>\n"
-        f'<nav><a href="{BASE_PATH}/">deadends.dev</a></nav>\n'
+        f'<nav><a href="{BASE_PATH}/">deadends.dev</a>'
+        f' · <a href="{BASE_PATH}/search/">Search</a></nav>\n'
+        "<main>\n"
         "<h1>404 — Error Not Found</h1>\n"
         "<p>This error page doesn't exist yet. "
         "Ironic for a site that catalogs errors.</p>\n"
-        '<div class="links">\n'
-        f'<a href="{BASE_PATH}/search/">Search errors</a>\n'
-        f'<a href="{BASE_PATH}/">Browse all domains</a>\n'
-        '<a href="https://github.com/dbwls99706/deadends.dev/issues/new">'
-        "Request this error</a>\n"
-        "</div>\n"
+        "<p><strong>Try one of these:</strong></p>\n"
+        "<ul>\n"
+        f'<li><a href="{BASE_PATH}/search/">'
+        "Search all errors</a> — paste your error message</li>\n"
+        f'<li><a href="{BASE_PATH}/">'
+        "Browse by domain</a> — Python, Node, Docker, etc.</li>\n"
+        '<li><a href="https://github.com/dbwls99706/deadends.dev'
+        '/issues/new" rel="noopener">'
+        "Request this error</a> — help us grow the database</li>\n"
+        "</ul>\n"
+        "</main>\n"
         "</body></html>"
     )
     (SITE_DIR / "404.html").write_text(html, encoding="utf-8")
@@ -886,7 +901,11 @@ def build_stylesheet() -> None:
         "",
     ])
     (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
-    print("  Generated: style.css")
+    # Return hash for cache-busting query string
+    import hashlib
+    css_hash = hashlib.md5(css.encode()).hexdigest()[:8]
+    print(f"  Generated: style.css (hash: {css_hash})")
+    return css_hash
 
 
 def build_og_image() -> None:
@@ -2581,8 +2600,14 @@ def main():
         sys.exit(1)
     print(f"  Found {len(canons)} canon(s)\n")
 
+    # Generate stylesheet first to get cache-busting hash
+    print("Generating shared stylesheet...")
+    css_hash = build_stylesheet()
+    print()
+
     # Set up Jinja2
     jinja_env = setup_jinja_env()
+    jinja_env.globals["css_hash"] = css_hash
 
     # Build pages
     print("Generating error pages...")
@@ -2663,10 +2688,6 @@ def main():
 
     print("Generating IndexNow support...")
     build_indexnow(canons)
-    print()
-
-    print("Generating shared stylesheet...")
-    build_stylesheet()
     print()
 
     print("Generating OG image for social sharing...")

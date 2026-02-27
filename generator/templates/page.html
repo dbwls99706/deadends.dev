@@ -78,7 +78,7 @@
   </script>
   {% endif %}
 
-  <link rel="stylesheet" href="{{ base_path }}/style.css">
+  <link rel="stylesheet" href="{{ base_path }}/style.css?v={{ css_hash }}">
   <link rel="alternate" type="application/atom+xml" title="deadends.dev — New Errors" href="{{ base_url }}/feed.xml">
 </head>
 <body class="pg-detail">
@@ -101,7 +101,7 @@ MATCH_API={{ base_url }}/api/v1/match.json
 STATS_API={{ base_url }}/api/v1/stats.json</pre>
 
   <!-- HUMAN-READABLE SECTION -->
-  <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ error.domain }}/">{{ error.domain | display_name }}</a></nav>
+  <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ error.domain }}/">{{ error.domain | display_name }}</a> · <a href="{{ base_path }}/search/">Search</a></nav>
 
   <main>
   <header>
@@ -144,7 +144,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% if de.common_misconception %}<p><em>Common misconception:</em> {{ de.common_misconception }}</p>{% endif %}
       {% if de.condition %}<p class="meta">Condition: {{ de.condition }}</p>{% endif %}
       {% if de.sources %}
-      <p class="meta">Sources: {% for src in de.sources %}<a href="{{ src }}" rel="noopener">{{ src }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      <p class="meta">Sources: {% for src in de.sources %}<a href="{{ src }}" rel="noopener" title="{{ src }}">{{ src | url_domain }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
       {% endif %}
     </div>
     {% endfor %}
@@ -160,7 +160,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
       {% if wa.tradeoff %}<p>Tradeoff: {{ wa.tradeoff }}</p>{% endif %}
       {% if wa.condition %}<p class="meta">Condition: {{ wa.condition }}</p>{% endif %}
       {% if wa.sources %}
-      <p class="meta">Sources: {% for src in wa.sources %}<a href="{{ src }}" rel="noopener">{{ src }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      <p class="meta">Sources: {% for src in wa.sources %}<a href="{{ src }}" rel="noopener" title="{{ src }}">{{ src | url_domain }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
       {% endif %}
     </div>
     {% endfor %}
@@ -230,7 +230,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     <h2>Sources</h2>
     <ul>
       {% for src in all_sources %}
-      <li><a href="{{ src }}" rel="noopener">{{ src }}</a></li>
+      <li><a href="{{ src }}" rel="noopener" title="{{ src }}">{{ src | url_domain }}</a></li>
       {% endfor %}
       {% if not all_sources %}
       <li>No external sources referenced.</li>

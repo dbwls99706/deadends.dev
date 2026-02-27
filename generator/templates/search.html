@@ -56,7 +56,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="{{ base_path }}/style.css">
+  <link rel="stylesheet" href="{{ base_path }}/style.css?v={{ css_hash }}">
   <link rel="alternate" type="application/atom+xml" title="deadends.dev — New Errors" href="{{ base_url }}/feed.xml">
 </head>
 <body class="pg-search">
@@ -190,7 +190,16 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
       input.addEventListener('input', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function() {
-          search(input.value.trim());
+          var val = input.value.trim();
+          search(val);
+          // Update URL for shareability without triggering navigation
+          var url = new URL(window.location);
+          if (val) {
+            url.searchParams.set('q', val);
+          } else {
+            url.searchParams.delete('q');
+          }
+          history.replaceState(null, '', url);
         }, 150);
       });
 

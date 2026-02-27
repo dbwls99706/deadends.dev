@@ -49,7 +49,7 @@
   </script>
   {% endif %}
 
-  <link rel="stylesheet" href="{{ base_path }}/style.css">
+  <link rel="stylesheet" href="{{ base_path }}/style.css?v={{ css_hash }}">
   <link rel="alternate" type="application/atom+xml" title="deadends.dev — New Errors" href="{{ base_url }}/feed.xml">
 </head>
 <body class="pg-summary">
@@ -65,7 +65,7 @@ FIX_RATE_RANGE={{ min_rate }}%-{{ max_rate }}%
 JSON_API_PATTERN={{ base_url }}/api/v1/{{ domain }}/{{ slug }}/{env}.json
 MATCH_API={{ base_url }}/api/v1/match.json</pre>
 
-  <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ domain }}/">{{ domain | display_name }}</a></nav>
+  <nav><a href="{{ base_path }}/">deadends.dev</a> / <a href="{{ base_path }}/{{ domain }}/">{{ domain | display_name }}</a> · <a href="{{ base_path }}/search/">Search</a></nav>
 
   <main>
   <header>
