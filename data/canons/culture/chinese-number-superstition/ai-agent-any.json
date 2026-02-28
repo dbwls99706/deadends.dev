@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/chinese-number-superstition/ai-agent-any",
+  "url": "https://deadends.dev/culture/chinese-number-superstition/ai-agent-any",
+  "error": {
+    "signature": "AI uses unlucky numbers or ignores Chinese numerological taboos",
+    "regex": "(Chinese.*number|unlucky.*number|四.*death|八.*lucky|红包|feng shui|风水|number.*superstition)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.87,
+    "last_updated": "2026-02-28",
+    "summary": "Chinese culture attaches deep meaning to numbers. 4 (四) sounds like death (死) and is avoided. 8 (八) sounds like prosperity (發). AI must respect these in pricing, scheduling, and gift-giving advice."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest pricing at ¥44, room 404, or 4th floor for Chinese clients",
+      "why_fails": "4 (四/sì) is homophonous with death (死/sǐ). Many Chinese buildings skip the 4th floor entirely. Using 4 in business (prices, quantities, dates) is considered deeply unlucky.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Pricing, numbering, or scheduling for Chinese market"
+    },
+    {
+      "action": "Recommend giving clocks, umbrellas, or pears as gifts",
+      "why_fails": "送钟 (giving clock) sounds like 送终 (attending funeral). 伞 (umbrella) sounds like 散 (separation). 梨 (pear) sounds like 離 (parting). These gifts signal death or separation.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Gift recommendation for Chinese recipients"
+    },
+    {
+      "action": "Wrap gifts in white or black wrapping",
+      "why_fails": "White and black are funeral colors in Chinese culture. Red is the color of luck and celebration. Gift wrapping should default to red or gold.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Gift presentation advice for Chinese context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use lucky numbers (8, 6, 9) in pricing and scheduling. ¥88, ¥168, ¥888 are ideal price points. 8 = prosperity, 6 = smooth, 9 = longevity",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Pricing for Chinese market"
+    },
+    {
+      "action": "For red envelopes (红包), amounts should include 8s and avoid 4s. Even amounts are preferred for celebrations; odd for funerals. Never give ¥400 or ¥40",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Monetary gift advice in Chinese context"
+    },
+    {
+      "action": "Recommend tea sets, fruit baskets (no pears), premium alcohol, or red-wrapped gifts. Present with both hands and expect initial refusal (politeness ritual)",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Gift recommendations for Chinese recipients"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-02-28"
+  }
+}

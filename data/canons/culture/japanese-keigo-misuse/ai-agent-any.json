@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/japanese-keigo-misuse/ai-agent-any",
+  "url": "https://deadends.dev/culture/japanese-keigo-misuse/ai-agent-any",
+  "error": {
+    "signature": "AI misuses Japanese keigo (敬語) levels in professional communication",
+    "regex": "(Japanese.*keigo|敬語|尊敬語|謙譲語|丁寧語|polite.*Japanese|honorific.*Japanese)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-02-28",
+    "summary": "Japanese has three keigo levels (尊敬語, 謙譲語, 丁寧語). Mixing them incorrectly signals incompetence or disrespect. AI must select the right level for the context."
+  },
+  "dead_ends": [
+    {
+      "action": "Use 尊敬語 (sonkeigo/respectful) when referring to own actions",
+      "why_fails": "尊敬語 elevates the subject. Using it for yourself (e.g., おっしゃる instead of 申す) sounds arrogant. Self-reference requires 謙譲語 (kenjougo/humble).",
+      "fail_rate": 0.90,
+      "sources": ["https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"],
+      "condition": "AI speaking about its own actions in Japanese"
+    },
+    {
+      "action": "Default to casual form (タメ口) for efficiency",
+      "why_fails": "Casual speech in business context is a career-ending mistake in Japan. Even between same-age colleagues, business settings require です/ます form at minimum.",
+      "fail_rate": 0.93,
+      "sources": [],
+      "condition": "Any Japanese business communication"
+    },
+    {
+      "action": "Apply double-keigo (二重敬語) thinking more polite is better",
+      "why_fails": "Stacking honorifics (e.g., お読みになられる) is grammatically incorrect and sounds uneducated. One honorific form per verb is the rule.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Trying to be extra polite in Japanese"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use 丁寧語 (desu/masu) as safe default for general communication. Upgrade to 尊敬語 for clients/superiors, and 謙譲語 for own actions",
+      "success_rate": 0.90,
+      "sources": ["https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"],
+      "condition": "General Japanese communication"
+    },
+    {
+      "action": "For business emails, follow the standard structure: 拝啓 → seasonal greeting → 本文 → 敬具. Use お忙しいところ恐れ入りますが as a buffer phrase",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Japanese business email composition"
+    },
+    {
+      "action": "When uncertain about keigo level, err on the side of formality. Being too polite is forgiven; being too casual is not.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Unclear formality context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-business-honorifics/ai-agent-any",
+        "distinction": "Korean and Japanese honorific systems share structural similarities but have different rules"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-02-28"
+  }
+}

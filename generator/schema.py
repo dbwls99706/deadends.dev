@@ -85,6 +85,8 @@ ERRORCANON_SCHEMA = {
                         "policy",
                         # Communication / Documentation quirks
                         "communication",
+                        # Cultural norms / etiquette for AI agents
+                        "culture",
                         # Reserved for future expansion
                         "mcp",
                         "http",

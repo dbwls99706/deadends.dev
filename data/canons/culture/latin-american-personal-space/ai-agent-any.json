@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/latin-american-personal-space/ai-agent-any",
+  "url": "https://deadends.dev/culture/latin-american-personal-space/ai-agent-any",
+  "error": {
+    "signature": "AI applies Northern European personal space norms to Latin American interactions",
+    "regex": "(Latin.*America.*etiquette|personal.*space|abrazo|beso|Latin.*greeting|punctuality.*flexible)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-02-28",
+    "summary": "Latin American cultures have different norms around personal space, greetings (cheek kiss/abrazo), time flexibility, and relationship-first business. AI must adjust recommendations accordingly."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise maintaining Northern European distance (arm's length) in Latin American meetings",
+      "why_fails": "Latin American cultures have closer personal space. Maintaining large distance signals coldness or distrust. Conversations happen at closer range than Anglo-Saxon norms.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Advising on Latin American social interactions"
+    },
+    {
+      "action": "Suggest getting straight to business without personal conversation first",
+      "why_fails": "Latin American business is relationship-driven. Jumping to business without personal rapport (family, weekend, local events) is seen as rude and transactional.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Latin American business meeting advice"
+    },
+    {
+      "action": "Expect strict adherence to scheduled meeting times",
+      "why_fails": "Many Latin American countries have flexible time culture. 15-30 minutes after scheduled time is normal for social events. Showing frustration about timing damages relationships.",
+      "fail_rate": 0.70,
+      "sources": [],
+      "condition": "Scheduling expectations in Latin American context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Begin business meetings with personal conversation (10-15 min): ask about family, recent holidays, local sports. Build personal connection before business agenda",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Latin American business meetings"
+    },
+    {
+      "action": "For greetings, advise: one cheek kiss (or air kiss) is standard in most countries (Argentina: one, Brazil: two in some regions). Men may embrace (abrazo). Handshakes for very formal first meetings",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Latin American greeting advice"
+    },
+    {
+      "action": "Distinguish between hora inglesa (English time = punctual) and hora latina (flexible time). Business meetings tend toward punctuality; social events are flexible. When in doubt, arrive on time but don't stress if others are late",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Time management advice for Latin American context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-02-28"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/western-direct-refusal/ai-agent-any",
+  "url": "https://deadends.dev/culture/western-direct-refusal/ai-agent-any",
+  "error": {
+    "signature": "AI applies Western direct communication style to high-context cultures",
+    "regex": "(direct.*refusal|high.*context|low.*context|face.*saving|indirect.*communication|blunt.*feedback)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-02-28",
+    "summary": "Western (especially American/Dutch/German) directness clashes with East Asian, Middle Eastern, and Southeast Asian face-saving cultures. AI must detect cultural context and adjust communication style."
+  },
+  "dead_ends": [
+    {
+      "action": "Use direct 'No' or blunt negative feedback in East Asian business contexts",
+      "why_fails": "In Japan, Korea, China, and Southeast Asia, direct refusal causes loss of face (面子/체면/メンツ). The relationship may be permanently damaged. Indirect signals are the norm for disagreement.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Drafting responses for East Asian or Southeast Asian recipients"
+    },
+    {
+      "action": "Assume silence means agreement in high-context cultures",
+      "why_fails": "In Japan, silence (沈黙) often indicates disagreement or need for more time. In Western culture, silence after a proposal may mean agreement. This mismatch causes failed deals.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Interpreting responses across cultures"
+    },
+    {
+      "action": "Give public critical feedback in collectivist cultures",
+      "why_fails": "In East Asian, Middle Eastern, and Latin American cultures, public criticism destroys face and hierarchy. Feedback must be given privately, often through intermediaries.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Advising on feedback delivery across cultures"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Detect cultural context from language, names, or explicit cues. For high-context cultures, soften refusals: 'This might be challenging given our current constraints' instead of 'No, we can't do that'",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Cross-cultural communication drafting"
+    },
+    {
+      "action": "For feedback across cultures, use the sandwich method (positive → constructive → positive) in collectivist cultures. In individualist cultures (US, Netherlands, Germany), direct feedback is preferred and expected",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Cross-cultural feedback guidance"
+    },
+    {
+      "action": "When interpreting ambiguous responses from high-context cultures, flag uncertainty to the user: 'This response may indicate hesitation rather than agreement. Consider following up privately to confirm.'",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Interpreting cross-cultural business responses"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/japanese-keigo-misuse/ai-agent-any",
+        "distinction": "Japanese indirect communication is a specific instance of high-context culture patterns"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-02-28"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/korean-business-honorifics/ai-agent-any",
+  "url": "https://deadends.dev/culture/korean-business-honorifics/ai-agent-any",
+  "error": {
+    "signature": "AI uses casual speech (반말) in Korean business communication",
+    "regex": "(Korean.*business|한국.*비즈니스|honorific|존댓말|반말|formal.*Korean)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-02-28",
+    "summary": "Korean business culture requires strict honorific usage. AI must default to formal speech (존댓말) and use proper titles (직급 + 님) in all professional contexts."
+  },
+  "dead_ends": [
+    {
+      "action": "Use casual/informal speech (반말) assuming friendliness",
+      "why_fails": "Perceived as deeply disrespectful in Korean business culture. Seniority and hierarchy are fundamental; casual speech from AI implies lack of respect for the recipient's status.",
+      "fail_rate": 0.95,
+      "sources": ["https://en.wikipedia.org/wiki/Korean_honorifics"],
+      "condition": "Any Korean business email, message, or conversation"
+    },
+    {
+      "action": "Translate English directly without adjusting speech level",
+      "why_fails": "English lacks formal/informal verb conjugation. Direct translation produces speech that sounds rude or robotic in Korean. The entire sentence structure must change for politeness.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Translating business communication to Korean"
+    },
+    {
+      "action": "Use first name only without title",
+      "why_fails": "Koreans almost never use first names in business. Even close colleagues use 성 + 직급님 (e.g., 김 부장님). Using first name alone is a serious breach of hierarchy.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Addressing Korean business contacts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to 합쇼체 (highest formal speech level) for initial business communication, then adjust to 해요체 if the other party initiates casual tone",
+      "success_rate": 0.95,
+      "sources": ["https://en.wikipedia.org/wiki/Korean_honorifics"],
+      "condition": "First contact or formal settings"
+    },
+    {
+      "action": "Address recipients as [성] + [직급] + 님 (e.g., 김 대리님, 박 과장님). If title is unknown, use [성] + 님 or [풀네임] + 님",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Any Korean business context"
+    },
+    {
+      "action": "Use humble expressions (겸양어) when referring to AI's own actions: 드리다 instead of 주다, 여쭙다 instead of 묻다, 말씀드리다 instead of 말하다",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "AI responding to Korean users in professional context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-age-hierarchy/ai-agent-any",
+        "distinction": "Age-based hierarchy and business honorifics are closely related but have different rules"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-02-28"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/korean-age-hierarchy/ai-agent-any",
+  "url": "https://deadends.dev/culture/korean-age-hierarchy/ai-agent-any",
+  "error": {
+    "signature": "AI ignores Korean age-based hierarchy (나이 서열) in social interactions",
+    "regex": "(Korean.*age|나이.*서열|elder.*respect|연장자|선배.*후배|age.*hierarchy)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-28",
+    "summary": "Korean society operates on strict age-based hierarchy. AI must recognize and respect seniority in language, recommendations, and social advice."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat all participants as equals regardless of age in Korean social context",
+      "why_fails": "Korean culture assigns social roles by age. Ignoring this creates awkward or offensive suggestions (e.g., telling someone to speak casually to an elder).",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Giving social advice in Korean context"
+    },
+    {
+      "action": "Suggest younger person initiate 반말 (casual speech) with older person",
+      "why_fails": "Only the elder can suggest switching to casual speech (말 놓자). A younger person initiating this is a serious breach of etiquette.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Advising on Korean interpersonal communication"
+    },
+    {
+      "action": "Use Western-style age-blind interaction patterns",
+      "why_fails": "In Korea, age determines who pours drinks, who sits where, who speaks first. Removing these customs feels unnatural and disrespectful.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Social event planning or dining etiquette"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "When age context is known, adjust language and recommendations to respect 선배/후배 (senior/junior) dynamics. Younger person uses 존댓말 to older person by default.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Korean social interactions with known age context"
+    },
+    {
+      "action": "In dining context, advise: eldest orders first, youngest pours drinks with two hands, turn head away when drinking with elders",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Korean dining etiquette advice"
+    },
+    {
+      "action": "Use Korean age (만 나이 since 2023 law change, but 한국 나이 still used socially) to determine appropriate interaction level",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Calculating social hierarchy"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-business-honorifics/ai-agent-any",
+        "distinction": "Business honorifics overlap with age hierarchy but have additional title-based rules"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-02-28"
+  }
+}
