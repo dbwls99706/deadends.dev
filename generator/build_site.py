@@ -11,6 +11,8 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
 
+from generator.domains import domain_display_name
+
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "canons"
 SITE_DIR = PROJECT_ROOT / "site"
@@ -20,53 +22,7 @@ BASE_URL = "https://deadends.dev"
 # Empty string when hosted at root domain
 BASE_PATH = ""
 
-# Domain display names for proper capitalization in titles/breadcrumbs
-DOMAIN_DISPLAY_NAMES = {
-    "aws": "AWS",
-    "cuda": "CUDA",
-    "cicd": "CI/CD",
-    "php": "PHP",
-    "dotnet": ".NET",
-    "nextjs": "Next.js",
-    "typescript": "TypeScript",
-    "pip": "pip",
-    # Robotics / Embedded / Vision
-    "ros2": "ROS 2",
-    "opencv": "OpenCV",
-    "cmake": "CMake",
-    # ML / AI
-    "pytorch": "PyTorch",
-    "tensorflow": "TensorFlow",
-    "huggingface": "Hugging Face",
-    "llm": "LLM",
-    # Infrastructure / Middleware
-    "grpc": "gRPC",
-    "mongodb": "MongoDB",
-    "elasticsearch": "Elasticsearch",
-    # Mobile / Cross-platform
-    "flutter": "Flutter",
-    "unity": "Unity",
-    # API / Service / Cloud
-    "api": "API",
-    # Cultural norms
-    "culture": "Culture",
-    # Reserved
-    "mcp": "MCP",
-    "http": "HTTP",
-    # Real-world safety
-    "safety": "Safety",
-    "medical": "Medical",
-    "mental-health": "Mental Health",
-    "food-safety": "Food Safety",
-    "disaster": "Disaster",
-    "legal": "Legal",
-    "pet-safety": "Pet Safety",
-}
-
-
-def domain_display_name(domain: str) -> str:
-    """Return proper display name for a domain slug."""
-    return DOMAIN_DISPLAY_NAMES.get(domain, domain.capitalize())
+# DOMAIN_DISPLAY_NAMES and domain_display_name imported from generator.domains
 
 
 # Search engine verification codes — replace with actual codes after registering
