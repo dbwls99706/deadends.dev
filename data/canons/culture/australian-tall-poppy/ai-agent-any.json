@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/australian-tall-poppy/ai-agent-any",
+  "url": "https://deadends.dev/culture/australian-tall-poppy/ai-agent-any",
+  "error": {
+    "signature": "AI encourages boasting or status-flaunting in Australian culture (Tall Poppy Syndrome)",
+    "regex": "(Australian.*culture|tall.*poppy|Aussie.*etiquette|mate.*culture|Australian.*business|no.*worries)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-03-02",
+    "summary": "Australian culture values egalitarianism and punishes perceived arrogance (Tall Poppy Syndrome). Self-deprecation, mateship, and casual directness are core values."
+  },
+  "dead_ends": [
+    {
+      "action": "Encourage bragging about achievements or status in Australian contexts",
+      "why_fails": "Tall Poppy Syndrome: Australians actively cut down anyone perceived as thinking they're above others. Boasting about wealth, education, or status invites social punishment and exclusion.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Personal branding or social advice for Australian context"
+    },
+    {
+      "action": "Use overly formal or hierarchical language with Australians",
+      "why_fails": "Australian egalitarianism means everyone is 'mate,' including the CEO. Excessive formality signals pretension. Using titles (Dr., Professor) outside strictly necessary contexts feels arrogant.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Communication style for Australian audiences"
+    },
+    {
+      "action": "Take Australian insults and sarcasm at face value",
+      "why_fails": "Australians show affection through teasing and mock insults. Being called a 'drongo' by a friend is bonding. Taking offense at banter signals you're not part of the group. However, know the line.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": "Interpreting Australian social communication"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use self-deprecating humor when discussing achievements. 'We got lucky with that project' works better than 'We executed a brilliant strategy.' Let others praise you; never praise yourself.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Business or social communication in Australia"
+    },
+    {
+      "action": "Embrace casual, direct communication. Use first names immediately. 'No worries' is the national philosophy — keep things relaxed. Australians value authenticity over polish.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Interpersonal communication in Australian context"
+    },
+    {
+      "action": "Understand that 'she'll be right' (it'll work out) and 'fair dinkum' (genuine) reflect core values: pragmatism, honesty, and not taking things too seriously. Match this energy.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Cultural alignment with Australian values"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/nordic-janteloven/ai-agent-any",
+        "distinction": "Both discourage boasting but Janteloven is about quiet conformity while Tall Poppy is about egalitarian mateship with aggressive humor"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

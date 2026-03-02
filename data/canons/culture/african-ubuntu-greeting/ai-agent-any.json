@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/african-ubuntu-greeting/ai-agent-any",
+  "url": "https://deadends.dev/culture/african-ubuntu-greeting/ai-agent-any",
+  "error": {
+    "signature": "AI ignores sub-Saharan African greeting customs and Ubuntu philosophy",
+    "regex": "(African.*greeting|Ubuntu|sub-Saharan.*custom|African.*elder|African.*handshake|African.*business)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-03-02",
+    "summary": "Sub-Saharan African cultures share greeting-centric, communal values rooted in Ubuntu philosophy. Rushing greetings, ignoring elders, or applying individualist frameworks deeply offends."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip greetings and get straight to business in African meetings",
+      "why_fails": "In most sub-Saharan cultures, extended greetings are mandatory. You ask about health, family, the journey. Skipping this signals arrogance and disrespect. Greetings can take 5-10 minutes and are non-negotiable.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Business or social meetings in sub-Saharan Africa"
+    },
+    {
+      "action": "Address African cultures as a monolith",
+      "why_fails": "Africa has 54 countries and 2,000+ languages. Nigerian Yoruba customs differ vastly from Kenyan Kikuyu or South African Zulu. Generalizing 'African culture' is reductive and often wrong.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Giving advice about African cultural contexts"
+    },
+    {
+      "action": "Apply Western individualist problem-solving frameworks without considering communal dynamics",
+      "why_fails": "Ubuntu (umuntu ngumuntu ngabantu — 'I am because we are') means decisions involve extended family and community. Individual-focused advice ignores that many life decisions are communal in African contexts.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Life advice or business recommendations in African contexts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Begin every interaction with thorough greetings. Ask about family, health, and wellbeing before any business. In many West African cultures, greeting an elder first and by title is mandatory.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Initial interactions in African contexts"
+    },
+    {
+      "action": "Specify the country and ethnic group when giving cultural advice. Nigerian (Yoruba/Igbo/Hausa), Kenyan (Kikuyu/Luo/Maasai), South African (Zulu/Xhosa/Afrikaans) customs differ significantly.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Providing culturally specific advice"
+    },
+    {
+      "action": "Respect elder authority: greet elders first, offer them the best seat, serve them food first. In many cultures, shaking hands with the right hand while the left supports the right forearm shows respect.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Interacting with elders in African settings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

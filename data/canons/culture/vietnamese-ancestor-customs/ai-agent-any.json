@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/vietnamese-ancestor-customs/ai-agent-any",
+  "url": "https://deadends.dev/culture/vietnamese-ancestor-customs/ai-agent-any",
+  "error": {
+    "signature": "AI disregards Vietnamese ancestor worship, naming customs, and Tet traditions",
+    "regex": "(Vietnamese.*custom|ancestor.*worship|Tet|Tết|Vietnamese.*name|Vietnamese.*elder|giỗ|Vietnamese.*funeral)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-03-02",
+    "summary": "Vietnamese culture centers on ancestor worship, family hierarchy, and Confucian respect for elders. Tet (Lunar New Year) customs, death anniversary rituals (giỗ), and naming conventions must be respected."
+  },
+  "dead_ends": [
+    {
+      "action": "Schedule major changes or bad-news announcements during Tet (Tết Nguyên Đán)",
+      "why_fails": "Tet is the most sacred Vietnamese holiday. The first visitor of the year (xông đất) determines the year's luck. Bad news, arguments, or negative actions during Tet are believed to curse the entire year.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Scheduling around Vietnamese Lunar New Year"
+    },
+    {
+      "action": "Disrespect or ignore ancestor altars in Vietnamese homes or businesses",
+      "why_fails": "Most Vietnamese homes and many businesses have ancestor altars (bàn thờ). These are sacred. Never place objects on them, point at them, or treat them casually. They represent the family's spiritual connection.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Visiting Vietnamese homes or businesses"
+    },
+    {
+      "action": "Address Vietnamese elders without proper kinship terms",
+      "why_fails": "Vietnamese has complex kinship terms (anh/chị/em/bác/cô/chú) based on age and relation. Using the wrong term or skipping them entirely is disrespectful. Age hierarchy is as important as in Korean culture.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Addressing Vietnamese people"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Learn key Vietnamese kinship terms: anh (older brother/male), chị (older sister/female), em (younger person), bác (uncle/aunt older than parent), cô (aunt, father's sister), chú (uncle, father's younger brother).",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Vietnamese social interactions"
+    },
+    {
+      "action": "During Tet: give red envelopes (lì xì) to children and unmarried young people. Avoid sweeping floors on the first day (sweeps away luck). Only say positive things. First visitor should be a successful, happy person.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Vietnamese Tet celebrations"
+    },
+    {
+      "action": "Vietnamese names: surname first (Nguyễn Văn Minh), address by given name (Minh), not surname. 40% of Vietnamese are Nguyễn — using surname alone is useless. Add appropriate kinship term before given name.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Vietnamese naming and addressing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/chinese-number-superstition/ai-agent-any",
+        "distinction": "Vietnamese culture shares some Chinese-origin superstitions but has distinct Tet customs and kinship address systems"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

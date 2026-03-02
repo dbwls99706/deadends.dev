@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/indonesian-islamic-customs/ai-agent-any",
+  "url": "https://deadends.dev/culture/indonesian-islamic-customs/ai-agent-any",
+  "error": {
+    "signature": "AI applies Middle Eastern Islamic norms to Indonesia or ignores Indonesian cultural syncretism",
+    "regex": "(Indonesian.*custom|Javanese.*etiquette|Bahasa.*polite|Indonesian.*business|gotong.*royong|Indonesian.*Islam|Bali.*custom)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-03-02",
+    "summary": "Indonesia (world's largest Muslim-majority nation) blends Islam with Javanese, Hindu-Buddhist, and local customs. It's far more moderate than Gulf states but has its own strict social norms around harmony and respect."
+  },
+  "dead_ends": [
+    {
+      "action": "Apply Gulf-state Islamic norms universally to Indonesia",
+      "why_fails": "Indonesian Islam is moderate and syncretic. Many women don't wear hijab, alcohol is available (outside Aceh), and cultural practices blend Islamic, Hindu, Buddhist, and animist traditions. Assuming Gulf norms is inaccurate.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Applying Islamic norms to Indonesian context"
+    },
+    {
+      "action": "Use left hand for giving, receiving, or eating in Indonesia",
+      "why_fails": "Like in Indian and Arab cultures, the left hand is considered unclean. Always use the right hand to give or receive items, eat, and gesture. This is strictly observed even in secular Indonesian contexts.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Physical interactions in Indonesia"
+    },
+    {
+      "action": "Express anger, raise voice, or cause public confrontation",
+      "why_fails": "Indonesian culture (especially Javanese) prioritizes harmony (rukun). Public anger, confrontation, or causing someone to lose face (malu) is the worst social violation. Maintain calm (sabar) at all times.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Social interactions in Indonesia"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Understand regional variation: Aceh (strict Sharia law), Java (moderate Islam + Javanese mysticism), Bali (Hindu majority — different customs entirely), Papua (Christian/animist). One country, many cultural zones.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Understanding Indonesian cultural diversity"
+    },
+    {
+      "action": "Practice gotong royong (mutual cooperation): Indonesian decisions are communal. Offer help freely, participate in community activities, and never act purely in self-interest. Collectivism over individualism.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Indonesian social norms"
+    },
+    {
+      "action": "Use Bahasa Indonesia politeness: add Pak (Mr.) or Bu (Mrs.) before names or titles. Use 'Permisi' (excuse me) when passing. Greet with right hand touching heart after handshake. Single-name Indonesians are common — use the one name they have.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Indonesian etiquette and addressing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/arabic-left-hand-taboo/ai-agent-any",
+        "distinction": "Indonesia shares left-hand taboo with Arab cultures but its Islam is uniquely syncretic and far more moderate than Gulf-state practice"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

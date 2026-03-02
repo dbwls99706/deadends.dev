@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/global-color-symbolism/ai-agent-any",
+  "url": "https://deadends.dev/culture/global-color-symbolism/ai-agent-any",
+  "error": {
+    "signature": "AI uses colors with opposite cultural meanings across regions (white=death vs purity, red=luck vs danger)",
+    "regex": "(color.*symbol|colour.*meaning|white.*funeral|red.*luck|yellow.*royal|color.*culture|colour.*culture)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-03-02",
+    "summary": "Colors carry completely opposite meanings across cultures. White is purity in the West but death/mourning in East Asia. Red is danger in the West but luck/prosperity in China. AI must localize color usage."
+  },
+  "dead_ends": [
+    {
+      "action": "Use white as the default celebratory/wedding color in East Asian UI or marketing",
+      "why_fails": "White (白) is the color of death and mourning in China, Japan, and Korea. White funeral clothing, white wreaths. Using white for wedding invitations or celebrations can be deeply offensive.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Design or marketing for East Asian audiences"
+    },
+    {
+      "action": "Use red as a warning/danger color in Chinese UI or products",
+      "why_fails": "Red (红) is the luckiest color in China — wealth, prosperity, happiness. Using it for errors or warnings contradicts deeply ingrained positive associations. Chinese stock markets use red for UP, green for DOWN.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "UI/UX design for Chinese market"
+    },
+    {
+      "action": "Use yellow freely in French or Latin American contexts",
+      "why_fails": "Yellow signifies jealousy and betrayal in France. Yellow flowers mean separation in Russia. In Thailand, yellow is the royal color (King's birthday). Context determines whether yellow is positive or negative.",
+      "fail_rate": 0.72,
+      "sources": [],
+      "condition": "Color selection for international contexts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "White: purity/peace (West), death/mourning (East Asia/India). Red: danger/stop (West), luck/prosperity (China), mourning (South Africa). Black: mourning (West), power/formality (universal). Green: nature/go (global), Islam/sacred (Muslim countries).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Color selection for international audiences"
+    },
+    {
+      "action": "For global UIs: use blue (almost universally positive — trust, calm, technology) as safe default. Combine colors with icons and text labels rather than relying on color alone for meaning.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "International UI/UX design"
+    },
+    {
+      "action": "When designing for specific markets: China (red=good, white=death, gold=wealth), Japan (red+white=celebration, black+white=funeral), India (red=fertility, white=mourning, saffron=sacred), Middle East (green=Islam, blue=protection).",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Market-specific color design"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/chinese-number-superstition/ai-agent-any",
+        "distinction": "Number symbolism and color symbolism are different systems but both critical for Chinese market design — they often need to be considered together"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

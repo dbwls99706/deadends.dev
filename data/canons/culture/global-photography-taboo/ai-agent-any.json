@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/global-photography-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/global-photography-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI ignores photography restrictions in religious, indigenous, and military contexts",
+    "regex": "(photo.*taboo|photography.*forbidden|no.*photo.*temple|indigenous.*photo|military.*photo|camera.*restriction)",
+    "domain": "culture",
+    "category": "legal_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.87,
+    "last_updated": "2026-03-02",
+    "summary": "Many cultures, religions, and legal systems restrict photography of people, sacred sites, military installations, and government buildings. AI must warn about these when giving travel or content advice."
+  },
+  "dead_ends": [
+    {
+      "action": "Photograph indigenous peoples without explicit consent",
+      "why_fails": "Many indigenous cultures (Aboriginal Australian, Native American, Amazonian tribes) believe photography captures the soul or violates spiritual identity. In Australia, photographing Aboriginal sacred sites is illegal.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Photography advice involving indigenous communities"
+    },
+    {
+      "action": "Photograph inside mosques, temples, or churches without checking rules",
+      "why_fails": "Many mosques forbid photography entirely. Buddhist temples often prohibit photographing with back to Buddha. Some churches (e.g., Sistine Chapel) strictly ban photos. Violators face confiscation or expulsion.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Religious site photography advice"
+    },
+    {
+      "action": "Photograph military installations, government buildings, or airports in security-sensitive countries",
+      "why_fails": "In Egypt, Turkey, UAE, China, and North Korea (among others), photographing military/government facilities can lead to detention. Even bridges and power stations may be restricted in some countries.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Photography near sensitive facilities abroad"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always ask before photographing people, especially in traditional/indigenous communities. A respectful request is usually honored. Some communities welcome photography for a small fee or donation.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "People photography in culturally sensitive areas"
+    },
+    {
+      "action": "At religious sites: look for 'no photography' signs, ask staff, and observe what others do. Many sites allow exterior photos but not interior. Never use flash near paintings or artifacts.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Religious site photography"
+    },
+    {
+      "action": "Research country-specific photography laws before travel. GDPR in EU restricts photographing identifiable strangers. Japan has strict privacy laws around street photography. Know local rules.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Travel photography planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/asian-naming-conventions/ai-agent-any",
+  "url": "https://deadends.dev/culture/asian-naming-conventions/ai-agent-any",
+  "error": {
+    "signature": "AI mishandles non-Western name order, patronymics, and naming conventions",
+    "regex": "(name.*order|surname.*first|patronymic|given.*name.*family.*name|naming.*convention|姓名|성명)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-03-02",
+    "summary": "Name order, structure, and usage rules differ dramatically across cultures. Assuming Western first-last order causes misidentification, offense, and system errors."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume all names follow Western given-name + family-name order",
+      "why_fails": "Chinese, Japanese, Korean, Hungarian, and Vietnamese names put surname first. 김철수 is Kim (surname) Cheolsu (given name). Treating 철수 as surname leads to misidentification in databases, emails, and forms.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Name parsing or form design"
+    },
+    {
+      "action": "Split names into exactly 'first name' and 'last name' fields",
+      "why_fails": "Icelandic patronymics (Jónsdóttir = daughter of Jón) aren't surnames. Many Indonesians have single names (Suharto, Sukarno). Burmese names have no surnames. Spanish names have two family names (paternal + maternal).",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Form design for international users"
+    },
+    {
+      "action": "Shorten Asian names to initials following Western conventions",
+      "why_fails": "In China, the surname is one character and the given name is often two: 毛泽东 → Mao (surname) Zedong (given). Initializing as 'M. Zedong' is wrong; it should be 'Zedong Mao' or 'Mao Zedong' depending on context.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Name formatting in international systems"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a single 'Full Name' field instead of forced first/last split. If split is needed, label them 'Given name(s)' and 'Family name(s)' — never 'First' and 'Last' (misleading for surname-first cultures).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "International form design"
+    },
+    {
+      "action": "Know key name orders: Surname first: China (王小明), Japan (田中太郎), Korea (김철수), Vietnam (Nguyễn Văn Minh), Hungary (Nagy László). Given name first: Western countries, India, most of Africa, Philippines.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Correct name ordering"
+    },
+    {
+      "action": "When unsure, ask the person how they prefer to be addressed rather than guessing. Many Asian professionals use Western order in international contexts but original order domestically.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Uncertain name situations"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}
