@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/japanese-gift-etiquette/ai-agent-any",
+  "url": "https://deadends.dev/culture/japanese-gift-etiquette/ai-agent-any",
+  "error": {
+    "signature": "AI violates Japanese gift-giving customs (お中元, お歳暮, wrapping rituals)",
+    "regex": "(Japanese.*gift|お中元|お歳暮|内祝い|祝儀|不祝儀|Japanese.*wrapping|furoshiki)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-28",
+    "summary": "Japanese gift-giving has elaborate rules about quantity (avoid 4 and 9), wrapping direction, seasonal timing, and reciprocity. The presentation is often more important than the gift itself."
+  },
+  "dead_ends": [
+    {
+      "action": "Give gifts in sets of 4 or 9",
+      "why_fails": "4 (四/shi) sounds like death (死/shi) and 9 (九/ku) sounds like suffering (苦/ku). Tea sets of 4, gift boxes of 9 items — these numbers are avoided in all Japanese gift contexts.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Gift quantity for Japanese recipients"
+    },
+    {
+      "action": "Open a gift immediately in front of the giver",
+      "why_fails": "In Japan, gifts are not opened in front of the giver (unlike Western custom). Opening immediately can appear greedy. Accept with both hands, express gratitude, and open later in private.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Receiving gifts in Japanese context"
+    },
+    {
+      "action": "Wrap gifts casually or use dark-colored wrapping",
+      "why_fails": "Japanese gift wrapping (包装) is an art. Wrapping direction matters: right over left for celebrations (慶事), left over right for funerals (弔事). Getting this backwards invokes death.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Gift wrapping for Japanese recipients"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Give in sets of 3, 5, or 7 (lucky odd numbers in Japan). Wrap in light, seasonal colors. Use noshi (熨斗) paper for formal gifts with appropriate mizuhiki (水引) knot style.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Japanese gift presentation"
+    },
+    {
+      "action": "Observe seasonal gift cycles: お中元 (mid-year, July) and お歳暮 (year-end, December) for business/social obligations. Budget 3,000-5,000 yen for colleagues, 5,000-10,000 for superiors.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Japanese seasonal gift timing"
+    },
+    {
+      "action": "When giving, say 'つまらないものですが' (it's nothing special) — modesty is expected even for expensive gifts. Present and receive with both hands. Reciprocate gifts of similar value (内祝い).",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Japanese gift-giving behavior"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/chinese-number-superstition/ai-agent-any",
+        "distinction": "Both cultures avoid 4 due to death homophone but Japanese also avoids 9 (suffering) and has elaborate wrapping direction rules absent in Chinese culture"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

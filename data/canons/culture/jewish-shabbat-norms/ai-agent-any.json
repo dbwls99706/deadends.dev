@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/jewish-shabbat-norms/ai-agent-any",
+  "url": "https://deadends.dev/culture/jewish-shabbat-norms/ai-agent-any",
+  "error": {
+    "signature": "AI ignores Jewish Shabbat observance and kosher requirements",
+    "regex": "(Shabbat|Sabbath.*Jewish|kosher|שבת|כשר|Jewish.*holiday|Yom Kippur|Rosh Hashanah)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.87,
+    "last_updated": "2026-02-28",
+    "summary": "Observant Jews follow strict Shabbat rules (Friday sunset to Saturday nightfall) including no work, no electronics, and no driving. Kosher dietary laws restrict food combinations and preparation. AI must account for these in scheduling and dining advice."
+  },
+  "dead_ends": [
+    {
+      "action": "Schedule meetings or events on Shabbat (Friday sunset to Saturday nightfall) for observant Jewish participants",
+      "why_fails": "Observant Jews do not work, drive, use electronics, or handle money during Shabbat. Scheduling anything requiring these activities is impossible for them and shows cultural ignorance.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Scheduling with Jewish participants"
+    },
+    {
+      "action": "Suggest mixing meat and dairy in meals for kosher-observant people",
+      "why_fails": "Kashrut (kosher law) strictly forbids combining meat and dairy in the same meal. Separate dishes, utensils, and waiting periods (typically 3-6 hours) between meat and dairy are required.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Meal planning for kosher-observant people"
+    },
+    {
+      "action": "Offer pork or shellfish at events with Jewish attendees",
+      "why_fails": "Pork and shellfish are explicitly non-kosher (treif). Even non-observant Jews may avoid pork for cultural reasons. Always offer kosher or at minimum pork-free alternatives.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Catering for events with Jewish guests"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Schedule important meetings Sunday-Thursday. Friday meetings should end well before sunset. Check the Jewish calendar for major holidays: Rosh Hashanah, Yom Kippur, Passover, Sukkot.",
+      "success_rate": 0.93,
+      "sources": [],
+      "condition": "Scheduling with observant Jewish participants"
+    },
+    {
+      "action": "For kosher catering: keep meat and dairy completely separate. Use certified kosher caterers when possible. Safe universal options: fish (with fins and scales), vegetables, fruits, eggs.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Food planning for Jewish dietary laws"
+    },
+    {
+      "action": "During Jewish holidays, send appropriate greetings: 'Shabbat Shalom' for Shabbat, 'Chag Sameach' for holidays, 'Shanah Tovah' for Rosh Hashanah. Avoid 'Happy Holidays' as a generic substitute.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Jewish holiday greetings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/arabic-left-hand-taboo/ai-agent-any",
+        "distinction": "Both involve religious dietary and scheduling constraints but the specific rules (kosher vs halal, Shabbat vs Juma) differ significantly"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

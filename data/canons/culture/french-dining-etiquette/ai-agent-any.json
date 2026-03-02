@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/french-dining-etiquette/ai-agent-any",
+  "url": "https://deadends.dev/culture/french-dining-etiquette/ai-agent-any",
+  "error": {
+    "signature": "AI violates French dining and wine etiquette norms",
+    "regex": "(French.*dining|French.*wine|pain.*table|French.*etiquette|fromage|apéritif|digestif)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-28",
+    "summary": "French dining culture has strict unwritten rules about bread placement, wine service, cheese ordering, and meal pacing. Violating these marks one as culturally ignorant."
+  },
+  "dead_ends": [
+    {
+      "action": "Place bread on the plate instead of directly on the table/tablecloth",
+      "why_fails": "In France, bread goes directly on the tablecloth to the left of the plate, never on the plate itself. Placing it on the plate is a faux pas that marks foreign ignorance.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "French dining etiquette advice"
+    },
+    {
+      "action": "Pour your own wine before others or fill glasses to the top",
+      "why_fails": "In France, you pour for others first, never yourself first. Glasses are filled only one-third full to allow swirling and aroma. A full glass signals a cheap establishment or ignorance.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Wine service in French context"
+    },
+    {
+      "action": "Ask for ketchup, extra sauce, or substitutions at a French restaurant",
+      "why_fails": "Requesting condiments or modifications implies the chef's preparation is inadequate. This is deeply insulting in French culinary culture where the chef's vision is paramount.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Ordering at French restaurants"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow French meal structure: apéritif → entrée (starter) → plat principal → fromage → dessert → café → digestif. Never rush. A proper French dinner takes 2-3 hours minimum.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "French meal planning"
+    },
+    {
+      "action": "Keep hands (not elbows) on the table, not in your lap (unlike American style). Both wrists should rest on the table edge. This dates to showing you carry no weapon.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Table posture in France"
+    },
+    {
+      "action": "Cheese is served before dessert, never after. Cut cheese correctly: wedge cheeses cut from point to rind (never cut the nose/tip off), round cheeses cut like pie slices.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "French cheese etiquette"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

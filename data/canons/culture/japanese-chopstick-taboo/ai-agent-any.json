@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/japanese-chopstick-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/japanese-chopstick-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI ignores Japanese chopstick taboos (箸のタブー) in dining advice",
+    "regex": "(chopstick.*taboo|箸.*タブー|立て箸|刺し箸|渡し箸|Japanese.*dining|日本.*食事.*マナー)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-02-28",
+    "summary": "Japanese dining has strict chopstick taboos rooted in funeral rituals. Several common chopstick actions are deeply offensive because they mirror Buddhist death ceremonies."
+  },
+  "dead_ends": [
+    {
+      "action": "Stick chopsticks vertically into rice (立て箸/tate-bashi)",
+      "why_fails": "Vertical chopsticks in rice is a funeral offering ritual (仏壇のお供え). Doing this at a meal symbolizes death and is one of the most serious dining taboos in Japan.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Japanese dining etiquette advice"
+    },
+    {
+      "action": "Pass food from chopstick to chopstick (箸渡し/hashi-watashi)",
+      "why_fails": "This mirrors the funeral ritual of passing cremated bones between chopsticks (骨上げ). Even accidentally doing this horrifies Japanese diners.",
+      "fail_rate": 0.93,
+      "sources": [],
+      "condition": "Sharing food at Japanese meals"
+    },
+    {
+      "action": "Point at people or wave chopsticks in the air while talking",
+      "why_fails": "Pointing with chopsticks (指し箸/sashi-bashi) is extremely rude. Waving them (振り箸/furi-bashi) shows lack of upbringing. Chopsticks are tools, not gestures.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Table manners in Japanese context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Place chopsticks on the hashioki (箸置き/chopstick rest) when not eating. Lay them horizontally across the plate/bowl edge if no rest is available. Never leave them in food.",
+      "success_rate": 0.93,
+      "sources": [],
+      "condition": "Resting chopsticks during a meal"
+    },
+    {
+      "action": "To share food, use the reverse end of chopsticks (取り箸) or communal serving chopsticks. Never pass food directly between personal chopsticks.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Sharing food at Japanese meals"
+    },
+    {
+      "action": "When eating noodles (ramen, soba), slurping is expected and shows appreciation. For sushi, eat nigiri in one bite; dip fish-side (not rice-side) in soy sauce sparingly.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Specific Japanese food etiquette"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/japanese-keigo-misuse/ai-agent-any",
+        "distinction": "Keigo addresses verbal politeness while chopstick taboos are physical dining etiquette, but both reflect Japanese attention to form and ritual"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

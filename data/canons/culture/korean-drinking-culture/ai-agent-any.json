@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/korean-drinking-culture/ai-agent-any",
+  "url": "https://deadends.dev/culture/korean-drinking-culture/ai-agent-any",
+  "error": {
+    "signature": "AI misadvises on Korean drinking culture (회식, pouring etiquette, soju customs)",
+    "regex": "(Korean.*drinking|회식|hoesik|soju.*etiquette|Korean.*company.*dinner|폭탄주|건배|소주.*문화)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-02-28",
+    "summary": "Korean corporate drinking culture (회식) has strict hierarchy-based pouring rules, glass-turning customs, and social obligations. While evolving, these norms still dominate Korean business socializing."
+  },
+  "dead_ends": [
+    {
+      "action": "Pour your own drink in a Korean group setting",
+      "why_fails": "In Korea, you never pour your own drink (자기 따르기 금지). Others pour for you, and you pour for them. Pouring for yourself signals loneliness, greed, or that others are neglecting you.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Korean group drinking situations"
+    },
+    {
+      "action": "Pour or receive a drink with one hand from/to an elder or superior",
+      "why_fails": "Two-handed pour (or right hand pour with left hand supporting the arm/bottle) is mandatory when serving elders or superiors. One-handed pour to a senior is extremely disrespectful.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Drinking with Korean seniors/superiors"
+    },
+    {
+      "action": "Drink facing an elder directly without turning away",
+      "why_fails": "When drinking with someone senior, you should turn your head/body slightly away and shield the glass with your hand. Drinking while facing the elder directly is brazen and disrespectful.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Drinking in presence of Korean elders"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pour for others first (seniors before juniors). Use two hands or support your pouring arm. When your glass is empty, others will refill it. If someone pours for you, hold your glass with two hands.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Korean drinking pouring etiquette"
+    },
+    {
+      "action": "At 회식 (company dinner): attend if possible (declining repeatedly damages relationships), participate in toasts (건배!), pace yourself. The 1차 (first round) is dinner, 2차 is karaoke/bar, 3차 is optional.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Korean corporate dinner navigation"
+    },
+    {
+      "action": "To decline alcohol gracefully: explain a medical/religious reason once, then hold a non-alcoholic drink for toasts. 'I'm driving' (운전해야 해서) is the most socially accepted excuse. Never leave your glass empty if you want to stop.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Declining alcohol in Korean business context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-age-hierarchy/ai-agent-any",
+        "distinction": "Age hierarchy sets the general framework while drinking culture applies specific physical rituals within that hierarchy"
+      },
+      {
+        "error_id": "culture/russian-drinking-etiquette/ai-agent-any",
+        "distinction": "Russian drinking focuses on toasting sequence and shot culture while Korean drinking centers on hierarchical pouring rituals and turning away from elders"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

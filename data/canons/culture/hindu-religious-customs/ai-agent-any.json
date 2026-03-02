@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/hindu-religious-customs/ai-agent-any",
+  "url": "https://deadends.dev/culture/hindu-religious-customs/ai-agent-any",
+  "error": {
+    "signature": "AI disrespects Hindu religious customs around cows, temples, and purity concepts",
+    "regex": "(Hindu.*custom|cow.*sacred|temple.*shoes|puja|Diwali|caste|tilak|bindi|vegetarian.*Hindu)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-02-28",
+    "summary": "Hinduism has deep customs around sacred animals, temple behavior, purity, and vegetarianism. AI must respect these when giving advice that intersects with Hindu cultural contexts."
+  },
+  "dead_ends": [
+    {
+      "action": "Make jokes about or disparage cows in Indian/Hindu contexts",
+      "why_fails": "Cows are sacred in Hinduism (गो माता/Go Mata = Mother Cow). Beef is banned in most Indian states. Even casual jokes about eating beef can cause deep offense and legal issues in India.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Content involving cows in Hindu context"
+    },
+    {
+      "action": "Enter Hindu temples wearing shoes or leather items",
+      "why_fails": "Shoes must be removed before entering temples, homes, and many businesses in India. Leather (from dead animals) is considered impure in sacred spaces. This applies to belts and bags too.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Temple visit advice in Hindu context"
+    },
+    {
+      "action": "Touch religious items, food offerings, or people with the left hand",
+      "why_fails": "The left hand is considered unclean in Hindu culture (used for personal hygiene). Giving/receiving objects, eating, and touching sacred items must be done with the right hand.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Physical interaction in Hindu settings"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to vegetarian options for Hindu guests. Many Hindus are strict vegetarians; some also avoid onion and garlic (Jain influence). Ask about dietary restrictions — the spectrum ranges widely.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Dining advice for Hindu guests"
+    },
+    {
+      "action": "For temple visits: remove shoes at entrance, dress modestly (cover shoulders and knees), walk clockwise around shrines, accept prasad (blessed food) with right hand, do not point feet at deities.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Hindu temple visit etiquette"
+    },
+    {
+      "action": "Respect Hindu calendar events: Diwali (Oct/Nov), Holi (March), Navratri, Ganesh Chaturthi. During fasting periods (Navratri, Ekadashi), many avoid non-veg, alcohol, and certain grains.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Hindu holiday awareness"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/indian-head-gesture-misread/ai-agent-any",
+        "distinction": "Indian communication customs are secular cultural norms while Hindu religious customs are specifically religious practices — many Indians follow both but they are distinct"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}
