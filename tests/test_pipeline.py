@@ -114,7 +114,7 @@ class TestSeedSignatures:
     def test_all_seed_domains_in_schema(self):
         valid_domains = {
             "python", "cuda", "node", "pip", "docker",
-            "git", "mcp", "http", "auth", "db", "rust", "llm",
+            "git", "mcp", "http", "auth", "rust", "llm",
             "java", "database", "cicd", "php", "dotnet", "networking",
             "ros2", "embedded", "opencv", "cmake",
             "pytorch", "tensorflow", "huggingface",

@@ -46,8 +46,13 @@ DOMAIN_DISPLAY_NAMES = {
     # Mobile / Cross-platform
     "flutter": "Flutter",
     "unity": "Unity",
+    # API / Service / Cloud
+    "api": "API",
     # Cultural norms
     "culture": "Culture",
+    # Reserved
+    "mcp": "MCP",
+    "http": "HTTP",
     # Real-world safety
     "safety": "Safety",
     "medical": "Medical",

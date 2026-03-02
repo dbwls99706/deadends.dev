@@ -319,7 +319,7 @@ TOOLS = [
             "errors. Returns dead ends (what NOT to try), workarounds (what "
             "works), and error chains (what comes next). Use this BEFORE "
             "attempting to fix any error to avoid wasting time on approaches "
-            "that are known to fail. Covers 50 domains including python, "
+            "that are known to fail. Covers 51 domains including python, "
             "node, docker, git, cuda, typescript, rust, go, kubernetes, "
             "terraform, aws, react, java, database, pytorch, tensorflow, "
             "and 34 more. Use list_error_domains to see all."
@@ -372,7 +372,7 @@ TOOLS = [
         "name": "list_error_domains",
         "description": (
             "List all error domains and counts in the deadends.dev database. "
-            "Covers 50 domains including programming languages, frameworks, "
+            "Covers 51 domains including programming languages, frameworks, "
             "infrastructure, ML/AI, culture, safety, medical, legal, and more."
         ),
         "inputSchema": {
