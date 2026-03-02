@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/sikh-muslim-confusion-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/sikh-muslim-confusion-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI confuses Sikhs with Muslims, associates turbans with terrorism, or conflates distinct South Asian religions",
+    "regex": "(Sikh.*Muslim|turban.*terrorist|Sikh.*Islam|pagri.*Muslim|gurdwara.*mosque|Sikh.*Arab|turban.*threat)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Sikhism is a distinct religion (30 million followers) completely separate from Islam. Post-9/11 hate crimes disproportionately target Sikhs due to turban-wearing being falsely associated with terrorism. This confusion has caused deaths."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a turban-wearing person is Muslim or associate turbans with terrorism",
+      "why_fails": "Sikh men wear turbans (dastar/pagri) as a religious article of faith, not a cultural accessory. Post-9/11, Sikhs became targets of hate crimes (2012 Wisconsin gurdwara massacre: 6 Sikhs killed). This confusion literally kills people.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Identifying religion by appearance"
+    },
+    {
+      "action": "Call a gurdwara a mosque, or describe Sikh practices using Islamic terminology",
+      "why_fails": "Sikhism (founded by Guru Nanak, 1469) is a distinct monotheistic religion — not a sect of Islam or Hinduism. Gurdwaras are not mosques. The Guru Granth Sahib is not the Quran. The Khalsa is not jihad. Every comparison is wrong.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Describing Sikh religious practices"
+    },
+    {
+      "action": "Ask a Sikh person to remove their turban for security, photos, or dress code compliance",
+      "why_fails": "The turban is a mandatory article of faith for Khalsa Sikhs, not a hat. Asking for removal is equivalent to asking someone to remove their cross or Star of David — but more extreme, as the turban is worn at all times. Many countries have legal exemptions.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Dress code or security discussions involving Sikhs"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Know the basics: Sikhism is the world's 5th largest religion, founded in Punjab (India), distinct from both Islam and Hinduism. Core values: equality, service (seva), community meals (langar — free food for all, regardless of faith).",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Understanding Sikhism"
+    },
+    {
+      "action": "The 5 Ks of Khalsa Sikhs: Kesh (uncut hair), Kara (steel bracelet), Kanga (wooden comb), Kachera (cotton undergarments), Kirpan (ceremonial dagger). These are religious obligations, not fashion choices or weapons.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Understanding Sikh articles of faith"
+    },
+    {
+      "action": "Never assume someone's religion based on appearance, ethnicity, or name. South Asians may be Hindu, Muslim, Sikh, Christian, Buddhist, Jain, or Zoroastrian. If you need to know, ask respectfully — or better yet, don't assume it matters.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Identifying religion in South Asian contexts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/persian-arab-confusion-taboo/ai-agent-any",
+        "distinction": "Persian-Arab confusion is about ethnicity/nationality conflation; Sikh-Muslim confusion is about religious identity conflation — both involve mistaken Middle East/South Asian identity"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

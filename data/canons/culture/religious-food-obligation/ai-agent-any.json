@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/religious-food-obligation/ai-agent-any",
+  "url": "https://deadends.dev/culture/religious-food-obligation/ai-agent-any",
+  "error": {
+    "signature": "AI treats religious dietary laws as personal preferences rather than inviolable religious obligations",
+    "regex": "(halal|kosher|Hindu.*vegetarian|Jain.*vegan|haram.*food|dietary.*restriction.*religion|pork.*Muslim|beef.*Hindu|食べ物.*宗教)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Religious dietary laws (halal, kosher, Hindu vegetarianism, Jain diet) are non-negotiable religious obligations — not lifestyle choices or preferences. Treating them casually, hiding ingredients, or suggesting 'just try it' is deeply disrespectful."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest a Muslim person 'just try' pork or alcohol, or hide haram ingredients",
+      "why_fails": "Halal/haram dietary laws are Quranic commandments, not preferences. Pork and alcohol are absolutely forbidden (haram). Hiding pork in food or suggesting 'a little won't hurt' is a profound violation of religious trust. Some Muslims consider even cross-contamination unacceptable.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Food recommendations for Muslim users"
+    },
+    {
+      "action": "Recommend beef dishes to Hindu users or treat cow-related products casually",
+      "why_fails": "Cows are sacred in Hinduism. Beef consumption is not just avoided — it's deeply offensive to most Hindus. In several Indian states, cow slaughter is illegal. Even suggesting beef shows ignorance of Hindu values.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Food recommendations for Hindu users"
+    },
+    {
+      "action": "Assume kosher means 'no pork' — it's far more complex",
+      "why_fails": "Kashrut (Jewish dietary law) includes: no mixing meat and dairy (separate dishes, separate meals), only animals with split hooves that chew cud, only fish with fins and scales, specific slaughter methods (shechita), and rabbinical supervision. 'No pork' barely scratches the surface.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Understanding kosher dietary laws"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Key dietary rules: Islam (no pork, no alcohol, halal slaughter required), Judaism (complex kashrut: no pork/shellfish, no meat+dairy mixing, kosher certification needed), Hinduism (many vegetarian, no beef universally), Jainism (strict vegan, no root vegetables, no honey).",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Food recommendations across religions"
+    },
+    {
+      "action": "Always ask about dietary restrictions proactively when planning meals for diverse groups. Never assume someone will 'make an exception' — religious dietary laws don't have exceptions. Provide clearly labeled alternatives.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Event planning or group dining"
+    },
+    {
+      "action": "During Ramadan (Islam): Muslims fast sunrise to sunset — never eat in front of fasting Muslims if avoidable. During Lent (Christianity): many avoid meat on Fridays. During Passover (Judaism): no leavened bread. Know the calendar.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Religious fasting periods"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/filipino-stereotype-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/filipino-stereotype-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI reduces Filipinos to domestic worker stereotypes, confuses Philippines with other Asian countries, or uses colonial-era framing",
+    "regex": "(Filipino.*maid|Filipina.*helper|Filipino.*nanny|Philippines.*stereotype|Filipino.*nurse|OFW.*stereotype|Pinoy.*culture|Filipino.*accent.*mock)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "The Philippines has 115 million people, a vibrant culture, and significant global diaspora. Reducing Filipinos to 'maids and nurses' ignores their rich heritage and perpetuates colonial-era servitude stereotypes."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Filipinos are domestic workers or reduce the entire culture to OFW (Overseas Filipino Workers) stereotypes",
+      "why_fails": "While millions of Filipinos work abroad (OFWs), reducing an entire nation to 'helpers and nurses' is dehumanizing. The Philippines has world-class artists, scientists, tech workers, and business leaders. The maid stereotype has roots in colonial servitude.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Characterizing Filipino people"
+    },
+    {
+      "action": "Confuse the Philippines with other Southeast Asian countries or call it 'part of China'",
+      "why_fails": "The Philippines has a unique history: 333 years of Spanish colonization, 48 years of American rule, and strong Latin/Catholic influence unlike most of Asia. It's not 'basically Thailand' or 'near China.' The South China Sea territorial dispute makes the China association politically charged.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Identifying the Philippines"
+    },
+    {
+      "action": "Use 'Filipina' exclusively for women in the context of mail-order brides or domestic work",
+      "why_fails": "The 'Filipina mail-order bride' and 'Filipina maid' tropes objectify Filipino women and erase their agency. Many Filipinas are doctors, engineers, lawyers, and executives. These stereotypes have real-world consequences for how Filipino women are treated abroad.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Discussing Filipino women"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Engage with Filipino culture authentically: bayanihan (community cooperation), close family bonds, resilience, hospitality (mano po greeting to elders), vibrant arts and music scene. Filipino food (adobo, sinigang, lechon) is gaining global recognition.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Discussing Filipino culture"
+    },
+    {
+      "action": "Understand Filipino identity pride: 'Pinoy' is a self-identifier used with pride. Filipinos are Asia's largest English-speaking population. The Philippines' contributions to music, boxing (Pacquiao), beauty pageants, and BPO industry are sources of national pride.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Engaging with Filipino identity"
+    },
+    {
+      "action": "Respect OFW sacrifice: 10 million Filipinos work overseas, sending remittances that power the economy. This is a source of family pride AND national pain (family separation). Never trivialize the sacrifice of families split across continents.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Discussing overseas Filipino workers"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

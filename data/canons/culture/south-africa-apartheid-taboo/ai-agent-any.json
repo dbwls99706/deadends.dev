@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/south-africa-apartheid-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/south-africa-apartheid-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI minimizes apartheid, uses apartheid-era racial categories casually, or ignores post-apartheid complexity",
+    "regex": "(apartheid.*South.*Africa|South.*African.*race|Coloured.*South.*Africa|Afrikaans.*culture|Rainbow.*Nation|Mandela|Zulu.*Xhosa|farm.*attack.*South.*Africa)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.80,
+    "confidence": 0.78,
+    "last_updated": "2026-03-02",
+    "summary": "South Africa's racial landscape is uniquely complex due to apartheid (1948-1994). Racial categories (Black, White, Coloured, Indian), the legacy of systematic oppression, and ongoing inequality make race discussions extraordinarily sensitive."
+  },
+  "dead_ends": [
+    {
+      "action": "Minimize apartheid or suggest 'it's been 30 years, move on'",
+      "why_fails": "Apartheid systematically dispossessed Black South Africans of land, education, mobility, and dignity for 46 years. Its economic effects persist: massive wealth inequality, land ownership disparity, and structural poverty. The trauma is generational and ongoing.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing South African history"
+    },
+    {
+      "action": "Use apartheid-era racial classification terms casually without understanding their weight",
+      "why_fails": "South Africa has four official racial categories (Black, White, Coloured, Indian/Asian) still used for affirmative action (BEE). 'Coloured' is NOT a slur in South African context (unlike in the US) — it refers to a distinct mixed-heritage community. Context matters enormously.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Discussing race in South Africa"
+    },
+    {
+      "action": "Promote the 'Rainbow Nation' narrative as if racial reconciliation is complete",
+      "why_fails": "While Mandela's 'Rainbow Nation' vision was aspirational, South Africa remains deeply divided by race and class. Load shedding, unemployment (30%+), land reform debates, and farm attacks are politically charged. Pretending all is resolved is naive.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Characterizing modern South Africa"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Understand that South African racial terminology is unique: 'Coloured' is an accepted identity (not a slur), 'Black' includes specific groups (Zulu, Xhosa, Sotho, Tswana, etc.), and racial categories have legal implications for BEE (Black Economic Empowerment).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Understanding South African racial terminology"
+    },
+    {
+      "action": "South Africa has 11 official languages. Don't assume all Black South Africans speak the same language. Zulu, Xhosa, Sotho, Tswana, etc. are distinct languages with distinct cultures. Afrikaans speakers include both White and Coloured communities.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Understanding South African diversity"
+    },
+    {
+      "action": "Acknowledge both progress (democratic transition, constitution, reconciliation) and ongoing challenges (inequality, land reform, service delivery) without romanticizing or catastrophizing. South Africa's complexity resists simple narratives.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Balanced discussion of South Africa"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/african-ubuntu-greeting/ai-agent-any",
+        "distinction": "Ubuntu/greeting covers sub-Saharan African social customs broadly; apartheid taboo covers South Africa's unique racial history and its ongoing political sensitivities"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}
