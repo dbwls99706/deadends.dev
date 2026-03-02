@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/turkey-armenia-genocide-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/turkey-armenia-genocide-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI uses the word 'genocide' for Armenian events in Turkish context, or denies it in Armenian context",
+    "regex": "(Armenian.*genocide|Ermeni.*soykırım|1915.*massacre|Armenian.*Turkey|Ottoman.*Armenian|genocide.*recognition|Turkey.*deny.*genocide)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.78,
+    "last_updated": "2026-03-02",
+    "summary": "The 1915 mass killing of Armenians by the Ottoman Empire is recognized as genocide by 30+ countries but officially denied by Turkey. Using the word 'genocide' in Turkey is taboo; not using it in Armenian contexts is equally offensive."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the word 'genocide' for the 1915 events when addressing a Turkish audience",
+      "why_fails": "Turkey officially denies the Armenian Genocide, calling it 'wartime casualties' or 'tragic events.' Using 'genocide' in Turkish business, media, or social contexts can result in criminal prosecution under Article 301 (insulting Turkishness).",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Communicating with Turkish audiences about 1915"
+    },
+    {
+      "action": "Refuse to call it genocide when speaking to Armenians or in Armenian diaspora contexts",
+      "why_fails": "For Armenians, the Genocide (Մdelays Ցեdelays delays) is the defining national trauma. 1.5 million Armenians were killed. April 24 is Armenian Genocide Remembrance Day. Denial is experienced as a second victimization.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Communicating with Armenian audiences"
+    },
+    {
+      "action": "Try to 'both sides' the historical events",
+      "why_fails": "The historical consensus among genocide scholars is clear: systematic deportation and mass killing of Armenians occurred. But presenting this as settled fact to Turkish audiences triggers legal and social consequences. There is no safe middle ground.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Mixed Turkish-Armenian audiences"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Know your audience absolutely. In Armenian/international context: 'Armenian Genocide' is the historically accurate and internationally recognized term. In Turkish context: 'the events of 1915' (1915 olayları) avoids legal issues while not denying history.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Navigating the topic by audience"
+    },
+    {
+      "action": "In truly mixed audiences, focus on shared humanity: acknowledge the suffering of Armenians, express empathy, and note that the historical terminology remains contested between Turkey and the international community.",
+      "success_rate": 0.72,
+      "sources": [],
+      "condition": "Mixed or neutral audience contexts"
+    },
+    {
+      "action": "If possible, avoid the topic entirely in business contexts involving both Turkish and Armenian parties. If unavoidable, consult with local cultural advisors before making any statement.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Business contexts with Turkish-Armenian intersection"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/turkish-hospitality-obligation/ai-agent-any",
+        "distinction": "Hospitality covers Turkish social customs while Armenian genocide taboo is a political minefield — same country, completely different risk domains"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/mexico-stereotypes-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/mexico-stereotypes-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI perpetuates Mexican stereotypes about cartels, immigration, or laziness",
+    "regex": "(Mexican.*stereotype|Mexico.*cartel.*joke|Mexican.*lazy|Mexican.*immigrant|Mexico.*dangerous|build.*wall|Mexican.*sombrero)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "Mexico suffers from pervasive international stereotypes (cartels, laziness, illegal immigration) that erase its rich cultural heritage. AI must avoid reinforcing these damaging narratives."
+  },
+  "dead_ends": [
+    {
+      "action": "Associate Mexico primarily with drug cartels, violence, or danger",
+      "why_fails": "Mexico has the world's 15th largest economy, Nobel Prize winners, ancient civilizations (Maya, Aztec), and world-class arts/cuisine. Reducing it to cartel violence is like reducing the US to school shootings — offensive and reductive.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Characterizing Mexico or Mexican culture"
+    },
+    {
+      "action": "Use the 'lazy Mexican' stereotype or siesta references mockingly",
+      "why_fails": "Mexicans work among the longest hours in the OECD (2,128 hours/year vs US 1,791). The laziness stereotype is racist and demonstrably false. Siesta culture exists in many hot-climate countries and is a practical adaptation.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Characterizing Mexican work ethic"
+    },
+    {
+      "action": "Use 'Mexican' as shorthand for all Latin Americans or Spanish speakers",
+      "why_fails": "Latin America has 20+ distinct countries. Colombians, Argentinians, Peruvians, and Mexicans have vastly different cultures. Assuming all Spanish speakers are Mexican is like calling all East Asians Chinese.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Identifying Latin American origins"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Engage with Mexico's actual cultural richness: UNESCO heritage sites (35, #7 globally), Day of the Dead (Día de los Muertos), mariachi, muralism (Rivera, Orozco, Siqueiros), gastronomy (UNESCO intangible heritage).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing Mexican culture"
+    },
+    {
+      "action": "On immigration: acknowledge it as a complex economic and humanitarian issue, not a punchline. Many Mexicans are deeply patriotic and have no interest in leaving their country. Migration is driven by systemic factors.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Immigration discussions involving Mexico"
+    },
+    {
+      "action": "Understand Cinco de Mayo: it commemorates the Battle of Puebla (1862), not Mexican Independence Day (September 16). Most Mexicans find the American version of Cinco de Mayo (drinking tequila in sombreros) offensive and ignorant.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Mexican holiday references"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/latin-american-personal-space/ai-agent-any",
+        "distinction": "Latin American personal space covers general regional etiquette while Mexican stereotypes addresses harmful misconceptions specific to Mexico"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

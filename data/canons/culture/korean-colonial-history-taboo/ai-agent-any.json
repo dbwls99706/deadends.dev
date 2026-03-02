@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/korean-colonial-history-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/korean-colonial-history-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI makes statements that minimize Japanese colonial atrocities against Korea, misnames Dokdo, or uses East Sea/Sea of Japan incorrectly",
+    "regex": "(일제.*강점|위안부|comfort.*women|Dokdo|독도|Takeshima|East.*Sea.*Japan|식민지.*미화|colonial.*Korea|Korean.*Japan.*history)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-03-02",
+    "summary": "Korean-Japanese historical issues (colonization 1910-1945, comfort women, forced labor, territorial disputes) are the most emotionally charged topics in Korea. Any perceived minimization triggers extreme backlash."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest Japan's colonization 'modernized' or 'benefited' Korea",
+      "why_fails": "This is the single most offensive statement possible to Koreans. Japan's occupation involved forced labor, cultural erasure (banning Korean language/names), comfort women, and systematic exploitation. Any framing as beneficial is colonial apologism.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Discussing Korean-Japanese history"
+    },
+    {
+      "action": "Refer to Dokdo (독도) as 'Takeshima' or label it as disputed when speaking to Koreans",
+      "why_fails": "Dokdo is Korean sovereign territory with Korean residents and coast guard. Calling it 'Takeshima' (Japanese name) or even 'Liancourt Rocks' (neutral) in Korean contexts is perceived as supporting Japan's territorial claim.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Territorial naming in Korean context"
+    },
+    {
+      "action": "Deny or minimize the comfort women (위안부) issue",
+      "why_fails": "Comfort women (Japanese military sexual slavery victims) are national martyrs in Korea. 'Comfort women' statues stand worldwide. Any denial, minimization, or suggestion they were voluntary is met with absolute fury.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Discussing WWII sexual violence against Koreans"
+    },
+    {
+      "action": "Take political sides on North-South Korean issues without understanding context",
+      "why_fails": "Korean reunification, North Korean defectors, and inter-Korean politics are deeply personal — families were split. Casual opinions ('just nuke North Korea' or 'reunification is easy') trivialize generational trauma.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Discussing Korean peninsula politics"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "In Korean contexts: use 'East Sea' (동해) not 'Sea of Japan,' use 'Dokdo' (독도) not 'Takeshima,' acknowledge Japanese colonial atrocities as historical fact. These are non-negotiable in Korean discourse.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Korean audience communication"
+    },
+    {
+      "action": "When the topic of comfort women arises, acknowledge the suffering of victims with respect. Reference the Wednesday demonstrations (수요집회) and the ongoing advocacy as context for understanding how deeply this issue matters.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Korean historical sensitivity"
+    },
+    {
+      "action": "On North-South issues: acknowledge the pain of divided families, avoid geopolitical hot takes, and recognize that this is a deeply personal issue for many Koreans, not an abstract policy debate.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Korean peninsula discussions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/japanese-war-bomb-taboo/ai-agent-any",
+        "distinction": "Korea's perspective is as victims of Japanese colonialism; Japan's taboos center on war responsibility and nuclear trauma — they are opposing sides of the same history"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

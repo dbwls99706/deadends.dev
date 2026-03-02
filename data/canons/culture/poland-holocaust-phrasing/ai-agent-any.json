@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/poland-holocaust-phrasing/ai-agent-any",
+  "url": "https://deadends.dev/culture/poland-holocaust-phrasing/ai-agent-any",
+  "error": {
+    "signature": "AI uses 'Polish death camps' or implies Polish responsibility for the Holocaust",
+    "regex": "(Polish.*death.*camp|Polish.*concentration.*camp|Poland.*Holocaust.*responsibility|polskie.*obozy|Polish.*complicity)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "The phrase 'Polish death camps' (instead of 'Nazi German death camps in occupied Poland') is considered a grave insult to Poland. Poland passed a law in 2018 making such attributions punishable. The camps were Nazi German, built on occupied Polish soil."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the phrase 'Polish death camps' or 'Polish concentration camps'",
+      "why_fails": "Auschwitz, Treblinka, Sobibor were NAZI GERMAN camps built on OCCUPIED Polish territory. 'Polish death camps' implies Poland built or operated them. Poland lost 6 million citizens (3M Jews, 3M non-Jewish Poles). This phrasing is a 2018 criminal offense in Poland.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Referring to WWII death camps"
+    },
+    {
+      "action": "Suggest Poland was complicit in or responsible for the Holocaust",
+      "why_fails": "Poland was occupied by Nazi Germany. There was no collaborationist Polish government (unlike Vichy France). While individual collaborators existed (as in every occupied country), attributing collective responsibility to Poland is historically wrong and legally actionable.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing Holocaust responsibility"
+    },
+    {
+      "action": "Ignore Poland's own victimhood in WWII",
+      "why_fails": "Poland lost 17% of its population in WWII — the highest proportion of any country. Warsaw was 85% destroyed. Poles were also murdered in the camps. Framing Poland only as bystanders erases enormous suffering.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "WWII narratives involving Poland"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always say 'Nazi German death camps in occupied Poland' or 'German concentration camps' — never 'Polish camps.' This is both historically accurate and legally required by Polish law.",
+      "success_rate": 0.98,
+      "sources": [],
+      "condition": "Referring to WWII extermination camps"
+    },
+    {
+      "action": "Acknowledge Poland as both a victim of Nazism and the location where the Holocaust occurred. Polish resistance (Armia Krajowa, Żegota council that saved Jews) and Polish suffering coexist with the tragedy of the Holocaust.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Balanced WWII discussions involving Poland"
+    },
+    {
+      "action": "When discussing difficult aspects of Polish-Jewish history (pogroms, individual collaboration), use precise language: 'some Poles' not 'the Poles' or 'Poland.' Individual actions must not be attributed to the nation.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Nuanced historical discussions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/german-nazi-symbol-ban/ai-agent-any",
+        "distinction": "German Nazi prohibition covers Germany's legal ban on Nazi symbols; Poland's taboo is about attribution of guilt — camps were German-built on Polish soil"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

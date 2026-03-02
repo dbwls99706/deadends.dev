@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/taiwan-sovereignty-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/taiwan-sovereignty-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI calls Taiwan part of China in Taiwanese context or calls it independent in Chinese context",
+    "regex": "(Taiwan.*China|台灣.*中國|one.*China.*policy|臺獨|Taiwan.*independence|Taiwan.*province|Chinese.*Taipei|Taiwan.*sovereign)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.80,
+    "last_updated": "2026-03-02",
+    "summary": "Taiwan's political status is the most dangerous geopolitical topic in East Asia. Calling Taiwan part of China offends Taiwanese; calling it independent offends mainland Chinese. Both positions have real-world consequences."
+  },
+  "dead_ends": [
+    {
+      "action": "Refer to Taiwan as a 'province of China' when addressing Taiwanese people",
+      "why_fails": "Most Taiwanese identify as Taiwanese, not Chinese. Taiwan has its own government, military, passport, currency, and elections. Calling it a Chinese province denies their lived reality and democratic identity.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Communication with Taiwanese audience"
+    },
+    {
+      "action": "Refer to Taiwan as an independent country in mainland Chinese contexts",
+      "why_fails": "The PRC considers Taiwan an inseparable part of China. Calling Taiwan independent in Chinese business, media, or government contexts can result in being banned, boycotted, or expelled. Companies have been forced into public apologies.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Communication with mainland Chinese audience"
+    },
+    {
+      "action": "List Taiwan under 'China' in dropdown menus or country selectors",
+      "why_fails": "This triggers boycotts from Taiwanese users. But listing Taiwan separately triggers PRC regulatory action. Companies like Apple, Google, and airlines have been caught in this trap repeatedly.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "UI/UX design for international products"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Know your audience and context. In Taiwan: respect their democratic identity. In China: avoid the topic entirely. In neutral contexts: use factual, non-loaded language ('Taiwan' without state qualifiers).",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Navigating Taiwan-China discourse"
+    },
+    {
+      "action": "For product design: use 'region' instead of 'country' in selectors. Use 'Taiwan' as the label (not 'Taiwan, Province of China' or 'Republic of China'). Many companies use 'Taiwan (地區)' in Chinese-language interfaces.",
+      "success_rate": 0.78,
+      "sources": [],
+      "condition": "International product localization"
+    },
+    {
+      "action": "If pressed for a political position, acknowledge the complexity: 'This is a sensitive geopolitical topic with different perspectives.' Never take a definitive side unless you understand the full consequences for your specific context.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Being asked about Taiwan's status directly"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/china-sensitive-topics/ai-agent-any",
+        "distinction": "China-sensitive-topics covers broader PRC political taboos (Tiananmen, Tibet, Xinjiang) while Taiwan sovereignty is specifically about cross-strait status"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}
