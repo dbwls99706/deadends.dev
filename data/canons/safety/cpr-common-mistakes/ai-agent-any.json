@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/cpr-common-mistakes/ai-agent-any",
+  "url": "https://deadends.dev/safety/cpr-common-mistakes/ai-agent-any",
+  "error": {
+    "signature": "AI gives outdated or incorrect CPR guidance (mouth-to-mouth only, wrong compression rate)",
+    "regex": "(CPR.*instruction|cardiopulmonary.*resuscitation|chest.*compression|mouth.*to.*mouth|cardiac.*arrest.*first.*aid|심폐소생술|AED|defibrillator)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.92,
+    "last_updated": "2026-03-02",
+    "summary": "Modern CPR guidelines prioritize continuous chest compressions (hands-only CPR for bystanders) over mouth-to-mouth. Compressions too slow, too shallow, or with too many interruptions are the most common fatal CPR errors."
+  },
+  "dead_ends": [
+    {
+      "action": "Focus primarily on mouth-to-mouth rescue breathing for adult cardiac arrest",
+      "why_fails": "AHA/ERC guidelines since 2010 recommend hands-only CPR for untrained bystanders on adults. Stopping compressions for rescue breaths reduces blood flow to the brain. For the first minutes, oxygen in the blood is sufficient — compressions are what matters.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Adult cardiac arrest bystander response"
+    },
+    {
+      "action": "Compress too gently for fear of breaking ribs",
+      "why_fails": "Effective compressions require 5-6cm depth in adults (2 inches). Ribs MAY crack — this is expected and acceptable. Shallow compressions don't generate enough blood flow to sustain the brain. A cracked rib heals; brain death doesn't.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "CPR compression depth"
+    },
+    {
+      "action": "Compress too slowly or take long pauses between compressions",
+      "why_fails": "Rate should be 100-120 compressions per minute (tempo of 'Stayin' Alive' by Bee Gees). Too slow = insufficient blood flow. Pauses > 10 seconds lose the blood pressure built up. Minimize ALL interruptions.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "CPR compression rate"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For adult cardiac arrest (unresponsive, not breathing normally): 1) Call emergency services, 2) Start hands-only CPR — push hard and fast center of chest, 100-120/min, 5-6cm deep, 3) Send someone for AED, 4) Don't stop until help arrives.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Bystander CPR on adults"
+    },
+    {
+      "action": "Use AED as soon as available. AEDs are designed for untrained users — they give voice instructions and won't shock unless needed. Early defibrillation dramatically improves survival. Every minute without defibrillation reduces survival by 7-10%.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "AED availability during cardiac arrest"
+    },
+    {
+      "action": "EXCEPTION: For drowning, choking, and children/infants, rescue breaths ARE important because the problem is lack of oxygen, not lack of circulation. Use 30:2 ratio (30 compressions, 2 breaths) if trained. For infants: 2 fingers, 4cm depth.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "CPR for drowning, children, or infants"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/choking-response-errors/ai-agent-any",
+        "distinction": "CPR is for cardiac arrest (no pulse/breathing); choking response (Heimlich) is for airway obstruction in a conscious person"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

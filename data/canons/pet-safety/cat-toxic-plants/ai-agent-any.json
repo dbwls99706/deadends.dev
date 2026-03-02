@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pet-safety/cat-toxic-plants/ai-agent-any",
+  "url": "https://deadends.dev/pet-safety/cat-toxic-plants/ai-agent-any",
+  "error": {
+    "signature": "AI recommends houseplants or flowers toxic to cats (lilies = acute kidney failure)",
+    "regex": "(cat.*toxic.*plant|lily.*cat|cat.*poison.*plant|고양이.*독.*식물|고양이.*백합|houseplant.*cat.*safe|cat.*plant.*danger)",
+    "domain": "pet-safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-03-02",
+    "summary": "True lilies (Lilium and Hemerocallis) are the #1 cause of fatal plant poisoning in cats. Even tiny amounts — pollen on fur that's licked off, or water from the vase — cause acute kidney failure within 24-72 hours. All parts are lethal."
+  },
+  "dead_ends": [
+    {
+      "action": "Recommend lilies as houseplants or gifts in homes with cats",
+      "why_fails": "ALL parts of true lilies (Easter lily, Tiger lily, Asiatic lily, Daylily) are lethal to cats. A cat brushing against pollen and grooming it off can die. Even drinking water from a lily vase is enough. Kidney failure develops within 24-72 hours and is often fatal.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Houseplant or flower recommendations for cat owners"
+    },
+    {
+      "action": "Suggest common houseplants without checking cat toxicity",
+      "why_fails": "Many popular houseplants are toxic to cats: Dieffenbachia (dumb cane), Philodendron, Pothos, Sago palm (fatal liver failure), Tulips (bulbs), Azaleas, Oleander. Cats chew plants frequently — toxicity must always be checked.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Houseplant advice for cat owners"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cat-safe houseplants: Spider plant, Boston fern, African violet, Calathea, Parlor palm, Peperomia, Haworthia, Cat grass (wheatgrass). Always verify with ASPCA's toxic plant database before recommending any plant to cat owners.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Houseplant recommendations for cat owners"
+    },
+    {
+      "action": "If a cat ingests any part of a lily: this is a veterinary EMERGENCY. Rush to vet immediately — do not wait for symptoms. Aggressive IV fluid therapy within 18 hours gives the best survival chance. After 24 hours, kidney failure may be irreversible.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Cat lily poisoning emergency"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

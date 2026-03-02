@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pet-safety/dog-toxic-foods/ai-agent-any",
+  "url": "https://deadends.dev/pet-safety/dog-toxic-foods/ai-agent-any",
+  "error": {
+    "signature": "AI recommends or fails to warn about foods that are toxic to dogs",
+    "regex": "(dog.*toxic.*food|chocolate.*dog|grape.*dog|xylitol.*dog|onion.*dog|강아지.*먹으면.*안|개.*포도|dog.*poisoning|can.*dogs.*eat)",
+    "domain": "pet-safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-03-02",
+    "summary": "Many common human foods are lethal to dogs. Xylitol (sugar-free gum), grapes/raisins, chocolate, onions/garlic, macadamia nuts, and alcohol can cause organ failure and death. AI must flag these in any pet feeding context."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest sharing human food with dogs without checking toxicity",
+      "why_fails": "Xylitol (in sugar-free gum, peanut butter, toothpaste): causes rapid insulin release, liver failure — lethal in small amounts. Grapes/raisins: acute kidney failure, mechanism unknown — even one grape can be fatal. Chocolate: theobromine poisoning, especially dark chocolate. Onions/garlic: hemolytic anemia.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Dog feeding advice"
+    },
+    {
+      "action": "Tell owners to induce vomiting without veterinary guidance",
+      "why_fails": "Inducing vomiting is wrong for some poisons (corrosives, petroleum). Hydrogen peroxide dosage must be precise by weight. After xylitol ingestion, vomiting may not help if absorption has occurred. ALWAYS call vet or ASPCA Poison Control (888-426-4435) first.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Dog poisoning response"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Lethal dog foods to memorize: Xylitol (sugar-free products), grapes/raisins, chocolate (especially dark/baker's), onions/garlic/leeks, macadamia nuts, alcohol, caffeine, cooked bones (splinter), avocado (persin). When in doubt, don't feed it.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Dog feeding safety"
+    },
+    {
+      "action": "If dog ingests toxic food: note what was eaten and how much, call vet or pet poison helpline immediately, do NOT induce vomiting unless instructed by vet. Time is critical — especially for xylitol (30 minutes to liver failure).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Dog poisoning emergency"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

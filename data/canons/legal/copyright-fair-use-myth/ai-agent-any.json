@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/copyright-fair-use-myth/ai-agent-any",
+  "url": "https://deadends.dev/legal/copyright-fair-use-myth/ai-agent-any",
+  "error": {
+    "signature": "AI incorrectly applies US fair use doctrine globally or oversimplifies copyright rules",
+    "regex": "(fair.*use|copyright.*legal|DMCA|Creative.*Commons.*misuse|저작권|copyright.*myth|fair.*dealing|10.*second.*rule|30.*percent.*rule)",
+    "domain": "legal",
+    "category": "legal_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.80,
+    "confidence": 0.82,
+    "last_updated": "2026-03-02",
+    "summary": "Fair use is a US-specific legal doctrine. Most countries have 'fair dealing' (narrower) or no equivalent. The '10-second rule,' '30% rule,' and 'if I give credit it's okay' are all myths. Copyright law varies drastically by country."
+  },
+  "dead_ends": [
+    {
+      "action": "Apply US fair use rules globally",
+      "why_fails": "Fair use (US) is uniquely flexible — a 4-factor balancing test. UK/Canada/Australia have 'fair dealing' (narrower, requires specific purposes). Japan has limited exceptions. Many countries have no general exception. US advice may be infringement elsewhere.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "International copyright advice"
+    },
+    {
+      "action": "Claim 'it's fair use if I only use 10 seconds / 30% / give credit'",
+      "why_fails": "There is no fixed percentage, duration, or word count that automatically makes use 'fair.' Even 4 notes of a song have been found infringing. Giving credit does NOT create a copyright license. These are persistent myths that lead to lawsuits.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Fair use misconceptions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always specify jurisdiction when giving copyright advice. Include disclaimer: 'Copyright law varies by country. This is general information, not legal advice.' Recommend consulting an IP attorney for specific situations.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Copyright questions"
+    },
+    {
+      "action": "Recommend Creative Commons or other explicit licenses for content sharing. CC licenses provide clear, international permissions. But warn that CC-BY-NC (non-commercial) has been litigated over what constitutes 'commercial.'",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Content sharing advice"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

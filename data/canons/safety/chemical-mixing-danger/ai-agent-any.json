@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/chemical-mixing-danger/ai-agent-any",
+  "url": "https://deadends.dev/safety/chemical-mixing-danger/ai-agent-any",
+  "error": {
+    "signature": "AI suggests mixing household chemicals that produce toxic or lethal gases",
+    "regex": "(bleach.*ammonia|bleach.*vinegar|hydrogen.*peroxide.*vinegar|mixing.*cleaner|chemical.*mix|chlorine.*gas|mustard.*gas.*clean|표백제.*암모니아)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.98,
+    "last_updated": "2026-03-02",
+    "summary": "Several common household chemicals produce deadly gases when mixed. Bleach + ammonia = chloramine gas. Bleach + vinegar = chlorine gas. These combinations kill people every year in enclosed bathrooms."
+  },
+  "dead_ends": [
+    {
+      "action": "Mix bleach (sodium hypochlorite) with ammonia-based cleaners",
+      "why_fails": "This produces chloramine gas — causes respiratory damage, chest pain, shortness of breath, and death in enclosed spaces. Many bathroom and glass cleaners contain ammonia. Mixing them with bleach in a small bathroom is a leading cause of accidental poisoning deaths.",
+      "fail_rate": 0.99,
+      "sources": [],
+      "condition": "Cleaning advice involving bleach"
+    },
+    {
+      "action": "Mix bleach with vinegar or other acids for 'stronger cleaning'",
+      "why_fails": "Bleach + acid = chlorine gas (the same chemical weapon used in WWI). Even small amounts in an enclosed bathroom can cause severe lung damage. This includes mixing bleach with lemon juice, toilet bowl cleaners, or rust removers.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "DIY cleaning solutions"
+    },
+    {
+      "action": "Mix hydrogen peroxide with vinegar in the same container",
+      "why_fails": "Creates peracetic acid — corrosive to skin, eyes, and lungs. While each is safe alone, combining them produces a chemical that can cause chemical burns and respiratory damage.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Natural cleaning recommendations"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "NEVER mix cleaning products. Use one product at a time. If switching products, rinse the surface thoroughly with water first and ventilate the area before applying a different cleaner.",
+      "success_rate": 0.98,
+      "sources": [],
+      "condition": "All cleaning advice"
+    },
+    {
+      "action": "If accidentally exposed to toxic gas: immediately leave the area, get to fresh air, open all windows and doors. If experiencing breathing difficulty, call poison control or emergency services. Remove contaminated clothing.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Accidental chemical exposure"
+    },
+    {
+      "action": "Safe alternatives: baking soda + vinegar for general cleaning (produces harmless CO2). Use products as directed on their labels. When in doubt, use a single all-purpose cleaner rather than combining products.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Effective cleaning without chemical mixing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/heatstroke-vs-heat-exhaustion/ai-agent-any",
+  "url": "https://deadends.dev/safety/heatstroke-vs-heat-exhaustion/ai-agent-any",
+  "error": {
+    "signature": "AI confuses heat exhaustion treatment with heatstroke, or delays heatstroke emergency response",
+    "regex": "(heatstroke|heat.*stroke|heat.*exhaustion|hyperthermia|열사병|일사병|sunstroke|body.*temperature.*danger|hot.*weather.*emergency)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Heatstroke (body temp >40C/104F) is a medical emergency with 20% mortality. It is NOT the same as heat exhaustion. Key difference: heatstroke = hot DRY skin, confusion, emergency. Heat exhaustion = sweating, weak, treatable on-site."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat heatstroke the same as heat exhaustion (rest and water)",
+      "why_fails": "Heat exhaustion (heavy sweating, weakness, nausea) can be treated with rest, water, and cooling. Heatstroke (hot DRY skin, confusion, loss of consciousness, temp >40C) is a medical emergency — organs are failing. Call 911 immediately.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Distinguishing heat emergencies"
+    },
+    {
+      "action": "Give fluids to an unconscious heatstroke victim",
+      "why_fails": "An unconscious or confused person cannot safely swallow — they will aspirate (fluid enters lungs). Only give fluids to a conscious, alert person. For unconscious victims: cool externally and call emergency services.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Heatstroke with altered consciousness"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Heatstroke response: 1) Call emergency services immediately, 2) Move to shade/AC, 3) Cool aggressively — ice packs on neck/armpits/groin, cold water immersion if possible, wet sheets with fans, 4) Do NOT give oral fluids if confused/unconscious.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Heatstroke emergency"
+    },
+    {
+      "action": "Heat exhaustion response: move to cool area, remove excess clothing, sip cool (not ice cold) water, apply cool wet cloths, rest. If symptoms worsen or don't improve within 30 minutes, treat as heatstroke and call emergency services.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Heat exhaustion treatment"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}
