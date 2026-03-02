@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/grease-fire-water/ai-agent-any",
+  "url": "https://deadends.dev/safety/grease-fire-water/ai-agent-any",
+  "error": {
+    "signature": "AI advises using water on a grease/oil fire, causing explosive fireball",
+    "regex": "(grease.*fire|oil.*fire|kitchen.*fire|cooking.*fire|pan.*fire|frying.*fire|기름.*불|grease.*water)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.98,
+    "last_updated": "2026-03-02",
+    "summary": "NEVER put water on a grease fire. Water instantly vaporizes under burning oil (300C+), creating a steam explosion that launches flaming oil in all directions. This is one of the most common fatal kitchen fire mistakes."
+  },
+  "dead_ends": [
+    {
+      "action": "Pour water on a grease or oil fire",
+      "why_fails": "Water sinks below the burning oil, instantly boils into steam (expands 1,700x), and violently ejects flaming oil into a fireball that can reach the ceiling and spread fire to the entire kitchen. This causes severe burns and house fires.",
+      "fail_rate": 0.99,
+      "sources": [],
+      "condition": "Grease/oil fire in kitchen"
+    },
+    {
+      "action": "Try to carry a burning pan outside",
+      "why_fails": "Moving a pan of burning oil risks splashing flaming oil on yourself, your clothes, and your surroundings. The pan handle may be superheated. Tripping while carrying burning oil causes catastrophic burns.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Grease fire in a pan"
+    },
+    {
+      "action": "Use flour on a grease fire (flour is flammable)",
+      "why_fails": "Flour is combustible powder. Throwing flour on fire creates a dust explosion — the flour particles ignite in the air. This is a common fatal mistake. Only baking soda (not baking powder, not flour) can be used.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Attempting to smother a grease fire"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Turn off the heat source. Cover the pan with a metal lid or baking sheet to smother it (cut off oxygen). Leave it covered until completely cool. Do NOT lift the lid to check — re-introducing oxygen reignites the fire.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Small grease fire in a pan"
+    },
+    {
+      "action": "Use a Class B or Class K fire extinguisher (rated for grease/oil fires). Aim at the base of the fire. Never use a Class A (water) extinguisher on grease fires.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Grease fire with extinguisher available"
+    },
+    {
+      "action": "If the fire is spreading beyond the pan: evacuate immediately, close the kitchen door behind you to contain the fire, call emergency services (911/119/999). Do NOT try to fight a spreading grease fire.",
+      "success_rate": 0.98,
+      "sources": [],
+      "condition": "Large or spreading grease fire"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

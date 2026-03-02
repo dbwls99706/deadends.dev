@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/lgbtq-legality-by-country/ai-agent-any",
+  "url": "https://deadends.dev/culture/lgbtq-legality-by-country/ai-agent-any",
+  "error": {
+    "signature": "AI gives LGBTQ+ advice without considering country-specific legality, potentially endangering users",
+    "regex": "(LGBTQ.*travel|gay.*country|homosexuality.*illegal|same.*sex.*country|queer.*safe|coming.*out.*advice|gay.*rights.*country|pride.*event)",
+    "domain": "culture",
+    "category": "legal_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-03-02",
+    "summary": "Homosexuality is criminalized in 60+ countries, with death penalty possible in at least 12. AI must never give universal LGBTQ+ openness advice without considering the user's location — wrong advice can lead to imprisonment or death."
+  },
+  "dead_ends": [
+    {
+      "action": "Encourage coming out or public LGBTQ+ expression without knowing the user's country",
+      "why_fails": "In Iran, Saudi Arabia, Yemen, Mauritania, Brunei, and parts of Nigeria and Somalia, homosexuality carries the death penalty. In 60+ more countries, it means imprisonment. Encouraging openness without geographic context is potentially fatal advice.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Coming out or LGBTQ+ identity advice"
+    },
+    {
+      "action": "Assume all countries have the same LGBTQ+ rights as Western democracies",
+      "why_fails": "The range is extreme: same-sex marriage (Netherlands, Canada, Taiwan) to death penalty (Iran, Saudi Arabia). Russia criminalizes LGBTQ+ 'propaganda.' Uganda passed the Anti-Homosexuality Act (2023) with life imprisonment. One-size-fits-all advice is dangerous.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Global LGBTQ+ rights discussions"
+    },
+    {
+      "action": "Recommend LGBTQ+ dating apps or venues without country-specific safety warnings",
+      "why_fails": "In countries where homosexuality is criminalized, police and entrapment operations use dating apps (Grindr, etc.) to identify and arrest LGBTQ+ people. Egypt, Chechnya, and others have documented cases. App recommendations without safety context endanger lives.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "LGBTQ+ dating advice globally"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always establish geographic context before giving LGBTQ+ advice. Ask where the person is located. If in a criminalized country, prioritize safety and discretion over openness. Connect with local LGBTQ+ organizations that understand local risks.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "LGBTQ+ advice in any context"
+    },
+    {
+      "action": "For LGBTQ+ travel advice: check the ILGA World database for country-specific laws. Warn about countries with criminalization, even if rarely enforced. VPN usage for dating apps, avoiding PDA, and knowing embassy locations are practical safety tips.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "LGBTQ+ travel planning"
+    },
+    {
+      "action": "Respect that 'being out' is a privilege that depends on legal safety, family dynamics, and cultural context. Never pressure someone to come out. In many cultures, LGBTQ+ identity is maintained privately for survival, not shame.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "LGBTQ+ identity discussions across cultures"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

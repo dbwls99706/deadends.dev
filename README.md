@@ -2,15 +2,15 @@
 
 <!-- mcp-name: dev.deadends/deadends-dev -->
 
-[![Errors](https://img.shields.io/badge/errors-2002-blue)](https://deadends.dev)
-[![Domains](https://img.shields.io/badge/domains-43-green)](https://deadends.dev)
+[![Errors](https://img.shields.io/badge/errors-2089-blue)](https://deadends.dev)
+[![Domains](https://img.shields.io/badge/domains-51-green)](https://deadends.dev)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-8-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey)](LICENSE)
 
 **Structured failure knowledge for AI coding agents.**
 
-2000+ error entries across 43 domains. When AI coding agents encounter errors, they waste tokens on approaches that are known to fail. deadends.dev tells agents what NOT to try, what actually works, and what error comes next.
+2000+ error entries across 51 domains. When AI coding agents encounter errors, they waste tokens on approaches that are known to fail. deadends.dev tells agents what NOT to try, what actually works, and what error comes next.
 
 > **Website:** [deadends.dev](https://deadends.dev) · **MCP Server:** [Smithery](https://smithery.ai/server/deadend/deadends-dev) · **PyPI:** [deadends-dev](https://pypi.org/project/deadends-dev/) · **API:** [/api/v1/index.json](https://deadends.dev/api/v1/index.json)
 
@@ -30,7 +30,7 @@ The MCP server exposes 8 tools for AI coding agents:
 |------|-------------|
 | `lookup_error` | Match an error message against 2000+ known patterns. Returns dead ends, workarounds, and error chains. |
 | `get_error_detail` | Get full details for a specific error by ID (e.g., `python/modulenotfounderror/py311-linux`). |
-| `list_error_domains` | List all 43 error domains and their counts. |
+| `list_error_domains` | List all 50 error domains and their counts. |
 | `search_errors` | Fuzzy keyword search across all domains (e.g., "memory limit", "permission denied"). |
 | `list_errors_by_domain` | List all errors in a specific domain, sorted by fix rate, name, or confidence. |
 | `batch_lookup` | Look up multiple error messages at once (max 10). |
@@ -138,7 +138,7 @@ deadends --list  # show all known errors
 | [`/.well-known/agent-card.json`](https://deadends.dev/.well-known/agent-card.json) | Google A2A agent card |
 | [`/.well-known/security.txt`](https://deadends.dev/.well-known/security.txt) | Security contact (RFC 9116) |
 
-## Covered Domains (43)
+## Covered Domains (51)
 
 | Domain | Errors | Examples |
 |--------|--------|----------|
@@ -185,6 +185,14 @@ deadends --list  # show all known errors
 | Security | 40 | CSP violation, XSS, SQL injection, SSRF, JWT none algorithm |
 | TensorFlow | 40 | shape mismatch, GPU memory, SavedModel, mixed precision NaN |
 | Unity | 40 | NullReference, shader compile, asset bundle, NavMesh, physics |
+| Culture | 67 | cultural taboos, political sensitivity, etiquette violations, identity |
+| Safety | 7 | grease fire, chemical mixing, CPR, choking, electrical shock, tourniquet |
+| Medical | 3 | drug interactions, folk remedies, allergic reactions |
+| Mental Health | 2 | suicide response protocol, depression toxic positivity |
+| Food Safety | 2 | raw chicken washing, rice room temperature |
+| Disaster | 2 | earthquake doorframe myth, tornado overpass myth |
+| Legal | 2 | self-defense law variation, copyright fair use myth |
+| Pet Safety | 2 | dog toxic foods, cat toxic plants |
 
 ## ErrorCanon Data Format
 
@@ -250,7 +258,7 @@ python -m generator.validate --data-only  # Validate before submitting
 ## Changelog
 
 ### v0.7.0
-- Expanded to **2002 error entries** across **43 domains** (from 1028/20)
+- Expanded to **2089 error entries** across **51 domains** (from 1028/20)
 - Added 23 new domains: Android, API, Cloud, CMake, Communication, Data, Elasticsearch, Embedded, Flutter, gRPC, Hugging Face, Kafka, LLM, MongoDB, Nginx, OpenCV, Policy, PyTorch, Redis, ROS 2, Security, TensorFlow, Unity
 - All domains now have 40+ error entries each
 - Fixed 73 regex patterns that didn't match their own signatures

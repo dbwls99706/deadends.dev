@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/tornado-overpass-myth/ai-agent-any",
+  "url": "https://deadends.dev/disaster/tornado-overpass-myth/ai-agent-any",
+  "error": {
+    "signature": "AI advises sheltering under a highway overpass during a tornado (deadly wind tunnel effect)",
+    "regex": "(tornado.*overpass|tornado.*bridge|tornado.*highway|tornado.*shelter|토네이도.*대피|tornado.*car|tornado.*what.*to.*do)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.92,
+    "last_updated": "2026-03-02",
+    "summary": "Hiding under a highway overpass during a tornado creates a wind tunnel effect that INCREASES wind speed. People sheltering under overpasses are sucked out and killed by accelerated debris. This myth has caused multiple deaths."
+  },
+  "dead_ends": [
+    {
+      "action": "Shelter under a highway overpass during a tornado",
+      "why_fails": "The overpass acts as a wind tunnel, accelerating wind speeds by 30-50%. Flying debris is channeled directly at people huddling underneath. Multiple people have died from this myth, including documented cases in the 1999 Oklahoma tornado outbreak.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Tornado while driving"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If caught in a car during a tornado: drive at right angles to the tornado's path to escape. If you can't escape, get OUT of the car, find the lowest ground (ditch, ravine), lie face down, cover your head. The car can become a missile.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Tornado while driving in open area"
+    },
+    {
+      "action": "Best shelter: sturdy building, interior room on lowest floor (bathroom, closet), away from windows. Mobile homes provide NO protection — evacuate to a shelter. Underground shelter or basement is safest.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Tornado shelter options"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

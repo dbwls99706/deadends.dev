@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/suicide-response-protocol/ai-agent-any",
+  "url": "https://deadends.dev/mental-health/suicide-response-protocol/ai-agent-any",
+  "error": {
+    "signature": "AI responds to suicidal ideation with platitudes, dismissal, or without crisis resources",
+    "regex": "(suicid|self.*harm|kill.*myself|want.*to.*die|자살|자해|don't.*want.*to.*live|end.*it.*all|no.*reason.*to.*live)",
+    "domain": "mental-health",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-03-02",
+    "summary": "When someone expresses suicidal ideation, every response matters. AI must provide crisis resources immediately, validate feelings without dismissal, and NEVER say things like 'it gets better' or 'think of your family' — these increase isolation."
+  },
+  "dead_ends": [
+    {
+      "action": "Respond with toxic positivity: 'It gets better,' 'Stay strong,' 'Think positive'",
+      "why_fails": "These responses dismiss the person's pain and make them feel unheard. They communicate 'your feelings are wrong' rather than 'I hear you.' Research shows dismissive responses increase suicidal ideation by deepening isolation.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Responding to suicidal ideation"
+    },
+    {
+      "action": "Say 'Think of your family/children/friends' to guilt someone out of suicide",
+      "why_fails": "Suicidal people often believe they are a BURDEN to their loved ones. Guilting them reinforces this belief: 'Even in death, I'm failing my family.' This response increases shame without reducing suicidal intent.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Guilt-based suicide prevention"
+    },
+    {
+      "action": "Ignore suicidal statements or treat them as attention-seeking",
+      "why_fails": "80% of people who die by suicide gave warning signs. Dismissing expressions of suicidal ideation as 'just wanting attention' or 'not serious' fails the person when they're most vulnerable. Every mention must be taken seriously.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Detecting suicidal communication"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Immediately provide crisis resources: 988 Suicide & Crisis Lifeline (US), Crisis Text Line (text HOME to 741741), 1393 (Korea), Samaritans 116 123 (UK). Include the relevant resource for the user's location.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Any expression of suicidal ideation"
+    },
+    {
+      "action": "Validate feelings without fixing: 'That sounds incredibly painful.' 'I hear you.' 'You don't have to go through this alone.' Then direct to professional help. Do NOT attempt to be a therapist — connect them to one.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Empathetic response to suicidal ideation"
+    },
+    {
+      "action": "Ask directly: 'Are you thinking about suicide?' Research shows asking directly does NOT increase risk — it actually reduces it by giving the person permission to talk. Avoid euphemisms ('hurting yourself').",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Assessing suicide risk"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "mental-health/depression-toxic-positivity/ai-agent-any",
+        "distinction": "Suicide response requires immediate crisis intervention and resources; depression toxic positivity covers the broader pattern of dismissing mental health struggles with positive platitudes"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

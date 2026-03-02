@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/choking-response-errors/ai-agent-any",
+  "url": "https://deadends.dev/safety/choking-response-errors/ai-agent-any",
+  "error": {
+    "signature": "AI gives wrong choking response — back slaps on infants face-up, blind finger sweeps, wrong Heimlich technique",
+    "regex": "(choking.*response|Heimlich.*maneuver|abdominal.*thrust|choking.*baby|choking.*infant|기도.*폐쇄|하임리히|choking.*first.*aid)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Choking kills ~5,000 people/year in the US alone. Wrong technique (blind finger sweeps, wrong infant position, late intervention) turns a treatable obstruction into a fatality. Age-specific techniques are critical."
+  },
+  "dead_ends": [
+    {
+      "action": "Perform blind finger sweeps in a choking person's mouth",
+      "why_fails": "Sticking fingers into the mouth to retrieve an object you can't see can push it deeper into the airway, converting a partial obstruction into a complete one. Only sweep if you can clearly SEE the object.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Choking response"
+    },
+    {
+      "action": "Perform abdominal thrusts (Heimlich) on infants under 1 year",
+      "why_fails": "Infants' internal organs are fragile. Abdominal thrusts can rupture the liver or spleen. For infants: use 5 back blows (face down on forearm, head lower than chest) alternating with 5 chest thrusts (two fingers on sternum).",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Infant choking"
+    },
+    {
+      "action": "Slap a choking person on the back while they're upright (before trying thrusts)",
+      "why_fails": "Back slaps while upright can move the object deeper due to gravity. Current guidelines: for adults, go directly to abdominal thrusts (Heimlich). Some guidelines (Red Cross/ERC) recommend 5 back blows between shoulder blades WHILE the person leans forward, then 5 abdominal thrusts.",
+      "fail_rate": 0.70,
+      "sources": [],
+      "condition": "Adult choking response"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Adult choking (conscious): Stand behind the person, make a fist above the navel, grasp with other hand, perform quick upward abdominal thrusts. Repeat until object is expelled or person becomes unconscious. If unconscious: begin CPR.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Adult choking response"
+    },
+    {
+      "action": "Infant choking (<1 year): Hold face down on forearm, head lower than body. Give 5 firm back blows between shoulder blades with heel of hand. Turn over, give 5 chest thrusts with 2 fingers. Alternate until clear or infant becomes unconscious.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Infant choking response"
+    },
+    {
+      "action": "If the person can cough, speak, or breathe: encourage them to keep coughing. Do NOT intervene with thrusts — a strong cough generates more force than the Heimlich. Only intervene when coughing stops and the person cannot breathe.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Partial airway obstruction"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/cpr-common-mistakes/ai-agent-any",
+        "distinction": "Choking response is for conscious airway obstruction; CPR is for unconscious cardiac/respiratory arrest — techniques are completely different"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

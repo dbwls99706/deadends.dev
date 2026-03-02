@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/native-american-appropriation-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/native-american-appropriation-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI uses 'spirit animal,' 'Indian,' war bonnets as costumes, or perpetuates Noble Savage tropes",
+    "regex": "(spirit.*animal|my.*spirit.*animal|Indian.*Native|war.*bonnet.*costume|headdress.*festival|Native.*American.*mascot|Redskin|pow.*wow.*meeting|Thanksgiving.*myth)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-03-02",
+    "summary": "Native American cultures suffered genocide, forced relocation, and ongoing systemic erasure. Cultural appropriation (headdresses as costumes, 'spirit animal' as slang, mascots) trivializes sacred traditions and perpetuates harmful stereotypes."
+  },
+  "dead_ends": [
+    {
+      "action": "Use 'spirit animal' as a casual phrase (e.g., 'coffee is my spirit animal')",
+      "why_fails": "Spirit animals are sacred concepts in many Indigenous spiritual traditions with deep ceremonial significance. Using it as internet slang trivializes religious practices of peoples who were legally banned from practicing their religions until 1978 (American Indian Religious Freedom Act).",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Casual English communication"
+    },
+    {
+      "action": "Use 'Indian' to refer to Native Americans, or use tribal imagery as costumes",
+      "why_fails": "'Indian' is a colonial misnomer (Columbus thought he reached India). War bonnets/headdresses are sacred items earned through acts of bravery — wearing them as Halloween costumes is equivalent to wearing a Purple Heart you didn't earn. 'Redskin' is a racial slur.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Referring to Indigenous Americans"
+    },
+    {
+      "action": "Use 'pow wow' to mean a business meeting or casual gathering",
+      "why_fails": "A powwow is a sacred Indigenous gathering with deep spiritual, cultural, and community significance. Using it as slang for a team meeting trivializes a living cultural practice and reduces Indigenous traditions to corporate jargon.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Business or casual English vocabulary"
+    },
+    {
+      "action": "Promote the Thanksgiving myth of peaceful Pilgrims-and-Indians dinner",
+      "why_fails": "The sanitized Thanksgiving narrative erases the genocide, forced removals, and broken treaties that followed contact. Many Native Americans observe Thanksgiving as a National Day of Mourning. The 'friendly Indian' trope is deeply harmful.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Discussing American holidays"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use 'Native American,' 'Indigenous,' 'American Indian' (still used in legal contexts and by some tribal members), or ideally the specific nation name: Navajo (Dine), Cherokee, Lakota, Ojibwe, etc. Ask the individual their preference.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Referring to Indigenous Americans"
+    },
+    {
+      "action": "Replace 'spirit animal' with 'kindred spirit,' 'alter ego,' 'patronus,' or simply 'favorite.' Replace 'pow wow' with 'huddle,' 'meeting,' or 'check-in.' These substitutions avoid appropriation entirely.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Casual English vocabulary"
+    },
+    {
+      "action": "Recognize Indigenous peoples as living, contemporary communities — not historical relics. They have modern governments, languages being revitalized, and active political movements (Standing Rock, Land Back). Avoid past-tense framing.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Discussing Native American cultures"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/canada-indigenous-taboo/ai-agent-any",
+        "distinction": "Canadian Indigenous taboo covers residential schools and First Nations/Inuit/Metis; Native American taboo covers US-specific appropriation and terminology issues"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

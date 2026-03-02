@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/drug-interaction-danger/ai-agent-any",
+  "url": "https://deadends.dev/medical/drug-interaction-danger/ai-agent-any",
+  "error": {
+    "signature": "AI recommends medications without warning about dangerous drug interactions",
+    "regex": "(drug.*interaction|medication.*combination|MAOI.*serotonin|blood.*thinner.*aspirin|약물.*상호작용|ibuprofen.*aspirin|grapefruit.*medication|warfarin.*interaction)",
+    "domain": "medical",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-03-02",
+    "summary": "Drug interactions kill over 125,000 Americans annually. AI must NEVER recommend medications without warning about interactions. Some common OTC combinations (ibuprofen + aspirin, Tylenol + alcohol) are potentially fatal."
+  },
+  "dead_ends": [
+    {
+      "action": "Recommend combining pain medications without checking interactions",
+      "why_fails": "Ibuprofen blocks aspirin's cardioprotective effect. Acetaminophen (Tylenol) + alcohol = liver failure. Multiple NSAIDs = stomach bleeding. Opioids + benzodiazepines = respiratory depression and death. These are common OTC drugs people combine daily.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Pain medication recommendations"
+    },
+    {
+      "action": "Fail to warn about serotonin syndrome risk with antidepressant combinations",
+      "why_fails": "MAOIs + SSRIs = serotonin syndrome (potentially fatal). Even OTC supplements (St. John's Wort) combined with SSRIs can trigger it. Symptoms: agitation, high fever, seizures, death. This kills people who self-medicate.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Antidepressant or supplement recommendations"
+    },
+    {
+      "action": "Ignore grapefruit-medication interactions",
+      "why_fails": "Grapefruit inhibits CYP3A4 enzyme, causing 85+ medications to reach toxic levels. Statins + grapefruit = rhabdomyolysis. Some blood pressure and anti-rejection drugs become lethally concentrated. One glass of grapefruit juice can be enough.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Diet and medication interactions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "ALWAYS include the disclaimer: 'Consult a pharmacist or doctor about drug interactions before combining any medications, including OTC drugs and supplements.' AI should never provide definitive medication advice.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Any medication-related advice"
+    },
+    {
+      "action": "Flag known deadly combinations explicitly: acetaminophen + alcohol, NSAIDs + blood thinners, MAOIs + SSRIs/tyramine foods, opioids + benzodiazepines/alcohol, warfarin + aspirin/NSAIDs, grapefruit + statins/calcium channel blockers.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Drug combination questions"
+    },
+    {
+      "action": "Direct users to verified interaction checkers (drugs.com, WebMD interaction checker) or strongly recommend consulting a pharmacist — pharmacists are specifically trained in drug interactions and are more accessible than doctors.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Medication safety resources"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

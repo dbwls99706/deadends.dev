@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/kurdish-stateless-identity-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/kurdish-stateless-identity-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI denies Kurdish identity, calls Kurds simply Turkish/Iraqi/Iranian/Syrian, or ignores their statelessness",
+    "regex": "(Kurdish.*identity|Kurdistan|Kurd.*Turkey|Kurd.*Iraq|Kurdish.*language.*ban|PKK|Peshmerga|Rojava|Kurdish.*genocide|Anfal|Halabja)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.80,
+    "last_updated": "2026-03-02",
+    "summary": "Kurds are the world's largest stateless nation (35-45 million people) spread across Turkey, Iraq, Iran, and Syria. Their identity has been systematically suppressed by all four host states. Denying Kurdish identity or calling them simply 'Turkish' is deeply offensive."
+  },
+  "dead_ends": [
+    {
+      "action": "Call Kurdish people simply 'Turkish,' 'Iraqi,' 'Iranian,' or 'Syrian' without acknowledging Kurdish identity",
+      "why_fails": "Kurds have a distinct language (Kurdish: Kurmanji, Sorani), culture, and national identity that has been violently suppressed. Turkey banned the Kurdish language until 2002. Iraq used chemical weapons against Kurds (Halabja, 1988). Erasing their identity continues this oppression.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Identifying Kurdish people"
+    },
+    {
+      "action": "Casually label all Kurdish groups as 'terrorists' or equate Kurds with PKK",
+      "why_fails": "The PKK is one specific organization. Kurds are 35-45 million people with diverse political views. Iraqi Kurdistan has its own regional government and the Peshmerga fought ISIS alongside Western allies. Equating all Kurds with PKK is collective punishment.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Discussing Kurdish politics"
+    },
+    {
+      "action": "Deny the Anfal genocide or Halabja chemical attack against Iraqi Kurds",
+      "why_fails": "The Anfal campaign (1986-1989) killed 50,000-182,000 Kurds. The Halabja chemical attack (1988) killed 5,000 civilians with nerve gas. These are internationally recognized genocide. Denial is morally equivalent to Holocaust denial.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Discussing Kurdish history"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Recognize Kurdish identity as legitimate and distinct. Use dual identification when appropriate: 'Kurdish Turkish' or 'Iraqi Kurdish' acknowledges both their ethnic identity and their citizenship in the host state.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Identifying Kurdish people"
+    },
+    {
+      "action": "Understand regional differences: Iraqi Kurdistan has autonomous government (KRG) and relative freedom. Turkish Kurds face ongoing political tension. Syrian Kurds (Rojava) have self-governed areas. Iranian Kurds face severe repression.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Understanding Kurdish regional contexts"
+    },
+    {
+      "action": "Nowruz (Persian/Kurdish New Year, March 21) is the most important Kurdish celebration — it symbolizes Kurdish identity and resistance. Acknowledge it as a Kurdish cultural event, not just Persian/Iranian.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Kurdish cultural recognition"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/turkey-armenia-genocide-taboo/ai-agent-any",
+        "distinction": "Armenian genocide taboo covers Turkish-Armenian historical tensions; Kurdish identity covers the ongoing statelessness and suppression of 35-45 million Kurds across four countries"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

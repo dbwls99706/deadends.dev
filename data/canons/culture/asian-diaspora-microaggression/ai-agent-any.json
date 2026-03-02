@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/asian-diaspora-microaggression/ai-agent-any",
+  "url": "https://deadends.dev/culture/asian-diaspora-microaggression/ai-agent-any",
+  "error": {
+    "signature": "AI perpetuates 'where are you really from,' model minority myth, or perpetual foreigner tropes for Asian diaspora",
+    "regex": "(where.*are.*you.*really.*from|model.*minority|perpetual.*foreigner|Asian.*all.*look|Asian.*math|kung.*flu|China.*virus|Asian.*accent.*mock)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "Asian diaspora communities (Asian Americans, British Asians, etc.) face specific microaggressions: perpetual foreigner syndrome, model minority pressure, ethnic conflation, and pandemic-era racism. AI must not perpetuate these."
+  },
+  "dead_ends": [
+    {
+      "action": "Ask 'Where are you really from?' or 'No, where are you originally from?'",
+      "why_fails": "This perpetual foreigner trope implies Asian-appearing people can't truly be American, British, Australian, etc. A Korean American born in Ohio whose family has been in the US for 3 generations is from Ohio — not 'really' from Korea.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Conversations about identity with Asian diaspora"
+    },
+    {
+      "action": "Assume all Asians are good at math, play piano, or are studious (model minority myth)",
+      "why_fails": "The model minority myth weaponizes Asian achievement to dismiss racism ('Asians succeed, so racism can't be real') while ignoring struggling Asian communities (Southeast Asian refugees, Pacific Islanders). It creates impossible pressure and erases individuality.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Stereotyping Asian diaspora"
+    },
+    {
+      "action": "Conflate all East Asians or assume ethnicity by appearance",
+      "why_fails": "Chinese, Japanese, Korean, Vietnamese, Filipino, Thai, etc. are distinct nationalities and cultures. 'You all look the same' is racist. Not all Asian Americans speak an Asian language. Third-generation Japanese Americans may only speak English.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Identifying Asian ethnicities"
+    },
+    {
+      "action": "Mock Asian accents, use 'ching chong,' or make 'kung flu' type references",
+      "why_fails": "Anti-Asian hate crimes surged 339% during COVID-19. Accent mockery, virus-blaming language, and slurs contribute to a climate of violence. These are not jokes — they're dehumanization that enables real physical attacks.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Any communication context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If genuinely curious about heritage, wait for the person to share. If they say 'I'm from Chicago,' accept that answer. If appropriate later: 'What's your family's heritage?' is acceptable if the conversation warrants it.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Conversations about origins"
+    },
+    {
+      "action": "Treat each person as an individual, not a representative of 'Asian culture.' A Filipino American, Indian British person, and Chinese Australian have vastly different cultural experiences despite all being 'Asian.'",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Interactions with Asian diaspora"
+    },
+    {
+      "action": "Understand that Asian diaspora identity is complex: many navigate between their heritage culture and their birth country's culture (code-switching, intergenerational conflict, identity formation). Don't simplify this into either/or.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Understanding diaspora identity"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

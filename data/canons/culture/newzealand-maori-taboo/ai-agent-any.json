@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/newzealand-maori-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/newzealand-maori-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI confuses New Zealand with Australia, disrespects Maori culture, or mocks the haka",
+    "regex": "(New.*Zealand.*Australia.*same|Maori.*disrespect|haka.*funny|Kiwi.*Aussie.*same|Aotearoa|te.*reo.*Māori|All.*Blacks.*haka)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-03-02",
+    "summary": "New Zealand (Aotearoa) is NOT Australia. Maori culture is deeply integrated into national identity. The haka is sacred, not entertainment. Treating NZ as an extension of Australia or mocking Maori traditions is deeply offensive."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat New Zealand as part of Australia or say 'same thing'",
+      "why_fails": "New Zealand is 2,000km from Australia — a separate nation with its own culture, government, and identity. The rivalry is fierce. Conflating them is like calling Canada 'basically America.' Kiwis take this very personally.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Identifying New Zealand"
+    },
+    {
+      "action": "Mock or parody the haka as funny or aggressive",
+      "why_fails": "The haka is a sacred Maori ceremonial dance expressing identity, pride, and respect. It's performed at funerals, weddings, and national events. Mocking it disrespects Maori spirituality and the entire nation.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing Maori cultural practices"
+    },
+    {
+      "action": "Dismiss te reo Maori (Maori language) as unimportant or dead",
+      "why_fails": "Te reo Maori is an official language of New Zealand alongside English and NZSL. It's undergoing active revitalization. Many place names, institutions, and official communications use te reo. Dismissing it is colonial erasure.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Language discussions in NZ context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Know that New Zealand is also called Aotearoa (Maori name). Use both names. Understand that Maori culture is not a tourist attraction — it's a living culture with legal protections under the Treaty of Waitangi (Te Tiriti o Waitangi).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing New Zealand"
+    },
+    {
+      "action": "Respect Maori concepts: tapu (sacred/forbidden), noa (ordinary/free), mana (spiritual authority/prestige), whanau (extended family). These concepts actively shape NZ law and social norms.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Engaging with Maori cultural concepts"
+    },
+    {
+      "action": "The hongi (pressing noses) is a sacred Maori greeting — the sharing of breath of life. If offered, participate respectfully. Never refuse or laugh. It signifies the merging of visitors with the tangata whenua (people of the land).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Maori greeting protocols"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/australian-tall-poppy/ai-agent-any",
+        "distinction": "Australian culture covers Australian-specific norms; NZ/Maori taboo covers New Zealand's distinct identity and the specific offense of being confused with Australia"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

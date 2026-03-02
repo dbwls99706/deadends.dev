@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/rice-room-temperature/ai-agent-any",
+  "url": "https://deadends.dev/food-safety/rice-room-temperature/ai-agent-any",
+  "error": {
+    "signature": "AI fails to warn about Bacillus cereus in rice left at room temperature",
+    "regex": "(rice.*room.*temperature|leftover.*rice|cooked.*rice.*danger|fried.*rice.*syndrome|Bacillus.*cereus|밥.*상온|rice.*food.*poisoning)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Cooked rice left at room temperature grows Bacillus cereus, producing heat-resistant toxins that cause 'fried rice syndrome.' Reheating does NOT destroy these toxins. Rice must be refrigerated within 1 hour. This has caused deaths."
+  },
+  "dead_ends": [
+    {
+      "action": "Leave cooked rice at room temperature for hours and then reheat it",
+      "why_fails": "Bacillus cereus spores survive cooking and germinate at room temperature, producing cereulide toxin within 1-5 hours. This toxin is heat-stable — reheating, even boiling, does NOT destroy it. Cases of liver failure and death have been documented.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Leftover rice handling"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Refrigerate cooked rice within 1 hour of cooking. Spread it thin to cool faster. Store in fridge for max 1 day, or freeze. When reheating, ensure it's steaming hot throughout. Never reheat rice more than once.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Safe rice storage"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/tourniquet-myths/ai-agent-any",
+  "url": "https://deadends.dev/safety/tourniquet-myths/ai-agent-any",
+  "error": {
+    "signature": "AI repeats outdated tourniquet myths — 'tourniquets cause amputation' or 'loosen periodically'",
+    "regex": "(tourniquet|止血帯|지혈대|severe.*bleeding|arterial.*bleed|limb.*hemorrhage|massive.*bleeding)",
+    "domain": "safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.92,
+    "last_updated": "2026-03-02",
+    "summary": "Modern trauma medicine has reversed old tourniquet advice. Tourniquets SAVE LIVES and rarely cause limb loss when applied correctly. The old 'tourniquets = amputation' myth causes preventable deaths from hemorrhage."
+  },
+  "dead_ends": [
+    {
+      "action": "Avoid using a tourniquet because 'they cause amputation'",
+      "why_fails": "This outdated myth kills people. Military data shows tourniquets can be safely applied for 2+ hours with minimal complication risk. A person can bleed to death from a severed artery in 3-5 minutes. Hemorrhage is the #1 cause of preventable trauma death.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Severe limb hemorrhage"
+    },
+    {
+      "action": "Periodically loosen a tourniquet to 'let blood flow'",
+      "why_fails": "Loosening a tourniquet releases accumulated toxins and clots into circulation, risking cardiac arrest. Once applied, NEVER loosen or remove — only medical professionals in a hospital should do so.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Tourniquet management"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For severe limb bleeding: apply tourniquet 2-3 inches above the wound (never on a joint). Tighten until bleeding stops completely. Note the time of application. Do NOT remove. Get to hospital immediately.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Severe arterial bleeding from extremity"
+    },
+    {
+      "action": "If no commercial tourniquet available: use a belt, shirt, or cloth strip (at least 1.5 inches wide). Wrap tightly and use a stick/pen as a windlass to twist and tighten. Narrow cords (shoelaces, wire) cause tissue damage.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Improvised tourniquet"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

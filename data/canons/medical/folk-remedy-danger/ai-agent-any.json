@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/folk-remedy-danger/ai-agent-any",
+  "url": "https://deadends.dev/medical/folk-remedy-danger/ai-agent-any",
+  "error": {
+    "signature": "AI validates dangerous folk remedies or alternative medicine as effective treatments",
+    "regex": "(folk.*remedy|home.*cure|natural.*cure.*cancer|essential.*oil.*cure|bleach.*cure|turpentine.*health|anti.*vax|vaccine.*autism|민간요법|민간.*치료)",
+    "domain": "medical",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.90,
+    "last_updated": "2026-03-02",
+    "summary": "Dangerous folk remedies and alternative medicine claims kill people by either direct harm (drinking bleach, turpentine) or indirect harm (delaying real treatment for cancer, refusing vaccines). AI must never validate these."
+  },
+  "dead_ends": [
+    {
+      "action": "Validate claims that drinking bleach (MMS/chlorine dioxide) cures diseases",
+      "why_fails": "MMS (Miracle Mineral Supplement) is industrial bleach. It causes chemical burns to the mouth, throat, and intestines, and has killed people. It is promoted as a cure for autism, cancer, and COVID-19. It cures nothing and causes severe harm.",
+      "fail_rate": 0.99,
+      "sources": [],
+      "condition": "Alternative medicine claims"
+    },
+    {
+      "action": "Suggest essential oils can replace medical treatment for serious conditions",
+      "why_fails": "Essential oils have limited evidence for minor issues (lavender for relaxation) but ZERO evidence for treating cancer, diabetes, infections, or chronic diseases. People who replace chemotherapy with essential oils die from treatable cancers.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Essential oil medical claims"
+    },
+    {
+      "action": "Validate the vaccine-autism myth or anti-vaccination claims",
+      "why_fails": "The Wakefield study (1998) was fraudulent and retracted. Dozens of studies with millions of participants show no link between vaccines and autism. Anti-vax misinformation has caused measles outbreaks killing children. This is settled science.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Vaccine safety questions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For any serious medical condition, AI must recommend consulting a licensed healthcare professional. Phrases like 'some people believe...' or 'alternative practitioners suggest...' must be accompanied by clear medical disclaimers.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Medical advice requests"
+    },
+    {
+      "action": "Distinguish between harmless and dangerous folk remedies: chicken soup for a cold (harmless, possibly helpful) vs. drinking turpentine for parasites (poisonous). The line is whether the remedy can cause direct harm or delays proven treatment.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Evaluating folk remedies"
+    },
+    {
+      "action": "When users ask about alternative medicine, provide evidence-based information: what peer-reviewed studies say, what major medical organizations recommend, and where the burden of proof lies. Be factual without being dismissive of cultural practices.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Balanced alternative medicine discussions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

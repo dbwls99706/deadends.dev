@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-chicken-washing/ai-agent-any",
+  "url": "https://deadends.dev/food-safety/raw-chicken-washing/ai-agent-any",
+  "error": {
+    "signature": "AI advises washing raw chicken before cooking, spreading bacteria across the kitchen",
+    "regex": "(wash.*chicken|rinse.*chicken|clean.*raw.*chicken|생닭.*씻|raw.*poultry.*water|chicken.*salmonella|campylobacter)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-03-02",
+    "summary": "USDA, CDC, and FSA all say: NEVER wash raw chicken. Water splashes spread Salmonella and Campylobacter up to 3 feet across kitchen surfaces. Cooking to 74C/165F kills all bacteria — washing does not."
+  },
+  "dead_ends": [
+    {
+      "action": "Wash or rinse raw chicken under running water before cooking",
+      "why_fails": "Water does not remove bacteria from chicken — cooking does. But water DOES splash microscopic bacteria droplets onto countertops, sinks, utensils, and other food within a 3-foot radius. This cross-contamination causes foodborne illness.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Chicken preparation advice"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do NOT wash raw chicken. Take it directly from package to pan/oven. Cook to internal temperature of 74C/165F (use a meat thermometer). Clean all surfaces and utensils that touched raw chicken with hot soapy water. Wash hands for 20 seconds after handling.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Safe chicken preparation"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

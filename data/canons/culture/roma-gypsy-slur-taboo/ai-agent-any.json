@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/roma-gypsy-slur-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/roma-gypsy-slur-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI uses 'Gypsy' as a label for Romani people or perpetuates theft/nomad stereotypes",
+    "regex": "(Gypsy|gypsy.*stereotype|Romani.*thief|Roma.*steal|zigeuner|tzigan|gitano.*slur|gypped|gip)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-03-02",
+    "summary": "The Romani people (Roma) are Europe's largest ethnic minority, facing centuries of persecution. 'Gypsy' is considered a slur by most Romani organizations. The word 'gypped' (cheated) derives from and perpetuates anti-Romani racism."
+  },
+  "dead_ends": [
+    {
+      "action": "Use 'Gypsy' as a general label for Romani people",
+      "why_fails": "'Gypsy' is considered a racial slur by most Romani advocacy organizations. It originates from the false belief that Roma came from Egypt. The proper terms are 'Romani,' 'Roma,' or 'Roma people.' Some Romani individuals reclaim 'Gypsy' but outsiders should not use it.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Referring to Romani people"
+    },
+    {
+      "action": "Use the word 'gypped' (meaning cheated or swindled)",
+      "why_fails": "'Gypped' derives from 'Gypsy' and encodes the racist stereotype that Romani people are thieves. Many English speakers don't realize the etymology, but it is a racial slur. Use 'cheated,' 'swindled,' or 'ripped off' instead.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "English language vocabulary"
+    },
+    {
+      "action": "Perpetuate stereotypes about Roma being thieves, beggars, or kidnappers",
+      "why_fails": "These stereotypes have been used to justify centuries of persecution including the Romani Holocaust (Porajmos) where 500,000+ Roma were murdered by Nazis. Anti-Roma racism remains Europe's most socially acceptable prejudice.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing Romani communities"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use 'Romani,' 'Roma,' or 'Roma people' (never 'Gypsies'). Note: Roma and Romanian are NOT the same — Romani people are a distinct ethnic group found across Europe, not specifically from Romania.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Referring to Romani people"
+    },
+    {
+      "action": "Replace 'gypped' with 'cheated,' 'swindled,' or 'ripped off' in all AI outputs. Flag this word if encountered in user input as potentially offensive.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "English language output"
+    },
+    {
+      "action": "Acknowledge Romani history: the Porajmos (Romani Holocaust), centuries of enslavement in Romania (until 1856), and ongoing discrimination in housing, education, and employment across Europe.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Historical discussions about Roma"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

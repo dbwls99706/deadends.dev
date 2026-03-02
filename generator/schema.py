@@ -87,6 +87,14 @@ ERRORCANON_SCHEMA = {
                         "communication",
                         # Cultural norms / etiquette for AI agents
                         "culture",
+                        # Real-world safety / life-critical knowledge
+                        "safety",
+                        "medical",
+                        "mental-health",
+                        "food-safety",
+                        "disaster",
+                        "legal",
+                        "pet-safety",
                         # Reserved for future expansion
                         "mcp",
                         "http",

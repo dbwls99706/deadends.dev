@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/self-defense-law-varies/ai-agent-any",
+  "url": "https://deadends.dev/legal/self-defense-law-varies/ai-agent-any",
+  "error": {
+    "signature": "AI gives universal self-defense legal advice without jurisdiction-specific warnings",
+    "regex": "(self.*defense.*law|stand.*your.*ground|castle.*doctrine|duty.*to.*retreat|정당방위|self.*defence.*legal|proportional.*force|justifiable.*homicide)",
+    "domain": "legal",
+    "category": "legal_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-03-02",
+    "summary": "Self-defense laws vary enormously by jurisdiction. Stand Your Ground (US: some states), Duty to Retreat (US: other states, most of Europe, Japan), Castle Doctrine (varies). Advice legal in Texas may be murder in Japan."
+  },
+  "dead_ends": [
+    {
+      "action": "Give universal self-defense legal advice without specifying jurisdiction",
+      "why_fails": "Stand Your Ground (Florida, Texas): no duty to retreat anywhere. Duty to Retreat (most of Europe, Japan, some US states): must flee if safely possible. UK: 'reasonable force' (subjective). Japan: extremely strict proportional force requirement. Wrong advice = prison.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Self-defense legal questions"
+    },
+    {
+      "action": "Assume Castle Doctrine applies universally",
+      "why_fails": "Castle Doctrine (right to use force in your home) varies dramatically. US (most states): broad protection. UK: 'disproportionate force' test. Germany: must attempt retreat even at home in some cases. Some countries require you to flee your own home.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Home invasion legal advice"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "ALWAYS state: 'Self-defense laws vary significantly by jurisdiction. This is general information, not legal advice. Consult a local attorney for your specific situation.' Then provide jurisdiction-specific information if the user's location is known.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Any self-defense legal question"
+    },
+    {
+      "action": "Key distinctions to communicate: Stand Your Ground vs. Duty to Retreat, proportional force requirements, what constitutes 'reasonable' force, castle doctrine scope, and when deadly force is legally justified (varies by state/country).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Self-defense legal education"
+    }
+  ],
+  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

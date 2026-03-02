@@ -114,7 +114,7 @@ class TestSeedSignatures:
     def test_all_seed_domains_in_schema(self):
         valid_domains = {
             "python", "cuda", "node", "pip", "docker",
-            "git", "mcp", "http", "auth", "db", "rust", "llm",
+            "git", "mcp", "http", "auth", "rust", "llm",
             "java", "database", "cicd", "php", "dotnet", "networking",
             "ros2", "embedded", "opencv", "cmake",
             "pytorch", "tensorflow", "huggingface",
@@ -122,7 +122,9 @@ class TestSeedSignatures:
             "android", "flutter", "unity",
             "api", "cloud", "data", "security", "policy", "communication",
             "typescript", "go", "kubernetes", "terraform", "aws",
-            "nextjs", "react",
+            "nextjs", "react", "culture",
+            "safety", "medical", "mental-health", "food-safety",
+            "disaster", "legal", "pet-safety",
         }
         for seed in SEED_SIGNATURES:
             assert seed["domain"] in valid_domains, (
