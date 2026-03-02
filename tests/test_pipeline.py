@@ -122,7 +122,9 @@ class TestSeedSignatures:
             "android", "flutter", "unity",
             "api", "cloud", "data", "security", "policy", "communication",
             "typescript", "go", "kubernetes", "terraform", "aws",
-            "nextjs", "react",
+            "nextjs", "react", "culture",
+            "safety", "medical", "mental-health", "food-safety",
+            "disaster", "legal", "pet-safety",
         }
         for seed in SEED_SIGNATURES:
             assert seed["domain"] in valid_domains, (

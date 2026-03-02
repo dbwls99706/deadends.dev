@@ -48,6 +48,14 @@ DOMAIN_DISPLAY_NAMES = {
     "unity": "Unity",
     # Cultural norms
     "culture": "Culture",
+    # Real-world safety
+    "safety": "Safety",
+    "medical": "Medical",
+    "mental-health": "Mental Health",
+    "food-safety": "Food Safety",
+    "disaster": "Disaster",
+    "legal": "Legal",
+    "pet-safety": "Pet Safety",
 }
 
 

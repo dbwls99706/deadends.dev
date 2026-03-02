@@ -145,6 +145,58 @@ def _suggest_domains(error_message):
             "connection refused", "timeout", "dns", "ssl",
             "tls", "certificate", "econnrefused", "socket",
         ],
+        "ros2": ["ros2", "ros ", "rclpy", "colcon", "ament"],
+        "embedded": ["embedded", "firmware", "microcontroller", "stm32", "arduino"],
+        "opencv": ["opencv", "cv2", "imshow", "videocapture"],
+        "cmake": ["cmake", "cmakelist", "find_package"],
+        "pytorch": ["pytorch", "torch.", "autograd", "dataloader"],
+        "tensorflow": ["tensorflow", "tf.", "keras", "savedmodel"],
+        "huggingface": ["huggingface", "transformers", "tokenizer", "from_pretrained"],
+        "llm": ["llm", "large language", "prompt", "hallucination", "token limit"],
+        "nginx": ["nginx", "reverse proxy", "upstream", "server block"],
+        "redis": ["redis", "redis-cli", "jedis", "redisconnection"],
+        "mongodb": ["mongodb", "mongo ", "mongoose", "bson"],
+        "kafka": ["kafka", "consumer", "producer", "broker", "zookeeper"],
+        "elasticsearch": ["elasticsearch", "elastic", "kibana", "lucene"],
+        "grpc": ["grpc", "protobuf", "proto ", ".proto"],
+        "android": ["android", "gradle", "apk", "activity", "intent"],
+        "flutter": ["flutter", "dart", "widget", "pubspec"],
+        "unity": ["unity", "gameobject", "monobehaviour", "prefab"],
+        "api": ["api ", "rest ", "endpoint", "rate limit", "429"],
+        "cloud": ["cloud", "gcp", "azure", "heroku", "vercel"],
+        "data": ["json", "csv", "xml", "yaml", "encoding", "utf-8"],
+        "security": ["security", "vulnerability", "xss", "csrf", "injection"],
+        "policy": ["policy", "terms of service", "rate limit", "quota"],
+        "communication": ["email", "smtp", "webhook", "notification"],
+        "culture": ["culture", "etiquette", "taboo", "offensive", "sensitivity"],
+        "safety": [
+            "fire", "electric shock", "cpr", "choking", "first aid",
+            "tourniquet", "heatstroke",
+        ],
+        "medical": [
+            "drug interaction", "medication", "allergy", "anaphylaxis",
+            "folk remedy", "dosage",
+        ],
+        "mental-health": [
+            "suicide", "depression", "self-harm", "crisis",
+            "mental health", "therapy",
+        ],
+        "food-safety": [
+            "food poisoning", "raw chicken", "expired food",
+            "room temperature", "cross contamination",
+        ],
+        "disaster": [
+            "earthquake", "tornado", "hurricane", "wildfire",
+            "tsunami", "evacuation",
+        ],
+        "legal": [
+            "self defense", "copyright", "fair use", "defamation",
+            "right to silence", "legal advice",
+        ],
+        "pet-safety": [
+            "dog toxic", "cat toxic", "pet poison",
+            "chocolate dog", "xylitol", "onion dog",
+        ],
     }
     for domain, keywords in keyword_map.items():
         for kw in keywords:
@@ -192,7 +244,7 @@ RESOURCES = [
         "uri": "deadends://domains",
         "name": "Error Domains",
         "description": (
-            "All 20 error domains with error counts and coverage statistics"
+            "All 50 error domains with error counts and coverage statistics"
         ),
         "mimeType": "application/json",
     },
@@ -215,9 +267,10 @@ TOOLS = [
             "errors. Returns dead ends (what NOT to try), workarounds (what "
             "works), and error chains (what comes next). Use this BEFORE "
             "attempting to fix any error to avoid wasting time on approaches "
-            "that are known to fail. Covers 20 domains: python, node, docker, "
-            "git, cuda, pip, typescript, rust, go, kubernetes, terraform, aws, "
-            "nextjs, react, java, database, cicd, php, dotnet, networking."
+            "that are known to fail. Covers 50 domains including python, "
+            "node, docker, git, cuda, typescript, rust, go, kubernetes, "
+            "terraform, aws, react, java, database, pytorch, tensorflow, "
+            "and 34 more. Use list_error_domains to see all."
         ),
         "inputSchema": {
             "type": "object",
@@ -267,9 +320,8 @@ TOOLS = [
         "name": "list_error_domains",
         "description": (
             "List all error domains and counts in the deadends.dev database. "
-            "Domains include: python, node, docker, git, cuda, pip, "
-            "typescript, rust, go, kubernetes, terraform, aws, nextjs, react, "
-            "java, database, cicd, php, dotnet, networking."
+            "Covers 50 domains including programming languages, frameworks, "
+            "infrastructure, ML/AI, culture, safety, medical, legal, and more."
         ),
         "inputSchema": {
             "type": "object",

@@ -27,6 +27,11 @@ class TestSchemaEdgeCases:
             "android", "flutter", "unity",
             # Quirk domains
             "api", "cloud", "data", "security", "policy", "communication",
+            # Cultural norms
+            "culture",
+            # Real-world safety / life-critical knowledge
+            "safety", "medical", "mental-health", "food-safety",
+            "disaster", "legal", "pet-safety",
             # Reserved for future expansion
             "mcp", "http", "auth",
         ]

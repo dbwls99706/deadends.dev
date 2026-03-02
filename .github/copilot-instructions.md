@@ -11,7 +11,7 @@ Reading the response:
 
 This saves tokens and time by avoiding known-failed approaches.
 
-Supported domains: python, node, docker, cuda, git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs, react.
+Supported domains (50): python, node, docker, cuda, git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs, react, java, database, cicd, php, dotnet, networking, android, api, cloud, cmake, communication, culture, data, disaster, elasticsearch, embedded, flutter, food-safety, grpc, huggingface, kafka, legal, llm, medical, mental-health, mongodb, nginx, opencv, pet-safety, policy, pytorch, redis, ros2, safety, security, tensorflow, unity.
 
 MCP config:
 ```json
