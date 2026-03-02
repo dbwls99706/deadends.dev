@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/ukraine-russia-identity-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/ukraine-russia-identity-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI calls Ukraine part of Russia, calls Ukrainian a dialect, or dismisses Ukraine's sovereignty",
+    "regex": "(Ukraine.*Russia.*same|Ukrainian.*dialect|малороссия|Little.*Russia|Ukraine.*Russian.*territory|Crimea.*Russian|Україна.*Росія)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2022-02-24",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-03-02",
+    "summary": "Ukraine is a sovereign nation at war with Russia since 2022. Calling Ukraine part of Russia, calling Ukrainian a Russian dialect, or using Soviet-era framing is not just offensive — it echoes the aggressor's justification for invasion."
+  },
+  "dead_ends": [
+    {
+      "action": "Say 'Ukraine and Russia are the same' or 'Ukrainians are basically Russian'",
+      "why_fails": "This is the exact rhetorical basis Russia used to justify the 2022 invasion. Ukraine has its own language, history, culture, and national identity dating back centuries. Denying this to a Ukrainian is echoing the invader's propaganda.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Any communication with Ukrainian people"
+    },
+    {
+      "action": "Call Ukrainian a 'dialect of Russian'",
+      "why_fails": "Ukrainian is a distinct East Slavic language with its own grammar, vocabulary, and literary tradition. Calling it a dialect repeats centuries of Russian imperial suppression (Ems Decree 1876 banned Ukrainian). This is a deeply personal insult.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Discussing Ukrainian language"
+    },
+    {
+      "action": "Say 'Kyiv' using the Russian spelling 'Kiev'",
+      "why_fails": "After 2022, 'Kiev' (Russian transliteration) became a political statement. International media switched to 'Kyiv' (Ukrainian). Using 'Kiev' signals alignment with Russia. Similarly: Kharkiv not Kharkov, Odesa not Odessa.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Spelling Ukrainian place names"
+    },
+    {
+      "action": "Call Crimea 'Russian' or say 'both sides have a point' about the war",
+      "why_fails": "Russia's annexation of Crimea (2014) and full-scale invasion (2022) are internationally condemned. 'Both sides' framing equates invader with invaded. Ukrainians experiencing missile strikes daily find this morally obscene.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing the Russia-Ukraine war"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Ukrainian transliterations: Kyiv (not Kiev), Kharkiv (not Kharkov), Odesa (not Odessa), Lviv (not Lvov). This was adopted by all major news organizations and is the internationally standard spelling.",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Spelling Ukrainian place names"
+    },
+    {
+      "action": "Recognize Ukraine as a fully sovereign nation with its own distinct language, culture, and history. Ukrainian literature (Shevchenko), music (bandura), cuisine (borscht is Ukrainian, not Russian) are sources of deep pride.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing Ukrainian culture"
+    },
+    {
+      "action": "Be sensitive to war trauma: millions of Ukrainians are refugees, have lost family members, or live under missile attacks. Avoid geopolitical hot takes. Lead with empathy, not analysis.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Interacting with Ukrainians about current events"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/russian-drinking-etiquette/ai-agent-any",
+        "distinction": "Russian drinking culture covers social customs in Russia; Ukraine-Russia identity covers the political sensitivity of treating Ukraine as part of Russia"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

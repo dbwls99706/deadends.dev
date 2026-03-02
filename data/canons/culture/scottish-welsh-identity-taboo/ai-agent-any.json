@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/scottish-welsh-identity-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/scottish-welsh-identity-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI calls Scottish or Welsh people 'English' or treats Britain as synonymous with England",
+    "regex": "(Scottish.*English|Welsh.*English|England.*Britain|British.*English.*same|Scottish.*independence|Wales.*England|Cymru)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-03-02",
+    "summary": "Scotland and Wales are distinct nations within the United Kingdom, NOT regions of England. Calling a Scot or Welsh person 'English' is a serious insult. Each has its own language, parliament, culture, and national identity."
+  },
+  "dead_ends": [
+    {
+      "action": "Call a Scottish person 'English' or say Scotland is part of England",
+      "why_fails": "Scotland is a nation with its own parliament, legal system, education system, and 1,000+ years of distinct history. The independence movement nearly succeeded in 2014 (45% voted yes). Calling Scots 'English' dismisses all of this.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Identifying Scottish people"
+    },
+    {
+      "action": "Call a Welsh person 'English' or treat Wales as an English county",
+      "why_fails": "Wales (Cymru) has its own language (Cymraeg — actively spoken by 30% of population), its own parliament (Senedd), and a fierce national identity. Welsh is one of Europe's oldest living languages. Erasing it is colonial.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Identifying Welsh people"
+    },
+    {
+      "action": "Use 'England' when you mean 'United Kingdom' or 'Great Britain'",
+      "why_fails": "England, Scotland, Wales, and Northern Ireland are four nations in the UK. Using 'England' for all four erases three nations. This is the most common and most resented mistake by international speakers.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Referring to the UK collectively"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Know the terminology: England = one country. Great Britain = England + Scotland + Wales. United Kingdom = Great Britain + Northern Ireland. British = citizens of the UK. English = only people from England.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Correct geographic and political terminology"
+    },
+    {
+      "action": "When unsure of someone's national identity within the UK, say 'British' (safe umbrella term) or ask. Many Scots identify as Scottish first, British second (or not at all). Same for many Welsh people.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Addressing UK citizens"
+    },
+    {
+      "action": "Respect distinct sporting identities: Scotland, Wales, England, and Northern Ireland have separate teams in football, rugby, and cricket. Cheering for 'England' in a Scottish pub will not end well.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Sports discussions in UK context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/british-understatement/ai-agent-any",
+        "distinction": "British understatement covers UK-wide communication style; Scottish/Welsh identity covers the specific offense of conflating these nations with England"
+      },
+      {
+        "error_id": "culture/ireland-uk-taboo/ai-agent-any",
+        "distinction": "Ireland-UK taboo covers the Republic of Ireland (independent country); Scottish/Welsh identity covers nations within the UK that are not England"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

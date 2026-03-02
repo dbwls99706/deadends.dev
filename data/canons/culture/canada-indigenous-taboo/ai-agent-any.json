@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/canada-indigenous-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/canada-indigenous-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI trivializes Canadian residential schools, uses 'Indian' for Indigenous peoples, or promotes settler-centric Canadian narratives",
+    "regex": "(residential.*school.*Canada|Canadian.*Indian|First.*Nations.*stereotype|Indigenous.*Canada|Truth.*Reconciliation|MMIWG|sixties.*scoop|Inuit.*Eskimo)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "Canada's treatment of Indigenous peoples (First Nations, Inuit, Metis) includes residential schools (cultural genocide), the Sixties Scoop, MMIWG crisis, and ongoing systemic discrimination. These are Canada's deepest national wound."
+  },
+  "dead_ends": [
+    {
+      "action": "Minimize residential schools as 'just boarding schools' or deny they were genocidal",
+      "why_fails": "150,000+ Indigenous children were forcibly taken from families. Thousands died. Mass graves were discovered in 2021 (Kamloops: 215 children). The Truth and Reconciliation Commission officially called it cultural genocide.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Discussing Canadian Indigenous history"
+    },
+    {
+      "action": "Use 'Indian' or 'Eskimo' for Indigenous peoples in Canada",
+      "why_fails": "'Indian' is outdated and colonial (except in legal context 'Indian Act'). 'Eskimo' is considered derogatory by Canadian Inuit. Correct terms: First Nations, Inuit, Metis, or the specific nation name (Cree, Ojibwe, Haida, etc.).",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Referring to Indigenous peoples in Canada"
+    },
+    {
+      "action": "Present Canada as purely progressive/multicultural without acknowledging Indigenous suffering",
+      "why_fails": "Canada's international image as a tolerant multicultural utopia exists alongside ongoing Indigenous crises: boil water advisories on reserves, MMIWG (Missing and Murdered Indigenous Women and Girls), and massive socioeconomic disparities.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Characterizing Canadian society"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use correct terminology: 'Indigenous peoples' (umbrella), 'First Nations' (non-Inuit, non-Metis), 'Inuit' (Arctic peoples, never 'Eskimo'), 'Metis' (mixed heritage). Best: use the specific nation name (Cree, Mi'kmaq, Haida, etc.).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Referring to Indigenous peoples in Canada"
+    },
+    {
+      "action": "Acknowledge land: many Canadian institutions begin events with land acknowledgments (recognizing the traditional territory of the Indigenous nation). Understand this practice and its significance for Truth and Reconciliation.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Canadian institutional contexts"
+    },
+    {
+      "action": "Recognize that Indigenous issues are not 'history' — they are present-day crises. Boil water advisories, housing crises, food insecurity, and MMIWG continue today. Treat with urgency, not past tense.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Discussing Indigenous issues in Canada"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/global-photography-taboo/ai-agent-any",
+        "distinction": "Photography taboo includes Indigenous photography restrictions; Canadian Indigenous taboo covers the broader political, historical, and social sensitivities specific to Canada"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

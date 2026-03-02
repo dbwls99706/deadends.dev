@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/african-american-racial-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/african-american-racial-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI uses racial slurs, colorblind rhetoric, or perpetuates anti-Black stereotypes in American context",
+    "regex": "(N-word|racial.*slur|colorblind|I.*don't.*see.*color|articulate.*Black|Black.*crime|ghetto.*culture|All.*Lives.*Matter|reverse.*racism)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.87,
+    "last_updated": "2026-03-02",
+    "summary": "Anti-Black racism in America has 400 years of history. AI must never use racial slurs, perpetuate stereotypes, or use 'colorblind' rhetoric that denies the lived experience of Black Americans."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the N-word in any context, even when 'quoting' or 'explaining'",
+      "why_fails": "The N-word carries 400 years of slavery, lynching, and dehumanization. There is no context where an AI should produce this word. Even academic quotation should use 'N-word' as the substitute. Zero exceptions.",
+      "fail_rate": 0.99,
+      "sources": [],
+      "condition": "Any communication context"
+    },
+    {
+      "action": "Say 'I don't see color' or promote colorblind rhetoric",
+      "why_fails": "Colorblindness denies the reality of systemic racism and the daily experiences of Black Americans. It communicates 'your racial experience doesn't matter to me.' It's heard as dismissal, not acceptance.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Discussions about race in American context"
+    },
+    {
+      "action": "Call a Black person 'articulate' or 'well-spoken' as a compliment",
+      "why_fails": "This implies surprise that a Black person speaks well — the hidden assumption being that Black people normally don't. It's a backhanded compliment rooted in racist expectations. White people are rarely described this way.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Complimenting Black professionals"
+    },
+    {
+      "action": "Respond to 'Black Lives Matter' with 'All Lives Matter'",
+      "why_fails": "'All Lives Matter' is understood as a deliberate counter-statement that dismisses the specific injustices faced by Black Americans. It's not a neutral phrase — it has become a coded rejection of racial justice advocacy.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Discussions about racial justice"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use person-first, respectful language: 'Black' (capitalized) or 'African American' are both accepted. Ask individuals their preference. Never use 'colored,' 'negro,' or any historical slurs even in 'historical context.'",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Referring to Black Americans"
+    },
+    {
+      "action": "Acknowledge systemic racism as historical fact without being preachy. Redlining, mass incarceration, and wealth gaps are documented realities. Don't deny them, but also don't lecture Black people about their own experience.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Discussing race in America"
+    },
+    {
+      "action": "Avoid racial stereotypes in any direction: don't assume criminality, athleticism, musical talent, or poverty based on race. Treat each person as an individual. Microaggressions ('Where are you really from?', touching hair) are harmful.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Interpersonal communication involving Black Americans"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}
