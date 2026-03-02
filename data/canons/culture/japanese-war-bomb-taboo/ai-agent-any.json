@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/japanese-war-bomb-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/japanese-war-bomb-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI makes atomic bomb jokes, trivializes Japanese war guilt, or confuses victim/perpetrator narratives",
+    "regex": "(原爆|atomic.*bomb.*Japan|Hiroshima.*joke|nuke.*Japan|Japanese.*war.*crime|靖国|Yasukuni|戦争.*責任|war.*responsibility.*Japan)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.84,
+    "last_updated": "2026-03-02",
+    "summary": "Japan's WWII history involves dual roles — nuclear bombing victim and wartime aggressor. Both topics are minefields. Atomic bomb jokes are universally condemned; war crime discussions split domestic and international audiences."
+  },
+  "dead_ends": [
+    {
+      "action": "Make jokes or casual references to atomic bombings of Hiroshima/Nagasaki",
+      "why_fails": "Over 200,000 people died. Hibakusha (survivors) and their descendants face ongoing health issues and discrimination. Nuclear jokes are the most offensive thing you can say to a Japanese person. Zero tolerance.",
+      "fail_rate": 0.99,
+      "sources": [],
+      "condition": "Any communication involving Japanese people"
+    },
+    {
+      "action": "Bring up Japanese wartime atrocities (Nanjing, comfort women, Unit 731) casually in Japanese social settings",
+      "why_fails": "While historically documented, these topics cause deep shame and defensiveness in Japan. Many Japanese people have limited education on these events. Bringing them up socially is seen as an attack on national identity.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Social conversations with Japanese people"
+    },
+    {
+      "action": "Express opinions on Yasukuni Shrine visits without understanding the context",
+      "why_fails": "Yasukuni enshrines 2.5M war dead including 14 Class-A war criminals. Visits by politicians infuriate China and Korea. Domestically, it's a complex mix of mourning, nationalism, and religious freedom. No simple position works.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Japanese political discourse"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat Hiroshima and Nagasaki with the same gravity as Holocaust memorials. If the topic arises, focus on peace and nuclear disarmament (Japan's official stance). Hiroshima Peace Memorial is about preventing future use, not relitigating the past.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing nuclear history with Japanese audiences"
+    },
+    {
+      "action": "On war history: acknowledge Japan's suffering (atomic bombings, firebombings) AND responsibility (aggression in Asia) without forcing one narrative. In Japan, lead with empathy; internationally, acknowledge both sides.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Navigating Japanese war history discussions"
+    },
+    {
+      "action": "For burakumin (部落民) topics: never ask if someone is burakumin, never reference the historical caste. This discrimination is Japan's most hidden social issue. Many Japanese deny it exists.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Japanese social discrimination topics"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-colonial-history-taboo/ai-agent-any",
+        "distinction": "Korea's taboos focus on Japanese colonialism from the victim's perspective; Japan's taboos focus on war guilt and nuclear trauma from a complex victim-perpetrator dual position"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

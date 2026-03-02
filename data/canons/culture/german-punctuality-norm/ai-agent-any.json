@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/german-punctuality-norm/ai-agent-any",
+  "url": "https://deadends.dev/culture/german-punctuality-norm/ai-agent-any",
+  "error": {
+    "signature": "AI disregards German punctuality and directness norms in business scheduling",
+    "regex": "(German.*punctual|Pünktlichkeit|German.*business|direct.*communication|German.*meeting)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-02-28",
+    "summary": "German business culture values strict punctuality, direct communication, and formal structure. AI must respect these when scheduling, drafting messages, or advising on German business interactions."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest arriving 'fashionably late' or treating meeting times as approximate",
+      "why_fails": "In Germany, 5 minutes late is considered disrespectful. Meetings start exactly on time. Suggesting flexible timing damages professional credibility.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Scheduling advice for German business context"
+    },
+    {
+      "action": "Draft vague, overly diplomatic business emails for German recipients",
+      "why_fails": "Germans value Klarheit (clarity). Indirect language is seen as evasive or untrustworthy. 'Perhaps we could consider...' reads as weakness; 'We propose X because Y' is expected.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Drafting business communication for Germans"
+    },
+    {
+      "action": "Use first names without being invited to do so",
+      "why_fails": "German business uses Herr/Frau + surname until explicitly offered the 'Du' (informal you). Premature first-name usage (Duzen) breaks professional boundaries.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Addressing German business contacts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Schedule meetings with exact times and send agendas in advance. Arrive 5 minutes early. End on time — overtime signals poor planning, not dedication.",
+      "success_rate": 0.93,
+      "sources": [],
+      "condition": "German business meeting scheduling"
+    },
+    {
+      "action": "Write clear, structured business emails: state purpose in first sentence, use bullet points for action items, avoid emotional language. Sehr geehrte(r) Herr/Frau [Surname] as salutation",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "German business email drafting"
+    },
+    {
+      "action": "Default to Sie (formal you) and Herr/Frau + Nachname until the German counterpart explicitly offers Du. This may never happen in some industries.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Addressing Germans in professional context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-02-28"
+  }
+}

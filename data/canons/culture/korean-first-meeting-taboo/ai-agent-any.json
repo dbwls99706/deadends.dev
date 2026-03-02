@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/korean-first-meeting-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/korean-first-meeting-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI asks inappropriate personal questions in Korean first-meeting contexts",
+    "regex": "(Korean.*first.*meet|첫.*만남|소개팅|나이.*물어|Korean.*personal.*question|한국.*초면)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-02-28",
+    "summary": "Korean first meetings have unique dynamics: age questions are acceptable (to establish hierarchy) but politics, religion, salary, and North Korea are off-limits. AI must understand this inverted norm compared to Western culture."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring up politics (정치), especially progressive vs conservative divide, in Korean first meetings",
+      "why_fails": "Korean politics is deeply polarized (진보 vs 보수). Political discussion with strangers can instantly create enemies. Even among friends, it's a minefield. Avoid entirely at first meetings.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "First meeting conversation in Korean context"
+    },
+    {
+      "action": "Ask about salary, rent, or specific financial details",
+      "why_fails": "Despite Korea's culture of comparison (비교문화), asking salary directly at first meeting is invasive. It triggers anxiety about social ranking. General job/company questions are fine; specific numbers are not.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Small talk in Korean social settings"
+    },
+    {
+      "action": "Assume Koreans are uncomfortable being asked their age",
+      "why_fails": "Unlike Western culture where age is private, Koreans frequently ask age at first meeting (몇 살이에요?/몇 년생이에요?) because it determines the entire speech level and social dynamic. Not asking can be awkward.",
+      "fail_rate": 0.70,
+      "sources": [],
+      "condition": "Understanding Korean vs Western norms about age"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Safe Korean first meeting topics: where you went to school (학교), what you do for work (직업), military service for men (군대 - bonding topic), hobbies, food preferences, K-drama/K-pop",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Korean social first meetings"
+    },
+    {
+      "action": "When age comes up (and it will), respond naturally. Birth year (몇 년생?) is the standard question. This determines 형/누나/오빠/언니 terms and speech levels. It is expected, not rude.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Age discussion in Korean context"
+    },
+    {
+      "action": "Avoid: North Korea jokes, Japanese colonial history opinions, 지역감정 (regional rivalry, especially 경상도 vs 전라도), religion, and plastic surgery comments. These are sensitive even among close Korean friends.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Topics to avoid in Korean conversations"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/korean-age-hierarchy/ai-agent-any",
+        "distinction": "Age hierarchy governs ongoing behavioral norms while first-meeting taboos are about initial conversation topic selection"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

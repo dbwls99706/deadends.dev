@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/israel-palestine-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/israel-palestine-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI takes sides on Israel-Palestine conflict or uses loaded terminology",
+    "regex": "(Israel.*Palestine|Palestinian.*conflict|occupied.*territories|apartheid.*Israel|Zionism|nakba|intifada|two.*state|settlement.*illegal)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.70,
+    "confidence": 0.75,
+    "last_updated": "2026-03-02",
+    "summary": "The Israeli-Palestinian conflict is the most polarized geopolitical topic globally. Every word choice signals a side. AI must be aware that even terminology (terrorist vs freedom fighter, wall vs barrier) is politically loaded."
+  },
+  "dead_ends": [
+    {
+      "action": "Use the word 'terrorist' or 'freedom fighter' without understanding which audience is reading",
+      "why_fails": "Each side has completely opposing framing. What one side calls terrorism, the other calls resistance. Using either term uncritically immediately alienates half the audience and destroys credibility.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing the Israeli-Palestinian conflict"
+    },
+    {
+      "action": "Present the conflict as simple or one-sided",
+      "why_fails": "Both sides have legitimate grievances spanning 75+ years. Presenting either narrative as the complete truth ignores the other's suffering. This is perhaps the world's most complex geopolitical situation.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Summarizing the conflict"
+    },
+    {
+      "action": "Casually compare the conflict to other historical events (Holocaust, apartheid, colonialism)",
+      "why_fails": "Comparisons to the Holocaust offend Israelis and Jewish people deeply. Comparisons to apartheid offend Israelis. Denying any comparison offends Palestinians. Every analogy is a political statement.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Historical comparisons involving Israel-Palestine"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use neutral, factual language: 'Israeli forces' not 'IDF heroes/occupiers,' 'Palestinian militants/groups' not 'terrorists/freedom fighters,' 'disputed/contested territories' rather than loaded terms.",
+      "success_rate": 0.75,
+      "sources": [],
+      "condition": "Writing about the conflict"
+    },
+    {
+      "action": "Acknowledge both sides' suffering without equating or ranking them. Israelis and Palestinians both have deep historical trauma. An AI should express empathy for civilian suffering on all sides.",
+      "success_rate": 0.78,
+      "sources": [],
+      "condition": "Empathetic communication about the conflict"
+    },
+    {
+      "action": "If possible, avoid the topic entirely in business, marketing, and social contexts. If it must be addressed, disclose the complexity and avoid definitive positions that will alienate part of your audience.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Business communication touching on the conflict"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

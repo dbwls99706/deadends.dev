@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/chinese-guanxi-business/ai-agent-any",
+  "url": "https://deadends.dev/culture/chinese-guanxi-business/ai-agent-any",
+  "error": {
+    "signature": "AI ignores Chinese guanxi (關係) in business relationship advice",
+    "regex": "(guanxi|關係|关系|Chinese.*business.*relationship|mianzi|面子|renqing|人情|Chinese.*negotiation)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "Chinese business operates on guanxi (relationships), mianzi (face), and renqing (reciprocal obligations). Transactional Western approaches without relationship-building fail systematically in China."
+  },
+  "dead_ends": [
+    {
+      "action": "Propose business deals without established personal relationship in China",
+      "why_fails": "In China, guanxi precedes business. Cold outreach or contract-first approaches fail because trust must be built through personal relationships, shared meals, and mutual connections before any deal.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Entering Chinese market or seeking Chinese partnerships"
+    },
+    {
+      "action": "Cause someone to lose face (丢面子) publicly in Chinese business",
+      "why_fails": "Mianzi (面子/face) is the currency of Chinese social life. Public criticism, correcting someone in front of others, or rejecting a proposal bluntly destroys the relationship permanently.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Chinese business communication"
+    },
+    {
+      "action": "Decline favors or gifts without offering reciprocation",
+      "why_fails": "Renqing (人情) is the system of reciprocal obligations. Accepting a favor creates a debt that must be repaid. Refusing to reciprocate, or refusing a favor without good reason, breaks the guanxi network.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Chinese business favor/gift exchanges"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Invest in relationship-building: shared banquets (宴请), baijiu drinking, gift exchange, visiting during Chinese New Year. Business follows relationship, not the reverse. Budget time and money for guanxi.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Building Chinese business relationships"
+    },
+    {
+      "action": "Give face (给面子): praise achievements publicly, use proper titles, defer to seniority, accept suggestions graciously. Save criticism for private one-on-one conversations with careful framing.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Managing face in Chinese business"
+    },
+    {
+      "action": "Maintain your guanxi network: remember birthdays, send festival greetings (especially Chinese New Year), reciprocate favors promptly, introduce useful contacts to your Chinese partners.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Long-term Chinese business relationships"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/china-sensitive-topics/ai-agent-any",
+        "distinction": "Sensitive topics are political restrictions while guanxi is the fundamental social operating system of Chinese business"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

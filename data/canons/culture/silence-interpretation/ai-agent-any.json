@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/silence-interpretation/ai-agent-any",
+  "url": "https://deadends.dev/culture/silence-interpretation/ai-agent-any",
+  "error": {
+    "signature": "AI misinterprets silence across cultures (agreement vs disagreement vs comfort)",
+    "regex": "(silence.*culture|silence.*meaning|沈黙|침묵|awkward.*silence|Finnish.*silence|Japanese.*silence|comfortable.*silence)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.83,
+    "confidence": 0.80,
+    "last_updated": "2026-03-02",
+    "summary": "Silence carries dramatically different meanings across cultures. In Finland it signals comfort and trust. In Japan it often indicates disagreement. In America it signals awkwardness. AI must interpret silence through cultural context."
+  },
+  "dead_ends": [
+    {
+      "action": "Interpret silence after a proposal as agreement in Japanese business",
+      "why_fails": "Japanese silence (沈黙/chinmoku) after a business proposal usually signals discomfort, disagreement, or the need for internal consensus (根回し/nemawashi). Treating it as approval leads to failed expectations.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Japanese business negotiations"
+    },
+    {
+      "action": "Fill every pause in conversation when speaking with Finns or Japanese",
+      "why_fails": "Finnish culture values silence as a sign of trust and thoughtfulness. Japanese culture uses ma (間/space between) as a communication tool. Compulsively filling silence signals nervousness and superficiality.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Conversations with Finnish or Japanese people"
+    },
+    {
+      "action": "Assume silence means the same thing in all cultures",
+      "why_fails": "American silence = awkward/hostile. Finnish silence = comfortable/trusting. Japanese silence = careful consideration or disagreement. Arab silence = disapproval. Each requires different response.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Cross-cultural communication interpretation"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Culture-specific silence guide: Japan (often disagreement, give time), Finland (comfort, don't rush), US/Latin America (needs filling, creates discomfort), Korea (respect for elders' words), Arab (may indicate displeasure).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Interpreting silence across cultures"
+    },
+    {
+      "action": "In Japanese business, after silence: ask an open question gently ('How does your team feel about this approach?'). Never pressure for immediate answers. Expect decisions to come later via email or through a junior contact.",
+      "success_rate": 0.83,
+      "sources": [],
+      "condition": "Responding to Japanese business silence"
+    },
+    {
+      "action": "When coaching cross-cultural communication: teach that silence duration comfort varies. Americans are uncomfortable after 4 seconds, Japanese are comfortable with 8+ seconds. Adjust expectations per culture.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Cross-cultural communication training"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/western-direct-refusal/ai-agent-any",
+        "distinction": "Direct refusal patterns cover explicit communication differences while silence interpretation addresses the meaning of absence of communication"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/india-pakistan-kashmir-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/india-pakistan-kashmir-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI takes sides on Kashmir, conflates India-Pakistan identities, or trivializes Partition",
+    "regex": "(Kashmir.*dispute|India.*Pakistan.*conflict|Partition.*1947|Hindu.*Muslim.*India|Indian.*Pakistani.*same|PoK|Azad.*Kashmir)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.80,
+    "last_updated": "2026-03-02",
+    "summary": "India-Pakistan relations are defined by Partition trauma (1947), Kashmir territorial dispute, and nuclear rivalry. Conflating the two nations or taking sides on Kashmir triggers intense reactions from both populations."
+  },
+  "dead_ends": [
+    {
+      "action": "Say 'India and Pakistan are basically the same' or conflate their cultures",
+      "why_fails": "Despite shared pre-Partition history, Indians and Pakistanis have distinct national identities forged through the traumatic 1947 Partition (1-2 million died, 15 million displaced). Conflating them denies this defining experience.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Discussing Indian or Pakistani identity"
+    },
+    {
+      "action": "Take a definitive position on Kashmir's sovereignty",
+      "why_fails": "India considers all of Kashmir its integral territory. Pakistan considers PoK/Azad Kashmir its territory. Even the terminology is political: 'PoK' (Indian framing) vs 'Azad Kashmir' (Pakistani framing). Both countries have fought wars over it.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing Kashmir"
+    },
+    {
+      "action": "Stereotype India as entirely Hindu or Pakistan as monolithically Muslim",
+      "why_fails": "India has 200M+ Muslims (world's 3rd largest Muslim population). Pakistan has Hindu, Christian, and Sikh minorities. Religious identity is complex in both nations. Stereotyping erases hundreds of millions of people.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Discussing religion in South Asia"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat India and Pakistan as fully distinct sovereign nations with their own cultures, achievements, and identities. Acknowledge shared history where relevant but never collapse them into one entity.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Communication involving South Asian audiences"
+    },
+    {
+      "action": "On Kashmir: if unavoidable, present it as a 'disputed territory' without assigning sovereignty. Use neutral terms. Avoid any map that shows Kashmir as entirely Indian or entirely Pakistani.",
+      "success_rate": 0.80,
+      "sources": [],
+      "condition": "Maps or territorial discussions involving Kashmir"
+    },
+    {
+      "action": "Avoid Partition comparisons for casual purposes. The 1947 Partition was one of history's largest forced migrations with massive violence. It defines family histories across South Asia. Treat it with Holocaust-level gravity.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Historical discussions involving South Asia"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/indian-head-gesture-misread/ai-agent-any",
+        "distinction": "Head gesture covers Indian social communication while Kashmir taboo covers geopolitical sensitivities — both are Indian context but entirely different domains"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

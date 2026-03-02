@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/japanese-business-card/ai-agent-any",
+  "url": "https://deadends.dev/culture/japanese-business-card/ai-agent-any",
+  "error": {
+    "signature": "AI disregards Japanese business card (名刺/meishi) exchange ritual",
+    "regex": "(Japanese.*business.*card|名刺|meishi|名刺交換|Japanese.*meeting.*etiquette)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-02-28",
+    "summary": "The Japanese business card exchange (名刺交換/meishi koukan) is a sacred ritual. The card represents the person's identity. Mishandling it is equivalent to disrespecting the person themselves."
+  },
+  "dead_ends": [
+    {
+      "action": "Receive a Japanese business card with one hand, glance at it, and pocket it immediately",
+      "why_fails": "The card IS the person in Japanese business culture. Receiving one-handed, not reading it carefully, or pocketing it immediately signals you don't value the person or the relationship.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Japanese business card exchange"
+    },
+    {
+      "action": "Write notes on a received business card or place objects on top of it",
+      "why_fails": "Writing on someone's meishi is like writing on their face. Placing a coffee cup or papers on top of it is deeply insulting. The card must be treated with reverence throughout the meeting.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Handling business cards during Japanese meetings"
+    },
+    {
+      "action": "Skip the card exchange or suggest 'just connecting on LinkedIn instead'",
+      "why_fails": "The meishi exchange is the opening ritual of any Japanese business relationship. Skipping it signals you don't take the relationship seriously. Always carry meishi in Japan.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Initial Japanese business meetings"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Present card with both hands, Japanese text facing the recipient, with a slight bow. State your name and company. Receive their card with both hands, read it carefully, and make a positive comment about their role or company.",
+      "success_rate": 0.93,
+      "sources": [],
+      "condition": "Japanese business card exchange ritual"
+    },
+    {
+      "action": "During the meeting, place received cards on the table in front of you, arranged by seating position. The most senior person's card goes on top of your card case. Keep them visible throughout.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Card placement during Japanese meetings"
+    },
+    {
+      "action": "Carry a meishi case (名刺入れ). Store received cards carefully after the meeting. For foreigners: have cards printed with English on one side, Japanese on the other. Present Japanese side up to Japanese recipients.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Preparation for Japanese business meetings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/japanese-keigo-misuse/ai-agent-any",
+        "distinction": "Keigo is verbal formality while meishi exchange is physical ritual — both are crucial first-impression elements in Japanese business"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

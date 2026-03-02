@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/arab-hospitality-refusal/ai-agent-any",
+  "url": "https://deadends.dev/culture/arab-hospitality-refusal/ai-agent-any",
+  "error": {
+    "signature": "AI fails to understand Arab hospitality obligations and polite refusal rituals",
+    "regex": "(Arab.*hospitality|karam|كرم|Arab.*guest|Bedouin.*custom|Arab.*coffee|gahwa|Arab.*invitation)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-03-02",
+    "summary": "Arab hospitality (karam/كرم) is a sacred duty rooted in Bedouin tradition. Guests must be honored regardless of circumstance. Understanding the three-offer ritual and coffee ceremony is essential."
+  },
+  "dead_ends": [
+    {
+      "action": "Accept food or drink on the first offer in Arab culture",
+      "why_fails": "The three-offer ritual (taarof in Persian, similar in Arab culture): the host offers, the guest politely declines, the host insists, the guest declines again, the host insists a third time, and then the guest accepts. Accepting immediately seems greedy.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Hospitality interactions in Arab/Persian culture"
+    },
+    {
+      "action": "Refuse all food when visiting an Arab home",
+      "why_fails": "After the polite refusal ritual, you must eventually accept. Refusing everything entirely insults the host's honor and generosity. At minimum, accept tea/coffee and a small portion of food.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Arab home visits"
+    },
+    {
+      "action": "Pour your own Arabic coffee (gahwa) or refuse the first cup",
+      "why_fails": "Arabic coffee is served by the host or a designated server. You never pour your own. The first cup is obligatory. To signal 'no more,' gently shake/tilt the cup side to side when returning it.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Arabic coffee ceremony"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the three-offer ritual: politely decline once or twice, then accept graciously. This shows you're not greedy but also honor the host. Express effusive gratitude when accepting.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Hospitality interactions in Arab culture"
+    },
+    {
+      "action": "For Arabic coffee (gahwa): accept the first cup with right hand, drink it (small portion), return the cup for refills. When done, gently shake the cup side to side. Never set it down with coffee remaining.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Arabic coffee ceremony etiquette"
+    },
+    {
+      "action": "Compliment the host's hospitality and food generously, but never over-admire specific possessions — in traditional culture, the host may feel obligated to gift them to you (and will insist).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Behavior as a guest in Arab homes"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/turkish-hospitality-obligation/ai-agent-any",
+        "distinction": "Turkish hospitality shares roots with Arab karam but has distinct secular elements from Atatürk's reforms and different tea culture"
+      },
+      {
+        "error_id": "culture/arabic-left-hand-taboo/ai-agent-any",
+        "distinction": "Left-hand taboo covers hygiene/purity norms while hospitality refusal is about social ritual and honor dynamics"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

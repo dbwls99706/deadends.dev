@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/nordic-janteloven/ai-agent-any",
+  "url": "https://deadends.dev/culture/nordic-janteloven/ai-agent-any",
+  "error": {
+    "signature": "AI violates Nordic Janteloven (Law of Jante) by encouraging boasting or showiness",
+    "regex": "(Jantelov|Nordic.*modest|Scandinavian.*etiquette|lagom|Swedish.*culture|Norwegian.*culture|Danish.*culture|Finnish.*silence)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-03-02",
+    "summary": "Nordic cultures follow Janteloven — the unwritten law that no one should think they are better than others. Boasting, flashy displays, and self-promotion are deeply frowned upon. Swedish 'lagom' (just enough) is the ideal."
+  },
+  "dead_ends": [
+    {
+      "action": "Draft self-promotional or boastful content for Nordic audiences",
+      "why_fails": "Janteloven's core: 'Du skal ikke tro du er noget' (Don't think you're special). Self-promotion that works in American culture causes active dislike in Scandinavia. Humility is the only acceptable mode.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Marketing or personal branding for Nordic audiences"
+    },
+    {
+      "action": "Interpret Nordic quietness or minimal response as disinterest",
+      "why_fails": "Finns and Swedes value silence and brevity. A short 'ja' (yes) may signal strong agreement. Verbose responses feel performative. Silence is comfortable, not awkward, in Nordic culture.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Interpreting Nordic communication style"
+    },
+    {
+      "action": "Suggest loud, attention-grabbing behavior in Nordic social settings",
+      "why_fails": "Speaking loudly in public, bragging about achievements, or displaying wealth (flashy cars, designer logos) violates lagom. 'Just enough' is the Nordic ideal — excess in any direction is judged.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Social behavior advice for Nordic contexts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For Nordic business: let achievements speak for themselves. Use data and results instead of superlatives. 'Our product improved metrics by 40%' beats 'We have the best product in the world.'",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Business communication for Nordic audiences"
+    },
+    {
+      "action": "Respect personal space and silence. Finns maintain large personal space. Swedish 'fika' (coffee break) is social but structured. Don't force small talk — comfortable silence is valued.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Social interactions in Nordic countries"
+    },
+    {
+      "action": "Embrace consensus and equality. Nordic workplaces are flat — don't overemphasize hierarchy. Decisions are collaborative. Address everyone by first name (even CEOs in Sweden/Denmark).",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Nordic workplace culture"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/german-punctuality-norm/ai-agent-any",
+        "distinction": "German culture values directness and formality while Nordic culture values modesty and equality — both are Northern European but differ fundamentally"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

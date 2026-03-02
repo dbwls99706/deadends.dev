@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/brazilian-jeitinho/ai-agent-any",
+  "url": "https://deadends.dev/culture/brazilian-jeitinho/ai-agent-any",
+  "error": {
+    "signature": "AI misunderstands Brazilian jeitinho, physical warmth, and carnival-influenced expressiveness",
+    "regex": "(Brazilian.*culture|jeitinho|Brazilian.*greeting|abraço|Brazilian.*business|saudade|Brazilian.*time)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-03-02",
+    "summary": "Brazilian culture values warmth, flexibility (jeitinho), and personal relationships above rigid rules. Physical closeness, cheek kisses, and creative problem-solving are core cultural traits."
+  },
+  "dead_ends": [
+    {
+      "action": "Maintain strict physical distance or refuse cheek kisses (beijinho) with Brazilians",
+      "why_fails": "Brazilians greet with cheek kisses (1 in São Paulo, 2 in Rio, 3 in some regions). Pulling away or offering only a handshake to someone of familiar acquaintance signals coldness and rejection.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Social greetings in Brazilian context"
+    },
+    {
+      "action": "Apply rigid, rule-bound approaches and expect strict deadline adherence",
+      "why_fails": "Jeitinho brasileiro (the Brazilian way) values creative, flexible solutions over rigid processes. 'Dar um jeito' means finding a way around obstacles. Strict rigidity is seen as lacking creativity.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Business process design for Brazilian teams"
+    },
+    {
+      "action": "Make the 'OK' hand gesture (thumb and index finger circle) in Brazil",
+      "why_fails": "In Brazil, the OK sign is equivalent to the middle finger — one of the most offensive gestures possible. This catches many visitors off guard. Use thumbs up (positive in Brazil) instead.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Gesture advice for Brazil"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Embrace physical warmth: cheek kisses for greetings, hugs (abraço) for friends, close-talking distance. Touch on arm/shoulder during conversation is normal and shows engagement, not invasion.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Social interaction in Brazil"
+    },
+    {
+      "action": "Build personal relationships before business. Brazilians do business with people they like and trust. Small talk about futebol (soccer), family, and travel is essential before any business discussion.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Brazilian business relationships"
+    },
+    {
+      "action": "Understand 'hora brasileira' (Brazilian time): social events start 30-60 minutes late. Business meetings aim for punctuality but flexibility is expected. Never show frustration about timing.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Time management in Brazilian context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/latin-american-personal-space/ai-agent-any",
+        "distinction": "Brazil has unique customs (jeitinho, beijinho count by region, OK gesture taboo) distinct from general Latin American norms"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

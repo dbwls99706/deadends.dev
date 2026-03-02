@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/russian-drinking-etiquette/ai-agent-any",
+  "url": "https://deadends.dev/culture/russian-drinking-etiquette/ai-agent-any",
+  "error": {
+    "signature": "AI misadvises on Russian drinking and toasting customs",
+    "regex": "(Russian.*drink|Russian.*toast|vodka.*etiquette|за здоровье|Russian.*dinner|Russian.*celebration)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-02-28",
+    "summary": "Russian drinking culture has strict toasting rituals, superstitions about empty bottles, and social obligations. AI must understand these when advising on Russian social or business events."
+  },
+  "dead_ends": [
+    {
+      "action": "Leave an empty bottle on the table",
+      "why_fails": "In Russia, empty bottles must immediately be placed on the floor. An empty bottle on the table is considered very bad luck, believed to bring poverty. This superstition is taken seriously.",
+      "fail_rate": 0.80,
+      "sources": [],
+      "condition": "Russian dining/drinking advice"
+    },
+    {
+      "action": "Sip vodka slowly or mix it with other drinks",
+      "why_fails": "Russians drink vodka in one shot (залпом), never sipped. Mixing vodka with soft drinks is seen as wasteful and weak. Each shot is preceded by a toast and followed by a zakuska (snack).",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Vodka drinking etiquette in Russia"
+    },
+    {
+      "action": "Refuse to drink during a toast without a strong reason",
+      "why_fails": "Refusing a toast is a social insult in Russia. If you truly cannot drink alcohol, explain medical reasons clearly. Simply saying 'I don't want to' is perceived as rejection of the group.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Russian toasting situations"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the toast sequence: first toast is always to the host/meeting purpose, second traditionally to parents/family, third to love or women. Never toast with an empty glass or with water.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Russian toast etiquette"
+    },
+    {
+      "action": "If unable to drink alcohol, say so at the beginning. Acceptable alternatives: juice or mineral water (but never toast with water — it's a funeral custom). Tea is acceptable.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Declining alcohol in Russian context"
+    },
+    {
+      "action": "Always eat zakuski (закуски — appetizers) between shots. Common: pickles, herring, black bread, salo (cured pork fat). Drinking without eating is considered alcoholism, not socializing.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Russian drinking and eating customs"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

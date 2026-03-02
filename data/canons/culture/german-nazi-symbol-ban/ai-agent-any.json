@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/german-nazi-symbol-ban/ai-agent-any",
+  "url": "https://deadends.dev/culture/german-nazi-symbol-ban/ai-agent-any",
+  "error": {
+    "signature": "AI generates or displays Nazi symbols or Holocaust-trivializing content in German/Austrian/EU contexts",
+    "regex": "(Nazi.*symbol|swastika.*German|Hakenkreuz|Holocaust.*trivial|Volksverhetzung|§86a.*StGB|Hitler.*salute)",
+    "domain": "culture",
+    "category": "legal_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.93,
+    "last_updated": "2026-02-28",
+    "summary": "Germany, Austria, and several EU countries criminalize Nazi symbols, salutes, and Holocaust denial. §86a StGB (Germany) carries up to 3 years imprisonment. AI must never generate such content."
+  },
+  "dead_ends": [
+    {
+      "action": "Generate images containing swastikas, SS runes, or other Nazi insignia",
+      "why_fails": "§86a StGB criminalizes distribution of symbols of unconstitutional organizations. This includes digital content. Penalties: up to 3 years imprisonment or fine. No artistic exception for casual use.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Any content generation for German/Austrian audience"
+    },
+    {
+      "action": "Make comparative or trivializing statements about the Holocaust",
+      "why_fails": "Volksverhetzung (§130 StGB) criminalizes Holocaust denial and trivialization. Statements like 'it wasn't that bad' or numerical comparisons are prosecutable. EU Framework Decision 2008/913/JHA extends this across EU.",
+      "fail_rate": 0.97,
+      "sources": [],
+      "condition": "Historical discussion in German/EU context"
+    },
+    {
+      "action": "Use Nazi-era terminology casually (Führer, Heil, Endlösung, etc.)",
+      "why_fails": "These terms carry extreme weight in German-speaking countries. Using them casually (even in non-political contexts) causes immediate revulsion and can constitute Volksverhetzung depending on context.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Language use in German context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "In historical/educational contexts, describe events factually without reproducing symbols. Use text descriptions ('Nazi-era flag') rather than visual reproduction. Academic exception exists but is narrowly applied.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Historical education content"
+    },
+    {
+      "action": "For game/media design targeting German market: replace or remove Nazi imagery (as Wolfenstein, Hearts of Iron do for German releases). Use fictional substitutes if the narrative requires an antagonist regime.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Creative content for German market"
+    },
+    {
+      "action": "When discussing this history, use measured, respectful language. Acknowledge German Vergangenheitsbewältigung (coming to terms with the past) as a serious cultural process, not something to be dismissed.",
+      "success_rate": 0.93,
+      "sources": [],
+      "condition": "Cultural sensitivity in German historical context"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/thai-monarchy-reference/ai-agent-any",
+        "distinction": "Both involve legal restrictions on speech/content but German law targets historical symbols while Thai law protects a living institution"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}

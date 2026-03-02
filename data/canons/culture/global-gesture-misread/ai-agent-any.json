@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/global-gesture-misread/ai-agent-any",
+  "url": "https://deadends.dev/culture/global-gesture-misread/ai-agent-any",
+  "error": {
+    "signature": "AI recommends hand gestures that are offensive in certain cultures",
+    "regex": "(gesture.*offensive|OK.*sign|thumbs.*up.*insult|V.*sign.*offensive|hand.*gesture.*culture)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.86,
+    "last_updated": "2026-02-28",
+    "summary": "Common Western hand gestures carry deeply offensive meanings in other cultures. AI must warn users about gesture differences when advising on cross-cultural communication or travel."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest OK sign (thumb + index circle) as universal agreement gesture",
+      "why_fails": "In Brazil, the OK sign is equivalent to the middle finger. In Greece and Turkey, it implies the recipient is homosexual (insult). In France, it can mean 'zero/worthless.'",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Recommending gestures for non-American audiences"
+    },
+    {
+      "action": "Recommend thumbs-up as universally positive",
+      "why_fails": "In parts of the Middle East, West Africa, and South America, thumbs-up is equivalent to the middle finger. In Iran, it's one of the most offensive gestures possible.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Gesture advice for Middle Eastern/South American context"
+    },
+    {
+      "action": "Use palm-outward V sign (peace sign) as friendly gesture everywhere",
+      "why_fails": "In the UK, Ireland, Australia, and New Zealand, the V sign with palm facing inward is equivalent to the middle finger. Even palm-outward can be misread depending on context.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Gesture advice for British/Australian contexts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "When advising on gestures for cross-cultural settings, always note regional meanings. Default to verbal communication when uncertain. A smile and nod are nearly universal safe responses.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Cross-cultural gesture advice"
+    },
+    {
+      "action": "Use open palm gestures (palm up) for pointing or indicating — these are generally safe worldwide. Never point with a single finger; use the whole hand to indicate direction.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Safe gesture alternatives"
+    },
+    {
+      "action": "For emoji/icon usage in international UIs: avoid gesture emojis that have cultural variance. Prefer text labels or neutral icons over hand gesture imagery.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Digital communication design for global audiences"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

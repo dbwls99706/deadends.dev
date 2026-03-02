@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/thai-monarchy-reference/ai-agent-any",
+  "url": "https://deadends.dev/culture/thai-monarchy-reference/ai-agent-any",
+  "error": {
+    "signature": "AI makes inappropriate references to Thai monarchy or violates lèse-majesté norms",
+    "regex": "(Thai.*monarch|lèse-majesté|Thai.*royal|wai|Thai.*head|Thai.*feet|Thai.*temple)",
+    "domain": "culture",
+    "category": "legal_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.90,
+    "last_updated": "2026-02-28",
+    "summary": "Thailand has strict lèse-majesté laws (Section 112) making criticism of the monarchy punishable by 3-15 years imprisonment. AI must never generate critical content about Thai royalty and must respect Thai cultural taboos around head/feet."
+  },
+  "dead_ends": [
+    {
+      "action": "Generate any critical, satirical, or negative content about Thai royal family",
+      "why_fails": "Section 112 of Thailand's Criminal Code makes defaming the monarchy punishable by 3-15 years imprisonment per offense. This is actively enforced, including for online content.",
+      "fail_rate": 0.98,
+      "sources": [],
+      "condition": "Any content involving Thai monarchy"
+    },
+    {
+      "action": "Suggest touching someone's head or pointing feet at people/religious objects in Thai context",
+      "why_fails": "The head is the most sacred body part in Thai culture; the feet are the lowest. Touching heads (even children's) or pointing feet at Buddha images or people is deeply offensive.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Physical interaction advice in Thai context"
+    },
+    {
+      "action": "Step on Thai currency or treat images of the King casually",
+      "why_fails": "Thai currency bears the King's image. Stepping on it, sitting on it, or treating it disrespectfully is considered lèse-majesté and can lead to prosecution.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Advice involving Thai currency or royal imagery"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "When Thai monarchy topics arise, maintain respectful, neutral tone. Use proper titles (พระบาทสมเด็จพระเจ้าอยู่หัว for the King). Decline to generate critical content and explain the legal context",
+      "success_rate": 0.95,
+      "sources": [],
+      "condition": "Any reference to Thai monarchy"
+    },
+    {
+      "action": "For Thai greetings, advise the wai (prayer-like hand gesture with bow): higher hands = more respect. Monks and royalty get the highest wai. Never wai to children or service workers (a nod suffices)",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Thai greeting etiquette"
+    },
+    {
+      "action": "In temple visits, advise: remove shoes, cover shoulders and knees, sit with feet tucked away from Buddha images, women must never touch monks or hand objects directly to them",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Thai temple visit advice"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-02-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-02-28"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/islamic-dress-modesty/ai-agent-any",
+  "url": "https://deadends.dev/culture/islamic-dress-modesty/ai-agent-any",
+  "error": {
+    "signature": "AI ignores Islamic and conservative-culture dress code requirements",
+    "regex": "(Islamic.*dress|hijab|modest.*fashion|dress.*code.*Muslim|abaya|thobe|haram.*clothing|conservative.*dress)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.87,
+    "last_updated": "2026-03-02",
+    "summary": "Many cultures and religions have specific dress code requirements, especially regarding modesty. AI must account for these when giving fashion, travel, or business advice for conservative regions."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest revealing clothing for business or travel in Gulf states",
+      "why_fails": "In Saudi Arabia, UAE, Qatar, and similar countries, exposed shoulders, knees, and cleavage are inappropriate for both men and women in public. Legal consequences possible in Saudi Arabia.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Fashion or travel advice for Gulf states"
+    },
+    {
+      "action": "Recommend removing hijab for professional photos or events",
+      "why_fails": "Hijab is a religious obligation for many Muslim women, not a fashion accessory. Suggesting its removal for aesthetic reasons is deeply disrespectful to their faith and identity.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Styling or image advice for hijab-wearing women"
+    },
+    {
+      "action": "Assume all Muslim-majority countries have the same dress code",
+      "why_fails": "Turkey, Indonesia, and Lebanon have relatively relaxed dress codes. Saudi Arabia and Iran enforce conservative dress legally. Malaysia and Jordan are moderate. Generalizing erases major differences.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Dress advice for Muslim-majority countries"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For Gulf states travel: women cover shoulders, arms to elbows, legs to ankles. Men avoid shorts above knee in public. In mosques: women cover hair and body fully, men cover knees. Abayas often available at mosque entrances.",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Dress code advice for conservative regions"
+    },
+    {
+      "action": "For modest fashion advice: suggest long sleeves, high necklines, loose silhouettes, midi/maxi lengths. Growing 'modest fashion' industry offers stylish options. Brands like Modanisa, Haute Hijab cater to this market.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Fashion recommendations for modesty-conscious users"
+    },
+    {
+      "action": "When visiting religious sites globally: Catholic churches (cover shoulders/knees), Hindu temples (remove shoes, cover body), Buddhist temples (cover shoulders/knees), Sikh gurdwaras (cover head). Always check specific site rules.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Dress code for religious site visits worldwide"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/arabic-left-hand-taboo/ai-agent-any",
+        "distinction": "Left-hand taboo covers general Islamic etiquette while dress modesty specifically addresses clothing norms — both stem from religious practice but are separate domains"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

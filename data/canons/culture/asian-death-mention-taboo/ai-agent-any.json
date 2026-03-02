@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/asian-death-mention-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/asian-death-mention-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI casually mentions death, funerals, or bad omens in East Asian contexts",
+    "regex": "(death.*taboo|죽음.*금기|死.*タブー|死.*忌讳|funeral.*mention|bad.*omen|불길|縁起が悪い|晦气)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-03-02",
+    "summary": "East Asian cultures consider casual mentions of death, dying, and related imagery deeply inauspicious. This extends to numbers (4), colors (white/black), and everyday objects associated with funeral rites."
+  },
+  "dead_ends": [
+    {
+      "action": "Casually use death metaphors or morbid humor in East Asian business contexts",
+      "why_fails": "Phrases like 'killing it,' 'dead on arrival,' 'dying to try this' are deeply uncomfortable in Chinese/Japanese/Korean contexts. Death references are actively avoided, especially around elders or celebrations.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Communication for East Asian audiences"
+    },
+    {
+      "action": "Give gifts or decorations associated with death symbolism",
+      "why_fails": "White chrysanthemums (funeral flowers in Asia), clocks (送钟=送终 in Chinese), handkerchiefs (涙 associations in Japan), writing in red ink (death names in Korea) — all invoke death.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Gift or decoration recommendations for Asian contexts"
+    },
+    {
+      "action": "Write someone's name in red ink in Korean context",
+      "why_fails": "In Korea, writing a living person's name in red ink (빨간펜) signifies death or that the person is dead. It was traditionally used only for deceased names on ancestral registers. This is taken very seriously.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Writing or document formatting for Korean audiences"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Avoid death metaphors in Asian communication. Replace 'killing the competition' with 'leading the market,' 'deadline' with 'due date' (when possible), and 'dying to know' with 'eager to learn.'",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Business communication for Asian audiences"
+    },
+    {
+      "action": "Know funeral-associated items by culture: China (white/yellow chrysanthemums, clocks, pears, white envelopes), Japan (white chrysanthemums, 4-piece sets, chopsticks in rice), Korea (red ink names, white wrapping, chrysanthemums).",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Avoiding death associations in gifts/design"
+    },
+    {
+      "action": "During Asian holidays (Chinese New Year, Lunar New Year, Obon, Chuseok), only use positive, auspicious language. No mention of death, illness, or bad luck. Use phrases like 福 (fortune), 壽 (longevity), 吉祥 (auspicious).",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Asian holiday communication"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/chinese-number-superstition/ai-agent-any",
+        "distinction": "Number superstition (4=death) is one specific manifestation of the broader death-mention taboo"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

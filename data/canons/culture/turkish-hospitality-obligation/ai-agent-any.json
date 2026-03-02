@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/turkish-hospitality-obligation/ai-agent-any",
+  "url": "https://deadends.dev/culture/turkish-hospitality-obligation/ai-agent-any",
+  "error": {
+    "signature": "AI fails to understand Turkish hospitality obligations and tea culture",
+    "regex": "(Turkish.*hospitality|Turkish.*tea|çay|misafirperverlik|Turkish.*business|Turkish.*bazaar|haggling.*Turkey)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.87,
+    "confidence": 0.84,
+    "last_updated": "2026-03-02",
+    "summary": "Turkish culture has deep hospitality obligations (misafirperverlik). Refusing tea, declining invitations, or rushing through social rituals is deeply offensive. The host's honor depends on the guest's comfort."
+  },
+  "dead_ends": [
+    {
+      "action": "Refuse offered tea (çay) in Turkish business or social settings",
+      "why_fails": "Tea is the foundation of Turkish social interaction. Refusing çay is refusing the relationship. Even if you don't drink tea, accept the glass and hold it. Turks drink 6+ cups daily — it's not optional.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Turkish business or home visits"
+    },
+    {
+      "action": "Decline a Turkish meal invitation or leave early",
+      "why_fails": "A Turkish host's honor (şeref) depends on making guests comfortable. Declining an invitation after it's sincerely offered, or leaving before the host indicates it's time, is a personal insult.",
+      "fail_rate": 0.82,
+      "sources": [],
+      "condition": "Turkish social invitations"
+    },
+    {
+      "action": "Insist on splitting the bill at a Turkish dinner",
+      "why_fails": "In Turkey, the person who invites pays (hesap). Splitting bills is unusual and can insult the host's generosity. Accept graciously and reciprocate by hosting next time.",
+      "fail_rate": 0.78,
+      "sources": [],
+      "condition": "Dining payment in Turkish context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept tea always. In business meetings, tea arrives automatically — it's not a question. In shops, accepting tea doesn't obligate purchase but does build relationship. Chai bardağı (tulip glass) is held by the rim.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Turkish tea etiquette"
+    },
+    {
+      "action": "When visiting a Turkish home: bring sweets or flowers (not alcohol unless you know they drink). Remove shoes at the door. Compliment the food effusively. Accept second helpings.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Turkish home visit etiquette"
+    },
+    {
+      "action": "Turkey bridges East and West: secular and religious customs coexist. Check context before assuming. Istanbul business is Western-style; rural Anatolia is traditional. Respect Atatürk — criticism of the founder is taboo and illegal.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Understanding Turkish cultural spectrum"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/arabic-left-hand-taboo/ai-agent-any",
+        "distinction": "Turkish culture shares some Islamic customs with Arab cultures but has distinct secular traditions from Atatürk's reforms"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

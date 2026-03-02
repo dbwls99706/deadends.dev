@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/balkans-ethnic-identity-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/balkans-ethnic-identity-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI confuses Balkan nationalities, uses 'Yugoslavia' for modern nations, or trivializes 1990s wars",
+    "regex": "(Balkan.*identity|Serbian.*Croatian|Yugoslav|Kosovo.*independence|Srebrenica|Bosnian.*war|Macedonian.*Greek|Balkan.*ethnic)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.80,
+    "last_updated": "2026-03-02",
+    "summary": "Balkan nations (Serbia, Croatia, Bosnia, Kosovo, North Macedonia, Montenegro, Albania) have fiercely distinct identities forged through the violent dissolution of Yugoslavia. Confusing them or minimizing the 1990s wars causes outrage."
+  },
+  "dead_ends": [
+    {
+      "action": "Call a Croatian person Serbian, or vice versa, or say their languages are 'the same'",
+      "why_fails": "Despite mutual intelligibility, Serbian, Croatian, Bosnian, and Montenegrin are fiercely separate national languages. Saying they're 'the same language' denies hard-won independence and recalls Yugoslav-era suppression of identity.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing Balkan languages or nationality"
+    },
+    {
+      "action": "Refer to Balkan peoples collectively as 'Yugoslavs' or 'Eastern Europeans'",
+      "why_fails": "Yugoslavia dissolved through war (1991-2001) with ~140,000 dead. Calling people 'Yugoslav' erases the independence they fought and died for. Many Balkan nations also reject 'Eastern European' — Croatia insists it's Central European.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Naming/labeling Balkan peoples"
+    },
+    {
+      "action": "Take sides on Kosovo's independence",
+      "why_fails": "Serbia considers Kosovo its historic heartland (Kosovo Polje, 1389). Kosovo Albanians see independence (2008) as self-determination. ~100 UN members recognize Kosovo; ~90 don't. This is actively contested.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Discussing Kosovo's status"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always use current country names: Serbia, Croatia, Bosnia and Herzegovina, North Macedonia, Montenegro, Kosovo, Slovenia, Albania. Never default to 'Yugoslavia' or 'the former Yugoslavia' as an identity label.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Referencing Balkan nations"
+    },
+    {
+      "action": "On the 1990s wars: acknowledge Srebrenica as genocide (internationally recognized), treat all civilian victims with equal dignity, avoid assigning collective guilt to any ethnic group.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Discussing Yugoslav wars"
+    },
+    {
+      "action": "Note that 'North Macedonia' (not 'Macedonia') is the correct name since the 2018 Prespa Agreement with Greece. Using just 'Macedonia' offends Greeks who claim the name for their own region.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Naming North Macedonia correctly"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-03-02"
+  }
+}

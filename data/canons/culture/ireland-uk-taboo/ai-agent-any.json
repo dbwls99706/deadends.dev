@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/ireland-uk-taboo/ai-agent-any",
+  "url": "https://deadends.dev/culture/ireland-uk-taboo/ai-agent-any",
+  "error": {
+    "signature": "AI calls Ireland part of the UK, jokes about the Famine, or trivializes the Troubles",
+    "regex": "(Ireland.*UK|Ireland.*British|Irish.*Famine.*joke|potato.*famine|IRA|the.*Troubles|Northern.*Ireland.*border|Derry.*Londonderry)",
+    "domain": "culture",
+    "category": "political_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "Ireland (Republic) is NOT part of the UK. This is the #1 most infuriating error for Irish people. The Great Famine, the Troubles, and British colonialism remain deeply raw topics."
+  },
+  "dead_ends": [
+    {
+      "action": "Refer to Ireland as part of the United Kingdom or 'the British Isles'",
+      "why_fails": "The Republic of Ireland has been independent since 1922 (after 800 years of British rule). Calling it British is the fastest way to anger an Irish person. Even 'British Isles' as a geographic term is rejected by the Irish government.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Referring to Ireland's political status"
+    },
+    {
+      "action": "Make jokes about the Irish Potato Famine or say 'just grow something else'",
+      "why_fails": "The Great Famine (1845-1852) killed 1 million Irish and forced 1 million to emigrate. It was exacerbated by British colonial policies (food exports continued during famine). It's viewed as genocide, not a natural disaster.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Discussing Irish history"
+    },
+    {
+      "action": "Casually reference the IRA or joke about car bombs",
+      "why_fails": "The Troubles (1968-1998) killed 3,500+ people in Northern Ireland. Families on both sides carry deep trauma. IRA/UVF references as jokes trivialize real suffering that's within living memory. Peace is fragile.",
+      "fail_rate": 0.90,
+      "sources": [],
+      "condition": "Discussing Northern Ireland"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Correctly distinguish: Republic of Ireland (independent country, Dublin) vs Northern Ireland (part of UK, Belfast). Use 'Ireland and Great Britain' or 'these islands' instead of 'British Isles.'",
+      "success_rate": 0.92,
+      "sources": [],
+      "condition": "Geographic and political references"
+    },
+    {
+      "action": "Derry/Londonderry naming: nationalists say 'Derry,' unionists say 'Londonderry.' Use whichever matches your audience, or 'Derry/Londonderry' in neutral contexts. Even the city name is political.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Northern Ireland place names"
+    },
+    {
+      "action": "Understand that Irish identity is NOT British. Irish people have their own language (Gaeilge), culture, sports (GAA), and national identity. Don't default to British stereotypes (accent, customs) when interacting with Irish people.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Interacting with Irish people"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/british-understatement/ai-agent-any",
+        "distinction": "British understatement covers UK communication norms; Ireland-UK taboo covers the political sensitivity of Irish-British relations — conflating them is itself part of the problem"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

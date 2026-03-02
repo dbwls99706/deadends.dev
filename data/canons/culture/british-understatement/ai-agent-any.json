@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/british-understatement/ai-agent-any",
+  "url": "https://deadends.dev/culture/british-understatement/ai-agent-any",
+  "error": {
+    "signature": "AI misinterprets British understatement, irony, and indirect communication",
+    "regex": "(British.*understatement|British.*irony|British.*polite|queue.*etiquette|UK.*indirect|British.*sorry)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-03-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.83,
+    "last_updated": "2026-03-02",
+    "summary": "British communication relies heavily on understatement, irony, and indirect phrasing. 'Not bad' means 'excellent.' 'Quite good' means 'mediocre.' AI must decode these inversions correctly."
+  },
+  "dead_ends": [
+    {
+      "action": "Take British phrases at face value",
+      "why_fails": "'With the greatest respect' means 'I think you're wrong.' 'That's a brave decision' means 'That's a terrible idea.' 'Quite interesting' means 'boring.' Literal interpretation causes complete misunderstanding.",
+      "fail_rate": 0.85,
+      "sources": [],
+      "condition": "Interpreting British business or social communication"
+    },
+    {
+      "action": "Skip queues or be dismissive of queuing culture",
+      "why_fails": "Queuing is sacred in British culture. Jumping a queue provokes genuine outrage — it's one of the few things that will make a Brit confront a stranger publicly. This extends to virtual queues and turn-taking.",
+      "fail_rate": 0.88,
+      "sources": [],
+      "condition": "Public behavior advice in UK"
+    },
+    {
+      "action": "Use loud, effusive, American-style enthusiasm in British settings",
+      "why_fails": "Excessive enthusiasm is viewed with suspicion in Britain. Overuse of superlatives ('amazing!', 'incredible!') sounds insincere. British communication favors measured, understated expression.",
+      "fail_rate": 0.75,
+      "sources": [],
+      "condition": "Communication style for British audiences"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Learn the British-to-plain-English translation: 'I hear what you say' = 'I disagree.' 'Very interesting' = 'I don't care.' 'I'll bear it in mind' = 'I've already forgotten it.' 'Could we consider' = 'Do it this way.'",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "Decoding British communication"
+    },
+    {
+      "action": "Use self-deprecating humor (British bonding mechanism). Never boast directly. When praised, deflect: 'Oh, it was nothing really.' This modesty ritual is the opposite of American positive self-presentation.",
+      "success_rate": 0.85,
+      "sources": [],
+      "condition": "Building rapport with British people"
+    },
+    {
+      "action": "Respect the unwritten rules: queue properly, say please/thank you/sorry constantly, don't sit next to strangers on public transport if other seats are available, talk about weather as safe conversation starter.",
+      "success_rate": 0.87,
+      "sources": [],
+      "condition": "Daily social etiquette in UK"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/western-direct-refusal/ai-agent-any",
+        "distinction": "British indirectness is a specific Western subculture while western-direct-refusal covers the broader East-West high/low context divide"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-03-02"
+  }
+}

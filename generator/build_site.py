@@ -46,6 +46,8 @@ DOMAIN_DISPLAY_NAMES = {
     # Mobile / Cross-platform
     "flutter": "Flutter",
     "unity": "Unity",
+    # Cultural norms
+    "culture": "Culture",
 }
 
 

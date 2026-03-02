@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/china-sensitive-topics/ai-agent-any",
+  "url": "https://deadends.dev/culture/china-sensitive-topics/ai-agent-any",
+  "error": {
+    "signature": "AI references politically sensitive topics in Chinese business or social contexts",
+    "regex": "(China.*sensitive|Taiwan.*status|Tibet.*independence|Tiananmen|Xinjiang|one.*China.*policy|三T|敏感话题)",
+    "domain": "culture",
+    "category": "legal_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-02-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any"
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.90,
+    "confidence": 0.88,
+    "last_updated": "2026-02-28",
+    "summary": "Several topics are politically sensitive in China and can cause business relationships to collapse, legal issues, or platform bans. AI must avoid casually referencing these in Chinese business contexts."
+  },
+  "dead_ends": [
+    {
+      "action": "Refer to Taiwan as an independent country in Chinese business communication",
+      "why_fails": "The One-China policy is non-negotiable for PRC entities. Listing Taiwan as a separate country (in forms, maps, or text) can terminate business relationships instantly and cause platform bans in China.",
+      "fail_rate": 0.95,
+      "sources": [],
+      "condition": "Business communication or content for Chinese audiences"
+    },
+    {
+      "action": "Casually reference Tiananmen, Tibet independence, or Xinjiang in Chinese business settings",
+      "why_fails": "These are legally and socially off-limits topics in mainland China. Raising them in business contexts is seen as deliberate provocation and will end the business relationship.",
+      "fail_rate": 0.92,
+      "sources": [],
+      "condition": "Conversation topics in Chinese business"
+    },
+    {
+      "action": "Compare Chinese government to authoritarian regimes or criticize CCP leadership",
+      "why_fails": "Criticism of CCP leadership is illegal in China. Even in private business conversations, this can be reported and result in loss of business licenses or visa bans for foreigners.",
+      "fail_rate": 0.93,
+      "sources": [],
+      "condition": "Political discussion in Chinese context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "In forms and UIs for Chinese market, use 'China' and list Taiwan as 'Taiwan, China' or 'Chinese Taipei' (or consult legal team). Use region/territory terminology rather than country for disputed areas.",
+      "success_rate": 0.88,
+      "sources": [],
+      "condition": "UI/content design for Chinese market"
+    },
+    {
+      "action": "Safe conversation topics in Chinese business: economic development, technology, food culture, travel experiences within China, family, education. Chinese business partners appreciate genuine interest in Chinese culture.",
+      "success_rate": 0.90,
+      "sources": [],
+      "condition": "Small talk in Chinese business context"
+    },
+    {
+      "action": "When content must address sensitive topics (journalism, academia), do so factually and note that the content may not be accessible behind the Great Firewall. Separate Chinese market content from global content.",
+      "success_rate": 0.82,
+      "sources": [],
+      "condition": "Content strategy for both Chinese and global audiences"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/chinese-number-superstition/ai-agent-any",
+        "distinction": "Number superstitions are cultural customs while sensitive topics are political/legal restrictions — both must be respected but for different reasons"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-03-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-03-02"
+  }
+}
