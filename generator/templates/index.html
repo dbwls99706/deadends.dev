@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d1117">
-  <title>deadends.dev — Stop Trying What Doesn't Work | Error Fixes for Developers</title>
-  <meta name="description" content="Don't waste time on dead-end fixes. deadends.dev tells you what NOT to try, what actually works, and what error comes next. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
+  <title>deadends.dev — Stop Trying What Doesn't Work</title>
+  <meta name="description" content="Stop wasting time on dead-end fixes. See what NOT to try, what works, and what error comes next. {{ total_errors }} error entries across {{ domains | length }} domains.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   {% if google_verification %}<meta name="google-site-verification" content="{{ google_verification }}">{% endif %}
@@ -149,10 +149,14 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   <section class="api-section">
     <h2>For AI Agents</h2>
     <p>Every page includes machine-readable data in multiple formats:</p>
+    <h3>Error Lookup API</h3>
     <ul>
       <li><strong>JSON API</strong> — <code>GET <a href="{{ base_path }}/api/v1/{{ example_error_id }}.json">/api/v1/{domain}/{slug}/{env}.json</a></code></li>
       <li><strong>Error index</strong> — <code>GET <a href="{{ base_path }}/api/v1/index.json">/api/v1/index.json</a></code> — all errors with regex patterns</li>
       <li><strong>OpenAPI spec</strong> — <code>GET <a href="{{ base_path }}/api/v1/openapi.json">/api/v1/openapi.json</a></code></li>
+    </ul>
+    <h3>Structured Data &amp; Feeds</h3>
+    <ul>
       <li><strong>JSON-LD</strong> — Schema.org TechArticle + ErrorCanon in every page <code>&lt;head&gt;</code> — <a href="{{ base_path }}/{{ example_error_id }}/">example</a></li>
       <li><strong>ai-summary</strong> — parseable <code>&lt;pre id="ai-summary"&gt;</code> block in every page — <a href="{{ base_path }}/{{ example_error_id }}/#ai-summary">example</a></li>
       <li><strong>Stats</strong> — <code>GET <a href="{{ base_path }}/api/v1/stats.json">/api/v1/stats.json</a></code> — dataset quality metrics</li>
@@ -179,7 +183,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   </main>
 
   <footer class="meta">
-    <p>deadends.dev · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
+    <p>deadends.dev · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
   </footer>
 </body>
 </html>
