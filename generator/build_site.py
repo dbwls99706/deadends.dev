@@ -397,6 +397,12 @@ def build_sitemap(
     SubElement(url_elem, "changefreq").text = "weekly"
     SubElement(url_elem, "priority").text = "0.9"
 
+    url_elem = SubElement(main_urlset, "url")
+    SubElement(url_elem, "loc").text = f"{BASE_URL}/sitemap/"
+    SubElement(url_elem, "lastmod").text = now
+    SubElement(url_elem, "changefreq").text = "weekly"
+    SubElement(url_elem, "priority").text = "0.5"
+
     domains_seen = set()
     for canon in canons:
         domain = canon["error"]["domain"]
@@ -2424,6 +2430,7 @@ def build_indexnow(canons: list[dict]) -> None:
                 seen_slugs.add(slug_key)
                 urls.append(f"{BASE_URL}/{slug_key}/")
 
+    urls.append(f"{BASE_URL}/sitemap/")
     urls.append(f"{BASE_URL}/api/v1/index.json")
     urls.append(f"{BASE_URL}/llms.txt")
 
@@ -2507,6 +2514,79 @@ def build_feed(canons: list[dict]) -> None:
 
     (SITE_DIR / "feed.xml").write_text(xml_out, encoding="utf-8")
     print(f"  Generated: feed.xml ({len(dated)} entries)")
+
+
+def build_html_sitemap(canons: list[dict]) -> None:
+    """Generate an HTML sitemap page linking to all indexable pages.
+
+    This page serves as a crawlable directory helping search engines
+    discover all 2000+ summary pages. Internal links from this page
+    pass link equity and aid indexing.
+    """
+    from collections import defaultdict
+
+    # Group canons by domain, then by slug (summary-level)
+    by_domain: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
+    for canon in canons:
+        cid = canon["id"]
+        parts = cid.split("/")
+        if len(parts) == 3:
+            domain, slug, _env = parts
+            by_domain[domain][slug].append(canon)
+
+    lines = [
+        "<!DOCTYPE html>",
+        '<html lang="en">',
+        "<head>",
+        '  <meta charset="utf-8">',
+        '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+        "  <title>All Errors — deadends.dev</title>",
+        '  <meta name="description" content="Complete directory of all error entries'
+        ' on deadends.dev. Browse errors by domain.">',
+        '  <meta name="robots" content="index, follow">',
+        f'  <link rel="canonical" href="{BASE_URL}/sitemap/">',
+        f'  <link rel="stylesheet" href="{BASE_PATH}/style.css">',
+        f'  <link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">',
+        "</head>",
+        '<body class="pg-sitemap">',
+        "  <header>",
+        f'    <h1><a href="{BASE_PATH}/">deadends.dev</a> — All Errors</h1>',
+        "  </header>",
+        "  <main>",
+    ]
+
+    total_summaries = 0
+    for domain in sorted(by_domain.keys()):
+        slugs = by_domain[domain]
+        display = domain_display_name(domain)
+        lines.append("  <section>")
+        h2 = f'<h2><a href="{BASE_PATH}/{domain}/">{display}</a> ({len(slugs)} errors)</h2>'
+        lines.append(f"    {h2}")
+        lines.append("    <ul>")
+        for slug in sorted(slugs.keys()):
+            envs = slugs[slug]
+            sig = envs[0].get("error", {}).get("signature", slug)
+            lines.append(f'      <li><a href="{BASE_PATH}/{domain}/{slug}/">{sig}</a></li>')
+            total_summaries += 1
+        lines.append("    </ul>")
+        lines.append("  </section>")
+
+    lines.extend([
+        "  </main>",
+        "  <footer>",
+        f'    <p>deadends.dev · {total_summaries} error entries'
+        f' · <a href="{BASE_PATH}/">Home</a>'
+        f' · <a href="{BASE_PATH}/api/v1/index.json">API</a></p>',
+        "  </footer>",
+        "</body>",
+        "</html>",
+    ])
+
+    sitemap_dir = SITE_DIR / "sitemap"
+    sitemap_dir.mkdir(parents=True, exist_ok=True)
+    (sitemap_dir / "index.html").write_text("\n".join(lines), encoding="utf-8")
+    n_domains = len(by_domain)
+    print(f"  Generated: sitemap/index.html ({total_summaries} links, {n_domains} domains)")
 
 
 def main():
@@ -2618,6 +2698,10 @@ def main():
 
     print("Generating IndexNow support...")
     build_indexnow(canons)
+    print()
+
+    print("Generating HTML sitemap...")
+    build_html_sitemap(canons)
     print()
 
     print("Generating shared stylesheet...")
