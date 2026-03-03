@@ -1076,12 +1076,54 @@ def build_error_summary_pages(
             },
         })
 
+        # FAQPage JSON-LD for rich results in Google Search
+        faq_items = []
+        # Top dead ends as "Why does X fail?" questions
+        for de in common_dead_ends[:3]:
+            action = de.get("action", "")
+            why = de.get("why_fails", "")
+            if action and why:
+                faq_items.append({
+                    "@type": "Question",
+                    "name": f"Why does '{action}' fail for {signature}?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": why,
+                    },
+                })
+        # Top workarounds as "How to fix?" questions
+        for wa in common_workarounds[:3]:
+            action = wa.get("action", "")
+            how = wa.get("how", action)
+            if action:
+                faq_items.append({
+                    "@type": "Question",
+                    "name": f"How to fix {signature}?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": how if how else action,
+                    },
+                })
+                break  # Only one "How to fix?" to avoid duplicates
+        faq_json_ld = ""
+        if faq_items:
+            faq_json_ld = _safe_json_ld({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": faq_items,
+            })
+
         # Same-domain errors for cross-linking (exclude self)
         same_domain = [
             {"slug_key": sk, "signature": sig}
             for sk, sig in slug_signatures.items()
             if sk.startswith(f"{domain}/") and sk != slug_key
         ][:10]
+
+        date_published = (
+            min(first_seen_dates) if first_seen_dates else ""
+        )
+        date_modified = max(dates) if dates else ""
 
         html = template.render(
             signature=signature,
@@ -1097,10 +1139,13 @@ def build_error_summary_pages(
             min_rate=min_rate,
             max_rate=max_rate,
             summary_json_ld=summary_json_ld,
+            faq_json_ld=faq_json_ld,
             transition_graph=aggregated_graph,
             known_ids=known_ids,
             domain_errors=same_domain,
             verdict_summary=verdict_summary,
+            date_published=date_published,
+            date_modified=date_modified,
         )
 
         # Write to /{domain}/{slug}/index.html
