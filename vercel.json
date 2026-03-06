@@ -1,9 +1,38 @@
 {
   "version": 2,
+  "trailingSlash": true,
+  "cleanUrls": true,
   "builds": [
     {
       "src": "api/mcp.py",
       "use": "@vercel/python"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/python/overflowerror/:path*",
+      "destination": "/python/overflowerror-int-too-large/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/node/enospc-watchers/:path*",
+      "destination": "/node/enospc-system-limit-watchers/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/rust/e0507-cannot-move-out-of-borrowed/:path*",
+      "destination": "/rust/e0507-move-out-of-borrow/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/node/err-stream-premature-close/:path*",
+      "destination": "/node/node-stream-premature-close/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/node/err-unknown-file-extension-ts/:path*",
+      "destination": "/node/err-unknown-file-extension/:path*",
+      "statusCode": 301
     }
   ],
   "rewrites": [
@@ -58,7 +87,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+          "value": "default-src 'none'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagservices.com https://adservice.google.com https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://pagead2.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net; font-src 'self'; connect-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
         }
       ]
     },
