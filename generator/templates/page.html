@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d1117">
   <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
   <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
   <!-- AI agent discovery -->
@@ -53,7 +53,8 @@
   <meta name="twitter:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
-  <link rel="canonical" href="{{ summary_url }}">
+  <link rel="canonical" href="{{ base_url }}/{{ id }}/">
+  <link rel="up" href="{{ summary_url }}">
 
   <!-- BreadcrumbList for Google rich results -->
   <script type="application/ld+json">
@@ -147,6 +148,19 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     </div>
     {% endfor %}
   </section>
+
+  <!-- In-content ad between Dead Ends and Workarounds -->
+  <aside aria-label="Advertisement" class="ad-inline">
+    <div class="ad-slot ad-slot-incontent">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center"
+           data-ad-client="ca-pub-6671440092809524"
+           data-ad-slot="auto"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </aside>
 
   <section id="workarounds">
     <h2>Workarounds — Try These Instead</h2>
