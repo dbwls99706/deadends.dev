@@ -789,6 +789,16 @@ def build_stylesheet() -> None:
         "/* Hidden AI summary block */",
         ".ai-summary { display: none; }",
         "",
+        "/* Ad slots — semantically isolated, CLS-safe */",
+        ".ad-slot { min-height: 90px; min-width: 200px;",
+        "  margin: 1.5rem 0; text-align: center;",
+        "  overflow: hidden; box-sizing: border-box; }",
+        ".ad-slot-banner { min-height: 90px; }",
+        ".ad-slot-rectangle { min-height: 250px; }",
+        "@media (max-width: 600px) {",
+        "  .ad-slot { min-height: 50px; min-width: 100%; }",
+        "  .ad-slot-rectangle { min-height: 250px; } }",
+        "",
     ])
     (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
     print("  Generated: style.css")
@@ -2573,6 +2583,12 @@ def build_html_sitemap(canons: list[dict]) -> None:
 
     lines.extend([
         "  </main>",
+        '  <!-- Ad slot — outside <main> to avoid polluting AI-parseable content -->',
+        '  <aside aria-label="Advertisement">',
+        '    <div class="ad-slot ad-slot-banner" data-ad-slot="sitemap-bottom">',
+        "      <!-- Ad script injected async; space reserved to prevent CLS -->",
+        "    </div>",
+        "  </aside>",
         "  <footer>",
         f'    <p>deadends.dev · {total_summaries} error entries'
         f' · <a href="{BASE_PATH}/">Home</a>'
