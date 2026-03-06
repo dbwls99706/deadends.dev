@@ -182,6 +182,13 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
 
   </main>
 
+  <!-- Ad slot — outside <main> to avoid polluting AI-parseable content -->
+  <aside aria-label="Advertisement">
+    <div class="ad-slot ad-slot-banner" data-ad-slot="index-bottom">
+      <!-- Ad script injected async; space reserved to prevent CLS -->
+    </div>
+  </aside>
+
   <footer class="meta">
     <p>deadends.dev · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
   </footer>
