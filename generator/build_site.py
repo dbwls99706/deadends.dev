@@ -32,6 +32,9 @@ BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
 # IndexNow key — generated deterministically for the site
 INDEXNOW_KEY = "deadend-dev-indexnow-key"
 
+# Google AdSense publisher ID
+ADSENSE_PUB_ID = "ca-pub-6671440092809524"
+
 
 def load_canons(data_dir: Path) -> list[dict]:
     """Load all ErrorCanon JSON files from the data directory."""
@@ -635,6 +638,13 @@ Sitemap: {BASE_URL}/sitemap.xml
 """
     (SITE_DIR / "robots.txt").write_text(content, encoding="utf-8")
     print("  Generated: robots.txt")
+
+
+def build_ads_txt() -> None:
+    """Generate ads.txt for AdSense verification."""
+    content = f"google.com, {ADSENSE_PUB_ID.replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n"
+    (SITE_DIR / "ads.txt").write_text(content, encoding="utf-8")
+    print("  Generated: ads.txt")
 
 
 def build_404_page() -> None:
@@ -2557,6 +2567,10 @@ def build_html_sitemap(canons: list[dict]) -> None:
         f'  <link rel="canonical" href="{BASE_URL}/sitemap/">',
         f'  <link rel="stylesheet" href="{BASE_PATH}/style.css">',
         f'  <link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">',
+        "  <script async"
+        " src=\"https://pagead2.googlesyndication.com/pagead/js/"
+        f'adsbygoogle.js?client={ADSENSE_PUB_ID}"'
+        ' crossorigin="anonymous"></script>',
         "</head>",
         '<body class="pg-sitemap">',
         "  <header>",
@@ -2585,8 +2599,14 @@ def build_html_sitemap(canons: list[dict]) -> None:
         "  </main>",
         '  <!-- Ad slot — outside <main> to avoid polluting AI-parseable content -->',
         '  <aside aria-label="Advertisement">',
-        '    <div class="ad-slot ad-slot-banner" data-ad-slot="sitemap-bottom">',
-        "      <!-- Ad script injected async; space reserved to prevent CLS -->",
+        '    <div class="ad-slot ad-slot-banner">',
+        '      <ins class="adsbygoogle"',
+        '           style="display:block"',
+        f'           data-ad-client="{ADSENSE_PUB_ID}"',
+        '           data-ad-slot="auto"',
+        '           data-ad-format="auto"',
+        '           data-full-width-responsive="true"></ins>',
+        "      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>",
         "    </div>",
         "  </aside>",
         "  <footer>",
@@ -2666,6 +2686,10 @@ def main():
 
     print("Generating robots.txt...")
     build_robots_txt()
+    print()
+
+    print("Generating ads.txt...")
+    build_ads_txt()
     print()
 
     print("Generating 404.html...")
