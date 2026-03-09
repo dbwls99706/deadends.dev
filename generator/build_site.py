@@ -35,6 +35,13 @@ INDEXNOW_KEY = "deadend-dev-indexnow-key"
 # Google AdSense publisher ID
 ADSENSE_PUB_ID = "ca-pub-6671440092809524"
 
+# Non-tech domains that dilute topical relevance for SEO.
+# Pages in these domains get noindex to preserve crawl budget and site authority.
+NOINDEX_DOMAINS = {
+    "communication", "culture", "disaster", "food-safety",
+    "legal", "medical", "mental-health", "pet-safety", "policy", "safety",
+}
+
 
 def load_canons(data_dir: Path) -> list[dict]:
     """Load all ErrorCanon JSON files from the data directory."""
@@ -240,6 +247,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             howto_json_ld=howto_json_ld,
             known_ids=known_ids,
             domain_errors=same_domain,
+            noindex=canon["error"]["domain"] in NOINDEX_DOMAINS,
             **canon,
         )
 
@@ -311,6 +319,7 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
             resolvable_counts=resolvable_counts,
             total_dead_ends=total_de,
             total_workarounds=total_wa,
+            noindex=domain in NOINDEX_DOMAINS,
         )
 
         domain_dir = SITE_DIR / domain
@@ -409,7 +418,7 @@ def build_sitemap(
     domains_seen = set()
     for canon in canons:
         domain = canon["error"]["domain"]
-        if domain not in domains_seen:
+        if domain not in domains_seen and domain not in NOINDEX_DOMAINS:
             domains_seen.add(domain)
             url_elem = SubElement(main_urlset, "url")
             SubElement(url_elem, "loc").text = f"{BASE_URL}/{domain}/"
@@ -439,7 +448,7 @@ def build_sitemap(
         summaries_by_domain.setdefault(domain, []).append(summary)
 
     domain_sitemap_files = ["sitemap-main.xml"]
-    for domain in sorted(summaries_by_domain.keys()):
+    for domain in sorted(d for d in summaries_by_domain.keys() if d not in NOINDEX_DOMAINS):
         domain_urlset = Element("urlset", xmlns=ns)
         for s in summaries_by_domain[domain]:
             url_elem = SubElement(domain_urlset, "url")
@@ -1172,6 +1181,7 @@ def build_error_summary_pages(
             verdict_summary=verdict_summary,
             date_published=date_published,
             date_modified=date_modified,
+            noindex=domain in NOINDEX_DOMAINS,
         )
 
         # Write to /{domain}/{slug}/index.html

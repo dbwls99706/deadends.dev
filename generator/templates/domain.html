@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d1117">
   <title>{{ domain | display_name }} Errors — {{ total }} Known Issues with Fixes | deadends.dev</title>
   <meta name="description" content="{{ total }} {{ domain | display_name }} errors with step-by-step fixes and documented dead ends — exactly what NOT to try when debugging. Save hours of trial and error.">
-  <meta name="robots" content="index, follow, max-snippet:-1">
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ domain }}, {{ domain }} error, {{ domain }} fix, troubleshooting, dead end, workaround, how to fix {{ domain }} errors">
 
