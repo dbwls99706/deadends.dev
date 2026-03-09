@@ -22,12 +22,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.9,
     "last_updated": "2026-02-11",
-    "summary": "File or branch name doesn't exist in the repository."
+    "summary": "This error occurs when git cannot find a file, directory, or branch matching the name you specified. Common causes include typos in file/branch names, forgetting to fetch remote branches before checkout, or running git commands from the wrong directory. The pathspec argument is matched against tracked files and known refs — if neither matches, git reports this error."
   },
   "dead_ends": [
     {
       "action": "Create the file manually then checkout",
-      "why_fails": "Checkout expects the file in git history, not on disk",
+      "why_fails": "git checkout looks for the path in the committed tree objects, not the working directory. Creating a file on disk does not add it to git's object database. You need to first stage and commit the file, or verify the correct spelling of an existing tracked file.",
       "fail_rate": 0.65,
       "sources": [
         "https://git-scm.com/docs/git-checkout"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use git checkout -f",
-      "why_fails": "Force flag doesn't help if the path genuinely doesn't exist",
+      "why_fails": "The -f (force) flag in git checkout overwrites local modifications, but it cannot conjure a path that does not exist in the index or any commit. If the pathspec has no match in git's tracked files or refs, -f has no effect on the outcome.",
       "fail_rate": 0.72,
       "sources": [
         "https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt--f"
