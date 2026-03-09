@@ -32,9 +32,6 @@ BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
 # IndexNow key — generated deterministically for the site
 INDEXNOW_KEY = "deadend-dev-indexnow-key"
 
-# Google AdSense publisher ID
-ADSENSE_PUB_ID = "ca-pub-6671440092809524"
-
 # Non-tech domains that dilute topical relevance for SEO.
 # Pages in these domains get noindex to preserve crawl budget and site authority.
 NOINDEX_DOMAINS = {
@@ -649,13 +646,6 @@ Sitemap: {BASE_URL}/sitemap.xml
     print("  Generated: robots.txt")
 
 
-def build_ads_txt() -> None:
-    """Generate ads.txt for AdSense verification."""
-    content = f"google.com, {ADSENSE_PUB_ID.replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n"
-    (SITE_DIR / "ads.txt").write_text(content, encoding="utf-8")
-    print("  Generated: ads.txt")
-
-
 def build_404_page() -> None:
     """Generate a custom 404 page with navigation and search."""
     html = (
@@ -807,16 +797,6 @@ def build_stylesheet() -> None:
         "",
         "/* Hidden AI summary block */",
         ".ai-summary { display: none; }",
-        "",
-        "/* Ad slots — semantically isolated, CLS-safe */",
-        ".ad-slot { min-height: 90px; min-width: 200px;",
-        "  margin: 1.5rem 0; text-align: center;",
-        "  overflow: hidden; box-sizing: border-box; }",
-        ".ad-slot-banner { min-height: 90px; }",
-        ".ad-slot-rectangle { min-height: 250px; }",
-        "@media (max-width: 600px) {",
-        "  .ad-slot { min-height: 50px; min-width: 100%; }",
-        "  .ad-slot-rectangle { min-height: 250px; } }",
         "",
     ])
     (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
@@ -2577,10 +2557,6 @@ def build_html_sitemap(canons: list[dict]) -> None:
         f'  <link rel="canonical" href="{BASE_URL}/sitemap/">',
         f'  <link rel="stylesheet" href="{BASE_PATH}/style.css">',
         f'  <link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">',
-        "  <script async"
-        " src=\"https://pagead2.googlesyndication.com/pagead/js/"
-        f'adsbygoogle.js?client={ADSENSE_PUB_ID}"'
-        ' crossorigin="anonymous"></script>',
         "</head>",
         '<body class="pg-sitemap">',
         "  <header>",
@@ -2607,18 +2583,6 @@ def build_html_sitemap(canons: list[dict]) -> None:
 
     lines.extend([
         "  </main>",
-        '  <!-- Ad slot — outside <main> to avoid polluting AI-parseable content -->',
-        '  <aside aria-label="Advertisement">',
-        '    <div class="ad-slot ad-slot-banner">',
-        '      <ins class="adsbygoogle"',
-        '           style="display:block"',
-        f'           data-ad-client="{ADSENSE_PUB_ID}"',
-        '           data-ad-slot="auto"',
-        '           data-ad-format="auto"',
-        '           data-full-width-responsive="true"></ins>',
-        "      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>",
-        "    </div>",
-        "  </aside>",
         "  <footer>",
         f'    <p>deadends.dev · {total_summaries} error entries'
         f' · <a href="{BASE_PATH}/">Home</a>'
@@ -2696,10 +2660,6 @@ def main():
 
     print("Generating robots.txt...")
     build_robots_txt()
-    print()
-
-    print("Generating ads.txt...")
-    build_ads_txt()
     print()
 
     print("Generating 404.html...")
