@@ -33,6 +33,26 @@
       "source": "/node/err-unknown-file-extension-ts/:path*",
       "destination": "/node/err-unknown-file-extension/:path*",
       "statusCode": 301
+    },
+    {
+      "source": "/node/syntax-error-unexpected-token-import/:path*",
+      "destination": "/node/ts-node-syntax-error/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/rust/e0502-borrow-conflict/:path*",
+      "destination": "/rust/e0502-mutable-immutable-borrow/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/node/abort-error/:path*",
+      "destination": "/node/node-fetch-abort/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/node/digital-envelope-unsupported/:path*",
+      "destination": "/node/node-crypto-unsupported/:path*",
+      "statusCode": 301
     }
   ],
   "rewrites": [
@@ -105,6 +125,15 @@
         {
           "key": "Access-Control-Allow-Methods",
           "value": "GET, OPTIONS"
+        }
+      ]
+    },
+    {
+      "source": "/feed.xml",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
         }
       ]
     }

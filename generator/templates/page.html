@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d1117">
   <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
   <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
-  {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
+  <meta name="robots" content="noindex, follow">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
   <!-- AI agent discovery -->
@@ -53,7 +53,7 @@
   <meta name="twitter:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
-  <link rel="canonical" href="{{ base_url }}/{{ id }}/">
+  <link rel="canonical" href="{{ summary_url }}">
   <link rel="up" href="{{ summary_url }}">
 
   <!-- BreadcrumbList for Google rich results -->
