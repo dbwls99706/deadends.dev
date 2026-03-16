@@ -151,8 +151,8 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if "sources" in wa:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
-        # Use canonical summary URL for JSON-LD — env-specific pages have noindex
-        # and their <link rel="canonical"> also points to the summary page
+        # Use canonical summary URL for JSON-LD — env-specific pages point
+        # <link rel="canonical"> to the summary page (noindex only for NOINDEX_DOMAINS)
         id_parts = error_id.split("/")
         page_url = f"{BASE_URL}/{id_parts[0]}/{id_parts[1]}/"
         json_ld_data = {
