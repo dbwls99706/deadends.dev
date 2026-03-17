@@ -32,12 +32,8 @@ BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
 # IndexNow key — generated deterministically for the site
 INDEXNOW_KEY = "deadend-dev-indexnow-key"
 
-# Non-tech domains that dilute topical relevance for SEO.
-# Pages in these domains get noindex to preserve crawl budget and site authority.
-NOINDEX_DOMAINS = {
-    "communication", "culture", "disaster", "food-safety",
-    "legal", "medical", "mental-health", "pet-safety", "policy", "safety",
-}
+# Previously, non-tech domains were noindexed to preserve crawl budget.
+# Removed: all domains are now indexed to maximise Google coverage.
 
 
 def load_canons(data_dir: Path) -> list[dict]:
@@ -152,7 +148,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
         # Use canonical summary URL for JSON-LD — env-specific pages point
-        # <link rel="canonical"> to the summary page (noindex only for NOINDEX_DOMAINS)
+        # <link rel="canonical"> to the summary page
         id_parts = error_id.split("/")
         page_url = f"{BASE_URL}/{id_parts[0]}/{id_parts[1]}/"
         json_ld_data = {
@@ -244,7 +240,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             howto_json_ld=howto_json_ld,
             known_ids=known_ids,
             domain_errors=same_domain,
-            noindex=canon["error"]["domain"] in NOINDEX_DOMAINS,
+            noindex=False,
             **canon,
         )
 
@@ -316,7 +312,7 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
             resolvable_counts=resolvable_counts,
             total_dead_ends=total_de,
             total_workarounds=total_wa,
-            noindex=domain in NOINDEX_DOMAINS,
+            noindex=False,
         )
 
         domain_dir = SITE_DIR / domain
@@ -415,7 +411,7 @@ def build_sitemap(
     domains_seen = set()
     for canon in canons:
         domain = canon["error"]["domain"]
-        if domain not in domains_seen and domain not in NOINDEX_DOMAINS:
+        if domain not in domains_seen:
             domains_seen.add(domain)
             url_elem = SubElement(main_urlset, "url")
             SubElement(url_elem, "loc").text = f"{BASE_URL}/{domain}/"
@@ -445,7 +441,7 @@ def build_sitemap(
         summaries_by_domain.setdefault(domain, []).append(summary)
 
     domain_sitemap_files = ["sitemap-main.xml"]
-    for domain in sorted(d for d in summaries_by_domain.keys() if d not in NOINDEX_DOMAINS):
+    for domain in sorted(summaries_by_domain.keys()):
         domain_urlset = Element("urlset", xmlns=ns)
         for s in summaries_by_domain[domain]:
             url_elem = SubElement(domain_urlset, "url")
@@ -1161,7 +1157,7 @@ def build_error_summary_pages(
             verdict_summary=verdict_summary,
             date_published=date_published,
             date_modified=date_modified,
-            noindex=domain in NOINDEX_DOMAINS,
+            noindex=False,
         )
 
         # Write to /{domain}/{slug}/index.html

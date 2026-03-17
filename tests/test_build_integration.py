@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 
 from generator.build_site import (
-    NOINDEX_DOMAINS,
     build_domain_pages,
     build_error_pages,
     build_error_summary_pages,
@@ -116,14 +115,10 @@ class TestSiteBuildIntegration:
         assert "sitemap-main.xml" in content
 
         # Summary pages should appear in domain sub-sitemaps
-        # (except noindex domains which are excluded from sitemaps)
         all_sub_content = ""
         for f in built_site["site_dir"].glob("sitemap-*.xml"):
             all_sub_content += f.read_text(encoding="utf-8")
         for summary in built_site["summary_urls"]:
-            domain = summary["slug_key"].split("/", 1)[0]
-            if domain in NOINDEX_DOMAINS:
-                continue
             assert summary["url"] in all_sub_content, (
                 f"Missing URL in sub-sitemap: {summary['url']}"
             )
@@ -201,9 +196,6 @@ class TestSiteBuildIntegration:
         for f in built_site["site_dir"].glob("sitemap-*.xml"):
             all_sub_content += f.read_text(encoding="utf-8")
         for summary in built_site["summary_urls"]:
-            domain = summary["slug_key"].split("/", 1)[0]
-            if domain in NOINDEX_DOMAINS:
-                continue
             assert summary["url"] in all_sub_content
 
 
