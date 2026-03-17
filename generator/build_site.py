@@ -147,10 +147,8 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if "sources" in wa:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
-        # Use canonical summary URL for JSON-LD — env-specific pages point
-        # <link rel="canonical"> to the summary page
-        id_parts = error_id.split("/")
-        page_url = f"{BASE_URL}/{id_parts[0]}/{id_parts[1]}/"
+        # Use self-referencing URL for JSON-LD so each env page is indexed
+        page_url = f"{BASE_URL}/{error_id}/"
         json_ld_data = {
             "@context": [
                 "https://schema.org",
@@ -380,9 +378,8 @@ def build_sitemap(
 ) -> None:
     """Generate sitemap index with per-domain sub-sitemaps.
 
-    Environment-specific pages are excluded from sitemaps because their
-    canonical URL points to the summary page. Including them would waste
-    crawl budget on pages Google will consolidate anyway.
+    Includes both summary pages and environment-specific pages so that
+    Google can discover and index all unique content.
     """
     ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -434,21 +431,40 @@ def build_sitemap(
             existing = slug_lastmod.get(slug_key, "")
             slug_lastmod[slug_key] = date if date > existing else existing
 
-    # --- Per-domain sitemaps: summary pages only ---
+    # --- Per-domain sitemaps: summary pages + env-specific pages ---
     summaries_by_domain: dict[str, list[dict]] = {}
     for summary in summary_urls or []:
         domain = summary["slug_key"].split("/", 1)[0]
         summaries_by_domain.setdefault(domain, []).append(summary)
 
+    # Group env-specific canon pages by domain
+    envs_by_domain: dict[str, list[dict]] = {}
+    for canon in canons:
+        domain = canon["error"]["domain"]
+        envs_by_domain.setdefault(domain, []).append(canon)
+
     domain_sitemap_files = ["sitemap-main.xml"]
-    for domain in sorted(summaries_by_domain.keys()):
+    all_domains = sorted(set(summaries_by_domain.keys()) | set(envs_by_domain.keys()))
+    for domain in all_domains:
         domain_urlset = Element("urlset", xmlns=ns)
-        for s in summaries_by_domain[domain]:
+
+        # Summary pages (higher priority)
+        for s in summaries_by_domain.get(domain, []):
             url_elem = SubElement(domain_urlset, "url")
             SubElement(url_elem, "loc").text = s["url"]
             SubElement(url_elem, "lastmod").text = slug_lastmod.get(s["slug_key"], now)
             SubElement(url_elem, "changefreq").text = "monthly"
             SubElement(url_elem, "priority").text = "0.8"
+
+        # Environment-specific pages
+        for canon in envs_by_domain.get(domain, []):
+            error_id = canon["id"]
+            url_elem = SubElement(domain_urlset, "url")
+            SubElement(url_elem, "loc").text = f"{BASE_URL}/{error_id}/"
+            last_confirmed = canon.get("error", {}).get("last_confirmed", now)
+            SubElement(url_elem, "lastmod").text = last_confirmed if last_confirmed else now
+            SubElement(url_elem, "changefreq").text = "monthly"
+            SubElement(url_elem, "priority").text = "0.6"
 
         fname = f"sitemap-{domain}.xml"
         _write_urlset(domain_urlset, SITE_DIR / fname)
@@ -2425,8 +2441,7 @@ def build_indexnow(canons: list[dict]) -> None:
             domains_seen.add(domain)
             urls.append(f"{BASE_URL}/{domain}/")
 
-    # Use summary URLs (domain/slug/) not env-specific URLs (domain/slug/env/)
-    # because env-specific pages have noindex — submitting them wastes IndexNow quota
+    # Submit both summary URLs (domain/slug/) and env-specific URLs (domain/slug/env/)
     seen_slugs: set[str] = set()
     for canon in sorted(canons, key=lambda c: c["id"]):
         parts = canon["id"].split("/")
@@ -2435,6 +2450,7 @@ def build_indexnow(canons: list[dict]) -> None:
             if slug_key not in seen_slugs:
                 seen_slugs.add(slug_key)
                 urls.append(f"{BASE_URL}/{slug_key}/")
+            urls.append(f"{BASE_URL}/{canon['id']}/")
 
     urls.append(f"{BASE_URL}/sitemap/")
     urls.append(f"{BASE_URL}/api/v1/index.json")
@@ -2490,8 +2506,7 @@ def build_feed(canons: list[dict]) -> None:
             "generation_date", "2020-01-01"
         )
 
-        # Link to summary page (domain/slug/) not env-specific page (domain/slug/env/)
-        # because env-specific pages have noindex — feed should point to canonical URL
+        # Link to summary page (domain/slug/) as a stable, grouped entry
         slug_key = "/".join(cid.split("/")[:2])
         SubElement(entry, "title").text = f"[{domain}] {sig}"
         elink = SubElement(entry, "link")
