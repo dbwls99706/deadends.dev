@@ -104,6 +104,12 @@ def _is_safe_url(url: str) -> bool:
         # Block 169.254.x.x (link-local / metadata endpoint)
         if host.startswith("169.254."):
             return False
+        # Block IPv6-mapped IPv4 (e.g. ::ffff:127.0.0.1)
+        if host.startswith("::ffff:"):
+            return False
+        # Block octal IP representations (e.g. 0177.0.0.1 = 127.0.0.1)
+        if host.split(".")[0].startswith("0") and host.split(".")[0] != "0":
+            return False
         return True
     except Exception:
         return False

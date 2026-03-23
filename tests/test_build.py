@@ -5,7 +5,10 @@ from pathlib import Path
 from generator.build_site import (
     ENV_REDIRECTS,
     REDIRECT_MAP,
+    _generate_variations,
     _is_safe_url,
+    _safe_json_ld,
+    _sanitize_sources,
     _write_redirect_html,
     build_env_summary,
     collect_sources,
@@ -158,6 +161,14 @@ class TestUrlSafety:
     def test_rejects_no_host(self):
         assert _is_safe_url("https://") is False
 
+    def test_rejects_ipv6_mapped_ipv4(self):
+        """Block IPv6-mapped IPv4 addresses (SSRF bypass vector)."""
+        assert _is_safe_url("http://[::ffff:127.0.0.1]/") is False
+
+    def test_rejects_octal_ip(self):
+        """Block octal IP notation (e.g. 0177.0.0.1 = 127.0.0.1)."""
+        assert _is_safe_url("http://0177.0.0.1/") is False
+
 
 class TestRedirectMap:
     """Tests for redirect configuration integrity."""
@@ -261,3 +272,85 @@ class TestWriteRedirectHtml:
             assert "refresh" not in content
         finally:
             bs.SITE_DIR = original
+
+    def test_redirect_has_security_header(self, tmp_path):
+        import generator.build_site as bs
+        original = bs.SITE_DIR
+        bs.SITE_DIR = tmp_path
+        try:
+            _write_redirect_html("redir/test", "https://deadends.dev/target/")
+            content = (tmp_path / "redir" / "test" / "index.html").read_text()
+            assert "X-Content-Type-Options" in content
+        finally:
+            bs.SITE_DIR = original
+
+
+class TestSafeJsonLd:
+    """Tests for JSON-LD escaping."""
+
+    def test_basic_serialization(self):
+        result = _safe_json_ld({"name": "test"})
+        assert '"name"' in result
+        assert '"test"' in result
+
+    def test_escapes_script_breakout(self):
+        result = _safe_json_ld({"text": "</script>"})
+        assert "</script>" not in result
+        assert r"<\/script>" in result
+
+    def test_escapes_html_comment(self):
+        result = _safe_json_ld({"text": "<!--injected-->"})
+        assert "<!--" not in result
+        assert "\\u003C!--" in result
+
+    def test_ensure_ascii(self):
+        """Non-ASCII chars should become \\uXXXX escapes."""
+        result = _safe_json_ld({"text": "한글"})
+        assert "한글" not in result  # should be escaped
+        assert "\\u" in result
+
+    def test_valid_json_output(self):
+        """Output should be valid JSON after unescaping <\\/."""
+        import json
+        result = _safe_json_ld({"text": "</script>", "comment": "<!-- hi -->"})
+        # Replace our custom escapes back for JSON parsing
+        parseable = result.replace(r"<\/", "</")
+        data = json.loads(parseable)
+        assert data["text"] == "</script>"
+
+
+class TestSanitizeSources:
+    """Tests for source URL filtering."""
+
+    def test_filters_javascript_urls(self):
+        sources = ["https://example.com", "javascript:alert(1)"]
+        assert len(_sanitize_sources(sources)) == 1
+
+    def test_filters_data_urls(self):
+        sources = ["data:text/html,<script>alert(1)</script>"]
+        assert len(_sanitize_sources(sources)) == 0
+
+    def test_filters_localhost(self):
+        sources = ["http://localhost/admin", "https://example.com"]
+        assert len(_sanitize_sources(sources)) == 1
+
+    def test_filters_metadata_endpoint(self):
+        sources = ["http://169.254.169.254/latest/meta-data/"]
+        assert len(_sanitize_sources(sources)) == 0
+
+
+class TestGenerateVariations:
+    """Tests for _generate_variations null/type guard."""
+
+    def test_none_signature_returns_empty(self):
+        assert _generate_variations(None, ".*", "python") == []
+
+    def test_empty_signature_returns_empty(self):
+        assert _generate_variations("", ".*", "python") == []
+
+    def test_non_string_returns_empty(self):
+        assert _generate_variations(123, ".*", "python") == []
+
+    def test_valid_signature_returns_list(self):
+        result = _generate_variations("ModuleNotFoundError", "Module.*", "python")
+        assert isinstance(result, list)

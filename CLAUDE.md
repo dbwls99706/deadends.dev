@@ -144,6 +144,14 @@ Each canon JSON file has these top-level required fields:
   - Routes: `/mcp`, `/api/mcp`, `/.well-known/mcp/server-card.json`
   - CORS enabled for `/api/v1/*` endpoints
 
+### Build Environment Variables
+
+Optional overrides for `generator/build_site.py` (defaults work out of the box):
+
+- `GOOGLE_VERIFICATION` — Google Search Console verification code
+- `BING_VERIFICATION` — Bing Webmaster verification code
+- `INDEXNOW_KEY` — IndexNow API key for instant indexing
+
 ## MCP Server
 
 The MCP server exposes 8 read-only tools over stdio (JSON-RPC):

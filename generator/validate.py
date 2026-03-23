@@ -102,9 +102,17 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
         errors.append(f"Invalid error regex: {e}")
 
     # Warn on regexes with nested quantifiers (ReDoS risk)
+    # Catches: (a+)+, (a*)+, (?:a+){2,}, etc.
     if re.search(r"\([^)]*[+*][^)]*\)[+*{]", regex_str):
         warnings.append(
             f"Regex may be vulnerable to ReDoS (nested quantifiers): "
+            f"{regex_str[:80]}"
+        )
+    # Catch alternation-based ReDoS: (a|a)+ where branches overlap
+    if re.search(r"\([^)]*\|[^)]*\)[+*{]", regex_str):
+        # Only warn if the group has a quantifier after it
+        warnings.append(
+            f"Regex may be vulnerable to ReDoS (quantified alternation): "
             f"{regex_str[:80]}"
         )
     # Warn on excessive nesting depth

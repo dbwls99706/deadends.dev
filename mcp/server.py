@@ -155,12 +155,14 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
 
     compiled = _get_compiled_regexes()
     matches = []
+    skipped = 0
     msg_len = len(error_message)
     for canon in canons:
         try:
             canon_id = canon.get("id", "")
             pattern = compiled.get(canon_id)
             if pattern is None:
+                skipped += 1
                 continue
             m = pattern.search(error_message)
             if m:
@@ -207,6 +209,7 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
             sys.stderr.write(
                 f"WARNING: Skipping canon {canon_id}: {exc}\n"
             )
+            skipped += 1
             continue
 
     matches.sort(
@@ -217,6 +220,10 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     for m in matches:
         m.pop("_match_ratio", None)
         m.pop("_preferred", None)
+
+    # Surface skipped canon count so callers can inform users
+    if skipped and matches:
+        matches[0]["_skipped_canons"] = skipped
     return matches
 
 
@@ -551,6 +558,12 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 )
             else:
                 parts = []
+                skipped_count = matches[0].pop("_skipped_canons", 0)
+                if skipped_count:
+                    parts.append(
+                        f"⚠ {skipped_count} canon(s) skipped due to data "
+                        f"errors (results may be incomplete).\n"
+                    )
                 for m in matches[:_MAX_RESULTS]:
                     parts.append(f"## {m['signature']}")
                     parts.append(f"Resolvable: {m['resolvable']} | "

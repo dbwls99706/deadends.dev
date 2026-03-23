@@ -121,6 +121,12 @@ class TestBusinessRules:
         _, warnings = validate_canon_json(valid_canon)
         assert any("ReDoS" in w for w in warnings)
 
+    def test_redos_quantified_alternation_warning(self, valid_canon):
+        """Regex with quantified alternation should produce a ReDoS warning."""
+        valid_canon["error"]["regex"] = "(a|b)+c"
+        _, warnings = validate_canon_json(valid_canon)
+        assert any("alternation" in w for w in warnings)
+
     def test_excessive_nesting_warning(self, valid_canon):
         """Regex with excessive groups should produce a warning."""
         # Build regex with 16 groups
