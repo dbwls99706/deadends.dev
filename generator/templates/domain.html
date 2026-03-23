@@ -40,7 +40,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "deadends.dev", "item": "{{ base_url }}"},
-      {"@type": "ListItem", "position": 2, "name": "{{ domain | display_name }}"}
+      {"@type": "ListItem", "position": 2, "name": "{{ domain | display_name | json_escape }}"}
     ]
   }
   </script>
@@ -50,8 +50,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "{{ domain | display_name }} Errors — Dead Ends & Fixes",
-    "description": "All known {{ domain }} errors with dead ends and verified workarounds. {{ total }} error entries.",
+    "name": "{{ domain | display_name | json_escape }} Errors \u2014 Dead Ends & Fixes",
+    "description": "All known {{ domain | json_escape }} errors with dead ends and verified workarounds. {{ total }} error entries.",
     "url": "{{ base_url }}/{{ domain }}/",
     "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
     "numberOfItems": {{ total }},
