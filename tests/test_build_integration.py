@@ -93,6 +93,11 @@ class TestSiteBuildIntegration:
             assert api_data["id"] == canon["id"]
             assert api_data["verdict"]["resolvable"] == canon["verdict"]["resolvable"]
 
+            # Verify URL has trailing slash (prevents GitHub Pages redirect)
+            assert api_data["url"].endswith("/"), (
+                f"API JSON url for {canon['id']} must end with trailing slash"
+            )
+
     def test_domain_pages_created(self, built_site):
         """Each domain should have a listing page."""
         site_dir = built_site["site_dir"]
@@ -145,6 +150,12 @@ class TestSiteBuildIntegration:
             # JSON-LD uses Schema.org TechArticle with embedded ErrorCanon
             assert json_ld["@type"] == "TechArticle"
             assert json_ld["deadend:errorCanon"]["id"] == canon["id"]
+
+            # Embedded canon URL must have trailing slash (prevent redirect)
+            embedded_url = json_ld["deadend:errorCanon"]["url"]
+            assert embedded_url.endswith("/"), (
+                f"JSON-LD embedded url for {canon['id']} must end with '/'"
+            )
 
     def test_html_pages_have_ai_summary(self, built_site):
         """Every error page should have an ai-summary section."""

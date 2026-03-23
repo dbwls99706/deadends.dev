@@ -380,17 +380,21 @@ def validate_all(
         html_files = list(site_dir.rglob("index.html"))
         # Only validate env-specific error pages (depth >= 4: domain/slug/env/index.html)
         # Excludes: top-level index, domain listings (depth 2), error summaries (depth 3)
-        error_pages = [
+        all_error_pages = [
             f
             for f in html_files
             if f.parent != site_dir and len(f.relative_to(site_dir).parts) > 3
         ]
-        for html_file in error_pages:
-            # Skip redirect pages (meta refresh) — they don't have JSON-LD
-            page_content = html_file.read_text(encoding="utf-8")
-            if 'http-equiv="refresh"' in page_content:
+        # Pre-filter redirect pages (read once, skip both validation passes)
+        error_pages = []
+        for html_file in all_error_pages:
+            content = html_file.read_text(encoding="utf-8")
+            if 'http-equiv="refresh"' in content:
                 print(f"  SKIP (redirect): {html_file}")
                 continue
+            error_pages.append(html_file)
+
+        for html_file in error_pages:
             errors = validate_html(html_file)
             for error in errors:
                 all_errors.append(error)
@@ -402,10 +406,6 @@ def validate_all(
         if all_canons:
             canons_by_id = {c["id"]: c for c in all_canons}
             for html_file in error_pages:
-                # Skip redirect pages
-                page_content = html_file.read_text(encoding="utf-8")
-                if 'http-equiv="refresh"' in page_content:
-                    continue
                 errors = validate_html_json_consistency(html_file, canons_by_id)
                 for error in errors:
                     all_errors.append(error)

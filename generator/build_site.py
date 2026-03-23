@@ -667,7 +667,7 @@ Sitemap: {BASE_URL}/sitemap.xml
     print("  Generated: robots.txt")
 
 
-def build_404_page() -> None:
+def build_404_page(canons: list[dict]) -> None:
     """Generate a custom 404 page with navigation and search.
 
     Includes JavaScript-based redirect for known old URL patterns,
@@ -705,33 +705,39 @@ def build_404_page() -> None:
         "</div>\n"
         "<script>\n"
         "// Redirect known old URLs to current locations\n"
+        "// Auto-generated from REDIRECT_MAP — do not edit manually\n"
         "(function(){\n"
         "  var p = location.pathname.replace(/\\/+$/,'');\n"
-        "  var m = {\n"
-        "    '/python/recursionerror':'/python/recursion-limit-exceeded/',\n"
-        "    '/node/syntax-error-unexpected-token-import':'/node/syntaxerror-unexpected-token/',\n"
-        "    '/node/abort-error':'/node/node-fetch-abort/',\n"
-        "    '/node/digital-envelope-unsupported':'/node/node-crypto-unsupported/',\n"
-        "    '/nextjs/metadata-client-component':'/nextjs/generate-metadata-client-component/',\n"
-        "    '/rust/e0502-borrow-conflict':'/rust/e0502-mutable-immutable-borrow/',\n"
-        "    '/typescript/ts7053-no-index-signature':'/typescript/ts2339-index-signature/',\n"
-        "    '/pip/no-matching-distribution':'/pip/'\n"
-        "  };\n"
+        "  var m = " + json.dumps(
+            {f"/{k}": f"/{v}/" for k, v in REDIRECT_MAP.items()},
+            separators=(",", ":"),
+        ) + ";\n"
+        "  // Known domains whitelist (prevents open redirect / DOM XSS via path)\n"
+        "  var domains = " + json.dumps(sorted({c["error"]["domain"] for c in canons})) + ";\n"
         "  // Check slug prefix (strip env suffix)\n"
         "  var parts = p.split('/');\n"
         "  var slug = parts.length >= 3 ? '/' + parts[1] + '/' + parts[2] : p;\n"
         "  if (m[slug]) {\n"
         "    var el = document.getElementById('redirect-msg');\n"
         "    el.style.display = 'block';\n"
-        "    el.innerHTML = 'This page has moved. Redirecting to <a href=\"' "
-        "      + m[slug] + '\">' + m[slug] + '</a>...';\n"
+        "    el.textContent = 'This page has moved. Redirecting...';\n"
+        "    var a = document.createElement('a');\n"
+        "    a.href = m[slug]; a.textContent = m[slug];\n"
+        "    el.appendChild(document.createTextNode(' ')); el.appendChild(a);\n"
         "    location.replace(m[slug]);\n"
-        "  } else if (parts.length >= 2 && parts[1]) {\n"
-        "    // Suggest domain page if the domain exists\n"
+        "  } else if (parts.length >= 2 && parts[1] && domains.indexOf(parts[1]) !== -1) {\n"
+        "    // Suggest domain page only for known domains (prevent XSS via crafted paths)\n"
         "    var el = document.getElementById('redirect-msg');\n"
         "    el.style.display = 'block';\n"
-        "    el.innerHTML = 'Try browsing <a href=\"/' + parts[1] + '/\">' "
-        "      + parts[1] + ' errors</a> or <a href=\"/search/\">search</a>.';\n"
+        "    var link = '/' + parts[1] + '/';\n"
+        "    el.textContent = 'Try browsing ';\n"
+        "    var a = document.createElement('a');\n"
+        "    a.href = link; a.textContent = parts[1] + ' errors';\n"
+        "    el.appendChild(a);\n"
+        "    el.appendChild(document.createTextNode(' or '));\n"
+        "    var a2 = document.createElement('a');\n"
+        "    a2.href = '/search/'; a2.textContent = 'search';\n"
+        "    el.appendChild(a2);\n"
         "  }\n"
         "})();\n"
         "</script>\n"
@@ -755,7 +761,11 @@ REDIRECT_MAP = {
 
 
 def _write_redirect_html(old_path: str, target_url: str) -> None:
-    """Write a single HTML redirect page at the given old path."""
+    """Write a single HTML redirect page at the given old path.
+
+    Skips writing if the path already contains a real (non-redirect) page,
+    preventing accidental overwrite of live content.
+    """
     html = (
         "<!DOCTYPE html>\n"
         '<html lang="en"><head>\n'
@@ -770,51 +780,75 @@ def _write_redirect_html(old_path: str, target_url: str) -> None:
     )
     redirect_dir = SITE_DIR / old_path
     redirect_dir.mkdir(parents=True, exist_ok=True)
-    # Only write if the directory doesn't already contain a real page
     target_file = redirect_dir / "index.html"
-    if not target_file.exists():
-        target_file.write_text(html, encoding="utf-8")
+    if target_file.exists():
+        # Never overwrite a real page with a redirect
+        existing = target_file.read_text(encoding="utf-8")
+        if 'http-equiv="refresh"' not in existing:
+            print(f"  SKIP (conflict): {old_path} already has a real page")
+            return
+    target_file.write_text(html, encoding="utf-8")
 
 
-def build_redirect_pages() -> None:
+# Env-specific old URLs that were crawled by Google (old_slug/env → new_slug)
+ENV_REDIRECTS = {
+    "python/recursionerror/py311-linux": "python/recursion-limit-exceeded",
+    "node/syntax-error-unexpected-token-import/node20-linux":
+        "node/syntaxerror-unexpected-token",
+    "node/abort-error/node20-linux": "node/node-fetch-abort",
+    "node/digital-envelope-unsupported/node20-linux":
+        "node/node-crypto-unsupported",
+    "nextjs/metadata-client-component/nextjs14-linux":
+        "nextjs/generate-metadata-client-component",
+    "rust/e0502-borrow-conflict/rust1-linux":
+        "rust/e0502-mutable-immutable-borrow",
+    "typescript/ts7053-no-index-signature/ts5-linux":
+        "typescript/ts2339-index-signature",
+}
+
+
+def build_redirect_pages(canons: list[dict]) -> None:
     """Generate static HTML redirect pages for old/renamed slugs.
 
     Creates index.html files at old URL paths with <meta http-equiv="refresh">
     and <link rel="canonical"> pointing to the new URL. This tells search engines
     that the content has permanently moved.
-    """
-    count = 0
-    for old_slug, new_slug in REDIRECT_MAP.items():
-        target_url = f"{BASE_URL}/{new_slug}/"
 
-        # Summary-level redirect: /old-slug/ → /new-slug/
+    Validates that all redirect targets actually exist in the current dataset.
+    """
+    # Build set of known slugs for target validation
+    known_slugs = set()
+    for canon in canons:
+        parts = canon["id"].split("/")
+        if len(parts) >= 2:
+            known_slugs.add(f"{parts[0]}/{parts[1]}")
+
+    count = 0
+    skipped = 0
+
+    # Summary-level redirects from REDIRECT_MAP
+    for old_slug, new_slug in REDIRECT_MAP.items():
+        if new_slug not in known_slugs:
+            print(f"  WARNING: redirect target '{new_slug}' does not exist, skipping")
+            skipped += 1
+            continue
+        target_url = f"{BASE_URL}/{new_slug}/"
         _write_redirect_html(old_slug, target_url)
         count += 1
         print(f"  Redirect: {old_slug}/ → {new_slug}/")
 
-    # Env-specific redirects for known 404 URLs from Google Search Console.
-    # These map old_slug/env → new_slug/ (summary page of the new error).
-    env_redirects = {
-        "python/recursionerror/py311-linux": "python/recursion-limit-exceeded",
-        "node/syntax-error-unexpected-token-import/node20-linux":
-            "node/syntaxerror-unexpected-token",
-        "node/abort-error/node20-linux": "node/node-fetch-abort",
-        "node/digital-envelope-unsupported/node20-linux":
-            "node/node-crypto-unsupported",
-        "nextjs/metadata-client-component/nextjs14-linux":
-            "nextjs/generate-metadata-client-component",
-        "rust/e0502-borrow-conflict/rust1-linux":
-            "rust/e0502-mutable-immutable-borrow",
-        "typescript/ts7053-no-index-signature/ts5-linux":
-            "typescript/ts2339-index-signature",
-    }
-    for old_path, new_slug in env_redirects.items():
+    # Env-specific redirects
+    for old_path, new_slug in ENV_REDIRECTS.items():
+        if new_slug not in known_slugs:
+            print(f"  WARNING: redirect target '{new_slug}' does not exist, skipping")
+            skipped += 1
+            continue
         target_url = f"{BASE_URL}/{new_slug}/"
         _write_redirect_html(old_path, target_url)
         count += 1
         print(f"  Redirect: {old_path}/ → {new_slug}/")
 
-    print(f"  Total: {count} redirect pages")
+    print(f"  Total: {count} redirect pages ({skipped} skipped)")
 
 
 
@@ -2802,11 +2836,11 @@ def main():
     print()
 
     print("Generating 404.html...")
-    build_404_page()
+    build_404_page(canons)
     print()
 
     print("Generating redirect pages...")
-    build_redirect_pages()
+    build_redirect_pages(canons)
     print()
 
     print("Generating CNAME...")
