@@ -19,6 +19,12 @@ DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
 
 _CANONS = None
 _DOMAIN_INDEX = None
+_COMPILED_REGEXES = None
+
+# Security limits
+_MAX_ERROR_MESSAGE_LEN = 10_000
+_MAX_SEARCH_QUERY_LEN = 1_000
+_ID_PATTERN = re.compile(r"^[a-z0-9-]+/[a-z0-9-]+/[a-z0-9._-]+$")
 
 
 def _is_valid_canon(c):
@@ -62,11 +68,38 @@ def _get_domain_index():
     return index
 
 
+def _get_compiled_regexes():
+    """Pre-compile and cache all canon regexes."""
+    global _COMPILED_REGEXES
+    if _COMPILED_REGEXES is not None:
+        return _COMPILED_REGEXES
+    canons = _load_canons()
+    compiled = {}
+    for canon in canons:
+        canon_id = canon.get("id", "")
+        regex_str = canon.get("error", {}).get("regex", "")
+        try:
+            compiled[canon_id] = re.compile(regex_str, re.IGNORECASE)
+        except re.error:
+            compiled[canon_id] = None
+    _COMPILED_REGEXES = compiled
+    return compiled
+
+
 def match_error(error_message, canons):
+    if not error_message or not error_message.strip():
+        return []
+    # Truncate to prevent ReDoS
+    if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
+        error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
+    compiled = _get_compiled_regexes()
     matches = []
     for canon in canons:
         try:
-            pattern = re.compile(canon["error"]["regex"], re.IGNORECASE)
+            canon_id = canon.get("id", "")
+            pattern = compiled.get(canon_id)
+            if pattern is None:
+                continue
             if pattern.search(error_message):
                 matches.append({
                     "id": canon["id"],
@@ -714,6 +747,8 @@ def handle_mcp(method, params, canons, config=None):
 
         elif tool_name == "get_error_detail":
             error_id = args.get("error_id", "")
+            if not error_id or not _ID_PATTERN.match(error_id):
+                return {"content": [{"type": "text", "text": f"Invalid error ID format: {error_id}"}]}
             canon = next((c for c in canons if c["id"] == error_id), None)
             if canon:
                 text = json.dumps(canon, indent=2, ensure_ascii=False)
@@ -762,7 +797,7 @@ def handle_mcp(method, params, canons, config=None):
             return {"content": [{"type": "text", "text": text}]}
 
         elif tool_name == "search_errors":
-            query = args.get("query", "").lower()
+            query = args.get("query", "")[:_MAX_SEARCH_QUERY_LEN].lower()
             domain_filter = args.get("domain", "")
             limit = min(args.get("limit", config["max_results"]), 20)
             scored = []
@@ -973,6 +1008,8 @@ def handle_mcp(method, params, canons, config=None):
 
         elif tool_name == "get_error_chain":
             error_id = args.get("error_id", "")
+            if not error_id or not _ID_PATTERN.match(error_id):
+                return {"content": [{"type": "text", "text": f"Invalid error ID format: {error_id}"}]}
             canon = next(
                 (c for c in canons if c["id"] == error_id), None
             )

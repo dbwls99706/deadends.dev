@@ -50,8 +50,12 @@ def built_site(tmp_path_factory):
         from markupsafe import Markup
 
         def _json_escape(s: str) -> Markup:
-            escaped = json.dumps(s)[1:-1]
+            if not isinstance(s, str):
+                s = str(s) if s is not None else ""
+            dumped = json.dumps(s)
+            escaped = dumped[1:-1] if len(dumped) >= 2 else ""
             escaped = escaped.replace("</", r"<\/")
+            escaped = escaped.replace("<!--", "\\u003C!--")
             return Markup(escaped)
 
         jinja_env.filters["json_escape"] = _json_escape

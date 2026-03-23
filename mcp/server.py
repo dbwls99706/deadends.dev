@@ -651,7 +651,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             }
 
         elif tool_name == "search_errors":
-            query = args.get("query", "").strip().lower()
+            query = args.get("query", "")[:1000].strip().lower()
             if not query:
                 return {
                     "content": [{

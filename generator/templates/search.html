@@ -110,15 +110,18 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
           allErrors.style.display = 'block';
           return;
         }
+        // Limit query length to prevent ReDoS on client side
+        if (query.length > 500) query = query.substring(0, 500);
         allErrors.style.display = 'none';
         var matches = [];
         var lowerQuery = query.toLowerCase();
         for (var i = 0; i < compiled.length; i++) {
           var entry = compiled[i];
           var score = 0;
-          // Regex match (highest priority)
-          if (entry.re && entry.re.test(query)) {
-            score += 100;
+          // Regex match (highest priority, with try-catch for ReDoS safety)
+          if (entry.re) {
+            try { if (entry.re.test(query)) score += 100; }
+            catch(e) { /* skip failed regex */ }
           }
           // Signature substring match
           if (entry.data.signature.toLowerCase().indexOf(lowerQuery) !== -1) {
