@@ -339,6 +339,58 @@ class TestSanitizeSources:
         assert len(_sanitize_sources(sources)) == 0
 
 
+class TestJsonEscapeFilter:
+    """Tests for the _json_escape filter logic (used in JSON-LD <script> blocks).
+
+    The filter is a closure defined inside build_site.build_site(), so we test
+    the same algorithm directly.
+    """
+
+    @staticmethod
+    def _json_escape(s):
+        """Mirror of the production _json_escape logic."""
+        import json
+        if not isinstance(s, str):
+            s = str(s) if s is not None else ""
+        dumped = json.dumps(s)
+        escaped = dumped[1:-1] if len(dumped) >= 2 else ""
+        escaped = escaped.replace("</", r"<\/")
+        escaped = escaped.replace("<!--", "\\u003C!--")
+        return escaped
+
+    def test_normal_string(self):
+        assert self._json_escape("hello") == "hello"
+
+    def test_string_with_quotes(self):
+        assert '\\"' in self._json_escape('he said "hi"')
+
+    def test_script_breakout(self):
+        result = self._json_escape("</script>")
+        assert "</script>" not in result
+        assert r"<\/script>" in result
+
+    def test_html_comment_injection(self):
+        result = self._json_escape("<!-- comment -->")
+        assert "<!--" not in result
+        assert "\\u003C!--" in result
+
+    def test_none_input(self):
+        assert self._json_escape(None) == ""
+
+    def test_integer_input(self):
+        assert self._json_escape(123) == "123"
+
+    def test_empty_string(self):
+        assert self._json_escape("") == ""
+
+    def test_valid_json_when_quoted(self):
+        import json
+        result = self._json_escape('test "value" </end>')
+        json_str = f'"{result}"'.replace(r"<\/", "</")
+        parsed = json.loads(json_str)
+        assert parsed == 'test "value" </end>'
+
+
 class TestGenerateVariations:
     """Tests for _generate_variations null/type guard."""
 

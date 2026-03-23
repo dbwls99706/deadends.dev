@@ -135,6 +135,17 @@ Each canon JSON file has these top-level required fields:
 - Ruff excludes `generator/bulk_generate*.py` and `api/` from linting
 - The `site/` directory is generated output — never edit manually
 
+## Security
+
+When editing canon JSON files or templates, follow these rules:
+
+- **Regex safety**: Avoid nested quantifiers like `(a+)+` or quantified alternation `(a|b)+` — these are vulnerable to ReDoS. The validator warns on common patterns but cannot catch all cases.
+- **Source URLs**: Only use `https://` URLs from reputable sources. The build rejects `javascript:`, `data:`, `file:`, localhost, private IPs (10.x, 172.x, 192.168.x), and cloud metadata endpoints (169.254.x).
+- **Error IDs**: Must match `{domain}/{slug}/{env}` — all lowercase, alphanumeric + hyphens. IDs containing `..` are rejected at build time.
+- **Template escaping**: Inside `<script type="application/ld+json">` blocks, always use `{{ value | json_escape }}` for user-derived data — never rely on Jinja2 auto-escaping (which produces HTML entities, not valid JSON).
+- **Secrets**: Verification codes and API keys should be set via environment variables (`GOOGLE_VERIFICATION`, `BING_VERIFICATION`, `INDEXNOW_KEY`), not hardcoded.
+- **CI/CD**: GitHub Actions are pinned by SHA hash in `.github/workflows/build.yml`. When updating, always pin by full SHA and add a version comment.
+
 ## Deployment
 
 - **Static site**: GitHub Pages via GitHub Actions (`.github/workflows/build.yml`)
