@@ -245,7 +245,10 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             **canon,
         )
 
-        # Write HTML page
+        # Write HTML page (defense-in-depth: reject path traversal)
+        if ".." in error_id:
+            print(f"  SKIP (unsafe id): {error_id}")
+            continue
         page_dir = SITE_DIR / error_id
         page_dir.mkdir(parents=True, exist_ok=True)
         (page_dir / "index.html").write_text(html, encoding="utf-8")
@@ -1050,6 +1053,8 @@ def _generate_variations(signature: str, regex: str, domain: str) -> list[str]:
     These help with SEO by covering different phrasings AI agents
     or developers might search for.
     """
+    if not signature or not isinstance(signature, str):
+        return []
     variations = []
 
     # Domain-specific variation patterns
