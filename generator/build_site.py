@@ -173,8 +173,11 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "@type": "SoftwareSourceCode",
                 "programmingLanguage": canon["error"]["domain"],
             },
-            # Full ErrorCanon data embedded
-            "deadend:errorCanon": canon,
+            # Full ErrorCanon data embedded (with normalized trailing-slash URL)
+            "deadend:errorCanon": {
+                **canon,
+                "url": page_url,
+            },
         }
         json_ld = _safe_json_ld(json_ld_data)
 
@@ -248,10 +251,16 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         (page_dir / "index.html").write_text(html, encoding="utf-8")
 
         # Write JSON API endpoint (hierarchical path)
+        # Normalize url to include trailing slash so crawlers don't discover
+        # non-trailing-slash URLs that GitHub Pages 301-redirects
+        api_canon = dict(canon)
+        canon_url = api_canon.get("url", "")
+        if canon_url and not canon_url.endswith("/"):
+            api_canon["url"] = canon_url + "/"
         api_file = SITE_DIR / "api" / "v1" / f"{error_id}.json"
         api_file.parent.mkdir(parents=True, exist_ok=True)
         api_file.write_text(
-            json.dumps(canon, indent=2, ensure_ascii=False),
+            json.dumps(api_canon, indent=2, ensure_ascii=False),
             encoding="utf-8",
         )
 
@@ -659,7 +668,11 @@ Sitemap: {BASE_URL}/sitemap.xml
 
 
 def build_404_page() -> None:
-    """Generate a custom 404 page with navigation and search."""
+    """Generate a custom 404 page with navigation and search.
+
+    Includes JavaScript-based redirect for known old URL patterns,
+    so crawlers that hit stale URLs get pointed to the correct page.
+    """
     html = (
         "<!DOCTYPE html>\n"
         '<html lang="en"><head>\n'
@@ -675,10 +688,13 @@ def build_404_page() -> None:
         "a{color:#58a6ff;}h1{font-size:1.6rem;}"
         "nav a{color:#8b949e;text-decoration:none;}nav a:hover{color:#58a6ff;}\n"
         ".links{margin:2rem 0;}.links a{display:inline-block;margin:0.5rem 1rem 0.5rem 0;}\n"
+        "#redirect-msg{margin:1rem 0;padding:1rem;border:1px solid #30363d;"
+        "border-radius:6px;background:#161b22;display:none;}\n"
         "</style>\n"
         "</head><body>\n"
         f'<nav><a href="{BASE_PATH}/">deadends.dev</a></nav>\n'
         "<h1>404 — Error Not Found</h1>\n"
+        '<div id="redirect-msg"></div>\n'
         "<p>This error page doesn't exist yet. "
         "Ironic for a site that catalogs errors.</p>\n"
         '<div class="links">\n'
@@ -687,10 +703,118 @@ def build_404_page() -> None:
         '<a href="https://github.com/dbwls99706/deadends.dev/issues/new">'
         "Request this error</a>\n"
         "</div>\n"
+        "<script>\n"
+        "// Redirect known old URLs to current locations\n"
+        "(function(){\n"
+        "  var p = location.pathname.replace(/\\/+$/,'');\n"
+        "  var m = {\n"
+        "    '/python/recursionerror':'/python/recursion-limit-exceeded/',\n"
+        "    '/node/syntax-error-unexpected-token-import':'/node/syntaxerror-unexpected-token/',\n"
+        "    '/node/abort-error':'/node/node-fetch-abort/',\n"
+        "    '/node/digital-envelope-unsupported':'/node/node-crypto-unsupported/',\n"
+        "    '/nextjs/metadata-client-component':'/nextjs/generate-metadata-client-component/',\n"
+        "    '/rust/e0502-borrow-conflict':'/rust/e0502-mutable-immutable-borrow/',\n"
+        "    '/typescript/ts7053-no-index-signature':'/typescript/ts2339-index-signature/',\n"
+        "    '/pip/no-matching-distribution':'/pip/'\n"
+        "  };\n"
+        "  // Check slug prefix (strip env suffix)\n"
+        "  var parts = p.split('/');\n"
+        "  var slug = parts.length >= 3 ? '/' + parts[1] + '/' + parts[2] : p;\n"
+        "  if (m[slug]) {\n"
+        "    var el = document.getElementById('redirect-msg');\n"
+        "    el.style.display = 'block';\n"
+        "    el.innerHTML = 'This page has moved. Redirecting to <a href=\"' "
+        "      + m[slug] + '\">' + m[slug] + '</a>...';\n"
+        "    location.replace(m[slug]);\n"
+        "  } else if (parts.length >= 2 && parts[1]) {\n"
+        "    // Suggest domain page if the domain exists\n"
+        "    var el = document.getElementById('redirect-msg');\n"
+        "    el.style.display = 'block';\n"
+        "    el.innerHTML = 'Try browsing <a href=\"/' + parts[1] + '/\">' "
+        "      + parts[1] + ' errors</a> or <a href=\"/search/\">search</a>.';\n"
+        "  }\n"
+        "})();\n"
+        "</script>\n"
         "</body></html>"
     )
     (SITE_DIR / "404.html").write_text(html, encoding="utf-8")
     print("  Generated: 404.html")
+
+
+# Old slug → new slug redirect map. Used to generate static HTML redirect pages
+# so that search engines following stale URLs get a proper 301-equivalent redirect.
+REDIRECT_MAP = {
+    "python/recursionerror": "python/recursion-limit-exceeded",
+    "node/syntax-error-unexpected-token-import": "node/syntaxerror-unexpected-token",
+    "node/abort-error": "node/node-fetch-abort",
+    "node/digital-envelope-unsupported": "node/node-crypto-unsupported",
+    "nextjs/metadata-client-component": "nextjs/generate-metadata-client-component",
+    "rust/e0502-borrow-conflict": "rust/e0502-mutable-immutable-borrow",
+    "typescript/ts7053-no-index-signature": "typescript/ts2339-index-signature",
+}
+
+
+def _write_redirect_html(old_path: str, target_url: str) -> None:
+    """Write a single HTML redirect page at the given old path."""
+    html = (
+        "<!DOCTYPE html>\n"
+        '<html lang="en"><head>\n'
+        '<meta charset="utf-8">\n'
+        f'<title>Moved to {target_url}</title>\n'
+        f'<link rel="canonical" href="{target_url}">\n'
+        f'<meta http-equiv="refresh" content="0;url={target_url}">\n'
+        '<meta name="robots" content="noindex">\n'
+        "</head><body>\n"
+        f'<p>This page has moved to <a href="{target_url}">{target_url}</a>.</p>\n'
+        "</body></html>"
+    )
+    redirect_dir = SITE_DIR / old_path
+    redirect_dir.mkdir(parents=True, exist_ok=True)
+    # Only write if the directory doesn't already contain a real page
+    target_file = redirect_dir / "index.html"
+    if not target_file.exists():
+        target_file.write_text(html, encoding="utf-8")
+
+
+def build_redirect_pages() -> None:
+    """Generate static HTML redirect pages for old/renamed slugs.
+
+    Creates index.html files at old URL paths with <meta http-equiv="refresh">
+    and <link rel="canonical"> pointing to the new URL. This tells search engines
+    that the content has permanently moved.
+    """
+    count = 0
+    for old_slug, new_slug in REDIRECT_MAP.items():
+        target_url = f"{BASE_URL}/{new_slug}/"
+
+        # Summary-level redirect: /old-slug/ → /new-slug/
+        _write_redirect_html(old_slug, target_url)
+        count += 1
+        print(f"  Redirect: {old_slug}/ → {new_slug}/")
+
+    # Env-specific redirects for known 404 URLs from Google Search Console.
+    # These map old_slug/env → new_slug/ (summary page of the new error).
+    env_redirects = {
+        "python/recursionerror/py311-linux": "python/recursion-limit-exceeded",
+        "node/syntax-error-unexpected-token-import/node20-linux":
+            "node/syntaxerror-unexpected-token",
+        "node/abort-error/node20-linux": "node/node-fetch-abort",
+        "node/digital-envelope-unsupported/node20-linux":
+            "node/node-crypto-unsupported",
+        "nextjs/metadata-client-component/nextjs14-linux":
+            "nextjs/generate-metadata-client-component",
+        "rust/e0502-borrow-conflict/rust1-linux":
+            "rust/e0502-mutable-immutable-borrow",
+        "typescript/ts7053-no-index-signature/ts5-linux":
+            "typescript/ts2339-index-signature",
+    }
+    for old_path, new_slug in env_redirects.items():
+        target_url = f"{BASE_URL}/{new_slug}/"
+        _write_redirect_html(old_path, target_url)
+        count += 1
+        print(f"  Redirect: {old_path}/ → {new_slug}/")
+
+    print(f"  Total: {count} redirect pages")
 
 
 
@@ -2157,6 +2281,10 @@ def build_ndjson(canons: list[dict]) -> None:
         parts = canon["id"].split("/")
         record = dict(canon)
         record["page_url"] = f"{BASE_URL}/{parts[0]}/{parts[1]}/"
+        # Normalize url to include trailing slash to avoid redirect issues
+        canon_url = record.get("url", "")
+        if canon_url and not canon_url.endswith("/"):
+            record["url"] = canon_url + "/"
         lines.append(json.dumps(record, ensure_ascii=False, separators=(",", ":")))
     (api_dir / "errors.ndjson").write_text(
         "\n".join(lines) + "\n", encoding="utf-8"
@@ -2675,6 +2803,10 @@ def main():
 
     print("Generating 404.html...")
     build_404_page()
+    print()
+
+    print("Generating redirect pages...")
+    build_redirect_pages()
     print()
 
     print("Generating CNAME...")
