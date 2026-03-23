@@ -115,6 +115,19 @@ class TestBusinessRules:
         # Caught by schema validation (maximum: 1.0)
         assert len(errors) > 0
 
+    def test_redos_nested_quantifiers_warning(self, valid_canon):
+        """Regex with nested quantifiers should produce a ReDoS warning."""
+        valid_canon["error"]["regex"] = "(a+)+b"
+        _, warnings = validate_canon_json(valid_canon)
+        assert any("ReDoS" in w for w in warnings)
+
+    def test_excessive_nesting_warning(self, valid_canon):
+        """Regex with excessive groups should produce a warning."""
+        # Build regex with 16 groups
+        valid_canon["error"]["regex"] = "(" * 16 + "a" + ")" * 16
+        _, warnings = validate_canon_json(valid_canon)
+        assert any("nesting" in w.lower() for w in warnings)
+
 
 class TestWarnings:
     def test_empty_sources_warning(self, valid_canon):
@@ -249,6 +262,33 @@ class TestCrossReferences:
         )
         errors = validate_cross_references([canon1])
         assert len(errors) == 1
+
+    def test_malformed_error_id_format(self, make_canon):
+        """Cross-references with malformed IDs should produce errors."""
+        canon1 = make_canon(
+            transition_graph={
+                "leads_to": [
+                    {"error_id": "../../../etc/passwd", "probability": 0.5}
+                ],
+                "preceded_by": [],
+                "frequently_confused_with": [],
+            },
+        )
+        errors = validate_cross_references([canon1])
+        assert len(errors) == 1
+        assert "malformed" in errors[0]
+
+    def test_empty_error_id_is_malformed(self, make_canon):
+        canon1 = make_canon(
+            transition_graph={
+                "leads_to": [{"error_id": "", "probability": 0.5}],
+                "preceded_by": [],
+                "frequently_confused_with": [],
+            },
+        )
+        errors = validate_cross_references([canon1])
+        assert len(errors) == 1
+        assert "malformed" in errors[0]
 
 
 class TestUniqueIds:

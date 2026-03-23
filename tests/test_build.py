@@ -120,6 +120,44 @@ class TestUrlSafety:
     def test_rejects_empty_string(self):
         assert _is_safe_url("") is False
 
+    def test_rejects_file_url(self):
+        assert _is_safe_url("file:///etc/passwd") is False
+
+    def test_rejects_ftp_url(self):
+        assert _is_safe_url("ftp://example.com/file") is False
+
+    def test_rejects_localhost(self):
+        assert _is_safe_url("http://localhost/admin") is False
+
+    def test_rejects_127_0_0_1(self):
+        assert _is_safe_url("http://127.0.0.1:8080/secret") is False
+
+    def test_rejects_0_0_0_0(self):
+        assert _is_safe_url("http://0.0.0.0/") is False
+
+    def test_rejects_ipv6_loopback(self):
+        assert _is_safe_url("http://[::1]/") is False
+
+    def test_rejects_private_10_x(self):
+        assert _is_safe_url("http://10.0.0.1/internal") is False
+
+    def test_rejects_private_192_168(self):
+        assert _is_safe_url("http://192.168.1.1/router") is False
+
+    def test_rejects_private_172_16(self):
+        assert _is_safe_url("http://172.16.0.1/") is False
+
+    def test_allows_172_outside_private(self):
+        assert _is_safe_url("http://172.15.0.1/") is True
+        assert _is_safe_url("http://172.32.0.1/") is True
+
+    def test_rejects_link_local_metadata(self):
+        """Block 169.254.x.x (AWS metadata endpoint attack vector)."""
+        assert _is_safe_url("http://169.254.169.254/latest/meta-data/") is False
+
+    def test_rejects_no_host(self):
+        assert _is_safe_url("https://") is False
+
 
 class TestRedirectMap:
     """Tests for redirect configuration integrity."""

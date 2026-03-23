@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
   <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
   <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">

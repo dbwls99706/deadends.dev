@@ -1,6 +1,7 @@
 """Build static site from ErrorCanon JSON data files."""
 
 import json
+import os
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -25,12 +26,14 @@ BASE_PATH = ""
 # DOMAIN_DISPLAY_NAMES and domain_display_name imported from generator.domains
 
 
-# Search engine verification codes — replace with actual codes after registering
-GOOGLE_VERIFICATION = "bOa6r9d87jFHgTQb7iuN5QokGsgy99_NYrz0x1jsSmk"
-BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
+# Search engine verification codes (prefer env vars for easy rotation)
+GOOGLE_VERIFICATION = os.environ.get(
+    "GOOGLE_VERIFICATION", "bOa6r9d87jFHgTQb7iuN5QokGsgy99_NYrz0x1jsSmk"
+)
+BING_VERIFICATION = os.environ.get("BING_VERIFICATION", "")
 
-# IndexNow key — generated deterministically for the site
-INDEXNOW_KEY = "deadend-dev-indexnow-key"
+# IndexNow key (prefer env var for easy rotation)
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "deadend-dev-indexnow-key")
 
 # Previously, non-tech domains were noindexed to preserve crawl budget.
 # Removed: all domains are now indexed to maximise Google coverage.
@@ -74,11 +77,34 @@ def build_env_summary(canon: dict) -> str:
     return " · ".join(parts)
 
 
+_UNSAFE_HOSTS = frozenset({
+    "localhost", "127.0.0.1", "0.0.0.0", "::1", "[::1]",  # noqa: S104
+})
+
+
 def _is_safe_url(url: str) -> bool:
-    """Validate that a URL uses http/https scheme (prevent javascript: injection)."""
+    """Validate that a URL uses http/https and is not a local/internal address."""
     try:
         parsed = urlparse(url)
-        return parsed.scheme in ("http", "https")
+        if parsed.scheme not in ("http", "https"):
+            return False
+        host = (parsed.hostname or "").lower()
+        if not host:
+            return False
+        # Block localhost and loopback
+        if host in _UNSAFE_HOSTS:
+            return False
+        # Block private IPv4 ranges (10.x, 172.16-31.x, 192.168.x)
+        if host.startswith(("10.", "192.168.")):
+            return False
+        if host.startswith("172."):
+            parts = host.split(".")
+            if len(parts) >= 2 and parts[1].isdigit() and 16 <= int(parts[1]) <= 31:
+                return False
+        # Block 169.254.x.x (link-local / metadata endpoint)
+        if host.startswith("169.254."):
+            return False
+        return True
     except Exception:
         return False
 
@@ -91,11 +117,15 @@ def _sanitize_sources(sources: list[str]) -> list[str]:
 def _safe_json_ld(data: dict) -> str:
     """Serialize data to JSON-LD string safe for embedding in <script> tags.
 
-    Escapes </ to prevent </script> breakout and escapes HTML entities
-    that could break out of the JSON-LD context.
+    Uses ensure_ascii=True so all non-ASCII chars become \\uXXXX escapes,
+    preventing Unicode-based injection.  Also escapes sequences that could
+    break out of the <script> context.
     """
-    result = json.dumps(data, indent=2, ensure_ascii=False)
+    result = json.dumps(data, indent=2, ensure_ascii=True)
+    # Prevent </script> breakout
     result = result.replace("</", r"<\/")
+    # Prevent HTML comment injection (use Unicode escape for '<')
+    result = result.replace("<!--", "\\u003C!--")
     return result
 
 
@@ -681,6 +711,7 @@ def build_404_page(canons: list[dict]) -> None:
         '<html lang="en"><head>\n'
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<meta http-equiv="X-Content-Type-Options" content="nosniff">\n'
         '<meta name="theme-color" content="#0d1117">\n'
         "<title>404 — Error Not Found | deadends.dev</title>\n"
         '<meta name="robots" content="noindex">\n'
@@ -773,6 +804,7 @@ def _write_redirect_html(old_path: str, target_url: str) -> None:
         "<!DOCTYPE html>\n"
         '<html lang="en"><head>\n'
         '<meta charset="utf-8">\n'
+        '<meta http-equiv="X-Content-Type-Options" content="nosniff">\n'
         f'<title>Moved to {target_url}</title>\n'
         f'<link rel="canonical" href="{target_url}">\n'
         f'<meta http-equiv="refresh" content="0;url={target_url}">\n'
@@ -1389,8 +1421,8 @@ def build_search_page(
         domain_count=len(by_domain),
         domain_errors=domain_errors,
         search_data=json.dumps(
-            search_data, ensure_ascii=False
-        ).replace("</", r"<\/"),
+            search_data, ensure_ascii=True
+        ).replace("</", r"<\/").replace("<!--", "\\u003C!--"),
     )
 
     search_dir = SITE_DIR / "search"
@@ -2805,8 +2837,13 @@ def main():
         """JSON-safe string for use inside JSON-LD <script> blocks.
         Returns Markup to bypass Jinja2 autoescape (the value is already
         properly escaped by json.dumps). Also escapes </ to prevent XSS."""
-        escaped = json.dumps(s)[1:-1]  # strip outer quotes
+        if not isinstance(s, str):
+            s = str(s) if s is not None else ""
+        dumped = json.dumps(s)
+        # Strip outer quotes; guard against unexpectedly short output
+        escaped = dumped[1:-1] if len(dumped) >= 2 else ""
         escaped = escaped.replace("</", r"<\/")  # prevent </script> breakout
+        escaped = escaped.replace("<!--", "\\u003C!--")
         return Markup(escaped)
 
     jinja_env.filters["json_escape"] = _json_escape
