@@ -1,6 +1,7 @@
 """Build static site from ErrorCanon JSON data files."""
 
 import json
+import os
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -25,12 +26,14 @@ BASE_PATH = ""
 # DOMAIN_DISPLAY_NAMES and domain_display_name imported from generator.domains
 
 
-# Search engine verification codes — replace with actual codes after registering
-GOOGLE_VERIFICATION = "bOa6r9d87jFHgTQb7iuN5QokGsgy99_NYrz0x1jsSmk"
-BING_VERIFICATION = ""  # e.g., "ABCDEF1234567890"
+# Search engine verification codes (prefer env vars for easy rotation)
+GOOGLE_VERIFICATION = os.environ.get(
+    "GOOGLE_VERIFICATION", "bOa6r9d87jFHgTQb7iuN5QokGsgy99_NYrz0x1jsSmk"
+)
+BING_VERIFICATION = os.environ.get("BING_VERIFICATION", "")
 
-# IndexNow key — generated deterministically for the site
-INDEXNOW_KEY = "deadend-dev-indexnow-key"
+# IndexNow key (prefer env var for easy rotation)
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "deadend-dev-indexnow-key")
 
 # Previously, non-tech domains were noindexed to preserve crawl budget.
 # Removed: all domains are now indexed to maximise Google coverage.
@@ -74,11 +77,40 @@ def build_env_summary(canon: dict) -> str:
     return " · ".join(parts)
 
 
+_UNSAFE_HOSTS = frozenset({
+    "localhost", "127.0.0.1", "0.0.0.0", "::1", "[::1]",  # noqa: S104
+})
+
+
 def _is_safe_url(url: str) -> bool:
-    """Validate that a URL uses http/https scheme (prevent javascript: injection)."""
+    """Validate that a URL uses http/https and is not a local/internal address."""
     try:
         parsed = urlparse(url)
-        return parsed.scheme in ("http", "https")
+        if parsed.scheme not in ("http", "https"):
+            return False
+        host = (parsed.hostname or "").lower()
+        if not host:
+            return False
+        # Block localhost and loopback
+        if host in _UNSAFE_HOSTS:
+            return False
+        # Block private IPv4 ranges (10.x, 172.16-31.x, 192.168.x)
+        if host.startswith(("10.", "192.168.")):
+            return False
+        if host.startswith("172."):
+            parts = host.split(".")
+            if len(parts) >= 2 and parts[1].isdigit() and 16 <= int(parts[1]) <= 31:
+                return False
+        # Block 169.254.x.x (link-local / metadata endpoint)
+        if host.startswith("169.254."):
+            return False
+        # Block IPv6-mapped IPv4 (e.g. ::ffff:127.0.0.1)
+        if host.startswith("::ffff:"):
+            return False
+        # Block octal IP representations (e.g. 0177.0.0.1 = 127.0.0.1)
+        if host.split(".")[0].startswith("0") and host.split(".")[0] != "0":
+            return False
+        return True
     except Exception:
         return False
 
@@ -91,11 +123,15 @@ def _sanitize_sources(sources: list[str]) -> list[str]:
 def _safe_json_ld(data: dict) -> str:
     """Serialize data to JSON-LD string safe for embedding in <script> tags.
 
-    Escapes </ to prevent </script> breakout and escapes HTML entities
-    that could break out of the JSON-LD context.
+    Uses ensure_ascii=True so all non-ASCII chars become \\uXXXX escapes,
+    preventing Unicode-based injection.  Also escapes sequences that could
+    break out of the <script> context.
     """
-    result = json.dumps(data, indent=2, ensure_ascii=False)
+    result = json.dumps(data, indent=2, ensure_ascii=True)
+    # Prevent </script> breakout
     result = result.replace("</", r"<\/")
+    # Prevent HTML comment injection (use Unicode escape for '<')
+    result = result.replace("<!--", "\\u003C!--")
     return result
 
 
@@ -173,8 +209,11 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "@type": "SoftwareSourceCode",
                 "programmingLanguage": canon["error"]["domain"],
             },
-            # Full ErrorCanon data embedded
-            "deadend:errorCanon": canon,
+            # Full ErrorCanon data embedded (with normalized trailing-slash URL)
+            "deadend:errorCanon": {
+                **canon,
+                "url": page_url,
+            },
         }
         json_ld = _safe_json_ld(json_ld_data)
 
@@ -242,16 +281,25 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             **canon,
         )
 
-        # Write HTML page
+        # Write HTML page (defense-in-depth: reject path traversal)
+        if ".." in error_id:
+            print(f"  SKIP (unsafe id): {error_id}")
+            continue
         page_dir = SITE_DIR / error_id
         page_dir.mkdir(parents=True, exist_ok=True)
         (page_dir / "index.html").write_text(html, encoding="utf-8")
 
         # Write JSON API endpoint (hierarchical path)
+        # Normalize url to include trailing slash so crawlers don't discover
+        # non-trailing-slash URLs that GitHub Pages 301-redirects
+        api_canon = dict(canon)
+        canon_url = api_canon.get("url", "")
+        if canon_url and not canon_url.endswith("/"):
+            api_canon["url"] = canon_url + "/"
         api_file = SITE_DIR / "api" / "v1" / f"{error_id}.json"
         api_file.parent.mkdir(parents=True, exist_ok=True)
         api_file.write_text(
-            json.dumps(canon, indent=2, ensure_ascii=False),
+            json.dumps(api_canon, indent=2, ensure_ascii=False),
             encoding="utf-8",
         )
 
@@ -658,13 +706,18 @@ Sitemap: {BASE_URL}/sitemap.xml
     print("  Generated: robots.txt")
 
 
-def build_404_page() -> None:
-    """Generate a custom 404 page with navigation and search."""
+def build_404_page(canons: list[dict]) -> None:
+    """Generate a custom 404 page with navigation and search.
+
+    Includes JavaScript-based redirect for known old URL patterns,
+    so crawlers that hit stale URLs get pointed to the correct page.
+    """
     html = (
         "<!DOCTYPE html>\n"
         '<html lang="en"><head>\n'
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<meta http-equiv="X-Content-Type-Options" content="nosniff">\n'
         '<meta name="theme-color" content="#0d1117">\n'
         "<title>404 — Error Not Found | deadends.dev</title>\n"
         '<meta name="robots" content="noindex">\n'
@@ -675,10 +728,13 @@ def build_404_page() -> None:
         "a{color:#58a6ff;}h1{font-size:1.6rem;}"
         "nav a{color:#8b949e;text-decoration:none;}nav a:hover{color:#58a6ff;}\n"
         ".links{margin:2rem 0;}.links a{display:inline-block;margin:0.5rem 1rem 0.5rem 0;}\n"
+        "#redirect-msg{margin:1rem 0;padding:1rem;border:1px solid #30363d;"
+        "border-radius:6px;background:#161b22;display:none;}\n"
         "</style>\n"
         "</head><body>\n"
         f'<nav><a href="{BASE_PATH}/">deadends.dev</a></nav>\n'
         "<h1>404 — Error Not Found</h1>\n"
+        '<div id="redirect-msg"></div>\n'
         "<p>This error page doesn't exist yet. "
         "Ironic for a site that catalogs errors.</p>\n"
         '<div class="links">\n'
@@ -687,10 +743,153 @@ def build_404_page() -> None:
         '<a href="https://github.com/dbwls99706/deadends.dev/issues/new">'
         "Request this error</a>\n"
         "</div>\n"
+        "<script>\n"
+        "// Redirect known old URLs to current locations\n"
+        "// Auto-generated from REDIRECT_MAP — do not edit manually\n"
+        "(function(){\n"
+        "  var p = location.pathname.replace(/\\/+$/,'');\n"
+        "  var m = " + json.dumps(
+            {f"/{k}": f"/{v}/" for k, v in REDIRECT_MAP.items()},
+            separators=(",", ":"),
+        ) + ";\n"
+        "  // Known domains whitelist (prevents open redirect / DOM XSS via path)\n"
+        "  var domains = " + json.dumps(sorted({c["error"]["domain"] for c in canons})) + ";\n"
+        "  // Check slug prefix (strip env suffix)\n"
+        "  var parts = p.split('/');\n"
+        "  var slug = parts.length >= 3 ? '/' + parts[1] + '/' + parts[2] : p;\n"
+        "  if (m[slug]) {\n"
+        "    var el = document.getElementById('redirect-msg');\n"
+        "    el.style.display = 'block';\n"
+        "    el.textContent = 'This page has moved. Redirecting...';\n"
+        "    var a = document.createElement('a');\n"
+        "    a.href = m[slug]; a.textContent = m[slug];\n"
+        "    el.appendChild(document.createTextNode(' ')); el.appendChild(a);\n"
+        "    location.replace(m[slug]);\n"
+        "  } else if (parts.length >= 2 && parts[1] && domains.indexOf(parts[1]) !== -1) {\n"
+        "    // Suggest domain page only for known domains (prevent XSS via crafted paths)\n"
+        "    var el = document.getElementById('redirect-msg');\n"
+        "    el.style.display = 'block';\n"
+        "    var link = '/' + parts[1] + '/';\n"
+        "    el.textContent = 'Try browsing ';\n"
+        "    var a = document.createElement('a');\n"
+        "    a.href = link; a.textContent = parts[1] + ' errors';\n"
+        "    el.appendChild(a);\n"
+        "    el.appendChild(document.createTextNode(' or '));\n"
+        "    var a2 = document.createElement('a');\n"
+        "    a2.href = '/search/'; a2.textContent = 'search';\n"
+        "    el.appendChild(a2);\n"
+        "  }\n"
+        "})();\n"
+        "</script>\n"
         "</body></html>"
     )
     (SITE_DIR / "404.html").write_text(html, encoding="utf-8")
     print("  Generated: 404.html")
+
+
+# Old slug → new slug redirect map. Used to generate static HTML redirect pages
+# so that search engines following stale URLs get a proper 301-equivalent redirect.
+REDIRECT_MAP = {
+    "python/recursionerror": "python/recursion-limit-exceeded",
+    "node/syntax-error-unexpected-token-import": "node/syntaxerror-unexpected-token",
+    "node/abort-error": "node/node-fetch-abort",
+    "node/digital-envelope-unsupported": "node/node-crypto-unsupported",
+    "nextjs/metadata-client-component": "nextjs/generate-metadata-client-component",
+    "rust/e0502-borrow-conflict": "rust/e0502-mutable-immutable-borrow",
+    "typescript/ts7053-no-index-signature": "typescript/ts2339-index-signature",
+}
+
+
+def _write_redirect_html(old_path: str, target_url: str) -> None:
+    """Write a single HTML redirect page at the given old path.
+
+    Skips writing if the path already contains a real (non-redirect) page,
+    preventing accidental overwrite of live content.
+    """
+    html = (
+        "<!DOCTYPE html>\n"
+        '<html lang="en"><head>\n'
+        '<meta charset="utf-8">\n'
+        '<meta http-equiv="X-Content-Type-Options" content="nosniff">\n'
+        f'<title>Moved to {target_url}</title>\n'
+        f'<link rel="canonical" href="{target_url}">\n'
+        f'<meta http-equiv="refresh" content="0;url={target_url}">\n'
+        '<meta name="robots" content="noindex">\n'
+        "</head><body>\n"
+        f'<p>This page has moved to <a href="{target_url}">{target_url}</a>.</p>\n'
+        "</body></html>"
+    )
+    redirect_dir = SITE_DIR / old_path
+    redirect_dir.mkdir(parents=True, exist_ok=True)
+    target_file = redirect_dir / "index.html"
+    if target_file.exists():
+        # Never overwrite a real page with a redirect
+        existing = target_file.read_text(encoding="utf-8")
+        if 'http-equiv="refresh"' not in existing:
+            print(f"  SKIP (conflict): {old_path} already has a real page")
+            return
+    target_file.write_text(html, encoding="utf-8")
+
+
+# Env-specific old URLs that were crawled by Google (old_slug/env → new_slug)
+ENV_REDIRECTS = {
+    "python/recursionerror/py311-linux": "python/recursion-limit-exceeded",
+    "node/syntax-error-unexpected-token-import/node20-linux":
+        "node/syntaxerror-unexpected-token",
+    "node/abort-error/node20-linux": "node/node-fetch-abort",
+    "node/digital-envelope-unsupported/node20-linux":
+        "node/node-crypto-unsupported",
+    "nextjs/metadata-client-component/nextjs14-linux":
+        "nextjs/generate-metadata-client-component",
+    "rust/e0502-borrow-conflict/rust1-linux":
+        "rust/e0502-mutable-immutable-borrow",
+    "typescript/ts7053-no-index-signature/ts5-linux":
+        "typescript/ts2339-index-signature",
+}
+
+
+def build_redirect_pages(canons: list[dict]) -> None:
+    """Generate static HTML redirect pages for old/renamed slugs.
+
+    Creates index.html files at old URL paths with <meta http-equiv="refresh">
+    and <link rel="canonical"> pointing to the new URL. This tells search engines
+    that the content has permanently moved.
+
+    Validates that all redirect targets actually exist in the current dataset.
+    """
+    # Build set of known slugs for target validation
+    known_slugs = set()
+    for canon in canons:
+        parts = canon["id"].split("/")
+        if len(parts) >= 2:
+            known_slugs.add(f"{parts[0]}/{parts[1]}")
+
+    count = 0
+    skipped = 0
+
+    # Summary-level redirects from REDIRECT_MAP
+    for old_slug, new_slug in REDIRECT_MAP.items():
+        if new_slug not in known_slugs:
+            print(f"  WARNING: redirect target '{new_slug}' does not exist, skipping")
+            skipped += 1
+            continue
+        target_url = f"{BASE_URL}/{new_slug}/"
+        _write_redirect_html(old_slug, target_url)
+        count += 1
+        print(f"  Redirect: {old_slug}/ → {new_slug}/")
+
+    # Env-specific redirects
+    for old_path, new_slug in ENV_REDIRECTS.items():
+        if new_slug not in known_slugs:
+            print(f"  WARNING: redirect target '{new_slug}' does not exist, skipping")
+            skipped += 1
+            continue
+        target_url = f"{BASE_URL}/{new_slug}/"
+        _write_redirect_html(old_path, target_url)
+        count += 1
+        print(f"  Redirect: {old_path}/ → {new_slug}/")
+
+    print(f"  Total: {count} redirect pages ({skipped} skipped)")
 
 
 
@@ -892,6 +1091,8 @@ def _generate_variations(signature: str, regex: str, domain: str) -> list[str]:
     These help with SEO by covering different phrasings AI agents
     or developers might search for.
     """
+    if not signature or not isinstance(signature, str):
+        return []
     variations = []
 
     # Domain-specific variation patterns
@@ -1226,8 +1427,8 @@ def build_search_page(
         domain_count=len(by_domain),
         domain_errors=domain_errors,
         search_data=json.dumps(
-            search_data, ensure_ascii=False
-        ).replace("</", r"<\/"),
+            search_data, ensure_ascii=True
+        ).replace("</", r"<\/").replace("<!--", "\\u003C!--"),
     )
 
     search_dir = SITE_DIR / "search"
@@ -2157,6 +2358,10 @@ def build_ndjson(canons: list[dict]) -> None:
         parts = canon["id"].split("/")
         record = dict(canon)
         record["page_url"] = f"{BASE_URL}/{parts[0]}/{parts[1]}/"
+        # Normalize url to include trailing slash to avoid redirect issues
+        canon_url = record.get("url", "")
+        if canon_url and not canon_url.endswith("/"):
+            record["url"] = canon_url + "/"
         lines.append(json.dumps(record, ensure_ascii=False, separators=(",", ":")))
     (api_dir / "errors.ndjson").write_text(
         "\n".join(lines) + "\n", encoding="utf-8"
@@ -2638,8 +2843,13 @@ def main():
         """JSON-safe string for use inside JSON-LD <script> blocks.
         Returns Markup to bypass Jinja2 autoescape (the value is already
         properly escaped by json.dumps). Also escapes </ to prevent XSS."""
-        escaped = json.dumps(s)[1:-1]  # strip outer quotes
+        if not isinstance(s, str):
+            s = str(s) if s is not None else ""
+        dumped = json.dumps(s)
+        # Strip outer quotes; guard against unexpectedly short output
+        escaped = dumped[1:-1] if len(dumped) >= 2 else ""
         escaped = escaped.replace("</", r"<\/")  # prevent </script> breakout
+        escaped = escaped.replace("<!--", "\\u003C!--")
         return Markup(escaped)
 
     jinja_env.filters["json_escape"] = _json_escape
@@ -2674,7 +2884,11 @@ def main():
     print()
 
     print("Generating 404.html...")
-    build_404_page()
+    build_404_page(canons)
+    print()
+
+    print("Generating redirect pages...")
+    build_redirect_pages(canons)
     print()
 
     print("Generating CNAME...")

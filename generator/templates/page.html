@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
   <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
   <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
@@ -66,7 +67,7 @@
       {"@type": "ListItem", "position": 1, "name": "deadends.dev", "item": "{{ base_url }}"},
       {"@type": "ListItem", "position": 2, "name": "{{ error.domain | display_name }}", "item": "{{ base_url }}/{{ error.domain }}/"},
       {"@type": "ListItem", "position": 3, "name": "{{ error.signature | json_escape }}", "item": "{{ base_url }}/{{ id_parts[0] }}/{{ id_parts[1] }}/"},
-      {"@type": "ListItem", "position": 4, "name": "{{ env_summary }}"}
+      {"@type": "ListItem", "position": 4, "name": "{{ env_summary | json_escape }}"}
     ]
   }
   </script>

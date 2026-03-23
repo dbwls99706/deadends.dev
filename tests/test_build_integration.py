@@ -50,8 +50,12 @@ def built_site(tmp_path_factory):
         from markupsafe import Markup
 
         def _json_escape(s: str) -> Markup:
-            escaped = json.dumps(s)[1:-1]
+            if not isinstance(s, str):
+                s = str(s) if s is not None else ""
+            dumped = json.dumps(s)
+            escaped = dumped[1:-1] if len(dumped) >= 2 else ""
             escaped = escaped.replace("</", r"<\/")
+            escaped = escaped.replace("<!--", "\\u003C!--")
             return Markup(escaped)
 
         jinja_env.filters["json_escape"] = _json_escape
@@ -92,6 +96,11 @@ class TestSiteBuildIntegration:
                 api_data = json.load(f)
             assert api_data["id"] == canon["id"]
             assert api_data["verdict"]["resolvable"] == canon["verdict"]["resolvable"]
+
+            # Verify URL has trailing slash (prevents GitHub Pages redirect)
+            assert api_data["url"].endswith("/"), (
+                f"API JSON url for {canon['id']} must end with trailing slash"
+            )
 
     def test_domain_pages_created(self, built_site):
         """Each domain should have a listing page."""
@@ -145,6 +154,12 @@ class TestSiteBuildIntegration:
             # JSON-LD uses Schema.org TechArticle with embedded ErrorCanon
             assert json_ld["@type"] == "TechArticle"
             assert json_ld["deadend:errorCanon"]["id"] == canon["id"]
+
+            # Embedded canon URL must have trailing slash (prevent redirect)
+            embedded_url = json_ld["deadend:errorCanon"]["url"]
+            assert embedded_url.endswith("/"), (
+                f"JSON-LD embedded url for {canon['id']} must end with '/'"
+            )
 
     def test_html_pages_have_ai_summary(self, built_site):
         """Every error page should have an ai-summary section."""

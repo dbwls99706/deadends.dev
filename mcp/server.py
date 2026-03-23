@@ -56,6 +56,10 @@ _VERBOSE: bool = os.getenv("DEADENDS_VERBOSE", "true").lower() != "false"
 # Module-level cache — loaded once on first request
 _CANONS: list[dict] | None = None
 _DOMAIN_INDEX: dict[str, list[str]] | None = None
+_COMPILED_REGEXES: dict[str, re.Pattern | None] | None = None
+
+# Maximum length for error messages to prevent ReDoS
+_MAX_ERROR_MESSAGE_LEN = 10_000
 
 
 def _get_canons() -> list[dict]:
@@ -113,6 +117,28 @@ def _compute_freshness(canon: dict) -> str:
     return "fresh"
 
 
+def _get_compiled_regexes() -> dict[str, re.Pattern | None]:
+    """Pre-compile and cache all canon regexes (prevents per-request overhead)."""
+    global _COMPILED_REGEXES
+    if _COMPILED_REGEXES is not None:
+        return _COMPILED_REGEXES
+
+    canons = _get_canons()
+    compiled: dict[str, re.Pattern | None] = {}
+    for canon in canons:
+        canon_id = canon.get("id", "")
+        regex_str = canon.get("error", {}).get("regex", "")
+        try:
+            compiled[canon_id] = re.compile(regex_str, re.IGNORECASE)
+        except re.error as exc:
+            sys.stderr.write(
+                f"WARNING: Invalid regex in {canon_id}: {exc}\n"
+            )
+            compiled[canon_id] = None
+    _COMPILED_REGEXES = compiled
+    return compiled
+
+
 def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     """Match an error message against all known patterns.
 
@@ -123,11 +149,21 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     if not error_message or not error_message.strip():
         return []
 
+    # Truncate excessively long messages to prevent ReDoS
+    if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
+        error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
+
+    compiled = _get_compiled_regexes()
     matches = []
+    skipped = 0
     msg_len = len(error_message)
     for canon in canons:
         try:
-            pattern = re.compile(canon["error"]["regex"], re.IGNORECASE)
+            canon_id = canon.get("id", "")
+            pattern = compiled.get(canon_id)
+            if pattern is None:
+                skipped += 1
+                continue
             m = pattern.search(error_message)
             if m:
                 match_ratio = len(m.group()) / msg_len if msg_len else 0
@@ -173,6 +209,7 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
             sys.stderr.write(
                 f"WARNING: Skipping canon {canon_id}: {exc}\n"
             )
+            skipped += 1
             continue
 
     matches.sort(
@@ -183,11 +220,23 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     for m in matches:
         m.pop("_match_ratio", None)
         m.pop("_preferred", None)
+
+    # Surface skipped canon count so callers can inform users
+    if skipped and matches:
+        matches[0]["_skipped_canons"] = skipped
     return matches
 
 
+_ID_PATTERN = re.compile(r"^[a-z0-9-]+/[a-z0-9-]+/[a-z0-9._-]+$")
+
+
 def lookup_by_id(error_id: str, canons: list[dict]) -> dict | None:
-    """Look up a specific error by its ID."""
+    """Look up a specific error by its ID.
+
+    Validates that error_id matches the expected format before searching.
+    """
+    if not error_id or not _ID_PATTERN.match(error_id):
+        return None
     for canon in canons:
         if canon["id"] == error_id:
             return canon
@@ -509,6 +558,12 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                 )
             else:
                 parts = []
+                skipped_count = matches[0].pop("_skipped_canons", 0)
+                if skipped_count:
+                    parts.append(
+                        f"⚠ {skipped_count} canon(s) skipped due to data "
+                        f"errors (results may be incomplete).\n"
+                    )
                 for m in matches[:_MAX_RESULTS]:
                     parts.append(f"## {m['signature']}")
                     parts.append(f"Resolvable: {m['resolvable']} | "
@@ -596,7 +651,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             }
 
         elif tool_name == "search_errors":
-            query = args.get("query", "").strip().lower()
+            query = args.get("query", "")[:1000].strip().lower()
             if not query:
                 return {
                     "content": [{

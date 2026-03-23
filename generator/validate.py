@@ -94,11 +94,33 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
         if not 0.0 <= wa["success_rate"] <= 1.0:
             errors.append(f"workarounds[{i}].success_rate out of range: {wa['success_rate']}")
 
-    # Business rule: regex should be valid
+    # Business rule: regex should be valid and not vulnerable to ReDoS
+    regex_str = data["error"]["regex"]
     try:
-        re.compile(data["error"]["regex"])
+        re.compile(regex_str)
     except re.error as e:
         errors.append(f"Invalid error regex: {e}")
+
+    # Warn on regexes with nested quantifiers (ReDoS risk)
+    # Catches: (a+)+, (a*)+, (?:a+){2,}, etc.
+    if re.search(r"\([^)]*[+*][^)]*\)[+*{]", regex_str):
+        warnings.append(
+            f"Regex may be vulnerable to ReDoS (nested quantifiers): "
+            f"{regex_str[:80]}"
+        )
+    # Catch alternation-based ReDoS: (a|a)+ where branches overlap
+    if re.search(r"\([^)]*\|[^)]*\)[+*{]", regex_str):
+        # Only warn if the group has a quantifier after it
+        warnings.append(
+            f"Regex may be vulnerable to ReDoS (quantified alternation): "
+            f"{regex_str[:80]}"
+        )
+    # Warn on excessive nesting depth
+    if regex_str.count("(") > 15:
+        warnings.append(
+            f"Regex has excessive nesting ({regex_str.count('(')} groups): "
+            f"{regex_str[:80]}"
+        )
 
     # Warning: dead_ends with empty sources
     for i, de in enumerate(data.get("dead_ends", [])):
@@ -205,8 +227,11 @@ def validate_unique_ids(canons: list[dict]) -> list[str]:
     return errors
 
 
+_ID_FORMAT = re.compile(r"^[a-z0-9-]+/[a-z0-9-]+/[a-z0-9._-]+$")
+
+
 def validate_cross_references(canons: list[dict]) -> list[str]:
-    """Validate that all referenced error_ids exist in the dataset.
+    """Validate that all referenced error_ids exist and have valid format.
 
     Returns errors so broken references fail the build.
     """
@@ -216,26 +241,19 @@ def validate_cross_references(canons: list[dict]) -> list[str]:
     for canon in canons:
         graph = canon.get("transition_graph", {})
 
-        for lt in graph.get("leads_to", []):
-            if lt["error_id"] not in known_ids:
-                errors.append(
-                    f"{canon['id']}: transition_graph.leads_to references "
-                    f"non-existent error '{lt['error_id']}'"
-                )
-
-        for pb in graph.get("preceded_by", []):
-            if pb["error_id"] not in known_ids:
-                errors.append(
-                    f"{canon['id']}: transition_graph.preceded_by references "
-                    f"non-existent error '{pb['error_id']}'"
-                )
-
-        for fc in graph.get("frequently_confused_with", []):
-            if fc["error_id"] not in known_ids:
-                errors.append(
-                    f"{canon['id']}: transition_graph.frequently_confused_with "
-                    f"references non-existent error '{fc['error_id']}'"
-                )
+        for field in ("leads_to", "preceded_by", "frequently_confused_with"):
+            for entry in graph.get(field, []):
+                ref_id = entry.get("error_id", "")
+                if not _ID_FORMAT.match(ref_id):
+                    errors.append(
+                        f"{canon['id']}: transition_graph.{field} has "
+                        f"malformed error_id '{ref_id}'"
+                    )
+                elif ref_id not in known_ids:
+                    errors.append(
+                        f"{canon['id']}: transition_graph.{field} references "
+                        f"non-existent error '{ref_id}'"
+                    )
 
     return errors
 
@@ -380,11 +398,20 @@ def validate_all(
         html_files = list(site_dir.rglob("index.html"))
         # Only validate env-specific error pages (depth >= 4: domain/slug/env/index.html)
         # Excludes: top-level index, domain listings (depth 2), error summaries (depth 3)
-        error_pages = [
+        all_error_pages = [
             f
             for f in html_files
             if f.parent != site_dir and len(f.relative_to(site_dir).parts) > 3
         ]
+        # Pre-filter redirect pages (read once, skip both validation passes)
+        error_pages = []
+        for html_file in all_error_pages:
+            content = html_file.read_text(encoding="utf-8")
+            if 'http-equiv="refresh"' in content:
+                print(f"  SKIP (redirect): {html_file}")
+                continue
+            error_pages.append(html_file)
+
         for html_file in error_pages:
             errors = validate_html(html_file)
             for error in errors:
