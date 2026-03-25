@@ -124,6 +124,41 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     {% if workarounds|default([]) %}Try: {% for wa in workarounds[:2] %}<em>{{ wa.action }}</em> ({{ (wa.success_rate * 100)|int }}% success){% if not loop.last %}, {% endif %}{% endfor %}.{% endif %}
   </section>
 
+  <!-- FOR HUMANS — Quick fix guide for developers landing from search -->
+  <section id="for-humans" class="human-guide">
+    <div class="human-guide-header">
+      <span class="human-guide-label">For Humans</span>
+      <span class="human-guide-sub">Quick fix guide</span>
+    </div>
+    {% if dead_ends[:2] %}
+    <div class="human-dont">
+      <strong>Stop — don't try {% if dead_ends|length == 1 %}this{% else %}these{% endif %}:</strong>
+      <ul>
+        {% for de in dead_ends[:2] %}
+        <li>{{ de.action }}{% if de.common_misconception %} <span class="human-note">— {{ de.common_misconception }}</span>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if workarounds|default([]) %}
+    <div class="human-do">
+      <strong>Do this instead:</strong>
+      <ol class="human-steps">
+        {% for wa in workarounds %}
+        <li>
+          <span class="human-step-title">{{ wa.action }}</span>
+          <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
+          {% if wa.how %}<pre class="human-code">{{ wa.how }}</pre>{% endif %}
+          {% if wa.tradeoff %}<span class="human-note">Tradeoff: {{ wa.tradeoff }}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% else %}
+    <p>No known fix exists for this error in this environment. See the detailed analysis below.</p>
+    {% endif %}
+  </section>
+
   <section id="verdict">
     <h2>Verdict</h2>
     <p class="verdict-{{ verdict.resolvable }}">

@@ -89,6 +89,40 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     {% if common_workarounds %}Top workaround: <em>{{ common_workarounds[0].action }}</em> ({{ (common_workarounds[0].success_rate * 100)|int }}% success).{% endif %}
   </section>
 
+  <!-- FOR HUMANS — Quick fix guide for developers landing from search -->
+  <section id="for-humans" class="human-guide">
+    <div class="human-guide-header">
+      <span class="human-guide-label">For Humans</span>
+      <span class="human-guide-sub">Quick fix guide</span>
+    </div>
+    {% if common_dead_ends[:2] %}
+    <div class="human-dont">
+      <strong>Stop — don't try {% if common_dead_ends|length == 1 %}this{% else %}these{% endif %}:</strong>
+      <ul>
+        {% for de in common_dead_ends[:2] %}
+        <li>{{ de.action }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if common_workarounds %}
+    <div class="human-do">
+      <strong>Do this instead:</strong>
+      <ol class="human-steps">
+        {% for wa in common_workarounds[:3] %}
+        <li>
+          <span class="human-step-title">{{ wa.action }}</span>
+          <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
+          {% if wa.how %}<pre class="human-code">{{ wa.how }}</pre>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% else %}
+    <p>See environment-specific pages below for detailed workarounds.</p>
+    {% endif %}
+  </section>
+
   {% if verdict_summary|default('') %}
   <section id="summary">
     <h2>Summary</h2>
