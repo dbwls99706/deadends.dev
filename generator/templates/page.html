@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0d1117">
   <title>Fix {{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid &amp; Verified Workarounds | deadends.dev</title>
   <meta name="description" content="How to fix {{ error.signature }}: avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success. Step-by-step guide for {{ env_summary }}.">
-  {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
   <!-- AI agent discovery -->
@@ -176,7 +176,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     <h2>Dead Ends — Do NOT Try These</h2>
     {% for de in dead_ends %}
     <div class="dead-end">
-      <strong>{{ de.action }}</strong> <span class="fail-rate">(Fail rate: {{ de.fail_rate }})</span>
+      <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
       <p>{{ de.why_fails }}</p>
       {% if de.common_misconception %}<p><em>Common misconception:</em> {{ de.common_misconception }}</p>{% endif %}
       {% if de.condition %}<p class="meta">Condition: {{ de.condition }}</p>{% endif %}
@@ -192,7 +192,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     {% if workarounds|default([]) %}
     {% for wa in workarounds|default([]) %}
     <div class="workaround">
-      <strong>{{ wa.action }}</strong> <span class="success-rate">(Success rate: {{ wa.success_rate }})</span>
+      <strong>{{ wa.action }}</strong> <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
       {% if wa.how %}<p><code>{{ wa.how }}</code></p>{% endif %}
       {% if wa.tradeoff %}<p>Tradeoff: {{ wa.tradeoff }}</p>{% endif %}
       {% if wa.condition %}<p class="meta">Condition: {{ wa.condition }}</p>{% endif %}
@@ -335,7 +335,6 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
           setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
         });
       });
-      pre.style.position = 'relative';
       pre.appendChild(btn);
     });
 

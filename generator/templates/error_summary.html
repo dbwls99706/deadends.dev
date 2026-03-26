@@ -158,7 +158,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     <p>These approaches fail across most or all environments:</p>
     {% for de in common_dead_ends %}
     <div class="dead-end">
-      <strong>{{ de.action }}</strong> <span class="fail-rate">(Fail rate: {{ de.fail_rate }})</span>
+      <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
       <p>{{ de.why_fails }}</p>
     </div>
     {% endfor %}
@@ -169,7 +169,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     <h2>Common Workarounds — Try These Instead</h2>
     {% for wa in common_workarounds %}
     <div class="workaround">
-      <strong>{{ wa.action }}</strong> <span class="success-rate">(Success rate: {{ wa.success_rate }})</span>
+      <strong>{{ wa.action }}</strong> <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
       {% if wa.how %}<p><code>{{ wa.how }}</code></p>{% endif %}
     </div>
     {% endfor %}
@@ -293,7 +293,6 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
           setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
         });
       });
-      pre.style.position = 'relative';
       pre.appendChild(btn);
     });
     var copyLink = document.getElementById('copy-link-btn');
