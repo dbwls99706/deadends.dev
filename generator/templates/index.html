@@ -257,7 +257,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
         <span class="trust-label">Precision@1 — top result matches the correct domain</span>
       </div>
       <div class="trust-item">
-        <span class="trust-value" style="color: #58a6ff;">{{ mrr }}</span>
+        <span class="trust-value trust-value-blue">{{ mrr }}</span>
         <span class="trust-label">MRR — correct results consistently rank first</span>
       </div>
       <div class="trust-item">
@@ -265,11 +265,11 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
         <span class="trust-label">Precision@3 — correct answer in top 3 results</span>
       </div>
       <div class="trust-item">
-        <span class="trust-value" style="color: #d29922;">{{ total_edges }}</span>
+        <span class="trust-value trust-value-amber">{{ total_edges }}</span>
         <span class="trust-label">Error chain edges — predicting cascading failures</span>
       </div>
     </div>
-    <p class="meta" style="margin-top: 0.75rem;">Benchmarked against 20 representative error scenarios. <a href="{{ base_path }}/dashboard/">Full dashboard</a></p>
+    <p class="meta trust-footnote">Benchmarked against 20 representative error scenarios. <a href="{{ base_path }}/dashboard/">Full dashboard</a></p>
   </section>
 
   <section>

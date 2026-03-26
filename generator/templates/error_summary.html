@@ -270,7 +270,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     <span class="feedback-q">Did this help?</span>
     <button type="button" class="feedback-btn feedback-yes" id="fb-yes" aria-label="This workaround worked">Yes, it worked</button>
     <button type="button" class="feedback-btn feedback-no" id="fb-no" aria-label="This workaround did not work">No, still broken</button>
-    <span class="feedback-thanks" id="fb-thanks" style="display:none;">Thanks for the feedback!</span>
+    <span class="feedback-thanks feedback-hidden" id="fb-thanks">Thanks for the feedback!</span>
   </div>
 
   </main>
@@ -327,19 +327,18 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     if (localStorage.getItem(fbKey)) {
       widget.innerHTML = '<span class="feedback-thanks">Thanks for your feedback!</span>';
     } else {
+      function recordFeedback(value) {
+        localStorage.setItem(fbKey, value);
+        document.getElementById('fb-yes').classList.add('feedback-hidden');
+        document.getElementById('fb-no').classList.add('feedback-hidden');
+        document.querySelector('.feedback-q').classList.add('feedback-hidden');
+        thanks.classList.remove('feedback-hidden');
+      }
       document.getElementById('fb-yes').addEventListener('click', function(){
-        localStorage.setItem(fbKey, 'yes');
-        this.style.display = 'none';
-        document.getElementById('fb-no').style.display = 'none';
-        document.querySelector('.feedback-q').style.display = 'none';
-        thanks.style.display = 'inline';
+        recordFeedback('yes');
       });
       document.getElementById('fb-no').addEventListener('click', function(){
-        localStorage.setItem(fbKey, 'no');
-        this.style.display = 'none';
-        document.getElementById('fb-yes').style.display = 'none';
-        document.querySelector('.feedback-q').style.display = 'none';
-        thanks.style.display = 'inline';
+        recordFeedback('no');
       });
     }
   })();
