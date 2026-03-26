@@ -55,6 +55,22 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
     <textarea id="search-input" rows="3" placeholder="Paste your error message here, e.g. ModuleNotFoundError: No module named 'torch'"></textarea>
   </div>
 
+  <div class="domain-filter" id="domain-filter">
+    <span class="domain-tag active" data-domain="all">All</span>
+    {% for domain in domain_errors %}
+    <span class="domain-tag" data-domain="{{ domain.name }}">{{ domain.name }} <span class="count">({{ domain.errors|length }})</span></span>
+    {% endfor %}
+  </div>
+
+  <div class="popular-searches">
+    <span class="meta">Popular:</span>
+    <a href="#" class="quick-search" data-q="ModuleNotFoundError">ModuleNotFoundError</a>
+    <a href="#" class="quick-search" data-q="CUDA out of memory">CUDA OOM</a>
+    <a href="#" class="quick-search" data-q="ENOSPC">ENOSPC</a>
+    <a href="#" class="quick-search" data-q="permission denied">Permission denied</a>
+    <a href="#" class="quick-search" data-q="connection refused">Connection refused</a>
+  </div>
+
   <div id="results"></div>
   <div id="no-results">
     <p>No matching errors found. Try pasting more of the error message, or <a href="https://github.com/dbwls99706/deadends.dev/issues/new">request this error</a>.</p>
@@ -89,6 +105,7 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
       var noResults = document.getElementById('no-results');
       var allErrors = document.getElementById('all-errors');
       var debounceTimer;
+      var activeDomain = 'all';
 
       // Pre-compile regexes
       var compiled = [];
@@ -110,24 +127,21 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
           allErrors.style.display = 'block';
           return;
         }
-        // Limit query length to prevent ReDoS on client side
         if (query.length > 500) query = query.substring(0, 500);
         allErrors.style.display = 'none';
         var matches = [];
         var lowerQuery = query.toLowerCase();
         for (var i = 0; i < compiled.length; i++) {
           var entry = compiled[i];
+          if (activeDomain !== 'all' && entry.data.domain !== activeDomain) continue;
           var score = 0;
-          // Regex match (highest priority, with try-catch for ReDoS safety)
           if (entry.re) {
             try { if (entry.re.test(query)) score += 100; }
-            catch(e) { /* skip failed regex */ }
+            catch(e) {}
           }
-          // Signature substring match
           if (entry.data.signature.toLowerCase().indexOf(lowerQuery) !== -1) {
             score += 50;
           }
-          // Query contains signature words
           var words = entry.data.signature.toLowerCase().split(/\W+/);
           for (var w = 0; w < words.length; w++) {
             if (words[w].length > 2 && lowerQuery.indexOf(words[w]) !== -1) {
@@ -151,15 +165,30 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         for (var j = 0; j < limit; j++) {
           var d = matches[j].data;
           var verdictClass = 'verdict-' + d.resolvable;
+          var pct = Math.round(d.fix_success_rate * 100);
           html += '<div class="result">'
             + '<h3><a href="' + d.page_url + '"><code>'
             + escapeHtml(d.signature) + '</code></a> '
             + '<span class="' + verdictClass + '">[' + d.resolvable + ']</span></h3>'
+            + '<div class="result-rate-bar">'
+            + '<div class="result-rate-fill" style="width:' + pct + '%"></div>'
+            + '<span class="result-rate-label">' + pct + '% fix rate</span>'
+            + '</div>'
             + '<p class="meta">'
             + '<span class="dead-end-count">' + d.dead_end_count + ' dead ends</span> · '
-            + '<span class="workaround-count">' + d.workaround_count + ' workarounds</span> · '
-            + 'Fix rate: ' + Math.round(d.fix_success_rate * 100) + '%'
-            + '</p></div>';
+            + '<span class="workaround-count">' + d.workaround_count + ' workarounds</span>'
+            + '</p>';
+          if (d.first_dead_end) {
+            html += '<p class="result-preview result-preview-red">'
+              + '<span class="demo-badge demo-badge-red" style="font-size:0.6rem">AVOID</span> '
+              + escapeHtml(d.first_dead_end) + '</p>';
+          }
+          if (d.first_workaround) {
+            html += '<p class="result-preview result-preview-green">'
+              + '<span class="demo-badge demo-badge-green" style="font-size:0.6rem">TRY</span> '
+              + escapeHtml(d.first_workaround) + '</p>';
+          }
+          html += '</div>';
         }
         resultsDiv.innerHTML = html;
       }
@@ -170,6 +199,27 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         return d.innerHTML;
       }
 
+      /* Domain filter */
+      document.querySelectorAll('.domain-tag').forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          document.querySelectorAll('.domain-tag').forEach(function(t) {
+            t.classList.remove('active');
+          });
+          this.classList.add('active');
+          activeDomain = this.getAttribute('data-domain');
+          search(input.value.trim());
+        });
+      });
+
+      /* Popular searches */
+      document.querySelectorAll('.quick-search').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          input.value = this.getAttribute('data-q');
+          search(input.value.trim());
+        });
+      });
+
       input.addEventListener('input', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function() {
@@ -177,10 +227,17 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         }, 150);
       });
 
-      // Support ?q= URL parameter for programmatic deep-linking
-      // AI coding agents can link to /search/?q=ModuleNotFoundError
+      // Support ?q= and ?domain= URL parameters
       var params = new URLSearchParams(window.location.search);
       var q = params.get('q');
+      var dom = params.get('domain');
+      if (dom) {
+        activeDomain = dom;
+        document.querySelectorAll('.domain-tag').forEach(function(t) {
+          t.classList.remove('active');
+          if (t.getAttribute('data-domain') === dom) t.classList.add('active');
+        });
+      }
       if (q) {
         input.value = q;
         search(q);

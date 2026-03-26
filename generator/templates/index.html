@@ -163,8 +163,12 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
         <span class="hero-stat-label">Domains</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value">90%</span>
-        <span class="hero-stat-label">Precision@1</span>
+        <span class="hero-stat-value">{{ total_dead_ends }}</span>
+        <span class="hero-stat-label">Dead Ends</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">{{ total_workarounds }}</span>
+        <span class="hero-stat-label">Workarounds</span>
       </div>
     </div>
 
@@ -174,32 +178,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
 
   <script>
   (function(){
-    var demos = [
-      {
-        error: "ModuleNotFoundError: No module named 'torch'",
-        deadend: "sudo pip install torch",
-        deadendRate: "fails 70%",
-        workaround: "python -m venv .venv && pip install torch",
-        workaroundRate: "works 95%",
-        chain: "ImportError: libcudart.so not found"
-      },
-      {
-        error: "CUDA error: out of memory",
-        deadend: "Buy more VRAM",
-        deadendRate: "fails 90%",
-        workaround: "Reduce batch size + gradient checkpointing",
-        workaroundRate: "works 88%",
-        chain: "RuntimeError: NCCL communicator failure"
-      },
-      {
-        error: "Error: ENOSPC: System limit for file watchers reached",
-        deadend: "Restart the machine",
-        deadendRate: "fails 85%",
-        workaround: "echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf",
-        workaroundRate: "works 97%",
-        chain: "EMFILE: too many open files"
-      }
-    ];
+    var demos = {{ demo_errors | tojson }};
     var idx = 0;
     function runDemo() {
       var d = demos[idx % demos.length];
@@ -247,23 +226,45 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   })();
   </script>
 
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <strong>Paste your error</strong>
+        <span class="meta">Copy-paste the error message from your terminal</span>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <strong>See dead ends to avoid</strong>
+        <span class="meta">Skip fixes that waste time — we know they don't work</span>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <strong>Follow verified fix</strong>
+        <span class="meta">Step-by-step workarounds with success rates</span>
+      </div>
+    </div>
+  </section>
+
   <section class="trust-section">
     <h2>Why Trust This Data?</h2>
     <div class="trust-grid">
       <div class="trust-item">
-        <span class="trust-value verdict-true">90%</span>
-        <span class="trust-label">Precision@1 — top result matches the correct domain 9/10 times</span>
+        <span class="trust-value verdict-true">{{ precision_at_1 }}</span>
+        <span class="trust-label">Precision@1 — top result matches the correct domain</span>
       </div>
       <div class="trust-item">
-        <span class="trust-value" style="color: #58a6ff;">0.935</span>
+        <span class="trust-value" style="color: #58a6ff;">{{ mrr }}</span>
         <span class="trust-label">MRR — correct results consistently rank first</span>
       </div>
       <div class="trust-item">
-        <span class="trust-value verdict-true">95%</span>
+        <span class="trust-value verdict-true">{{ precision_at_3 }}</span>
         <span class="trust-label">Precision@3 — correct answer in top 3 results</span>
       </div>
       <div class="trust-item">
-        <span class="trust-value" style="color: #d29922;">4,330+</span>
+        <span class="trust-value" style="color: #d29922;">{{ total_edges }}</span>
         <span class="trust-label">Error chain edges — predicting cascading failures</span>
       </div>
     </div>

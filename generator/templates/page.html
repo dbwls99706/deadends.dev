@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
-  <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
+  <title>Fix {{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid &amp; Verified Workarounds | deadends.dev</title>
+  <meta name="description" content="How to fix {{ error.signature }}: avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success. Step-by-step guide for {{ env_summary }}.">
   {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
@@ -219,11 +219,12 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
         {% for lt in graph.leads_to %}
         <div class="chain-card chain-card-next">
           <span class="chain-arrow">&#x2192;</span>
+          {% set lt_key = lt.error_id.rsplit('/', 1)[0] if '/' in lt.error_id else lt.error_id %}
           {% if lt.error_id in known_ids|default([]) %}
           {% set lt_parts = lt.error_id.split('/') %}
-          <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/" class="chain-link">{{ lt.error_id }}</a>
+          <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/" class="chain-link">{% if lt_key in known_canons|default({}) %}{{ known_canons[lt_key].signature }}{% else %}{{ lt.error_id }}{% endif %}</a>
           {% else %}
-          <code>{{ lt.error_id }}</code>
+          <code>{% if lt_key in known_canons|default({}) %}{{ known_canons[lt_key].signature }}{% else %}{{ lt.error_id }}{% endif %}</code>
           {% endif %}
           <span class="chain-prob">{{ (lt.probability * 100)|int }}% chance</span>
           {% if lt.condition %}<span class="meta">{{ lt.condition }}</span>{% endif %}
@@ -240,11 +241,12 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
         {% for pb in graph.preceded_by %}
         <div class="chain-card chain-card-prev">
           <span class="chain-arrow">&#x2190;</span>
+          {% set pb_key = pb.error_id.rsplit('/', 1)[0] if '/' in pb.error_id else pb.error_id %}
           {% if pb.error_id in known_ids|default([]) %}
           {% set pb_parts = pb.error_id.split('/') %}
-          <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/" class="chain-link">{{ pb.error_id }}</a>
+          <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/" class="chain-link">{% if pb_key in known_canons|default({}) %}{{ known_canons[pb_key].signature }}{% else %}{{ pb.error_id }}{% endif %}</a>
           {% else %}
-          <code>{{ pb.error_id }}</code>
+          <code>{% if pb_key in known_canons|default({}) %}{{ known_canons[pb_key].signature }}{% else %}{{ pb.error_id }}{% endif %}</code>
           {% endif %}
           <span class="chain-prob">{{ (pb.probability * 100)|int }}% chance</span>
         </div>
@@ -260,11 +262,12 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
         {% for fc in graph.frequently_confused_with %}
         <div class="chain-card chain-card-confused">
           <span class="chain-arrow">&#x2260;</span>
+          {% set fc_key = fc.error_id.rsplit('/', 1)[0] if '/' in fc.error_id else fc.error_id %}
           {% if fc.error_id in known_ids|default([]) %}
           {% set fc_parts = fc.error_id.split('/') %}
-          <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/" class="chain-link">{{ fc.error_id }}</a>
+          <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/" class="chain-link">{% if fc_key in known_canons|default({}) %}{{ known_canons[fc_key].signature }}{% else %}{{ fc.error_id }}{% endif %}</a>
           {% else %}
-          <code>{{ fc.error_id }}</code>
+          <code>{% if fc_key in known_canons|default({}) %}{{ known_canons[fc_key].signature }}{% else %}{{ fc.error_id }}{% endif %}</code>
           {% endif %}
           <span class="meta">{{ fc.distinction }}</span>
         </div>
@@ -274,6 +277,19 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     {% endif %}
   </section>
   {% endif %}
+
+  <!-- SHARE & FEEDBACK -->
+  <div class="share-bar">
+    <button class="share-btn" id="copy-link-btn" title="Copy link">Copy link</button>
+    <button class="share-btn" id="share-x-btn" title="Share on X/Twitter">Share on X</button>
+  </div>
+
+  <div class="feedback-widget" id="feedback-widget">
+    <span class="feedback-q">Did this help?</span>
+    <button class="feedback-btn feedback-yes" id="fb-yes">Yes, it worked</button>
+    <button class="feedback-btn feedback-no" id="fb-no">No, still broken</button>
+    <span class="feedback-thanks" id="fb-thanks" style="display:none;">Thanks for the feedback!</span>
+  </div>
 
   <section id="sources">
     <h2>Sources</h2>
@@ -304,5 +320,74 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   <footer class="meta">
     <p>Generated by deadends.dev · {{ metadata.generation_date }} · <a href="{{ base_path }}/api/v1/{{ id }}.json">JSON API</a> · <a href="https://github.com/dbwls99706/deadends.dev">Raw data on GitHub</a></p>
   </footer>
+  <script>
+  (function(){
+    /* Copy-to-clipboard for code blocks */
+    document.querySelectorAll('.human-code').forEach(function(pre){
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function(){
+        navigator.clipboard.writeText(pre.textContent).then(function(){
+          btn.textContent = 'Copied!';
+          setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+      pre.style.position = 'relative';
+      pre.appendChild(btn);
+    });
+
+    /* Copy page link */
+    var copyLink = document.getElementById('copy-link-btn');
+    if (copyLink) {
+      copyLink.addEventListener('click', function(){
+        navigator.clipboard.writeText(window.location.href).then(function(){
+          copyLink.textContent = 'Copied!';
+          setTimeout(function(){ copyLink.textContent = 'Copy link'; }, 1500);
+        });
+      });
+    }
+
+    /* Share on X/Twitter */
+    var shareX = document.getElementById('share-x-btn');
+    if (shareX) {
+      shareX.addEventListener('click', function(){
+        if (navigator.share) {
+          navigator.share({title: document.title, url: window.location.href});
+        } else {
+          var text = encodeURIComponent(document.title);
+          var url = encodeURIComponent(window.location.href);
+          window.open(
+            'https://x.com/intent/tweet?text=' + text + '&url=' + url,
+            '_blank', 'width=550,height=420'
+          );
+        }
+      });
+    }
+
+    /* Feedback widget */
+    var fbKey = 'deadends_fb_' + '{{ id }}';
+    var widget = document.getElementById('feedback-widget');
+    var thanks = document.getElementById('fb-thanks');
+    if (localStorage.getItem(fbKey)) {
+      widget.innerHTML = '<span class="feedback-thanks">Thanks for your feedback!</span>';
+    } else {
+      document.getElementById('fb-yes').addEventListener('click', function(){
+        localStorage.setItem(fbKey, 'yes');
+        this.style.display = 'none';
+        document.getElementById('fb-no').style.display = 'none';
+        document.querySelector('.feedback-q').style.display = 'none';
+        thanks.style.display = 'inline';
+      });
+      document.getElementById('fb-no').addEventListener('click', function(){
+        localStorage.setItem(fbKey, 'no');
+        this.style.display = 'none';
+        document.getElementById('fb-yes').style.display = 'none';
+        document.querySelector('.feedback-q').style.display = 'none';
+        thanks.style.display = 'inline';
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
