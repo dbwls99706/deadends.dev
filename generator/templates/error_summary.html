@@ -19,14 +19,15 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/{{ slug }}/">
   <meta property="og:site_name" content="deadends.dev">
-  <meta property="og:image" content="{{ base_url }}/og-image.png">
+  <meta property="og:image" content="{{ base_url }}/og/{{ domain }}/{{ slug }}.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ signature }} — dead ends and verified fixes">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:alt" content="{{ signature }} — {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="{{ base_url }}/og-image.png">
-  <meta name="twitter:image:alt" content="{{ signature }} — dead ends and verified fixes">
+  <meta name="twitter:image" content="{{ base_url }}/og/{{ domain }}/{{ slug }}.svg">
+  <meta name="twitter:image:alt" content="{{ signature }} — {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
 
   <!-- BreadcrumbList for Google rich results -->
   <script type="application/ld+json">

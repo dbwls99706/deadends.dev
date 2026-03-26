@@ -908,63 +908,240 @@ def build_stylesheet() -> None:
     # CSS written as joined list to avoid E501 line-length violations
     css = "\n".join([
         "/* deadends.dev — shared stylesheet */",
+        "",
+        "/* === RESET & BASE === */",
+        "*, *::before, *::after { box-sizing: border-box; }",
         "body { font-family: system-ui, -apple-system, sans-serif;",
-        "  max-width: 800px; margin: 2rem auto;",
-        "  padding: 0 1rem; color: #e0e0e0; background: #0d1117; }",
-        "a { color: #58a6ff; }",
-        "h1 { font-size: 1.4rem; }",
-        "h2 { font-size: 1.1rem;",
-        "  border-bottom: 1px solid #30363d;",
-        "  padding-bottom: 0.5rem; }",
+        "  max-width: 860px; margin: 0 auto;",
+        "  padding: 1.5rem 1.25rem; color: #e0e0e0;",
+        "  background: #0d1117; line-height: 1.6; }",
+        "a { color: #58a6ff; text-decoration: none; }",
+        "a:hover { text-decoration: underline; }",
+        "",
+        "/* === TYPOGRAPHY SCALE === */",
+        "h1 { font-size: 1.75rem; font-weight: 700;",
+        "  line-height: 1.2; margin: 0 0 0.5rem; }",
+        "h2 { font-size: 1.3rem; font-weight: 600;",
+        "  border-bottom: 1px solid #21262d;",
+        "  padding-bottom: 0.4rem; margin-top: 2rem; }",
+        "h3 { font-size: 1.05rem; font-weight: 600;",
+        "  margin-top: 1.25rem; }",
         "code { background: #161b22;",
-        "  padding: 0.2rem 0.4rem; border-radius: 3px; }",
+        "  padding: 0.15rem 0.4rem; border-radius: 4px;",
+        "  font-size: 0.9em; }",
         "pre { background: #161b22;",
         "  padding: 1rem; border-radius: 6px;",
-        "  overflow-x: auto; }",
+        "  overflow-x: auto; font-size: 0.9rem; }",
         ".meta { color: #8b949e; font-size: 0.85rem; }",
-        "nav { margin-bottom: 1.5rem; }",
-        "nav a { color: #8b949e; text-decoration: none; }",
+        "",
+        "/* === NAV & FOOTER === */",
+        "nav { margin-bottom: 1.5rem; font-size: 0.9rem; }",
+        "nav a { color: #8b949e; }",
         "nav a:hover { color: #58a6ff; }",
         "footer { margin-top: 3rem;",
         "  padding-top: 1rem;",
-        "  border-top: 1px solid #30363d; }",
+        "  border-top: 1px solid #21262d;",
+        "  font-size: 0.85rem; color: #8b949e; }",
         "",
-        "/* Page-specific heading sizes */",
-        ".pg-index h1 { font-size: 1.8rem; }",
-        ".pg-index h2 { font-size: 1.2rem; }",
-        ".pg-domain h1, .pg-summary h1, .pg-search h1 { font-size: 1.6rem; }",
+        "/* === PAGE-SPECIFIC HEADINGS === */",
+        ".pg-index h1 { font-size: 2.2rem; }",
+        ".pg-index .tagline { font-size: 1.15rem;",
+        "  color: #8b949e; margin-top: -0.25rem; }",
+        ".pg-domain h1, .pg-summary h1,",
+        ".pg-search h1 { font-size: 1.8rem; }",
+        ".pg-dashboard h1 { font-size: 1.8rem; }",
         "",
-        "/* Verdict colors */",
+        "/* === VERDICT COLORS === */",
         ".verdict-true { color: #3fb950; }",
         ".verdict-partial { color: #d29922; }",
         ".verdict-false { color: #f85149; }",
-        ".pg-detail .verdict-true,",
-        ".pg-detail .verdict-false,",
-        ".pg-detail .verdict-partial { font-weight: bold; }",
+        ".fail-rate { color: #f85149; font-size: 0.85rem; }",
+        ".success-rate { color: #3fb950; font-size: 0.85rem; }",
         "",
-        "/* Dead ends & workarounds */",
+        "/* === ABOVE-FOLD VERDICT CARD === */",
+        ".verdict-card { background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 8px;",
+        "  padding: 1.25rem 1.5rem;",
+        "  margin: 1rem 0 1.5rem; }",
+        ".verdict-card-true { border-left: 4px solid #3fb950; }",
+        ".verdict-card-partial { border-left: 4px solid #d29922; }",
+        ".verdict-card-false { border-left: 4px solid #f85149; }",
+        ".verdict-card-header { display: flex;",
+        "  align-items: center; gap: 1rem;",
+        "  margin-bottom: 0.5rem; flex-wrap: wrap; }",
+        ".verdict-badge { font-size: 0.75rem;",
+        "  font-weight: 700; text-transform: uppercase;",
+        "  letter-spacing: 0.06em;",
+        "  padding: 0.2rem 0.6rem;",
+        "  border-radius: 4px; }",
+        ".verdict-badge-true { color: #0d1117;",
+        "  background: #3fb950; }",
+        ".verdict-badge-partial { color: #0d1117;",
+        "  background: #d29922; }",
+        ".verdict-badge-false { color: #fff;",
+        "  background: #f85149; }",
+        ".verdict-card-rate { font-size: 1.1rem;",
+        "  font-weight: 700; color: #e0e0e0; }",
+        ".verdict-card-summary { color: #8b949e;",
+        "  margin: 0.25rem 0 1rem; font-size: 0.95rem; }",
+        ".verdict-card-columns { display: grid;",
+        "  grid-template-columns: 1fr 1fr;",
+        "  gap: 1rem; }",
+        "@media (max-width: 600px) {",
+        "  .verdict-card-columns {",
+        "    grid-template-columns: 1fr; } }",
+        ".verdict-card-h3-red { color: #f85149;",
+        "  font-size: 0.85rem; text-transform: uppercase;",
+        "  letter-spacing: 0.05em;",
+        "  margin: 0 0 0.5rem; }",
+        ".verdict-card-h3-green { color: #3fb950;",
+        "  font-size: 0.85rem; text-transform: uppercase;",
+        "  letter-spacing: 0.05em;",
+        "  margin: 0 0 0.5rem; }",
+        ".verdict-card-item { display: flex;",
+        "  gap: 0.5rem; margin: 0.3rem 0;",
+        "  font-size: 0.9rem; align-items: flex-start; }",
+        ".verdict-card-x { color: #f85149;",
+        "  font-weight: bold; flex-shrink: 0; }",
+        ".verdict-card-check { color: #3fb950;",
+        "  font-weight: bold; flex-shrink: 0; }",
+        "",
+        "/* === DEAD ENDS & WORKAROUNDS (detail) === */",
         ".dead-end { border-left: 4px solid #f85149;",
         "  padding-left: 1rem; margin: 1rem 0; }",
         ".workaround { border-left: 4px solid #3fb950;",
         "  padding-left: 1rem; margin: 1rem 0; }",
-        ".fail-rate { color: #f85149; }",
-        ".success-rate { color: #3fb950; }",
         "",
-        "/* Index page */",
+        "/* === ERROR CHAIN CARDS === */",
+        ".chain-group { margin: 1rem 0; }",
+        ".chain-cards { display: flex;",
+        "  flex-wrap: wrap; gap: 0.5rem;",
+        "  margin-top: 0.5rem; }",
+        ".chain-card { display: flex;",
+        "  align-items: center; gap: 0.5rem;",
+        "  background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 6px;",
+        "  padding: 0.5rem 0.75rem;",
+        "  font-size: 0.85rem;",
+        "  transition: border-color 0.15s; }",
+        ".chain-card:hover { border-color: #58a6ff; }",
+        ".chain-arrow { font-size: 1.1rem; flex-shrink: 0; }",
+        ".chain-card-next .chain-arrow { color: #d29922; }",
+        ".chain-card-prev .chain-arrow { color: #58a6ff; }",
+        ".chain-card-confused .chain-arrow { color: #f85149; }",
+        ".chain-link { font-family: monospace;",
+        "  font-size: 0.8rem; }",
+        ".chain-prob { color: #8b949e;",
+        "  font-size: 0.8rem; }",
+        "",
+        "/* === HOMEPAGE HERO === */",
+        ".hero { margin: 2rem 0 2.5rem; }",
+        ".hero-demo { background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 8px;",
+        "  padding: 1.25rem; margin-bottom: 1.5rem; }",
+        ".demo-input { margin-bottom: 0.75rem; }",
+        ".demo-label { display: block;",
+        "  font-size: 0.75rem; color: #8b949e;",
+        "  text-transform: uppercase;",
+        "  letter-spacing: 0.06em;",
+        "  margin-bottom: 0.35rem; }",
+        ".demo-typing { font-family: monospace;",
+        "  font-size: 1rem; color: #e0e0e0;",
+        "  background: none; padding: 0; }",
+        ".demo-cursor { color: #58a6ff;",
+        "  animation: blink 1s step-end infinite; }",
+        "@keyframes blink {",
+        "  50% { opacity: 0; } }",
+        ".demo-output { min-height: 5rem; }",
+        ".demo-result { display: flex;",
+        "  align-items: center; gap: 0.6rem;",
+        "  padding: 0.4rem 0;",
+        "  font-size: 0.9rem;",
+        "  animation: fadeIn 0.3s ease-out; }",
+        "@keyframes fadeIn {",
+        "  from { opacity: 0; transform: translateY(4px); }",
+        "  to { opacity: 1; transform: translateY(0); } }",
+        ".demo-hidden { display: none !important; }",
+        ".demo-badge { font-size: 0.65rem;",
+        "  font-weight: 700; text-transform: uppercase;",
+        "  letter-spacing: 0.04em;",
+        "  padding: 0.15rem 0.5rem;",
+        "  border-radius: 3px; flex-shrink: 0; }",
+        ".demo-badge-red { color: #fff;",
+        "  background: #f85149; }",
+        ".demo-badge-green { color: #0d1117;",
+        "  background: #3fb950; }",
+        ".demo-badge-blue { color: #0d1117;",
+        "  background: #58a6ff; }",
+        ".demo-rate { font-size: 0.8rem; }",
+        ".demo-rate-red { color: #f85149; }",
+        ".demo-rate-green { color: #3fb950; }",
+        "",
+        "/* Hero stats bar */",
+        ".hero-stats { display: flex;",
+        "  gap: 2rem; margin: 1.25rem 0;",
+        "  flex-wrap: wrap; }",
+        ".hero-stat { display: flex;",
+        "  flex-direction: column; }",
+        ".hero-stat-value { font-size: 1.6rem;",
+        "  font-weight: 700; color: #e0e0e0; }",
+        ".hero-stat-label { font-size: 0.75rem;",
+        "  color: #8b949e; text-transform: uppercase;",
+        "  letter-spacing: 0.04em; }",
+        "",
+        "/* Hero CTAs */",
+        ".hero-cta { display: flex;",
+        "  gap: 1rem; align-items: center;",
+        "  flex-wrap: wrap; margin: 1.25rem 0; }",
+        ".cta-button { display: inline-block;",
+        "  background: #58a6ff; color: #0d1117;",
+        "  padding: 0.6rem 1.25rem;",
+        "  border-radius: 6px; font-weight: 600;",
+        "  font-size: 0.95rem; }",
+        ".cta-button:hover { background: #79b8ff;",
+        "  text-decoration: none; }",
+        ".cta-link { color: #8b949e;",
+        "  font-size: 0.9rem; }",
+        ".hero-sub { color: #484f58;",
+        "  font-size: 0.85rem; }",
+        "",
+        "/* === TRUST SECTION === */",
+        ".trust-section { margin: 1.5rem 0; }",
+        ".trust-grid { display: grid;",
+        "  grid-template-columns: repeat(2, 1fr);",
+        "  gap: 0.75rem; }",
+        "@media (max-width: 600px) {",
+        "  .trust-grid {",
+        "    grid-template-columns: 1fr; } }",
+        ".trust-item { display: flex;",
+        "  align-items: center; gap: 0.75rem;",
+        "  background: #161b22;",
+        "  border: 1px solid #21262d;",
+        "  border-radius: 6px;",
+        "  padding: 0.75rem 1rem; }",
+        ".trust-value { font-size: 1.4rem;",
+        "  font-weight: 700; flex-shrink: 0;",
+        "  min-width: 3.5rem; }",
+        ".trust-label { font-size: 0.8rem;",
+        "  color: #8b949e; line-height: 1.4; }",
+        "",
+        "/* === INDEX PAGE === */",
         ".domain-list { list-style: none; padding: 0; }",
-        ".domain-list li { padding: 0.5rem 0;",
+        ".domain-list li { padding: 0.6rem 0;",
         "  border-bottom: 1px solid #161b22; }",
         ".domain-list li a {",
-        "  text-decoration: none; font-size: 1.05rem; }",
-        ".count { color: #8b949e; font-size: 0.9rem; }",
-        ".hero { margin: 2rem 0; }",
-        ".api-section code { font-size: 0.9rem; }",
+        "  font-size: 1rem; }",
+        ".count { color: #8b949e; font-size: 0.85rem; }",
+        ".api-section code { font-size: 0.85rem; }",
         "",
-        "/* Domain page */",
+        "/* === DOMAIN PAGE === */",
         ".entry { padding: 0.75rem 0;",
         "  border-bottom: 1px solid #161b22; }",
         "",
-        "/* Error summary page */",
+        "/* === ERROR SUMMARY PAGE === */",
         ".env-card { border: 1px solid #30363d;",
         "  border-radius: 6px;",
         "  padding: 1rem; margin: 0.75rem 0; }",
@@ -974,20 +1151,21 @@ def build_stylesheet() -> None:
         "  border-radius: 4px;",
         "  margin: 0.2rem; font-size: 0.85rem; }",
         "",
-        "/* Search page */",
+        "/* === SEARCH PAGE === */",
         "#search-input { width: 100%;",
         "  padding: 0.75rem; font-size: 1rem;",
         "  font-family: monospace;",
         "  background: #161b22; color: #e0e0e0;",
         "  border: 1px solid #30363d;",
-        "  border-radius: 6px;",
-        "  box-sizing: border-box; }",
+        "  border-radius: 6px; }",
         "#search-input:focus {",
-        "  border-color: #58a6ff; outline: none; }",
+        "  border-color: #58a6ff; outline: none;",
+        "  box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }",
         "#search-input::placeholder { color: #484f58; }",
         ".result { border: 1px solid #30363d;",
         "  border-radius: 6px;",
-        "  padding: 1rem; margin: 0.75rem 0; }",
+        "  padding: 1rem; margin: 0.75rem 0;",
+        "  transition: border-color 0.15s; }",
         ".result:hover { border-color: #58a6ff; }",
         ".result h3 {",
         "  margin: 0 0 0.5rem 0; font-size: 1rem; }",
@@ -1000,16 +1178,16 @@ def build_stylesheet() -> None:
         "  border-bottom: 1px solid #161b22; }",
         ".search-box { margin: 1.5rem 0; }",
         "",
-        "/* Shared card section (TL;DR, domain stats) */",
+        "/* === SHARED CARD === */",
         ".card-section { background: #161b22;",
         "  border: 1px solid #30363d;",
         "  border-radius: 6px;",
         "  padding: 1rem; margin: 1rem 0; }",
         "",
-        "/* Hidden AI summary block */",
+        "/* === HIDDEN AI SUMMARY === */",
         ".ai-summary { display: none; }",
         "",
-        "/* For Humans — quick fix guide */",
+        "/* === STEP-BY-STEP FIX GUIDE === */",
         ".human-guide { background: #0d1117;",
         "  border: 2px solid #58a6ff;",
         "  border-radius: 8px;",
@@ -1019,13 +1197,13 @@ def build_stylesheet() -> None:
         "  display: flex; align-items: baseline;",
         "  gap: 0.75rem; margin-bottom: 1rem; }",
         ".human-guide-label {",
-        "  font-size: 0.75rem; font-weight: 700;",
+        "  font-size: 0.7rem; font-weight: 700;",
         "  text-transform: uppercase; letter-spacing: 0.08em;",
         "  color: #0d1117; background: #58a6ff;",
         "  padding: 0.15rem 0.5rem;",
         "  border-radius: 3px; }",
         ".human-guide-sub {",
-        "  font-size: 0.95rem; color: #8b949e; }",
+        "  font-size: 0.9rem; color: #8b949e; }",
         ".human-dont {",
         "  background: rgba(248, 81, 73, 0.08);",
         "  border-left: 3px solid #f85149;",
@@ -1053,6 +1231,80 @@ def build_stylesheet() -> None:
         ".human-note { color: #8b949e;",
         "  font-size: 0.85rem;",
         "  font-style: italic; }",
+        "",
+        "/* === DASHBOARD === */",
+        ".dashboard-summary { margin: 1.5rem 0; }",
+        ".metric-grid { display: grid;",
+        "  grid-template-columns: repeat(3, 1fr);",
+        "  gap: 1rem; }",
+        "@media (max-width: 600px) {",
+        "  .metric-grid {",
+        "    grid-template-columns: repeat(2, 1fr); } }",
+        ".metric { background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 6px;",
+        "  padding: 1rem; text-align: center; }",
+        ".metric-value { display: block;",
+        "  font-size: 1.8rem; font-weight: 700;",
+        "  color: #e0e0e0; }",
+        ".metric-label { display: block;",
+        "  font-size: 0.75rem; color: #8b949e;",
+        "  text-transform: uppercase;",
+        "  letter-spacing: 0.04em; margin-top: 0.25rem; }",
+        "",
+        "/* Dashboard data table */",
+        ".data-table { width: 100%;",
+        "  border-collapse: collapse;",
+        "  font-size: 0.9rem; margin: 1rem 0; }",
+        ".data-table th { text-align: left;",
+        "  color: #8b949e; font-size: 0.8rem;",
+        "  text-transform: uppercase;",
+        "  letter-spacing: 0.04em;",
+        "  padding: 0.5rem 0.75rem;",
+        "  border-bottom: 2px solid #21262d; }",
+        ".data-table td { padding: 0.5rem 0.75rem;",
+        "  border-bottom: 1px solid #161b22; }",
+        ".data-table .bar { height: 6px;",
+        "  background: #58a6ff;",
+        "  border-radius: 3px;",
+        "  min-width: 2px; }",
+        "",
+        "/* === BENCHMARK BARS === */",
+        ".benchmark-bars { margin: 1rem 0; }",
+        ".bench-row { display: flex;",
+        "  align-items: center;",
+        "  gap: 0.75rem; margin: 0.5rem 0; }",
+        ".bench-label { width: 120px;",
+        "  flex-shrink: 0; font-size: 0.85rem;",
+        "  color: #8b949e; }",
+        ".bench-track { flex: 1;",
+        "  height: 8px; background: #21262d;",
+        "  border-radius: 4px; overflow: hidden; }",
+        ".bench-fill { height: 100%;",
+        "  border-radius: 4px;",
+        "  transition: width 0.6s ease-out; }",
+        ".bench-fill-green { background: #3fb950; }",
+        ".bench-fill-blue { background: #58a6ff; }",
+        ".bench-fill-red { background: #f85149; }",
+        ".bench-value { width: 50px;",
+        "  text-align: right; font-size: 0.9rem;",
+        "  font-weight: 600; }",
+        "",
+        "/* === RESPONSIVE === */",
+        "@media (max-width: 600px) {",
+        "  body { padding: 1rem 0.75rem; }",
+        "  h1 { font-size: 1.4rem; }",
+        "  h2 { font-size: 1.15rem; }",
+        "  .pg-index h1 { font-size: 1.6rem; }",
+        "  .hero-stats { gap: 1.25rem; }",
+        "  .hero-stat-value { font-size: 1.3rem; }",
+        "  .chain-cards { flex-direction: column; }",
+        "  .data-table { font-size: 0.8rem; }",
+        "  pre { font-size: 0.8rem;",
+        "    padding: 0.75rem; }",
+        "  code { font-size: 0.85em;",
+        "    word-break: break-word; }",
+        "}",
         "",
     ])
     (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
@@ -1114,6 +1366,117 @@ def build_og_image() -> None:
 
     (SITE_DIR / "og-image.png").write_bytes(png)
     print("  Generated: og-image.png (1200x630)")
+
+
+def _escape_svg(text: str) -> str:
+    """Escape text for safe embedding in SVG."""
+    return (
+        text.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )
+
+
+def build_error_og_images(canons: list[dict]) -> None:
+    """Generate per-error SVG OG images for social sharing.
+
+    Each error gets a unique card showing: signature, verdict, dead end count,
+    workaround count, and domain — making shared links visually distinct.
+    """
+    verdict_colors = {
+        "true": ("#3fb950", "RESOLVABLE"),
+        "partial": ("#d29922", "PARTIAL"),
+        "false": ("#f85149", "NOT RESOLVABLE"),
+    }
+
+    # Group by summary page (domain/slug) to avoid duplicates
+    seen = set()
+    count = 0
+
+    for canon in canons:
+        canon_id = canon.get("id", "")
+        parts = canon_id.split("/")
+        if len(parts) < 2:
+            continue
+        summary_key = f"{parts[0]}/{parts[1]}"
+        if summary_key in seen:
+            continue
+        seen.add(summary_key)
+
+        error = canon.get("error", {})
+        verdict = canon.get("verdict", {})
+        sig = error.get("signature", "Unknown error")
+        domain = error.get("domain", "")
+        resolvable = verdict.get("resolvable", "partial")
+        fix_rate = int(verdict.get("fix_success_rate", 0) * 100)
+        de_count = len(canon.get("dead_ends", []))
+        wa_count = len(canon.get("workarounds", []))
+
+        color, label = verdict_colors.get(resolvable, ("#d29922", "PARTIAL"))
+
+        # Truncate signature for display
+        sig_display = _escape_svg(sig)
+        if len(sig) > 60:
+            sig_display = _escape_svg(sig[:57]) + "..."
+
+        domain_display = _escape_svg(domain_display_name(domain))
+
+        # Build SVG as joined lines to avoid E501
+        f = "system-ui,sans-serif"
+        svg = "\n".join([
+            '<svg xmlns="http://www.w3.org/2000/svg"'
+            ' width="1200" height="630"'
+            ' viewBox="0 0 1200 630">',
+            '<rect width="1200" height="630" fill="#0d1117"/>',
+            '<rect width="1200" height="6" fill="#58a6ff"/>',
+            f'<rect y="624" width="1200" height="6" fill="{color}"/>',
+            f'<text x="80" y="100" fill="#8b949e" font-family="{f}"'
+            f' font-size="28">{domain_display}</text>',
+            f'<text x="80" y="180" fill="#e0e0e0"'
+            f' font-family="monospace" font-size="36"'
+            f' font-weight="bold">{sig_display}</text>',
+            f'<rect x="80" y="230" width="160" height="40"'
+            f' rx="6" fill="{color}" opacity="0.15"/>',
+            f'<text x="160" y="257" fill="{color}"'
+            f' font-family="{f}" font-size="20"'
+            f' font-weight="bold"'
+            f' text-anchor="middle">{label}</text>',
+            f'<text x="80" y="340" fill="#f85149"'
+            f' font-family="{f}" font-size="56"'
+            f' font-weight="bold">{de_count}</text>',
+            f'<text x="80" y="375" fill="#8b949e"'
+            f' font-family="{f}"'
+            ' font-size="22">dead ends to avoid</text>',
+            f'<text x="400" y="340" fill="#3fb950"'
+            f' font-family="{f}" font-size="56"'
+            f' font-weight="bold">{wa_count}</text>',
+            f'<text x="400" y="375" fill="#8b949e"'
+            f' font-family="{f}"'
+            ' font-size="22">verified workarounds</text>',
+            f'<text x="720" y="340" fill="#58a6ff"'
+            f' font-family="{f}" font-size="56"'
+            f' font-weight="bold">{fix_rate}%</text>',
+            f'<text x="720" y="375" fill="#8b949e"'
+            f' font-family="{f}"'
+            ' font-size="22">fix success rate</text>',
+            f'<text x="80" y="560" fill="#484f58"'
+            f' font-family="{f}"'
+            ' font-size="24">deadends.dev</text>',
+            '<text x="1120" y="560" fill="#484f58"'
+            f' font-family="{f}" font-size="20"'
+            ' text-anchor="end">'
+            "Stop trying what doesn&#39;t work.</text>",
+            '</svg>',
+        ])
+
+        og_dir = SITE_DIR / "og" / parts[0]
+        og_dir.mkdir(parents=True, exist_ok=True)
+        (og_dir / f"{parts[1]}.svg").write_text(svg, encoding="utf-8")
+        count += 1
+
+    print(f"  Generated: {count} per-error OG images in og/")
 
 
 def build_favicon() -> None:
@@ -3105,6 +3468,10 @@ def main():
 
     print("Generating OG image for social sharing...")
     build_og_image()
+    print()
+
+    print("Generating per-error OG images...")
+    build_error_og_images(canons)
     print()
 
     print("Generating favicon...")

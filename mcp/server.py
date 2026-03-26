@@ -39,6 +39,7 @@ from pathlib import Path
 from typing import Any
 
 from generator.analytics import record_event as _record_event
+from generator.lookup import _extract_error_lines
 
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -177,10 +178,13 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
         error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
 
+    # Extract key error lines from long stack traces
+    extracted = _extract_error_lines(error_message)
+
     compiled = _get_compiled_regexes()
     matches = []
     skipped = 0
-    msg_len = len(error_message)
+    msg_len = len(extracted)
     for canon in canons:
         try:
             canon_id = canon.get("id", "")
@@ -188,7 +192,10 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
             if pattern is None:
                 skipped += 1
                 continue
-            m = pattern.search(error_message)
+            # Try extracted text first, then full text as fallback
+            m = pattern.search(extracted)
+            if not m and extracted != error_message:
+                m = pattern.search(error_message)
             if m:
                 match_ratio = len(m.group()) / msg_len if msg_len else 0
                 domain = canon["error"]["domain"]
@@ -304,7 +311,16 @@ TOOLS = [
                 "error_message": {
                     "type": "string",
                     "description": "The full error message to look up",
-                }
+                },
+                "format": {
+                    "type": "string",
+                    "enum": ["markdown", "json"],
+                    "description": (
+                        "Response format: 'markdown' (default, "
+                        "human-readable) or 'json' (structured, for "
+                        "programmatic use by AI agents)"
+                    ),
+                },
             },
             "required": ["error_message"],
         },
@@ -611,6 +627,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
 
         if tool_name == "lookup_error":
             error_msg = args.get("error_message", "").strip()
+            output_format = args.get("format", "markdown")
             if not error_msg:
                 return {
                     "content": [{
@@ -697,6 +714,43 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
+
+            # JSON format: return structured data for programmatic use
+            if output_format == "json" and matches:
+                json_matches = []
+                for m in matches[:_MAX_RESULTS]:
+                    json_matches.append({
+                        "id": m["id"],
+                        "signature": m["signature"],
+                        "domain": m["domain"],
+                        "resolvable": m["resolvable"],
+                        "fix_success_rate": m["fix_success_rate"],
+                        "summary": m["summary"],
+                        "url": m["url"],
+                        "dead_ends": [
+                            {"action": d["action"],
+                             "why_fails": d["why_fails"],
+                             "fail_rate": d["fail_rate"]}
+                            for d in m["dead_ends"]
+                        ],
+                        "workarounds": [
+                            {"action": w["action"],
+                             "success_rate": w["success_rate"],
+                             "how": w.get("how", "")}
+                            for w in m["workarounds"]
+                        ],
+                        "leads_to": m.get("leads_to", []),
+                    })
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": json.dumps({
+                            "matches": json_matches,
+                            "total": len(matches),
+                        }, ensure_ascii=False),
+                    }],
+                }
+
             return {
                 "content": [{"type": "text", "text": text}],
             }

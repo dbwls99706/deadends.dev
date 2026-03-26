@@ -125,16 +125,150 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
 
   <header>
     <h1>deadends.dev</h1>
-    <p>Stop trying what doesn't work.</p>
+    <p class="tagline">Stop trying what doesn't work.</p>
   </header>
 
   <main>
   <div class="hero">
-    <p>Every developer has wasted hours on a fix that was never going to work. Stack Overflow answers that are outdated, environment-specific, or just plain wrong for your setup.</p>
-    <p><strong>deadends.dev</strong> tells you what <em>NOT</em> to try, what actually works (and under which conditions), and what error comes next if you take a particular path.</p>
-    <p><strong><a href="{{ base_path }}/search/">Paste your error message here to find matches instantly.</a></strong></p>
-    <p class="meta">{{ total_errors }} verified error entries across {{ domains | length }} domains. All data available as <a href="https://github.com/dbwls99706/deadends.dev">open source JSON</a>.</p>
+    <div class="hero-demo">
+      <div class="demo-input">
+        <span class="demo-label">Your error</span>
+        <code class="demo-typing" id="demo-typing"></code><span class="demo-cursor" id="demo-cursor">|</span>
+      </div>
+      <div class="demo-output" id="demo-output">
+        <div class="demo-result demo-hidden" id="demo-deadend">
+          <span class="demo-badge demo-badge-red">DEAD END</span>
+          <span id="demo-deadend-text"></span>
+          <span class="demo-rate demo-rate-red" id="demo-deadend-rate"></span>
+        </div>
+        <div class="demo-result demo-hidden" id="demo-workaround">
+          <span class="demo-badge demo-badge-green">TRY THIS</span>
+          <span id="demo-workaround-text"></span>
+          <span class="demo-rate demo-rate-green" id="demo-workaround-rate"></span>
+        </div>
+        <div class="demo-result demo-hidden" id="demo-chain">
+          <span class="demo-badge demo-badge-blue">NEXT ERROR</span>
+          <span id="demo-chain-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">{{ total_errors }}</span>
+        <span class="hero-stat-label">Error Entries</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">{{ domains | length }}</span>
+        <span class="hero-stat-label">Domains</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">90%</span>
+        <span class="hero-stat-label">Precision@1</span>
+      </div>
+    </div>
+
+    <p class="hero-cta"><a href="{{ base_path }}/search/" class="cta-button">Paste your error message</a> <a href="{{ base_path }}/dashboard/" class="cta-link">View data quality</a></p>
+    <p class="hero-sub">Open source. {{ total_errors }} entries across {{ domains | length }} domains. <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>
   </div>
+
+  <script>
+  (function(){
+    var demos = [
+      {
+        error: "ModuleNotFoundError: No module named 'torch'",
+        deadend: "sudo pip install torch",
+        deadendRate: "fails 70%",
+        workaround: "python -m venv .venv && pip install torch",
+        workaroundRate: "works 95%",
+        chain: "ImportError: libcudart.so not found"
+      },
+      {
+        error: "CUDA error: out of memory",
+        deadend: "Buy more VRAM",
+        deadendRate: "fails 90%",
+        workaround: "Reduce batch size + gradient checkpointing",
+        workaroundRate: "works 88%",
+        chain: "RuntimeError: NCCL communicator failure"
+      },
+      {
+        error: "Error: ENOSPC: System limit for file watchers reached",
+        deadend: "Restart the machine",
+        deadendRate: "fails 85%",
+        workaround: "echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf",
+        workaroundRate: "works 97%",
+        chain: "EMFILE: too many open files"
+      }
+    ];
+    var idx = 0;
+    function runDemo() {
+      var d = demos[idx % demos.length];
+      idx++;
+      var el = document.getElementById('demo-typing');
+      var cursor = document.getElementById('demo-cursor');
+      var de = document.getElementById('demo-deadend');
+      var wa = document.getElementById('demo-workaround');
+      var ch = document.getElementById('demo-chain');
+      // Reset
+      el.textContent = '';
+      de.classList.add('demo-hidden');
+      wa.classList.add('demo-hidden');
+      ch.classList.add('demo-hidden');
+      cursor.style.display = 'inline';
+      // Type
+      var i = 0;
+      var typeInterval = setInterval(function(){
+        if (i < d.error.length) {
+          el.textContent += d.error[i];
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          cursor.style.display = 'none';
+          // Show results
+          setTimeout(function(){
+            document.getElementById('demo-deadend-text').textContent = d.deadend;
+            document.getElementById('demo-deadend-rate').textContent = d.deadendRate;
+            de.classList.remove('demo-hidden');
+          }, 300);
+          setTimeout(function(){
+            document.getElementById('demo-workaround-text').textContent = d.workaround;
+            document.getElementById('demo-workaround-rate').textContent = d.workaroundRate;
+            wa.classList.remove('demo-hidden');
+          }, 700);
+          setTimeout(function(){
+            document.getElementById('demo-chain-text').textContent = d.chain;
+            ch.classList.remove('demo-hidden');
+          }, 1100);
+          setTimeout(runDemo, 6000);
+        }
+      }, 35);
+    }
+    runDemo();
+  })();
+  </script>
+
+  <section class="trust-section">
+    <h2>Why Trust This Data?</h2>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <span class="trust-value verdict-true">90%</span>
+        <span class="trust-label">Precision@1 — top result matches the correct domain 9/10 times</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-value" style="color: #58a6ff;">0.935</span>
+        <span class="trust-label">MRR — correct results consistently rank first</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-value verdict-true">95%</span>
+        <span class="trust-label">Precision@3 — correct answer in top 3 results</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-value" style="color: #d29922;">4,330+</span>
+        <span class="trust-label">Error chain edges — predicting cascading failures</span>
+      </div>
+    </div>
+    <p class="meta" style="margin-top: 0.75rem;">Benchmarked against 20 representative error scenarios. <a href="{{ base_path }}/dashboard/">Full dashboard</a></p>
+  </section>
 
   <section>
     <h2>Domains</h2>
@@ -184,7 +318,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   </main>
 
   <footer class="meta">
-    <p>deadends.dev · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · Data licensed under CC BY 4.0</p>
+    <p>deadends.dev · <a href="{{ base_path }}/search/">Search</a> · <a href="{{ base_path }}/dashboard/">Dashboard</a> · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · CC BY 4.0</p>
   </footer>
 </body>
 </html>

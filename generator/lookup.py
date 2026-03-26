@@ -74,6 +74,57 @@ _STOPWORDS = frozenset({
 })
 
 
+# Patterns that indicate the key error line in a stack trace
+_ERROR_LINE_PATTERNS = [
+    re.compile(r"(?:Error|Exception|Fault|Failure|FATAL|CRITICAL|panic)[:]\s", re.I),
+    re.compile(r"^(?:E\s|error\[E\d+\])", re.I),
+    re.compile(r"^(?:CUDA|NCCL|RuntimeError|TypeError|ValueError|KeyError)", re.I),
+    re.compile(r"^(?:ModuleNotFoundError|ImportError|SyntaxError|FileNotFoundError)", re.I),
+    re.compile(r"^(?:Traceback|Caused by:)", re.I),
+    re.compile(r"^(?:fatal:|error:)\s", re.I),
+    re.compile(r"^\w+Error:", re.I),
+    re.compile(r"^\w+Exception:", re.I),
+]
+
+
+def _extract_error_lines(text: str) -> str:
+    """Extract the key error line(s) from a potentially long stack trace.
+
+    AI agents often paste full stack traces (50-200 lines). This extracts
+    the most relevant lines for matching, improving lookup accuracy.
+
+    Returns the original text if it's short (< 5 lines) or if no key
+    error line pattern is found.
+    """
+    lines = text.strip().splitlines()
+    if len(lines) <= 5:
+        return text.strip()
+
+    # Collect lines that match error patterns
+    key_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        for pat in _ERROR_LINE_PATTERNS:
+            if pat.search(stripped):
+                key_lines.append(stripped)
+                break
+
+    if key_lines:
+        # Return the last error line (usually the most specific)
+        # plus any earlier ones for context
+        return "\n".join(key_lines[-3:])
+
+    # Fallback: last non-empty line (often the actual error)
+    for line in reversed(lines):
+        stripped = line.strip()
+        if stripped and not stripped.startswith("at ") and not stripped.startswith("File "):
+            return stripped
+
+    return text.strip()
+
+
 def lookup_all(error_message: str) -> list[dict]:
     """Match an error message against all known patterns.
 
@@ -81,9 +132,15 @@ def lookup_all(error_message: str) -> list[dict]:
     - id, signature, domain, resolvable, fix_success_rate, summary
     - dead_ends: list of {action, why_fails, fail_rate}
     - workarounds: list of {action, success_rate, how}
+
+    For long stack traces (> 5 lines), automatically extracts the key error
+    lines before matching. The full text is still searched as a fallback.
     """
     if not error_message or not error_message.strip():
         return []
+
+    # Extract key error lines from long stack traces
+    extracted = _extract_error_lines(error_message)
 
     canons = _load_canons()
     matches = []
@@ -98,19 +155,24 @@ def lookup_all(error_message: str) -> list[dict]:
         try:
             score = 0
 
-            # Regex match (highest priority)
-            if pattern.search(error_message):
+            # Regex match — try extracted first, then full text as fallback
+            if pattern.search(extracted):
+                score += 100
+            elif extracted != error_message and pattern.search(error_message):
                 score += 100
 
-            # Signature substring match
+            # Signature substring match (check both extracted and full)
             sig = canon["error"]["signature"].lower()
-            msg = error_message.lower()
-            if sig in msg or msg in sig:
+            ext_lower = extracted.lower()
+            msg_lower = error_message.lower()
+            if sig in ext_lower or ext_lower in sig:
+                score += 50
+            elif sig in msg_lower or msg_lower in sig:
                 score += 50
 
-            # Word overlap (excluding stopwords)
+            # Word overlap (excluding stopwords) — use extracted
             sig_words = set(re.split(r"\W+", sig))
-            msg_words = set(re.split(r"\W+", msg))
+            msg_words = set(re.split(r"\W+", ext_lower))
             overlap = (sig_words & msg_words) - _STOPWORDS
             score += len(overlap) * 5
 

@@ -51,7 +51,49 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
       </div>
       <div class="metric">
         <span class="metric-value">{{ benchmark_precision }}%</span>
-        <span class="metric-label">Benchmark Precision@1</span>
+        <span class="metric-label">Precision@1</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Benchmark Results</h2>
+    <p>We test our lookup against 20 representative error scenarios.</p>
+    <div class="benchmark-bars">
+      <div class="bench-row">
+        <span class="bench-label">Precision@1</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-green" style="width: {{ benchmark_precision }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_precision }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Precision@3</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-green" style="width: {{ benchmark_precision3 }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_precision3 }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Workaround Hit</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-blue" style="width: {{ benchmark_workaround }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_workaround }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Dead End Hit</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-red" style="width: {{ benchmark_deadend }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_deadend }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">MRR</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-blue" style="width: {{ (benchmark_mrr * 100)|int }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_mrr }}</span>
       </div>
     </div>
   </section>
@@ -64,8 +106,8 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
         <tr>
           <th>Domain</th>
           <th>Errors</th>
-          <th>Avg Confidence</th>
-          <th>Avg Fix Rate</th>
+          <th>Confidence</th>
+          <th>Fix Rate</th>
           <th>Coverage</th>
         </tr>
       </thead>
@@ -74,7 +116,9 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
         <tr>
           <td><a href="{{ base_path }}/{{ d.name }}/">{{ d.display_name }}</a></td>
           <td>{{ d.count }}</td>
-          <td>{{ d.avg_confidence }}%</td>
+          <td>
+            <span class="{% if d.avg_confidence >= 70 %}verdict-true{% elif d.avg_confidence >= 50 %}verdict-partial{% else %}verdict-false{% endif %}">{{ d.avg_confidence }}%</span>
+          </td>
           <td>{{ d.avg_fix_rate }}%</td>
           <td>
             <div class="bar" style="width: {{ d.bar_width }}%"></div>
@@ -87,43 +131,55 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
 
   <section>
     <h2>Transition Graph</h2>
-    <p>Error chains help predict what error comes next after fixing the current one.</p>
-    <ul>
-      <li><strong>{{ graph_nodes }}</strong> errors connected in the graph ({{ connectivity_rate }}% of total)</li>
-      <li><strong>{{ graph_edges }}</strong> total edges (leads_to, preceded_by, confused_with)</li>
-      <li><strong>{{ graph_components }}</strong> connected components</li>
-      <li><strong>{{ orphan_count }}</strong> orphan errors (no graph connections yet)</li>
-    </ul>
+    <p>Error chains predict what error comes next after fixing the current one.</p>
+    <div class="metric-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="metric">
+        <span class="metric-value">{{ graph_nodes }}</span>
+        <span class="metric-label">Connected Errors ({{ connectivity_rate }}%)</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ graph_edges }}</span>
+        <span class="metric-label">Total Edges</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ graph_components }}</span>
+        <span class="metric-label">Components</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ orphan_count }}</span>
+        <span class="metric-label">Orphan Errors</span>
+      </div>
+    </div>
     {% if hub_nodes %}
-    <h3>Most Connected Errors (Hub Nodes)</h3>
-    <ol>
+    <h3>Most Connected Errors</h3>
+    <div class="chain-cards" style="margin-top: 0.5rem;">
       {% for hub in hub_nodes %}
-      <li>{{ hub.id }} — {{ hub.degree }} connections</li>
+      <div class="chain-card">
+        <code class="chain-link" style="font-size: 0.8rem;">{{ hub.id }}</code>
+        <span class="chain-prob">{{ hub.degree }} connections</span>
+      </div>
       {% endfor %}
-    </ol>
+    </div>
     {% endif %}
-  </section>
-
-  <section>
-    <h2>Benchmark Results</h2>
-    <p>We test our lookup against 20 representative error scenarios.</p>
-    <ul>
-      <li><strong>Precision@1:</strong> {{ benchmark_precision }}% — top result matches the correct domain</li>
-      <li><strong>Precision@3:</strong> {{ benchmark_precision3 }}% — correct result in top 3</li>
-      <li><strong>Workaround hit rate:</strong> {{ benchmark_workaround }}% — top result contains a verified fix</li>
-      <li><strong>Dead end hit rate:</strong> {{ benchmark_deadend }}% — top result warns about known failures</li>
-      <li><strong>MRR:</strong> {{ benchmark_mrr }} — Mean Reciprocal Rank</li>
-    </ul>
   </section>
 
   <section>
     <h2>Help Improve This Data</h2>
     <p>deadends.dev improves with community contributions:</p>
-    <ul>
-      <li><a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml">Submit a new error</a> — help us cover more ground</li>
-      <li><a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml">Report a workaround result</a> — tell us what worked (or didn't)</li>
-      <li>Use the <code>report_outcome</code> MCP tool after trying a workaround</li>
-    </ul>
+    <div class="metric-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml" class="metric" style="text-decoration: none;">
+        <span class="metric-value" style="font-size: 1.4rem;">+</span>
+        <span class="metric-label">Submit New Error</span>
+      </a>
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml" class="metric" style="text-decoration: none;">
+        <span class="metric-value" style="font-size: 1.4rem; color: #3fb950;">&#x2714;</span>
+        <span class="metric-label">Report Workaround</span>
+      </a>
+      <a href="https://github.com/dbwls99706/deadends.dev" class="metric" style="text-decoration: none;">
+        <span class="metric-value" style="font-size: 1.4rem;">&#x2605;</span>
+        <span class="metric-label">Star on GitHub</span>
+      </a>
+    </div>
   </section>
 
   </main>
