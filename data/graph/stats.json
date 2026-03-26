@@ -1,0 +1,54 @@
+{
+  "total_canons": 2089,
+  "nodes_in_graph": 1109,
+  "orphan_canons": 980,
+  "total_edges": 4330,
+  "edges_by_type": {
+    "leads_to": 1263,
+    "preceded_by": 1263,
+    "confused_with": 1804
+  },
+  "connected_components": 54,
+  "hub_nodes": [
+    {
+      "id": "networking/connection-timeout/tcp-linux",
+      "degree": 80
+    },
+    {
+      "id": "java/classnotfoundexception/jdk17-linux",
+      "degree": 58
+    },
+    {
+      "id": "dotnet/invalidoperationexception/dotnet8-linux",
+      "degree": 42
+    },
+    {
+      "id": "typescript/ts2322-type-not-assignable/ts5-linux",
+      "degree": 42
+    },
+    {
+      "id": "networking/connection-refused/tcp-linux",
+      "degree": 40
+    },
+    {
+      "id": "aws/access-denied-exception/awscli2-linux",
+      "degree": 38
+    },
+    {
+      "id": "dotnet/nullreferenceexception/dotnet8-linux",
+      "degree": 38
+    },
+    {
+      "id": "networking/connection-reset/tcp-linux",
+      "degree": 38
+    },
+    {
+      "id": "php/memory-limit-exhausted/php83-linux",
+      "degree": 36
+    },
+    {
+      "id": "java/nullpointerexception/jdk17-linux",
+      "degree": 34
+    }
+  ]
+}

@@ -1,0 +1,1191 @@
+{
+  "generated_at": "2026-03-26T06:11:36.952143",
+  "summary": {
+    "total_canons": 2089,
+    "total_domains": 51,
+    "avg_confidence": 0.877,
+    "avg_fix_rate": 0.849
+  },
+  "graph": {
+    "connected_canons": 1109,
+    "orphan_canons": 980,
+    "total_cross_references": 2502,
+    "connectivity_rate": 0.531
+  },
+  "categories": {
+    "runtime_error": 177,
+    "config_error": 136,
+    "build_error": 80,
+    "type_error": 68,
+    "network_error": 39,
+    "auth_error": 37,
+    "connection_error": 37,
+    "etiquette_violation": 37,
+    "resource_error": 33,
+    "io_error": 31,
+    "memory_error": 28,
+    "concurrency_error": 27,
+    "performance_error": 24,
+    "security_error": 24,
+    "political_violation": 24,
+    "cluster_error": 23,
+    "module_error": 22,
+    "configuration_error": 21,
+    "data_error": 19,
+    "communication_error": 16,
+    "life_threatening": 15,
+    "timeout_error": 14,
+    "authentication": 13,
+    "serialization_error": 13,
+    "tls_error": 12,
+    "quota_error": 12,
+    "networking": 12,
+    "dependency_error": 12,
+    "state_error": 12,
+    "import_error": 12,
+    "version_error": 11,
+    "build": 11,
+    "hardware_error": 11,
+    "replication_error": 11,
+    "permission_error": 10,
+    "migration_error": 10,
+    "runtime": 10,
+    "schema_error": 10,
+    "runtime_exception": 10,
+    "async_error": 10,
+    "api_error": 9,
+    "http": 9,
+    "ssl_tls": 9,
+    "compliance_error": 9,
+    "vulnerability_error": 9,
+    "device_error": 8,
+    "encoding": 8,
+    "quality_error": 8,
+    "database_error": 8,
+    "lifecycle_error": 8,
+    "network": 8,
+    "routing_error": 8,
+    "request_error": 7,
+    "query_error": 7,
+    "validation_error": 7,
+    "database": 7,
+    "autograd_error": 7,
+    "serialization": 7,
+    "compile_error": 7,
+    "scheduling_error": 7,
+    "render_error": 7,
+    "shape_error": 7,
+    "path_handling": 6,
+    "storage": 6,
+    "operation_error": 6,
+    "syntax_error": 6,
+    "legal_violation": 6,
+    "constraint_error": 6,
+    "compilation_error": 6,
+    "training_error": 6,
+    "filesystem": 6,
+    "availability_error": 5,
+    "rate_limiting": 5,
+    "deployment": 5,
+    "test_error": 5,
+    "compatibility_error": 5,
+    "parse_error": 5,
+    "platform_error": 5,
+    "merge": 5,
+    "hook_error": 5,
+    "input_error": 5,
+    "framework_error": 5,
+    "tcp_connection": 5,
+    "dns": 5,
+    "autoloading": 5,
+    "framework_laravel": 5,
+    "system_error": 4,
+    "proxy_error": 4,
+    "rate_limit_error": 4,
+    "deployment_error": 4,
+    "registry": 4,
+    "security": 4,
+    "deprecation_warning": 4,
+    "encoding_error": 4,
+    "authentication_error": 4,
+    "storage_error": 4,
+    "image_error": 4,
+    "ref_error": 4,
+    "push_error": 4,
+    "context_error": 4,
+    "filesystem_error": 4,
+    "naming": 4,
+    "parsing_error": 4,
+    "networking_error": 4,
+    "component_error": 4,
+    "app-router": 4,
+    "startup_error": 4,
+    "memory": 4,
+    "computation_error": 4,
+    "service_limits": 4,
+    "size_limit_error": 4,
+    "conversion_error": 4,
+    "ownership_error": 4,
+    "provider_error": 4,
+    "caching": 3,
+    "performance": 3,
+    "timeout": 3,
+    "webhook_reliability": 3,
+    "delivery_error": 3,
+    "secrets": 3,
+    "resource_limits": 3,
+    "permissions": 3,
+    "workflow_error": 3,
+    "infrastructure": 3,
+    "dns_error": 3,
+    "email_delivery": 3,
+    "initialization_error": 3,
+    "library_error": 3,
+    "compatibility": 3,
+    "install_error": 3,
+    "parsing": 3,
+    "datetime": 3,
+    "path_encoding": 3,
+    "healthcheck": 3,
+    "web_framework": 3,
+    "build_system": 3,
+    "dependency_injection": 3,
+    "http_error": 3,
+    "rebase_error": 3,
+    "compilation": 3,
+    "modules": 3,
+    "loading_error": 3,
+    "classpath_error": 3,
+    "native_error": 3,
+    "config": 3,
+    "pod_error": 3,
+    "resources": 3,
+    "rendering_error": 3,
+    "esm": 3,
+    "camera_error": 3,
+    "billing": 3,
+    "value_error": 3,
+    "hydration_error": 3,
+    "lifetime_error": 3,
+    "borrow_error": 3,
+    "state": 3,
+    "installation_error": 2,
+    "pagination": 2,
+    "compute_error": 2,
+    "throttle_error": 2,
+    "messaging_error": 2,
+    "gitops": 2,
+    "configuration": 2,
+    "resource_limit": 2,
+    "dependency_management": 2,
+    "template_error": 2,
+    "link_error": 2,
+    "api_usage": 2,
+    "observability": 2,
+    "api_limits": 2,
+    "protocol_error": 2,
+    "kernel_launch_error": 2,
+    "library_initialization": 2,
+    "driver_error": 2,
+    "init_error": 2,
+    "graph_error": 2,
+    "distributed_communication": 2,
+    "distributed_error": 2,
+    "oom_error": 2,
+    "version_incompatibility": 2,
+    "index_error": 2,
+    "sharding_error": 2,
+    "maintenance_error": 2,
+    "corruption_error": 2,
+    "config_warning": 2,
+    "push": 2,
+    "package_management": 2,
+    "mapping_error": 2,
+    "flash_error": 2,
+    "plugin_error": 2,
+    "layout_error": 2,
+    "health_risk": 2,
+    "checkout": 2,
+    "data_loss": 2,
+    "path_error": 2,
+    "corruption": 2,
+    "transfer": 2,
+    "clone_error": 2,
+    "submodule_error": 2,
+    "grpc_error": 2,
+    "packages": 2,
+    "os_error": 2,
+    "export_error": 2,
+    "persistence_error": 2,
+    "consumer_error": 2,
+    "pod-lifecycle": 2,
+    "rbac": 2,
+    "autoscaling_error": 2,
+    "node_error": 2,
+    "legal_risk": 2,
+    "context_management": 2,
+    "retrieval": 2,
+    "output_error": 2,
+    "streaming": 2,
+    "firewall": 2,
+    "mtu_pmtud": 2,
+    "async": 2,
+    "crypto": 2,
+    "streams": 2,
+    "tls": 2,
+    "orm_error": 2,
+    "crash_error": 2,
+    "extension": 2,
+    "data_processing": 2,
+    "dependency-resolution": 2,
+    "resolution": 2,
+    "resolution_error": 2,
+    "security_warning": 2,
+    "platform_limits": 2,
+    "typing": 2,
+    "resource_exhaustion": 2,
+    "import": 2,
+    "name_error": 2,
+    "math_error": 2,
+    "render_warning": 2,
+    "jsx_error": 2,
+    "state_management_error": 2,
+    "trait_error": 2,
+    "web_framework_error": 2,
+    "cors": 2,
+    "gpu_error": 2,
+    "refactor_error": 2,
+    "type_narrowing_error": 2,
+    "strictness": 2,
+    "asset_error": 2,
+    "di_error": 1,
+    "policy_error": 1,
+    "cors_error": 1,
+    "idempotency": 1,
+    "file_upload": 1,
+    "formatting": 1,
+    "iam": 1,
+    "iam_error": 1,
+    "pipeline_error": 1,
+    "container_error": 1,
+    "cloudwatch": 1,
+    "cognito": 1,
+    "throttling_error": 1,
+    "ecs": 1,
+    "lambda": 1,
+    "ssm": 1,
+    "rds": 1,
+    "conflict_error": 1,
+    "s3": 1,
+    "sqs": 1,
+    "configuration_management": 1,
+    "testing": 1,
+    "docker_build": 1,
+    "build_optimization": 1,
+    "artifacts": 1,
+    "concurrency": 1,
+    "runtime_version": 1,
+    "git_operation": 1,
+    "workflow_syntax": 1,
+    "workflow": 1,
+    "credentials": 1,
+    "pipeline_syntax": 1,
+    "workspace": 1,
+    "publishing": 1,
+    "dependency_install": 1,
+    "release": 1,
+    "code_quality": 1,
+    "test_execution": 1,
+    "iam_permission": 1,
+    "messaging": 1,
+    "billing_error": 1,
+    "metadata": 1,
+    "message_delivery": 1,
+    "state_management": 1,
+    "compiler_error": 1,
+    "api_pagination": 1,
+    "alerting": 1,
+    "email_config": 1,
+    "api_deprecation": 1,
+    "webhook_security": 1,
+    "device": 1,
+    "interop_error": 1,
+    "distributed_computing": 1,
+    "profiling_error": 1,
+    "date_handling": 1,
+    "build_warning": 1,
+    "daemon_error": 1,
+    "compose_error": 1,
+    "orchestration_error": 1,
+    "platform": 1,
+    "architecture": 1,
+    "mount_error": 1,
+    "permission_warning": 1,
+    "auth": 1,
+    "assembly_loading": 1,
+    "reflection_error": 1,
+    "indexing_error": 1,
+    "disk_error": 1,
+    "throughput_error": 1,
+    "snapshot_error": 1,
+    "debug_error": 1,
+    "linker_error": 1,
+    "debugger_error": 1,
+    "usb_error": 1,
+    "development_error": 1,
+    "widget_error": 1,
+    "null_safety_error": 1,
+    "sync_error": 1,
+    "cherry_pick_error": 1,
+    "commit_error": 1,
+    "state_warning": 1,
+    "branch_error": 1,
+    "remote": 1,
+    "filter": 1,
+    "maintenance": 1,
+    "lfs": 1,
+    "merge_error": 1,
+    "sparse_checkout": 1,
+    "stash_error": 1,
+    "reference": 1,
+    "worktree": 1,
+    "worktree_error": 1,
+    "tags": 1,
+    "type-system": 1,
+    "syntax": 1,
+    "protobuf_error": 1,
+    "cancellation_error": 1,
+    "integration_error": 1,
+    "dependency_injection_error": 1,
+    "monitoring_error": 1,
+    "connectivity": 1,
+    "rbac_error": 1,
+    "api_version_error": 1,
+    "autoscaling": 1,
+    "validation": 1,
+    "admission_error": 1,
+    "service_mesh_error": 1,
+    "workload_error": 1,
+    "namespace": 1,
+    "scheduling": 1,
+    "health_error": 1,
+    "probes": 1,
+    "api_stability": 1,
+    "embedding": 1,
+    "fine_tuning": 1,
+    "cost_error": 1,
+    "structured_output": 1,
+    "prompt_engineering": 1,
+    "reproducibility": 1,
+    "token_counting": 1,
+    "function_calling": 1,
+    "harmful_advice": 1,
+    "layer2": 1,
+    "routing": 1,
+    "tls_certificate": 1,
+    "dhcp": 1,
+    "grpc": 1,
+    "icmp": 1,
+    "ipv6": 1,
+    "nat": 1,
+    "quic": 1,
+    "tcp_flow_control": 1,
+    "websocket": 1,
+    "http_security": 1,
+    "breaking_change": 1,
+    "api-routes": 1,
+    "static-generation": 1,
+    "hydration": 1,
+    "images": 1,
+    "server-actions": 1,
+    "module_boundary": 1,
+    "server-components": 1,
+    "ssl_error": 1,
+    "memory_warning": 1,
+    "server_error": 1,
+    "cluster": 1,
+    "debugging": 1,
+    "worker_threads": 1,
+    "bundler_error": 1,
+    "calibration_error": 1,
+    "codec_error": 1,
+    "dimension_error": 1,
+    "recursion_error": 1,
+    "autoload_error": 1,
+    "deprecation": 1,
+    "data_parsing": 1,
+    "execution": 1,
+    "opcode_cache": 1,
+    "regex": 1,
+    "extension_crash": 1,
+    "session": 1,
+    "type_system": 1,
+    "runtime_warning": 1,
+    "resolver_error": 1,
+    "resolution_warning": 1,
+    "cache_error": 1,
+    "env_error": 1,
+    "environment": 1,
+    "package_error": 1,
+    "supply_chain": 1,
+    "api_versioning": 1,
+    "attribute_error": 1,
+    "task_error": 1,
+    "native_dependency_error": 1,
+    "signal_error": 1,
+    "key_error": 1,
+    "collections": 1,
+    "numeric": 1,
+    "data_warning": 1,
+    "native_crash": 1,
+    "subprocess_error": 1,
+    "call-signature": 1,
+    "scoping": 1,
+    "cuda_error": 1,
+    "multiprocessing_error": 1,
+    "tracing_error": 1,
+    "context": 1,
+    "hooks": 1,
+    "rendering": 1,
+    "testing_error": 1,
+    "error_handling": 1,
+    "code_splitting_error": 1,
+    "dom_error": 1,
+    "development_behavior": 1,
+    "hooks_error": 1,
+    "hook_warning": 1,
+    "scripting_error": 1,
+    "actions": 1,
+    "recording": 1,
+    "launch_error": 1,
+    "lifecycle": 1,
+    "navigation": 1,
+    "parameters": 1,
+    "communication": 1,
+    "tf_error": 1,
+    "transforms": 1,
+    "const-eval": 1,
+    "const_error": 1,
+    "trait-system": 1,
+    "ownership": 1,
+    "cli_error": 1,
+    "ffi_error": 1,
+    "async_runtime_error": 1,
+    "wasm_error": 1,
+    "access_error": 1,
+    "xss": 1,
+    "web_security": 1,
+    "deserialization": 1,
+    "session_security": 1,
+    "file_security": 1,
+    "session_management": 1,
+    "injection": 1,
+    "ssrf": 1,
+    "cryptography": 1,
+    "tool_error": 1,
+    "init": 1,
+    "graph": 1,
+    "meta-arguments": 1,
+    "providers": 1,
+    "refactoring": 1,
+    "reference_error": 1,
+    "declaration_error": 1,
+    "decorator_error": 1,
+    "enum_error": 1,
+    "generic_error": 1,
+    "function_error": 1,
+    "type-checking": 1,
+    "lint_error": 1,
+    "shader_error": 1
+  },
+  "domains": {
+    "android": {
+      "count": 40,
+      "avg_confidence": 0.865,
+      "avg_fix_rate": 0.831,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "api": {
+      "count": 40,
+      "avg_confidence": 0.868,
+      "avg_fix_rate": 0.834,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 37,
+        "partial": 3
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "aws": {
+      "count": 51,
+      "avg_confidence": 0.887,
+      "avg_fix_rate": 0.864,
+      "freshness": {
+        "fresh": 51
+      },
+      "resolvable": {
+        "true": 47,
+        "partial": 4
+      },
+      "avg_evidence_count": 73.6,
+      "low_confidence_count": 0
+    },
+    "cicd": {
+      "count": 47,
+      "avg_confidence": 0.881,
+      "avg_fix_rate": 0.865,
+      "freshness": {
+        "fresh": 47
+      },
+      "resolvable": {
+        "true": 47
+      },
+      "avg_evidence_count": 54.3,
+      "low_confidence_count": 0
+    },
+    "cloud": {
+      "count": 40,
+      "avg_confidence": 0.855,
+      "avg_fix_rate": 0.815,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 39,
+        "partial": 1
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "cmake": {
+      "count": 40,
+      "avg_confidence": 0.865,
+      "avg_fix_rate": 0.84,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "communication": {
+      "count": 40,
+      "avg_confidence": 0.85,
+      "avg_fix_rate": 0.809,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 38,
+        "partial": 2
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "cuda": {
+      "count": 57,
+      "avg_confidence": 0.852,
+      "avg_fix_rate": 0.816,
+      "freshness": {
+        "fresh": 57
+      },
+      "resolvable": {
+        "true": 47,
+        "partial": 10
+      },
+      "avg_evidence_count": 46.5,
+      "low_confidence_count": 0
+    },
+    "culture": {
+      "count": 67,
+      "avg_confidence": 0.849,
+      "avg_fix_rate": 0.866,
+      "freshness": {
+        "fresh": 67
+      },
+      "resolvable": {
+        "true": 67
+      },
+      "avg_evidence_count": 3.8,
+      "low_confidence_count": 0
+    },
+    "data": {
+      "count": 40,
+      "avg_confidence": 0.861,
+      "avg_fix_rate": 0.819,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 39,
+        "partial": 1
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "database": {
+      "count": 52,
+      "avg_confidence": 0.904,
+      "avg_fix_rate": 0.882,
+      "freshness": {
+        "fresh": 52
+      },
+      "resolvable": {
+        "true": 51,
+        "partial": 1
+      },
+      "avg_evidence_count": 56.6,
+      "low_confidence_count": 0
+    },
+    "disaster": {
+      "count": 2,
+      "avg_confidence": 0.935,
+      "avg_fix_rate": 0.91,
+      "freshness": {
+        "fresh": 2
+      },
+      "resolvable": {
+        "true": 2
+      },
+      "avg_evidence_count": 4.0,
+      "low_confidence_count": 0
+    },
+    "docker": {
+      "count": 65,
+      "avg_confidence": 0.906,
+      "avg_fix_rate": 0.891,
+      "freshness": {
+        "fresh": 65
+      },
+      "resolvable": {
+        "true": 60,
+        "partial": 5
+      },
+      "avg_evidence_count": 60.4,
+      "low_confidence_count": 0
+    },
+    "dotnet": {
+      "count": 50,
+      "avg_confidence": 0.872,
+      "avg_fix_rate": 0.844,
+      "freshness": {
+        "fresh": 50
+      },
+      "resolvable": {
+        "true": 50
+      },
+      "avg_evidence_count": 48.9,
+      "low_confidence_count": 0
+    },
+    "elasticsearch": {
+      "count": 40,
+      "avg_confidence": 0.855,
+      "avg_fix_rate": 0.817,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "embedded": {
+      "count": 40,
+      "avg_confidence": 0.833,
+      "avg_fix_rate": 0.78,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 37,
+        "partial": 3
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "flutter": {
+      "count": 40,
+      "avg_confidence": 0.857,
+      "avg_fix_rate": 0.818,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "food-safety": {
+      "count": 2,
+      "avg_confidence": 0.925,
+      "avg_fix_rate": 0.92,
+      "freshness": {
+        "fresh": 2
+      },
+      "resolvable": {
+        "true": 2
+      },
+      "avg_evidence_count": 3.5,
+      "low_confidence_count": 0
+    },
+    "git": {
+      "count": 60,
+      "avg_confidence": 0.914,
+      "avg_fix_rate": 0.879,
+      "freshness": {
+        "fresh": 60
+      },
+      "resolvable": {
+        "true": 57,
+        "partial": 2,
+        "false": 1
+      },
+      "avg_evidence_count": 81.1,
+      "low_confidence_count": 0
+    },
+    "go": {
+      "count": 54,
+      "avg_confidence": 0.913,
+      "avg_fix_rate": 0.9,
+      "freshness": {
+        "fresh": 54
+      },
+      "resolvable": {
+        "true": 48,
+        "partial": 6
+      },
+      "avg_evidence_count": 59.1,
+      "low_confidence_count": 0
+    },
+    "grpc": {
+      "count": 40,
+      "avg_confidence": 0.852,
+      "avg_fix_rate": 0.816,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "huggingface": {
+      "count": 40,
+      "avg_confidence": 0.862,
+      "avg_fix_rate": 0.83,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "java": {
+      "count": 54,
+      "avg_confidence": 0.89,
+      "avg_fix_rate": 0.856,
+      "freshness": {
+        "fresh": 54
+      },
+      "resolvable": {
+        "true": 54
+      },
+      "avg_evidence_count": 73.3,
+      "low_confidence_count": 0
+    },
+    "kafka": {
+      "count": 40,
+      "avg_confidence": 0.843,
+      "avg_fix_rate": 0.802,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "kubernetes": {
+      "count": 61,
+      "avg_confidence": 0.888,
+      "avg_fix_rate": 0.86,
+      "freshness": {
+        "fresh": 61
+      },
+      "resolvable": {
+        "true": 48,
+        "partial": 13
+      },
+      "avg_evidence_count": 64.8,
+      "low_confidence_count": 0
+    },
+    "legal": {
+      "count": 2,
+      "avg_confidence": 0.835,
+      "avg_fix_rate": 0.81,
+      "freshness": {
+        "fresh": 2
+      },
+      "resolvable": {
+        "true": 2
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "llm": {
+      "count": 40,
+      "avg_confidence": 0.834,
+      "avg_fix_rate": 0.764,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "partial": 12,
+        "true": 28
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "medical": {
+      "count": 3,
+      "avg_confidence": 0.9,
+      "avg_fix_rate": 0.877,
+      "freshness": {
+        "fresh": 3
+      },
+      "resolvable": {
+        "true": 3
+      },
+      "avg_evidence_count": 4.7,
+      "low_confidence_count": 0
+    },
+    "mental-health": {
+      "count": 2,
+      "avg_confidence": 0.855,
+      "avg_fix_rate": 0.85,
+      "freshness": {
+        "fresh": 2
+      },
+      "resolvable": {
+        "true": 2
+      },
+      "avg_evidence_count": 4.5,
+      "low_confidence_count": 0
+    },
+    "mongodb": {
+      "count": 40,
+      "avg_confidence": 0.849,
+      "avg_fix_rate": 0.812,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "networking": {
+      "count": 44,
+      "avg_confidence": 0.878,
+      "avg_fix_rate": 0.864,
+      "freshness": {
+        "fresh": 44
+      },
+      "resolvable": {
+        "true": 42,
+        "partial": 2
+      },
+      "avg_evidence_count": 55.7,
+      "low_confidence_count": 0
+    },
+    "nextjs": {
+      "count": 44,
+      "avg_confidence": 0.92,
+      "avg_fix_rate": 0.912,
+      "freshness": {
+        "fresh": 44
+      },
+      "resolvable": {
+        "true": 42,
+        "partial": 2
+      },
+      "avg_evidence_count": 68.1,
+      "low_confidence_count": 0
+    },
+    "nginx": {
+      "count": 40,
+      "avg_confidence": 0.864,
+      "avg_fix_rate": 0.833,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "node": {
+      "count": 70,
+      "avg_confidence": 0.905,
+      "avg_fix_rate": 0.884,
+      "freshness": {
+        "fresh": 70
+      },
+      "resolvable": {
+        "true": 65,
+        "partial": 5
+      },
+      "avg_evidence_count": 64.0,
+      "low_confidence_count": 0
+    },
+    "opencv": {
+      "count": 40,
+      "avg_confidence": 0.86,
+      "avg_fix_rate": 0.824,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "pet-safety": {
+      "count": 2,
+      "avg_confidence": 0.95,
+      "avg_fix_rate": 0.935,
+      "freshness": {
+        "fresh": 2
+      },
+      "resolvable": {
+        "true": 2
+      },
+      "avg_evidence_count": 4.5,
+      "low_confidence_count": 0
+    },
+    "php": {
+      "count": 47,
+      "avg_confidence": 0.895,
+      "avg_fix_rate": 0.88,
+      "freshness": {
+        "fresh": 47
+      },
+      "resolvable": {
+        "true": 47
+      },
+      "avg_evidence_count": 74.1,
+      "low_confidence_count": 0
+    },
+    "pip": {
+      "count": 41,
+      "avg_confidence": 0.88,
+      "avg_fix_rate": 0.852,
+      "freshness": {
+        "fresh": 41
+      },
+      "resolvable": {
+        "true": 37,
+        "partial": 4
+      },
+      "avg_evidence_count": 60.1,
+      "low_confidence_count": 0
+    },
+    "policy": {
+      "count": 40,
+      "avg_confidence": 0.849,
+      "avg_fix_rate": 0.807,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 35,
+        "partial": 5
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "python": {
+      "count": 88,
+      "avg_confidence": 0.906,
+      "avg_fix_rate": 0.881,
+      "freshness": {
+        "fresh": 88
+      },
+      "resolvable": {
+        "true": 77,
+        "partial": 11
+      },
+      "avg_evidence_count": 70.8,
+      "low_confidence_count": 0
+    },
+    "pytorch": {
+      "count": 40,
+      "avg_confidence": 0.856,
+      "avg_fix_rate": 0.816,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "react": {
+      "count": 44,
+      "avg_confidence": 0.915,
+      "avg_fix_rate": 0.9,
+      "freshness": {
+        "fresh": 44
+      },
+      "resolvable": {
+        "true": 44
+      },
+      "avg_evidence_count": 105.2,
+      "low_confidence_count": 0
+    },
+    "redis": {
+      "count": 40,
+      "avg_confidence": 0.856,
+      "avg_fix_rate": 0.821,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 39,
+        "partial": 1
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "ros2": {
+      "count": 50,
+      "avg_confidence": 0.878,
+      "avg_fix_rate": 0.838,
+      "freshness": {
+        "fresh": 50
+      },
+      "resolvable": {
+        "true": 42,
+        "partial": 8
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "rust": {
+      "count": 48,
+      "avg_confidence": 0.89,
+      "avg_fix_rate": 0.868,
+      "freshness": {
+        "fresh": 48
+      },
+      "resolvable": {
+        "true": 48
+      },
+      "avg_evidence_count": 59.7,
+      "low_confidence_count": 0
+    },
+    "safety": {
+      "count": 7,
+      "avg_confidence": 0.936,
+      "avg_fix_rate": 0.917,
+      "freshness": {
+        "fresh": 7
+      },
+      "resolvable": {
+        "true": 7
+      },
+      "avg_evidence_count": 4.1,
+      "low_confidence_count": 0
+    },
+    "security": {
+      "count": 40,
+      "avg_confidence": 0.889,
+      "avg_fix_rate": 0.868,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.1,
+      "low_confidence_count": 0
+    },
+    "tensorflow": {
+      "count": 40,
+      "avg_confidence": 0.855,
+      "avg_fix_rate": 0.817,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 40
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    },
+    "terraform": {
+      "count": 46,
+      "avg_confidence": 0.897,
+      "avg_fix_rate": 0.873,
+      "freshness": {
+        "fresh": 46
+      },
+      "resolvable": {
+        "partial": 5,
+        "true": 41
+      },
+      "avg_evidence_count": 62.9,
+      "low_confidence_count": 0
+    },
+    "typescript": {
+      "count": 49,
+      "avg_confidence": 0.903,
+      "avg_fix_rate": 0.891,
+      "freshness": {
+        "fresh": 49
+      },
+      "resolvable": {
+        "true": 48,
+        "partial": 1
+      },
+      "avg_evidence_count": 68.3,
+      "low_confidence_count": 0
+    },
+    "unity": {
+      "count": 40,
+      "avg_confidence": 0.849,
+      "avg_fix_rate": 0.805,
+      "freshness": {
+        "fresh": 40
+      },
+      "resolvable": {
+        "true": 38,
+        "partial": 2
+      },
+      "avg_evidence_count": 3.0,
+      "low_confidence_count": 0
+    }
+  }
+}

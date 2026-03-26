@@ -36,12 +36,14 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
+from typing import Any
 
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from generator.domains import suggest_domains as _suggest_domains
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
+OUTCOMES_DIR = Path(__file__).parent.parent / "data" / "outcomes"
 
 # Smithery configuration via environment variables
 _PREFERRED_DOMAINS: list[str] = [
@@ -493,7 +495,65 @@ TOOLS = [
             "openWorldHint": False,
         },
     },
+    {
+        "name": "report_outcome",
+        "description": (
+            "Report whether a workaround from deadends.dev worked or failed. "
+            "This feedback improves fix_success_rate and confidence for future "
+            "users. Call this AFTER applying a workaround to help improve the "
+            "database. Accepts the error ID, the workaround action you tried, "
+            "and whether it succeeded."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "error_id": {
+                    "type": "string",
+                    "description": "The error ID (domain/slug/env)",
+                },
+                "workaround_action": {
+                    "type": "string",
+                    "description": (
+                        "The workaround action string you tried "
+                        "(from the workarounds list)"
+                    ),
+                },
+                "success": {
+                    "type": "boolean",
+                    "description": "Whether the workaround resolved the error",
+                },
+                "environment": {
+                    "type": "object",
+                    "description": (
+                        "Optional: your environment info "
+                        "(runtime, os, version, etc.)"
+                    ),
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Optional: additional context or notes",
+                },
+            },
+            "required": ["error_id", "workaround_action", "success"],
+        },
+        "annotations": {
+            "title": "Report outcome",
+            "readOnlyHint": False,
+            "destructiveHint": False,
+            "idempotentHint": False,
+            "openWorldHint": False,
+        },
+    },
 ]
+
+
+def _record_outcome(outcome: dict[str, Any]) -> None:
+    """Append an outcome record to the daily JSONL file."""
+    OUTCOMES_DIR.mkdir(parents=True, exist_ok=True)
+    today = date.today().isoformat()
+    filepath = OUTCOMES_DIR / f"{today}.jsonl"
+    with open(filepath, "a", encoding="utf-8") as f:
+        f.write(json.dumps(outcome, ensure_ascii=False) + "\n")
 
 
 def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
@@ -506,7 +566,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             },
             "serverInfo": {
                 "name": "deadends-dev",
-                "version": "1.5.1",
+                "version": "1.6.0",
             },
             "instructions": (
                 "Use lookup_error BEFORE attempting to fix any error to "
@@ -967,6 +1027,62 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     )
 
                 text = "\n".join(parts)
+            return {"content": [{"type": "text", "text": text}]}
+
+        elif tool_name == "report_outcome":
+            error_id = args.get("error_id", "").strip()
+            action = args.get("workaround_action", "").strip()
+            success = args.get("success")
+
+            if not error_id or not action or success is None:
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": (
+                            "Missing required fields. Provide error_id, "
+                            "workaround_action, and success (boolean)."
+                        ),
+                    }],
+                }
+
+            if not _ID_PATTERN.match(error_id):
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": f"Invalid error_id format: {error_id}",
+                    }],
+                }
+
+            canon = lookup_by_id(error_id, canons)
+            canon_exists = canon is not None
+
+            outcome = {
+                "timestamp": datetime.now().isoformat(),
+                "error_id": error_id,
+                "workaround_action": action,
+                "success": bool(success),
+                "canon_exists": canon_exists,
+            }
+            env = args.get("environment")
+            if env and isinstance(env, dict):
+                outcome["environment"] = env
+            notes = args.get("notes", "").strip()
+            if notes:
+                outcome["notes"] = notes[:1000]
+
+            _record_outcome(outcome)
+
+            text = (
+                f"Outcome recorded. Thank you for the feedback!\n\n"
+                f"Error: {error_id}\n"
+                f"Workaround: {action}\n"
+                f"Result: {'SUCCESS' if success else 'FAILED'}\n"
+            )
+            if not canon_exists:
+                text += (
+                    f"\nNote: error_id '{error_id}' was not found in the "
+                    f"current database. The outcome was still recorded."
+                )
             return {"content": [{"type": "text", "text": text}]}
 
         return {

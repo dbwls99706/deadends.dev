@@ -19,8 +19,10 @@ CLI Usage:
 """
 
 import json
+import math
 import re
 import sys
+from collections import defaultdict
 from datetime import date, datetime
 from pathlib import Path
 
@@ -184,41 +186,119 @@ def batch_lookup(error_messages: list[str]) -> list[dict | None]:
     return [lookup(msg) for msg in error_messages]
 
 
-def search(query: str, domain: str | None = None, limit: int = 10) -> list[dict]:
-    """Search errors by keyword across all domains.
+_IDF_CACHE: dict[str, float] | None = None
+_DOC_WORDS_CACHE: dict[str, set[str]] | None = None
 
-    Unlike lookup_all (regex matching), this does fuzzy keyword search
-    across signatures, summaries, dead ends, and workarounds.
+
+def _build_idf_index() -> tuple[dict[str, float], dict[str, set[str]]]:
+    """Build IDF index across all canons (cached)."""
+    global _IDF_CACHE, _DOC_WORDS_CACHE
+    if _IDF_CACHE is not None and _DOC_WORDS_CACHE is not None:
+        return _IDF_CACHE, _DOC_WORDS_CACHE
+
+    canons = _load_canons()
+    doc_freq: dict[str, int] = defaultdict(int)
+    doc_words: dict[str, set[str]] = {}
+    n = len(canons)
+
+    for canon in canons:
+        canon_id = canon.get("id", "")
+        words = set()
+        sig = canon.get("error", {}).get("signature", "").lower()
+        summary = canon.get("verdict", {}).get("summary", "").lower()
+        words.update(re.split(r"\W+", sig))
+        words.update(re.split(r"\W+", summary))
+        for de in canon.get("dead_ends", []):
+            words.update(re.split(r"\W+", de.get("action", "").lower()))
+            words.update(re.split(r"\W+", de.get("why_fails", "").lower()))
+        for wa in canon.get("workarounds", []):
+            words.update(re.split(r"\W+", wa.get("action", "").lower()))
+        words -= _STOPWORDS
+        doc_words[canon_id] = words
+        for w in words:
+            doc_freq[w] += 1
+
+    idf = {}
+    for word, df in doc_freq.items():
+        idf[word] = math.log((n + 1) / (df + 1)) + 1.0 if df > 0 else 0
+
+    _IDF_CACHE = idf
+    _DOC_WORDS_CACHE = doc_words
+    return idf, doc_words
+
+
+def _env_match_score(canon: dict, runtime: str | None, os_name: str | None) -> float:
+    """Score how well a canon's environment matches the given filters."""
+    if not runtime and not os_name:
+        return 0.0
+    score = 0.0
+    env = canon.get("environment", {})
+    if runtime:
+        rt = env.get("runtime", {})
+        rt_name = rt.get("name", "").lower()
+        if runtime.lower() in rt_name or rt_name in runtime.lower():
+            score += 5.0
+    if os_name:
+        canon_os = env.get("os", "").lower()
+        if os_name.lower() in canon_os or canon_os in os_name.lower():
+            score += 3.0
+    return score
+
+
+def search(
+    query: str,
+    domain: str | None = None,
+    limit: int = 10,
+    runtime: str | None = None,
+    os_name: str | None = None,
+) -> list[dict]:
+    """Search errors by keyword with TF-IDF scoring.
+
+    Uses TF-IDF weighting for more accurate relevance ranking.
+    Optionally filters by domain and boosts results matching the
+    given runtime/OS environment.
+
+    Args:
+        query: Search keywords (e.g., 'memory limit', 'timeout')
+        domain: Optional domain filter (e.g., 'python', 'docker')
+        limit: Max results (default 10)
+        runtime: Optional runtime filter (e.g., 'python', 'node')
+        os_name: Optional OS filter (e.g., 'linux', 'macos')
 
     Usage:
         from generator.lookup import search
 
         results = search("memory limit", domain="docker", limit=5)
+        results = search("segfault", runtime="python", os_name="linux")
     """
     canons = _load_canons()
-    q_words = set(query.lower().split())
+    idf, doc_words = _build_idf_index()
+    q_words = set(query.lower().split()) - _STOPWORDS
     scored = []
 
     for canon in canons:
         if domain and canon["error"]["domain"] != domain:
             continue
-        score = 0
-        sig = canon["error"]["signature"].lower()
-        summary = canon["verdict"]["summary"].lower()
+
+        canon_id = canon.get("id", "")
+        canon_words = doc_words.get(canon_id, set())
+        sig = canon.get("error", {}).get("signature", "").lower()
+
+        score = 0.0
         for w in q_words:
+            if w not in canon_words:
+                continue
+            w_idf = idf.get(w, 0)
             if w in sig:
-                score += 10
-            if w in summary:
-                score += 5
-            for de in canon["dead_ends"]:
-                if w in de["action"].lower() or w in de["why_fails"].lower():
-                    score += 3
-            for wa in canon.get("workarounds", []):
-                if w in wa["action"].lower():
-                    score += 3
+                score += w_idf * 3.0
+            else:
+                score += w_idf * 1.0
+
+        score += _env_match_score(canon, runtime, os_name)
+
         if score > 0:
             scored.append({
-                "score": score,
+                "score": round(score, 2),
                 "id": canon["id"],
                 "signature": canon["error"]["signature"],
                 "domain": canon["error"]["domain"],

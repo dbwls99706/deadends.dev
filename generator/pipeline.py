@@ -23,6 +23,18 @@ STEPS = {
         "desc": "Generate new canons from seed definitions",
         "cmd": [sys.executable, "-m", "generator.bulk_generate"],
     },
+    "build-graph": {
+        "desc": "Build transition graph from canon data",
+        "cmd": [sys.executable, "-m", "generator.build_graph"],
+    },
+    "build-signatures": {
+        "desc": "Build signature index from canon data",
+        "cmd": [sys.executable, "-m", "generator.build_signatures"],
+    },
+    "quality-report": {
+        "desc": "Generate data quality report",
+        "cmd": [sys.executable, "-m", "generator.quality_report"],
+    },
     "build-site": {
         "desc": "Build static site from all canons",
         "cmd": [sys.executable, "-m", "generator.build_site"],
