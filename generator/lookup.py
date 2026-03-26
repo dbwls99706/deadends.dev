@@ -19,8 +19,10 @@ CLI Usage:
 """
 
 import json
+import math
 import re
 import sys
+from collections import defaultdict
 from datetime import date, datetime
 from pathlib import Path
 
@@ -72,6 +74,57 @@ _STOPWORDS = frozenset({
 })
 
 
+# Patterns that indicate the key error line in a stack trace
+_ERROR_LINE_PATTERNS = [
+    re.compile(r"(?:Error|Exception|Fault|Failure|FATAL|CRITICAL|panic)[:]\s", re.I),
+    re.compile(r"^(?:E\s|error\[E\d+\])", re.I),
+    re.compile(r"^(?:CUDA|NCCL|RuntimeError|TypeError|ValueError|KeyError)", re.I),
+    re.compile(r"^(?:ModuleNotFoundError|ImportError|SyntaxError|FileNotFoundError)", re.I),
+    re.compile(r"^(?:Traceback|Caused by:)", re.I),
+    re.compile(r"^(?:fatal:|error:)\s", re.I),
+    re.compile(r"^\w+Error:", re.I),
+    re.compile(r"^\w+Exception:", re.I),
+]
+
+
+def _extract_error_lines(text: str) -> str:
+    """Extract the key error line(s) from a potentially long stack trace.
+
+    AI agents often paste full stack traces (50-200 lines). This extracts
+    the most relevant lines for matching, improving lookup accuracy.
+
+    Returns the original text if it's short (< 5 lines) or if no key
+    error line pattern is found.
+    """
+    lines = text.strip().splitlines()
+    if len(lines) <= 5:
+        return text.strip()
+
+    # Collect lines that match error patterns
+    key_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        for pat in _ERROR_LINE_PATTERNS:
+            if pat.search(stripped):
+                key_lines.append(stripped)
+                break
+
+    if key_lines:
+        # Return the last error line (usually the most specific)
+        # plus any earlier ones for context
+        return "\n".join(key_lines[-3:])
+
+    # Fallback: last non-empty line (often the actual error)
+    for line in reversed(lines):
+        stripped = line.strip()
+        if stripped and not stripped.startswith("at ") and not stripped.startswith("File "):
+            return stripped
+
+    return text.strip()
+
+
 def lookup_all(error_message: str) -> list[dict]:
     """Match an error message against all known patterns.
 
@@ -79,9 +132,15 @@ def lookup_all(error_message: str) -> list[dict]:
     - id, signature, domain, resolvable, fix_success_rate, summary
     - dead_ends: list of {action, why_fails, fail_rate}
     - workarounds: list of {action, success_rate, how}
+
+    For long stack traces (> 5 lines), automatically extracts the key error
+    lines before matching. The full text is still searched as a fallback.
     """
     if not error_message or not error_message.strip():
         return []
+
+    # Extract key error lines from long stack traces
+    extracted = _extract_error_lines(error_message)
 
     canons = _load_canons()
     matches = []
@@ -96,19 +155,24 @@ def lookup_all(error_message: str) -> list[dict]:
         try:
             score = 0
 
-            # Regex match (highest priority)
-            if pattern.search(error_message):
+            # Regex match — try extracted first, then full text as fallback
+            if pattern.search(extracted):
+                score += 100
+            elif extracted != error_message and pattern.search(error_message):
                 score += 100
 
-            # Signature substring match
+            # Signature substring match (check both extracted and full)
             sig = canon["error"]["signature"].lower()
-            msg = error_message.lower()
-            if sig in msg or msg in sig:
+            ext_lower = extracted.lower()
+            msg_lower = error_message.lower()
+            if sig in ext_lower or ext_lower in sig:
+                score += 50
+            elif sig in msg_lower or msg_lower in sig:
                 score += 50
 
-            # Word overlap (excluding stopwords)
+            # Word overlap (excluding stopwords) — use extracted
             sig_words = set(re.split(r"\W+", sig))
-            msg_words = set(re.split(r"\W+", msg))
+            msg_words = set(re.split(r"\W+", ext_lower))
             overlap = (sig_words & msg_words) - _STOPWORDS
             score += len(overlap) * 5
 
@@ -184,41 +248,119 @@ def batch_lookup(error_messages: list[str]) -> list[dict | None]:
     return [lookup(msg) for msg in error_messages]
 
 
-def search(query: str, domain: str | None = None, limit: int = 10) -> list[dict]:
-    """Search errors by keyword across all domains.
+_IDF_CACHE: dict[str, float] | None = None
+_DOC_WORDS_CACHE: dict[str, set[str]] | None = None
 
-    Unlike lookup_all (regex matching), this does fuzzy keyword search
-    across signatures, summaries, dead ends, and workarounds.
+
+def _build_idf_index() -> tuple[dict[str, float], dict[str, set[str]]]:
+    """Build IDF index across all canons (cached)."""
+    global _IDF_CACHE, _DOC_WORDS_CACHE
+    if _IDF_CACHE is not None and _DOC_WORDS_CACHE is not None:
+        return _IDF_CACHE, _DOC_WORDS_CACHE
+
+    canons = _load_canons()
+    doc_freq: dict[str, int] = defaultdict(int)
+    doc_words: dict[str, set[str]] = {}
+    n = len(canons)
+
+    for canon in canons:
+        canon_id = canon.get("id", "")
+        words = set()
+        sig = canon.get("error", {}).get("signature", "").lower()
+        summary = canon.get("verdict", {}).get("summary", "").lower()
+        words.update(re.split(r"\W+", sig))
+        words.update(re.split(r"\W+", summary))
+        for de in canon.get("dead_ends", []):
+            words.update(re.split(r"\W+", de.get("action", "").lower()))
+            words.update(re.split(r"\W+", de.get("why_fails", "").lower()))
+        for wa in canon.get("workarounds", []):
+            words.update(re.split(r"\W+", wa.get("action", "").lower()))
+        words -= _STOPWORDS
+        doc_words[canon_id] = words
+        for w in words:
+            doc_freq[w] += 1
+
+    idf = {}
+    for word, df in doc_freq.items():
+        idf[word] = math.log((n + 1) / (df + 1)) + 1.0 if df > 0 else 0
+
+    _IDF_CACHE = idf
+    _DOC_WORDS_CACHE = doc_words
+    return idf, doc_words
+
+
+def _env_match_score(canon: dict, runtime: str | None, os_name: str | None) -> float:
+    """Score how well a canon's environment matches the given filters."""
+    if not runtime and not os_name:
+        return 0.0
+    score = 0.0
+    env = canon.get("environment", {})
+    if runtime:
+        rt = env.get("runtime", {})
+        rt_name = rt.get("name", "").lower()
+        if runtime.lower() in rt_name or rt_name in runtime.lower():
+            score += 5.0
+    if os_name:
+        canon_os = env.get("os", "").lower()
+        if os_name.lower() in canon_os or canon_os in os_name.lower():
+            score += 3.0
+    return score
+
+
+def search(
+    query: str,
+    domain: str | None = None,
+    limit: int = 10,
+    runtime: str | None = None,
+    os_name: str | None = None,
+) -> list[dict]:
+    """Search errors by keyword with TF-IDF scoring.
+
+    Uses TF-IDF weighting for more accurate relevance ranking.
+    Optionally filters by domain and boosts results matching the
+    given runtime/OS environment.
+
+    Args:
+        query: Search keywords (e.g., 'memory limit', 'timeout')
+        domain: Optional domain filter (e.g., 'python', 'docker')
+        limit: Max results (default 10)
+        runtime: Optional runtime filter (e.g., 'python', 'node')
+        os_name: Optional OS filter (e.g., 'linux', 'macos')
 
     Usage:
         from generator.lookup import search
 
         results = search("memory limit", domain="docker", limit=5)
+        results = search("segfault", runtime="python", os_name="linux")
     """
     canons = _load_canons()
-    q_words = set(query.lower().split())
+    idf, doc_words = _build_idf_index()
+    q_words = set(query.lower().split()) - _STOPWORDS
     scored = []
 
     for canon in canons:
         if domain and canon["error"]["domain"] != domain:
             continue
-        score = 0
-        sig = canon["error"]["signature"].lower()
-        summary = canon["verdict"]["summary"].lower()
+
+        canon_id = canon.get("id", "")
+        canon_words = doc_words.get(canon_id, set())
+        sig = canon.get("error", {}).get("signature", "").lower()
+
+        score = 0.0
         for w in q_words:
+            if w not in canon_words:
+                continue
+            w_idf = idf.get(w, 0)
             if w in sig:
-                score += 10
-            if w in summary:
-                score += 5
-            for de in canon["dead_ends"]:
-                if w in de["action"].lower() or w in de["why_fails"].lower():
-                    score += 3
-            for wa in canon.get("workarounds", []):
-                if w in wa["action"].lower():
-                    score += 3
+                score += w_idf * 3.0
+            else:
+                score += w_idf * 1.0
+
+        score += _env_match_score(canon, runtime, os_name)
+
         if score > 0:
             scored.append({
-                "score": score,
+                "score": round(score, 2),
                 "id": canon["id"],
                 "signature": canon["error"]["signature"],
                 "domain": canon["error"]["domain"],

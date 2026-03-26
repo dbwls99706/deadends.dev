@@ -36,12 +36,17 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
+from typing import Any
+
+from generator.analytics import record_event as _record_event
+from generator.lookup import _extract_error_lines
 
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from generator.domains import suggest_domains as _suggest_domains
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
+OUTCOMES_DIR = Path(__file__).parent.parent / "data" / "outcomes"
 
 # Smithery configuration via environment variables
 _PREFERRED_DOMAINS: list[str] = [
@@ -53,13 +58,33 @@ _MAX_RESULTS: int = min(
 )
 _VERBOSE: bool = os.getenv("DEADENDS_VERBOSE", "true").lower() != "false"
 
-# Module-level cache — loaded once on first request
+# Module-level caches — loaded once on first request
+_OUTCOME_STATS: dict[str, dict] | None = None
 _CANONS: list[dict] | None = None
 _DOMAIN_INDEX: dict[str, list[str]] | None = None
 _COMPILED_REGEXES: dict[str, re.Pattern | None] | None = None
 
 # Maximum length for error messages to prevent ReDoS
 _MAX_ERROR_MESSAGE_LEN = 10_000
+
+
+def _get_outcome_stats() -> dict[str, dict]:
+    """Load aggregated outcome stats if available (cached)."""
+    global _OUTCOME_STATS
+    if _OUTCOME_STATS is not None:
+        return _OUTCOME_STATS
+
+    agg_file = OUTCOMES_DIR / "aggregated.json"
+    if agg_file.exists():
+        try:
+            with open(agg_file, encoding="utf-8") as f:
+                data = json.load(f)
+            _OUTCOME_STATS = data.get("deltas", {})
+        except (json.JSONDecodeError, KeyError):
+            _OUTCOME_STATS = {}
+    else:
+        _OUTCOME_STATS = {}
+    return _OUTCOME_STATS
 
 
 def _get_canons() -> list[dict]:
@@ -153,10 +178,13 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
     if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
         error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
 
+    # Extract key error lines from long stack traces
+    extracted = _extract_error_lines(error_message)
+
     compiled = _get_compiled_regexes()
     matches = []
     skipped = 0
-    msg_len = len(error_message)
+    msg_len = len(extracted)
     for canon in canons:
         try:
             canon_id = canon.get("id", "")
@@ -164,7 +192,10 @@ def match_error(error_message: str, canons: list[dict]) -> list[dict]:
             if pattern is None:
                 skipped += 1
                 continue
-            m = pattern.search(error_message)
+            # Try extracted text first, then full text as fallback
+            m = pattern.search(extracted)
+            if not m and extracted != error_message:
+                m = pattern.search(error_message)
             if m:
                 match_ratio = len(m.group()) / msg_len if msg_len else 0
                 domain = canon["error"]["domain"]
@@ -280,7 +311,16 @@ TOOLS = [
                 "error_message": {
                     "type": "string",
                     "description": "The full error message to look up",
-                }
+                },
+                "format": {
+                    "type": "string",
+                    "enum": ["markdown", "json"],
+                    "description": (
+                        "Response format: 'markdown' (default, "
+                        "human-readable) or 'json' (structured, for "
+                        "programmatic use by AI agents)"
+                    ),
+                },
             },
             "required": ["error_message"],
         },
@@ -493,7 +533,65 @@ TOOLS = [
             "openWorldHint": False,
         },
     },
+    {
+        "name": "report_outcome",
+        "description": (
+            "Report whether a workaround from deadends.dev worked or failed. "
+            "This feedback improves fix_success_rate and confidence for future "
+            "users. Call this AFTER applying a workaround to help improve the "
+            "database. Accepts the error ID, the workaround action you tried, "
+            "and whether it succeeded."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "error_id": {
+                    "type": "string",
+                    "description": "The error ID (domain/slug/env)",
+                },
+                "workaround_action": {
+                    "type": "string",
+                    "description": (
+                        "The workaround action string you tried "
+                        "(from the workarounds list)"
+                    ),
+                },
+                "success": {
+                    "type": "boolean",
+                    "description": "Whether the workaround resolved the error",
+                },
+                "environment": {
+                    "type": "object",
+                    "description": (
+                        "Optional: your environment info "
+                        "(runtime, os, version, etc.)"
+                    ),
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Optional: additional context or notes",
+                },
+            },
+            "required": ["error_id", "workaround_action", "success"],
+        },
+        "annotations": {
+            "title": "Report outcome",
+            "readOnlyHint": False,
+            "destructiveHint": False,
+            "idempotentHint": False,
+            "openWorldHint": False,
+        },
+    },
 ]
+
+
+def _record_outcome(outcome: dict[str, Any]) -> None:
+    """Append an outcome record to the daily JSONL file."""
+    OUTCOMES_DIR.mkdir(parents=True, exist_ok=True)
+    today = date.today().isoformat()
+    filepath = OUTCOMES_DIR / f"{today}.jsonl"
+    with open(filepath, "a", encoding="utf-8") as f:
+        f.write(json.dumps(outcome, ensure_ascii=False) + "\n")
 
 
 def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
@@ -506,7 +604,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
             },
             "serverInfo": {
                 "name": "deadends-dev",
-                "version": "1.5.1",
+                "version": "1.6.0",
             },
             "instructions": (
                 "Use lookup_error BEFORE attempting to fix any error to "
@@ -529,6 +627,7 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
 
         if tool_name == "lookup_error":
             error_msg = args.get("error_message", "").strip()
+            output_format = args.get("format", "markdown")
             if not error_msg:
                 return {
                     "content": [{
@@ -540,6 +639,14 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     }],
                 }
             matches = match_error(error_msg, canons)
+            top_domain = matches[0]["domain"] if matches else None
+            try:
+                _record_event(
+                    "lookup_error", domain=top_domain,
+                    matched=bool(matches), match_count=len(matches),
+                )
+            except Exception:
+                pass  # analytics must never break tool calls
             if not matches:
                 suggested = _suggest_domains(error_msg)
                 text = (
@@ -594,9 +701,56 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         for w in m["workarounds"]:
                             parts.append(f"- {w['action']} "
                                          f"(works {int(w['success_rate']*100)}%)")
+                    outcome_stats = _get_outcome_stats()
+                    ostats = outcome_stats.get(m["id"])
+                    if ostats and ostats.get("total_reports", 0) >= 2:
+                        n = ostats["total_reports"]
+                        cr = int(ostats["implied_fix_rate"] * 100)
+                        parts.append("")
+                        parts.append(
+                            f"### Community Reports ({n} reports): "
+                            f"{cr}% success rate"
+                        )
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
+
+            # JSON format: return structured data for programmatic use
+            if output_format == "json" and matches:
+                json_matches = []
+                for m in matches[:_MAX_RESULTS]:
+                    json_matches.append({
+                        "id": m["id"],
+                        "signature": m["signature"],
+                        "domain": m["domain"],
+                        "resolvable": m["resolvable"],
+                        "fix_success_rate": m["fix_success_rate"],
+                        "summary": m["summary"],
+                        "url": m["url"],
+                        "dead_ends": [
+                            {"action": d["action"],
+                             "why_fails": d["why_fails"],
+                             "fail_rate": d["fail_rate"]}
+                            for d in m["dead_ends"]
+                        ],
+                        "workarounds": [
+                            {"action": w["action"],
+                             "success_rate": w["success_rate"],
+                             "how": w.get("how", "")}
+                            for w in m["workarounds"]
+                        ],
+                        "leads_to": m.get("leads_to", []),
+                    })
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": json.dumps({
+                            "matches": json_matches,
+                            "total": len(matches),
+                        }, ensure_ascii=False),
+                    }],
+                }
+
             return {
                 "content": [{"type": "text", "text": text}],
             }
@@ -700,6 +854,13 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         score += 5
                     scored.append((score, c))
             scored.sort(key=lambda x: x[0], reverse=True)
+            try:
+                _record_event(
+                    "search_errors", domain=domain_filter or None,
+                    matched=bool(scored), match_count=len(scored),
+                )
+            except Exception:
+                pass
             if not scored:
                 text = f"No errors matching '{query}'"
                 if domain_filter:
@@ -967,6 +1128,62 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     )
 
                 text = "\n".join(parts)
+            return {"content": [{"type": "text", "text": text}]}
+
+        elif tool_name == "report_outcome":
+            error_id = args.get("error_id", "").strip()
+            action = args.get("workaround_action", "").strip()
+            success = args.get("success")
+
+            if not error_id or not action or success is None:
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": (
+                            "Missing required fields. Provide error_id, "
+                            "workaround_action, and success (boolean)."
+                        ),
+                    }],
+                }
+
+            if not _ID_PATTERN.match(error_id):
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": f"Invalid error_id format: {error_id}",
+                    }],
+                }
+
+            canon = lookup_by_id(error_id, canons)
+            canon_exists = canon is not None
+
+            outcome = {
+                "timestamp": datetime.now().isoformat(),
+                "error_id": error_id,
+                "workaround_action": action,
+                "success": bool(success),
+                "canon_exists": canon_exists,
+            }
+            env = args.get("environment")
+            if env and isinstance(env, dict):
+                outcome["environment"] = env
+            notes = args.get("notes", "").strip()
+            if notes:
+                outcome["notes"] = notes[:1000]
+
+            _record_outcome(outcome)
+
+            text = (
+                f"Outcome recorded. Thank you for the feedback!\n\n"
+                f"Error: {error_id}\n"
+                f"Workaround: {action}\n"
+                f"Result: {'SUCCESS' if success else 'FAILED'}\n"
+            )
+            if not canon_exists:
+                text += (
+                    f"\nNote: error_id '{error_id}' was not found in the "
+                    f"current database. The outcome was still recorded."
+                )
             return {"content": [{"type": "text", "text": text}]}
 
         return {

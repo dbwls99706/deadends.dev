@@ -1,0 +1,211 @@
+{
+  "total_scenarios": 20,
+  "no_match": 0,
+  "precision_at_1": 0.9,
+  "precision_at_3": 0.95,
+  "workaround_hit_rate": 0.9,
+  "dead_end_hit_rate": 0.55,
+  "mrr": 0.935,
+  "details": [
+    {
+      "id": "python-modulenotfound",
+      "status": "MATCH",
+      "matches": 64,
+      "top_domain": "python",
+      "expected_domain": "python",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "cuda-oom",
+      "status": "MATCH",
+      "matches": 125,
+      "top_domain": "cicd",
+      "expected_domain": "cuda",
+      "domain_correct": false,
+      "workaround_hit": false,
+      "dead_end_hit": false
+    },
+    {
+      "id": "docker-no-space",
+      "status": "MATCH",
+      "matches": 32,
+      "top_domain": "docker",
+      "expected_domain": "docker",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "node-enospc",
+      "status": "MATCH",
+      "matches": 168,
+      "top_domain": "node",
+      "expected_domain": "node",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "git-merge-conflict",
+      "status": "MATCH",
+      "matches": 69,
+      "top_domain": "git",
+      "expected_domain": "git",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "pip-externally-managed",
+      "status": "MATCH",
+      "matches": 7,
+      "top_domain": "pip",
+      "expected_domain": "pip",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "typescript-not-assignable",
+      "status": "MATCH",
+      "matches": 103,
+      "top_domain": "typescript",
+      "expected_domain": "typescript",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "kubernetes-crashloop",
+      "status": "MATCH",
+      "matches": 4,
+      "top_domain": "kubernetes",
+      "expected_domain": "kubernetes",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "rust-borrow",
+      "status": "MATCH",
+      "matches": 150,
+      "top_domain": "rust",
+      "expected_domain": "rust",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "react-hooks",
+      "status": "MATCH",
+      "matches": 66,
+      "top_domain": "react",
+      "expected_domain": "react",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "terraform-lock",
+      "status": "MATCH",
+      "matches": 42,
+      "top_domain": "terraform",
+      "expected_domain": "terraform",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "go-nil-pointer",
+      "status": "MATCH",
+      "matches": 139,
+      "top_domain": "go",
+      "expected_domain": "go",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "java-classnotfound",
+      "status": "MATCH",
+      "matches": 60,
+      "top_domain": "java",
+      "expected_domain": "java",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "database-deadlock",
+      "status": "MATCH",
+      "matches": 163,
+      "top_domain": "database",
+      "expected_domain": "database",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "aws-access-denied",
+      "status": "MATCH",
+      "matches": 55,
+      "top_domain": "aws",
+      "expected_domain": "aws",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": false
+    },
+    {
+      "id": "nextjs-hydration",
+      "status": "MATCH",
+      "matches": 139,
+      "top_domain": "nextjs",
+      "expected_domain": "nextjs",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "python-recursion",
+      "status": "MATCH",
+      "matches": 65,
+      "top_domain": "python",
+      "expected_domain": "python",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "docker-permission",
+      "status": "MATCH",
+      "matches": 92,
+      "top_domain": "grpc",
+      "expected_domain": "docker",
+      "domain_correct": false,
+      "workaround_hit": false,
+      "dead_end_hit": false
+    },
+    {
+      "id": "node-esm",
+      "status": "MATCH",
+      "matches": 103,
+      "top_domain": "node",
+      "expected_domain": "node",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    },
+    {
+      "id": "php-memory",
+      "status": "MATCH",
+      "matches": 142,
+      "top_domain": "php",
+      "expected_domain": "php",
+      "domain_correct": true,
+      "workaround_hit": true,
+      "dead_end_hit": true
+    }
+  ]
+}

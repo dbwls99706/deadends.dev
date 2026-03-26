@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="theme-color" content="#0d1117">
+  <title>Data Quality Dashboard — deadends.dev</title>
+  <meta name="description" content="Transparent data quality metrics for deadends.dev. {{ total_canons }} errors across {{ total_domains }} domains with {{ avg_confidence }}% average confidence.">
+  <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="{{ base_url }}/dashboard/">
+  <link rel="stylesheet" href="{{ base_path }}/style.css">
+</head>
+<body class="pg-dashboard">
+  <pre id="ai-summary" class="ai-summary">PAGE: Data Quality Dashboard
+PURPOSE: Transparent metrics on deadends.dev data quality, coverage, and reliability.
+TOTAL_CANONS: {{ total_canons }}
+TOTAL_DOMAINS: {{ total_domains }}
+AVG_CONFIDENCE: {{ avg_confidence }}
+AVG_FIX_RATE: {{ avg_fix_rate }}
+GRAPH_CONNECTIVITY: {{ connectivity_rate }}
+BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
+
+  <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
+
+  <main>
+  <h1>Data Quality Dashboard</h1>
+  <p>Transparent metrics on our error knowledge database. We believe in showing our work.</p>
+
+  <section class="dashboard-summary">
+    <div class="metric-grid">
+      <div class="metric">
+        <span class="metric-value">{{ total_canons }}</span>
+        <span class="metric-label">Error Entries</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ total_domains }}</span>
+        <span class="metric-label">Domains</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ avg_confidence }}%</span>
+        <span class="metric-label">Avg Confidence</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ avg_fix_rate }}%</span>
+        <span class="metric-label">Avg Fix Rate</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ connectivity_rate }}%</span>
+        <span class="metric-label">Graph Connectivity</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ benchmark_precision }}%</span>
+        <span class="metric-label">Precision@1</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Benchmark Results</h2>
+    <p>We test our lookup against 20 representative error scenarios.</p>
+    <div class="benchmark-bars">
+      <div class="bench-row">
+        <span class="bench-label">Precision@1</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-green" style="width: {{ benchmark_precision }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_precision }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Precision@3</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-green" style="width: {{ benchmark_precision3 }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_precision3 }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Workaround Hit</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-blue" style="width: {{ benchmark_workaround }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_workaround }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">Dead End Hit</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-red" style="width: {{ benchmark_deadend }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_deadend }}%</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-label">MRR</span>
+        <div class="bench-track">
+          <div class="bench-fill bench-fill-blue" style="width: {{ (benchmark_mrr * 100)|int }}%"></div>
+        </div>
+        <span class="bench-value">{{ benchmark_mrr }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Domain Coverage</h2>
+    <p>Error count and average confidence per domain.</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Errors</th>
+          <th>Confidence</th>
+          <th>Fix Rate</th>
+          <th>Coverage</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in domains %}
+        <tr>
+          <td><a href="{{ base_path }}/{{ d.name }}/">{{ d.display_name }}</a></td>
+          <td>{{ d.count }}</td>
+          <td>
+            <span class="{% if d.avg_confidence >= 70 %}verdict-true{% elif d.avg_confidence >= 50 %}verdict-partial{% else %}verdict-false{% endif %}">{{ d.avg_confidence }}%</span>
+          </td>
+          <td>{{ d.avg_fix_rate }}%</td>
+          <td>
+            <div class="bar" style="width: {{ d.bar_width }}%"></div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Transition Graph</h2>
+    <p>Error chains predict what error comes next after fixing the current one.</p>
+    <div class="metric-grid metric-grid-2">
+      <div class="metric">
+        <span class="metric-value">{{ graph_nodes }}</span>
+        <span class="metric-label">Connected Errors ({{ connectivity_rate }}%)</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ graph_edges }}</span>
+        <span class="metric-label">Total Edges</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ graph_components }}</span>
+        <span class="metric-label">Components</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ orphan_count }}</span>
+        <span class="metric-label">Orphan Errors</span>
+      </div>
+    </div>
+    {% if hub_nodes %}
+    <h3>Most Connected Errors</h3>
+    <div class="chain-cards">
+      {% for hub in hub_nodes %}
+      <div class="chain-card">
+        <code class="chain-link">{{ hub.id }}</code>
+        <span class="chain-prob">{{ hub.degree }} connections</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Help Improve This Data</h2>
+    <p>deadends.dev improves with community contributions:</p>
+    <div class="metric-grid metric-grid-auto">
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml" class="metric">
+        <span class="metric-value metric-icon">+</span>
+        <span class="metric-label">Submit New Error</span>
+      </a>
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml" class="metric">
+        <span class="metric-value metric-icon-green">&#x2714;</span>
+        <span class="metric-label">Report Workaround</span>
+      </a>
+      <a href="https://github.com/dbwls99706/deadends.dev" class="metric">
+        <span class="metric-value metric-icon">&#x2605;</span>
+        <span class="metric-label">Star on GitHub</span>
+      </a>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>
+    <p>Generated {{ generated_at }}. <a href="{{ base_path }}/">deadends.dev</a></p>
+  </footer>
+</body>
+</html>

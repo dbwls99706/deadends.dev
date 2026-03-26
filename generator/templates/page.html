@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid, {{ (verdict.fix_success_rate * 100)|int }}% Fix Rate | deadends.dev</title>
-  <meta name="description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success rate.">
-  {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+  <title>Fix {{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid &amp; Verified Workarounds | deadends.dev</title>
+  <meta name="description" content="How to fix {{ error.signature }}: avoid {{ dead_ends|length }} known dead ends. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% success. Step-by-step guide for {{ env_summary }}.">
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
 
   <!-- AI agent discovery -->
@@ -43,16 +43,17 @@
   {% set self_url = base_url ~ '/' ~ id ~ '/' %}
   <meta property="og:url" content="{{ self_url }}">
   <meta property="og:site_name" content="deadends.dev">
-  <meta property="og:image" content="{{ base_url }}/og-image.png">
+  <meta property="og:image" content="{{ base_url }}/og/{{ id_parts[0] }}/{{ id_parts[1] }}.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content="{{ error.first_seen }}">
   <meta property="article:modified_time" content="{{ verdict.last_updated }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="{{ base_url }}/og-image.png">
-  <meta name="twitter:image:alt" content="{{ error.signature }} — dead ends and verified fixes">
+  <meta name="twitter:image" content="{{ base_url }}/og/{{ id_parts[0] }}/{{ id_parts[1] }}.svg">
+  <meta name="twitter:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
   <link rel="canonical" href="{{ self_url }}">
@@ -114,67 +115,68 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     </p>
   </header>
 
-  <!-- TL;DR — AI coding agents can read just this block for a quick decision -->
-  <section id="tldr" class="card-section">
-    <strong>TL;DR:</strong>
-    {% if verdict.resolvable == "true" %}This error is <span class="verdict-true">fixable</span> ({{ (verdict.fix_success_rate * 100)|int }}% success rate).
-    {% elif verdict.resolvable == "partial" %}This error is <span class="verdict-partial">partially fixable</span> ({{ (verdict.fix_success_rate * 100)|int }}% success rate).
-    {% else %}This error is <span class="verdict-false">not reliably fixable</span> in this environment.{% endif %}
-    Avoid: {% for de in dead_ends[:2] %}<em>{{ de.action }}</em> ({{ (de.fail_rate * 100)|int }}% fail){% if not loop.last %}, {% endif %}{% endfor %}.
-    {% if workarounds|default([]) %}Try: {% for wa in workarounds[:2] %}<em>{{ wa.action }}</em> ({{ (wa.success_rate * 100)|int }}% success){% if not loop.last %}, {% endif %}{% endfor %}.{% endif %}
-  </section>
-
-  <!-- FOR HUMANS — Quick fix guide for developers landing from search -->
-  <section id="for-humans" class="human-guide">
-    <div class="human-guide-header">
-      <span class="human-guide-label">For Humans</span>
-      <span class="human-guide-sub">Quick fix guide</span>
+  <!-- ABOVE-FOLD VERDICT CARD — The most important info visible without scrolling -->
+  <section id="verdict-card" class="verdict-card verdict-card-{{ verdict.resolvable }}">
+    <div class="verdict-card-header">
+      <span class="verdict-badge verdict-badge-{{ verdict.resolvable }}">
+        {% if verdict.resolvable == "true" %}FIXABLE
+        {% elif verdict.resolvable == "partial" %}PARTIALLY FIXABLE
+        {% else %}NOT FIXABLE{% endif %}
+      </span>
+      <span class="verdict-card-rate">{{ (verdict.fix_success_rate * 100)|int }}% fix rate</span>
     </div>
-    {% if dead_ends[:2] %}
-    <div class="human-dont">
-      <strong>Stop — don't try {% if dead_ends|length == 1 %}this{% else %}these{% endif %}:</strong>
-      <ul>
+    <p class="verdict-card-summary">{{ verdict.summary }}</p>
+
+    <div class="verdict-card-columns">
+      <div class="verdict-card-dont">
+        <strong class="verdict-card-h3-red">Don't try</strong>
         {% for de in dead_ends[:2] %}
-        <li>{{ de.action }}{% if de.common_misconception %} <span class="human-note">— {{ de.common_misconception }}</span>{% endif %}</li>
+        <div class="verdict-card-item">
+          <span class="verdict-card-x">&#x2718;</span>
+          <span>{{ de.action }} <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail)</span></span>
+        </div>
         {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-    {% if workarounds|default([]) %}
-    <div class="human-do">
-      <strong>Do this instead:</strong>
-      <ol class="human-steps">
-        {% for wa in workarounds %}
-        <li>
-          <span class="human-step-title">{{ wa.action }}</span>
-          <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
-          {% if wa.how %}<pre class="human-code">{{ wa.how }}</pre>{% endif %}
-          {% if wa.tradeoff %}<span class="human-note">Tradeoff: {{ wa.tradeoff }}</span>{% endif %}
-        </li>
+      </div>
+      <div class="verdict-card-do">
+        <strong class="verdict-card-h3-green">Do this</strong>
+        {% for wa in workarounds[:2] %}
+        <div class="verdict-card-item">
+          <span class="verdict-card-check">&#x2714;</span>
+          <span>{{ wa.action }} <span class="success-rate">({{ (wa.success_rate * 100)|int }}%)</span></span>
+        </div>
         {% endfor %}
-      </ol>
+        {% if not workarounds|default([]) %}
+        <p class="meta">No known fix for this environment.</p>
+        {% endif %}
+      </div>
     </div>
-    {% else %}
-    <p>No known fix exists for this error in this environment. See the detailed analysis below.</p>
-    {% endif %}
   </section>
 
-  <section id="verdict">
-    <h2>Verdict</h2>
-    <p class="verdict-{{ verdict.resolvable }}">
-      {% if verdict.resolvable == "true" %}RESOLVABLE — This error can be fixed in most cases.
-      {% elif verdict.resolvable == "partial" %}PARTIALLY RESOLVABLE — Some workarounds exist, but success depends on specific conditions.
-      {% else %}NOT RESOLVABLE — No known reliable fix exists for this environment.{% endif %}
-    </p>
-    <p>{{ verdict.summary }}</p>
-    <p class="meta">Fix success rate: {{ verdict.fix_success_rate }} · Confidence: {{ verdict.confidence }}</p>
+  <!-- DETAILED FIX GUIDE — step-by-step for humans landing from search -->
+  {% if workarounds|default([]) %}
+  <section id="fix-guide" class="human-guide">
+    <div class="human-guide-header">
+      <span class="human-guide-label">Step-by-Step Fix</span>
+      <span class="human-guide-sub">{{ workarounds|length }} workaround{{ 's' if workarounds|length != 1 else '' }}</span>
+    </div>
+    <ol class="human-steps">
+      {% for wa in workarounds %}
+      <li>
+        <span class="human-step-title">{{ wa.action }}</span>
+        <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
+        {% if wa.how %}<pre class="human-code">{{ wa.how }}</pre>{% endif %}
+        {% if wa.tradeoff %}<span class="human-note">Tradeoff: {{ wa.tradeoff }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
   </section>
+  {% endif %}
 
   <section id="dead-ends">
     <h2>Dead Ends — Do NOT Try These</h2>
     {% for de in dead_ends %}
     <div class="dead-end">
-      <strong>{{ de.action }}</strong> <span class="fail-rate">(Fail rate: {{ de.fail_rate }})</span>
+      <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
       <p>{{ de.why_fails }}</p>
       {% if de.common_misconception %}<p><em>Common misconception:</em> {{ de.common_misconception }}</p>{% endif %}
       {% if de.condition %}<p class="meta">Condition: {{ de.condition }}</p>{% endif %}
@@ -190,7 +192,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     {% if workarounds|default([]) %}
     {% for wa in workarounds|default([]) %}
     <div class="workaround">
-      <strong>{{ wa.action }}</strong> <span class="success-rate">(Success rate: {{ wa.success_rate }})</span>
+      <strong>{{ wa.action }}</strong> <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
       {% if wa.how %}<p><code>{{ wa.how }}</code></p>{% endif %}
       {% if wa.tradeoff %}<p>Tradeoff: {{ wa.tradeoff }}</p>{% endif %}
       {% if wa.condition %}<p class="meta">Condition: {{ wa.condition }}</p>{% endif %}
@@ -208,58 +210,86 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   {% if graph.get("leads_to", []) or graph.get("preceded_by", []) or graph.get("frequently_confused_with", []) %}
   <section id="error-chain">
     <h2>Error Chain</h2>
+    <p class="meta">Errors don't happen in isolation. Here's what connects to this one.</p>
+
     {% if graph.get("leads_to", []) %}
-    <h3>This error may lead to:</h3>
-    <ul>
-      {% for lt in graph.leads_to %}
-      <li>
-        {% if lt.error_id in known_ids|default([]) %}
-        {% set lt_parts = lt.error_id.split('/') %}
-        <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/">{{ lt.error_id }}</a>
-        {% else %}
-        <code>{{ lt.error_id }}</code> <span class="meta">(page not yet generated)</span>
-        {% endif %}
-        (probability: {{ lt.probability }}{% if lt.condition %}, condition: {{ lt.condition }}{% endif %})
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="chain-group">
+      <h3>After fixing this, watch for:</h3>
+      <div class="chain-cards">
+        {% for lt in graph.leads_to %}
+        <div class="chain-card chain-card-next">
+          <span class="chain-arrow">&#x2192;</span>
+          {% set lt_key = lt.error_id.rsplit('/', 1)[0] if '/' in lt.error_id else lt.error_id %}
+          {% if lt.error_id in known_ids|default([]) %}
+          {% set lt_parts = lt.error_id.split('/') %}
+          <a href="{{ base_path }}/{{ lt_parts[0] }}/{{ lt_parts[1] }}/" class="chain-link">{% if lt_key in known_canons|default({}) %}{{ known_canons[lt_key].signature }}{% else %}{{ lt.error_id }}{% endif %}</a>
+          {% else %}
+          <code>{% if lt_key in known_canons|default({}) %}{{ known_canons[lt_key].signature }}{% else %}{{ lt.error_id }}{% endif %}</code>
+          {% endif %}
+          <span class="chain-prob">{{ (lt.probability * 100)|int }}% chance</span>
+          {% if lt.condition %}<span class="meta">{{ lt.condition }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
 
     {% if graph.get("preceded_by", []) %}
-    <h3>Often preceded by:</h3>
-    <ul>
-      {% for pb in graph.preceded_by %}
-      <li>
-        {% if pb.error_id in known_ids|default([]) %}
-        {% set pb_parts = pb.error_id.split('/') %}
-        <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/">{{ pb.error_id }}</a>
-        {% else %}
-        <code>{{ pb.error_id }}</code> <span class="meta">(page not yet generated)</span>
-        {% endif %}
-        (probability: {{ pb.probability }}{% if pb.condition %}, condition: {{ pb.condition }}{% endif %})
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="chain-group">
+      <h3>You might be coming from:</h3>
+      <div class="chain-cards">
+        {% for pb in graph.preceded_by %}
+        <div class="chain-card chain-card-prev">
+          <span class="chain-arrow">&#x2190;</span>
+          {% set pb_key = pb.error_id.rsplit('/', 1)[0] if '/' in pb.error_id else pb.error_id %}
+          {% if pb.error_id in known_ids|default([]) %}
+          {% set pb_parts = pb.error_id.split('/') %}
+          <a href="{{ base_path }}/{{ pb_parts[0] }}/{{ pb_parts[1] }}/" class="chain-link">{% if pb_key in known_canons|default({}) %}{{ known_canons[pb_key].signature }}{% else %}{{ pb.error_id }}{% endif %}</a>
+          {% else %}
+          <code>{% if pb_key in known_canons|default({}) %}{{ known_canons[pb_key].signature }}{% else %}{{ pb.error_id }}{% endif %}</code>
+          {% endif %}
+          <span class="chain-prob">{{ (pb.probability * 100)|int }}% chance</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
 
     {% if graph.get("frequently_confused_with", []) %}
-    <h3>Frequently confused with:</h3>
-    <ul>
-      {% for fc in graph.frequently_confused_with %}
-      <li>
-        {% if fc.error_id in known_ids|default([]) %}
-        {% set fc_parts = fc.error_id.split('/') %}
-        <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/">{{ fc.error_id }}</a>
-        {% else %}
-        <code>{{ fc.error_id }}</code> <span class="meta">(page not yet generated)</span>
-        {% endif %}
-        — {{ fc.distinction }}
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="chain-group">
+      <h3>Not the same as:</h3>
+      <div class="chain-cards">
+        {% for fc in graph.frequently_confused_with %}
+        <div class="chain-card chain-card-confused">
+          <span class="chain-arrow">&#x2260;</span>
+          {% set fc_key = fc.error_id.rsplit('/', 1)[0] if '/' in fc.error_id else fc.error_id %}
+          {% if fc.error_id in known_ids|default([]) %}
+          {% set fc_parts = fc.error_id.split('/') %}
+          <a href="{{ base_path }}/{{ fc_parts[0] }}/{{ fc_parts[1] }}/" class="chain-link">{% if fc_key in known_canons|default({}) %}{{ known_canons[fc_key].signature }}{% else %}{{ fc.error_id }}{% endif %}</a>
+          {% else %}
+          <code>{% if fc_key in known_canons|default({}) %}{{ known_canons[fc_key].signature }}{% else %}{{ fc.error_id }}{% endif %}</code>
+          {% endif %}
+          <span class="meta">{{ fc.distinction }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
   </section>
   {% endif %}
+
+  <!-- SHARE & FEEDBACK -->
+  <div class="share-bar">
+    <button type="button" class="share-btn" id="copy-link-btn" title="Copy link">Copy link</button>
+    <button type="button" class="share-btn" id="share-x-btn" title="Share on X/Twitter">Share on X</button>
+  </div>
+
+  <div class="feedback-widget" id="feedback-widget">
+    <span class="feedback-q">Did this help?</span>
+    <button type="button" class="feedback-btn feedback-yes" id="fb-yes" aria-label="This workaround worked">Yes, it worked</button>
+    <button type="button" class="feedback-btn feedback-no" id="fb-no" aria-label="This workaround did not work">No, still broken</button>
+    <span class="feedback-thanks feedback-hidden" id="fb-thanks">Thanks for the feedback!</span>
+  </div>
 
   <section id="sources">
     <h2>Sources</h2>
@@ -290,5 +320,74 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   <footer class="meta">
     <p>Generated by deadends.dev · {{ metadata.generation_date }} · <a href="{{ base_path }}/api/v1/{{ id }}.json">JSON API</a> · <a href="https://github.com/dbwls99706/deadends.dev">Raw data on GitHub</a></p>
   </footer>
+  <script>
+  (function(){
+    /* Copy-to-clipboard for code blocks */
+    document.querySelectorAll('.human-code').forEach(function(pre){
+      var codeText = pre.textContent;
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.type = 'button';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function(){
+        navigator.clipboard.writeText(codeText).then(function(){
+          btn.textContent = 'Copied!';
+          setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+      pre.appendChild(btn);
+    });
+
+    /* Copy page link */
+    var copyLink = document.getElementById('copy-link-btn');
+    if (copyLink) {
+      copyLink.addEventListener('click', function(){
+        navigator.clipboard.writeText(window.location.href).then(function(){
+          copyLink.textContent = 'Copied!';
+          setTimeout(function(){ copyLink.textContent = 'Copy link'; }, 1500);
+        });
+      });
+    }
+
+    /* Share on X/Twitter */
+    var shareX = document.getElementById('share-x-btn');
+    if (shareX) {
+      shareX.addEventListener('click', function(){
+        if (navigator.share) {
+          navigator.share({title: document.title, url: window.location.href});
+        } else {
+          var text = encodeURIComponent(document.title);
+          var url = encodeURIComponent(window.location.href);
+          window.open(
+            'https://x.com/intent/tweet?text=' + text + '&url=' + url,
+            '_blank', 'width=550,height=420'
+          );
+        }
+      });
+    }
+
+    /* Feedback widget */
+    var fbKey = 'deadends_fb_' + '{{ id }}';
+    var widget = document.getElementById('feedback-widget');
+    var thanks = document.getElementById('fb-thanks');
+    if (localStorage.getItem(fbKey)) {
+      widget.innerHTML = '<span class="feedback-thanks">Thanks for your feedback!</span>';
+    } else {
+      function recordFeedback(value) {
+        localStorage.setItem(fbKey, value);
+        document.getElementById('fb-yes').classList.add('feedback-hidden');
+        document.getElementById('fb-no').classList.add('feedback-hidden');
+        document.querySelector('.feedback-q').classList.add('feedback-hidden');
+        thanks.classList.remove('feedback-hidden');
+      }
+      document.getElementById('fb-yes').addEventListener('click', function(){
+        recordFeedback('yes');
+      });
+      document.getElementById('fb-no').addEventListener('click', function(){
+        recordFeedback('no');
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

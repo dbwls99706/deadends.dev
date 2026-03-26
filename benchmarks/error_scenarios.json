@@ -1,0 +1,142 @@
+[
+  {
+    "id": "python-modulenotfound",
+    "error_message": "ModuleNotFoundError: No module named 'torch'",
+    "expected_domain": "python",
+    "correct_workaround_keywords": ["venv", "virtual environment", "pip install"],
+    "known_dead_end_keywords": ["system python", "sudo pip"]
+  },
+  {
+    "id": "cuda-oom",
+    "error_message": "CUDA error: out of memory",
+    "expected_domain": "cuda",
+    "correct_workaround_keywords": ["batch size", "gradient checkpoint", "empty_cache"],
+    "known_dead_end_keywords": ["more vram", "upgrade gpu"]
+  },
+  {
+    "id": "docker-no-space",
+    "error_message": "no space left on device",
+    "expected_domain": "docker",
+    "correct_workaround_keywords": ["prune", "clean", "remove"],
+    "known_dead_end_keywords": ["resize", "bigger disk"]
+  },
+  {
+    "id": "node-enospc",
+    "error_message": "Error: ENOSPC: System limit for number of file watchers reached",
+    "expected_domain": "node",
+    "correct_workaround_keywords": ["inotify", "fs.inotify", "max_user_watches"],
+    "known_dead_end_keywords": ["restart"]
+  },
+  {
+    "id": "git-merge-conflict",
+    "error_message": "CONFLICT (content): Merge conflict in src/main.py",
+    "expected_domain": "git",
+    "correct_workaround_keywords": ["resolve", "merge", "accept"],
+    "known_dead_end_keywords": ["force push", "reset --hard"]
+  },
+  {
+    "id": "pip-externally-managed",
+    "error_message": "error: externally-managed-environment",
+    "expected_domain": "pip",
+    "correct_workaround_keywords": ["venv", "virtual environment", "pipx"],
+    "known_dead_end_keywords": ["--break-system-packages", "sudo"]
+  },
+  {
+    "id": "typescript-not-assignable",
+    "error_message": "Type 'string' is not assignable to type 'number'",
+    "expected_domain": "typescript",
+    "correct_workaround_keywords": ["type", "cast", "assertion", "convert"],
+    "known_dead_end_keywords": ["any", "ignore"]
+  },
+  {
+    "id": "kubernetes-crashloop",
+    "error_message": "CrashLoopBackOff",
+    "expected_domain": "kubernetes",
+    "correct_workaround_keywords": ["logs", "describe", "resource", "limit"],
+    "known_dead_end_keywords": ["delete pod", "restart"]
+  },
+  {
+    "id": "rust-borrow",
+    "error_message": "error[E0502]: cannot borrow `x` as mutable because it is also borrowed as immutable",
+    "expected_domain": "rust",
+    "correct_workaround_keywords": ["clone", "scope", "lifetime", "ref"],
+    "known_dead_end_keywords": ["unsafe"]
+  },
+  {
+    "id": "react-hooks",
+    "error_message": "Error: Rendered more hooks than during the previous render",
+    "expected_domain": "react",
+    "correct_workaround_keywords": ["conditional", "order", "top level"],
+    "known_dead_end_keywords": ["suppress", "ignore"]
+  },
+  {
+    "id": "terraform-lock",
+    "error_message": "Error acquiring the state lock",
+    "expected_domain": "terraform",
+    "correct_workaround_keywords": ["force-unlock", "lock", "dynamo"],
+    "known_dead_end_keywords": ["delete state"]
+  },
+  {
+    "id": "go-nil-pointer",
+    "error_message": "runtime error: invalid memory address or nil pointer dereference",
+    "expected_domain": "go",
+    "correct_workaround_keywords": ["nil check", "pointer", "initialize"],
+    "known_dead_end_keywords": ["recover", "ignore"]
+  },
+  {
+    "id": "java-classnotfound",
+    "error_message": "java.lang.ClassNotFoundException: com.mysql.cj.jdbc.Driver",
+    "expected_domain": "java",
+    "correct_workaround_keywords": ["classpath", "dependency", "maven", "gradle"],
+    "known_dead_end_keywords": ["download jar manually"]
+  },
+  {
+    "id": "database-deadlock",
+    "error_message": "Deadlock found when trying to get lock; try restarting transaction",
+    "expected_domain": "database",
+    "correct_workaround_keywords": ["retry", "transaction", "order", "index"],
+    "known_dead_end_keywords": ["increase timeout"]
+  },
+  {
+    "id": "aws-access-denied",
+    "error_message": "An error occurred (AccessDenied) when calling the AssumeRole operation",
+    "expected_domain": "aws",
+    "correct_workaround_keywords": ["policy", "role", "trust", "permission"],
+    "known_dead_end_keywords": ["admin access"]
+  },
+  {
+    "id": "nextjs-hydration",
+    "error_message": "Error: Hydration failed because the initial UI does not match what was rendered on the server",
+    "expected_domain": "nextjs",
+    "correct_workaround_keywords": ["client", "server", "dynamic", "useEffect"],
+    "known_dead_end_keywords": ["suppress"]
+  },
+  {
+    "id": "python-recursion",
+    "error_message": "RecursionError: maximum recursion depth exceeded",
+    "expected_domain": "python",
+    "correct_workaround_keywords": ["iterative", "loop", "tail", "stack"],
+    "known_dead_end_keywords": ["setrecursionlimit"]
+  },
+  {
+    "id": "docker-permission",
+    "error_message": "Got permission denied while trying to connect to the Docker daemon socket",
+    "expected_domain": "docker",
+    "correct_workaround_keywords": ["group", "docker group", "usermod"],
+    "known_dead_end_keywords": ["sudo", "chmod 777"]
+  },
+  {
+    "id": "node-esm",
+    "error_message": "SyntaxError: Cannot use import statement outside a module",
+    "expected_domain": "node",
+    "correct_workaround_keywords": ["module", "type", "package.json", "esm"],
+    "known_dead_end_keywords": ["require"]
+  },
+  {
+    "id": "php-memory",
+    "error_message": "PHP Fatal error: Allowed memory size exhausted",
+    "expected_domain": "php",
+    "correct_workaround_keywords": ["memory_limit", "ini", "optimize", "chunk"],
+    "known_dead_end_keywords": ["unlimited memory"]
+  }
+]
