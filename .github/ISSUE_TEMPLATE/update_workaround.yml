@@ -1,0 +1,62 @@
+name: Report Workaround Result
+description: Tell us if a workaround worked or failed for you
+title: "[Workaround Report] "
+labels: ["workaround-report", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve fix success rates by reporting your experience with a workaround.
+
+  - type: input
+    id: error_id
+    attributes:
+      label: Error ID
+      description: "The deadends.dev error ID (from the URL or page)"
+      placeholder: "e.g., python/modulenotfounderror/py311-linux"
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Which workaround did you try?
+      description: Describe the workaround or paste it from the error page
+    validations:
+      required: true
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: Did it work?
+      options:
+        - "Yes — fully resolved the error"
+        - "Partial — reduced the problem but didn't fully fix it"
+        - "No — did not work at all"
+        - "No — made things worse"
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime / Version
+      placeholder: "e.g., Python 3.12, Node 20"
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "e.g., Ubuntu 22.04, macOS 14"
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any details about why it worked or failed in your environment
+    validations:
+      required: false

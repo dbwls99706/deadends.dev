@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="theme-color" content="#0d1117">
+  <title>Data Quality Dashboard — deadends.dev</title>
+  <meta name="description" content="Transparent data quality metrics for deadends.dev. {{ total_canons }} errors across {{ total_domains }} domains with {{ avg_confidence }}% average confidence.">
+  <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="{{ base_url }}/dashboard/">
+  <link rel="stylesheet" href="{{ base_path }}/style.css">
+</head>
+<body class="pg-dashboard">
+  <pre id="ai-summary" class="ai-summary">PAGE: Data Quality Dashboard
+PURPOSE: Transparent metrics on deadends.dev data quality, coverage, and reliability.
+TOTAL_CANONS: {{ total_canons }}
+TOTAL_DOMAINS: {{ total_domains }}
+AVG_CONFIDENCE: {{ avg_confidence }}
+AVG_FIX_RATE: {{ avg_fix_rate }}
+GRAPH_CONNECTIVITY: {{ connectivity_rate }}
+BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
+
+  <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
+
+  <main>
+  <h1>Data Quality Dashboard</h1>
+  <p>Transparent metrics on our error knowledge database. We believe in showing our work.</p>
+
+  <section class="dashboard-summary">
+    <div class="metric-grid">
+      <div class="metric">
+        <span class="metric-value">{{ total_canons }}</span>
+        <span class="metric-label">Error Entries</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ total_domains }}</span>
+        <span class="metric-label">Domains</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ avg_confidence }}%</span>
+        <span class="metric-label">Avg Confidence</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ avg_fix_rate }}%</span>
+        <span class="metric-label">Avg Fix Rate</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ connectivity_rate }}%</span>
+        <span class="metric-label">Graph Connectivity</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">{{ benchmark_precision }}%</span>
+        <span class="metric-label">Benchmark Precision@1</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Domain Coverage</h2>
+    <p>Error count and average confidence per domain.</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Errors</th>
+          <th>Avg Confidence</th>
+          <th>Avg Fix Rate</th>
+          <th>Coverage</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in domains %}
+        <tr>
+          <td><a href="{{ base_path }}/{{ d.name }}/">{{ d.display_name }}</a></td>
+          <td>{{ d.count }}</td>
+          <td>{{ d.avg_confidence }}%</td>
+          <td>{{ d.avg_fix_rate }}%</td>
+          <td>
+            <div class="bar" style="width: {{ d.bar_width }}%"></div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Transition Graph</h2>
+    <p>Error chains help predict what error comes next after fixing the current one.</p>
+    <ul>
+      <li><strong>{{ graph_nodes }}</strong> errors connected in the graph ({{ connectivity_rate }}% of total)</li>
+      <li><strong>{{ graph_edges }}</strong> total edges (leads_to, preceded_by, confused_with)</li>
+      <li><strong>{{ graph_components }}</strong> connected components</li>
+      <li><strong>{{ orphan_count }}</strong> orphan errors (no graph connections yet)</li>
+    </ul>
+    {% if hub_nodes %}
+    <h3>Most Connected Errors (Hub Nodes)</h3>
+    <ol>
+      {% for hub in hub_nodes %}
+      <li>{{ hub.id }} — {{ hub.degree }} connections</li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Benchmark Results</h2>
+    <p>We test our lookup against 20 representative error scenarios.</p>
+    <ul>
+      <li><strong>Precision@1:</strong> {{ benchmark_precision }}% — top result matches the correct domain</li>
+      <li><strong>Precision@3:</strong> {{ benchmark_precision3 }}% — correct result in top 3</li>
+      <li><strong>Workaround hit rate:</strong> {{ benchmark_workaround }}% — top result contains a verified fix</li>
+      <li><strong>Dead end hit rate:</strong> {{ benchmark_deadend }}% — top result warns about known failures</li>
+      <li><strong>MRR:</strong> {{ benchmark_mrr }} — Mean Reciprocal Rank</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Help Improve This Data</h2>
+    <p>deadends.dev improves with community contributions:</p>
+    <ul>
+      <li><a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml">Submit a new error</a> — help us cover more ground</li>
+      <li><a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml">Report a workaround result</a> — tell us what worked (or didn't)</li>
+      <li>Use the <code>report_outcome</code> MCP tool after trying a workaround</li>
+    </ul>
+  </section>
+
+  </main>
+
+  <footer>
+    <p>Generated {{ generated_at }}. <a href="{{ base_path }}/">deadends.dev</a></p>
+  </footer>
+</body>
+</html>

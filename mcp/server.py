@@ -38,6 +38,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+from generator.analytics import record_event as _record_event
+
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from generator.domains import suggest_domains as _suggest_domains
@@ -55,13 +57,33 @@ _MAX_RESULTS: int = min(
 )
 _VERBOSE: bool = os.getenv("DEADENDS_VERBOSE", "true").lower() != "false"
 
-# Module-level cache — loaded once on first request
+# Module-level caches — loaded once on first request
+_OUTCOME_STATS: dict[str, dict] | None = None
 _CANONS: list[dict] | None = None
 _DOMAIN_INDEX: dict[str, list[str]] | None = None
 _COMPILED_REGEXES: dict[str, re.Pattern | None] | None = None
 
 # Maximum length for error messages to prevent ReDoS
 _MAX_ERROR_MESSAGE_LEN = 10_000
+
+
+def _get_outcome_stats() -> dict[str, dict]:
+    """Load aggregated outcome stats if available (cached)."""
+    global _OUTCOME_STATS
+    if _OUTCOME_STATS is not None:
+        return _OUTCOME_STATS
+
+    agg_file = OUTCOMES_DIR / "aggregated.json"
+    if agg_file.exists():
+        try:
+            with open(agg_file, encoding="utf-8") as f:
+                data = json.load(f)
+            _OUTCOME_STATS = data.get("deltas", {})
+        except (json.JSONDecodeError, KeyError):
+            _OUTCOME_STATS = {}
+    else:
+        _OUTCOME_STATS = {}
+    return _OUTCOME_STATS
 
 
 def _get_canons() -> list[dict]:
@@ -600,6 +622,14 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                     }],
                 }
             matches = match_error(error_msg, canons)
+            top_domain = matches[0]["domain"] if matches else None
+            try:
+                _record_event(
+                    "lookup_error", domain=top_domain,
+                    matched=bool(matches), match_count=len(matches),
+                )
+            except Exception:
+                pass  # analytics must never break tool calls
             if not matches:
                 suggested = _suggest_domains(error_msg)
                 text = (
@@ -654,6 +684,16 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         for w in m["workarounds"]:
                             parts.append(f"- {w['action']} "
                                          f"(works {int(w['success_rate']*100)}%)")
+                    outcome_stats = _get_outcome_stats()
+                    ostats = outcome_stats.get(m["id"])
+                    if ostats and ostats.get("total_reports", 0) >= 2:
+                        n = ostats["total_reports"]
+                        cr = int(ostats["implied_fix_rate"] * 100)
+                        parts.append("")
+                        parts.append(
+                            f"### Community Reports ({n} reports): "
+                            f"{cr}% success rate"
+                        )
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
@@ -760,6 +800,13 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
                         score += 5
                     scored.append((score, c))
             scored.sort(key=lambda x: x[0], reverse=True)
+            try:
+                _record_event(
+                    "search_errors", domain=domain_filter or None,
+                    matched=bool(scored), match_count=len(scored),
+                )
+            except Exception:
+                pass
             if not scored:
                 text = f"No errors matching '{query}'"
                 if domain_filter:

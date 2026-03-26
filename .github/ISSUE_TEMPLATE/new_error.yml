@@ -1,0 +1,115 @@
+name: Submit a New Error
+description: Report an error that should be added to deadends.dev
+title: "[New Error] "
+labels: ["new-error", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve deadends.dev! Please provide as much detail as you can.
+
+  - type: input
+    id: error_message
+    attributes:
+      label: Error Message
+      description: The exact error message or signature
+      placeholder: "e.g., ModuleNotFoundError: No module named 'torch'"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Domain
+      description: Which technology domain does this error belong to?
+      options:
+        - python
+        - node
+        - docker
+        - cuda
+        - git
+        - pip
+        - typescript
+        - rust
+        - go
+        - kubernetes
+        - terraform
+        - aws
+        - nextjs
+        - react
+        - java
+        - database
+        - cicd
+        - php
+        - dotnet
+        - networking
+        - android
+        - api
+        - cloud
+        - cmake
+        - elasticsearch
+        - embedded
+        - flutter
+        - grpc
+        - huggingface
+        - kafka
+        - llm
+        - mongodb
+        - nginx
+        - opencv
+        - pytorch
+        - redis
+        - ros2
+        - security
+        - tensorflow
+        - unity
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime / Version
+      description: The runtime and version where you encountered this error
+      placeholder: "e.g., Python 3.12, Node 20, Docker 24"
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "e.g., Ubuntu 22.04, macOS 14, Windows 11"
+    validations:
+      required: false
+
+  - type: textarea
+    id: dead_ends
+    attributes:
+      label: Dead Ends (What did NOT work)
+      description: Approaches you tried that failed or made things worse
+      placeholder: |
+        - Tried `sudo pip install` — broke system packages
+        - Tried downgrading to Python 3.9 — unrelated issues
+    validations:
+      required: false
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: What Actually Worked
+      description: The fix or workaround that resolved the error
+      placeholder: |
+        Created a virtual environment and reinstalled:
+        python -m venv .venv && source .venv/bin/activate && pip install torch
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information (stack trace, related errors, etc.)
+    validations:
+      required: false

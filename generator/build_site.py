@@ -2860,6 +2860,117 @@ def build_html_sitemap(canons: list[dict]) -> None:
     print(f"  Generated: sitemap/index.html ({total_summaries} links, {n_domains} domains)")
 
 
+def build_dashboard_page(canons: list[dict], jinja_env: Environment) -> None:
+    """Build the data quality dashboard page from quality report + benchmark data."""
+    quality_path = PROJECT_ROOT / "data" / "quality_report.json"
+    graph_path = PROJECT_ROOT / "data" / "graph" / "stats.json"
+    benchmark_path = PROJECT_ROOT / "benchmarks" / "results.json"
+
+    # Load quality report
+    quality = {}
+    if quality_path.exists():
+        with open(quality_path, encoding="utf-8") as f:
+            quality = json.load(f)
+
+    # Load graph stats
+    graph = {}
+    if graph_path.exists():
+        with open(graph_path, encoding="utf-8") as f:
+            graph = json.load(f)
+
+    # Load benchmark results
+    benchmark = {}
+    if benchmark_path.exists():
+        with open(benchmark_path, encoding="utf-8") as f:
+            benchmark = json.load(f)
+
+    # Compute summary metrics
+    total_canons = len(canons)
+    domains_data = quality.get("domains", {})
+    total_domains = len(domains_data) if domains_data else 0
+
+    # Average confidence and fix rate across all canons
+    confidences = []
+    fix_rates = []
+    for c in canons:
+        v = c.get("verdict", {})
+        conf = v.get("confidence")
+        fr = v.get("fix_success_rate")
+        if conf is not None:
+            confidences.append(conf)
+        if fr is not None:
+            fix_rates.append(fr)
+
+    avg_confidence = round(sum(confidences) / len(confidences) * 100) if confidences else 0
+    avg_fix_rate = round(sum(fix_rates) / len(fix_rates) * 100) if fix_rates else 0
+
+    # Graph stats
+    graph_nodes = graph.get("connected_nodes", 0)
+    graph_edges = graph.get("total_edges", 0)
+    graph_components = graph.get("components", 0)
+    orphan_count = graph.get("orphan_count", total_canons - graph_nodes)
+    connectivity_rate = round(graph_nodes / total_canons * 100) if total_canons else 0
+
+    # Benchmark stats
+    bp1 = round(benchmark.get("precision_at_1", 0) * 100)
+    bp3 = round(benchmark.get("precision_at_3", 0) * 100)
+    bw = round(benchmark.get("workaround_hit_rate", 0) * 100)
+    bde = round(benchmark.get("dead_end_hit_rate", 0) * 100)
+    bmrr = benchmark.get("mrr", 0)
+
+    # Build per-domain list for table
+    domain_list = []
+    max_count = 1
+    for dname, dinfo in sorted(domains_data.items()):
+        count = dinfo.get("count", 0)
+        if count > max_count:
+            max_count = count
+    for dname, dinfo in sorted(domains_data.items()):
+        count = dinfo.get("count", 0)
+        dc = dinfo.get("avg_confidence", 0)
+        dfr = dinfo.get("avg_fix_rate", 0)
+        domain_list.append({
+            "name": dname,
+            "display_name": domain_display_name(dname),
+            "count": count,
+            "avg_confidence": round(dc * 100) if dc <= 1 else round(dc),
+            "avg_fix_rate": round(dfr * 100) if dfr <= 1 else round(dfr),
+            "bar_width": round(count / max_count * 100) if max_count else 0,
+        })
+
+    # Hub nodes (top 5 most connected errors from graph)
+    hub_nodes = []
+    hub_data = graph.get("hub_nodes", [])
+    for h in hub_data[:5]:
+        hub_nodes.append({"id": h.get("id", ""), "degree": h.get("degree", 0)})
+
+    template = jinja_env.get_template("dashboard.html")
+    html = template.render(
+        total_canons=total_canons,
+        total_domains=total_domains,
+        avg_confidence=avg_confidence,
+        avg_fix_rate=avg_fix_rate,
+        connectivity_rate=connectivity_rate,
+        benchmark_precision=bp1,
+        benchmark_precision3=bp3,
+        benchmark_workaround=bw,
+        benchmark_deadend=bde,
+        benchmark_mrr=bmrr,
+        domains=domain_list,
+        graph_nodes=graph_nodes,
+        graph_edges=graph_edges,
+        graph_components=graph_components,
+        orphan_count=orphan_count,
+        hub_nodes=hub_nodes,
+        generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+    )
+
+    dash_dir = SITE_DIR / "dashboard"
+    dash_dir.mkdir(parents=True, exist_ok=True)
+    (dash_dir / "index.html").write_text(html, encoding="utf-8")
+    print(f"  Generated: dashboard/index.html ({total_domains} domains, {total_canons} canons)")
+
+
 def main():
     print("Building deadends.dev static site...\n")
 
@@ -2982,6 +3093,10 @@ def main():
 
     print("Generating HTML sitemap...")
     build_html_sitemap(canons)
+    print()
+
+    print("Generating quality dashboard...")
+    build_dashboard_page(canons, jinja_env)
     print()
 
     print("Generating shared stylesheet...")
