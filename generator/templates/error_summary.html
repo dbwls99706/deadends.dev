@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>{{ signature }} — How to Fix It ({{ total_dead_ends }} Dead Ends to Avoid) | deadends.dev</title>
+  <title>Fix {{ signature }} — {{ total_dead_ends }} Dead Ends to Avoid &amp; {{ total_workarounds }} Verified Workarounds | deadends.dev</title>
   <meta name="description" content="Fix {{ signature }} with {{ total_workarounds }} step-by-step workarounds (up to {{ max_rate }}% success rate). Skip {{ total_dead_ends }} common approaches that waste your time. Covers {{ environments|length }} environment{% if environments|length != 1 %}s{% endif %}.">
   {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
@@ -245,10 +245,17 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </section>
   {% endif %}
 
-  <!-- SHARE BAR -->
+  <!-- SHARE & FEEDBACK -->
   <div class="share-bar">
-    <button class="share-btn" id="copy-link-btn" title="Copy link">Copy link</button>
-    <button class="share-btn" id="share-x-btn" title="Share on X/Twitter">Share on X</button>
+    <button type="button" class="share-btn" id="copy-link-btn" title="Copy link">Copy link</button>
+    <button type="button" class="share-btn" id="share-x-btn" title="Share on X/Twitter">Share on X</button>
+  </div>
+
+  <div class="feedback-widget" id="feedback-widget">
+    <span class="feedback-q">Did this help?</span>
+    <button type="button" class="feedback-btn feedback-yes" id="fb-yes">Yes, it worked</button>
+    <button type="button" class="feedback-btn feedback-no" id="fb-no">No, still broken</button>
+    <span class="feedback-thanks" id="fb-thanks" style="display:none;">Thanks for the feedback!</span>
   </div>
 
   </main>
@@ -260,11 +267,13 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   (function(){
     /* Copy-to-clipboard for code blocks */
     document.querySelectorAll('.human-code').forEach(function(pre){
+      var codeText = pre.textContent;
       var btn = document.createElement('button');
       btn.className = 'copy-btn';
+      btn.type = 'button';
       btn.textContent = 'Copy';
       btn.addEventListener('click', function(){
-        navigator.clipboard.writeText(pre.textContent).then(function(){
+        navigator.clipboard.writeText(codeText).then(function(){
           btn.textContent = 'Copied!';
           setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
         });
@@ -294,6 +303,28 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
             '_blank', 'width=550,height=420'
           );
         }
+      });
+    }
+    /* Feedback widget */
+    var fbKey = 'deadends_fb_{{ domain }}_{{ slug }}';
+    var widget = document.getElementById('feedback-widget');
+    var thanks = document.getElementById('fb-thanks');
+    if (localStorage.getItem(fbKey)) {
+      widget.innerHTML = '<span class="feedback-thanks">Thanks for your feedback!</span>';
+    } else {
+      document.getElementById('fb-yes').addEventListener('click', function(){
+        localStorage.setItem(fbKey, 'yes');
+        this.style.display = 'none';
+        document.getElementById('fb-no').style.display = 'none';
+        document.querySelector('.feedback-q').style.display = 'none';
+        thanks.style.display = 'inline';
+      });
+      document.getElementById('fb-no').addEventListener('click', function(){
+        localStorage.setItem(fbKey, 'no');
+        this.style.display = 'none';
+        document.getElementById('fb-yes').style.display = 'none';
+        document.querySelector('.feedback-q').style.display = 'none';
+        thanks.style.display = 'inline';
       });
     }
   })();

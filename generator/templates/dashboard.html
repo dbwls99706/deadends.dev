@@ -132,7 +132,7 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
   <section>
     <h2>Transition Graph</h2>
     <p>Error chains predict what error comes next after fixing the current one.</p>
-    <div class="metric-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="metric-grid metric-grid-2">
       <div class="metric">
         <span class="metric-value">{{ graph_nodes }}</span>
         <span class="metric-label">Connected Errors ({{ connectivity_rate }}%)</span>
@@ -152,10 +152,10 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
     </div>
     {% if hub_nodes %}
     <h3>Most Connected Errors</h3>
-    <div class="chain-cards" style="margin-top: 0.5rem;">
+    <div class="chain-cards">
       {% for hub in hub_nodes %}
       <div class="chain-card">
-        <code class="chain-link" style="font-size: 0.8rem;">{{ hub.id }}</code>
+        <code class="chain-link">{{ hub.id }}</code>
         <span class="chain-prob">{{ hub.degree }} connections</span>
       </div>
       {% endfor %}
@@ -166,17 +166,17 @@ BENCHMARK_PRECISION: {{ benchmark_precision }}</pre>
   <section>
     <h2>Help Improve This Data</h2>
     <p>deadends.dev improves with community contributions:</p>
-    <div class="metric-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml" class="metric" style="text-decoration: none;">
-        <span class="metric-value" style="font-size: 1.4rem;">+</span>
+    <div class="metric-grid metric-grid-auto">
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml" class="metric">
+        <span class="metric-value metric-icon">+</span>
         <span class="metric-label">Submit New Error</span>
       </a>
-      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml" class="metric" style="text-decoration: none;">
-        <span class="metric-value" style="font-size: 1.4rem; color: #3fb950;">&#x2714;</span>
+      <a href="https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml" class="metric">
+        <span class="metric-value metric-icon-green">&#x2714;</span>
         <span class="metric-label">Report Workaround</span>
       </a>
-      <a href="https://github.com/dbwls99706/deadends.dev" class="metric" style="text-decoration: none;">
-        <span class="metric-value" style="font-size: 1.4rem;">&#x2605;</span>
+      <a href="https://github.com/dbwls99706/deadends.dev" class="metric">
+        <span class="metric-value metric-icon">&#x2605;</span>
         <span class="metric-label">Star on GitHub</span>
       </a>
     </div>

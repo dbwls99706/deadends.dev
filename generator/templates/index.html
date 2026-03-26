@@ -179,6 +179,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   <script>
   (function(){
     var demos = {{ demo_errors | tojson }};
+    if (!demos || demos.length === 0) return;
     var idx = 0;
     function runDemo() {
       var d = demos[idx % demos.length];
