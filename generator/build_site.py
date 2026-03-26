@@ -479,6 +479,22 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
                 "workaroundRate": "works 95%",
                 "chain": "ImportError: libcudart.so not found",
             },
+            {
+                "error": "CUDA error: out of memory",
+                "deadend": "Increase GPU memory",
+                "deadendRate": "fails 90%",
+                "workaround": "Reduce batch size or use gradient checkpointing",
+                "workaroundRate": "works 85%",
+                "chain": "RuntimeError: NCCL error",
+            },
+            {
+                "error": "ENOSPC: no space left on device",
+                "deadend": "Delete node_modules and reinstall",
+                "deadendRate": "fails 60%",
+                "workaround": "Clear Docker build cache: docker system prune",
+                "workaroundRate": "works 90%",
+                "chain": "npm ERR! ENOTEMPTY",
+            },
         ]
         while len(demo_errors) < 3 and defaults:
             demo_errors.append(defaults.pop(0))
@@ -1443,6 +1459,9 @@ def build_stylesheet() -> None:
         "  border-radius: 4px;",
         "  font-size: 0.8rem; }",
         "",
+        "/* === BADGE SIZES === */",
+        ".badge-sm { font-size: 0.6rem; }",
+        "",
         "/* === SEARCH RESULT PREVIEW === */",
         ".result-rate-bar { height: 4px;",
         "  background: #21262d;",
@@ -1759,6 +1778,17 @@ def build_error_summary_pages(
     template = jinja_env.get_template("error_summary.html")
     known_ids = {c["id"] for c in canons}
 
+    # Build known_canons lookup: summary_key → {signature, domain, fix_rate}
+    known_canons: dict[str, dict] = {}
+    for c in canons:
+        summary_key = c["id"].rsplit("/", 1)[0]
+        if summary_key not in known_canons:
+            known_canons[summary_key] = {
+                "signature": c["error"]["signature"],
+                "domain": c["error"]["domain"],
+                "fix_rate": c["verdict"]["fix_success_rate"],
+            }
+
     # Group canons by domain/slug (strip the env part of the id)
     by_slug: dict[str, list[dict]] = {}
     for canon in canons:
@@ -1979,6 +2009,7 @@ def build_error_summary_pages(
             faq_json_ld=faq_json_ld,
             transition_graph=aggregated_graph,
             known_ids=known_ids,
+            known_canons=known_canons,
             domain_errors=same_domain,
             verdict_summary=verdict_summary,
             date_published=date_published,

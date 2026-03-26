@@ -52,13 +52,14 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
   <p>Paste your error message below. We'll match it against {{ total_errors }} known error patterns.</p>
 
   <div class="search-box">
-    <textarea id="search-input" rows="3" placeholder="Paste your error message here, e.g. ModuleNotFoundError: No module named 'torch'"></textarea>
+    <label for="search-input" class="meta">Paste your error message</label>
+    <textarea id="search-input" rows="3" placeholder="e.g. ModuleNotFoundError: No module named 'torch'"></textarea>
   </div>
 
-  <div class="domain-filter" id="domain-filter">
-    <span class="domain-tag active" data-domain="all">All</span>
+  <div class="domain-filter" id="domain-filter" role="toolbar" aria-label="Filter by domain">
+    <span class="domain-tag active" data-domain="all" role="button" tabindex="0">All</span>
     {% for domain in domain_errors %}
-    <span class="domain-tag" data-domain="{{ domain.name }}">{{ domain.name }} <span class="count">({{ domain.errors|length }})</span></span>
+    <span class="domain-tag" data-domain="{{ domain.name }}" role="button" tabindex="0">{{ domain.name }} <span class="count">({{ domain.errors|length }})</span></span>
     {% endfor %}
   </div>
 
@@ -167,7 +168,7 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
           var verdictClass = 'verdict-' + d.resolvable;
           var pct = Math.round(d.fix_success_rate * 100);
           html += '<div class="result">'
-            + '<h3><a href="' + d.page_url + '"><code>'
+            + '<h3><a href="' + escapeAttr(d.page_url) + '"><code>'
             + escapeHtml(d.signature) + '</code></a> '
             + '<span class="' + verdictClass + '">[' + d.resolvable + ']</span></h3>'
             + '<div class="result-rate-bar">'
@@ -180,12 +181,12 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
             + '</p>';
           if (d.first_dead_end) {
             html += '<p class="result-preview result-preview-red">'
-              + '<span class="demo-badge demo-badge-red" style="font-size:0.6rem">AVOID</span> '
+              + '<span class="demo-badge demo-badge-red badge-sm">AVOID</span> '
               + escapeHtml(d.first_dead_end) + '</p>';
           }
           if (d.first_workaround) {
             html += '<p class="result-preview result-preview-green">'
-              + '<span class="demo-badge demo-badge-green" style="font-size:0.6rem">TRY</span> '
+              + '<span class="demo-badge demo-badge-green badge-sm">TRY</span> '
               + escapeHtml(d.first_workaround) + '</p>';
           }
           html += '</div>';
@@ -198,16 +199,26 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         d.appendChild(document.createTextNode(s));
         return d.innerHTML;
       }
+      function escapeAttr(s) {
+        return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+          .replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
 
-      /* Domain filter */
+      /* Domain filter — keyboard support */
+      function selectDomain(tag) {
+        document.querySelectorAll('.domain-tag').forEach(function(t) {
+          t.classList.remove('active');
+        });
+        tag.classList.add('active');
+        activeDomain = tag.getAttribute('data-domain');
+        search(input.value.trim());
+      }
       document.querySelectorAll('.domain-tag').forEach(function(tag) {
-        tag.addEventListener('click', function() {
-          document.querySelectorAll('.domain-tag').forEach(function(t) {
-            t.classList.remove('active');
-          });
-          this.classList.add('active');
-          activeDomain = this.getAttribute('data-domain');
-          search(input.value.trim());
+        tag.addEventListener('click', function() { selectDomain(this); });
+        tag.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); selectDomain(this);
+          }
         });
       });
 
