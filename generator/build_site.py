@@ -560,6 +560,12 @@ def build_sitemap(
     SubElement(url_elem, "changefreq").text = "weekly"
     SubElement(url_elem, "priority").text = "0.5"
 
+    url_elem = SubElement(main_urlset, "url")
+    SubElement(url_elem, "loc").text = f"{BASE_URL}/dashboard/"
+    SubElement(url_elem, "lastmod").text = now
+    SubElement(url_elem, "changefreq").text = "weekly"
+    SubElement(url_elem, "priority").text = "0.7"
+
     domains_seen = set()
     for canon in canons:
         domain = canon["error"]["domain"]
@@ -641,7 +647,7 @@ def build_sitemap(
     )
     total = sum(
         len(v) for v in summaries_by_domain.values()
-    ) + 2 + len(domains_seen)
+    ) + 4 + len(domains_seen)
     print(f"  Generated: sitemap.xml (index, {total} URLs)")
 
 
@@ -3288,6 +3294,7 @@ def build_indexnow(canons: list[dict]) -> None:
     # URL list for IndexNow submission
     urls = [f"{BASE_URL}/"]
     urls.append(f"{BASE_URL}/search/")
+    urls.append(f"{BASE_URL}/dashboard/")
 
     domains_seen = set()
     for canon in canons:
@@ -3419,7 +3426,22 @@ def build_html_sitemap(canons: list[dict]) -> None:
         "  <title>All Errors — deadends.dev</title>",
         '  <meta name="description" content="Complete directory of all error entries'
         ' on deadends.dev. Browse errors by domain.">',
-        '  <meta name="robots" content="index, follow">',
+        '  <meta name="robots" content="index, follow, max-snippet:-1">',
+        '  <meta property="og:title" content="All Errors Directory — deadends.dev">',
+        '  <meta property="og:description" content="Complete directory of all error summaries on deadends.dev, grouped by domain.">',
+        '  <meta property="og:type" content="website">',
+        f'  <meta property="og:url" content="{BASE_URL}/sitemap/">',
+        '  <meta property="og:site_name" content="deadends.dev">',
+        f'  <meta property="og:image" content="{BASE_URL}/og-image.png">',
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        '  <meta property="og:image:alt" content="deadends.dev all errors sitemap">',
+        '  <meta property="og:locale" content="en_US">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        '  <meta name="twitter:title" content="All Errors Directory — deadends.dev">',
+        '  <meta name="twitter:description" content="Complete directory of all error summaries on deadends.dev, grouped by domain.">',
+        f'  <meta name="twitter:image" content="{BASE_URL}/og-image.png">',
+        '  <meta name="twitter:image:alt" content="deadends.dev all errors sitemap">',
         f'  <link rel="canonical" href="{BASE_URL}/sitemap/">',
         f'  <link rel="stylesheet" href="{BASE_PATH}/style.css">',
         f'  <link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">',
@@ -3454,6 +3476,16 @@ def build_html_sitemap(canons: list[dict]) -> None:
         f' · <a href="{BASE_PATH}/">Home</a>'
         f' · <a href="{BASE_PATH}/api/v1/index.json">API</a></p>',
         "  </footer>",
+        "  <script type=\"application/ld+json\">",
+        _safe_json_ld({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "deadends.dev sitemap",
+            "description": "Domain-grouped directory of error summary pages.",
+            "url": f"{BASE_URL}/sitemap/",
+            "numberOfItems": total_summaries,
+        }),
+        "  </script>",
         "</body>",
         "</html>",
     ])
@@ -3549,6 +3581,23 @@ def build_dashboard_page(canons: list[dict], jinja_env: Environment) -> None:
     for h in hub_data[:5]:
         hub_nodes.append({"id": h.get("id", ""), "degree": h.get("degree", 0)})
 
+    dashboard_json_ld = _safe_json_ld({
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "deadends.dev Data Quality Dashboard",
+        "description": (
+            "Transparent quality metrics, benchmark scores, and "
+            "domain coverage for deadends.dev."
+        ),
+        "url": f"{BASE_URL}/dashboard/",
+        "creator": {
+            "@type": "Organization",
+            "name": "deadends.dev",
+            "url": f"{BASE_URL}/",
+        },
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+    })
+
     template = jinja_env.get_template("dashboard.html")
     html = template.render(
         total_canons=total_canons,
@@ -3567,6 +3616,7 @@ def build_dashboard_page(canons: list[dict], jinja_env: Environment) -> None:
         graph_components=graph_components,
         orphan_count=orphan_count,
         hub_nodes=hub_nodes,
+        dashboard_json_ld=dashboard_json_ld,
         generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     )
 
