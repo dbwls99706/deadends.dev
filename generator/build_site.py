@@ -3428,7 +3428,8 @@ def build_html_sitemap(canons: list[dict]) -> None:
         ' on deadends.dev. Browse errors by domain.">',
         '  <meta name="robots" content="index, follow, max-snippet:-1">',
         '  <meta property="og:title" content="All Errors Directory — deadends.dev">',
-        '  <meta property="og:description" content="Complete directory of all error summaries on deadends.dev, grouped by domain.">',
+        '  <meta property="og:description" content="Complete directory of all '
+        'error summaries on deadends.dev, grouped by domain.">',
         '  <meta property="og:type" content="website">',
         f'  <meta property="og:url" content="{BASE_URL}/sitemap/">',
         '  <meta property="og:site_name" content="deadends.dev">',
@@ -3436,10 +3437,12 @@ def build_html_sitemap(canons: list[dict]) -> None:
         '  <meta property="og:image:width" content="1200">',
         '  <meta property="og:image:height" content="630">',
         '  <meta property="og:image:alt" content="deadends.dev all errors sitemap">',
+
         '  <meta property="og:locale" content="en_US">',
         '  <meta name="twitter:card" content="summary_large_image">',
         '  <meta name="twitter:title" content="All Errors Directory — deadends.dev">',
-        '  <meta name="twitter:description" content="Complete directory of all error summaries on deadends.dev, grouped by domain.">',
+        '  <meta name="twitter:description" content="Complete directory of all '
+        'error summaries on deadends.dev, grouped by domain.">',
         f'  <meta name="twitter:image" content="{BASE_URL}/og-image.png">',
         '  <meta name="twitter:image:alt" content="deadends.dev all errors sitemap">',
         f'  <link rel="canonical" href="{BASE_URL}/sitemap/">',
