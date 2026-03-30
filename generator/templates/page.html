@@ -52,6 +52,8 @@
   <meta property="article:published_time" content="{{ error.first_seen }}">
   <meta property="article:modified_time" content="{{ verdict.last_updated }}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid">
+  <meta name="twitter:description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% fix rate.">
   <meta name="twitter:image" content="{{ base_url }}/og/{{ id_parts[0] }}/{{ id_parts[1] }}.svg">
   <meta name="twitter:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
