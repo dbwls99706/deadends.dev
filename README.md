@@ -19,6 +19,7 @@ When AI coding agents hit an error, they waste tokens retrying approaches that a
 > See the full [Data Quality Dashboard](https://deadends.dev/dashboard/).
 
 > **Website:** [deadends.dev](https://deadends.dev) · **MCP Server:** [Smithery](https://smithery.ai/server/deadend/deadends-dev) · **PyPI:** [deadends-dev](https://pypi.org/project/deadends-dev/) · **API:** [/api/v1/index.json](https://deadends.dev/api/v1/index.json)
+> **Repository:** [https://github.com/dbwls99706/deadends.dev](https://github.com/dbwls99706/deadends.dev)
 
 ## Why Use This?
 
@@ -33,6 +34,12 @@ When AI coding agents hit an error, they waste tokens retrying approaches that a
 - **Community-validated**: Fix success rates are updated from real outcome reports.
 - **Error chains**: Conditional probabilities (A→B) that LLMs can't provide.
 - **Sub-millisecond**: Local regex matching, no API roundtrip.
+
+### 현실적인 한계 (운영 관점)
+
+- 모든 에러를 다 커버하지는 못합니다. 없는 케이스는 이슈/PR/`report_outcome`로 빠르게 보완합니다.
+- 설명의 깊이보다 **실전 해결 우선**(dead end/workaround 중심)으로 설계되어 있습니다.
+- 신뢰성은 도메인/케이스마다 다를 수 있으므로, 고위험 변경은 공식 문서/벤더 가이드와 교차 검증을 권장합니다.
 
 ## Quick Start (30 seconds)
 
@@ -192,6 +199,9 @@ All metrics are publicly available on the [Data Quality Dashboard](https://deade
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
+- GitHub 자동 수집 운영안: [`docs/GITHUB_DATA_COLLECTION_STRATEGY.md`](docs/GITHUB_DATA_COLLECTION_STRATEGY.md)
+- 자동 수집 주기: 6시간마다(하루 4회), 기본 품질 필터: `min_score=2`
+- 수집 데이터는 후보이며, 최종 반영은 maintainer 검수 후 진행
 
 - [Submit a new error](https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml)
 - [Report a workaround result](https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml)
@@ -253,6 +263,8 @@ python -m http.server -d public 8080
 
 ## PyPI 업로드 매뉴얼 (복붙용)
 
+> TestPyPI 토큰이 없다면 아래 "PyPI 바로 업로드(빠른 경로)"부터 진행하세요.
+
 릴리즈 전 체크:
 ```bash
 git pull --rebase
@@ -263,7 +275,7 @@ python -m pytest -q
 배포 버전 갱신(예: `pyproject.toml`):
 ```bash
 # 버전 문자열 검색
-rg '^version\\s*=\\s*".*"' pyproject.toml
+python -c "import re, pathlib; t=pathlib.Path('pyproject.toml').read_text(encoding='utf-8'); m=re.search(r'^version\\s*=\\s*\"([^\"]+)\"', t, re.M); print(m.group(1) if m else 'version not found')"
 ```
 
 빌드:
@@ -282,6 +294,19 @@ TestPyPI 업로드(권장):
 python -m twine upload --repository testpypi dist/*
 ```
 
+`403 Forbidden`이 나올 때(질문 주신 케이스) 바로 실행:
+```powershell
+$env:TWINE_USERNAME="__token__"
+$env:TWINE_PASSWORD="pypi-여기에_TESTPYPI_토큰"
+python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/* --verbose
+```
+
+추가 점검:
+```powershell
+Get-Content $HOME\.pypirc
+Select-String -Path pyproject.toml -Pattern '^\s*version\s*='
+```
+
 TestPyPI 설치 검증:
 ```bash
 python -m venv .venv-testpypi
@@ -295,6 +320,72 @@ deactivate
 실제 PyPI 업로드:
 ```bash
 python -m twine upload dist/*
+```
+
+```powershell
+$env:TWINE_USERNAME="__token__"
+$env:TWINE_PASSWORD="pypi-여기에_PYPI_토큰"
+python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/* --verbose
+```
+성공 신호:
+- `Response ... 200 OK`
+- `View at: https://pypi.org/project/deadends-dev/<version>/`
+
+업로드 직후 확인(Windows PowerShell):
+```powershell
+python -m venv .venv-release-check
+.\.venv-release-check\Scripts\Activate.ps1
+python -m pip install -U pip
+python -m pip install deadends-dev==<version>
+deadends "CUDA error: out of memory"
+deactivate
+```
+참고: 위 검색어는 여러 도메인(OOM 관련) 결과가 함께 나올 수 있습니다. 더 정확히 보려면 에러 원문을 길게 넣으세요.
+> 보안 주의: 토큰은 터미널 로그/채팅에 노출하지 마세요. 노출됐다면 즉시 PyPI에서 revoke 후 재발급하세요.
+
+릴리즈 마무리(태그/푸시):
+```powershell
+git branch --show-current
+git tag v<version>
+git push origin v<version>
+git push origin main
+```
+
+`origin` remote가 없을 때(질문 주신 에러):
+```powershell
+git remote -v
+git remote add origin https://github.com/dbwls99706/deadends.dev.git
+git push -u origin main
+git push origin v<version>
+```
+
+현재 브랜치가 `master`라면 `main`으로 변경 후 푸시:
+```powershell
+git branch -m master main
+git push -u origin main
+# 선택: 원격 master 정리
+git push origin --delete master
+```
+
+원격 반영 확인:
+```powershell
+git ls-remote --heads origin
+git ls-remote --tags origin | Select-String "v<version>"
+```
+
+### PyPI 바로 업로드(빠른 경로: TestPyPI 토큰 없음)
+
+```powershell
+python -m pip install --upgrade pip build twine
+Select-String -Path pyproject.toml -Pattern '^\s*version\s*='
+if (Test-Path dist) { Remove-Item dist -Recurse -Force }
+if (Test-Path build) { Remove-Item build -Recurse -Force }
+Get-ChildItem -Filter *.egg-info -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+python -m build
+python -m twine check dist/*
+$env:TWINE_USERNAME="__token__"
+$env:TWINE_PASSWORD="pypi-여기에_PYPI_토큰"
+python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/* --verbose
 ```
 
 업로드 후 최종 확인:

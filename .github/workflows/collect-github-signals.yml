@@ -1,0 +1,52 @@
+name: collect-github-signals
+
+on:
+  schedule:
+    - cron: "17 */6 * * *" # every 6 hours
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Lookback window in days"
+        required: false
+        default: "1"
+      repos:
+        description: "Comma-separated owner/repo list"
+        required: false
+        default: "dbwls99706/deadends.dev"
+      min_score:
+        description: "Minimum quality score threshold"
+        required: false
+        default: "2"
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Collect GitHub signals
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAYS: ${{ github.event.inputs.days || '1' }}
+          REPOS: ${{ github.event.inputs.repos || 'dbwls99706/deadends.dev' }}
+          MIN_SCORE: ${{ github.event.inputs.min_score || '2' }}
+        run: |
+          python scripts/collect_github_signals.py \
+            --repos "${REPOS}" \
+            --days "${DAYS}" \
+            --min-score "${MIN_SCORE}"
+
+      - name: Upload collected ndjson artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-signals-${{ github.run_id }}
+          path: data/raw/github/**
