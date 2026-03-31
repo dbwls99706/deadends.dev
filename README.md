@@ -19,6 +19,7 @@ When AI coding agents hit an error, they waste tokens retrying approaches that a
 > See the full [Data Quality Dashboard](https://deadends.dev/dashboard/).
 
 > **Website:** [deadends.dev](https://deadends.dev) · **MCP Server:** [Smithery](https://smithery.ai/server/deadend/deadends-dev) · **PyPI:** [deadends-dev](https://pypi.org/project/deadends-dev/) · **API:** [/api/v1/index.json](https://deadends.dev/api/v1/index.json)
+> **Repository:** [https://github.com/dbwls99706/deadends.dev](https://github.com/dbwls99706/deadends.dev)
 
 ## Why Use This?
 
@@ -33,6 +34,12 @@ When AI coding agents hit an error, they waste tokens retrying approaches that a
 - **Community-validated**: Fix success rates are updated from real outcome reports.
 - **Error chains**: Conditional probabilities (A→B) that LLMs can't provide.
 - **Sub-millisecond**: Local regex matching, no API roundtrip.
+
+### 현실적인 한계 (운영 관점)
+
+- 모든 에러를 다 커버하지는 못합니다. 없는 케이스는 이슈/PR/`report_outcome`로 빠르게 보완합니다.
+- 설명의 깊이보다 **실전 해결 우선**(dead end/workaround 중심)으로 설계되어 있습니다.
+- 신뢰성은 도메인/케이스마다 다를 수 있으므로, 고위험 변경은 공식 문서/벤더 가이드와 교차 검증을 권장합니다.
 
 ## Quick Start (30 seconds)
 
@@ -62,6 +69,42 @@ Or install via [Smithery](https://smithery.ai/server/deadend/deadends-dev) (no l
 ```bash
 npx -y @smithery/cli@latest install deadend/deadends-dev --client claude
 ```
+
+#### MCP `Unauthorized` 빠른 해결 가이드 (사람용)
+
+`deadend: calling "initialize": sending "initialize": Unauthorized` 에러가 보이면 아래를 **순서대로 그대로 실행/확인**하세요.
+
+1) 로컬 서버 모드인지, 원격(Smithery) 모드인지 하나만 사용
+```bash
+# 로컬 서버 확인 (정상 시 툴 목록이 출력됨)
+python -m mcp.server --help
+```
+
+2) Claude Desktop 설정 파일 점검 (`cwd`는 실제 경로여야 함)
+```bash
+cat ~/.claude/claude_desktop_config.json
+```
+
+3) 로컬 서버 직접 실행 테스트
+```bash
+cd /path/to/deadends.dev
+python -m mcp.server
+```
+
+4) Smithery 모드라면 재설치(토큰/설정 꼬임 복구)
+```bash
+npx -y @smithery/cli@latest uninstall deadend/deadends-dev --client claude
+npx -y @smithery/cli@latest install deadend/deadends-dev --client claude
+```
+
+5) 마지막으로 Claude Desktop 완전 재시작
+```bash
+# macOS 예시
+osascript -e 'quit app "Claude"'
+open -a Claude
+```
+
+> 팁: `Unauthorized`는 보통 잘못된 `cwd`, 중복 서버 설정(로컬+원격 동시), 또는 만료된 인증 상태에서 발생합니다.
 
 ### Python SDK
 
@@ -156,6 +199,9 @@ All metrics are publicly available on the [Data Quality Dashboard](https://deade
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
+- GitHub 자동 수집 운영안: [`docs/GITHUB_DATA_COLLECTION_STRATEGY.md`](docs/GITHUB_DATA_COLLECTION_STRATEGY.md)
+- 자동 수집 주기: 6시간마다(하루 4회), 기본 품질 필터: `min_score=2`
+- 수집 데이터는 후보이며, 최종 반영은 maintainer 검수 후 진행
 
 - [Submit a new error](https://github.com/dbwls99706/deadends.dev/issues/new?template=new_error.yml)
 - [Report a workaround result](https://github.com/dbwls99706/deadends.dev/issues/new?template=update_workaround.yml)
@@ -173,6 +219,47 @@ python -m pytest tests/ -v            # Run tests
 ruff check generator/ tests/          # Lint
 python benchmarks/run_benchmark.py    # Run benchmarks
 ```
+
+## SEO 점검 가이드 (모든 페이지 공통)
+
+아래 명령은 템플릿에 핵심 SEO 신호가 있는지 빠르게 점검합니다.
+
+```bash
+python - <<'PY'
+from pathlib import Path
+files=[
+  'generator/templates/index.html',
+  'generator/templates/domain.html',
+  'generator/templates/error_summary.html',
+  'generator/templates/page.html',
+  'generator/templates/search.html',
+  'generator/templates/dashboard.html',
+]
+required=[
+  '<title',
+  'meta name="description"',
+  'meta name="robots"',
+  'link rel="canonical"',
+  'meta property="og:title"',
+  'meta name="twitter:card"',
+]
+for f in files:
+    txt=Path(f).read_text()
+    missing=[r for r in required if r not in txt]
+    print(f'✅ {f}' if not missing else f'❌ {f} missing: {", ".join(missing)}')
+PY
+```
+
+실제 빌드 결과물까지 확인하려면:
+```bash
+python -m generator.build_site
+python -m http.server -d public 8080
+```
+
+그 후 브라우저에서 아래를 점검:
+- `view-source:http://localhost:8080/search/`
+- `view-source:http://localhost:8080/dashboard/`
+- canonical / og / twitter / JSON-LD 유효성
 
 ## Changelog
 
