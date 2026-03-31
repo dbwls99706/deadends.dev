@@ -289,4 +289,9 @@ python -m http.server -d public 8080
 
 MIT (code) · CC BY 4.0 (data)
 
+## Ops Docs
+
+- SEO 운영 가이드: [`docs/SEO_OPERATIONS_GUIDE.md`](docs/SEO_OPERATIONS_GUIDE.md)
+- PyPI 릴리즈 매뉴얼: [`docs/PYPI_RELEASE_MANUAL.md`](docs/PYPI_RELEASE_MANUAL.md)
+
 <!-- mcp-name: io.github.dbwls99706/deadends-dev -->
