@@ -63,6 +63,42 @@ Or install via [Smithery](https://smithery.ai/server/deadend/deadends-dev) (no l
 npx -y @smithery/cli@latest install deadend/deadends-dev --client claude
 ```
 
+#### MCP `Unauthorized` 빠른 해결 가이드 (사람용)
+
+`deadend: calling "initialize": sending "initialize": Unauthorized` 에러가 보이면 아래를 **순서대로 그대로 실행/확인**하세요.
+
+1) 로컬 서버 모드인지, 원격(Smithery) 모드인지 하나만 사용
+```bash
+# 로컬 서버 확인 (정상 시 툴 목록이 출력됨)
+python -m mcp.server --help
+```
+
+2) Claude Desktop 설정 파일 점검 (`cwd`는 실제 경로여야 함)
+```bash
+cat ~/.claude/claude_desktop_config.json
+```
+
+3) 로컬 서버 직접 실행 테스트
+```bash
+cd /path/to/deadends.dev
+python -m mcp.server
+```
+
+4) Smithery 모드라면 재설치(토큰/설정 꼬임 복구)
+```bash
+npx -y @smithery/cli@latest uninstall deadend/deadends-dev --client claude
+npx -y @smithery/cli@latest install deadend/deadends-dev --client claude
+```
+
+5) 마지막으로 Claude Desktop 완전 재시작
+```bash
+# macOS 예시
+osascript -e 'quit app "Claude"'
+open -a Claude
+```
+
+> 팁: `Unauthorized`는 보통 잘못된 `cwd`, 중복 서버 설정(로컬+원격 동시), 또는 만료된 인증 상태에서 발생합니다.
+
 ### Python SDK
 
 ```python
@@ -174,6 +210,103 @@ ruff check generator/ tests/          # Lint
 python benchmarks/run_benchmark.py    # Run benchmarks
 ```
 
+## SEO 점검 가이드 (모든 페이지 공통)
+
+아래 명령은 템플릿에 핵심 SEO 신호가 있는지 빠르게 점검합니다.
+
+```bash
+python - <<'PY'
+from pathlib import Path
+files=[
+  'generator/templates/index.html',
+  'generator/templates/domain.html',
+  'generator/templates/error_summary.html',
+  'generator/templates/page.html',
+  'generator/templates/search.html',
+  'generator/templates/dashboard.html',
+]
+required=[
+  '<title',
+  'meta name="description"',
+  'meta name="robots"',
+  'link rel="canonical"',
+  'meta property="og:title"',
+  'meta name="twitter:card"',
+]
+for f in files:
+    txt=Path(f).read_text()
+    missing=[r for r in required if r not in txt]
+    print(f'✅ {f}' if not missing else f'❌ {f} missing: {", ".join(missing)}')
+PY
+```
+
+실제 빌드 결과물까지 확인하려면:
+```bash
+python -m generator.build_site
+python -m http.server -d public 8080
+```
+
+그 후 브라우저에서 아래를 점검:
+- `view-source:http://localhost:8080/search/`
+- `view-source:http://localhost:8080/dashboard/`
+- canonical / og / twitter / JSON-LD 유효성
+
+## PyPI 업로드 매뉴얼 (복붙용)
+
+릴리즈 전 체크:
+```bash
+git pull --rebase
+python -m pip install --upgrade pip build twine
+python -m pytest -q
+```
+
+배포 버전 갱신(예: `pyproject.toml`):
+```bash
+# 버전 문자열 검색
+rg '^version\\s*=\\s*".*"' pyproject.toml
+```
+
+빌드:
+```bash
+rm -rf dist/ build/ *.egg-info
+python -m build
+```
+
+아티팩트 검증:
+```bash
+python -m twine check dist/*
+```
+
+TestPyPI 업로드(권장):
+```bash
+python -m twine upload --repository testpypi dist/*
+```
+
+TestPyPI 설치 검증:
+```bash
+python -m venv .venv-testpypi
+source .venv-testpypi/bin/activate
+python -m pip install -U pip
+python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple deadends-dev
+deadends "ModuleNotFoundError: No module named 'torch'"
+deactivate
+```
+
+실제 PyPI 업로드:
+```bash
+python -m twine upload dist/*
+```
+
+업로드 후 최종 확인:
+```bash
+python -m venv .venv-release-check
+source .venv-release-check/bin/activate
+python -m pip install -U pip
+python -m pip install deadends-dev
+deadends "CUDA error: out of memory"
+deactivate
+```
+
 ## Changelog
 
 ### v0.8.0
@@ -201,5 +334,10 @@ python benchmarks/run_benchmark.py    # Run benchmarks
 ## License
 
 MIT (code) · CC BY 4.0 (data)
+
+## Ops Docs
+
+- SEO 운영 가이드: [`docs/SEO_OPERATIONS_GUIDE.md`](docs/SEO_OPERATIONS_GUIDE.md)
+- PyPI 릴리즈 매뉴얼: [`docs/PYPI_RELEASE_MANUAL.md`](docs/PYPI_RELEASE_MANUAL.md)
 
 <!-- mcp-name: io.github.dbwls99706/deadends-dev -->
