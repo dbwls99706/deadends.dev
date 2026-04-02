@@ -106,6 +106,23 @@ open -a Claude
 
 > 팁: `Unauthorized`는 보통 잘못된 `cwd`, 중복 서버 설정(로컬+원격 동시), 또는 만료된 인증 상태에서 발생합니다.
 
+### Antigravity (Google AI IDE)
+
+Add as a remote MCP server — no authentication required:
+
+```json
+{
+  "mcpServers": {
+    "deadend": {
+      "serverUrl": "https://deadends.dev/mcp",
+      "type": "http"
+    }
+  }
+}
+```
+
+> **Note:** Antigravity uses `serverUrl` (not `url`). If you get `Unauthorized`, remove any existing deadend entries from the MCP Store and re-add manually using the config above. See the [Antigravity MCP auth guide](https://discuss.ai.google.dev/t/guide-fixing-authentication-for-the-google-developer-knowledge-mcp-server-and-other-cloud-servers-in-antigravity/136601) for general troubleshooting.
+
 ### Python SDK
 
 ```python
