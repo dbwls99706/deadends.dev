@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -221,6 +222,18 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             "about": {
                 "@type": "SoftwareSourceCode",
                 "programmingLanguage": canon["error"]["domain"],
+            },
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": ["#verdict-card", "#fix-guide", "#ai-summary"],
+            },
+            "mainEntity": {
+                "@type": "Question",
+                "name": f"How to fix {canon['error']['signature']}?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": canon["verdict"]["summary"],
+                },
             },
             # Full ErrorCanon data embedded (with normalized trailing-slash URL)
             "deadend:errorCanon": {
@@ -1012,6 +1025,15 @@ def build_cname() -> None:
     print("  Generated: CNAME")
 
 
+def _minify_css(css: str) -> str:
+    """Minify CSS by stripping comments, whitespace, and trailing semicolons."""
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)  # remove comments
+    css = re.sub(r'\s+', ' ', css)                         # collapse whitespace
+    css = re.sub(r'\s*([{}:;,])\s*', r'\1', css)           # strip around structure
+    css = re.sub(r';}', '}', css)                           # trailing semicolons
+    return css.strip()
+
+
 def build_stylesheet() -> None:
     """Generate shared CSS stylesheet for all pages.
 
@@ -1538,8 +1560,8 @@ def build_stylesheet() -> None:
         "}",
         "",
     ])
-    (SITE_DIR / "style.css").write_text(css, encoding="utf-8")
-    print("  Generated: style.css")
+    (SITE_DIR / "style.css").write_text(_minify_css(css), encoding="utf-8")
+    print("  Generated: style.css (minified)")
 
 
 def build_og_image() -> None:
@@ -2944,6 +2966,12 @@ def build_well_known(canons: list[dict]) -> None:
     if mcp_auth_src.exists():
         shutil.copy2(mcp_auth_src, well_known_dir / "mcp-registry-auth")
         print("  Generated: .well-known/mcp-registry-auth")
+
+    # Copy llms.txt to .well-known/llms.txt (emerging AI agent discovery convention)
+    llms_txt = SITE_DIR / "llms.txt"
+    if llms_txt.exists():
+        shutil.copy2(llms_txt, well_known_dir / "llms.txt")
+        print("  Generated: .well-known/llms.txt")
 
 
 def build_stats_json(canons: list[dict]) -> None:

@@ -58,6 +58,12 @@
   <meta name="twitter:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
+  <!-- Citation meta for AI citation engines and Google Scholar -->
+  <meta name="citation_title" content="Fix {{ error.signature }} — Verified Workarounds">
+  <meta name="citation_date" content="{{ error.first_seen|default(metadata.generation_date, true) }}">
+  <meta name="citation_public_url" content="{{ self_url }}">
+  <meta name="citation_author" content="deadends.dev">
+
   <link rel="canonical" href="{{ self_url }}">
   <link rel="up" href="{{ summary_url }}">
 
@@ -82,6 +88,7 @@
   </script>
   {% endif %}
 
+  <link rel="preload" href="{{ base_path }}/style.css" as="style">
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
 <body class="pg-detail">
@@ -118,7 +125,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   </header>
 
   <!-- ABOVE-FOLD VERDICT CARD — The most important info visible without scrolling -->
-  <section id="verdict-card" class="verdict-card verdict-card-{{ verdict.resolvable }}">
+  <section id="verdict-card" class="verdict-card verdict-card-{{ verdict.resolvable }}" aria-label="Verdict summary">
     <div class="verdict-card-header">
       <span class="verdict-badge verdict-badge-{{ verdict.resolvable }}">
         {% if verdict.resolvable == "true" %}FIXABLE
@@ -156,7 +163,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
 
   <!-- DETAILED FIX GUIDE — step-by-step for humans landing from search -->
   {% if workarounds|default([]) %}
-  <section id="fix-guide" class="human-guide">
+  <section id="fix-guide" class="human-guide" aria-label="Step-by-step fix guide">
     <div class="human-guide-header">
       <span class="human-guide-label">Step-by-Step Fix</span>
       <span class="human-guide-sub">{{ workarounds|length }} workaround{{ 's' if workarounds|length != 1 else '' }}</span>
@@ -174,7 +181,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   </section>
   {% endif %}
 
-  <section id="dead-ends">
+  <section id="dead-ends" aria-label="Dead ends to avoid">
     <h2>Dead Ends — Do NOT Try These</h2>
     {% for de in dead_ends %}
     <div class="dead-end">
@@ -189,7 +196,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     {% endfor %}
   </section>
 
-  <section id="workarounds">
+  <section id="workarounds" aria-label="Verified workarounds">
     <h2>Workarounds — Try These Instead</h2>
     {% if workarounds|default([]) %}
     {% for wa in workarounds|default([]) %}
@@ -210,7 +217,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
 
   {% set graph = transition_graph|default({}) %}
   {% if graph.get("leads_to", []) or graph.get("preceded_by", []) or graph.get("frequently_confused_with", []) %}
-  <section id="error-chain">
+  <section id="error-chain" aria-label="Related error chain">
     <h2>Error Chain</h2>
     <p class="meta">Errors don't happen in isolation. Here's what connects to this one.</p>
 
