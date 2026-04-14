@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/cross-street-keep-walking/vn",
+  "url": "https://deadends.dev/safety/cross-street-keep-walking/vn",
+  "error": {
+    "signature": "AI tells a tourist in Vietnam to wait at a crosswalk for traffic to stop, or to run when crossing a busy street",
+    "regex": "(vietnam.*cross.*street|hanoi.*motorbike|saigon.*traffic|vietnam.*pedestrian|hcmc.*crossing|vietnam.*scooter|hanoi.*walking)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Vietnamese cities (Ho Chi Minh City, Hanoi) have ~50M motorbikes nationwide and ~7M in HCMC alone — they flow continuously around traffic obstacles. Pedestrians cross by walking SLOWLY and PREDICTABLY through the flow; motorbikes calculate trajectory and steer around. Stopping mid-stream or running breaks the prediction and causes accidents. Crosswalk signals are decorative in many areas. ~7,000 traffic deaths/year per Vietnamese Traffic Safety Committee."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait at a Vietnamese crosswalk for traffic to stop, expecting cars/motorbikes to yield",
+      "why_fails": "In HCMC and Hanoi, motorbikes do not stop at crosswalks even with green pedestrian signal — flow is continuous. Waiting indefinitely means never crossing. Locals step into the flow at walking pace; motorbikes adjust around them. Tourist hesitation actively endangers them — bikes prep to swerve based on predicted path.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.vietnam.travel/things-to-do/getting-around-vietnam",
+        "https://www.gov.uk/foreign-travel-advice/vietnam/safety-and-security"
+      ],
+      "condition": "Waiting at urban crosswalks"
+    },
+    {
+      "action": "Sprint or run across the street to avoid being hit",
+      "why_fails": "Motorbike riders predict pedestrian trajectory based on walking speed. A sudden run breaks the prediction and the rider can't adjust in time. Most pedestrian accidents involve sudden sprints or stops.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/vietnam/safety-and-security"
+      ],
+      "condition": "Crossing technique"
+    },
+    {
+      "action": "Stop in the middle of the road if a wave of motorbikes approaches",
+      "why_fails": "Stopping mid-flow makes you unpredictable. Riders can't steer around a stationary obstacle as easily as a slow-moving one. Continue at steady pace; the flow parts around you.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/vietnam/safety-and-security"
+      ],
+      "condition": "Mid-crossing"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cross slowly and predictably at constant walking pace. Make eye contact with riders. Hold up a hand to gesture 'I'm here'. Don't stop. Don't sprint. Walk straight to the other side. Riders will steer around you.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.vietnam.travel/things-to-do/getting-around-vietnam"
+      ],
+      "condition": "Standard urban crossing"
+    },
+    {
+      "action": "Cross with a local — follow their pace. Wait for any local to be crossing in the same direction and walk parallel. Group of pedestrians is more visible than solo.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.vietnam.travel/things-to-do/getting-around-vietnam"
+      ],
+      "condition": "First time / busy intersection"
+    },
+    {
+      "action": "Use Grab/GoJek scooter taxi (xe ôm) for short trips — safer than walking some routes. Helmets are legally required for both rider and passenger. Solo walking in District 1 HCMC and Old Quarter Hanoi is fine; long crossings of major boulevards (Hai Bà Trưng, Lê Lợi) need the slow-walk technique.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.grab.com/vn/"
+      ],
+      "condition": "Long routes"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/coperto-pane-charge/it",
+  "url": "https://deadends.dev/culture/coperto-pane-charge/it",
+  "error": {
+    "signature": "AI tells a diner in Italy that the bread on the table is free, or that they should tip 18-20% on top of the bill",
+    "regex": "(italy.*coperto|coperto charge|italian.*tipping|italy.*service charge|italy.*pane bread|italy.*water free|conto.*italia)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Italian restaurants typically charge a 'coperto' (cover charge, €1-5/person) covering bread + table service, listed on the menu. Some add 'servizio' (service charge, 10-12%). Tipping on top is not expected — locals leave 0-2 euros for excellent service. Tap water is rarely served — bottled water (still or sparkling) is ordered and charged. The €4 bottled water is universal."
+  },
+  "dead_ends": [
+    {
+      "action": "Tip 20% on top of an Italian restaurant bill",
+      "why_fails": "Italian restaurant bill includes coperto (€1-5/person) and often servizio (10-12%). Adding 20% gratuity = paying 25-35% over food cost. Italians don't tip in this proportion — €1-2 left on table for good service is generous; large American-style tips actively confuse waitstaff.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.italia.it/en",
+        "https://www.beniculturali.it/"
+      ],
+      "condition": "Restaurant payment"
+    },
+    {
+      "action": "Eat the bread placed on the table at a sit-down restaurant assuming it's free, then complain when charged",
+      "why_fails": "Bread (pane) is part of the coperto charge — even untouched bread is charged. Coperto is legally required to be displayed on the menu (Codice del Consumo). Refusing the bread doesn't remove the coperto charge; the seat itself triggers it.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.beniculturali.it/",
+        "https://www.italia.it/en"
+      ],
+      "condition": "Bread expectations"
+    },
+    {
+      "action": "Ask for tap water (acqua del rubinetto) at a traditional restaurant",
+      "why_fails": "Italian restaurants overwhelmingly serve bottled water (acqua naturale = still, acqua frizzante = sparkling), €2-5/bottle. Tap water is technically legal to request but most restaurants either decline or are confused. Some new restaurants (especially Milan) offer free tap water on request.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Water ordering"
+    },
+    {
+      "action": "Demand a bill split exactly 'three ways' at a casual Italian dinner",
+      "why_fails": "Italian dinner culture: the bill (il conto) is often paid as a single group total; the host pays often, or split equally. 'Splitting by what each ordered' (alla tedesca, 'German-style') is uncommon and read as cold. For shared meals among friends, simple equal split or trade-off is normal.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Bill splitting"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the menu for 'coperto' (cover charge) and 'servizio' (service) — both should be listed. Pay the bill including these. Round up or leave 1-2 euros for good service. Cash tip directly to server.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Bill payment"
+    },
+    {
+      "action": "Bread + olive oil come automatically with the coperto. Take or leave; the charge applies either way. Olive oil for dipping is a tourist convention; Italians usually use bread to mop up sauce.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Pre-meal bread"
+    },
+    {
+      "action": "Order water clearly: 'una bottiglia di acqua frizzante / naturale, per favore' (sparkling/still). Some places offer 'caraffa di acqua' (jug of water) — increasingly available in Milan, Rome bistros.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Water ordering"
+    },
+    {
+      "action": "Bill splitting: just say 'pago io' (I'm paying) or 'dividiamo' (let's split). Italian payments are simple; trying to itemize is fastidious. Take turns paying across multiple meals if hosting reciprocally.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.italia.it/en"
+      ],
+      "condition": "Group dining"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

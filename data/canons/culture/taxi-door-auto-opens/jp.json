@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/taxi-door-auto-opens/jp",
+  "url": "https://deadends.dev/culture/taxi-door-auto-opens/jp",
+  "error": {
+    "signature": "AI tells a passenger boarding a Japanese taxi to open the rear door themselves, or to enter from the curb side without checking",
+    "regex": "(japan.*taxi door|japan.*taxi.*open|japanese taxi.*automatic|jpn taxi etiquette|japan.*taxi tip|japan.*taxi cash)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "Japanese taxi rear-left door (curb-side passenger door) opens and closes automatically, controlled by the driver via lever or button. Pulling it open by hand can damage the mechanism — drivers occasionally call out '危ない!' (kiken / dangerous). Slamming it shut similarly damages closing motor. Tips are not given (driver may chase you to return). Cash and major credit/IC cards (Suica/Pasmo) all accepted in most cities."
+  },
+  "dead_ends": [
+    {
+      "action": "Yank the taxi door open in Tokyo / Osaka while the driver is reaching for the lever",
+      "why_fails": "Most Japanese taxis use an automatic rear-door system since the 1964 Olympics. The handle is mostly decorative for emergencies. Pulling on the closed door hard enough can bend the linkage — a repair the driver pays for. Drivers expect tourists to wait 1-2 seconds.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.taxi-tokyo.or.jp/en/",
+        "https://www.jnto.go.jp/en/plan-your-trip/transport/"
+      ],
+      "condition": "Boarding any standard taxi"
+    },
+    {
+      "action": "Tip a Japanese taxi driver 10-20% of the meter, like in the US",
+      "why_fails": "Tipping is not Japanese practice (see also culture/tipping-refused/jp). Drivers will return the change exactly. Pressed tips cause confusion. The fare alone is the expected payment.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.taxi-tokyo.or.jp/en/"
+      ],
+      "condition": "Payment"
+    },
+    {
+      "action": "Sit in the front passenger seat next to the driver",
+      "why_fails": "Front seat is reserved for the senior member of the group or for solo elderly passengers in some traditional contexts; tourists are generally directed to the rear. Not catastrophic but unusual.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.taxi-tokyo.or.jp/en/"
+      ],
+      "condition": "Solo traveler seating"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Stand back from the door slightly. Wait 1-2 seconds — the driver opens the rear-left door automatically. Step in. The driver closes it after you sit. Same on exit: wait for the driver to open before stepping out.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.taxi-tokyo.or.jp/en/"
+      ],
+      "condition": "Standard taxi entry / exit"
+    },
+    {
+      "action": "Pay with cash, IC card (Suica, Pasmo, ICOCA), or credit card. Major chains (Nihon Kotsu, Kokusai, MK) take all. Some smaller individual taxis cash-only — display sign in window.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.taxi-tokyo.or.jp/en/"
+      ],
+      "condition": "Payment options"
+    },
+    {
+      "action": "Use the GO app (formerly Japan Taxi + Mov merger) or DiDi for hailing — works in major cities, English interface, no language barrier with the driver.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://go.mo-t.com/taxi/"
+      ],
+      "condition": "Booking ahead / English"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/great-firewall-vpn-grey-zone/cn",
+  "url": "https://deadends.dev/legal/great-firewall-vpn-grey-zone/cn",
+  "error": {
+    "signature": "AI tells a traveler or business in mainland China that any VPN is fine and Google/Gmail/WhatsApp will work normally",
+    "regex": "(china.*vpn|great firewall|gfw|gmail.*china|google.*china|whatsapp.*china|instagram.*china|facebook.*china|china.*blocked sites|astrill|expressvpn china)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "The Great Firewall (GFW) blocks Google services (Search, Gmail, Maps, YouTube, Drive, Workspace), Meta (Facebook, Instagram, WhatsApp), Twitter/X, NYT, BBC News, Wikipedia EN partially, Discord, Slack, and most Western SaaS. VPN use is technically a regulatory grey zone for individuals — only government-approved VPNs are legal under MIIT 2017 notice; unapproved VPNs are routinely used by foreigners and tolerated in practice but periodically crack down on (Beijing 2018, Olympics 2022). Operating an unauthorized VPN service is criminal."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a business traveler 'just install ExpressVPN/NordVPN at the airport' on arrival in China",
+      "why_fails": "App stores in China don't carry these — Apple removed Western VPNs from the China App Store in 2017. Their websites are blocked from inside China. Must install + activate the VPN BEFORE arrival. Some VPNs (Astrill, LetsVPN) are GFW-resilient; mainstream ones (NordVPN, IVPN) fail intermittently.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.cn/zhengce/content/2017-01/22/content_5162101.htm",
+        "https://www.miit.gov.cn/"
+      ],
+      "condition": "VPN setup after arrival"
+    },
+    {
+      "action": "Plan a Chinese trip relying on Google Maps for navigation, Gmail for work, WhatsApp for communication",
+      "why_fails": "Google Maps loads but locations are offset (GCJ-02 vs WGS-84 datum) — pin drops are physically wrong. Gmail blocked. WhatsApp voice/text blocked since 2017. Replace upfront: Apple Maps (works), Baidu Maps (best for China), WeChat (universal in China), Outlook/iCloud Mail (works).",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gov.cn/zhengce/content/2017-01/22/content_5162101.htm"
+      ],
+      "condition": "Trip planning"
+    },
+    {
+      "action": "Operate an unauthorized commercial VPN service from inside China for paying users",
+      "why_fails": "Multiple convictions: Wu Xiangyang (Guangxi, 2017) sentenced to 5.5 years for selling VPN service. Targets the operator, not the casual user. Personal use is the grey zone; commercial provision is firmly criminal.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gov.cn/zhengce/content/2017-01/22/content_5162101.htm"
+      ],
+      "condition": "Commercial VPN provision"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before flying to China: install Astrill, LetsVPN, or eSurfshark (known GFW-resistant). Set up multiple — single VPN can fail. Configure on phone, laptop, and any tablet. Have offline maps downloaded (Apple Maps works in China without GCJ-02 offset).",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.amnesty.org/en/latest/research/2017/02/china-internet-clampdown-vpn/"
+      ],
+      "condition": "Pre-arrival setup",
+      "tradeoff": "VPN reliability fluctuates — drops to ~30% during major events (Two Sessions, Olympics, anniversaries)."
+    },
+    {
+      "action": "Set up parallel Chinese services: WeChat (essential — payments, IM, mini-programs), Alipay (payment), Baidu Maps, Didi (taxi), Dianping (Yelp equivalent). WeChat tied to a foreign bank/Visa card works since 2023 reforms.",
+      "success_rate": 0.9,
+      "sources": [
+        "http://www.gov.cn/zhengce/202307/content_6896035.htm"
+      ],
+      "condition": "Practical day-to-day in China"
+    },
+    {
+      "action": "For business email continuity: use Outlook/iCloud Mail (work in China), or set up a second non-Gmail account before travel. Microsoft 365 generally works; Google Workspace does not.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.microsoft.com/en-cn/"
+      ],
+      "condition": "Email access in China"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

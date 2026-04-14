@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/buddha-image-export-ban/th",
+  "url": "https://deadends.dev/legal/buddha-image-export-ban/th",
+  "error": {
+    "signature": "AI tells a tourist they can buy a Buddha statue, head, or amulet at a Thai market and pack it home as a souvenir",
+    "regex": "(thailand.*buddha.*souvenir|buddha statue.*thailand.*export|thai.*amulet.*export|buddha head.*thailand|thai.*image.*tattoo|wat phra kaew souvenir)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Thailand's Act on Ancient Monuments (1961, amended) prohibits exporting Buddha images and parts (including heads) without a Department of Fine Arts permit. Customs at airports stops travelers carrying Buddha statues >12cm or any obvious antique without a permit; smaller modern souvenirs are usually OK if declared. The Ministry of Tourism specifically warns: 'Buddha is for worship, not decoration' — using Buddha images as tattoos, in nightclubs, or for marketing is widely seen as offensive."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy a Buddha head sculpture at Chatuchak Market and pack it in checked luggage to fly home",
+      "why_fails": "Customs at Suvarnabhumi/Don Mueang routinely stops Buddha statues. Without a Department of Fine Arts export permit, the item is confiscated and the traveler can be fined. Buddha heads are particularly scrutinized — the head represents the highest sanctity. Even modern reproductions can be blocked.",
+      "fail_rate": 0.78,
+      "sources": [
+        "http://www.finearts.go.th/",
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Souvenir purchase + airport export"
+    },
+    {
+      "action": "Get a Buddha image tattooed below the waist or use it in nightclub décor",
+      "why_fails": "Tattooing Buddha below the waist is a serious religious offense — Thai immigration has refused entry and deported foreigners for visible Buddha tattoos in inappropriate locations. Restaurants/clubs using Buddha heads as bar décor have been shut. Ministry of Tourism's 'Believe it or Not' campaign specifically targets this.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette",
+        "https://www.bbc.com/news/world-asia-31013681"
+      ],
+      "condition": "Tattoo / commercial décor"
+    },
+    {
+      "action": "Pose with arms wrapped around a temple Buddha statue for a 'fun' Instagram photo",
+      "why_fails": "Climbing on or posing intimately with Buddha statues is a serious offense at temples. Foreigners have been arrested and deported for such photos. Same-sex hand-holding poses on Buddha laps and 'kissing Buddha' shots have triggered international incidents.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Temple photo behavior"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Souvenir: choose small (<12cm) modern Buddha amulets sold at temples (with monk's blessing) or licensed amulet markets — these are typically permitted at customs with declaration. Apply for export permit at Department of Fine Arts (Bangkok or Phuket) if larger.",
+      "success_rate": 0.85,
+      "sources": [
+        "http://www.finearts.go.th/",
+        "https://www.tourismthailand.org/"
+      ],
+      "condition": "Legal souvenir"
+    },
+    {
+      "action": "Use Buddha imagery only respectfully: not as bar décor, tattoo below waist, marketing humor, or ironic merchandise. Wear/display at chest height or above. When in doubt, ask a Thai monk or temple staff.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Buddha imagery use"
+    },
+    {
+      "action": "Temple photos: stand respectfully beside the statue, not climbing/leaning. No intimate poses. Some temples ban photos in inner sanctums entirely — check signage.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/"
+      ],
+      "condition": "Temple photography"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

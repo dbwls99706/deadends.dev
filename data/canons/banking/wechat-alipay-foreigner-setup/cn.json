@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/wechat-alipay-foreigner-setup/cn",
+  "url": "https://deadends.dev/banking/wechat-alipay-foreigner-setup/cn",
+  "error": {
+    "signature": "AI tells a foreign visitor to China that they can pay with Visa/Mastercard everywhere, or that WeChat Pay/Alipay setup is straightforward",
+    "regex": "(china.*payment|wechat pay.*foreigner|alipay.*foreigner|china.*credit card|china.*cashless|微信支付|支付宝|china.*tour pay|tour card alipay)",
+    "domain": "banking",
+    "category": "payment_infrastructure",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "China is overwhelmingly cashless via WeChat Pay (微信支付) and Alipay (支付宝); Visa/Mastercard rarely accepted outside top-tier hotels and airports. Since 2023 the PBOC opened tourist-friendly setup: foreign Visa/Mastercard can fund Alipay (with 200 USD limit per single transaction, 5000 USD/year), WeChat Pay (with foreign-card-tied bind, similar caps). Cash is increasingly refused even for taxi fares; some shops have no working POS terminal."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan a China trip with the assumption that 'I'll just use Visa and pay cash as backup'",
+      "why_fails": "Many small shops, food stalls, taxi drivers, and rural vendors have NO POS terminal — payment by Visa is impossible. Cash is increasingly refused; vendors say 没有零钱 (no change) and refuse the bill. The People's Bank of China has explicitly required vendors to accept cash but enforcement is weak. WeChat/Alipay is genuinely default.",
+      "fail_rate": 0.78,
+      "sources": [
+        "http://www.pbc.gov.cn/",
+        "http://www.gov.cn/zhengce/202307/content_6896035.htm"
+      ],
+      "condition": "China trip without WeChat/Alipay"
+    },
+    {
+      "action": "Try to register WeChat Pay or Alipay only after arriving in China",
+      "why_fails": "Both apps require SMS verification — a Chinese phone number works best, but foreign numbers can register since 2023. The first transaction often triggers identity verification (passport + selfie), which works inconsistently from inside China. Setting up before arrival is much smoother.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://global.alipay.com/docs/ac/tour_card",
+        "https://wechat.com/en/"
+      ],
+      "condition": "On-arrival setup"
+    },
+    {
+      "action": "Top up a Chinese-resident-style WeChat Pay balance with foreign Visa, expecting unlimited spend",
+      "why_fails": "Foreign-card spend is capped: 200 USD per transaction, 5,000 USD per year per app. Larger purchases (laptops, designer goods) require resident-status payment. This is a 2023 PBOC tourist initiative cap.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://global.alipay.com/docs/ac/tour_card",
+        "http://www.pbc.gov.cn/"
+      ],
+      "condition": "High-value transactions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pre-trip: install WeChat + Alipay. Verify identity with passport. Bind a Visa or Mastercard. Carry small RMB cash (~500 RMB) for backup. Register both apps — some merchants take only one.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://global.alipay.com/docs/ac/tour_card"
+      ],
+      "condition": "Standard tourist setup"
+    },
+    {
+      "action": "For >5,000 USD/year spend: open a Chinese bank account (requires multi-day stay + visa + tax paperwork) OR use UnionPay-issued cards from your home country (BoC America, ICBC USA branches) which are treated as 'domestic' and uncapped.",
+      "success_rate": 0.7,
+      "sources": [
+        "http://www.pbc.gov.cn/"
+      ],
+      "condition": "Long-term / high-spend",
+      "tradeoff": "Bank account opening for short-term visitors is largely impractical; UnionPay cards have annual fees."
+    },
+    {
+      "action": "Major hotels (Shangri-La, Hyatt), airport shops, and metro stations accept Visa. Use them as cash-out points if WeChat/Alipay fails. Some metros (Shanghai, Beijing) accept foreign contactless cards directly.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.visa.com.cn/"
+      ],
+      "condition": "Backup payment paths"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

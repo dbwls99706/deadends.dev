@@ -4,9 +4,9 @@
 
 [![Precision@1](https://img.shields.io/badge/Precision%401-90%25-brightgreen)](https://deadends.dev/dashboard/)
 [![MRR](https://img.shields.io/badge/MRR-0.935-brightgreen)](https://deadends.dev/dashboard/)
-[![Entries](https://img.shields.io/badge/entries-2145-blue)](https://deadends.dev)
+[![Entries](https://img.shields.io/badge/entries-2174-blue)](https://deadends.dev)
 [![Domains](https://img.shields.io/badge/domains-54-green)](https://deadends.dev)
-[![Countries](https://img.shields.io/badge/countries-20%2B-orange)](https://deadends.dev)
+[![Countries](https://img.shields.io/badge/countries-28%2B-orange)](https://deadends.dev)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-9-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey)](LICENSE)
@@ -245,7 +245,7 @@ Resolvable: true | Fix rate: 0.88
 
 All metrics are publicly available on the [Data Quality Dashboard](https://deadends.dev/dashboard/):
 
-- **2,145** canon entries across **54** domains and **20+** countries
+- **2,174** canon entries across **54** domains and **28+** countries
 - **Benchmark**: 90% Precision@1, 95% Precision@3, 0.935 MRR (on code scenarios)
 - **Error transition graph**: 4,330+ edges connecting related errors
 - **Community feedback loop**: `report_outcome` updates fix success rates from real usage
@@ -256,7 +256,7 @@ All metrics are publicly available on the [Data Quality Dashboard](https://deade
 
 `kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `cn` · `hk` · `tw` · `th` ·
 `in` · `vn` · `id` · `sg` · `ph` · `sa` · `ae` · `tr` · `il` · `ru` · `br` ·
-`mx`
+`mx` · `ar` · `co` · `au` · `nz` · `eg` · `pl`
 
 See [`docs/country-canon-guide.md`](docs/country-canon-guide.md) for the
 authoring workflow, sourcing requirements, and confidence calibration.

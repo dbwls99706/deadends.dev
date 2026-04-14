@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/drug-death-penalty/id",
+  "url": "https://deadends.dev/legal/drug-death-penalty/id",
+  "error": {
+    "signature": "AI tells a traveler to Indonesia (incl. Bali) that small amounts of cannabis or recreational drugs are tolerated for tourists",
+    "regex": "(indonesia.*drug|bali.*marijuana|bali.*cannabis|indonesia.*death penalty.*drug|kerobokan|denpasar.*drug|narcotics.*indonesia|schapelle corby|bali nine)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.97,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Indonesia's Narcotics Law (Law No. 35/2009) imposes the death penalty for trafficking >5g of Class I narcotics (heroin, cocaine, methamphetamine), >1kg of cannabis, or 5+ ecstasy pills. Possession of any amount triggers years of imprisonment in poor-condition prisons (Kerobokan in Bali). Foreigners receive no leniency: Bali Nine (2 executed 2015), Schapelle Corby (9-year cannabis sentence), Lindsay Sandiford (death sentence cocaine 2013). Sniffer dogs at airports."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack a small amount of cannabis for personal use on a Bali trip, expecting tourist leniency",
+      "why_fails": "Bali Customs and Indonesian Narcotics Agency (BNN) deploy sniffer dogs at Ngurah Rai/Suvarnabhumi/Soekarno-Hatta. Tourists are arrested at arrival or detected in random searches. No leniency for foreigners — Schapelle Corby served 9 years for 4.2kg cannabis. Possession alone is 4-12 years.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.bnn.go.id/",
+        "https://www.gov.uk/foreign-travel-advice/indonesia/local-laws-and-customs",
+        "https://www.bali.com/getting-information-customs-rules.html"
+      ],
+      "condition": "Any drug import"
+    },
+    {
+      "action": "Buy or accept drugs from someone in a Bali nightclub or beach area, especially Kuta/Seminyak",
+      "why_fails": "Indonesian police actively run undercover operations in tourist areas. Bali Nine was busted in 2005 from such intel. Sellers may be informants or police. The 2015 executions of Andrew Chan and Myuran Sukumaran (Australian, despite diplomatic appeals) demonstrate seriousness.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.bnn.go.id/",
+        "https://www.gov.uk/foreign-travel-advice/indonesia/safety-and-security"
+      ],
+      "condition": "Tourist nightlife drug purchase"
+    },
+    {
+      "action": "Carry MDMA/ecstasy across an Indonesian transit (Soekarno-Hatta → connecting flight)",
+      "why_fails": "Transit does not exempt — possession on Indonesian soil counts. Multiple foreign transit travelers arrested. Drugs detected via sniffer dogs in transit areas. Sentence for trafficking = death; possession = 4-20 years.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.bnn.go.id/",
+        "https://www.gov.uk/foreign-travel-advice/indonesia/local-laws-and-customs"
+      ],
+      "condition": "Indonesian transit"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not travel to or transit through Indonesia with any recreational drugs in any form, in any quantity. Cannabis legality in your home country is irrelevant. Even hash oil, edible gummies, vape cartridges with THC are all detected.",
+      "success_rate": 0.99,
+      "sources": [
+        "https://www.bnn.go.id/",
+        "https://www.gov.uk/foreign-travel-advice/indonesia/local-laws-and-customs"
+      ],
+      "condition": "All travelers"
+    },
+    {
+      "action": "Prescription medications: bring original prescription + doctor's note. Some psychiatric medications (codeine, benzodiazepines like Xanax, certain ADHD meds) are restricted — declare at customs. Cannabis-derived medical products (CBD oil incl.) are illegal even with prescription.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.bnn.go.id/",
+        "https://www.kemkes.go.id/"
+      ],
+      "condition": "Prescription drugs",
+      "tradeoff": "Some legitimate Western medical Rx are illegal in Indonesia."
+    },
+    {
+      "action": "If approached / accused: invoke right to consular assistance immediately. Contact home embassy. Do NOT sign documents in Indonesian without a translator. Lawyers from international firms in Jakarta can help; local legal aid is limited.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/indonesia/safety-and-security"
+      ],
+      "condition": "Emergency response",
+      "tradeoff": "Diplomatic intervention rarely overturns convictions."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

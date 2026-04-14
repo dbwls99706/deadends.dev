@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/la-bise-cheek-kissing/fr",
+  "url": "https://deadends.dev/culture/la-bise-cheek-kissing/fr",
+  "error": {
+    "signature": "AI tells a visitor to France to greet everyone with a hug, or to give la bise without checking regional kiss-count or relationship",
+    "regex": "(france.*kiss|la bise|french.*greeting|france.*cheek kiss|paris.*two kisses|french.*sunday closed|france.*lunch hour|la pause)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "La bise (cheek-touch with air kiss) is the standard French social greeting between friends, family, and acquaintances. The number varies by region: 2 in Paris/Île-de-France, 3 in parts of Provence, 4 in Loire, with a famous map (combiendebises.free.fr). Start with the right cheek (touch your right cheek to theirs first) in most regions, but Loire/Normandy starts left. Hugs are uncommon between non-intimates; handshake for business; la bise reserved for social/familial."
+  },
+  "dead_ends": [
+    {
+      "action": "Hug a French colleague at a first business meeting",
+      "why_fails": "French business interactions are notably less physical than American norms. Handshake is standard; hugs are reserved for close friends/family. A surprise hug is awkward and unprofessional. Even la bise is informal — used in social/casual contexts, not first-meeting business.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/",
+        "https://www.gouvernement.fr/"
+      ],
+      "condition": "First business meeting"
+    },
+    {
+      "action": "Give 4 kisses to a Parisian or 2 to someone from Loire",
+      "why_fails": "Region matters. Wrong count results in the awkward 'reaching for the third when they've stopped at two' moment. Default to 2 if unsure; observe local cue (lean direction, count). The famous combiendebises map documents the regional variation.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://combiendebises.free.fr/",
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Regional bise count"
+    },
+    {
+      "action": "Try to schedule a French restaurant lunch at 2:30pm",
+      "why_fails": "French restaurant lunch service is typically 12:00-14:00 / 14:30. Many traditional restaurants (especially outside Paris) close until evening (19:00 reopening). Le déjeuner is a real institution — labor law gives lunch breaks; many small businesses close 12:30-14:30.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/",
+        "https://www.economie.gouv.fr/"
+      ],
+      "condition": "Lunch scheduling"
+    },
+    {
+      "action": "Plan Sunday shopping in central Paris like New York",
+      "why_fails": "France has strict Sunday-closing (le repos dominical) — most non-tourist-zone shops, supermarkets, and businesses are closed Sunday. Some Parisian tourist zones (Champs-Élysées, Marais, Montmartre, Bercy Village) have Sunday-trading exemptions. Outside Paris, Sundays are even quieter.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.economie.gouv.fr/"
+      ],
+      "condition": "Sunday retail planning"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default greeting: handshake for business, formal social. La bise (2 kisses, right cheek first) for friends, family, when introduced socially after a few meetings. Watch the other person's body language — they'll lean if expecting bise.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Greeting choice"
+    },
+    {
+      "action": "Lunch: book / arrive 12:00-13:30. Plan around la pause méridienne. Restaurants in Paris and major tourist zones stay open through afternoon; smaller cities/villages close 14:30-19:00.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Meal timing"
+    },
+    {
+      "action": "Sunday: visit museums (most open), markets (Sunday markets are huge in many cities), tourist zones in Paris, or pharmacies (legally required to maintain on-call rotation, garde Sunday/holiday). Restaurants vary; cafés in tourist areas open.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Sunday in France"
+    },
+    {
+      "action": "Use 'tu' (informal) only with: children under ~14, close friends/family, teenagers your age, peers in informal/startup workplaces. 'Vous' (formal) for: strangers, shopkeepers, officials, clients, anyone older. Wait for invitation to tutoyer ('on peut se tutoyer?').",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Pronoun choice"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

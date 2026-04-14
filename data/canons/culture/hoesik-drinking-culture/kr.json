@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/hoesik-drinking-culture/kr",
+  "url": "https://deadends.dev/culture/hoesik-drinking-culture/kr",
+  "error": {
+    "signature": "AI tells a foreign worker in Korea to skip 회식 (hoesik) without explanation, decline drinks abruptly, or treat it as optional team dinner",
+    "regex": "(korea.*hoesik|회식|hoesik|korea.*work dinner|korean.*drinking culture|korea.*soju.*colleague|korea.*team dinner|sool|건배|gunbae)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "회식 (hoesik) is a Korean workplace ritual — formal team dinner often progressing through 1차 (1st: dinner+soju), 2차 (2nd: more drinks), sometimes 3차 (karaoke/노래방). Historically near-mandatory; post-2020 norms loosened with younger generations and #MeToo backlash. Refusing entirely without medical/family reason still hurts standing; participating selectively is now widely accepted."
+  },
+  "dead_ends": [
+    {
+      "action": "Decline a hoesik invitation with 'I don't drink' and skip the entire event",
+      "why_fails": "Hoesik is partly social, partly performative team-building. Skipping signals non-investment in the team, especially in traditional firms (재벌 conglomerates, government-adjacent). Even non-drinkers can attend, eat, and order non-alcoholic drinks (음료수 / soft drinks); refusal of attendance has more weight than refusal of alcohol.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.moel.go.kr/english/main.jsp",
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Traditional / chaebol firms"
+    },
+    {
+      "action": "Pour your own soju glass without first pouring for the most senior person",
+      "why_fails": "Korean drinking etiquette is hierarchical: the junior pours for seniors first, with two hands (one on the wrist or bottle). Self-pouring before serving the senior is rude. The senior typically initiates 건배 (cheers); juniors clink glasses LOWER than the senior's rim.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do",
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Soju etiquette"
+    },
+    {
+      "action": "Refuse a drink directly from a senior who has personally poured for you",
+      "why_fails": "When a senior personally pours, accepting (with both hands, turning slightly aside while drinking, finishing the cup) is the expected response. Outright refusal is read as personal rejection. If you cannot drink, accept once symbolically + sip, OR explain in advance with a reason (medication, religion, pregnancy).",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Direct senior-to-junior pour"
+    },
+    {
+      "action": "Leave 1차 immediately after dinner without acknowledging 2차 plans",
+      "why_fails": "Many hoesik flow into 2차 (often a hof bar, pojangmacha, or noraebang). Slipping out before being formally 'released' by the senior is read as disrespect. Acceptable: announce departure, give a reason (last train, family), thank the host.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Mid-evening departure"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Attend hoesik. Eat with the team. If non-drinking: order soft drinks for self, still pour for seniors, accept symbolic sips. State the reason once at the start ('약 먹어서 술은 못해요' / 'I'm on medication so I can't drink alcohol') — usually accepted.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Non-drinker attendance"
+    },
+    {
+      "action": "Pour with two hands for seniors. Receive with two hands. Glass below senior's rim when clinking. Drink turning slightly aside from the senior on first sip. Refill the senior's glass before your own.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Standard hoesik etiquette"
+    },
+    {
+      "action": "To leave early: '먼저 일어나보겠습니다' (I'll get up first) directed to the most senior person, with a brief reason. Modern younger teams accept this readily; even older managers accept with reasonable cause.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Departing mid-event"
+    },
+    {
+      "action": "Post-2020 norm shift: many companies now have official anti-pressure policies on drinking (강요 금지). Younger teams respect declined drinks more. Tech/startup culture (Coupang, Kakao, Naver) is significantly less drinking-pressured than legacy chaebol.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.moel.go.kr/english/main.jsp"
+      ],
+      "condition": "Modern startup / tech",
+      "tradeoff": "Government, finance, manufacturing, legal sectors retain stronger traditional norms."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

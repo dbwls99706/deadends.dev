@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/train-silence-priority-seats/jp",
+  "url": "https://deadends.dev/culture/train-silence-priority-seats/jp",
+  "error": {
+    "signature": "AI tells a tourist on Japanese trains to talk freely on phone, eat snacks, or sit anywhere including priority seats with phone on",
+    "regex": "(japan.*train.*phone|japan.*subway.*manner|priority seat japan|優先席|japan.*train.*eating|shinkansen.*phone|japan.*manner mode|マナーモード)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Japanese train etiquette: phones on silent (マナーモード, manner mode), no calls inside the cabin, low-volume conversation only. Eating discouraged on commuter trains (acceptable on Shinkansen and limited express). Priority seats (優先席) are designated for elderly, pregnant, disabled, parents with infants — phones must be turned OFF (not silent) near them in many lines (older policy; many lines now relaxed to 'silent'). Pushing onto crowded trains during rush requires near-silence."
+  },
+  "dead_ends": [
+    {
+      "action": "Take a phone call on the Yamanote Line during morning commute, even with low voice",
+      "why_fails": "Phone calls inside the train carriage are universally avoided. Locals who must answer step into the deck (between cars) or hang up. Multiple announcements remind passengers. Tourists making calls draw immediate stares; older passengers occasionally complain to staff.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.jreast.co.jp/e/customer_support/",
+        "https://www.tokyometro.jp/en/manners/"
+      ],
+      "condition": "Phone calls in cabin"
+    },
+    {
+      "action": "Eat a smelly food (ramen, kimchi, tonkatsu sandwich) on a commuter train at lunch hour",
+      "why_fails": "Eating on commuter trains is mostly avoided — Yamanote, Tokyo Metro, Osaka subway etc. Smell-heavy foods especially frowned upon. Acceptable on Shinkansen (eki-ben culture), limited express (Romance Car, Odoriko), and some long-distance JR.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.tokyometro.jp/en/manners/"
+      ],
+      "condition": "Commuter trains"
+    },
+    {
+      "action": "Sit in a priority seat (優先席, often near doors) and leave phone screen-on / vibrating",
+      "why_fails": "Priority seats are reserved for elderly, pregnant, disabled, injured, parents with infants. Sitting is OK if no one matching the criteria is present, but yield immediately if they board. Phone policy near priority seats varies — older signs say 'OFF', newer say 'manner mode'; safer default to fully off.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.tokyometro.jp/en/manners/",
+        "https://www.jreast.co.jp/e/customer_support/"
+      ],
+      "condition": "Priority seat usage"
+    },
+    {
+      "action": "Block doors with luggage during rush hour, or stand in the way of passengers exiting",
+      "why_fails": "Japanese train flow expects: exiting passengers leave first, then boarding. Standing inside doors blocking flow earns sharp 'すみません' from locals. Large backpacks worn on the back are repositioned to the front in crowded trains.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.tokyometro.jp/en/manners/"
+      ],
+      "condition": "Rush-hour boarding"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Phone: silent mode + no calls in cabin. Step into the door deck (デッキ) for urgent calls. Texting/scrolling is fine. Keep volume off entirely on Shinkansen Green Cars and around priority seats.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tokyometro.jp/en/manners/"
+      ],
+      "condition": "Phone use"
+    },
+    {
+      "action": "Save eating for Shinkansen (buy eki-ben, beer, snacks at the platform) and limited express trains. Small candy / cough drops on commuter is fine. No food on subway/local lines as default.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.jreast.co.jp/e/customer_support/"
+      ],
+      "condition": "Train eating"
+    },
+    {
+      "action": "Backpack: in crowded trains, take it off and hold it in front of you (or place at your feet). Don't take up extra seats with bags. Move to the side at platforms; queue at painted lines for boarding.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tokyometro.jp/en/manners/"
+      ],
+      "condition": "Luggage / boarding"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

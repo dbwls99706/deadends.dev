@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/garbage-sorting-strict/jp",
+  "url": "https://deadends.dev/culture/garbage-sorting-strict/jp",
+  "error": {
+    "signature": "AI tells a foreigner moving to Japan to throw all trash in one bag, expecting global single-stream recycling",
+    "regex": "(japan.*garbage|japan.*trash|japan.*recycling|japanese.*sorting|gomi.*分別|燃えるゴミ|燃えないゴミ|japan.*pet bottle|kamikatsu)",
+    "domain": "culture",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "city",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Japanese garbage sorting is municipality-specific and strict. Tokyo's 23 wards typically have 3-5 categories (burnable / non-burnable / recyclable / oversized). Smaller cities can have 10-30+ categories (Kamikatsu, Tokushima has 45). Wrong-day or wrong-bag trash is left uncollected with a sticker (回収できません), often visible to neighbors. Designated transparent bags (指定袋) required in many cities."
+  },
+  "dead_ends": [
+    {
+      "action": "Throw a bag mixing food scraps, plastic bottles, paper, and batteries into any street bin",
+      "why_fails": "Japanese curbside collection requires sorted bags by category and pickup day. PET bottles need cap removed, label peeled, body rinsed, and placed in PET-specific collection (often weekly, separate day from burnable). Batteries are toxic-waste category, NOT general trash. Non-conforming bags get rejected with a yellow sticker and remain on the street.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.env.go.jp/recycle/",
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Apartment / household waste"
+    },
+    {
+      "action": "Use any plastic bag for trash output",
+      "why_fails": "Many municipalities require designated transparent or city-branded bags (指定収集袋), purchased at supermarkets or convenience stores. Black opaque bags are rejected. Bag size also matters — fees are encoded into bag price.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Designated-bag cities"
+    },
+    {
+      "action": "Set out a broken futon, microwave, or large furniture with weekly burnable trash",
+      "why_fails": "Oversized waste (粗大ゴミ, sodai gomi) requires advance booking with the city's sodai-gomi center, payment of a fee (300-3000 JPY per item via prepaid sticker), and pickup on a specific scheduled day. Just leaving a microwave at the curb is illegal dumping (不法投棄) — fines up to 10M JPY or 5 years prison under Waste Disposal Act.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.env.go.jp/recycle/",
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Large-item disposal"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "On move-in: get the local city's garbage calendar (gomi calendar / ゴミカレンダー) — multilingual versions available at most ward offices. Buy designated bags. Memorize sort categories: 燃えるゴミ (burnable, food/paper/wood), 燃えないゴミ (non-burnable, metal/glass/ceramic), 資源ゴミ (recyclable, PET/cans/cardboard), 粗大ゴミ (oversized, paid).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.env.go.jp/recycle/",
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Setup phase"
+    },
+    {
+      "action": "PET bottle protocol: remove cap (separate plastic), peel label (separate plastic), rinse body, crush optional, place in clear bag, set out on PET day. Same for milk cartons (rinse, dry, flatten, bundle).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.env.go.jp/recycle/"
+      ],
+      "condition": "PET / drink container disposal"
+    },
+    {
+      "action": "Oversized item: call the local 粗大ごみ受付センター (search ward name + 粗大ゴミ), book pickup, buy the appropriate fee sticker at convenience store, attach to the item, set out on the booked day.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Furniture / appliance disposal"
+    },
+    {
+      "action": "If unsure: ask the apartment building's manager (管理人), or use the city's multilingual gomi consultation (Tokyo: tokyo-online.metro.tokyo.lg.jp). Most large cities have English/Chinese/Korean/Vietnamese gomi guides as PDF.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.kankyo.metro.tokyo.lg.jp/en/"
+      ],
+      "condition": "Uncertain category"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}
