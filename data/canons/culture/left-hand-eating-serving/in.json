@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/left-hand-eating-serving/in",
+  "url": "https://deadends.dev/culture/left-hand-eating-serving/in",
+  "error": {
+    "signature": "AI tells a diner in India to eat, pass food, or hand over money with the left hand",
+    "regex": "(india.*left hand|left hand.*eating india|left hand.*india|indian.*eating.*left|भारत.*बायाँ|pass food.*left hand.*india)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Across most of India — Hindu, Muslim, Sikh — the left hand is traditionally reserved for personal hygiene after toilet use. Eating with the left hand, passing communal food, handing money or documents, or gesturing to greet with the left is read as unclean. The right hand is used for all 'clean' interactions. Urban, westernized contexts are more forgiving but the taboo remains widely observed."
+  },
+  "dead_ends": [
+    {
+      "action": "Eat rice/roti with the left hand at a shared meal in a traditional Indian household",
+      "why_fails": "Sharing communal dishes (thali, biryani, family chapati) with a left hand in the bowl contaminates the food symbolically. Hosts may silently remove the dish and serve a new one, or eat less themselves. The taboo is especially strong when eating with hands (no utensils), common in South Indian and home meals.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://tourism.gov.in/etiquette-basics-travelling-india",
+        "https://www.bbc.com/travel/article/20181001-the-strict-codes-of-indian-etiquette"
+      ],
+      "condition": "Home meals, communal eating"
+    },
+    {
+      "action": "Hand over money, a business card, or a gift with the left hand",
+      "why_fails": "In business, government offices, and markets, the right hand (or both hands for respect) is used to transfer items. Left-handed giving reads as casual dismissal or, in older/rural contexts, as an insult. Documents submitted with left hand to senior officials have been openly criticized.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://tourism.gov.in/etiquette-basics-travelling-india"
+      ],
+      "condition": "Gift-giving, business, government"
+    },
+    {
+      "action": "Point, beckon, or wave with the left hand to get attention",
+      "why_fails": "Left-handed pointing compounds two taboos (left hand + pointing with index finger). Beckoning palm-up with fingers (American style) is also seen as ordering an inferior; the palm-down full-hand beckon is the local norm.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://tourism.gov.in/etiquette-basics-travelling-india"
+      ],
+      "condition": "Public gesturing"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the right hand exclusively for eating, receiving/giving objects, greeting (namaste with both palms together), and pointing (open palm, full hand). Left-handers may use both hands for receiving to soften the perception.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://tourism.gov.in/etiquette-basics-travelling-india"
+      ],
+      "condition": "General social interaction"
+    },
+    {
+      "action": "If naturally left-handed, acknowledge once with हाथ का आदत है (it's a hand habit) or explain briefly; hosts usually accept it. In professional contexts, using both hands to hand things over is a universally accepted respectful gesture.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://tourism.gov.in/etiquette-basics-travelling-india"
+      ],
+      "condition": "Left-handed traveler / resident",
+      "tradeoff": "Some rural / orthodox contexts still disapprove regardless of explanation."
+    },
+    {
+      "action": "When eating by hand, use the right hand fingertips only (not past the second knuckle — dipping the whole hand in food is sloppy). The left hand rests in the lap or away from the plate.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bbc.com/travel/article/20181001-the-strict-codes-of-indian-etiquette"
+      ],
+      "condition": "Hand-eating meals"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

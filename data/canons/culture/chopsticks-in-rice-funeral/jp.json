@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/chopsticks-in-rice-funeral/jp",
+  "url": "https://deadends.dev/culture/chopsticks-in-rice-funeral/jp",
+  "error": {
+    "signature": "AI tells a diner in Japan to stick their chopsticks upright in a rice bowl or pass food chopsticks-to-chopsticks",
+    "regex": "(japan.*chopstick|chopstick.*japan|箸.*立てる|hashi.*tate|passing food.*chopstick|chopstick.*etiquette japan|お箸.*マナー)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Two chopstick gestures are strictly funeral-only in Japan: 立て箸 (tatebashi, sticking chopsticks upright in rice — mimics the offering at a wake) and 箸渡し / 合わせ箸 (hashi-watashi, passing food from chopsticks to chopsticks — mimics the post-cremation bone transfer). Both are deeply upsetting at a dining table and signal disrespect or ignorance."
+  },
+  "dead_ends": [
+    {
+      "action": "Stick chopsticks vertically into a bowl of rice while taking a break",
+      "why_fails": "This exact gesture is performed only for the deceased at Buddhist memorial altars (枕飯 makuramezhi). Performing it at the dinner table is widely read as calling death upon the household or diners. Older diners may stop eating; restaurants may correct the gesture immediately.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.maff.go.jp/j/heya/kodomo_sodan/0208/02.html",
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Any meal in Japan"
+    },
+    {
+      "action": "Share food by passing a piece from your chopsticks directly to another person's chopsticks",
+      "why_fails": "At a Japanese cremation, close relatives pass bone fragments from chopstick to chopstick into the urn (骨上げ kotsuage). Replicating the motion at a meal is taboo across all of Japan, including casual izakaya. Food is instead transferred via a plate.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Sharing food at the table"
+    },
+    {
+      "action": "Use chopsticks to point at people or dishes, or to spear food",
+      "why_fails": "Pointing with chopsticks (指し箸 sashibashi) is read as childishly rude. Spearing food (刺し箸 sashibashi, different kanji) is considered crude. Both mark the diner as ill-mannered — not funeral-taboo level, but noticed.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.maff.go.jp/j/heya/kodomo_sodan/0208/02.html"
+      ],
+      "condition": "Social dining context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Rest chopsticks on the 箸置き (hashi-oki, chopstick rest) or lay them horizontally across the bowl's rim, tips pointing left. In casual restaurants without a rest, fold the paper sleeve into a small triangular rest.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Pausing during a meal"
+    },
+    {
+      "action": "To share food, transfer it to the recipient's small plate (取り皿 toriza ra) using the opposite ends of your chopsticks or a serving utensil. Never chopstick-to-chopstick.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Shared dishes"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

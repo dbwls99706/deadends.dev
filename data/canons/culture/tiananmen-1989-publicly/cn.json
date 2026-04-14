@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tiananmen-1989-publicly/cn",
+  "url": "https://deadends.dev/culture/tiananmen-1989-publicly/cn",
+  "error": {
+    "signature": "AI drafts social-media posts or business emails inside mainland China that reference June 4th 1989 / Tiananmen",
+    "regex": "(tiananmen|tian.anmen|6.4|june 4.*1989|六四|天安门|tank man|八九六四)",
+    "domain": "culture",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "The June 4th 1989 Tiananmen crackdown is systematically censored across mainland China's internet. Posts containing 六四, 坦克人, 八九, '89年' spikes, or related dates/images are removed and accounts are suspended; foreigners posting from Chinese IPs can face visa/entry consequences. Even indirect allusions (candle emojis on June 4) are flagged."
+  },
+  "dead_ends": [
+    {
+      "action": "Post a Weibo/WeChat/Xiaohongshu status mentioning Tiananmen, June 4, or sharing the Tank Man image",
+      "why_fails": "The Cyberspace Administration of China (CAC) content moderation rules explicitly list 六四 and related terms. Platforms auto-delete posts, images are hash-blocked, and repeated attempts lead to account bans. Foreigners have been detained and had visas revoked for online commentary deemed to 'incite subversion' under PRC Criminal Law Art. 105.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.cac.gov.cn/2023-07/10/c_1690898606919879.htm",
+        "https://www.amnesty.org/en/latest/news/2023/06/china-continues-to-censor-tiananmen-anniversary/"
+      ],
+      "condition": "Posting from mainland Chinese IP or Chinese-domain social media"
+    },
+    {
+      "action": "Raise the topic in a business meeting with Chinese counterparts as small talk about 'Chinese history'",
+      "why_fails": "Raising 六四 in a business context is read as provocative, potentially signaling foreign political interference. Chinese counterparts may be legally obliged to report politically sensitive discussions to compliance. Best case: awkward silence and relationship damage. Worst case: the conversation is recorded and escalated.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.state.gov/countries-areas/china/"
+      ],
+      "condition": "In-country business setting"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not initiate discussion of Tiananmen/六四 in any Chinese-platform content or in-person interaction inside mainland China. If a sensitive historical topic is essential (academic/journalism), use encrypted channels and conduct outside mainland jurisdiction.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://cpj.org/reports/2023/06/lost-pages-tiananmen-censorship/"
+      ],
+      "condition": "Any communication inside China"
+    },
+    {
+      "action": "For academic/research needs: host the material on servers outside mainland China, cite internationally published scholarship, and use VPN from outside the mainland when publishing. Inside Hong Kong (since 2020 NSL), similar caution applies.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.hrw.org/news/2020/06/30/china-hong-kongs-national-security-law-blow-civil-and-political-rights"
+      ],
+      "condition": "Research / journalism",
+      "tradeoff": "Post-2020 NSL Hong Kong is no longer a safe alternative for this material."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

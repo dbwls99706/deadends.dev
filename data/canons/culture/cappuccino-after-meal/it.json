@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/cappuccino-after-meal/it",
+  "url": "https://deadends.dev/culture/cappuccino-after-meal/it",
+  "error": {
+    "signature": "AI tells a diner in Italy to order a cappuccino after lunch/dinner, or milk with pasta/seafood",
+    "regex": "(italy.*cappuccino|cappuccino after meal|italian.*coffee|italia.*cena.*latte|italian.*pasta.*parmesan seafood|cut spaghetti)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Italian food culture treats coffee strictly: cappuccino (or any milk-based coffee) is a morning drink, paired with a pastry breakfast. After 11am — and especially after meals — the default is espresso (un caffè). Parmesan cheese on seafood pasta is considered wrong. Cutting spaghetti with a knife is a childlike mistake. Ketchup on pasta is horror. These are not absolute rules but are widely observed and tourists signal themselves by breaking them."
+  },
+  "dead_ends": [
+    {
+      "action": "Order a cappuccino after dinner in a traditional Italian trattoria or restaurant",
+      "why_fails": "Dairy-heavy coffee after a meal is considered digestively bad in Italian food culture (the espresso itself is the digestive). Waiters may ask twice or suggest a caffè/espresso. It's served, but you mark yourself as a tourist. Cappuccino e brioche is breakfast — not an all-day menu item like elsewhere.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine",
+        "https://www.bbc.com/travel/article/20200915-italys-espresso-culture"
+      ],
+      "condition": "After lunch/dinner in traditional venues",
+      "common_misconception": "'It's offensive' — It's not offensive, just visibly non-Italian."
+    },
+    {
+      "action": "Sprinkle parmigiano on spaghetti alle vongole, seafood linguine, or any seafood pasta",
+      "why_fails": "Italian tradition holds that cheese overpowers seafood's delicacy. Waiters in seafood restaurants do not offer cheese; asking for it is mildly embarrassing. Exceptions exist (trenette al pesto col parmigiano, Sicilian ricci-and-pecorino) but seafood pasta is generally cheese-free.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Seafood pasta orders"
+    },
+    {
+      "action": "Cut spaghetti with a knife, or use a spoon to help twirl",
+      "why_fails": "Italians twirl pasta on the fork against the plate, no spoon needed (spoons are used by children or occasionally older diners). Cutting long pasta with a knife is seen as childlike or tourist behavior. Short pasta (penne, rigatoni) is eaten with a fork only.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Long-pasta dishes"
+    },
+    {
+      "action": "Ask for pasta with chicken (pollo e pasta) as a main dish",
+      "why_fails": "Italians don't mix chicken with pasta as a single-course meal — pasta is a primo (first course), chicken a secondo. Ordering 'chicken pasta' reads as Americanized Italian. Some tourist-facing restaurants carry it but authentic menus don't.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Ordering menu"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "After meals, order un caffè (espresso) or un ammazzacaffè (amaro/grappa). Macchiato is acceptable any time. Breakfast: cappuccino e cornetto (pastry). Keep cappuccino before 11am.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Coffee ordering"
+    },
+    {
+      "action": "Twirl long pasta on the fork, using the edge of the plate as resistance. Don't cut; don't use a spoon. Eat short pasta with fork only.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Pasta meal"
+    },
+    {
+      "action": "Follow the course structure: antipasto → primo (pasta/risotto) → secondo (meat/fish) with contorno (vegetable side) → dolce → caffè → ammazzacaffè. You don't need to order every course, but don't combine primo and secondo into one plate.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.italia.it/en/italy/things-to-do/italian-cuisine"
+      ],
+      "condition": "Traditional menu navigation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

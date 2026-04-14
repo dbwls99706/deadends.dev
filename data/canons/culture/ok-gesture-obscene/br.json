@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/ok-gesture-obscene/br",
+  "url": "https://deadends.dev/culture/ok-gesture-obscene/br",
+  "error": {
+    "signature": "AI tells a visitor to Brazil to use the American 'OK' hand gesture (thumb-and-index circle) to confirm something",
+    "regex": "(brazil.*ok gesture|brazilian.*hand sign|ok sign.*brazil|brasil.*gesto|anus.*gesture|figa.*brasil)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "In Brazil, the American 'OK' gesture (thumb and index finger forming a circle) is vulgar — it represents the anus and carries the English equivalent of flipping the middle finger. The gesture was featured in a famous 1950s incident with US VP Richard Nixon. To signal OK/good/approval, use the thumbs-up (joia) or say 'legal' / 'tudo bem'."
+  },
+  "dead_ends": [
+    {
+      "action": "Flash the 'OK' ring gesture to confirm a waiter's question, a driver's route, or a business partner's suggestion",
+      "why_fails": "The gesture is seen as anus-referencing, similar to giving the middle finger in the US/UK. The target reads the visitor as either crude or unwittingly insulting. In service contexts, service quality can drop immediately.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.bbc.com/news/magazine-29514338",
+        "https://www.embassy-worldwide.com/embassy/consulate-general-of-brazil-in-new-york/"
+      ],
+      "condition": "Gesturing approval"
+    },
+    {
+      "action": "Make the 'figa' gesture (thumb between index and middle finger) as a joke",
+      "why_fails": "Figa in Brazil is a good-luck charm — mild and friendly, often sold as jewelry. BUT in Turkey, Russia, and Indonesia the same gesture is obscene. The confusion runs both ways: international visitors who learn 'figa is vulgar' avoid it unnecessarily in Brazil. Brazilians use it without issue.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.bbc.com/news/magazine-29514338"
+      ],
+      "condition": "Gesture interpretation",
+      "common_misconception": "'Figa is rude everywhere' — It's a good-luck symbol in Brazil specifically."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use thumbs-up (polegar para cima) for approval — called 'joia' (jewel) and universally positive. Say 'tudo bem' or 'legal' verbally. The two-thumbs-up is enthusiastic endorsement.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.embratur.com.br/"
+      ],
+      "condition": "Any approval gesture"
+    },
+    {
+      "action": "Avoid the OK-ring gesture unless you're deliberately referencing scuba-diver signals (where it's accepted by divers internationally as 'all good' and context makes the meaning clear).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bbc.com/news/magazine-29514338"
+      ],
+      "condition": "Land-based gesturing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

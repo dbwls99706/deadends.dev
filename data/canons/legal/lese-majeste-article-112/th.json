@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/lese-majeste-article-112/th",
+  "url": "https://deadends.dev/legal/lese-majeste-article-112/th",
+  "error": {
+    "signature": "AI drafts social-media posts or casual jokes inside Thailand that criticize, satirize, or comment on the monarchy",
+    "regex": "(thailand.*king|thai monarchy|lese majeste|lèse.majesté|มาตรา 112|article 112 thailand|mb king.*thai|rama x|vajiralongkorn)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Thailand's Criminal Code Article 112 criminalizes insulting, threatening, or defaming the king, queen, heir, or regent. Sentences are 3–15 years per count (stackable) and prosecutions have dramatically increased since 2020 — over 270 people charged 2020–2024 per iLaw/Thai Lawyers for Human Rights. Law applies equally to foreigners, to pre-entry tweets, and to comments liked/shared from Thai territory."
+  },
+  "dead_ends": [
+    {
+      "action": "Post a satirical tweet, meme, or Facebook comment about the Thai king, queen, or royal family while inside Thailand (or even before traveling if still accessible there)",
+      "why_fails": "Article 112 has extraterritorial reach in practice — posts made abroad have led to charges on re-entry. The law is used against likes, shares, and private messages. Police and palace-affiliated activists systematically report posts. Bail is frequently denied. Thai courts have convicted for comments many years old.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.law.go.kr/",
+        "https://www.ohchr.org/en/press-releases/2023/08/thailand-un-experts-deplore-surge-lese-majeste-prosecutions",
+        "https://freedom.ilaw.or.th/en/report/112report"
+      ],
+      "condition": "Any public statement, even indirect, about the monarchy"
+    },
+    {
+      "action": "Make a joke about royal portraits, coins, banknotes (all bear royal images), or step on / deface an image of a king",
+      "why_fails": "Thai banknotes, coins, and public portraits all contain royal imagery. Stepping on money (to stop a rolling note) has been successfully prosecuted under 112. Tearing or defacing a portrait — even inadvertently — is treated as an insult to the monarch depicted.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.ohchr.org/en/press-releases/2023/08/thailand-un-experts-deplore-surge-lese-majeste-prosecutions",
+        "https://www.bbc.com/news/world-asia-68252521"
+      ],
+      "condition": "Physical interaction with currency or royal imagery"
+    },
+    {
+      "action": "Publish a news article, book, or academic piece critical of King Rama X or Crown Property Bureau from a Thai domain or in Thai language",
+      "why_fails": "Thai-language journalism has been prosecuted even for factual, sourced reporting. Foreign publishers with a Thai presence (printing, distribution) have been asked to redact or have been blocked. Bangkok Post and Khaosod have noted the self-censorship effect.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://freedom.ilaw.or.th/en/report/112report",
+        "https://cpj.org/reports/2023/01/thailand-lese-majeste/"
+      ],
+      "condition": "Journalism / publishing in Thailand"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not comment on, reference, or meme about the Thai monarchy while in Thailand or on platforms accessible from Thailand. Scrub prior posts before travel; lock private archives.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.ohchr.org/en/press-releases/2023/08/thailand-un-experts-deplore-surge-lese-majeste-prosecutions"
+      ],
+      "condition": "All travelers, all platforms"
+    },
+    {
+      "action": "If royal protocol is unavoidable (flag presence, anthem in cinemas, public ceremonies), stand still, remove hat, remain silent. The anthem plays before every cinema showing — standing is expected.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Public anthem, royal motorcade, temple visits"
+    },
+    {
+      "action": "Journalists, academics, activists: publish outside Thai jurisdiction, use Signal/Tor, and consult orgs like iLaw or Thai Lawyers for Human Rights before exposing identifiable sources inside Thailand.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://freedom.ilaw.or.th/en/"
+      ],
+      "condition": "Professional reporting on 112 topics",
+      "tradeoff": "Extraterritorial risk persists; entering Thailand afterward becomes risky."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 6,
+    "last_verification": "2026-04-14"
+  }
+}

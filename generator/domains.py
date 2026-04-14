@@ -125,6 +125,40 @@ KEYWORD_MAP: dict[str, list[str]] = {
     ],
 }
 
+# Supplementary keywords for culture/legal/food-safety that reflect common
+# country-specific taboos and norms. Used by the same suggest_domains()
+# lookup to route cross-cultural queries to the right canon domain.
+_EXTRA_CULTURE_KEYWORDS: list[str] = [
+    "chopstick", "meishi", "business card japan", "shoes indoors",
+    "genkan", "tiananmen", "taiwan independence", "送钟", "clock gift",
+    "number four", "floor 4", "red ink name", "fan death",
+    "lese majeste", "king of thailand", "head touch", "foot pointing",
+    "monks thailand", "left hand eating", "cow sacred", "beef hindu",
+    "caste", "head wobble", "american war vietnam",
+    "ramadan", "alcohol saudi", "dress code abaya", "unmarried pda",
+    "armenian genocide", "ataturk", "shabbat", "west bank settlement",
+    "nazi salute", "hitlergruß", "bonjour", "tu vous", "cappuccino after",
+    "pasta cut", "ok gesture brazil", "whistling indoors", "gringo",
+    "holocaust joke", "yasukuni", "tibet dalai lama",
+]
+KEYWORD_MAP["culture"] = sorted(set(KEYWORD_MAP["culture"] + _EXTRA_CULTURE_KEYWORDS))
+
+_EXTRA_LEGAL_KEYWORDS: list[str] = [
+    "lese majeste article 112", "article 301 turkey", "stgb 86a",
+    "holocaust denial", "blasphemy law", "apostasy law",
+    "khat law", "cannabis singapore", "death penalty drugs",
+    "fine spitting", "chewing gum singapore",
+]
+KEYWORD_MAP["legal"] = sorted(set(KEYWORD_MAP["legal"] + _EXTRA_LEGAL_KEYWORDS))
+
+_EXTRA_FOODSAFETY_KEYWORDS: list[str] = [
+    "halal", "haram", "kosher", "pork muslim", "pork indonesia",
+    "beef india", "raw fish pregnant", "durian hotel ban",
+]
+KEYWORD_MAP["food-safety"] = sorted(
+    set(KEYWORD_MAP["food-safety"] + _EXTRA_FOODSAFETY_KEYWORDS)
+)
+
 # Human-readable display names for domain slugs.
 # Used by build_site.py and templates for UI rendering.
 # Domains not listed here fall back to slug.replace("-", " ").title().

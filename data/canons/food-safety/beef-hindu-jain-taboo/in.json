@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/beef-hindu-jain-taboo/in",
+  "url": "https://deadends.dev/food-safety/beef-hindu-jain-taboo/in",
+  "error": {
+    "signature": "AI tells a visitor or business in India to serve beef at events, restaurants, or host dinners without regional/religious check",
+    "regex": "(india.*beef|beef.*india|cow.*sacred india|जैन.*मांसाहार|गौ.*भारत|beef ban india|gaumata|cow slaughter.*india)",
+    "domain": "food-safety",
+    "category": "religious_taboo",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "regional",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "In most Indian states cow slaughter is criminalized (Article 48 of the Constitution, plus state laws in UP, Gujarat, Maharashtra, Rajasthan, Haryana, MP, etc.) with penalties up to life imprisonment in Gujarat. Even where beef is legal (Kerala, West Bengal, NE states, Goa), serving it at mixed-audience business events is culturally loaded — many Hindus and all Jains abstain. Jain guests additionally avoid onion, garlic, and root vegetables."
+  },
+  "dead_ends": [
+    {
+      "action": "Put beef on the menu for a corporate dinner in Mumbai, Delhi, or most of North India",
+      "why_fails": "Beef is illegal under Maharashtra Animal Preservation (Amendment) Act, Delhi Agricultural Cattle Preservation Act, UP Prevention of Cow Slaughter Act — selling or possessing it is criminal. Even where legal, mixed-audience events need vegetarian-first default to accommodate Hindu and Jain guests. Meat defaults (chicken/fish/mutton) are safer than beef.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.legislative.gov.in/sites/default/files/COI_1.pdf",
+        "https://lawmin.gov.in/sites/default/files/ldOct2017.pdf"
+      ],
+      "condition": "North/West India business hospitality"
+    },
+    {
+      "action": "Assume all Indian guests eat the same menu — serve a single non-vegetarian option",
+      "why_fails": "India has very high vegetarian rates (varying 30–50% by region, higher among Gujarati, Rajasthani, and Brahmin populations). Pew Research 2021 found ~39% of Indians self-identify as vegetarian; many more avoid meat on specific days or during religious periods. Jain guests require stricter standards (no onion/garlic/root vegetables, no fermented foods).",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.pewresearch.org/religion/2021/06/29/religion-in-india-tolerance-and-segregation/",
+        "https://www.mospi.gov.in/sites/default/files/publication_reports/HCES_Report23_24L.pdf"
+      ],
+      "condition": "Mixed-religion corporate events"
+    },
+    {
+      "action": "Serve beef at a Hindu wedding or festival meal",
+      "why_fails": "This is a deep religious violation — the cow is considered sacred (गौमाता, gau mata) across Hindu traditions. The meal would typically be rejected by the hosts and would end the relationship. Even in jurisdictions where legal, this is not done.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.legislative.gov.in/sites/default/files/COI_1.pdf"
+      ],
+      "condition": "Hindu religious events"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to vegetarian-first menus for any mixed-audience event in India. Add chicken and fish/prawn options. Use mutton (goat) as the premium meat option. Never include beef or pork unless specifically hosting in the NE or coastal Goa/Kerala with a homogeneous audience that expects it.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.pewresearch.org/religion/2021/06/29/religion-in-india-tolerance-and-segregation/"
+      ],
+      "condition": "Corporate events, hotels, catering"
+    },
+    {
+      "action": "Ask in advance about Jain guests: they need 'no onion no garlic' (NONG) preparations, no root vegetables (potato, carrot, radish, ginger), no mushrooms, and sometimes no after-sunset eating. Most 5-star Indian hotels offer an explicit Jain menu.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/"
+      ],
+      "condition": "Jain attendees expected"
+    },
+    {
+      "action": "In Muslim-majority contexts (Hyderabad, parts of UP, Kashmir) beef is halal and culturally accepted. In Christian-majority Kerala/NE, beef is a staple. Confirm guest composition first; a regional cookbook is often the most reliable guide.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/"
+      ],
+      "condition": "Homogeneous audience in permissive region"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

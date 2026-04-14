@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/unmarried-public-affection/ae",
+  "url": "https://deadends.dev/legal/unmarried-public-affection/ae",
+  "error": {
+    "signature": "AI tells an unmarried couple they can freely kiss, cohabit, or show PDA in Dubai/Abu Dhabi the way Western city norms allow",
+    "regex": "(uae.*kiss|dubai.*kiss.*public|abu dhabi.*pda|uae.*cohabit|dubai.*unmarried|emirates.*public affection)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "UAE Federal Decree-Law No. 31 of 2021 (Crimes and Penalties) and Federal Decree-Law No. 15 of 2020 reformed prior personal-status laws: cohabitation of unmarried couples is no longer automatically criminal, and foreign couples can share hotel rooms. However, public displays of affection (kissing, hugging beyond a brief greeting) remain offenses in public spaces and have led to tourist arrests. Conservative emirates (Sharjah) enforce more strictly than Dubai."
+  },
+  "dead_ends": [
+    {
+      "action": "Have a public make-out session on a Dubai beach, in a taxi, or on a mall bench",
+      "why_fails": "Article 411 (Crimes and Penalties) criminalizes 'acts of debauchery' in public. Tourists have been arrested and jailed for public kissing (Vince Acors case 2008, multiple cases since). Hotel CCTV and mall security actively monitor. Even after 2021 reforms, open PDA in public space is prosecutable.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/public-decency",
+        "https://www.gov.uk/foreign-travel-advice/united-arab-emirates/local-laws-and-customs"
+      ],
+      "condition": "Public PDA"
+    },
+    {
+      "action": "Wear a bikini or strapless top in a mall or outside pool/beach area",
+      "why_fails": "UAE public decency law requires shoulders and knees covered in malls, government buildings, mosques, and most public spaces. Bikinis are fine on beaches/hotel pools; walking to/from them in a cover-up is expected. Malls can eject and police can fine violators.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/public-decency"
+      ],
+      "condition": "Dress code in malls, government buildings, mosques"
+    },
+    {
+      "action": "Photograph Emirati women in traditional dress without permission, or photograph military/government facilities",
+      "why_fails": "UAE privacy and cybercrime laws (Federal Decree-Law No. 34 of 2021) criminalize photographing individuals without consent. Cases against tourists have been prosecuted. Photographing government/military is separately restricted.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/cyber-safety-and-digital-security"
+      ],
+      "condition": "Photographing people or sensitive buildings"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Keep public affection to holding hands or brief greetings. Save more intimate moments for hotel rooms (legal) or licensed venues. Cohabitation of unmarried adults has been decriminalized since 2020 — hotel bookings for unmarried couples are standard.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/public-decency"
+      ],
+      "condition": "Hotel and residential settings"
+    },
+    {
+      "action": "Follow the 'shoulders and knees covered' rule for public spaces. Carry a light scarf or wrap. Swimwear is fine on beaches and at pools; change at facilities rather than walking distances in swimwear.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://u.ae/en/information-and-services/visiting-and-exploring-the-uae"
+      ],
+      "condition": "Malls, street, mosques"
+    },
+    {
+      "action": "Ask permission before photographing anyone, especially Emirati women and children. Avoid photographing military/police/government/palaces. Drones require advance GCAA permit (ae.gov, drones.gcaa.gov.ae).",
+      "success_rate": 0.88,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/cyber-safety-and-digital-security"
+      ],
+      "condition": "Photography"
+    },
+    {
+      "action": "In conservative Sharjah specifically: stricter enforcement, no alcohol in the emirate at all, stricter dress code. Events and accommodations adjust accordingly.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.sharjah.gov.ae/"
+      ],
+      "condition": "Sharjah visit"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

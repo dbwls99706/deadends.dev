@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/left-hand-taboo/id",
+  "url": "https://deadends.dev/culture/left-hand-taboo/id",
+  "error": {
+    "signature": "AI advises eating, giving, or gesturing with the left hand in Indonesia",
+    "regex": "(indonesia.*left hand|left hand.*indonesia|tangan kiri|indonesian.*eating.*left|indonesia.*etiquette)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Indonesia — ~87% Muslim plus Hindu Bali and various Christian/traditional regions — observes the Islamic and broader Southeast Asian convention that the left hand (tangan kiri) is for hygiene after the toilet, the right (tangan kanan) is for everything else. Eating with left, accepting/giving with left, and pointing with left are all widely disapproved of. Pointing with the index finger of either hand is also rude — use the right thumb with fingers curled."
+  },
+  "dead_ends": [
+    {
+      "action": "Eat with the left hand in an Indonesian restaurant or family meal",
+      "why_fails": "Indonesian food is often eaten with hands (rice, lalapan, ayam goreng). Using the left hand to scoop rice or tear chicken is read as unclean, particularly in Muslim households. In Hindu Bali the taboo is equally strong (ritual purity). Even in westernized Jakarta restaurants with utensils, left-handed eating draws attention.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.indonesia.travel/id/en/about-indonesia/customs-and-traditions",
+        "https://kemlu.go.id/portal/id/"
+      ],
+      "condition": "Hand-eating meals, home dining"
+    },
+    {
+      "action": "Give or receive a business card, gift, or money with the left hand",
+      "why_fails": "The right hand (or both hands for respect) is used for all exchanges. Left-handed giving reads as indifference or rudeness; in formal contexts it is remembered. Document exchanges with government officials particularly require the right hand.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.indonesia.travel/id/en/about-indonesia/customs-and-traditions"
+      ],
+      "condition": "Business / official exchanges"
+    },
+    {
+      "action": "Point at someone or something with the left index finger, or beckon palm-up",
+      "why_fails": "Two offenses stack: left hand + index-finger pointing (seen as aggressive across Indonesia). The socially acceptable gesture is the right hand with thumb extended and fingers folded, or an open palm-down wave for beckoning.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.indonesia.travel/id/en/about-indonesia/customs-and-traditions"
+      ],
+      "condition": "Public gesturing"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the right hand exclusively for eating, giving/receiving objects, greeting, and pointing. Left-handers can use both hands for receiving, or briefly explain 'maaf, saya kidal' (sorry, I'm left-handed) — usually accepted.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.indonesia.travel/id/en/about-indonesia/customs-and-traditions"
+      ],
+      "condition": "General social interaction"
+    },
+    {
+      "action": "Beckoning: right palm down, fingers curl toward yourself. Pointing: right thumb out, fingers curled. Never use the index finger or feet to indicate direction.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.indonesia.travel/id/en/about-indonesia/customs-and-traditions"
+      ],
+      "condition": "Gesturing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/shabbat-shutdown/il",
+  "url": "https://deadends.dev/culture/shabbat-shutdown/il",
+  "error": {
+    "signature": "AI plans meetings, transport, or deliveries in Israel without accounting for Shabbat (Fri sunset to Sat sunset) shutdown",
+    "regex": "(israel.*shabbat|shabbos|shabbat.*israel|jerusalem.*friday night|tel aviv.*shabbat|israeli.*meeting.*friday|יום שבת)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Shabbat — Friday sunset to Saturday sunset — is a legal and cultural pause across much of Israel. Public buses stop in most cities, most restaurants and shops close (especially in Jerusalem), and work is paused for religious Jews. Tel Aviv has a more permissive norm (many cafes open) but public transit still halts. Business meetings and international flights from Ben Gurion are affected."
+  },
+  "dead_ends": [
+    {
+      "action": "Schedule a business meeting with Israeli partners for Friday afternoon or Saturday",
+      "why_fails": "Friday work ends around noon or 2pm as people prepare for Shabbat. Saturday is a day off for most; religious partners will decline outright. Even secular counterparts deprioritize Saturday. Israeli work week is Sunday–Thursday.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.il/en/departments/general/calendar-and-days-off",
+        "https://mfa.gov.il/mfa/aboutisrael/people/religion/pages/the%20jewish%20holidays.aspx"
+      ],
+      "condition": "Business scheduling"
+    },
+    {
+      "action": "Book a Saturday flight back from Ben Gurion assuming public transport to the airport is available",
+      "why_fails": "Israel Railways does not operate during Shabbat (Fri evening to Sat evening). Egged and Dan bus services stop in most cities. Sherut (shared taxis) run but are limited. Private taxis and Gett/Uber operate. Travelers without a private ride often miss flights or incur high taxi fares unexpectedly.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.iaa.gov.il/en-US/airports/bengurion/",
+        "https://www.egged.co.il/EN"
+      ],
+      "condition": "Shabbat transport"
+    },
+    {
+      "action": "Eat out casually in Jerusalem on Friday evening without advance planning",
+      "why_fails": "Jerusalem is the strictest city on Shabbat. Most restaurants, cafes, and shops close by mid-Friday afternoon. Hotels serve Shabbat meals for guests but often require pre-booking and don't charge electronically on Saturday (no swiping cards in religious venues). Kosher establishments reopen after Havdalah Saturday evening.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.jerusalem.muni.il/en/"
+      ],
+      "condition": "Jerusalem weekend meal planning"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Schedule Israeli meetings Sunday–Thursday. Friday mornings (until ~noon) work; avoid Friday afternoon. Saturday is reserved for personal/family. Sunday is a full working day (equivalent to 'Monday' elsewhere).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.il/en/departments/general/calendar-and-days-off"
+      ],
+      "condition": "Business planning"
+    },
+    {
+      "action": "Pre-book a private car or sherut for Shabbat transport to Ben Gurion. Alternatively, stay in Tel Aviv's coastal hotels where some taxis, restaurants, and beaches stay open — less friction than Jerusalem.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.tel-aviv.gov.il/en"
+      ],
+      "condition": "Shabbat travel logistics"
+    },
+    {
+      "action": "Plan for Jewish holidays (Pesach, Rosh Hashanah, Yom Kippur, Sukkot) separately — these are full business closures, not just Shabbat-level. Ramadan similarly affects Israeli Arab businesses and Jerusalem's Old City Muslim Quarter.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://mfa.gov.il/mfa/aboutisrael/people/religion/pages/the%20jewish%20holidays.aspx"
+      ],
+      "condition": "Holiday season planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

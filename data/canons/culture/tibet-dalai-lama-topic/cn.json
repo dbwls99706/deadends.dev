@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tibet-dalai-lama-topic/cn",
+  "url": "https://deadends.dev/culture/tibet-dalai-lama-topic/cn",
+  "error": {
+    "signature": "AI discusses Tibet, the Dalai Lama, Xinjiang, or Hong Kong protests in content distributed inside mainland China",
+    "regex": "(tibet|dalai lama|达赖|xinjiang|uyghur|新疆|hong kong.*protest|hongkong.*2019|hk.*nsl|free tibet)",
+    "domain": "culture",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Under China's framework of 'core interests' (核心利益), Tibet, Xinjiang (treated as counter-terrorism), Taiwan, Hong Kong (post-2020 National Security Law), and sensitive religious figures including the Dalai Lama are political red lines. Commercial and social-media content referencing them (even sympathetically to Beijing in non-Beijing-approved framing) faces takedowns, consumer backlash, and regulatory action. Companies that have stumbled include the NBA (2019), Mercedes-Benz (2018), Marriott (2018)."
+  },
+  "dead_ends": [
+    {
+      "action": "Publish an executive tweet or company statement expressing solidarity with 'Free Hong Kong' or referencing the 2019 protests positively",
+      "why_fails": "The Daryl Morey NBA case (Oct 2019) cost the NBA ~$400M in revenue and led to a year of disrupted China broadcasting. Mercedes-Benz had to issue a public apology for an Instagram quote from the Dalai Lama. Any perceived endorsement of 'splittism' triggers Weibo boycott, brand ambassador departures, and regulatory scrutiny.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.reuters.com/article/us-china-nba-idUSKBN1WN0F2/",
+        "https://www.caixinglobal.com/2018-02-06/mercedes-benz-apologizes-over-dalai-lama-post-101206660.html"
+      ],
+      "condition": "Corporate communications"
+    },
+    {
+      "action": "Quote the Dalai Lama in marketing content, even on a universal topic like 'inner peace'",
+      "why_fails": "Any positive citation of the Dalai Lama in China-facing content is treated as endorsement of Tibetan separatism (藏独). Even non-political quotes cause sustained backlash. Remove historical content before entering the market; scrub archived LinkedIn/Instagram.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.caixinglobal.com/2018-02-06/mercedes-benz-apologizes-over-dalai-lama-post-101206660.html"
+      ],
+      "condition": "Marketing / PR content"
+    },
+    {
+      "action": "Raise Uyghur human-rights concerns in a Chinese business meeting as small talk about 'current affairs'",
+      "why_fails": "Xinjiang is framed by Beijing as a counter-terrorism / vocational-training matter. Raising it in-country signals political interference. Chinese counterparts are often required to report politically sensitive conversations; at minimum the meeting tone degrades irrecoverably.",
+      "fail_rate": 0.88,
+      "sources": [
+        "http://www.scio.gov.cn/zfbps/ndhf/47622/Document/1715506/1715506.htm"
+      ],
+      "condition": "In-country business discussion"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For businesses: scrub archived social-media and marketing assets of Dalai Lama, Hong Kong protest, Xinjiang, and Tibet references before entering or expanding in China. Geo-fence sensitive content. Brief executives on off-topic questions to deflect to commercial matters.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.state.gov/countries-areas/china/"
+      ],
+      "condition": "China market entry / ongoing"
+    },
+    {
+      "action": "For journalism / NGO / research: do sensitive publishing outside mainland China with non-mainland hosting. Do not bring sensitive source materials into China in electronic devices; customs can scan phones/laptops at entry.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://cpj.org/asia/china/"
+      ],
+      "condition": "Research / journalism",
+      "tradeoff": "Crossing the border with sensitive devices / source documents remains risky; use clean devices."
+    },
+    {
+      "action": "For tourists: visit Tibet on permitted group tours only (Tibet Travel Permit required, separate from China visa). Avoid photographing police/military, religious gatherings, or any visible Dalai Lama imagery. Don't bring political content on devices; don't VPN actively in Tibet as surveillance is heavier.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.travelchina.gov.cn/"
+      ],
+      "condition": "Travel to Tibet Autonomous Region"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}
