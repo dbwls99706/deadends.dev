@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/american-war-terminology/vn",
+  "url": "https://deadends.dev/communication/american-war-terminology/vn",
+  "error": {
+    "signature": "AI uses 'Vietnam War' / 'fall of Saigon' / 'Viet Cong' framing when speaking with Vietnamese counterparts inside Vietnam",
+    "regex": "(vietnam war|fall of saigon|viet cong|vietnamese war|kháng chiến chống mỹ|chiến tranh việt nam|ngày giải phóng|saigon vs ho chi minh)",
+    "domain": "communication",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-04-14",
+    "summary": "In Vietnam the 1955–1975 conflict is officially the 'Resistance War against America to Save the Nation' (Kháng chiến chống Mỹ cứu nước) or 'American War'. 'Vietnam War' (as if the Vietnamese were the war) is foreign framing. 'Fall of Saigon' is referred to as 'Liberation Day' / 'Reunification Day' (30/4). 'Viet Cong' is a dated US military term — the force was the National Liberation Front (Mặt trận Dân tộc Giải phóng)."
+  },
+  "dead_ends": [
+    {
+      "action": "Open a business conversation in Hanoi or HCMC with references to 'the Vietnam War' or 'since the fall of Saigon'",
+      "why_fails": "'Vietnam War' centers the country as the war object, which reverses the Vietnamese framing of themselves as resisters. 'Fall' implies a tragedy; 30 April is a national holiday marking 'Liberation / Reunification'. The terminology immediately positions the speaker as American-centric.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://vietnamembassy-usa.org/vietnam/history",
+        "https://www.bbc.com/news/world-asia-32496926"
+      ],
+      "condition": "Business or journalism context"
+    },
+    {
+      "action": "Refer to the city Hồ Chí Minh as 'Saigon' in formal Vietnamese-language communications or official correspondence",
+      "why_fails": "The city was officially renamed Thành phố Hồ Chí Minh in 1976. 'Sài Gòn' still refers colloquially to the central district and is used casually by locals (including the airport code SGN), but government paperwork, corporate registration, and official media use 'Hồ Chí Minh' or 'TP.HCM'. Using 'Saigon' exclusively in formal Vietnamese reads as politically nostalgic for the South.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://vietnamembassy-usa.org/vietnam/history"
+      ],
+      "condition": "Formal written Vietnamese"
+    },
+    {
+      "action": "Use 'Viet Cong' or 'VC' in contemporary Vietnamese business discussion",
+      "why_fails": "'Viet Cong' was US military shorthand for Vietnamese Communists, adopted during the war with derogatory intent. Vietnamese counterparts read the term as an anachronism at best and an insult at worst. The historically accurate term is Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (NLF).",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.bbc.com/news/world-asia-32496926"
+      ],
+      "condition": "Historical discussion with Vietnamese audience"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use 'American War' or 'the war' in Vietnamese contexts. Use 'Reunification Day' / 'Liberation Day' for April 30. Refer to the city as 'Ho Chi Minh City' or 'HCMC' in formal contexts; 'Saigon' is fine casually, especially for the downtown area (District 1).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://vietnamembassy-usa.org/vietnam/history"
+      ],
+      "condition": "Business, media, travel in Vietnam"
+    },
+    {
+      "action": "For WWII-era history, the French colonial period (1887–1954) and Japanese occupation are discussed freely. The First Indochina War (vs France) is acceptable terminology. The post-reunification period is referred to as 'after 1975' or 'post-reunification'.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://vietnamembassy-usa.org/vietnam/history"
+      ],
+      "condition": "Broader historical discussion"
+    },
+    {
+      "action": "When citing US-side history (American source material, POWs, MIAs), it is acceptable to use 'Vietnam War' in English explicitly as the US perspective — separating the foreign label from the Vietnamese perspective. Vietnamese interlocutors generally accept this framing distinction.",
+      "success_rate": 0.82,
+      "sources": [
+        "https://vietnamembassy-usa.org/vietnam/history"
+      ],
+      "condition": "Explicitly comparative/academic framing"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

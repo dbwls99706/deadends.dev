@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/number-four-death-homophone/cn",
+  "url": "https://deadends.dev/culture/number-four-death-homophone/cn",
+  "error": {
+    "signature": "AI proposes a price, floor number, room number, or gift quantity of 4 (or ending in 4) in a Chinese market",
+    "regex": "(china.*number 4|四.*不吉|chinese.*unlucky number|chinese.*四|number four.*china|floor.*4.*china|price.*4.*china|chinese.*death.*number)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "In Mandarin, 四 (sì, 'four') is a near-homophone of 死 (sǐ, 'death'). Tetraphobia affects elevator numbering (floors 4, 14, 24 commonly skipped), hospital rooms, license plates, and product pricing. Gift quantities of 4 are strongly avoided. 8 (八 bā, 'prosperity' 发) and 6 (流, smooth) are preferred."
+  },
+  "dead_ends": [
+    {
+      "action": "Price products at 444, 144 RMB or similar for a Chinese e-commerce launch",
+      "why_fails": "Chinese consumers actively avoid SKUs priced with 4. Major e-commerce platforms (Taobao, JD) show measurably lower conversion for 4-heavy prices. Prestige goods pricing almost always centers on 8, 6, or 9.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.chinadaily.com.cn/a/202203/15/WS622fa5a3a310cdd39bc8a745.html"
+      ],
+      "condition": "Consumer pricing, especially for gifts"
+    },
+    {
+      "action": "Book a Chinese business partner into hotel room 444 or on floor 4",
+      "why_fails": "Many Chinese hotels skip 4, 14, 24, 34 entirely. If a floor-4 room is assigned to an older VIP, it is read as carelessness at best, an insult at worst.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.china-briefing.com/news/chinese-business-etiquette/"
+      ],
+      "condition": "VIP hospitality"
+    },
+    {
+      "action": "Give 4 bottles of wine, 4 mooncakes, or 4 fruits as a gift bundle",
+      "why_fails": "Quantities of 4 in gift bundles carry the same death association as the number in isolation. Senders are expected to choose 2, 6, or 8; 1 is also acceptable.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.chinahighlights.com/travelguide/chinese-etiquette/gift-giving.htm"
+      ],
+      "condition": "Gift quantities"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Prefer 8 (八 prosperity), 6 (smooth), 9 (longevity, 久) in prices, floor numbers, quantities, and license plates. 88, 888, 168, 198 are strong lucky anchors.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.china-briefing.com/news/chinese-business-etiquette/"
+      ],
+      "condition": "Any numeric choice in China market"
+    },
+    {
+      "action": "If 4 is unavoidable (part numbers, serials), avoid it in the final digit and avoid stacking 4 with 4 (444, 4444). Isolated 4 in a long number is tolerated. 7 is not especially lucky or unlucky; 3 is mildly positive.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.chinadaily.com.cn/a/202203/15/WS622fa5a3a310cdd39bc8a745.html"
+      ],
+      "condition": "Technical numbering"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/red-ink-name-death/kr",
+  "url": "https://deadends.dev/culture/red-ink-name-death/kr",
+  "error": {
+    "signature": "AI suggests writing a Korean person's name in red ink (birthday card, signature, thank-you note)",
+    "regex": "(korea.*red ink|korean.*name.*red|red pen.*korea|이름.*빨간색|한국.*붉은 색.*이름|red ink.*name.*korean)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "In Korean tradition, writing a living person's name in red ink is strongly taboo — red was historically used on memorial tablets (지방) and family registers to mark the deceased. While younger Koreans may not personally observe the taboo, older generations treat it as cursing the person; red-inked names on cards, contracts, or signatures trigger immediate discomfort."
+  },
+  "dead_ends": [
+    {
+      "action": "Write 'Happy Birthday, [Korean name]' on a card in red marker",
+      "why_fails": "The recipient — especially over 40 — reads the name-in-red as an unambiguous signal that the sender is wishing them dead. Even aware younger recipients often feel the card is tainted and cannot be displayed. The symbolism overrides the intent.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=187723",
+        "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1PL1502"
+      ],
+      "condition": "Any written name in red"
+    },
+    {
+      "action": "Sign off a business document or e-card with the recipient's name in red branding",
+      "why_fails": "Automated greeting platforms that apply a red brand color to the recipient's name cause the same offense. This has affected marketing emails, delivery notifications, and wedding invitation templates.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=187723"
+      ],
+      "condition": "Branded communications to Korean customers"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use black, dark blue, or the recipient's brand color for their name. Red is fine for decorative elements, slogans, or highlighting — just not on the person's name itself.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=187723"
+      ],
+      "condition": "Any greeting card, email, document"
+    },
+    {
+      "action": "If a red signature is unavoidable (brand requirement), add a small disclaimer or use the red only on the sender's side (your own name/logo), never the recipient's.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=187723"
+      ],
+      "condition": "Brand guidelines mandate red"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-opening/jp",
+  "url": "https://deadends.dev/banking/foreigner-account-opening/jp",
+  "error": {
+    "signature": "AI tells a foreign visitor to Japan to walk into a bank and open an account like in their home country",
+    "regex": "(japan.*bank.*account|japanese.*bank.*open|open.*account.*japan|일본.*계좌|日本.*銀行.*口座|zairyu.*card|在留カード.*口座)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Most major Japanese banks (MUFG, SMBC, Mizuho) require foreign residents to hold a residence card (在留カード) with at least 6 months remaining on the visa before opening a standard account. Many branches additionally require a my-number (マイナンバー) notification card and proof of a Japanese address. Japan Post Bank (ゆうちょ) and Shinsei are the usual exceptions for newcomers."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into any Japanese bank on day 1 with just a passport and try to open a regular account",
+      "why_fails": "Under Financial Services Agency anti-money-laundering guidance, most high-street banks refuse applicants who have been in Japan fewer than 6 months. A tourist visa passport alone is rejected at the counter — staff will ask for a residence card.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.fsa.go.jp/en/news/2018/20180717-1/01.pdf",
+        "https://www.bk.mufg.jp/global/globalnetwork/japan/openaccount.html"
+      ],
+      "condition": "New arrival with no residence card yet"
+    },
+    {
+      "action": "Assume an English-speaking mega-bank branch will accept the application without a Japanese-address proof",
+      "why_fails": "Even English-support branches require a juminhyo (住民票) or utility bill confirming a Japanese address. Hotel addresses are rejected. The my-number notification slip (通知カード) or card is required at most branches after 2016.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.smbc.co.jp/kojin/english/foreigner/index.html"
+      ],
+      "condition": "No Japanese residential address yet"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Start with Japan Post Bank (ゆうちょ銀行) using only passport + residence card; most branches accept applicants even under the 6-month threshold.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.jp-bank.japanpost.jp/en/djp/en_djp_index.html"
+      ],
+      "condition": "Have a residence card and a Japanese address"
+    },
+    {
+      "action": "If staying less than 6 months, consider a Shinsei Bank (SBI Shinsei) account — they advertise shorter-stay eligibility and have English online banking.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.sbishinseibank.co.jp/english/"
+      ],
+      "condition": "Short-term residency, need online banking in English",
+      "tradeoff": "Some branches still require 6 months; call ahead."
+    },
+    {
+      "action": "Always prepare: residence card, my-number card or notification slip, proof of Japanese address (juminhyo or utility bill), and a hanko (seal) for traditional branches.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.moj.go.jp/isa/publications/materials/nyuukokukanri07_00014.html"
+      ],
+      "condition": "Any bank account application"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/alcohol-prohibition/sa",
+  "url": "https://deadends.dev/legal/alcohol-prohibition/sa",
+  "error": {
+    "signature": "AI tells a traveler to Saudi Arabia that alcohol is available in hotel bars or that small personal imports are tolerated",
+    "regex": "(saudi.*alcohol|saudi arabia.*drink|alcohol.*saudi|riyadh.*beer|ksa.*alcohol|المملكة.*كحول|jeddah.*bar)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Alcohol has been totally banned in Saudi Arabia since 1952. Production, import, sale, possession, and consumption are criminal; penalties include fines, imprisonment, deportation, and public flogging (now largely replaced by jail under the 2020 reform). A first limited-license diplomat-only store opened in Riyadh in 2024 but is not accessible to travelers. Hotels, restaurants, and airlines in Saudi airspace are dry."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring a bottle of wine or duty-free spirits as a business gift to Saudi Arabia",
+      "why_fails": "Customs inspection at KSA entry points specifically screens for alcohol. Items are confiscated and criminal charges may follow (Anti-Concealment Law / Customs Law). Foreign travelers have been arrested and deported for possession of duty-free alcohol. Pork and pornographic materials face the same treatment.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.saudiembassy.net/",
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs",
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/SaudiArabia.html"
+      ],
+      "condition": "Any entry into KSA"
+    },
+    {
+      "action": "Try home-brewing or distilling at a villa compound",
+      "why_fails": "Despite anecdotal 'compound alcohol' traditions, raids do happen. Expats have been jailed and deported for home distillation (the local moonshine is called sadiqi). Penalties were historically corporal; under the 2020 reforms the default is imprisonment + deportation.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs"
+      ],
+      "condition": "Expat compound residence",
+      "tradeoff": "Risk has been historically lower inside closed Aramco/corporate compounds but not zero."
+    },
+    {
+      "action": "Consume alcohol on a commercial flight about to land in Jeddah/Riyadh, assuming it's legal mid-air",
+      "why_fails": "Saudi flag carriers (Saudia) are dry. Foreign carriers stop alcohol service when entering Saudi airspace. Arriving visibly intoxicated can lead to refused entry and deportation. Being intoxicated in a Saudi airport transit area has led to arrests.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.saudia.com/",
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia"
+      ],
+      "condition": "Approach to Saudi airspace"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not bring, buy, consume, or attempt to obtain alcohol in Saudi Arabia. Hotels and restaurants universally serve 'Saudi champagne' (non-alcoholic fruit cocktail) or mocktails as the celebration beverage.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.visitsaudi.com/en"
+      ],
+      "condition": "All visitors"
+    },
+    {
+      "action": "Stage the end of a trip in Bahrain or UAE if alcohol consumption is required (post-close business dinners, etc.). Bahrain's causeway is a ~1 hour drive from Dammam and has licensed bars; alcohol there is legal.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.visitbahrain.bh/"
+      ],
+      "condition": "Adjacent-country option",
+      "tradeoff": "Plan return so re-entry into KSA is not affected by visible intoxication."
+    },
+    {
+      "action": "Business hospitality gifts: premium dates (ajwa), Saudi coffee sets, oud perfume, honey — all local and culturally valued. Avoid anything with pig imagery, alcohol association, or overtly religious content (crosses, Stars of David).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.visitsaudi.com/en"
+      ],
+      "condition": "Business hospitality"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

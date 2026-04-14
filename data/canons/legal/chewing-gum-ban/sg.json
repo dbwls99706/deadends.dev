@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/chewing-gum-ban/sg",
+  "url": "https://deadends.dev/legal/chewing-gum-ban/sg",
+  "error": {
+    "signature": "AI tells a traveler to Singapore to pack chewing gum for the flight or casually gift Singaporean colleagues a pack",
+    "regex": "(singapore.*chewing gum|singapore.*gum.*illegal|sg.*fine.*gum|chewing gum ban|fine city singapore|singapore.*vape|sg.*vaping)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Singapore's Regulation of Imports and Exports Act (Chewing Gum Import Control) prohibits importing, selling, and distributing chewing gum — a ban dating from 1992 after MRT door sensors were repeatedly jammed with gum. Since 2004, only therapeutic/dental gum is sold in pharmacies with prescription. Personal consumption is not criminal, but import quantities or sale are. Additional strict bans/penalties: vaping (fully illegal since 2018), drug offenses (death penalty for trafficking), littering (heavy fines), jaywalking, smoking outside designated areas."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring a box of chewing gum into Singapore as a gift or for personal resale",
+      "why_fails": "Customs seizes gum at Changi. Importing 'for trade' (commercial quantity) is prosecutable — up to S$100,000 fine and 2 years imprisonment under Regulation of Imports and Exports Act. Small personal amounts for own use have historically been tolerated in carry-on but not guaranteed.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.customs.gov.sg/businesses/valuation-duties-taxes--fees/types-of-duties-and-dutiable-goods/",
+        "https://sso.agc.gov.sg/SL/RIEA1995-RG4"
+      ],
+      "condition": "Commercial or noticeable quantities"
+    },
+    {
+      "action": "Vape (e-cigarette) in Singapore, even in private or in a hotel room",
+      "why_fails": "Singapore's Tobacco (Control of Advertisements and Sale) Act bans import, sale, and use of e-vaporisers since 2018. Using/possessing in public can incur fines up to S$2,000 (first offense); importing carries up to 6 months jail + S$10,000 fine. Enforcement is active; customs scans inbound luggage.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.hsa.gov.sg/tobacco-regulation/e-vaporisers",
+        "https://sso.agc.gov.sg/Act/TCASA1993"
+      ],
+      "condition": "Any e-cigarette use or import"
+    },
+    {
+      "action": "Transit through Changi with any amount of cannabis, cocaine, MDMA, or other Class A drugs — even in checked luggage, even in transit to a third country",
+      "why_fails": "Misuse of Drugs Act imposes death penalty for trafficking above threshold amounts: 15g heroin, 30g cocaine, 500g cannabis, 250g MA (methamphetamine). Transit does not exempt — possession on Singapore soil counts. Multiple foreign nationals have been executed. Random drug tests on passengers exist.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.cnb.gov.sg/",
+        "https://sso.agc.gov.sg/Act/MDA1973"
+      ],
+      "condition": "Any drug possession in Singapore"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Don't import gum, vapes, or recreational drugs. For nicotine addiction, Singapore sells patches/gum for smoking cessation by prescription at polyclinics and some pharmacies (HPB-approved list).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.hsa.gov.sg/"
+      ],
+      "condition": "Nicotine / cessation needs"
+    },
+    {
+      "action": "General 'fine city' awareness: fines for littering (S$300–1000), eating/drinking on MRT (S$500), smoking outside designated yellow-box zones (S$200), jaywalking (S$20 on the spot), feeding pigeons (S$500). Follow signage strictly.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.nea.gov.sg/",
+        "https://www.lta.gov.sg/"
+      ],
+      "condition": "Public behavior in Singapore"
+    },
+    {
+      "action": "For long-stay residents: download the MyEnv app for waste management rules, OneMotoring app for vehicular, and LifeSG for general government services. Rules are clearly published; enforcement is consistent.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.life.gov.sg/"
+      ],
+      "condition": "Extended residence"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

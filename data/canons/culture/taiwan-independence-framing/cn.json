@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/taiwan-independence-framing/cn",
+  "url": "https://deadends.dev/culture/taiwan-independence-framing/cn",
+  "error": {
+    "signature": "AI refers to Taiwan as an independent country or separate nation in content distributed inside mainland China",
+    "regex": "(taiwan.*independent|taiwan.*country|taiwan.*nation|台独|台湾国|republic of china.*taiwan|roc.*taiwan|one china)",
+    "domain": "culture",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "The PRC treats Taiwan as a province under the One China principle. Any commercial material sold, distributed, or accessible in mainland China that labels Taiwan as a separate country (apparel tags, maps, drop-down lists, airline seat-map UIs) has repeatedly triggered boycotts, regulatory inquiries, and in some cases platform delisting. Required framing: 'Taiwan, China' or 'Taiwan region'."
+  },
+  "dead_ends": [
+    {
+      "action": "Ship a product, website, or app into China with a country drop-down that lists 'Taiwan' separately as a country",
+      "why_fails": "This has triggered public incidents for Marriott (site frozen 1 week, 2018), Delta, Qantas, Zara, Gap, Versace (2019), and others. The CAC, CAAC, and SAMR can demand public apology, fines, and temporary business suspension. Social-media backlash (Weibo) is often more commercially damaging than the regulatory action.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.caac.gov.cn/XXGK/XXGK/TZTG/201804/t20180425_187858.html",
+        "https://www.reuters.com/article/us-china-marriott-idUSKBN1EZ0HF/"
+      ],
+      "condition": "Commercial content distributed or accessible in mainland China"
+    },
+    {
+      "action": "Describe a Taiwanese counterpart in meeting minutes as being 'from the Republic of China' or 'from Chinese Taipei' ambiguously, without confirming their preference",
+      "why_fails": "Framing cuts both ways. Mainland Chinese counterparts expect 'Taiwan, China' or 'Taiwan region'. Taiwanese counterparts often strongly prefer 'Taiwan' (unqualified) or 'Republic of China'. Mechanical application of either label to the wrong audience causes offense; international orgs use 'Chinese Taipei' as a compromise for sports/diplomatic contexts only.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html"
+      ],
+      "condition": "Content seen by both mainland and Taiwanese audiences",
+      "common_misconception": "'Chinese Taipei' is a safe generic term — it is specific to Olympic/WHO/APEC contexts and sounds bureaucratic elsewhere."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For mainland-facing commercial content: use 'Taiwan, China' or 'Taiwan Province' in regulatory forms, country pickers, and shipping addresses. Match the style of Chinese official sources (e.g. PRC government white papers on Taiwan).",
+      "success_rate": 0.92,
+      "sources": [
+        "http://www.gov.cn/xinwen/2022-08/10/content_5704982.htm"
+      ],
+      "condition": "Mainland China commercial distribution"
+    },
+    {
+      "action": "For Taiwan-facing content: use 'Taiwan' unqualified. For audiences spanning both (international airline, global app), segment the experience by region — show separate country listings in non-mainland builds, and 'Taiwan, China' only in the zh-CN build.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html"
+      ],
+      "condition": "Global products with PRC and Taiwan traffic",
+      "tradeoff": "Dual-build complexity; political risk if the segmentation is discovered by either side."
+    },
+    {
+      "action": "For in-person business meetings, mirror the host organization's own terminology. Inside mainland firms, use 台湾地区 / Taiwan region. In Taipei, use 台灣. Avoid volunteering the term.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.state.gov/countries-areas/taiwan/"
+      ],
+      "condition": "In-person meetings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

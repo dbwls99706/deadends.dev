@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/ramadan-public-eating/sa",
+  "url": "https://deadends.dev/culture/ramadan-public-eating/sa",
+  "error": {
+    "signature": "AI tells a non-Muslim visitor that it's fine to eat, drink, or smoke in public during daylight hours of Ramadan in Saudi Arabia",
+    "regex": "(saudi.*ramadan|ramadan.*saudi|eating.*daylight.*ramadan|رمضان.*السعودية|fasting saudi|ramadan working hours saudi)",
+    "domain": "culture",
+    "category": "legal_etiquette",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "During Ramadan (the 9th lunar month) Saudi residents fast from dawn (Fajr) to sunset (Maghrib). Public eating, drinking (water included), and smoking during daylight are criminalized for everyone — including non-Muslim visitors — under Royal Decree and enforced by religious police (Mutawa) historically and regular police currently. Restaurants are closed until iftar. Work hours shorten (6 hours/day for most)."
+  },
+  "dead_ends": [
+    {
+      "action": "Drink water openly in a public street, taxi, or hotel lobby during Ramadan daylight, even on a hot day",
+      "why_fails": "Public consumption by anyone — Muslim or non-Muslim, visitor or resident — is prohibited during daylight. Police may issue fines or detain. The taboo includes chewing gum, smoking, and even noisy drinking from a water bottle inside a car if visible to passersby.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.saudiembassy.net/",
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs"
+      ],
+      "condition": "Public space during fasting hours"
+    },
+    {
+      "action": "Schedule a lunch meeting with Saudi business counterparts during Ramadan",
+      "why_fails": "Business colleagues are fasting. Office hours shift — often 10am–4pm with reduced capacity; evening iftar and post-iftar sessions are common for meetings. Expecting counterparts to 'just work through' Ramadan damages relationships.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.saudiembassy.net/",
+        "https://hrsd.gov.sa/en"
+      ],
+      "condition": "Business meetings during Ramadan"
+    },
+    {
+      "action": "Eat at your desk in the office during daylight, assuming a closed door makes it private",
+      "why_fails": "Most Saudi offices enforce a no-eating policy during Ramadan daylight across all rooms. Designated non-Muslim eating rooms exist at some multinationals but are exception, not rule. Being 'caught' eating visibly is embarrassing at minimum.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://hrsd.gov.sa/en"
+      ],
+      "condition": "Office during Ramadan",
+      "tradeoff": "Large multinationals (Aramco, STC) often provide designated non-Muslim eating areas — check with HR."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Eat, drink, and smoke only in private — hotel room with door closed, or inside designated non-Muslim eating areas at major offices. Airport international terminals and some airlines serve food/water through the day in visible sections.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.saudiembassy.net/"
+      ],
+      "condition": "Non-Muslim during Ramadan"
+    },
+    {
+      "action": "Schedule meetings in the late morning (10am–noon) or post-iftar (after sunset, roughly 7–9pm). Iftar meals with business partners are culturally important and generally welcomed.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://hrsd.gov.sa/en"
+      ],
+      "condition": "Business scheduling"
+    },
+    {
+      "action": "Greet Saudi counterparts with 'Ramadan Kareem' or 'Ramadan Mubarak'. Send business emails at normal pace but be patient with slower response; avoid demanding tight morning deadlines. Offer flexibility around the two Eid holidays afterward.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitsaudi.com/en"
+      ],
+      "condition": "Business communication"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

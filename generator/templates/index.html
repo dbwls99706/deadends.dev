@@ -286,6 +286,20 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     </ul>
   </section>
 
+  {% if country_stats %}
+  <section>
+    <h2>Browse by country</h2>
+    <p class="meta">Real-world dead ends that vary by jurisdiction — visa, banking, legal, cultural, emergency pitfalls where one-size-fits-all advice fails.</p>
+    <ul class="domain-list">
+      {% for country in country_stats %}
+      <li>
+        <a href="{{ base_path }}/country/{{ country.slug }}/">{{ country.name }} <span class="count">— {{ country.count }} entr{{ 'ies' if country.count != 1 else 'y' }}</span></a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <section class="api-section">
     <h2>For AI Agents</h2>
     <p>Every page includes machine-readable data in multiple formats:</p>

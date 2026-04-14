@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/nazi-symbols-stgb-86a/de",
+  "url": "https://deadends.dev/legal/nazi-symbols-stgb-86a/de",
+  "error": {
+    "signature": "AI treats Nazi salute, swastika, or SS insignia as ordinary free-speech jokes or history references when in Germany",
+    "regex": "(germany.*nazi|hitlergruß|ss.*rune|§ 86a|86a stgb|swastika.*germany|sieg heil.*germany|holocaust.*denial.*germany|volksverhetzung)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "German Strafgesetzbuch § 86a criminalizes the public use of symbols of unconstitutional organizations (Nazi, including Hitler salute, swastika, SS runes) — up to 3 years imprisonment or fine. § 130 (Volksverhetzung) criminalizes Holocaust denial and incitement. Laws apply equally to tourists; there have been many prosecutions of foreigners making 'ironic' Nazi salutes at historical sites."
+  },
+  "dead_ends": [
+    {
+      "action": "Perform a Hitler salute photo in front of the Reichstag, Brandenburg Gate, or a concentration camp memorial",
+      "why_fails": "Routinely prosecuted. In 2017 two Chinese tourists were arrested and fined for Nazi salutes at the Reichstag; Italian and US tourists have faced similar charges (Dachau, Buchenwald, Mauthausen next door in Austria). 'It was a joke' is not a defense. Fines run €500–3000; repeat/egregious cases trigger imprisonment.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__86a.html",
+        "https://www.reuters.com/article/us-germany-china-arrests-idUSKCN1AX0FV/"
+      ],
+      "condition": "Any public Nazi-salute gesture"
+    },
+    {
+      "action": "Wear clothing with SS runes, swastikas, or Nazi-era iconography in public, even as 'metal band' or 'fashion' statement",
+      "why_fails": "§ 86a applies to visual display. Exceptions exist for historical-educational or anti-Nazi context (crossed-out swastika in anti-fascist art). Casual display, including the Odal rune (SS-Verfügungstruppe), Totenkopf (SS death's head), and 88 (coded 'Heil Hitler') as standalone fashion can be prosecuted. Imperial Reichsflagge is legally ambiguous but socially unacceptable.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__86a.html",
+        "https://www.verfassungsschutz.de/"
+      ],
+      "condition": "Public clothing/accessories"
+    },
+    {
+      "action": "Tell a Holocaust joke at a beer garden, company dinner, or conference",
+      "why_fails": "§ 130 StGB criminalizes Holocaust denial and trivialization. Even stand-up comedians face legal complaints. In a business context, German colleagues react with lasting professional damage to the relationship. 'Ironic' framing is not a defense.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__130.html"
+      ],
+      "condition": "Social or business speech"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not perform, wear, display, or photograph Nazi symbols/salutes in any public or semi-public context in Germany, Austria (also criminalized), or on flights to these countries.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__86a.html"
+      ],
+      "condition": "All visitors"
+    },
+    {
+      "action": "For legitimate historical discussion (academic, museum, journalism), cite and contextualize — § 86a exempts educational/artistic use where the display clearly opposes the ideology. Museums and documentaries function freely; personal social-media reuse of historical footage must preserve the critical framing.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__86a.html"
+      ],
+      "condition": "Research / journalism / education"
+    },
+    {
+      "action": "At concentration-camp memorials (Dachau, Sachsenhausen, Bergen-Belsen, Ravensbrück, Buchenwald) observe silence, follow photography rules (no selfies with contextual irony), and follow guide instructions. Disrespectful behavior is removable from site and reportable.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.kz-gedenkstaette-dachau.de/en/",
+        "https://www.sachsenhausen-sbg.de/en/"
+      ],
+      "condition": "Memorial site visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

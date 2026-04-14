@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/whistling-indoors-money-away/ru",
+  "url": "https://deadends.dev/culture/whistling-indoors-money-away/ru",
+  "error": {
+    "signature": "AI treats Russian home customs as equivalent to Western — whistles indoors, shakes hands across a doorway, gifts an even-number flower bouquet",
+    "regex": "(russia.*whistling|russian.*indoor.*superstition|russian.*handshake threshold|russian.*flower.*even|russia.*etiquette|russian.*13|russia.*shoes indoors|tapochki)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Russian home etiquette carries several still-observed superstitions: whistling indoors brings financial loss ('высвистеть деньги'), shaking hands or passing objects across a threshold (порог) brings conflict, gifting an even-number bouquet is reserved for funerals (odd numbers for the living), and outdoor shoes are removed at the door in favor of tapochki (slippers). These are routinely observed even by secular urban Russians."
+  },
+  "dead_ends": [
+    {
+      "action": "Whistle a tune while walking through a Russian friend's home or apartment",
+      "why_fails": "The saying 'не свисти — денег не будет' (don't whistle, there will be no money) is broadly observed; hosts — even young, urban — will ask you to stop. The superstition is treated half-seriously but the request is real.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions",
+        "https://www.culture.ru/"
+      ],
+      "condition": "Inside a Russian home"
+    },
+    {
+      "action": "Reach across a threshold to shake hands or pass a gift to a Russian host on the doorstep",
+      "why_fails": "The threshold (порог) is considered a liminal space where the house-spirit (домовой) resides. Shaking hands or handing over objects across it is believed to invite quarrel. Either step fully inside the apartment first, or wait until the host steps out, before the exchange.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions"
+      ],
+      "condition": "Arrival / departure at Russian home"
+    },
+    {
+      "action": "Bring a bouquet of 12, 8, or 10 flowers to a Russian host",
+      "why_fails": "Even-number bouquets (2, 4, 6, 8, 10, 12) are associated exclusively with funerals/mourning. Living people receive odd-number bouquets (3, 5, 7, 9, 11). Florists in Russia enforce the rule by default — buying 12 roses at a local Russian флорист produces an 11 or 13 stem count with explanation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions",
+        "https://www.culture.ru/"
+      ],
+      "condition": "Gift bouquet for a person"
+    },
+    {
+      "action": "Keep shoes on when entering a Russian home, assuming 'European casual'",
+      "why_fails": "Shoes off at the door is near-universal in Russia; guests are offered тапочки (slippers). Walking into a home in street boots (especially winter slush) is seen as careless. Formal dinners, too.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.rbth.com/lifestyle/"
+      ],
+      "condition": "Home visits"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Don't whistle indoors. If gifted flowers, give odd counts (3, 5, 7...). Step fully through doorways before shaking hands or handing objects. Remove shoes at the door; accept tapochki.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions"
+      ],
+      "condition": "Russian home visits"
+    },
+    {
+      "action": "Other quick norms: don't mention future plans in detail before they happen (may 'jinx'), don't give empty wallet/purse as gift (always include a small coin), don't put empty bottles back on the table (put on the floor), don't sit at the corner of the table if single (folk belief: no marriage for 7 years).",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions"
+      ],
+      "condition": "Broader dining / gift etiquette"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -107,7 +107,57 @@ KEYWORD_MAP: dict[str, list[str]] = {
         "dog toxic", "cat toxic", "pet poison",
         "chocolate dog", "xylitol", "onion dog",
     ],
+    # Country-specific real-world knowledge (jurisdiction/culture-bound)
+    "visa": [
+        "visa", "passport", "residency", "work permit",
+        "immigration", "overstay", "esta", "schengen",
+        "arc", "alien registration", "visa waiver",
+    ],
+    "banking": [
+        "bank account", "open account", "foreigner account",
+        "wire transfer", "iban", "swift", "routing number",
+        "sort code", "bic", "ssn banking", "my number",
+    ],
+    "emergency": [
+        "emergency number", "911", "112", "119", "999",
+        "ambulance", "police non-emergency", "embassy emergency",
+        "lost passport", "medical evacuation",
+    ],
 }
+
+# Supplementary keywords for culture/legal/food-safety that reflect common
+# country-specific taboos and norms. Used by the same suggest_domains()
+# lookup to route cross-cultural queries to the right canon domain.
+_EXTRA_CULTURE_KEYWORDS: list[str] = [
+    "chopstick", "meishi", "business card japan", "shoes indoors",
+    "genkan", "tiananmen", "taiwan independence", "送钟", "clock gift",
+    "number four", "floor 4", "red ink name", "fan death",
+    "lese majeste", "king of thailand", "head touch", "foot pointing",
+    "monks thailand", "left hand eating", "cow sacred", "beef hindu",
+    "caste", "head wobble", "american war vietnam",
+    "ramadan", "alcohol saudi", "dress code abaya", "unmarried pda",
+    "armenian genocide", "ataturk", "shabbat", "west bank settlement",
+    "nazi salute", "hitlergruß", "bonjour", "tu vous", "cappuccino after",
+    "pasta cut", "ok gesture brazil", "whistling indoors", "gringo",
+    "holocaust joke", "yasukuni", "tibet dalai lama",
+]
+KEYWORD_MAP["culture"] = sorted(set(KEYWORD_MAP["culture"] + _EXTRA_CULTURE_KEYWORDS))
+
+_EXTRA_LEGAL_KEYWORDS: list[str] = [
+    "lese majeste article 112", "article 301 turkey", "stgb 86a",
+    "holocaust denial", "blasphemy law", "apostasy law",
+    "khat law", "cannabis singapore", "death penalty drugs",
+    "fine spitting", "chewing gum singapore",
+]
+KEYWORD_MAP["legal"] = sorted(set(KEYWORD_MAP["legal"] + _EXTRA_LEGAL_KEYWORDS))
+
+_EXTRA_FOODSAFETY_KEYWORDS: list[str] = [
+    "halal", "haram", "kosher", "pork muslim", "pork indonesia",
+    "beef india", "raw fish pregnant", "durian hotel ban",
+]
+KEYWORD_MAP["food-safety"] = sorted(
+    set(KEYWORD_MAP["food-safety"] + _EXTRA_FOODSAFETY_KEYWORDS)
+)
 
 # Human-readable display names for domain slugs.
 # Used by build_site.py and templates for UI rendering.
@@ -152,6 +202,10 @@ DOMAIN_DISPLAY_NAMES: dict[str, str] = {
     "disaster": "Disaster",
     "legal": "Legal",
     "pet-safety": "Pet Safety",
+    # Country-specific
+    "visa": "Visa & Immigration",
+    "banking": "Banking & Finance",
+    "emergency": "Emergency",
 }
 
 

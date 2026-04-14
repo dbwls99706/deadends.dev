@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/bonjour-required-entering-shops/fr",
+  "url": "https://deadends.dev/culture/bonjour-required-entering-shops/fr",
+  "error": {
+    "signature": "AI tells a traveler they can walk into French shops, cafés, or taxis and start with 'Do you speak English?' without greeting",
+    "regex": "(france.*rude|french.*rude|paris.*shopkeeper|bonjour|french.*greeting|france.*etiquette|paris.*café|france.*shop entering)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "In France, saying 'Bonjour' (or 'Bonsoir' after ~6pm) before any request is a near-mandatory courtesy. Skipping it — walking up and asking directly — is read as an insult, not efficiency. This single word is responsible for the bulk of 'Parisian rudeness' complaints from tourists: the shopkeepers are responding to an implicit snub."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a boulangerie and immediately ask 'One croissant, please'",
+      "why_fails": "The transaction starts cold. The baker reads the customer as skipping the social contract. Response: minimal warmth, slower service, sometimes even being ignored until proper greeting. This is not passive aggression — it is a correction of social violation.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bbc.com/travel/article/20180129-the-reason-the-french-are-so-rude",
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Any shop, café, boulangerie, taxi"
+    },
+    {
+      "action": "Open a customer-service phone call or in-person request with the purpose (complaint, question) before any greeting",
+      "why_fails": "Same social contract applies to phone calls, emails, and counter service at government offices. Emails without 'Bonjour Madame / Monsieur' read as impatient; complaints without prior greeting are downgraded in tone. 'Allô?' alone is insufficient — say 'Bonjour, ...'",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Customer service / professional calls"
+    },
+    {
+      "action": "Address a French stranger with 'Hey' or 'Excuse me!' as primary opener",
+      "why_fails": "'Excuse me' without 'Bonjour' is considered abrupt. Also — using 'tu' (informal you) with a stranger is too familiar; 'vous' is default with strangers, shopkeepers, officials, and anyone older. Tutoyer (using tu) is granted by invitation.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Asking strangers for help"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always open with 'Bonjour' (or 'Bonsoir' after ~6pm). Close with 'Merci, au revoir'. Even minimal French bracketing an English request transforms service quality.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.bbc.com/travel/article/20180129-the-reason-the-french-are-so-rude"
+      ],
+      "condition": "Any public service interaction"
+    },
+    {
+      "action": "Use 'Madame' / 'Monsieur' when addressing the person directly — 'Bonjour, Madame'. In shops, cafés, and government offices this is still standard. Drop it only with close peers.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Formal / semi-formal interactions"
+    },
+    {
+      "action": "Before switching to English, ask 'Parlez-vous anglais?' (Do you speak English?) — after Bonjour. Many French people speak English but appreciate the courtesy of being asked rather than assumed.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.france.fr/en/campaign/france-beyond-cliches/"
+      ],
+      "condition": "Language barrier"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

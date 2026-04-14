@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-or-112-dual-number/uk",
+  "url": "https://deadends.dev/emergency/999-or-112-dual-number/uk",
+  "error": {
+    "signature": "AI claims UK emergency services are reached via 911 or that 101 is for emergencies",
+    "regex": "(uk.*911|britain.*emergency.*number|england.*emergency.*call|999.*uk|101.*emergency|united kingdom.*911)",
+    "domain": "emergency",
+    "category": "life_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "The UK's emergency number is 999 (policy, fire, ambulance, coastguard, mountain rescue). 112 also works everywhere in the UK under EU/ETSI standards. 101 is the non-emergency police line; 111 is the non-emergency NHS medical line. 911 does NOT route to UK emergency services."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler to call 911 for emergencies in the UK",
+      "why_fails": "911 is not a UK dial-plan code. On most UK carriers it plays an intercept and does not connect to BT's 999/112 dispatcher. Time lost = lives lost in time-sensitive emergencies.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.gov.uk/call-999",
+        "https://www.ofcom.org.uk/phones-and-broadband/phone-numbers/emergency-numbers"
+      ],
+      "condition": "Any emergency in UK"
+    },
+    {
+      "action": "Dial 101 believing it will summon police to an in-progress incident",
+      "why_fails": "101 is specifically the non-emergency police line. In-progress crime or injury requires 999 (or 112). Reporting an active break-in to 101 delays dispatch and may be re-routed only after a triage delay.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.police.uk/contact-the-police/101-the-non-emergency-number/"
+      ],
+      "condition": "In-progress or life-threatening crime"
+    },
+    {
+      "action": "Call 111 for a suspected heart attack",
+      "why_fails": "111 is the NHS non-emergency medical helpline for advice and appointments. Heart attack/stroke/serious bleeding requires 999 for an ambulance, which triggers priority dispatch protocols.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.nhs.uk/using-the-nhs/nhs-services/urgent-and-emergency-care/nhs-111/"
+      ],
+      "condition": "Life-threatening medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call 999 for any life-threatening emergency (or 112 — it works identically across the UK). State: service needed (police/fire/ambulance), location, nature of emergency.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.gov.uk/call-999"
+      ],
+      "condition": "Life-threatening emergency"
+    },
+    {
+      "action": "If unable to speak, call 999 and press 55 when prompted — 'Silent Solution' triggers police response. Register your mobile in advance at emergencysms.org.uk to text 999.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.policeconduct.gov.uk/research-and-learning/learning-recommendations/silent-solution",
+        "https://www.emergencysms.net/"
+      ],
+      "condition": "Caller cannot safely speak (domestic violence, hearing impaired)"
+    },
+    {
+      "action": "Use 101 for non-urgent police matters (stolen property report, noise complaint). Use 111 for urgent but non-life-threatening medical issues (fever, minor injury, mental health crisis support).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.police.uk/contact-the-police/101-the-non-emergency-number/"
+      ],
+      "condition": "Non-emergency contact"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

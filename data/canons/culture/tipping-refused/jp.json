@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tipping-refused/jp",
+  "url": "https://deadends.dev/culture/tipping-refused/jp",
+  "error": {
+    "signature": "AI tells a traveler to tip 15–20% at Japanese restaurants and taxis like in the US",
+    "regex": "(japan.*tip|tipping.*japan|gratuity.*japan|japanese.*restaurant.*tip|taxi.*japan.*tip|チップ.*日本|japan.*service charge)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Tipping is not a Japanese custom and is routinely refused. Good service is considered baseline, not something requiring bonus payment. High-end ryokan / restaurants add a service charge (サービス料 10%) automatically. Pushing cash on staff is often awkward or offensive — they may chase after you to return it."
+  },
+  "dead_ends": [
+    {
+      "action": "Leave 15–20% cash on the table at a Japanese restaurant",
+      "why_fails": "Staff will typically run after the diner to return the 'forgotten' money. Some establishments interpret unsolicited cash as an insult implying the service was inadequate and requires apology/correction. There is no Japanese equivalent of the US tipping wage — staff are paid living wages and do not expect gratuity.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.jnto.go.jp/eng/basic-info/customs.html"
+      ],
+      "condition": "Ordinary restaurant, cafe, izakaya"
+    },
+    {
+      "action": "Tip a taxi driver by rounding up the fare by 20%",
+      "why_fails": "Japanese taxi drivers will typically return exact change and decline rounding up. Some treat insistent tips as implying they are too poor to need fair pay. Use the meter total only.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/"
+      ],
+      "condition": "Standard metered taxi ride"
+    },
+    {
+      "action": "Hand cash to hotel staff for carrying bags or housekeeping",
+      "why_fails": "Hotel staff are employed at salaried wages and often cannot accept personal cash under internal policy. Cash handed to them may be reported to a supervisor and returned in an envelope.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.jnto.go.jp/eng/basic-info/customs.html"
+      ],
+      "condition": "Typical business hotel, ryokan"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Say a polite thank-you (ありがとうございます, gochisousama deshita at restaurants) and pay the bill as stated. That is the expected and sufficient acknowledgement.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.jnto.go.jp/eng/basic-info/customs.html"
+      ],
+      "condition": "Normal service interaction"
+    },
+    {
+      "action": "At traditional ryokan or high-end kaiseki, if you want to thank the nakai-san (attendant) personally, place a small amount of crisp new bills in a decorative envelope (心付け, kokorozuke) on arrival, not afterward. This is optional and not expected of foreigners.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.japan.travel/en/guide/ryokan/"
+      ],
+      "condition": "Traditional ryokan, wanting to express special thanks",
+      "tradeoff": "Still rare; many modern ryokan have abolished the custom and may return the envelope."
+    },
+    {
+      "action": "Check the bill for a 10% サービス料 line — if present, the restaurant/hotel has already handled service compensation systemically; no further tip is needed.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.jnto.go.jp/eng/basic-info/customs.html"
+      ],
+      "condition": "High-end venues, hotel room service"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

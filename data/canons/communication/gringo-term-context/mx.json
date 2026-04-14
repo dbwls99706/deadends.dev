@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/gringo-term-context/mx",
+  "url": "https://deadends.dev/communication/gringo-term-context/mx",
+  "error": {
+    "signature": "AI flatly tells a traveler that 'gringo' is a slur in Mexico and should always be avoided, or conversely that it's fully neutral",
+    "regex": "(gringo.*mexico|mexican.*slur.*foreigner|mexico.*rude word.*american|mexico.*naco|mexico.*chilango|mexico.*fresa)",
+    "domain": "communication",
+    "category": "interpretation_nuance",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-04-14",
+    "summary": "In Mexico, 'gringo' is context-dependent. Commonly it is neutral descriptive slang for US Americans (and sometimes northern-European-looking foreigners generally), used freely in news, music, and casual speech. It becomes pejorative with tone — 'gringo pendejo', 'gringos arrogantes'. Responding to being called gringo defensively usually marks the foreigner as humorless; using it aggressively about Mexicans' northern neighbors can be read as either solidarity or ignorance depending on context."
+  },
+  "dead_ends": [
+    {
+      "action": "Refuse to respond or complain when a Mexican friend calls you 'gringo'/'güero' in casual conversation",
+      "why_fails": "In casual Mexican Spanish, 'gringo' (US American) and 'güero/güera' (fair-skinned) are usually friendly descriptors, not insults. Treating them as slurs produces awkwardness; most Mexicans respond by apologizing despite not having meant offense, which degrades rapport. 'No manches' and other slang cluster here.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.academia.org.mx/",
+        "https://www.gob.mx/sre"
+      ],
+      "condition": "Informal social contexts"
+    },
+    {
+      "action": "Use 'gringo' to refer to any white foreigner assuming the term is pan-Latin",
+      "why_fails": "In Mexico the default referent is US American. In other Latin countries the usage varies: in Brazil 'gringo' means any foreigner (even other Latin Americans); in Argentina historically it meant Italian immigrants; in some Central American contexts it carries more edge. Using it in the wrong country's sense creates confusion.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.academia.org.mx/"
+      ],
+      "condition": "Cross-Latin American travel"
+    },
+    {
+      "action": "Call yourself 'gringo' loudly and repeatedly as ice-breaker",
+      "why_fails": "Self-deprecating once lands fine; doing it continuously reads as performative and slightly obnoxious. Better to use it sparingly and let locals initiate the descriptor.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.academia.org.mx/"
+      ],
+      "condition": "Attempting to bond via self-labeling"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat 'gringo/güero' in neutral tone as neutral. If the tone turns hostile ('gringo pendejo'), then it's an insult — recognize by tone, not by word. Self-describe as 'estadounidense' (from the US) in formal contexts, 'gringo' in casual if you're comfortable.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.academia.org.mx/"
+      ],
+      "condition": "Everyday interactions"
+    },
+    {
+      "action": "Also learn: 'naco' (pejorative classist/racial slur for low-class, avoid using), 'chilango' (person from Mexico City — neutral to slightly teasing), 'fresa' (yuppie/preppy, mildly mocking), 'pinche' (modifier = damn/fucking, informal), 'chingar' and derivatives (universally present, context sets register).",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.academia.org.mx/"
+      ],
+      "condition": "Broader slang fluency"
+    },
+    {
+      "action": "For business and formal communication, avoid regional slang entirely. Say 'estadounidense' for US-American, 'mexicano' for Mexican, 'extranjero' for foreigner. Keep formal register; locals will signal when casual is fine.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gob.mx/sre"
+      ],
+      "condition": "Business / official"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

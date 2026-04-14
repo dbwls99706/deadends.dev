@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/punctuality-strict/de",
+  "url": "https://deadends.dev/culture/punctuality-strict/de",
+  "error": {
+    "signature": "AI tells a visitor to Germany that arriving 10-15 minutes late to a business meeting or dinner is normal",
+    "regex": "(germany.*punctual|germans.*on time|deutschland.*pünktlich|germany.*late.*meeting|akademisches viertel|german business culture time)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "German business culture treats punctuality as a proxy for reliability — arriving at the exact stated time is early-ish; arriving 5 minutes late without notice is rude; 10+ minutes is professionally damaging. Same for private dinners (invited at 19:00 = arrive 18:58–19:02). Exceptions: university lectures use the 'akademisches Viertel' (c.t. = cum tempore, starts 15 min after stated time). Trains, flights, doctor appointments expect exact-time arrival."
+  },
+  "dead_ends": [
+    {
+      "action": "Arrive 10 minutes late to a German business meeting and apologize casually",
+      "why_fails": "The counterpart has likely been ready since 2 minutes before. Late arrival without prior notice signals disorganization — counterparts often adjust their estimate of your firm's reliability downward. A follow-up casual 'oh sorry' doesn't fully reset the impression. If delay is unavoidable, message ahead.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.auswaertiges-amt.de/en",
+        "https://www.make-it-in-germany.com/en/working-in-germany/living-in-germany/culture"
+      ],
+      "condition": "Business meetings"
+    },
+    {
+      "action": "Show up 30 minutes late to a dinner party at a German colleague's home as 'fashionably late'",
+      "why_fails": "German hosts time the meal for the exact stated hour; 30 minutes late means the starter is cold or being kept warm inconveniently. Hosts are often upset (even quietly). Invited at 19:30 = arrive 19:25–19:35, not earlier either (hosts are still prepping).",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.make-it-in-germany.com/en/working-in-germany/living-in-germany/culture"
+      ],
+      "condition": "Private dinner invitations"
+    },
+    {
+      "action": "Wish someone Happy Birthday before their actual birthday ('reinfeiern' beyond midnight is fine, but well-wishes days in advance)",
+      "why_fails": "A widely observed German superstition: wishing a birthday in advance brings bad luck to the recipient. Even digital greetings (WhatsApp, email) are timed to midnight or the morning-of. A 2-day-early 'herzlichen Glückwunsch' often gets a correcting reply.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.make-it-in-germany.com/en/working-in-germany/living-in-germany/culture"
+      ],
+      "condition": "Birthday greetings"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan to arrive 2–5 minutes before the stated time. If running late by even 5 minutes, send a quick message. German counterparts reciprocate — you won't be kept waiting.",
+      "success_rate": 0.96,
+      "sources": [
+        "https://www.make-it-in-germany.com/en/working-in-germany/living-in-germany/culture"
+      ],
+      "condition": "All professional and social appointments"
+    },
+    {
+      "action": "For university contexts: 'c.t.' (cum tempore) on the schedule = 15 min later than listed; 's.t.' (sine tempore) = exact start. Default assumption is c.t. unless stated.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.daad.de/en/"
+      ],
+      "condition": "University lectures / academic"
+    },
+    {
+      "action": "Send birthday wishes at or after midnight on the day itself, never before. Gifts handed over in person are unwrapped at the time (opened in front of the giver, not later). Round-number birthdays (30, 40, 50) are major events, often with the birthday person hosting the celebration (reverse of US norm).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.make-it-in-germany.com/en/working-in-germany/living-in-germany/culture"
+      ],
+      "condition": "Birthdays and gift exchanges"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

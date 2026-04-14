@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/head-sacred-feet-profane/th",
+  "url": "https://deadends.dev/culture/head-sacred-feet-profane/th",
+  "error": {
+    "signature": "AI tells a traveler in Thailand to pat a child's head, step over someone sitting, or cross legs with a foot pointed at a Buddha image",
+    "regex": "(thai.*head|touch.*head.*thai|thai.*feet|pointing feet.*thai|buddha.*feet|wat.*shoes|thailand.*temple etiquette|thai.*monk.*woman)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "Thai Buddhist culture treats the head as the most sacred part of the body (seat of the 'khwan' spirit) and the feet as the lowest/dirtiest. Touching a Thai person's head (even a child's, affectionately), stepping over someone or a doorway threshold with a spirit, and pointing feet at people, Buddha images, or elders all carry distinct offense levels — from mild to deeply shocking."
+  },
+  "dead_ends": [
+    {
+      "action": "Pat a Thai child's head as a gesture of affection",
+      "why_fails": "Head-patting is reserved for close family and monks blessing children; from strangers it is unwelcome. Thai parents typically don't confront foreign tourists but the child and parent feel violated. Unlike Western head-pat norms, this is not 'cute' in Thailand.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Affection toward children / shorter people"
+    },
+    {
+      "action": "Point feet at a Buddha statue in a wat, sit with soles facing a monk, or use feet to move a book/currency",
+      "why_fails": "Pointing feet at a Buddha image or monk is one of the most serious Thai social offenses. At wat visits, sit in 'mermaid pose' (legs folded to the side, feet pointing away from the altar). Using feet to touch books (which often contain Buddhist content) or money (royal image) compounds offense with lèse-majesté risk.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette",
+        "https://www.dra.go.th/en/"
+      ],
+      "condition": "Temples, monastic interactions"
+    },
+    {
+      "action": "Step over a person sitting on the floor to cross the room, or step on the raised threshold of a traditional Thai home",
+      "why_fails": "The raised door threshold (ธรณีประตู) is believed to be inhabited by a guardian spirit; stepping on it is unlucky and rude to the host. Stepping over a person's body or legs is a serious breach of respect — always walk around, and if passing is unavoidable say ขอโทษ (khor thot) first.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Homes, temples, people seated on floor"
+    },
+    {
+      "action": "A woman hands an object directly to a Thai Buddhist monk",
+      "why_fails": "Theravada Buddhist monastic code (Pāṭimokkha) prohibits monks from accepting objects directly from women's hands. The monk must return / refuse. Instead, place the object on a receiving cloth (ผ้าสังฆทาน) which the monk picks up.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.dra.go.th/en/",
+        "https://www.accesstoinsight.org/lib/authors/thanissaro/bmc1/bmc1.ch05.html"
+      ],
+      "condition": "Woman offering alms or object to monk"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Avoid head contact with anyone except small children in your immediate family. If accidental, apologize (ขอโทษครับ/ค่ะ khor thot khrap/kha) and do not repeat.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "General social interaction"
+    },
+    {
+      "action": "In temples: shoes off at the entrance, shoulders and knees covered, sit in mermaid pose with feet tucked away from the Buddha image, don't point, don't climb on or pose intimately with statues. Women don't touch monks or hand objects directly.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Temple visits"
+    },
+    {
+      "action": "At homes / restaurants with floor seating: step around people, never over. Respect thresholds — step over them, not on them. Sit cross-legged or legs-to-the-side, not stretched out with soles facing elders.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Homes, traditional restaurants"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

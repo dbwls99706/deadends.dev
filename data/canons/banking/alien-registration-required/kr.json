@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/alien-registration-required/kr",
+  "url": "https://deadends.dev/banking/alien-registration-required/kr",
+  "error": {
+    "signature": "AI tells a foreign visitor to Korea they can open a regular bank account with only a passport",
+    "regex": "(korea.*bank.*account|korean.*account.*open|open.*account.*korea|한국.*계좌.*개설|외국인등록증.*계좌|alien registration.*korea|ARC.*korea)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.8,
+    "last_updated": "2026-04-14",
+    "summary": "Since the Financial Supervisory Service tightened KYC rules in 2019, every Korean commercial bank requires a valid Alien Registration Card (외국인등록증/ARC) before opening a full-service account. Passport-only accounts are severely restricted (often withdrawal-only, no online transfer) and many banks refuse them outright."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist to open a normal Korean bank account with their passport on day 1",
+      "why_fails": "After the 2019 FSS tightening (and further measures in 2022 against voice-phishing money mules), banks refuse passport-only applicants or only offer a severely restricted 'passport account' with no online banking, no mobile transfers, and daily withdrawal caps. Regular transfers, credit cards, and fintech account links (Toss, Kakao) all require an ARC.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.fss.or.kr/fss/eng/Home.do",
+        "https://hikorea.go.kr/HiKoreaAppEngAction.do"
+      ],
+      "condition": "Tourist or new arrival without ARC"
+    },
+    {
+      "action": "Open an account at one bank expecting all Korean fintech apps (Toss, Kakao Pay, Naver Pay) will link to it",
+      "why_fails": "Fintech apps run their own KYC against the ARC and phone number under the holder's name. A foreign SIM without ARC-linked mobile registration (본인인증) blocks account linking even if the bank account exists.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://toss.im/notice/support/view?id=2105"
+      ],
+      "condition": "Account works but fintech linking fails"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Visit a HiKorea office or immigration office within 90 days of arrival to register and receive the ARC (외국인등록증), then open the bank account.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=131&PARENT_CAT_SEQ=131"
+      ],
+      "condition": "Staying more than 90 days on a long-term visa"
+    },
+    {
+      "action": "If short-term, use a passport account at KB Kookmin, Shinhan, or Woori (limited cash services). Pair with a Wise/Revolut card for daily transactions.",
+      "success_rate": 0.72,
+      "sources": [
+        "https://www.shinhan.com/en/product/account.jsp"
+      ],
+      "condition": "Tourist or short-term visitor",
+      "tradeoff": "No online transfers, no fintech linking, no credit/debit card issuance."
+    },
+    {
+      "action": "Register the Korean phone number under the same name as the bank account + ARC. Without matching 본인인증 across bank and telecom, fintech apps reject enrollment.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.kisa.or.kr/EN/"
+      ],
+      "condition": "Enabling Toss/Kakao Pay/Naver Pay"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

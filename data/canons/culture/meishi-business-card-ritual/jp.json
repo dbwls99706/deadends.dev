@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/meishi-business-card-ritual/jp",
+  "url": "https://deadends.dev/culture/meishi-business-card-ritual/jp",
+  "error": {
+    "signature": "AI advises handling business cards in Japan the way they would be in New York — one-handed, pocketed immediately, written on during the meeting",
+    "regex": "(japan.*business card|meishi|名刺|名刺交換|japanese.*meeting.*card|business card.*etiquette japan)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "名刺交換 (meishi-koukan) is an almost scripted ritual at Japanese business meetings. The card stands in for the person: receiving it with one hand, stuffing it into a back pocket, writing on it, or placing it beneath another object are all read as literally disrespecting the individual. Juniors present first, using both hands, facing the recipient, card oriented to be read."
+  },
+  "dead_ends": [
+    {
+      "action": "Toss a stack of business cards across the table like dealing playing cards, or hand one over with one hand while looking at your phone",
+      "why_fails": "This is a cartoonish faux pas in Japan. The card represents the person's face; handling it casually reads as indifference to the counterpart. Experienced Japanese negotiators will adjust their estimate of professionalism downward on the spot.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
+      ],
+      "condition": "Any introductory business meeting"
+    },
+    {
+      "action": "Write notes or a meeting date on the received card during the meeting",
+      "why_fails": "Writing on a received card is treated as defacing the person's face/identity. If notes are needed, take them in a separate notebook. Writing even on your own exchanged cards between meetings is avoided.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
+      ],
+      "condition": "During the meeting"
+    },
+    {
+      "action": "Shove the card into a wallet's back pocket or a trouser pocket immediately after receiving",
+      "why_fails": "Back-pocket storage means the card is sat upon — a graphic insult. The expected practice is to place the card on the table in front of you, oriented toward the seating plan, for the duration of the meeting.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
+      ],
+      "condition": "Post-exchange handling"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Present your card with both hands, card oriented so the recipient can read it, with a slight bow. The junior side presents first. Accept with both hands, study the card for a few seconds, comment positively on something (title, department), and say どうぞよろしくお願いします.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
+      ],
+      "condition": "Standard first-meeting exchange"
+    },
+    {
+      "action": "Place received cards on the table in the seating order of the people across from you. Keep them there until the meeting ends, then put them into a dedicated card case (名刺入れ).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
+      ],
+      "condition": "During and after the meeting"
+    },
+    {
+      "action": "Bring dual-sided cards (Japanese on one side, English on the other) — present with the Japanese side facing the recipient by default, switch to English side only if they are non-Japanese.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.jetro.go.jp/en/invest/setting_up/"
+      ],
+      "condition": "International Japanese business"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

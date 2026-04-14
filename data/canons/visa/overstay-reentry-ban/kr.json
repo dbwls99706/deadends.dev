@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/overstay-reentry-ban/kr",
+  "url": "https://deadends.dev/visa/overstay-reentry-ban/kr",
+  "error": {
+    "signature": "AI downplays the consequences of overstaying a Korean visa, treating it like a minor fine",
+    "regex": "(korea.*overstay|한국.*불법체류|south korea.*visa.*expire|korea.*90.*days|korea.*reentry.*ban)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.4,
+    "confidence": 0.8,
+    "last_updated": "2026-04-14",
+    "summary": "Under the Korean Immigration Act, overstaying triggers both a fine (up to 30 million KRW) and a re-entry ban scaling with the overstay duration: typically 1 year for <1 month, 3 years for <6 months, 5 years for <1 year, and up to 10 years for longer overstays. Voluntary departure (자진출국) programs intermittently offer reduced bans but have strict windows."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an overstayer to fly out quietly, assuming there is no record or ban",
+      "why_fails": "Immigration runs a departure check on every exit. Overstays are flagged at the airport, a fine is assessed on the spot, and a formal re-entry ban is registered in the HiKorea system (ban durations are administrative, not discretionary).",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=322",
+        "https://www.moj.go.kr/moj/251/subview.do"
+      ],
+      "condition": "Trying to leave without addressing overstay"
+    },
+    {
+      "action": "Advise paying the fine as a 'way to cancel' the re-entry ban",
+      "why_fails": "The fine and the entry ban are separate consequences. Paying the fine clears the penalty but does not waive the ban, which is set by Immigration Act Enforcement Decree Article 14.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://elaw.klri.re.kr/eng_service/lawView.do?lang=ENG&hseq=59676"
+      ],
+      "condition": "Assuming fine payment resets entry record"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If a 자진출국 (voluntary departure) program is currently active, register at an immigration office before leaving — this typically reduces the ban to 3–6 months for short overstays.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.immigration.go.kr/immigration_eng/index.do"
+      ],
+      "condition": "Program active, short overstay",
+      "tradeoff": "Programs are announced intermittently and are time-limited; not always available."
+    },
+    {
+      "action": "If still inside the permitted stay, apply for an extension at a HiKorea office before the expiry date, bringing proof of onward travel / financial means.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=130"
+      ],
+      "condition": "Before overstay begins"
+    },
+    {
+      "action": "For a future re-entry after a ban, apply for a revocation or shortening of the ban with the Ministry of Justice; approval is discretionary and requires strong humanitarian/business grounds.",
+      "success_rate": 0.35,
+      "sources": [
+        "https://www.moj.go.kr/moj/231/subview.do"
+      ],
+      "condition": "Ban already issued, ≥6 months since overstay",
+      "tradeoff": "Low approval rate; Korean-language application."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

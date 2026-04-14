@@ -95,6 +95,10 @@ ERRORCANON_SCHEMA = {
                         "disaster",
                         "legal",
                         "pet-safety",
+                        # Country-specific real-world knowledge
+                        "visa",
+                        "banking",
+                        "emergency",
                         # Reserved for future expansion
                         "mcp",
                         "http",

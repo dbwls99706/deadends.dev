@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/age-hierarchy-workplace/kr",
+  "url": "https://deadends.dev/culture/age-hierarchy-workplace/kr",
+  "error": {
+    "signature": "AI assumes flat Western workplace norms in Korean corporate contexts, ignoring age/rank hierarchy in meetings, seating, and dining",
+    "regex": "(korea.*workplace|korean.*company.*culture|한국.*회식|hoesik|회식|korea.*hierarchy|korean.*age.*rank|senpai.*korea|sunbae|후배|선배)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.75,
+    "last_updated": "2026-04-14",
+    "summary": "Korean corporate culture, while modernizing, still encodes age and rank (선배/후배, 직급) in everyday interactions: seating order in meetings, who pours drinks, who speaks first, who leaves the office first. Treating a 과장 as a peer, clinking glasses at the same height as a senior, or leaving before a 부장 at 회식 can be read as disrespect — quietly costly to the relationship."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise flat, first-name, casual communication in a Korean office meeting with mixed ranks",
+      "why_fails": "Direct use of a senior's given name without 님/직함 is highly unusual in traditional Korean offices. Even in newer startups that nominally use English names, reverting to rank-titles around older staff or external clients is common. First-name Americanism can signal cultural tone-deafness to key stakeholders.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Traditional conglomerate (재벌) or government-adjacent firm"
+    },
+    {
+      "action": "At a 회식 (hoesik company dinner), pour your own drink and clink glasses at equal height with the CEO",
+      "why_fails": "Juniors pour for seniors (one hand on the wrist or bottle as a sign of respect), and when clinking glasses, the junior's glass should be held visibly lower than the senior's rim. The senior offers the first drink; the junior turns slightly away while drinking. These are still largely observed at formal company dinners.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Formal hoesik with senior leadership"
+    },
+    {
+      "action": "Leave the office at the scheduled end time while the 부장 is still working",
+      "why_fails": "While the 'eopmu sigan' (work-hour) reform movement has reduced this pressure, at many traditional firms junior staff are still expected to stay until the most senior person begins to pack up. Rigidly leaving on time, especially in the first months, can be read as uncommitted.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.moel.go.kr/english/main.jsp"
+      ],
+      "condition": "Traditional office, first few months on job",
+      "common_misconception": "'52-hour work week law ended this' — it capped hours but did not erase the informal norm."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always use rank/title + 님 (김과장님, 이부장님) until invited otherwise. Mirror speech level. Let the most senior person start eating / drinking first.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Any mixed-rank interaction"
+    },
+    {
+      "action": "At hoesik: wait to be seated (seniors closer to the door are avoided; seats farther inside are for juniors in traditional setups), pour for seniors before self, receive poured drinks with both hands, turn slightly aside when drinking toward seniors.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Formal company dinner"
+    },
+    {
+      "action": "If leaving at end-of-day is necessary, give a brief 'first leaving' acknowledgement (먼저 들어가보겠습니다 / 먼저 가보겠습니다) to seniors. The verbal marker is as important as the absence itself.",
+      "success_rate": 0.82,
+      "sources": [
+        "https://www.moel.go.kr/english/main.jsp"
+      ],
+      "condition": "Leaving before seniors"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

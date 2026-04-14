@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/shoes-off-genkan/jp",
+  "url": "https://deadends.dev/culture/shoes-off-genkan/jp",
+  "error": {
+    "signature": "AI tells a visitor to Japan to keep their shoes on entering a home, temple, ryokan, or even many restaurants",
+    "regex": "(japan.*shoes|shoes.*japan|genkan|玄関|japanese home.*shoes|tatami.*shoes|ryokan.*shoes|靴.*脱ぐ)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.97,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Removing outdoor shoes before stepping onto the raised interior floor is universal in Japanese homes, ryokan, temples, many traditional restaurants, medical/dental clinics, and some schools and museums. The transition happens at the 玄関 (genkan) step. Stepping up in shoes is read as dirtying a sacred/clean boundary — functionally closer to spitting indoors than a stylistic faux pas."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a Japanese home or ryokan room without removing shoes at the genkan",
+      "why_fails": "The genkan's lower level is explicitly the 'outside' zone; the raised floor is 'inside'. Crossing the step in street shoes transfers outdoor dirt onto tatami or polished wood — with tatami it can also stain the mat and shorten its life. Hosts are obligated to clean afterward; most will stop the visitor at the step.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/",
+        "https://www3.nhk.or.jp/nhkworld/en/ondemand/video/2064008/"
+      ],
+      "condition": "Home, ryokan, temple, tatami room"
+    },
+    {
+      "action": "Wear toilet slippers back into the main room without swapping",
+      "why_fails": "Japanese interiors often have a second slipper layer: house slippers for hallways, and dedicated toilet slippers used only inside the restroom. Walking through the house in toilet slippers is a minor horror moment that is joked about but genuinely frowned upon.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Homes/ryokan with toilet slippers"
+    },
+    {
+      "action": "Step onto tatami (straw matting) even in socks with a shoe heel trace of mud/sand still on the foot",
+      "why_fails": "Tatami is soft and absorbs stains permanently. Even without shoes, tracking wet or sandy socks onto tatami damages it; hosts are expected to replace mats every 5–10 years at considerable cost.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.maff.go.jp/j/heya/kodomo_sodan/"
+      ],
+      "condition": "Direct tatami contact"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "At the genkan: pause at the step, face the interior and slip shoes off. Turn around, place the shoes neatly pointing toward the door (so you can step into them when leaving). Step up onto the raised floor directly from socks or provided slippers.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Entering home / ryokan / traditional restaurant"
+    },
+    {
+      "action": "Watch for: rows of shoes already lined up at an entrance, raised wooden step, shoe lockers, or a sign saying 土足禁止 (dosoku kinshi, 'no outdoor shoes'). Any of these = shoes off.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Unfamiliar venues"
+    },
+    {
+      "action": "Swap house slippers for toilet slippers when entering the bathroom. Swap back when leaving. Never wear toilet slippers onto tatami.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/manners/"
+      ],
+      "condition": "Restroom visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

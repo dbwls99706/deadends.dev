@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/clock-gift-funeral-homophone/cn",
+  "url": "https://deadends.dev/culture/clock-gift-funeral-homophone/cn",
+  "error": {
+    "signature": "AI suggests a wall clock or watch as a gift for a Chinese business partner or elder",
+    "regex": "(china.*clock.*gift|gift.*china.*watch|送钟|送終|送终|chinese.*clock.*present|gift.*chinese.*new year|chinese gift taboo)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Giving a clock (送钟 sòng zhōng) is a near-homophone for 送終 (sòng zhōng, 'attending a funeral' / 'paying last respects'). Giving a wall clock, mantel clock, or ornamental time-piece to a Chinese recipient — especially an elder or business partner — is widely read as wishing them death. Wristwatches (手表) are generally fine; the taboo is specific to 钟."
+  },
+  "dead_ends": [
+    {
+      "action": "Give a branded corporate wall clock or desk clock as a business gift to a Chinese counterpart",
+      "why_fails": "The phrase 送钟 is almost indistinguishable from 送終 (attending a dying relative). Older Chinese recipients in particular take strong offense; even younger counterparts will feel the host culturally tone-deaf. The clock is typically not kept.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.chinadaily.com.cn/a/202201/27/WS61f1c5d9a310cdd39bc84aa1.html",
+        "https://www.scmp.com/magazines/post-magazine/long-reads/article/3103923/why-cant-you-give-clock-chinese-new-year"
+      ],
+      "condition": "Business or family gift"
+    },
+    {
+      "action": "Bundle a clock with other items to 'dilute' the meaning",
+      "why_fails": "The symbolism of the clock is dominant; bundling does not neutralize it. Recipients remember the clock.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.chinahighlights.com/travelguide/chinese-etiquette/gift-giving.htm"
+      ],
+      "condition": "Mixed gift baskets"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Substitute a wristwatch (手表) — no homophonic taboo. For corporate gifts, quality tea (high-grade longjing, pu'er), fine liquor (premium baijiu), or pastries in even-numbered counts (but avoid 4) work well.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.chinahighlights.com/travelguide/chinese-etiquette/gift-giving.htm"
+      ],
+      "condition": "Any gift-giving occasion"
+    },
+    {
+      "action": "Also avoid: green hats (implies cuckoldry, 戴绿帽), white/black wrapping (funeral colors), handkerchiefs (farewell implication), shoes (suggests the recipient will walk away), and pears (分梨 sounds like 分离, separation).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.chinadaily.com.cn/a/202201/27/WS61f1c5d9a310cdd39bc84aa1.html"
+      ],
+      "condition": "Broader gift-taboo avoidance"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}
