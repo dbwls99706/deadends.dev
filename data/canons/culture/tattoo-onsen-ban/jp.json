@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tattoo-onsen-ban/jp",
+  "url": "https://deadends.dev/culture/tattoo-onsen-ban/jp",
+  "error": {
+    "signature": "AI tells a tattooed traveler they can use any Japanese onsen, sento, public pool, gym, or beach in Japan",
+    "regex": "(japan.*tattoo|onsen.*tattoo|sento.*tattoo|タトゥー.*温泉|刺青|入れ墨|irezumi|japanese pool.*tattoo|gym japan tattoo)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Many Japanese onsen, sento (public baths), gyms, pools, and beaches refuse entry to people with visible tattoos — associated historically with the yakuza. This is a private-venue policy, not criminal law. Roughly 40% of onsen nationwide ban tattoos outright; major exceptions exist (Kinosaki, Beppu, urban 'tattoo-friendly' lists) and small tattoos can be covered with patches. Japan Tourism Agency has pushed for more tolerance since the 2019 Rugby World Cup, but compliance is mixed."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a random onsen in a resort area with a visible sleeve tattoo and expect standard entry",
+      "why_fails": "Visible tattoo = refusal at reception ('お断り' signage at the entrance is common). The staff may not ask about the meaning or size; any visible ink triggers the blanket policy. Tourists report feeling singled out; the policy is not individual but blanket across the venue.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mlit.go.jp/kankocho/en/",
+        "https://www.japan.travel/en/plan/basic-info/onsen/"
+      ],
+      "condition": "Generic onsen, no advance research"
+    },
+    {
+      "action": "Assume gym memberships include pool/spa access even with tattoos",
+      "why_fails": "Konami, Tipness, Central Sports, and other major Japanese gym chains typically enforce the same no-tattoo policy in pools/saunas. Gym membership contracts often list it explicitly. The policy extends to some hotel gyms and onsen-attached hotels.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.konamisportsclub.jp/"
+      ],
+      "condition": "Gym pool/sauna access"
+    },
+    {
+      "action": "Try to 'cover up' a full back tattoo with small bandages to get into a ryokan onsen",
+      "why_fails": "Cover-up tolerance applies only to small tattoos (palm-size or smaller) — larger tattoos are not considered concealable and will be refused regardless of effort. Onsen-grade bandages sold for this purpose work for small tattoos; larger pieces need tattoo-friendly venues.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/onsen/"
+      ],
+      "condition": "Large tattoos + cover-up attempt"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use tattoo-friendly lists: Japan Tattoo-Friendly Onsen Map (tattoo-friendly.jp), Bōsō Kinosaki Onsen (all 7 baths), Beppu Hells area, Nozawa Onsen, most Kawaguchiko ryokans. Hotel-attached private baths (kashikiri buro 貸切風呂) often allow tattoos — book in advance.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.tattoo-friendly.jp/",
+        "https://www.japan.travel/en/plan/basic-info/onsen/"
+      ],
+      "condition": "Advance planning"
+    },
+    {
+      "action": "For small tattoos: buy tattoo cover stickers (タトゥーシール) at Don Quijote, Tokyu Hands, or onsen souvenir shops. They're waterproof and designed for baths. Works only for ≤10cm tattoos.",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/onsen/"
+      ],
+      "condition": "Small tattoos",
+      "tradeoff": "Only effective for small / low-contrast pieces."
+    },
+    {
+      "action": "Book private rooms with in-room onsen (kashikiri) or family-style baths at ryokan. These bypass the public policy entirely. Slightly more expensive but common at mid-to-high-end ryokan.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.japan.travel/en/plan/basic-info/onsen/"
+      ],
+      "condition": "Ryokan stays"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

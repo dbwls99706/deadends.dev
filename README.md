@@ -4,19 +4,34 @@
 
 [![Precision@1](https://img.shields.io/badge/Precision%401-90%25-brightgreen)](https://deadends.dev/dashboard/)
 [![MRR](https://img.shields.io/badge/MRR-0.935-brightgreen)](https://deadends.dev/dashboard/)
-[![Errors](https://img.shields.io/badge/errors-2089-blue)](https://deadends.dev)
-[![Domains](https://img.shields.io/badge/domains-51-green)](https://deadends.dev)
+[![Entries](https://img.shields.io/badge/entries-2145-blue)](https://deadends.dev)
+[![Domains](https://img.shields.io/badge/domains-54-green)](https://deadends.dev)
+[![Countries](https://img.shields.io/badge/countries-20%2B-orange)](https://deadends.dev)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-9-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey)](LICENSE)
 
-**Stop AI agents from repeating known failures.**
+**Stop AI agents from repeating known failures — in code AND in the real world.**
 
-When AI coding agents hit an error, they waste tokens retrying approaches that are *known* to fail. deadends.dev gives agents instant access to what NOT to try, what actually works, and what error comes next — across 2,089 errors in 51 domains.
+AI assistants reliably fumble two kinds of problems: known-failed code fixes, and
+country-specific real-world rules they've never been exposed to in training.
+deadends.dev now covers both:
 
-> **90% Precision@1** — the top lookup result matches the correct domain 9 out of 10 times.
-> **0.935 MRR** — correct results consistently rank first.
-> See the full [Data Quality Dashboard](https://deadends.dev/dashboard/).
+- **Code errors** (2,089 entries, 51 domains): what NOT to try when an agent
+  hits `ModuleNotFoundError`, `CUDA OOM`, `CrashLoopBackOff`, etc.
+- **Country-scoped dead ends** (56+ entries across 20+ countries): visa rules,
+  banking requirements, legal red lines (lèse-majesté, §86a, Article 301),
+  cultural taboos (chopsticks in rice, clock gifts in China, red-ink names in
+  Korea), food safety, emergency numbers, driving norms, housing contracts —
+  all the friction where a plausible-sounding global answer is wrong locally.
+
+> **Why the expansion?** Coding dead ends are largely solved by a good LLM.
+> Country-specific friction — Japanese hanko requirements, Schengen 90/180
+> math, Ramadan business hours, Saudi alcohol ban, Indian beef taboos — is
+> where generic AI advice breaks hardest. The codebase and schema are
+> identical; the env segment just carries a country code.
+
+> **90% Precision@1** · **0.935 MRR** · [Data Quality Dashboard](https://deadends.dev/dashboard/)
 
 > **Website:** [deadends.dev](https://deadends.dev) · **MCP Server:** [Smithery](https://smithery.ai/server/deadend/deadends-dev) · **PyPI:** [deadends-dev](https://pypi.org/project/deadends-dev/) · **API:** [/api/v1/index.json](https://deadends.dev/api/v1/index.json)
 > **Repository:** [https://github.com/dbwls99706/deadends.dev](https://github.com/dbwls99706/deadends.dev)
@@ -26,13 +41,19 @@ When AI coding agents hit an error, they waste tokens retrying approaches that a
 | Without deadends.dev | With deadends.dev |
 |---------------------|-------------------|
 | Agent tries `sudo pip install` → breaks system Python → wastes 3 retries | Agent sees "dead end: sudo pip — fails 70%" → skips it immediately |
-| Agent googles, reads Stack Overflow, tries 4 approaches | Agent gets the 95%-success workaround on the first call |
+| Agent tells user to tip 15% at a Tokyo restaurant | Agent knows tipping is refused in Japan (`culture/tipping-refused/jp`) |
+| Agent drafts a Thai social post referencing King Rama X | Agent stops: Article 112 lèse-majesté risk (`legal/lese-majeste-article-112/th`) |
 | Agent fixes error A, gets confused by error B | Agent knows "A leads to B 78% of the time" → handles both |
+| Agent tells unmarried couple to kiss publicly in Dubai | Agent flags UAE public decency law (`legal/unmarried-public-affection/ae`) |
 
 **What makes this different from asking an LLM?**
-- **Deterministic**: Same error → same answer, every time. No hallucination.
-- **Community-validated**: Fix success rates are updated from real outcome reports.
-- **Error chains**: Conditional probabilities (A→B) that LLMs can't provide.
+- **Deterministic**: Same query → same answer, every time. No hallucination.
+- **Country-scoped**: ID format `{domain}/{slug}/{env}` — env holds the country
+  code (`kr`, `jp`, `us`, `de`...) so the same taboo can be answered
+  differently for different jurisdictions.
+- **Primary-sourced**: Every country canon cites government sites, embassies,
+  or verifiable reporting. No "based on general knowledge" answers.
+- **Community-validated**: Fix success rates updated from real outcome reports.
 - **Sub-millisecond**: Local regex matching, no API roundtrip.
 
 ### 현실적인 한계 (운영 관점)
@@ -184,7 +205,9 @@ Resolvable: true | Fix rate: 0.88
 | [`/llms.txt`](https://deadends.dev/llms.txt) | LLM-optimized listing ([llmstxt.org](https://llmstxt.org)) |
 | [`/dashboard/`](https://deadends.dev/dashboard/) | Data quality dashboard |
 
-## Covered Domains (51)
+## Covered Domains (54)
+
+### Code error domains (51)
 
 | Domain | Errors | Examples |
 |--------|--------|----------|
@@ -204,14 +227,39 @@ Resolvable: true | Fix rate: 0.88
 | Rust | 48 | E0382 borrow, E0308 mismatch, E0277 trait, E0106 lifetime |
 | + 37 more domains | 40+ each | CI/CD, PHP, Terraform, Networking, Next.js, React, pip, Android, ... |
 
+### Country-scoped real-world domains (new, growing)
+
+| Domain | Covers | Example dead ends |
+|--------|--------|-------------------|
+| `visa` | Pre-travel authorization, overstay, re-entry bans | ESTA 90-day rule (US), K-ETA (KR), ETIAS/EES (Schengen), Schengen 90/180 (DE) |
+| `banking` | Account opening, KYC, foreigner rules | ARC required (KR), residence card 6-month (JP), SSN/ITIN (US) |
+| `emergency` | Correct emergency numbers, transit | 112 not 911 (DE), 999/101/111 (UK) |
+| `medical` | Insurance, Rx import, coverage | Shaho/Kokuho (JP), NHIS 6-month (KR), EHIC ineligibility (DE), Adderall import ban (JP) |
+| `legal` | Criminal liability, contract norms | §86a Nazi symbols (DE), Article 112 (TH), Article 301 (TR), alcohol ban (SA), key money (JP) |
+| `culture` | Etiquette, taboos, social norms | Chopsticks in rice (JP), clock gifts (CN), Tiananmen silence, red ink names (KR), bonjour (FR) |
+| `food-safety` | Water, pathogens, religious taboos | Tap water (MX), fugu license (JP), beef in India, pork in Indonesia |
+| `communication` | Language register, terminology | Honorifics (KR), American War framing (VN), 'gringo' (MX), Cantonese vs Mandarin (HK) |
+| `safety` | Driving, public-safety norms | Left-side drive (JP), Autobahn rules (DE), horn-language (IN) |
+
 ## Data Quality
 
 All metrics are publicly available on the [Data Quality Dashboard](https://deadends.dev/dashboard/):
 
-- **2,089** error entries across **51** domains
-- **Benchmark**: 90% Precision@1, 95% Precision@3, 0.935 MRR
+- **2,145** canon entries across **54** domains and **20+** countries
+- **Benchmark**: 90% Precision@1, 95% Precision@3, 0.935 MRR (on code scenarios)
 - **Error transition graph**: 4,330+ edges connecting related errors
 - **Community feedback loop**: `report_outcome` updates fix success rates from real usage
+- **Country canons**: every entry cites primary gov/embassy/regulator sources,
+  reviewed by humans (`review_status: human_reviewed`), no LLM bulk generation
+
+### Country coverage (as of v0.9)
+
+`kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `cn` · `hk` · `tw` · `th` ·
+`in` · `vn` · `id` · `sg` · `ph` · `sa` · `ae` · `tr` · `il` · `ru` · `br` ·
+`mx`
+
+See [`docs/country-canon-guide.md`](docs/country-canon-guide.md) for the
+authoring workflow, sourcing requirements, and confidence calibration.
 
 ## Contributing
 
@@ -279,6 +327,22 @@ python -m http.server -d public 8080
 - canonical / og / twitter / JSON-LD 유효성
 
 ## Changelog
+
+### v0.9.0 — Country pivot
+- **New axis**: country-scoped real-world dead ends alongside code errors
+- **56+ country canons** across 20+ countries — visa, banking, legal red
+  lines, cultural taboos, food safety, emergency numbers, driving norms
+- **3 new domains**: `visa`, `banking`, `emergency` (plus extended use of
+  existing `legal`, `culture`, `medical`, `communication`, `food-safety`,
+  `safety` domains with country env segment)
+- **Per-country landing pages** at `/country/{cc}/` (e.g.
+  [/country/jp/](https://deadends.dev/country/jp/))
+- **`generator.country_canon_template`** helper for authoring new country
+  canons with validated env-segment + audience + jurisdiction metadata
+- **`docs/country-canon-guide.md`**: sourcing standards (primary > embassy
+  > reputable media), confidence calibration, slug/regex conventions
+- Schema unchanged (backward-compatible enum extensions); existing 2,089
+  code canons preserved
 
 ### v0.8.0
 - **Benchmark suite**: 20 error scenarios, Precision@1=90%, MRR=0.935

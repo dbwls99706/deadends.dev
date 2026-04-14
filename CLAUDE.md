@@ -1,16 +1,39 @@
 # deadends.dev
 
-Structured failure knowledge database for AI coding agents.
-2089 ErrorCanon JSON entries across 51 domains (python, node, docker, cuda, git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs, react, java, database, cicd, php, dotnet, networking, android, api, cloud, cmake, communication, culture, data, disaster, elasticsearch, embedded, flutter, food-safety, grpc, huggingface, kafka, legal, llm, medical, mental-health, mongodb, nginx, opencv, pet-safety, policy, pytorch, redis, ros2, safety, security, tensorflow, unity).
+Structured failure knowledge database for AI agents — covering both code
+errors AND country-specific real-world dead ends. **2,145+ ErrorCanon JSON
+entries across 54 domains**:
+
+- **51 code-error domains** (2,089 entries): python, node, docker, cuda,
+  git, pip, typescript, rust, go, kubernetes, terraform, aws, nextjs,
+  react, java, database, cicd, php, dotnet, networking, android, api,
+  cloud, cmake, elasticsearch, embedded, flutter, grpc, huggingface,
+  kafka, llm, mongodb, nginx, opencv, pytorch, redis, ros2, tensorflow,
+  unity, + quirk domains (communication, culture, data, disaster,
+  food-safety, legal, medical, mental-health, pet-safety, policy,
+  safety, security).
+- **3 new country-scoped domains** (`visa`, `banking`, `emergency`) plus
+  existing non-code domains extended with country-scoped canons. ID
+  format `{domain}/{slug}/{country}` where country is an ISO 3166-1
+  alpha-2 code (`kr`, `jp`, `us`, `de`, `uk`, `fr`, `cn`, `hk`, `tw`,
+  `th`, `in`, `vn`, `id`, `sg`, `ph`, `sa`, `ae`, `tr`, `il`, `ru`, `br`,
+  `mx`, ...). **20+ countries, 56+ country-scoped entries** as of v0.9.
+
+**Country-canon rationale**: coding dead ends are largely solved by modern
+LLMs. Country-specific rules (visa caveats, jurisdictional laws, cultural
+taboos, food safety, emergency numbers, housing contract quirks) are where
+generic AI advice is most often wrong. The expansion fills this gap with
+primary-source-cited structured entries.
 
 ## Architecture
 
 ```
 data/
-  canons/              # ErrorCanon JSON files (source of truth, 2089 files)
-    {domain}/          # One directory per domain (51 domains)
-      {slug}_{env}.json          # Flat-file format
-      {slug}/{env}.json          # Directory-style format (both coexist)
+  canons/              # ErrorCanon JSON files (source of truth, 2145+ files)
+    {domain}/          # One directory per domain (54 domains)
+      {slug}_{env}.json          # Flat-file format (code: env = runtime-os)
+      {slug}/{env}.json          # Directory-style format
+                                  # For country canons: env = ISO alpha-2 code (kr, jp, ...)
   environments/        # Environment matrix (env_matrix.json)
   graph/               # Error transition graph data
   signatures/          # Error signature data
@@ -125,15 +148,36 @@ Each canon JSON file has these top-level required fields:
 
 ## Conventions
 
-- Canon IDs: `{domain}/{slug}/{env}` — all lowercase, hyphens for slugs (e.g., `python/modulenotfounderror/py311-linux`)
+- Canon IDs: `{domain}/{slug}/{env}` — all lowercase, hyphens for slugs.
+  - Code canons: env = `{runtime}-{os}` (e.g., `python/modulenotfounderror/py311-linux`)
+  - Country canons: env = ISO 3166-1 alpha-2 country code (e.g., `legal/hanko-seal-required/jp`, `visa/esta-90-day-no-extension/us`). Sub-region allowed as `kr-seoul`.
 - Always validate after data changes: `python -m generator.validate --data-only`
-- Bulk-generated canons go in `generator/bulk_generate.py`
+- Bulk-generated (LLM) code canons go in `generator/bulk_generate.py`
+- Country canons are **manually authored** from primary sources — use
+  `generator.country_canon_template.make_country_canon()` for the scaffold
 - Templates use Jinja2 with autoescape enabled
 - All HTML pages include machine-readable `<pre id="ai-summary">` blocks and JSON-LD structured data
 - API responses at `/api/v1/{id}.json` mirror the canon JSON exactly
+- Per-country landing pages render at `/country/{cc}/` (template: `generator/templates/country.html`)
 - Lint with ruff: `ruff check .` (line-length 100, target py310, selects E/F/W/I)
 - Ruff excludes `generator/bulk_generate*.py` and `api/` from linting
 - The `site/` directory is generated output — never edit manually
+
+## Authoring Country Canons
+
+See [`docs/country-canon-guide.md`](docs/country-canon-guide.md) for full
+sourcing standards and confidence calibration. Quick reference:
+
+- `environment.additional`: `{country, country_name, jurisdiction_level, audience}`
+- `review_status`: `human_reviewed` (or `community_verified` after vetting)
+- Sources: primary government > embassy > regulator > reputable media.
+  Reddit / personal blogs may appear inside `condition` or
+  `common_misconception` but never as sole source of a claim.
+- Respect business rules: `resolvable="true"` → `fix_success_rate >= 0.7` and
+  `confidence >= 0.6`; `evidence_count < 3` → `confidence <= 0.3`.
+- `SUPPORTED_COUNTRIES` list in
+  `generator/country_canon_template.py` gates new country codes — add there
+  first before writing canons for a new country.
 
 ## Security
 
@@ -183,20 +227,23 @@ Configuration via environment variables:
 
 ## Error Lookup SDK (for AI agents working in this repo)
 
-When encountering errors while developing, use the lookup SDK:
+When encountering errors (code or real-world) while developing, use the
+lookup SDK:
 ```python
 from generator.lookup import lookup, lookup_all, search, batch_lookup
 
-# Single best match
+# Single best match — works for both code and country queries
 result = lookup("your error message")
 # result["dead_ends"] = what NOT to try
 # result["workarounds"] = what works
 
 # All matches (sorted by relevance)
 results = lookup_all("CUDA error: out of memory")
+results = lookup_all("Japanese bank account as tourist")
 
-# Keyword search (fuzzy)
+# Keyword search (fuzzy) — filter by domain
 results = search("memory limit", domain="docker", limit=5)
+results = search("lese majeste", domain="legal", limit=5)
 
 # Batch lookup
 results = batch_lookup(["error1", "error2", "error3"])

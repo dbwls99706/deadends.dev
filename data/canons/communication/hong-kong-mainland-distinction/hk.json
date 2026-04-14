@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/hong-kong-mainland-distinction/hk",
+  "url": "https://deadends.dev/communication/hong-kong-mainland-distinction/hk",
+  "error": {
+    "signature": "AI conflates Hong Kong with mainland China in business, media, or interpersonal communication — e.g. default Mandarin, RMB pricing, mainland-only framing",
+    "regex": "(hong kong.*china|hk.*mainland|cantonese.*mandarin.*hk|香港.*中国|hong kong.*rmb|hong kong.*mandarin|bnc.*hong kong)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "regional",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.75,
+    "last_updated": "2026-04-14",
+    "summary": "Hong Kong is a Special Administrative Region of China (1997+, 'one country, two systems'), but operates with distinct currency (HKD), immigration (own visas + HKID), legal system (common law vs PRC civil law), language default (Cantonese + English; Mandarin uncommon until 2015+), and business norms. Since the 2020 National Security Law the political topology has tightened. Treating HK identically to mainland China in business or messaging frustrates local counterparts; treating it as fully independent triggers political scrutiny post-NSL."
+  },
+  "dead_ends": [
+    {
+      "action": "Default a Hong Kong product launch to Mandarin (普通话) marketing copy and RMB pricing",
+      "why_fails": "Hong Kong uses traditional Chinese characters (繁體字), not the simplified set (簡體字) used on the mainland. Native language is Cantonese; Mandarin is a second language for most. Currency is HKD, not RMB — displaying RMB confuses and signals mainland-first branding that locals react against.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.censtatd.gov.hk/en/",
+        "https://www.gov.hk/en/residents/"
+      ],
+      "condition": "Consumer marketing in HK"
+    },
+    {
+      "action": "Bring mainland-approved political talking points (One China, Taiwan Province framing) into casual HK business small talk, assuming they'll be received the same way",
+      "why_fails": "HK's political climate is complex post-2020 National Security Law: criticism of mainland is criminalized; mainland-aligned framing in casual business read as ingratiating or politically naive by younger HKers. Best to stay commercial; political topics are high-risk both directions.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.elegislation.gov.hk/hk/A406",
+        "https://cpj.org/asia/hong-kong/"
+      ],
+      "condition": "Political small talk"
+    },
+    {
+      "action": "Treat HK visa rules as identical to mainland Chinese visa",
+      "why_fails": "Hong Kong has its own visa-free / visa-waiver regime (170+ nationalities get 14-180 days visa-free in HK). Mainland China requires visa / 10-year L visa / 240-hour TWOV for most passports. Crossing HK → Shenzhen requires separate mainland entry. HK's Immigration Department and mainland's NIA are separate bureaucracies.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.immd.gov.hk/eng/",
+        "https://en.nia.gov.cn/"
+      ],
+      "condition": "Cross-border visa planning"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to traditional Chinese characters + Cantonese/English for HK. Price in HKD. Localize images (Victoria Harbour, HK trams) separately from mainland campaigns. Major HK brands (Cathay Pacific, HSBC HK, Mannings) model this well.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.hk/en/residents/",
+        "https://www.censtatd.gov.hk/en/"
+      ],
+      "condition": "HK marketing / product"
+    },
+    {
+      "action": "For business relationships: treat HK as a distinct jurisdiction. HK counterparts often have strong international English, appreciate Cantonese greetings (好 hou² = good, 早晨 zou² san⁴ = good morning), and expect punctuality on par with UK/DE.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.investhk.gov.hk/en/"
+      ],
+      "condition": "Business communication"
+    },
+    {
+      "action": "Political topics: stay commercial in-country. If a counterpart opens political conversation, listen more than speak. Avoid memes or social-media posts from HK that reference 2019 protests or NSL — they can trigger account-level scrutiny.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.elegislation.gov.hk/hk/A406"
+      ],
+      "condition": "Political topics",
+      "tradeoff": "The safe space for political discussion in-HK has narrowed significantly post-2020."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

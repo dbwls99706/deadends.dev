@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/schengen-etias-2025/de",
+  "url": "https://deadends.dev/visa/schengen-etias-2025/de",
+  "error": {
+    "signature": "AI tells visa-waiver travelers (US, UK, JP) they can fly to Germany / Schengen without any advance authorization in 2025 or later",
+    "regex": "(etias|schengen.*eta|schengen.*electronic|europe.*visa waiver|europa.*eta|entry.*exit system|ees.*schengen)",
+    "domain": "visa",
+    "category": "pre_travel_authorization",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Two new EU systems affect visa-waiver travelers to Germany / all Schengen countries: (1) EES (Entry/Exit System) — launched phased rollout 12 Oct 2025 — biometric registration replacing passport stamps, with longer border queues during adjustment; (2) ETIAS (European Travel Information and Authorisation System) — scheduled launch late 2026 / early 2027 per Commission. When ETIAS is live, 60+ visa-waiver nationalities (US, UK, CA, AU, JP...) must apply online before travel, fee €7, valid 3 years."
+  },
+  "dead_ends": [
+    {
+      "action": "Book a last-minute flight to Germany the day ETIAS goes live without an ETIAS application",
+      "why_fails": "Once ETIAS is operational, airlines validate the authorization at check-in against EU systems; travelers without ETIAS are offloaded. The original planned launch was multiple times postponed (2024 → 2025 → 2026 → late 2026/early 2027); check eu-commission ETIAS page at booking.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://travel-europe.europa.eu/etias_en",
+        "https://home-affairs.ec.europa.eu/policies/schengen-borders-and-visa/smart-borders/european-travel-information-authorisation-system_en"
+      ],
+      "condition": "After ETIAS live date, non-exempt traveler"
+    },
+    {
+      "action": "Expect quick passport stamping on entry to Germany after EES rollout (Oct 2025+)",
+      "why_fails": "EES replaces manual passport stamps with biometric (face + fingerprints) registration at first entry to Schengen. Initial processing is slower; airports and land borders have reported significantly longer queues in the first 3–6 months of rollout. Plan extra transit time, especially at busy hubs like FRA, MUC, CDG, MAD.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://travel-europe.europa.eu/ees_en"
+      ],
+      "condition": "Post-Oct 2025 Schengen entry"
+    },
+    {
+      "action": "Apply for ETIAS through a third-party 'expediter' site that charges €50–100",
+      "why_fails": "ETIAS is applied for only at the official portal (once operational). Scam sites that charge 5–10× the real €7 fee (exempted for those under 18 and over 70) have proliferated for ESTA and will for ETIAS. Search 'ETIAS site:europa.eu' to find the official portal.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://travel-europe.europa.eu/etias_en"
+      ],
+      "condition": "Scam risk",
+      "tradeoff": "Fake sites can still issue a real application but at 5-10× the cost."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check travel-europe.europa.eu/etias_en ~6 weeks before travel for ETIAS launch date and your nationality's inclusion list. Apply only through the official EU portal when live. Fee €7; under-18 and over-70 exempt from fee.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://travel-europe.europa.eu/etias_en"
+      ],
+      "condition": "ETIAS application"
+    },
+    {
+      "action": "For EES: first entry to Schengen after Oct 2025 requires biometric enrollment. Arrive 30–60 minutes earlier than pre-EES timing for at least first few crossings. Subsequent entries are faster (automated gate). Tourists with existing residence permits are exempt.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://travel-europe.europa.eu/ees_en"
+      ],
+      "condition": "First-time EES enrollment"
+    },
+    {
+      "action": "The 90/180 Schengen rule continues to apply under ETIAS/EES — these are pre-authorization systems, not permit extensions. Cumulative days in Schengen still capped at 90 in any rolling 180-day window.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area_en"
+      ],
+      "condition": "Stay planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

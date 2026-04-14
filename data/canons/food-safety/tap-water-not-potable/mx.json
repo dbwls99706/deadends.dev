@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/tap-water-not-potable/mx",
+  "url": "https://deadends.dev/food-safety/tap-water-not-potable/mx",
+  "error": {
+    "signature": "AI tells a traveler to Mexico that tap water in major cities (CDMX, Cancún, Guadalajara) is safe to drink or use for ice",
+    "regex": "(mexico.*tap water|cdmx.*water|mexican.*water safe|cancun.*ice|mexico.*drinking water|agua.*potable.*mexico|montezuma.*revenge)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "Mexican municipal tap water is chlorinated at source but recontaminates through aging pipes, rooftop tinacos (storage tanks), and low/no pressure. CDC, WHO, and Mexican health authorities (COFEPRIS) all advise visitors to drink bottled or purified water only. 'Traveler's diarrhea' (turista / venganza de Moctezuma) affects ~30–50% of naive visitors during longer stays — mostly E. coli, rotavirus, Giardia, or Cyclospora from contaminated water or unwashed produce."
+  },
+  "dead_ends": [
+    {
+      "action": "Drink tap water directly or brush teeth with tap water at hotels in CDMX, Cancún, or Los Cabos",
+      "why_fails": "Even in 5-star hotels the in-room tap water comes from building tinacos with variable contamination. The cyst forms of Giardia and Cyclospora survive chlorination. Brushing teeth with tap is a common infection route. CDC rates Mexico level-2 'practice enhanced precautions' for travelers.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/mexico",
+        "https://www.gob.mx/cofepris",
+        "https://www.who.int/publications/i/item/9789241549950"
+      ],
+      "condition": "Hotel tap water"
+    },
+    {
+      "action": "Accept ice in drinks from street vendors, small cantinas, or home-style restaurants without asking about source",
+      "why_fails": "Ice made from tap water carries the same pathogens after refreezing. CDC guidance for Mexico: 'beware of ice' in non-hotel establishments. Major hotel and chain restaurants (Carlos'n Charlie's, Starbucks) use purified-water ice and are safe.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/mexico"
+      ],
+      "condition": "Street and informal vendors"
+    },
+    {
+      "action": "Wash raw fruits/vegetables with tap water and eat them without peeling",
+      "why_fails": "Water-borne pathogens adhere to produce surfaces. CDC's rule 'peel it, boil it, cook it, or forget it' applies to Mexican produce. Lettuce, strawberries, and leafy greens are particularly risky. Disinfectant drops (Microdyn / gotitas) sold in Mexican supermarkets are designed for this.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/mexico",
+        "https://www.gob.mx/cofepris"
+      ],
+      "condition": "Self-prepared raw produce"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drink only sealed bottled water (agua purificada) — Mexican supermarkets sell 20L garrafones cheaply. Use it for tooth-brushing. Ask restaurants if the ice/water is purificada (most chain restaurants confirm yes).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/mexico"
+      ],
+      "condition": "Day-to-day hydration"
+    },
+    {
+      "action": "For self-prepared meals: soak leafy produce in water with Microdyn drops (follow label — usually 5 drops per liter, 10 min). Or boil. Or peel.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gob.mx/cofepris"
+      ],
+      "condition": "Home cooking"
+    },
+    {
+      "action": "Pack loperamide (Imodium) and consider rifaximin (Xifaxan, prescription) for severe bacterial traveler's diarrhea. Oral rehydration salts (Electrolit in Mexico, Pedialyte) at the first sign. Seek medical care if bloody diarrhea, fever >39°C, or dehydration signs.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/diseases/travelers-diarrhea"
+      ],
+      "condition": "Treatment planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

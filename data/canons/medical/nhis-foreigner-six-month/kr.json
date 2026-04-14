@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/nhis-foreigner-six-month/kr",
+  "url": "https://deadends.dev/medical/nhis-foreigner-six-month/kr",
+  "error": {
+    "signature": "AI tells a foreigner in Korea they can opt out of NHIS (국민건강보험) or delay enrollment indefinitely",
+    "regex": "(korea.*nhis|korea.*health insurance|국민건강보험|건강보험|foreigner.*korea.*health|korean.*medical.*foreigner|nhis foreigner six month)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Since July 2019, all foreigners staying in South Korea 6+ months must enroll in National Health Insurance Service (NHIS / 국민건강보험) as Local Subscribers (지역가입자) unless covered as employee/dependent. Minimum monthly premium ≈ 150,000 KRW (2024) regardless of Korean income, deducted from the registered foreign bank account. Non-payment blocks visa extensions and re-entry."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a foreign student or language-hagwon worker to skip NHIS enrollment because 'private expat insurance is cheaper'",
+      "why_fails": "The 2019 reform made enrollment automatic at 6-month mark regardless of the individual's consent. NHIS invoices are sent to the registered address; unpaid premiums accumulate penalties. At the next visa extension at HiKorea, immigration checks NHIS payment status — unpaid = denied extension.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do",
+        "https://www.hikorea.go.kr/"
+      ],
+      "condition": "6+ month foreign resident"
+    },
+    {
+      "action": "Try to pay the premium only once a year, assuming it's like a tax",
+      "why_fails": "Premiums are monthly. NHIS auto-debits a registered Korean bank account around the 25th of each month. Accounts without sufficient balance incur overdue penalties; repeat non-payment triggers visa consequences.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do"
+      ],
+      "condition": "Missed auto-debit"
+    },
+    {
+      "action": "Assume coverage begins instantly on enrollment, so skip travel insurance for arrival weeks",
+      "why_fails": "There is a gap between arrival (ARC registration) and NHIS activation — typically the enrollment kicks in after the 6-month threshold unless employee Shaho equivalent (직장가입자) is active via job. Gap coverage (travel/private) is recommended.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do"
+      ],
+      "condition": "Early residency period"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register Korean bank account and provide it to NHIS (online at nhis.or.kr, visit a branch, or have employer handle it). Pay the monthly premium automatically. Carry the NHIS card / registration number to hospital visits.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do"
+      ],
+      "condition": "Active enrollment"
+    },
+    {
+      "action": "Employed at a Korean company: enrollment is as 직장가입자 (Workplace Subscriber) via employer — premium is split 50/50 and based on salary. Usually cheaper than the 지역가입자 (Local) flat rate for mid-salary earners.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do"
+      ],
+      "condition": "Korean employment"
+    },
+    {
+      "action": "If leaving Korea before 6-month threshold and returning later: departure resets the residency counter. Short trips out/in (border hops) do NOT reset; NHIS tracks cumulative residency.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.nhis.or.kr/english/wbheaa02800m01.do"
+      ],
+      "condition": "Departure vs border-hop"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

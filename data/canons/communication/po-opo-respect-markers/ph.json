@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/po-opo-respect-markers/ph",
+  "url": "https://deadends.dev/communication/po-opo-respect-markers/ph",
+  "error": {
+    "signature": "AI translates to Filipino / Tagalog without using 'po' / 'opo' honorifics, or uses first names with older Filipinos",
+    "regex": "(filipino.*po|tagalog.*honorific|ph.*po opo|filipino.*respect language|manila.*elder|kuya.*ate|tita.*tito|philippines.*etiquette)",
+    "domain": "communication",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "Tagalog / Filipino embeds respect via 'po' (particle added to sentences) and 'opo' (yes, respectful). Omitting these when speaking to elders, strangers, or superiors reads as rude. Similarly, Filipinos prefer kinship terms (Kuya = older brother, Ate = older sister, Tito/Tita = uncle/aunt, Lolo/Lola = grandfather/grandmother) with anyone older or in a service role. First names without prefix with older people is familiar to the point of disrespectful."
+  },
+  "dead_ends": [
+    {
+      "action": "Address a Filipino service worker older than yourself by first name without any prefix",
+      "why_fails": "Filipinos use kinship terms generously to signal warmth AND respect. Saying 'Maria, pwede po pahingi ng...' is fine; 'Maria, I want ...' without kuya/ate/etc. reads cold. In a domestic helper / driver context this is especially noticed.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.officialgazette.gov.ph/",
+        "https://www.tourism.gov.ph/"
+      ],
+      "condition": "Addressing older service staff"
+    },
+    {
+      "action": "Translate business emails from English to Tagalog as flat declarative sentences without 'po'",
+      "why_fails": "Filipino business communication with clients, government, or elder counterparts embeds 'po' at sentence ends: 'Salamat po sa inyong tulong.' Without it, the email reads terse / Americanized. Internal peer-to-peer communication among same-age colleagues is more relaxed.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://komisyonsawikangfilipino.gov.ph/"
+      ],
+      "condition": "Formal/business Tagalog"
+    },
+    {
+      "action": "Assume all Filipinos speak Tagalog equally well",
+      "why_fails": "Philippines has 180+ languages. Tagalog / Filipino is national but not everyone's first language (Cebuano, Ilocano, Hiligaynon are major regional languages). In Cebu or Davao, Cebuano is preferred; defaulting to Tagalog in business there can be read as Manila-centric. English works universally for business.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://psa.gov.ph/"
+      ],
+      "condition": "Regional sensitivity"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add 'po' to end of declarative sentences and 'opo' as affirmative response with elders and superiors. With older service workers use ate (woman) / kuya (man). For very senior: Ma'am / Sir + first name works universally in English.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://komisyonsawikangfilipino.gov.ph/",
+        "https://www.officialgazette.gov.ph/"
+      ],
+      "condition": "Tagalog conversation"
+    },
+    {
+      "action": "For business communication, English is widely accepted and preferred in multinational contexts. Address: 'Dear Sir/Ma'am [First Name]' or 'Dear Mr./Ms. [Surname]'. Filipino business culture values warmth — greet with 'how are you?' before getting to the ask.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.dti.gov.ph/"
+      ],
+      "condition": "Business correspondence"
+    },
+    {
+      "action": "In Visayas/Mindanao, use basic Cebuano/Bisaya: 'Maayong buntag' (good morning), 'Salamat' (thanks). Locals appreciate the effort. For Tagalog outside NCR region, check the client's preference.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://psa.gov.ph/"
+      ],
+      "condition": "Regional Philippines"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}
