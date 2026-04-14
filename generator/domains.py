@@ -107,6 +107,22 @@ KEYWORD_MAP: dict[str, list[str]] = {
         "dog toxic", "cat toxic", "pet poison",
         "chocolate dog", "xylitol", "onion dog",
     ],
+    # Country-specific real-world knowledge (jurisdiction/culture-bound)
+    "visa": [
+        "visa", "passport", "residency", "work permit",
+        "immigration", "overstay", "esta", "schengen",
+        "arc", "alien registration", "visa waiver",
+    ],
+    "banking": [
+        "bank account", "open account", "foreigner account",
+        "wire transfer", "iban", "swift", "routing number",
+        "sort code", "bic", "ssn banking", "my number",
+    ],
+    "emergency": [
+        "emergency number", "911", "112", "119", "999",
+        "ambulance", "police non-emergency", "embassy emergency",
+        "lost passport", "medical evacuation",
+    ],
 }
 
 # Human-readable display names for domain slugs.
@@ -152,6 +168,10 @@ DOMAIN_DISPLAY_NAMES: dict[str, str] = {
     "disaster": "Disaster",
     "legal": "Legal",
     "pet-safety": "Pet Safety",
+    # Country-specific
+    "visa": "Visa & Immigration",
+    "banking": "Banking & Finance",
+    "emergency": "Emergency",
 }
 
 

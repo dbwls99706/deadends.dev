@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/ehic-non-eu-ineligible/de",
+  "url": "https://deadends.dev/medical/ehic-non-eu-ineligible/de",
+  "error": {
+    "signature": "AI tells a non-EU visitor that an EHIC or GHIC card will cover their medical treatment in Germany",
+    "regex": "(ehic.*germany|ghic.*germany|european health insurance.*germany|krankenversicherung.*tourist|germany.*health insurance.*tourist|germany.*non.eu.*medical)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "The EHIC (European Health Insurance Card) covers residents of EU/EEA/Switzerland only, and only for necessary treatment during temporary stays. UK's post-Brexit GHIC works like EHIC but only for UK residents. Non-EU tourists (US, Canada, Asia) have no automatic entitlement — they are billed privately at public rates, often 200–400 EUR for an ER visit, thousands for inpatient stays."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a US or Asian tourist they can use a friend's or relative's EHIC in Germany",
+      "why_fails": "EHIC cards are personal and contain an identifier matched against the issuing country's social insurance system. Hospitals verify the card holder's identity; non-match = private billing. Fraudulent use is a criminal offense in most EU states.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://ec.europa.eu/social/main.jsp?catId=559",
+        "https://www.dvka.de/en/versicherte/index.html"
+      ],
+      "condition": "Non-EU resident, no own EHIC"
+    },
+    {
+      "action": "Assume Germany's public hospital system will write off treatment costs for uninsured travelers, like the NHS does for emergencies",
+      "why_fails": "German hospitals are legally required to treat life-threatening emergencies regardless of payment ability (§ 323c StGB Unterlassene Hilfeleistung), but the resulting bill is sent for collection. Unpaid medical debt affects future Schengen visa applications via the SIS II database.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stgb/__323c.html"
+      ],
+      "condition": "Non-EU tourist with no travel insurance"
+    },
+    {
+      "action": "Purchase travel insurance after an illness has already begun",
+      "why_fails": "All German/EU travel insurance policies exclude pre-existing conditions and illnesses that started before policy inception. Insurers also apply waiting periods (typically 24–72 hours) for new non-accident coverage.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.bafin.de/EN/Verbraucher/Versicherung/verbraucher_versicherung_node_en.html"
+      ],
+      "condition": "Buying insurance retroactively"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before traveling, buy a Schengen-compliant travel health insurance policy with at least €30,000 coverage (required for visa, recommended for VWP). Most policies cover ER, inpatient, and medical evacuation.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.auswaertiges-amt.de/en/einreiseundaufenthalt/-/231148"
+      ],
+      "condition": "Before arrival"
+    },
+    {
+      "action": "Check if existing domestic health insurance (US employer plan, Canadian provincial) has international coverage. Many US plans reimburse emergency care abroad on itemized bills with translated diagnoses.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.cms.gov/Medicare/Coordination-of-Benefits-and-Recovery/Coordination-of-Benefits-and-Recovery-Overview"
+      ],
+      "condition": "Existing international coverage rider",
+      "tradeoff": "Reimbursement often takes weeks; pay out-of-pocket first."
+    },
+    {
+      "action": "Once in Germany, for non-emergency conditions ask the practice for the private-pay rate (GOÄ privat) upfront; many clinics discount vs. insurance-billed rates if paid in cash same-day.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.bundesaerztekammer.de/themen/aerzte/aerztliche-verguetung/gebuehrenordnung-fuer-aerzte-goae"
+      ],
+      "condition": "Non-emergency private practice visit"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

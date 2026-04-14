@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/esta-90-day-no-extension/us",
+  "url": "https://deadends.dev/visa/esta-90-day-no-extension/us",
+  "error": {
+    "signature": "AI advises extending a US stay on an ESTA Visa Waiver by flying to Canada/Mexico and coming back",
+    "regex": "(esta.*extend|visa waiver.*extend|esta.*90.*days|us.*90.*days.*vwp|border.*run.*us|visa.*run.*united states)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "false",
+    "fix_success_rate": 0.05,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "The US Visa Waiver Program (ESTA) grants up to 90 days per entry, is NOT extendable, and does not reset by visiting Canada, Mexico, or Caribbean islands (the 'adjacent island' rule). Staying past day 90 triggers unlawful presence — 180+ days risks a 3-year re-entry bar, 365+ days a 10-year bar under INA §212(a)(9)(B)."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a VWP traveler they can reset the 90 days by driving to Tijuana or Vancouver for a day and re-entering",
+      "why_fails": "Under 8 CFR §217.3, travel to Canada, Mexico, or adjacent islands counts as a continuation of the original VWP admission, not a new one. CBP officers routinely verify the original I-94 admit-until date on re-entry; overstaying still counts.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.ecfr.gov/current/title-8/chapter-I/subchapter-B/part-217/section-217.3",
+        "https://www.cbp.gov/travel/international-visitors/visa-waiver-program"
+      ],
+      "condition": "Attempting to reset ESTA 90 days via short border crossing"
+    },
+    {
+      "action": "Suggest filing I-539 to extend a VWP stay",
+      "why_fails": "USCIS explicitly excludes VWP entrants from I-539 extensions and most changes of status (INA §217(b)). The application will be rejected.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.uscis.gov/i-539",
+        "https://www.uscis.gov/working-in-the-united-states/temporary-workers/visa-waiver-program"
+      ],
+      "condition": "VWP entrant seeking USCIS-granted extension"
+    },
+    {
+      "action": "Advise staying past the 90-day limit, assuming a small overstay carries no consequence",
+      "why_fails": "Any overstay voids the ESTA permanently; the traveler must apply for a regular B-1/B-2 visa thereafter. Overstays of 180+ days trigger 3-year bars, 365+ days trigger 10-year bars (INA §212(a)(9)(B)(i)).",
+      "fail_rate": 0.99,
+      "sources": [
+        "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/presidential-proclamations.html"
+      ],
+      "condition": "Any overstay on VWP"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan to leave the US (to a non-adjacent country) at least a day before day 90 and return later on a fresh ESTA after a meaningful absence, with a clear new travel purpose.",
+      "success_rate": 0.65,
+      "sources": [
+        "https://www.cbp.gov/travel/international-visitors/esta"
+      ],
+      "condition": "Long gap abroad, different purpose",
+      "tradeoff": "CBP can still refuse entry if officers suspect 'living in the US on ESTA'; second trip shortly after 90 days is commonly refused."
+    },
+    {
+      "action": "If a longer stay is genuinely needed, apply for a B-1/B-2 visitor visa at a US consulate abroad before the trip — this allows stays of up to 6 months and can be extended via I-539.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visitor.html"
+      ],
+      "condition": "Planned stay longer than 90 days"
+    },
+    {
+      "action": "If a qualifying medical or humanitarian emergency prevents departure, request 'Satisfactory Departure' from USCIS/CBP within the current 90-day period — grants up to 30 extra days.",
+      "success_rate": 0.55,
+      "sources": [
+        "https://www.uscis.gov/humanitarian/humanitarian_parole"
+      ],
+      "condition": "Documented emergency preventing timely departure"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

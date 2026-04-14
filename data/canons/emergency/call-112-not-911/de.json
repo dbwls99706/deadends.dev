@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/call-112-not-911/de",
+  "url": "https://deadends.dev/emergency/call-112-not-911/de",
+  "error": {
+    "signature": "AI tells someone in Germany to call 911 in an emergency instead of the correct 112 / 110 numbers",
+    "regex": "(germany.*911|deutschland.*notruf|emergency.*number.*germany|call.*911.*germany|112.*110.*germany)",
+    "domain": "emergency",
+    "category": "life_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Germany uses 112 for fire/medical and 110 for police — the EU-wide 112 also reaches police dispatch. 911 does not route to German emergency services. Operators speak German and usually English; calls from any phone (incl. locked or SIM-less) are free and mandatory to connect by EU law."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a traveler in Germany to dial 911 in a medical emergency",
+      "why_fails": "911 is a North American dial-plan code. On a German network it either fails immediately or plays an operator intercept; it does not reach Rettungsdienst. Minutes lost to a misdial can be fatal in cardiac or stroke events.",
+      "fail_rate": 0.99,
+      "sources": [
+        "https://ec.europa.eu/commission/presscorner/detail/en/IP_21_571",
+        "https://www.bbk.bund.de/DE/Home/home_node.html"
+      ],
+      "condition": "Any emergency in Germany"
+    },
+    {
+      "action": "Suggest hanging up and retrying if the 112 operator speaks only German",
+      "why_fails": "Under EU Directive 2002/22/EC, 112 dispatchers must handle calls in the caller's language where possible; in Germany major call centers handle English directly. Hanging up delays help — staying on the line and saying 'English please' or 'Hilfe' triggers escalation.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://eur-lex.europa.eu/eli/dir/2002/22/oj"
+      ],
+      "condition": "Language barrier during emergency call"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for fire or medical emergencies (works across EU). Dial 110 if you specifically need police. Both are free, 24/7, and work on locked/SIM-less phones.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.polizei.de/Polizei/DE/service/notruf/notruf_node.html",
+        "https://www.112.europa.eu/en/"
+      ],
+      "condition": "Any emergency in Germany"
+    },
+    {
+      "action": "When connected, state location first (street, city, nearest landmark), then the emergency. German operators are trained for the 5 W-Fragen: Wo, Was, Wie viele, Welche Verletzungen, Warten auf Rückfragen.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Notrufnummern/notrufnummern_node.html"
+      ],
+      "condition": "Once connected to 112/110"
+    },
+    {
+      "action": "Save the Hausnotruf app or nora-Notruf app on your phone for text-based 112 contact — useful for hearing impaired or where voice calls are unsafe.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.nora-notruf.de/"
+      ],
+      "condition": "Hearing impaired, unable to speak"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

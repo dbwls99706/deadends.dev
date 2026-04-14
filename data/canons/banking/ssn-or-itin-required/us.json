@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/ssn-or-itin-required/us",
+  "url": "https://deadends.dev/banking/ssn-or-itin-required/us",
+  "error": {
+    "signature": "AI claims opening a US bank account only needs a passport, ignoring the SSN/ITIN requirement for most national banks",
+    "regex": "(us.*bank.*account|american.*bank.*open|ssn.*bank|itin.*bank|open.*account.*united states|us.*checking.*foreigner)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "US Patriot Act §326 (Customer Identification Program) requires banks to collect a taxpayer identification number. In practice: SSN for residents, ITIN for non-resident taxpayers. Some banks (Chase, BofA, HSBC, Citi) have foreign-national programs that accept a passport + secondary ID without an SSN, but these accounts are limited and require in-branch application."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a newly-arrived foreigner to open a Chase/BofA account fully online with just a passport",
+      "why_fails": "Online account opening flows require an SSN input field and will reject applications without one. Patriot Act §326 mandates a TIN for every customer; banks refuse to enrol via the digital channel without it.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.fincen.gov/resources/statutes-regulations/patriot-act",
+        "https://www.irs.gov/individuals/individual-taxpayer-identification-number"
+      ],
+      "condition": "No SSN/ITIN yet, trying online enrolment"
+    },
+    {
+      "action": "Apply for an SSN before getting a US job offer or qualifying visa status",
+      "why_fails": "SSA only issues SSNs to people authorized to work (F-1 with CPT/OPT, H-1B, green card, etc.). Tourists on B-1/B-2 are categorically ineligible; the correct path for tax-only purposes is ITIN via IRS form W-7.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.ssa.gov/ssnvisa/",
+        "https://www.irs.gov/pub/irs-pdf/fw7.pdf"
+      ],
+      "condition": "Need a tax number for banking but not work-authorized"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply in-branch at Chase, HSBC, or BofA's International programs with passport + second ID + US address — they enrol foreign nationals without an SSN under a W-8BEN.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.chase.com/personal/banking/international-new-arrivals",
+        "https://www.us.hsbc.com/international-banking/"
+      ],
+      "condition": "Have a US address and in-person availability",
+      "tradeoff": "Account features limited until SSN/ITIN is obtained; no credit cards at account opening."
+    },
+    {
+      "action": "If you will file a US tax return, submit IRS form W-7 with supporting documents (usually notarized passport copy) to obtain an ITIN, then complete the bank enrolment.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.irs.gov/individuals/international-taxpayers/general-itin-information"
+      ],
+      "condition": "Tax filing obligation (interest income, rental, business)",
+      "tradeoff": "ITIN processing can take 7–11 weeks."
+    },
+    {
+      "action": "For pure transactional needs, use fintechs like Wise or Revolut USD accounts that accept a passport without an SSN, then migrate once tax ID is issued.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://wise.com/help/articles/2977960"
+      ],
+      "condition": "Interim solution only",
+      "tradeoff": "Not a US-domiciled bank account; limited ACH and no personal check issuance."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

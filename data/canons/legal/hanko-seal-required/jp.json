@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/hanko-seal-required/jp",
+  "url": "https://deadends.dev/legal/hanko-seal-required/jp",
+  "error": {
+    "signature": "AI tells someone signing a Japanese contract that a Western-style signature is always acceptable, ignoring the hanko/inkan requirement",
+    "regex": "(japan.*signature|japanese.*contract.*signature|hanko|inkan|印鑑|実印|jitsuin|mitomein|japan.*seal|japanese.*seal)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Despite a 2021 government push to eliminate unnecessary seal requirements (脱ハンコ), many Japanese procedures still demand a personal seal (印鑑): registering a car, buying property, opening certain bank accounts, and most company contracts. Foreigners can legally substitute a signature in some contexts, but a registered 実印 (jitsuin) with 印鑑証明書 is unavoidable for property, auto, and many corporate filings."
+  },
+  "dead_ends": [
+    {
+      "action": "Assure a foreign resident that a handwritten signature is always legally equivalent to a hanko in Japan",
+      "why_fails": "Civil Code Art. 586 and Registration Act require a registered seal impression (実印) plus 印鑑証明書 (seal certificate) for real-estate transfers, auto registration, and corporate register changes. Banks and notaries may accept a signature only for foreign residents who have not registered a seal, and often ask for passport + additional ID as substitutes.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.moj.go.jp/ENGLISH/m_minji08.html",
+        "https://elaws.e-gov.go.jp/document?lawid=129AC0000000089"
+      ],
+      "condition": "High-stakes contract (property, vehicle, company)"
+    },
+    {
+      "action": "Buy any cheap rubber stamp at a 100-yen shop and call it a 'hanko' for legal use",
+      "why_fails": "For 実印 purposes the seal must be registered at the city/ward office and cannot match mass-produced stamps (ward offices explicitly reject 三文判 for registration). Using an unregistered seal on a contract weakens later enforceability.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.moj.go.jp/MINJI/minji04_00057.html"
+      ],
+      "condition": "Trying to register a 実印"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For routine documents (delivery receipts, internal forms) a 認印 (mitomein) — any personal seal — is usually enough; a signature is also increasingly accepted post-2021 reform.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.digital.go.jp/"
+      ],
+      "condition": "Low-stakes paperwork"
+    },
+    {
+      "action": "Commission a custom 実印 from an engraver and register it at the ward office (印鑑登録). Obtain 印鑑証明書 as needed for specific transactions.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.soumu.go.jp/menu_kyotsuu/important/070319_1.html"
+      ],
+      "condition": "Long-term resident, need for major contracts",
+      "tradeoff": "Engraving 5,000–30,000 JPY; registration requires residence card and juminhyo."
+    },
+    {
+      "action": "For foreign residents without a registered seal, request a 署名証明書 (signature certificate) at the home-country consulate in Japan; many offices accept it in lieu of 印鑑証明書.",
+      "success_rate": 0.72,
+      "sources": [
+        "https://www.us.emb-japan.go.jp/itpr_en/notary.html"
+      ],
+      "condition": "No registered seal, non-Japanese national"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

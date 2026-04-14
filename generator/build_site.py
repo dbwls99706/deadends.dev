@@ -74,6 +74,10 @@ def build_env_summary(canon: dict) -> str:
     additional = env.get("additional", {})
     if additional.get("architecture"):
         parts.append(additional["architecture"])
+    if additional.get("country_name"):
+        parts.append(additional["country_name"])
+    if additional.get("audience"):
+        parts.append(additional["audience"])
 
     return " · ".join(parts)
 
@@ -394,6 +398,84 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
         print(f"  Generated: /{domain}/")
 
 
+def _canon_country_info(canon: dict) -> tuple[str, str] | None:
+    """Return (country_code, country_name) if the canon has country metadata."""
+    additional = canon.get("environment", {}).get("additional", {})
+    code = additional.get("country")
+    name = additional.get("country_name")
+    if isinstance(code, str) and code and isinstance(name, str) and name:
+        return code.lower(), name
+    return None
+
+
+def country_stats(canons: list[dict]) -> list[dict]:
+    """Aggregate canons by country for index/navigation rendering."""
+    by_country: dict[str, dict] = {}
+    for canon in canons:
+        info = _canon_country_info(canon)
+        if info is None:
+            continue
+        code, name = info
+        bucket = by_country.setdefault(code, {"slug": code, "name": name, "count": 0})
+        bucket["count"] += 1
+    return sorted(by_country.values(), key=lambda b: (-b["count"], b["slug"]))
+
+
+def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
+    """Generate per-country landing pages at /country/{cc}/."""
+    template = jinja_env.get_template("country.html")
+
+    by_country: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for canon in canons:
+        info = _canon_country_info(canon)
+        if info is None:
+            continue
+        code, name = info
+        by_country.setdefault(code, []).append(canon)
+        country_names[code] = name
+
+    if not by_country:
+        print("  No country-tagged canons — skipping country pages")
+        return
+
+    for code, country_canons in by_country.items():
+        entries = []
+        for c in sorted(country_canons, key=lambda c: c["id"]):
+            entries.append({
+                "id": c["id"],
+                "signature": c["error"]["signature"],
+                "domain": c["error"]["domain"],
+                "fix_success_rate": c["verdict"]["fix_success_rate"],
+                "dead_end_count": len(c["dead_ends"]),
+                "workaround_count": len(c.get("workarounds", [])),
+                "summary": c["verdict"]["summary"],
+            })
+
+        by_domain: dict[str, int] = {}
+        for c in country_canons:
+            d = c["error"]["domain"]
+            by_domain[d] = by_domain.get(d, 0) + 1
+        domain_breakdown = sorted(
+            [{"slug": s, "count": n} for s, n in by_domain.items()],
+            key=lambda x: (-x["count"], x["slug"]),
+        )
+
+        html = template.render(
+            country_code=code,
+            country_name=country_names[code],
+            entries=entries,
+            total=len(entries),
+            domain_breakdown=domain_breakdown,
+            noindex=False,
+        )
+
+        out_dir = SITE_DIR / "country" / code
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
+        print(f"  Generated: /country/{code}/")
+
+
 def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
     """Generate the main index page."""
     template = jinja_env.get_template("index.html")
@@ -512,10 +594,13 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
         while len(demo_errors) < 3 and defaults:
             demo_errors.append(defaults.pop(0))
 
+    country_list = country_stats(canons)
+
     html = template.render(
         total_errors=len(canons),
         domains=domains,
         domain_stats=domain_stats,
+        country_stats=country_list,
         recent_entries=recent_entries,
         example_error_id=example_error_id,
         total_dead_ends=f"{total_dead_ends:,}",
@@ -3703,6 +3788,10 @@ def main():
 
     print("Generating domain pages...")
     build_domain_pages(canons, jinja_env)
+    print()
+
+    print("Generating country pages...")
+    build_country_pages(canons, jinja_env)
     print()
 
     print("Generating error summary pages...")

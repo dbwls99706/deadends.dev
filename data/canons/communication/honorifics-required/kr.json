@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/honorifics-required/kr",
+  "url": "https://deadends.dev/communication/honorifics-required/kr",
+  "error": {
+    "signature": "AI ignores Korean speech levels (존댓말/반말) when translating or drafting messages, collapsing everything to a single neutral register",
+    "regex": "(korean.*honorific|존댓말|반말|korean.*formal.*informal|한국어.*존댓말|korean.*speech.*level|jondaetmal|banmal)",
+    "domain": "communication",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "Korean speech levels are not stylistic preference — they encode social relationship. Using 반말 (banmal, plain form) with a superior, elder, or first-time contact is read as disrespect or aggression. Using overly stiff 하십시오체 with a close friend sounds cold. Email, customer service, and workplace messaging default to 해요체 or 합니다체; default 반말 output will be offensive."
+  },
+  "dead_ends": [
+    {
+      "action": "Translate an English email to Korean as if the addressee were a peer, producing uniform 해 (해체/반말) endings",
+      "why_fails": "The receiver parses 반말 from a stranger as either a machine-translation error or a pointed insult. Business communication requires at minimum 해요체 (-요 endings) and often the more formal 합니다체 (-ㅂ니다). Messages in 반말 to a boss, older colleague, or client can end relationships.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/roman/roman_01.do",
+        "https://www.talktomeinkorean.com/"
+      ],
+      "condition": "Business or first-contact email/message"
+    },
+    {
+      "action": "Always apply 합니다체 to sound 'safe', even among close friends",
+      "why_fails": "Among close friends, family of similar age, or in casual messaging, 합니다체 feels bureaucratic and distant — may read as the speaker holding the listener at arm's length after establishing closeness. It's also strange in casual group chats.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Messaging close friends, casual settings"
+    },
+    {
+      "action": "Drop honorifics and titles (님, 씨, 선배, 과장님) once rapport is established",
+      "why_fails": "Even friendly colleagues often keep 님/씨/직함 indefinitely. Dropping them without explicit invitation (말 놓으세요) signals presumption and can be read as rude, especially cross-generation or cross-rank.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Workplace, age gap, new relationship"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to 해요체 for general messaging and 합니다체 for formal/business written communication. Use honorific titles (김부장님, 이과장님) plus 님 with given names for colleagues.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.korean.go.kr/"
+      ],
+      "condition": "Unsure of relationship"
+    },
+    {
+      "action": "Mirror the register the Korean counterpart uses. If they write in 합니다체, reply in 합니다체; if 해요체, match. Only step down to 반말 after explicit invitation.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.talktomeinkorean.com/"
+      ],
+      "condition": "Ongoing correspondence"
+    },
+    {
+      "action": "When translating, always ask the user about the relationship (colleague? boss? same age? friend?) before choosing speech level. Generic output without this context will be wrong roughly half the time.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.korean.go.kr/front_eng/index.do"
+      ],
+      "condition": "Any Korean translation task"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

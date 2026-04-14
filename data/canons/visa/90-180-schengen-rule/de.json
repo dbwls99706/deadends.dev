@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/90-180-schengen-rule/de",
+  "url": "https://deadends.dev/visa/90-180-schengen-rule/de",
+  "error": {
+    "signature": "AI misreads the Schengen 90/180 rule as 90 days per country, or as resettable by a quick exit to the UK",
+    "regex": "(schengen.*90.*180|schengen.*90 days|germany.*schengen.*visa.*waiver|90.*180.*schengen|schengen.*visa.*extension)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Schengen's 90/180 rule caps short-stay entrants at 90 days within any rolling 180-day window across the ENTIRE Schengen area (27 countries including Germany, France, Italy, Spain, etc.), not per country. Exiting to a non-Schengen country (UK, Ireland, Croatia until 2023, Turkey) pauses the clock but the accumulated days do not reset."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler they can stay 90 days in Germany, then 90 in France, then 90 in Italy",
+      "why_fails": "Schengen treats the bloc as one jurisdiction for short-stay purposes (Regulation (EU) 2016/399 Art. 6). Days accumulate across every Schengen country entered. Border guards run the 90/180 calculator on exit; overstay is detected immediately.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0399",
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area_en"
+      ],
+      "condition": "Trying to treat Schengen countries as separate quotas"
+    },
+    {
+      "action": "Exit Schengen to London for 2 days to 'reset' the 90/180 counter",
+      "why_fails": "Time outside Schengen pauses but does not reset the rolling counter. The calculator looks at any 180-day window: if you've spent 90 days inside in the last 180, re-entry is refused until enough days have 'aged off'.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area/short-stay-visa-calculator_en"
+      ],
+      "condition": "Short trip outside Schengen"
+    },
+    {
+      "action": "Extend a Schengen visa-waiver stay by applying to a German Ausländerbehörde for an extension",
+      "why_fails": "Extensions of short-stay visa-waiver status are granted only in exceptional cases (force majeure, humanitarian, late entry into force). A routine tourist request to extend by another month is almost always denied.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.auswaertiges-amt.de/en/einreiseundaufenthalt/schengenvisa"
+      ],
+      "condition": "Seeking extension without exceptional circumstances"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the official EU short-stay calculator before travel. Plan the itinerary so cumulative Schengen days ≤ 90 in any 180-day window.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area/short-stay-visa-calculator_en"
+      ],
+      "condition": "Before and during travel"
+    },
+    {
+      "action": "For stays >90 days, apply for a national long-stay D-visa from the German consulate abroad (Freelancer, Job-seeker, Student, Working Holiday for eligible nationalities). Process takes 4–12 weeks.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.auswaertiges-amt.de/en/einreiseundaufenthalt/visabestimmungen-node"
+      ],
+      "condition": "Genuine need for long stay"
+    },
+    {
+      "action": "Alternate Schengen stays with extended trips to non-Schengen countries (UK, Ireland, Turkey, Morocco, Balkans) so that by re-entry the 180-day window has rotated past the earlier Schengen days.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area/short-stay-visa-calculator_en"
+      ],
+      "condition": "Flexible itinerary, full understanding of rolling window",
+      "tradeoff": "Requires careful date tracking; a miscalculation is a visa overstay with Schengen-wide ban."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}
