@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/canada-not-america-identity/ca",
+  "url": "https://deadends.dev/communication/canada-not-america-identity/ca",
+  "error": {
+    "signature": "AI defaults Canadian business or cultural content to US framing: 'America' for the country, US currency, US spellings, US holidays, ignoring Francophone and Indigenous dimensions",
+    "regex": "(canada.*america|canadian.*america|canada.*us.*interchangeable|québec.*french|quebec.*language|canada.*indigenous|first nations canada|canadian.*holiday)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.82,
+    "last_updated": "2026-04-15",
+    "summary": "Canada is a distinct country with CAD currency, two official languages (English + French, with French having constitutional protection in Quebec and parts of NB/ON), a different legal system (common law outside QC; civil law in QC), and distinct federal holidays (Canada Day 1 Jul, Thanksgiving 2nd Mon Oct, not 4th Thu Nov). Canadian spelling = British (colour, centre, defence). US-to-Canada software, marketing, and content localization failing to adjust reads as careless at best, culturally insensitive in Quebec."
+  },
+  "dead_ends": [
+    {
+      "action": "Launch a Canadian product with USD pricing, US-spelling marketing ('color', 'center'), and US holidays in the content calendar",
+      "why_fails": "CAD is the currency; displaying USD confuses purchase intent. British-spelling Canadian English uses 'colour', 'centre', 'favour', 'defence'. Ignoring Canada Day, Victoria Day, Remembrance Day, and Canadian Thanksgiving while highlighting July 4 / Memorial Day / Thanksgiving (US) marks the content as imported without adaptation.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/government-canada-style-guide.html",
+        "https://www.canada.ca/en/canadian-heritage/services/official-languages-bilingualism.html"
+      ],
+      "condition": "Canada consumer marketing"
+    },
+    {
+      "action": "Ship a product into Quebec with English-only packaging or UI",
+      "why_fails": "Quebec's Charter of the French Language (Loi 101, amended via Loi 96 in 2022) requires French on packaging, signage, and commercial communication. OQLF (Office québécois de la langue française) issues warnings and fines. English may accompany French but French text must be equal or predominant. Major foreign brands (Walmart, Amazon) maintain separate Quebec localization.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.oqlf.gouv.qc.ca/accueil.aspx",
+        "https://www.legisquebec.gouv.qc.ca/en/document/cs/c-11"
+      ],
+      "condition": "Quebec market entry"
+    },
+    {
+      "action": "Refer to Indigenous peoples as 'Indians' or 'Native Americans' in Canadian content",
+      "why_fails": "Current preferred terms in Canada: 'Indigenous peoples' (umbrella), 'First Nations' (status / non-status, excluding Inuit and Métis), 'Inuit' (not 'Eskimo' — considered offensive in Canada), 'Métis'. 'Indian' is legal-system term (Indian Act) but culturally inappropriate. 'Native American' is US-specific.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.canada.ca/en/crown-indigenous-relations-northern-affairs.html",
+        "https://www.rcaanc-cirnac.gc.ca/eng/1100100013785/1529102490303"
+      ],
+      "condition": "Indigenous terminology"
+    },
+    {
+      "action": "Assume all Canadians speak English at business standard",
+      "why_fails": "Quebec (~8M people) predominantly speaks French. Business in Montreal, Quebec City, Sherbrooke often happens in French; English-only approach reads as imposed. New Brunswick is officially bilingual. Meeting a Canadian client in Quebec? Start with French greeting even if switching to English.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.canada.ca/en/canadian-heritage/services/official-languages-bilingualism.html"
+      ],
+      "condition": "Quebec business meetings"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Canadian localization defaults: CAD, British-style English spelling, Canadian holidays (Canada Day, Victoria Day, Remembrance Day 11 Nov, Canadian Thanksgiving 2nd Mon Oct). Reference Government of Canada Style Guide.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/government-canada-style-guide.html"
+      ],
+      "condition": "Content / product localization"
+    },
+    {
+      "action": "For Quebec market: provide full French version equal or greater to English. Use European-French conventions (not Quebecois colloquial) for formal business; Quebecois French for consumer-facing. OQLF certification for business signage is required.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.oqlf.gouv.qc.ca/accueil.aspx"
+      ],
+      "condition": "Quebec entry",
+      "tradeoff": "Quebec localization adds cost but is legally required for most commercial activity."
+    },
+    {
+      "action": "Indigenous references: 'Indigenous peoples' as default umbrella term. Specific: First Nations, Inuit, Métis. Use the specific Nation's name when known (Anishinaabe, Haudenosaunee, Mi'kmaq, Cree, etc.). Add Indigenous Land Acknowledgements to corporate events in Canada.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.rcaanc-cirnac.gc.ca/eng/1100100013785/1529102490303"
+      ],
+      "condition": "Indigenous-related content"
+    },
+    {
+      "action": "Business greetings in Canadian cities: English default in Toronto/Vancouver/Calgary; French first then English in Montreal/Quebec City. Bilingual federal government communications; provincial varies.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.canada.ca/en/canadian-heritage/services/official-languages-bilingualism.html"
+      ],
+      "condition": "Regional business protocol"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

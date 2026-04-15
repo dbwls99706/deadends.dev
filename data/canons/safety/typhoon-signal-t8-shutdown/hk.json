@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/typhoon-signal-t8-shutdown/hk",
+  "url": "https://deadends.dev/safety/typhoon-signal-t8-shutdown/hk",
+  "error": {
+    "signature": "AI tells a traveler to Hong Kong to proceed with a flight, dinner reservation, or meeting during a T8 typhoon signal",
+    "regex": "(hong kong.*typhoon|hk.*t8|t8 signal|typhoon signal.*hk|strong wind warning|amber rainstorm|black rainstorm|hko|hk observatory|hk.*storm)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Hong Kong Observatory's typhoon signal system: T1 (standby), T3 (strong wind), T8 (gale or storm — citywide shutdown), T9 (increasing), T10 (hurricane, hoist only during direct hit). T8+ triggers city-wide business closures, public transport reductions, MTR partial service, schools and offices close, and flights are delayed/diverted. Rainstorm signals (Amber / Red / Black) are separate; Black = severe flooding, stay indoors. HKO issues advance warnings typically 2-3 hours before T8 hoisting."
+  },
+  "dead_ends": [
+    {
+      "action": "Go to a dinner reservation or business meeting after T8 signal is hoisted",
+      "why_fails": "Under the Labour Department's 'Code of Practice in times of Typhoons and Rainstorms', non-essential offices close when T8 is hoisted. Restaurants close; MTR frequency reduces; buses and trams suspend after T8 for safety. Streets become dangerous with falling debris / scaffolding. Most insurance and employment contracts recognize T8 as 'no work day'.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.hko.gov.hk/en/wservice/tsheet/pms.htm",
+        "https://www.labour.gov.hk/eng/faq/cap59_whole.htm"
+      ],
+      "condition": "T8 signal active"
+    },
+    {
+      "action": "Expect a Hong Kong flight to depart on schedule during T8+",
+      "why_fails": "Cathay Pacific, Hong Kong Airlines, and all HKIA departures typically suspend 2 hours before T8 hoist and resume 2+ hours after T8 is lowered. Diversion to Shenzhen, Macau, or Taipei happens mid-flight. Check hko.gov.hk signal and carrier's operational bulletin 12h before departure.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.hko.gov.hk/en/wservice/tsheet/pms.htm",
+        "https://www.hongkongairport.com/"
+      ],
+      "condition": "Flight during typhoon approach"
+    },
+    {
+      "action": "Venture outdoors during Black Rainstorm (黑色暴雨) to 'get somewhere indoors'",
+      "why_fails": "Black Rainstorm = rainfall >70mm/hour, flash-flood-level risk. Hong Kong Public Works advises sheltering in place. Roads can rise quickly; low-lying MTR stations have flooded (Wong Tai Sin 2023). Venturing out increases risk vs staying in place.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.hko.gov.hk/en/wservice/warning/rainstorm.htm"
+      ],
+      "condition": "Black Rainstorm active"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Monitor Hong Kong Observatory (hko.gov.hk) app or website during typhoon season (May-November). HKO issues signal forecast typically 2-3h before hoisting. T8 pre-warning = plan to go home / stay in place within 2h.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.hko.gov.hk/en/",
+        "https://www.hko.gov.hk/en/wservice/tsheet/pms.htm"
+      ],
+      "condition": "Typhoon season awareness"
+    },
+    {
+      "action": "At T8 hoist: stay indoors. Stock water, snacks, mobile power bank. Check MTR service status (mtr.com.hk). If already outdoors, head to MTR station or indoor location; don't linger near bamboo scaffolding, glass windows, or overhead signage.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.hk/en/residents/government/emergency/typhoons.htm"
+      ],
+      "condition": "During T8"
+    },
+    {
+      "action": "Flights: rebook via carrier app. Cathay Pacific and HK Express typically offer free rebooking during T8+. Check airport status at hongkongairport.com. Arriving flights can hold or divert; departing cancel at T8.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.hongkongairport.com/"
+      ],
+      "condition": "Flight rebooking"
+    },
+    {
+      "action": "Black Rainstorm: shelter in place. Move valuables off floors if in low-lying area. Low-floor parking garages can flood; move cars to higher ground if possible before peak rainfall.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.hko.gov.hk/en/wservice/warning/rainstorm.htm"
+      ],
+      "condition": "Flash flood risk"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

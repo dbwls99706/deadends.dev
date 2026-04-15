@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/catalan-basque-galician-identity/es",
+  "url": "https://deadends.dev/communication/catalan-basque-galician-identity/es",
+  "error": {
+    "signature": "AI addresses Catalonia, the Basque Country, and Galicia as 'Spain' without acknowledging regional language and identity",
+    "regex": "(spain.*catalan|catalonia.*independence|barcelona.*catalan|basque.*country|euskera|galicia.*language|spanish.*identity|spain.*language)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "regional",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.82,
+    "last_updated": "2026-04-15",
+    "summary": "Spain is linguistically and politically plurinational. Catalonia (Catalan), Basque Country (Euskera), and Galicia (Galego) have co-official languages under the 1978 Constitution and regional autonomy statutes. Catalan independence referendum 2017 and ongoing political tensions make 'Spain vs Catalonia' framing politically loaded. Business in Barcelona, Bilbao, and Santiago de Compostela often prefers starting in the local language or at minimum acknowledging it. Standard Spanish is castellano (the rest of the world calls it 'Spanish')."
+  },
+  "dead_ends": [
+    {
+      "action": "Launch a Catalonia-targeted product with Spanish (castellano) only, no Catalan version",
+      "why_fails": "Catalonia's Llei del Català (Catalan Language Law) requires Catalan on public signage, education, and some commercial contexts. Catalans view omission as cultural erasure. Barcelona's 1.6M residents speak Catalan at home ~35% (more so outside Barcelona city in rural Catalonia). Major brands (Decathlon, Mercadona, Ikea) run separate Catalan versions of signage and key marketing.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://llengua.gencat.cat/",
+        "https://www.gencat.cat/"
+      ],
+      "condition": "Catalonia market entry"
+    },
+    {
+      "action": "Tell a Catalan or Basque counterpart 'I love Spain!' and expect nodding agreement",
+      "why_fails": "Catalan and Basque identity is partly national-civic, not just regional. A polite counterpart will redirect; a politically engaged one may respond 'I'm Catalan' or 'I'm Basque'. Safer: 'I love Barcelona/Bilbao' — city and regional identity is always welcomed.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gencat.cat/",
+        "https://www.euskadi.eus/"
+      ],
+      "condition": "Identity conversation"
+    },
+    {
+      "action": "Open a Spanish-language business meeting in Basque Country without acknowledging Euskera",
+      "why_fails": "Euskera is a linguistic isolate (not Indo-European, predates surrounding languages), with ~750k speakers. Basque Country's Government (Eusko Jaurlaritza) conducts business in both languages. A short 'Egun on' (good morning) opener signals respect; meeting continues in Spanish or English without issue.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.euskadi.eus/",
+        "https://www.hiru.eus/"
+      ],
+      "condition": "Basque Country business"
+    },
+    {
+      "action": "Bring up Catalonia independence / 2017 referendum / political prisoners in a first meeting in Barcelona",
+      "why_fails": "Deeply polarizing topic. Business counterparts likely have strong views either direction. Outsiders raising it without invitation read as meddling or naive. Safer topics: FC Barcelona, Gaudí architecture, gastronomy.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gencat.cat/"
+      ],
+      "condition": "Political small talk"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For regional business in Catalonia / Basque Country / Galicia: provide at least key marketing materials in the regional language. Decent opening greeting in the local language (bon dia / egun on / bos días) goes a long way. Switch to Spanish or English thereafter as partners prefer.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://llengua.gencat.cat/",
+        "https://www.euskadi.eus/"
+      ],
+      "condition": "Regional business"
+    },
+    {
+      "action": "Terminology: 'Spanish language' internationally = 'castellano' in Spain (to distinguish from Catalan/Basque/Galician which are also 'Spanish' in the sense of languages of Spain). Within Spain, say 'castellano' when referring to the main language.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.rae.es/"
+      ],
+      "condition": "Language terminology"
+    },
+    {
+      "action": "Avoid Spain-wide stereotypes in Catalonia/Basque Country — siesta, flamenco, bullfighting are Andalusian cultural elements, not universal. Bullfighting is banned in Catalonia since 2010.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.gencat.cat/"
+      ],
+      "condition": "Regional generalization"
+    },
+    {
+      "action": "Let political topics come from the other side. Listen without advocating. Redirect to commercial/cultural if uncomfortable.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.gencat.cat/"
+      ],
+      "condition": "Sensitive conversation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

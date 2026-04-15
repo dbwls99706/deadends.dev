@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/taiwan-identity-not-prc/tw",
+  "url": "https://deadends.dev/communication/taiwan-identity-not-prc/tw",
+  "error": {
+    "signature": "AI addresses Taiwanese partners with PRC-aligned framing: 'Taiwan, China', simplified characters, Mandarin over traditional, RMB pricing",
+    "regex": "(taiwan.*identity|taiwanese.*prc|taiwan.*republic of china|roc taiwan|taiwan.*traditional chinese|taiwan.*ntd|新台幣|繁體字|simplified taiwan|taiwan.*pinyin)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Taiwan (Republic of China) operates as a distinct jurisdiction with its own currency (NTD), traditional Chinese characters (繁體字), distinct passport, and Taipei-based government. Using 'Taiwan, China' framing in Taiwan-targeted content, simplified characters, or pricing in RMB reads as politically aligned with Beijing; conversely, 'Republic of China'/'ROC' alone is used by the government but casual use of 'Taiwan' is more common. Mandarin Chinese is the official language, but Taiwanese Hokkien, Hakka, and indigenous languages have increasing recognition."
+  },
+  "dead_ends": [
+    {
+      "action": "Launch a Taiwan product with simplified-character marketing copy and RMB price tags",
+      "why_fails": "Taiwan uses traditional Chinese (繁體字) universally. Simplified characters (简体) are read as mainland-targeted and imply the seller is either PRC or treats Taiwan as part of PRC. NTD (新台幣, New Taiwan Dollar) is the currency; RMB acceptance is rare outside some tourist zones. Mixed signals like 'Taiwan, China' as country picker can damage brand; conversely, international brands carefully localize to Taiwan traditional + NTD.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html",
+        "https://www.taiwan.gov.tw/",
+        "https://www.cbc.gov.tw/"
+      ],
+      "condition": "Consumer marketing in Taiwan"
+    },
+    {
+      "action": "Default Mandarin pinyin input method for Taiwan product localization",
+      "why_fails": "Taiwan uses Zhuyin (注音, 'Bopomofo') for native input; pinyin is mainland-standard. International products showing pinyin-only input fall short of local polish. Official romanization of place names uses Wade-Giles / Tongyong Pinyin hybrid (e.g. 'Taipei' not 'Taibei', 'Kaohsiung' not 'Gaoxiong').",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.moe.gov.tw/",
+        "https://www.taiwan.gov.tw/"
+      ],
+      "condition": "Software localization"
+    },
+    {
+      "action": "Ask a Taiwanese counterpart whether they are 'Chinese'",
+      "why_fails": "Polls (National Chengchi University Election Study Center, ongoing since 1992) show ~64% identify as Taiwanese only, ~30% as both Taiwanese and Chinese, <3% as Chinese only. Asking 'Are you Chinese?' is reductive at best; most younger Taiwanese find it offensive. Safer: 'Where are you from?' or 'Do you live in Taipei?'",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://esc.nccu.edu.tw/PageDoc/Detail?fid=7800&id=6961"
+      ],
+      "condition": "Identity questions",
+      "common_misconception": "'Chinese = ethnic' is a simplification; Taiwanese identity is increasingly civic-national, not just ethnic."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For Taiwan-facing products: traditional Chinese characters, NTD pricing, 'Taiwan' unqualified as country/region name. Localize to Taiwan-specific idioms (台式中文) rather than mainland Mandarin phrasing.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html"
+      ],
+      "condition": "Taiwan consumer market"
+    },
+    {
+      "action": "For global products with both Taiwan and mainland users: separate regional builds. Traditional + NTD + 'Taiwan' for the zh-TW locale; simplified + RMB + 'Taiwan, China' for zh-CN locale. Regional geofencing ensures each audience sees their expected terminology.",
+      "success_rate": 0.82,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html"
+      ],
+      "condition": "Multi-market product",
+      "tradeoff": "Dual-build complexity; mainland enforcement can demand visibility into how Taiwan-localized builds frame sovereignty."
+    },
+    {
+      "action": "Identity conversations: let the counterpart self-describe. Use 'Taiwanese'/'Taiwan' as default. If they use 'Chinese-Taiwanese' or 'ROC', mirror that framing. Political generational differences are significant — older Taiwanese (pre-1949 mainland refugees) may self-identify differently than Taiwanese-born younger generations.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.mofa.gov.tw/en/default.html",
+        "https://esc.nccu.edu.tw/"
+      ],
+      "condition": "Personal / cultural conversation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

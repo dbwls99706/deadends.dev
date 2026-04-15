@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/gursha-hand-feeding-ritual/et",
+  "url": "https://deadends.dev/culture/gursha-hand-feeding-ritual/et",
+  "error": {
+    "signature": "AI tells a guest at an Ethiopian meal to refuse 'gursha' (host feeding the guest by hand) as unhygienic or inappropriate",
+    "regex": "(ethiopia.*injera|gursha|ethiopian.*hand feeding|ethiopian.*eating|addis ababa.*meal|ethiopia.*etiquette|habesha food|eritrean food)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-04-15",
+    "summary": "Ethiopian and Eritrean meals are communal — a large injera (sourdough flatbread) with various stews (wot) placed in the center. Everyone eats with their right hand by tearing injera and scooping wot. 'Gursha' (ጉርሻ) is when the host or an honored companion hand-feeds the guest a bite — a deep gesture of friendship and honor. Refusing gursha is culturally cold; the hygiene concern Western visitors have is not the Ethiopian framing. Left hand is avoided for eating (same as most of the region)."
+  },
+  "dead_ends": [
+    {
+      "action": "Refuse gursha (hand-feeding) or wipe it off after receiving",
+      "why_fails": "Gursha is a profound social gesture — the host is signaling 'I care about you enough to feed you personally'. Refusing reads as personal rejection. Accepting (open mouth, lean slightly forward, small bite) is the ritual response. Worrying about hygiene is valid but the social cost is high.",
+      "fail_rate": 0.72,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/",
+        "https://addis.gov.et/"
+      ],
+      "condition": "Formal Ethiopian meal with host"
+    },
+    {
+      "action": "Ask for cutlery at an Ethiopian home or traditional restaurant",
+      "why_fails": "Ethiopian cuisine is designed to be eaten with injera — the flatbread is the spoon. Asking for forks/knives marks the guest as outsider and disrupts the sharing ritual. Injera-only is the norm; some tourist restaurants will provide cutlery upon request but it's culturally awkward.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Traditional meal"
+    },
+    {
+      "action": "Use the left hand to tear injera or scoop wot",
+      "why_fails": "Same left-hand taboo as other East African and Muslim-majority regions — left hand is reserved for hygiene. Using only the right hand (even for left-handers in social meals) is expected.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Hand-eating context"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept gursha: smile, open slightly, receive the bite. Reciprocate later — offer gursha back to the host or closest companion. One gursha per meal is typical; not every bite.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Formal dinner"
+    },
+    {
+      "action": "Eating: tear injera with right hand, fold it around a bit of wot, scoop and eat. Don't pile excessive onto one piece. Start from the section nearest you — don't reach across the platter.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Meal mechanics"
+    },
+    {
+      "action": "Vegetarian options (ye-tsom beyaynetu) are universal on Orthodox Christian fasting days (Wednesdays, Fridays, and 180+ annual fasting days). Even ordering vegetarian signals respect for local culture.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Dietary choices / fasting awareness"
+    },
+    {
+      "action": "Coffee ceremony (bunna) at home visits: allow 45-60 min. The host roasts beans, grinds, and serves three rounds (Abol, Tona, Baraka). Refusing or leaving early is very rude. Accept at least one cup if time allows.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismethiopia.gov.et/"
+      ],
+      "condition": "Home visit"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

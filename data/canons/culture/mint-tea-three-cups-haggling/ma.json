@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/mint-tea-three-cups-haggling/ma",
+  "url": "https://deadends.dev/culture/mint-tea-three-cups-haggling/ma",
+  "error": {
+    "signature": "AI tells a tourist to Morocco to refuse offered mint tea to 'save time' or accept the first haggling price in a souk",
+    "regex": "(morocco.*mint tea|atay|moroccan.*tea|marrakech.*souk|morocco.*haggle|morocco.*bargain|fes.*medina|moroccan.*guide.*faux)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.82,
+    "last_updated": "2026-04-15",
+    "summary": "Moroccan mint tea (أتاي / atay bi na'na') offered by a shop owner is both hospitality and negotiation. Refusing outright is rude and ends the interaction; accepting opens a relationship. Proverb: 'The first glass is as bitter as life, the second as strong as love, the third as sweet as death' — three cups is the ritual. Souk haggling starts at roughly 3× the fair price; fair range is 30-50% of opening. Unsolicited 'guides' (faux-guides) in Marrakech and Fes medinas are banned but persistent."
+  },
+  "dead_ends": [
+    {
+      "action": "Wave off the mint tea offered by a Moroccan shop owner and proceed directly to discussing prices",
+      "why_fails": "Tea is the relationship vehicle. Declining says 'I don't want a relationship, just a transaction' — the shop owner prices accordingly (high) and won't negotiate. Accepting the first glass opens a ~10-15 min ritual during which the customer shows interest, the owner shows goods, the relationship warms, and price becomes negotiable. Rushing past tea often costs more money.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.visitmorocco.com/en",
+        "https://www.maroc.ma/en"
+      ],
+      "condition": "Souk shopping"
+    },
+    {
+      "action": "Pay the first price offered in a Marrakech or Fes medina without haggling",
+      "why_fails": "Opening prices in tourist souks are 2-4× fair value. Not haggling is read as either naive (foreigner overpaying) or insulting (refusing the social dance). Fair bargain: start at 30% of opening price, meet around 40-50%. Walking away often drops the price further.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Medina shopping"
+    },
+    {
+      "action": "Follow an unsolicited 'guide' in the Fes or Marrakech medina",
+      "why_fails": "Unlicensed faux-guides (illegal since 1985) steer tourists to commission-paying shops at inflated prices. Licensed tourist police (brigades touristiques) patrol main medinas but faux-guides are persistent. Hotel-arranged licensed guides cost 250-500 MAD/day, display blue ID card, and follow set rates.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.visitmorocco.com/en",
+        "https://www.gov.uk/foreign-travel-advice/morocco/safety-and-security"
+      ],
+      "condition": "Medina navigation"
+    },
+    {
+      "action": "Take flash photos of people in markets, especially women, without asking",
+      "why_fails": "Photographing strangers — especially women — without permission is culturally and sometimes legally problematic. In markets, vendors and subjects may demand money or react angrily. A 'bonjour, s'il vous plaît, je peux?' gesturing to the camera is the ritual; expect a tip (10-20 MAD) for posed photos in tourist zones.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Market photography"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept the mint tea. Sip slowly. Show interest in goods. Use the time to look around, ask questions, build rapport. The second and third glasses are OK to decline politely — just don't refuse the first.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Shop interaction"
+    },
+    {
+      "action": "Haggling protocol: opening price → counter at 30-35% → meet somewhere around 40-50% of original. Walk away if stuck; prices often drop. In supermarkets / fixed-price stores (Marjane, Carrefour), haggling doesn't apply.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Negotiable-price venues"
+    },
+    {
+      "action": "Navigation: use maps.me (offline OSM) or Google Maps downloaded in advance. Ask shopkeepers for directions (they generally help unpaid). Book licensed guides through hotels or local tourism offices. Ignore / politely decline faux-guide approaches.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Medina navigation"
+    },
+    {
+      "action": "Dress: covering shoulders and knees preferred in mosques and traditional medinas; beach/resort zones (Agadir) more relaxed. During Ramadan, avoid public eating/drinking during daylight (similar to SA/AE norm, less strictly enforced).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.visitmorocco.com/en"
+      ],
+      "condition": "Dress / general etiquette"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -675,6 +675,31 @@ def build_sitemap(
             SubElement(url_elem, "changefreq").text = "weekly"
             SubElement(url_elem, "priority").text = "0.9"
 
+    # --- Country landing pages — included so Google and other crawlers
+    # can discover /country/{cc}/ without having to traverse the homepage
+    # "Browse by country" section. Last-mod reflects most recent
+    # last_confirmed among canons tagged with that country.
+    country_lastmod: dict[str, str] = {}
+    for canon in canons:
+        info = _canon_country_info(canon)
+        if info is None:
+            continue
+        code, _name = info
+        last_confirmed = canon.get("error", {}).get("last_confirmed", now)
+        if not last_confirmed or not isinstance(last_confirmed, str):
+            last_confirmed = now
+        existing = country_lastmod.get(code, "")
+        country_lastmod[code] = (
+            last_confirmed if last_confirmed > existing else existing
+        )
+
+    for code in sorted(country_lastmod):
+        url_elem = SubElement(main_urlset, "url")
+        SubElement(url_elem, "loc").text = f"{BASE_URL}/country/{code}/"
+        SubElement(url_elem, "lastmod").text = country_lastmod[code]
+        SubElement(url_elem, "changefreq").text = "weekly"
+        SubElement(url_elem, "priority").text = "0.85"
+
     _write_urlset(main_urlset, SITE_DIR / "sitemap-main.xml")
     print("  Generated: sitemap-main.xml")
 
@@ -745,7 +770,7 @@ def build_sitemap(
     )
     total = sum(
         len(v) for v in summaries_by_domain.values()
-    ) + 4 + len(domains_seen)
+    ) + 4 + len(domains_seen) + len(country_lastmod)
     print(f"  Generated: sitemap.xml (index, {total} URLs)")
 
 

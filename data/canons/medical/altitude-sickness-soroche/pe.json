@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/altitude-sickness-soroche/pe",
+  "url": "https://deadends.dev/medical/altitude-sickness-soroche/pe",
+  "error": {
+    "signature": "AI tells a traveler to fly directly into Cusco (3,400m) or visit Machu Picchu without altitude-sickness precaution",
+    "regex": "(peru.*altitude|cusco.*altitude|machu picchu.*altitude|soroche|altitude sickness|ams.*andes|coca tea.*peru|la paz.*altitude|titicaca.*altitude|diamox.*peru)",
+    "domain": "medical",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Cusco (3,400m), Lake Titicaca (3,812m), and Machu Picchu station (2,430m) sit in the Andean altitude zone where Acute Mountain Sickness (AMS / soroche) affects 25-75% of fliers in the first 24-48h. Symptoms: headache, nausea, insomnia, fatigue. Severe cases (HACE/HAPE) are life-threatening. Prevention: gradual ascent via Lima (sea level) → Arequipa (2,335m) → Cusco, or Lima → Sacred Valley (2,800m) → Cusco over 2-3 days. Coca tea (mate de coca) is traditional; Diamox (acetazolamide) is evidence-based prophylaxis."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly from Lima sea level directly to Cusco at 3,400m and hike Machu Picchu the next morning",
+      "why_fails": "Rapid ascent from sea level to >2,500m puts 25-75% of travelers into AMS within 6-12 hours. Headache, nausea, fatigue ruin the Machu Picchu day. More serious: ~1% progress to HAPE (pulmonary edema) or HACE (cerebral edema), both potentially fatal. Altitude sickness is largely preventable with acclimatization; direct Lima-Cusco flights are the #1 tourist mistake.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.who.int/ith/chapters/en/ith_chapter3_2.pdf",
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness",
+        "https://www.auergobsa.gob.pe/"
+      ],
+      "condition": "Direct Lima-Cusco itinerary"
+    },
+    {
+      "action": "Drink alcohol on the flight to Cusco or the first night after arrival",
+      "why_fails": "Alcohol compounds altitude hypoxia, impairs sleep quality (already disrupted at altitude), and masks / worsens AMS symptoms. CDC and WHO uniformly advise alcohol abstinence for the first 48h at 2,500m+. Locals drink less at high altitude than coastal Peruvians.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "First 48h at high altitude"
+    },
+    {
+      "action": "Ignore early AMS symptoms (headache, nausea) and continue to higher altitude (e.g. Rainbow Mountain 5,036m)",
+      "why_fails": "AMS symptoms signal the body is adapting. Continuing UP without waiting is the leading cause of progression to HACE/HAPE. Golden rule: never ascend further while symptomatic. Descent is the definitive treatment for severe AMS/HACE/HAPE.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "Symptomatic ascent"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Acclimatize gradually. Lima (0m, 1-2 days) → Arequipa (2,335m, 2 days) → Cusco (3,400m) OR Lima → Sacred Valley (2,800m, 1-2 days) → Cusco. Machu Picchu (2,430m) is actually LOWER than Cusco; schedule it early in the Cusco trip.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "Trip planning"
+    },
+    {
+      "action": "Talk to a travel clinic BEFORE departure about acetazolamide (Diamox) 125-250mg twice daily, starting 24h before ascent. Contraindications: sulfa allergy, severe kidney/liver disease. Ibuprofen helps with AMS headache.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "Pharmacological prophylaxis"
+    },
+    {
+      "action": "First 24h in Cusco: rest, drink lots of water (~3L/day), eat light high-carb meals, skip alcohol, drink coca tea (mate de coca — locally offered, mild effect, legal in Peru). Avoid strenuous activity first day. Hotel oxygen is available at most >3,000m lodging.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.gob.pe/minsa",
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "First day at altitude"
+    },
+    {
+      "action": "If AMS symptoms worsen (severe headache, vomiting, confusion, breathlessness at rest): DESCEND immediately. Cusco hospitals (Hospital Regional, Clínica Pardo) handle altitude cases routinely. Portable oxygen and gas-therapy hotels exist. Insurance should cover descent/evac.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/high-altitude-travel-altitude-illness"
+      ],
+      "condition": "Emergency response"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-15"
+  }
+}
