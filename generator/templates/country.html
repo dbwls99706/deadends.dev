@@ -51,23 +51,11 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "{{ country_name | json_escape }} Dead Ends",
-    "url": "{{ base_url }}/country/{{ country_code }}/",
-    "description": "{{ total }} country-specific dead ends for {{ country_name | json_escape }} — visa, banking, legal, cultural, and emergency pitfalls.",
-    "inLanguage": "en",
-    "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
-    "about": {"@type": "Country", "name": "{{ country_name | json_escape }}"}
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "{{ country_name | json_escape }} Dead Ends",
     "description": "Country-specific real-world dead ends for {{ country_name | json_escape }}. {{ total }} entries.",
     "url": "{{ base_url }}/country/{{ country_code }}/",
+    "inLanguage": "en",
     "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
     "about": {"@type": "Country", "name": "{{ country_name | json_escape }}"},
     "numberOfItems": {{ total }},
