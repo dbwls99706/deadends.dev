@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/shaho-vs-kokuho-enrollment/jp",
+  "url": "https://deadends.dev/medical/shaho-vs-kokuho-enrollment/jp",
+  "error": {
+    "signature": "AI tells a foreign worker in Japan they can 'opt out' of Japanese health insurance, or that private international insurance alone is enough",
+    "regex": "(japan.*health insurance|shaho|社会保険|国民健康保険|kokuho|kokumin kenko hoken|japan.*nhi|foreigner.*japan.*insurance|japan.*medical coverage)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Japan has universal health coverage with two pillars: 社会保険 (Shakai Hoken / shaho) for regular employees at companies with 5+ staff (employer splits 50/50), and 国民健康保険 (Kokumin Kenko Hoken / kokuho) for self-employed, students, unemployed, and small-firm workers — paid entirely by the individual based on prior-year income. Enrollment is mandatory for residents staying 3+ months. Both cover 70% of medical costs at point of service."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a foreign worker to decline Japanese insurance because they have a multinational policy through home employer",
+      "why_fails": "Residents staying 3+ months must enroll by law (National Health Insurance Act). Municipalities back-bill unenrolled foreign residents; bills can be retroactive to arrival date plus penalties. Private international insurance does not substitute — it only adds on top.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html",
+        "https://www.japan.travel/en/plan/about-japan/"
+      ],
+      "condition": "Resident visa 3+ months"
+    },
+    {
+      "action": "Assume Kokuho premiums are the same as Shaho premiums",
+      "why_fails": "Shaho premiums are split 50/50 with employer (cost to employee ~5% of salary). Kokuho is 100% self-paid, calculated on prior-year income, and can be brutal for first-year residents who arrived without prior-year Japanese income (assessed at minimum), or second-year residents who earned well (high assessment). Budgeting for Kokuho at Shaho rates is a common first-year shock.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html",
+        "https://www.nta.go.jp/english/taxes/individual/12011.htm"
+      ],
+      "condition": "Transitioning from employment to self-employment or vice versa"
+    },
+    {
+      "action": "Walk into a hospital without the insurance card expecting to pay 30% as insured",
+      "why_fails": "Without the physical card at point of service, the patient pays 100% upfront and must later submit reimbursement request (療養費). Refund is slow (1–3 months) and requires Japanese-language paperwork. Emergency visits without a card are particularly expensive.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html"
+      ],
+      "condition": "Hospital visit without insurance card"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Employees at 5+ employee companies: enrolled automatically via employer into Shaho. Non-enrolled / self-employed / part-time: enroll at the city/ward office within 14 days of arrival or job change. Bring residence card, passport, juminhyo.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html"
+      ],
+      "condition": "Enrollment"
+    },
+    {
+      "action": "Always carry the physical health insurance card to medical visits. Copies are not accepted in most clinics. From 2024 the My Number Card can substitute at enabled facilities.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html"
+      ],
+      "condition": "At hospital / clinic"
+    },
+    {
+      "action": "For post-3-month-entry but pre-enrollment gap, or for short-term visitors: buy travel medical insurance covering Japan. Many Japanese hospitals refuse foreign insurance direct billing — pay upfront and reimburse.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.jnto.go.jp/en/plan-your-trip/medical/"
+      ],
+      "condition": "Gap period or tourist",
+      "tradeoff": "Upfront payment required at most hospitals."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

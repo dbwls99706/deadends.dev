@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/dollar-blue-vs-official/ar",
+  "url": "https://deadends.dev/banking/dollar-blue-vs-official/ar",
+  "error": {
+    "signature": "AI tells a traveler to Argentina to pay by foreign Visa/Mastercard everywhere or convert at the bank's official rate, missing the dual-rate / dollar-blue ecosystem",
+    "regex": "(argentina.*dollar|dolar blue|blue rate|argentina.*peso|argentina.*currency|buenos aires.*cash|argentina.*atm|cueva|western union argentina|argentina.*mep)",
+    "domain": "banking",
+    "category": "currency_exchange",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "Argentina's chronic currency controls produce multiple parallel exchange rates: official rate (~30-50% below market), MEP/CCL (financial market rate via securities), 'blue' rate (informal cash market through cuevas / cambistas), 'tarjeta' rate (card-spend rate, since 2023 closer to MEP via 'Tourist Dollar' regime). Tourists paying with foreign Visa get billed at a quasi-MEP rate (good); paying cash in USD via Western Union → Argentine Pesos gets ~blue rate (best); ATM withdrawals get the worst (official rate + ATM fees)."
+  },
+  "dead_ends": [
+    {
+      "action": "Withdraw cash from a Buenos Aires ATM with a foreign debit card to get pesos",
+      "why_fails": "Argentine ATMs convert at the official rate (worst available), charge $5-10 USD ATM fees + 3-5% foreign-card fees, and limit withdrawals to ~30,000-50,000 ARS per transaction (currently ~$30-50 USD at official rate, vs ~$60-100 at blue). Effectively paying 30-50% MORE than market value.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bcra.gob.ar/",
+        "https://www.afip.gob.ar/"
+      ],
+      "condition": "ATM cash withdrawals"
+    },
+    {
+      "action": "Carry a stack of US dollars to exchange at a bank in Argentina at the bank window",
+      "why_fails": "Banks officially exchange at the official rate (worst rate). Use Western Union, Wise, or licensed money exchanges (cambios) for closer-to-MEP rates. Cuevas (informal exchange shops) on Calle Florida give blue rate but are technically illegal and risk fake-bill scams.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.bcra.gob.ar/"
+      ],
+      "condition": "Cash exchange",
+      "common_misconception": "'Banks are safer' — yes for legality, no for value. Western Union and Wise are legal and give near-blue rates."
+    },
+    {
+      "action": "Pay everything with foreign credit card without checking the 'tourist dollar' (Dolar Tarjeta) rate",
+      "why_fails": "Since November 2022 / 2023 reforms, foreign tourist credit-card transactions in Argentina are billed at a rate close to MEP (much better than ATM). This makes credit card the simplest route. But not all merchants accept foreign cards; many small shops cash-only. Carry small ARS cash for these.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.afip.gob.ar/",
+        "https://www.bcra.gob.ar/"
+      ],
+      "condition": "Card-only strategy"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Bring USD cash. Use Western Union to send USD-to-ARS to yourself (pickup at Western Union office in Buenos Aires); rate is close to blue and fully legal. Or use Wise to load an Argentine peso balance.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.westernunion.com/",
+        "https://wise.com/"
+      ],
+      "condition": "Best cash strategy"
+    },
+    {
+      "action": "Pay restaurants, hotels, taxis with foreign Visa/Mastercard — automatically gets the 'tourist dollar' rate (close to MEP). Apps like Modo work for tourists since 2024.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.afip.gob.ar/"
+      ],
+      "condition": "Card-friendly merchants"
+    },
+    {
+      "action": "Carry small USD cash for: tipping, taxis, small shops. Avoid bank ATMs. If using cuevas (informal cambios on Florida or Lavalle), check bills carefully for counterfeit (Argentine vendors are wary of fake USD too).",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.bcra.gob.ar/"
+      ],
+      "condition": "Cash backup",
+      "tradeoff": "Cueva exchange is informal/grey area; carries small risk."
+    },
+    {
+      "action": "Track real-time blue/MEP/official rates: bluedollar.net, dolarhoy.com (popular Argentine sites). Daily exchange rates fluctuate significantly — check before each large transaction.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://dolarhoy.com/"
+      ],
+      "condition": "Rate awareness"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

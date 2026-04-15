@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/k-eta-required-before-boarding/kr",
+  "url": "https://deadends.dev/visa/k-eta-required-before-boarding/kr",
+  "error": {
+    "signature": "AI tells a visa-exempt traveler they can fly to Korea without pre-registering K-ETA, or dismisses K-ETA as optional",
+    "regex": "(k.eta|k eta|korea.*eta|electronic travel.*korea|keta.*required|korea.*visa free|visa waiver.*korea)",
+    "domain": "visa",
+    "category": "pre_travel_authorization",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "K-ETA (Korea Electronic Travel Authorization) is required for travelers from visa-exempt countries (112 passports) before boarding a flight to Korea. Valid 3 years, covers multiple entries of up to 90 days each. Current temporary exemption (through 31 Dec 2025) waives K-ETA for 22 passports incl. US, UK, DE, FR, JP, TW; check before each trip. Airlines deny boarding without K-ETA for non-exempt nationals."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a visa-exempt passport holder can fly to Korea without K-ETA, same as pre-2021",
+      "why_fails": "K-ETA has been required since 1 Sep 2021 for visa-exempt nationals. Airlines check K-ETA status at boarding against a government system (APIS). Travelers without K-ETA are offloaded. The 22-country temporary exemption (through Dec 2025) is a narrow carve-out; outside it, K-ETA is mandatory.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.k-eta.go.kr/portal/apply/index.do",
+        "https://overseas.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Non-exempt visa-waiver country"
+    },
+    {
+      "action": "Apply for K-ETA at the Korean airport on arrival",
+      "why_fails": "K-ETA is checked at the airport of departure. Arrival-side application is not possible; airlines reject boarding. Apply at least 72 hours before departure (most applications approved in minutes, but some take up to 72h for manual review).",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.k-eta.go.kr/portal/apply/index.do"
+      ],
+      "condition": "Last-minute application"
+    },
+    {
+      "action": "Re-use an old K-ETA that appears to be 'still valid' even after declaring a new trip reason",
+      "why_fails": "K-ETA is valid 3 years and covers multiple trips, but material changes (new passport, change of name, criminal record update) require re-application. Forgetting to re-apply after a new passport is a common cause of boarding denial.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.k-eta.go.kr/portal/apply/index.do"
+      ],
+      "condition": "Passport renewal or personal-info change"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply at k-eta.go.kr at least 72 hours before departure. Fee ~10,000 KRW. Most approvals in minutes. Upload passport bio page, selfie, travel details. Valid 3 years from approval.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.k-eta.go.kr/portal/apply/index.do"
+      ],
+      "condition": "Standard application"
+    },
+    {
+      "action": "Check the current Korean government exemption list on k-eta.go.kr — the 22-country exemption (through Dec 31 2025) is subject to extension. US, UK, JP, TW, DE, FR among exempted. Always verify right before booking.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.k-eta.go.kr/portal/apply/index.do"
+      ],
+      "condition": "Exempt-country citizen"
+    },
+    {
+      "action": "If denied K-ETA: apply for a regular C-3 (short-term visit) visa at the nearest Korean consulate. Process takes 5–10 business days, requires supporting documents. K-ETA denial does not automatically disqualify from visa.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://overseas.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "K-ETA denied or ineligible"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/sun-uv-protection/au",
+  "url": "https://deadends.dev/safety/sun-uv-protection/au",
+  "error": {
+    "signature": "AI tells a visitor to Australia that 30-minute beach exposure without sunscreen, or wearing US/EU SPF 15 'is fine' for an Australian summer",
+    "regex": "(australia.*sunscreen|aussie sun|uv index australia|melanoma australia|slip slop slap|australia.*spf|nz.*sun|australia.*beach safety)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Australia has the world's highest melanoma rate (~14,000 new cases/year, ~1,900 deaths/year). UV is more intense than equivalent latitudes in Europe due to ozone-layer thinning over the Southern Hemisphere, less air pollution, and Earth's closer summer-Sun proximity. UV index regularly hits 11-14 (extreme) in summer. 'Slip, Slop, Slap, Seek, Slide' is national health campaign: shirt, sunscreen, hat, shade, sunglasses. SPF 30+ broad-spectrum, reapply every 2 hours."
+  },
+  "dead_ends": [
+    {
+      "action": "Spend an Australian summer afternoon at Bondi/Manly/Gold Coast for 1-2 hours without high-SPF sunscreen or shirt cover",
+      "why_fails": "Burns can develop in <15 minutes at peak UV (10am-4pm). Visiting Europeans, Americans, Asians regularly come back to the hotel with severe burns. Repeated burning multiplies melanoma risk significantly.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety",
+        "https://www.bom.gov.au/weather/uv/",
+        "https://www.health.gov.au/topics/skin-cancer-melanoma"
+      ],
+      "condition": "Summer outdoor exposure"
+    },
+    {
+      "action": "Use US/EU SPF 15 sunscreen as primary protection",
+      "why_fails": "Australian recommended minimum is SPF 30+ broad-spectrum (UVA + UVB), with SPF 50+ widely available. SPF 15 is inadequate for typical Australian UV exposure. Australian-formulated brands (Cancer Council, Banana Boat AU, Le Tan) test against TGA standards.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/sunscreen",
+        "https://www.tga.gov.au/"
+      ],
+      "condition": "Sunscreen choice"
+    },
+    {
+      "action": "Apply sunscreen once in the morning and assume it lasts the day",
+      "why_fails": "Australian Cancer Council advice: reapply every 2 hours, after swimming, after sweating heavily, after towelling. Single application morning-only leaves you unprotected for 4-6 hours of peak UV. Most chemical sunscreens degrade in heat/sweat/water.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/sunscreen"
+      ],
+      "condition": "Reapplication"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy Australian-formulated SPF 30+ or SPF 50+ broad-spectrum sunscreen on arrival (chemists, supermarkets). Apply 20 minutes before sun exposure. Reapply every 2 hours and after swimming. Use 1 teaspoon per limb / face, more for torso.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/sunscreen"
+      ],
+      "condition": "Sun protection"
+    },
+    {
+      "action": "Dress: long-sleeve UPF rashie/swimshirt for beach swimming (kids especially), wide-brim hat, UV-blocking sunglasses (Australian Standard AS/NZS 1067). Seek shade 10am-4pm. UV index 8+ requires all measures.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety",
+        "https://www.bom.gov.au/weather/uv/"
+      ],
+      "condition": "Daily routine"
+    },
+    {
+      "action": "Check the Bureau of Meteorology UV index before going out (bom.gov.au/uv or SunSmart app). UV index 3+ requires sun protection. Australia's UV index is published per major city in real time.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.bom.gov.au/weather/uv/"
+      ],
+      "condition": "Daily UV awareness"
+    },
+    {
+      "action": "If sunburned: cool shower, aloe vera or after-sun lotion, hydration, paracetamol for pain. Severe burns (blisters, fever) → see a GP or pharmacist. Avoid further sun exposure for several days.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.healthdirect.gov.au/sunburn"
+      ],
+      "condition": "Burn treatment"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

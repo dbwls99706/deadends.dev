@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/temple-dress-code-shoes/in",
+  "url": "https://deadends.dev/culture/temple-dress-code-shoes/in",
+  "error": {
+    "signature": "AI tells a tourist visiting Indian temples (or Sikh gurdwaras, mosques) that shorts/sleeveless tops are fine and shoes can stay on outside",
+    "regex": "(india.*temple.*dress|india.*gurdwara|sikh.*head cover|india.*mosque.*women|hindu temple.*shoes|india.*shorts temple|veiling.*india|swami.*photo)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Indian Hindu temples, Sikh gurdwaras, and mosques universally require: shoes off (left at the entrance shoe-keep), shoulders and knees covered, head covered (gurdwaras for everyone, mosques for women, some Hindu temples). Some major temples (Padmanabhaswamy, Jagannath, parts of Tirupati) restrict non-Hindus or require traditional dress (mundu/dhoti for men, sari for women). Photographing inner sanctums is usually banned."
+  },
+  "dead_ends": [
+    {
+      "action": "Show up at the Golden Temple (Harmandir Sahib, Amritsar) wearing shorts and no head covering",
+      "why_fails": "Sikh gurdwaras require all visitors to cover their head (langar bandanas / orange head cloths provided free at entrance) and remove shoes. Shorts above the knee are refused; long pants or wrap-around cloth (sarong) required. Same at smaller gurdwaras worldwide.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.sgpc.net/",
+        "https://incredibleindia.gov.in/"
+      ],
+      "condition": "Sikh gurdwara visit"
+    },
+    {
+      "action": "Wear sleeveless tops, shorts, or low-cut tops to a Hindu temple visit",
+      "why_fails": "Most Hindu temples (especially South India: Tirupati, Madurai, Rameshwaram, Padmanabhaswamy) enforce conservative dress. Major temples in North India (Kashi Vishwanath, Vaishno Devi) similarly. Refusal at the entrance is common; some provide cover-up cloths for rent.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://incredibleindia.gov.in/",
+        "https://www.tirumala.org/"
+      ],
+      "condition": "Hindu temple visits"
+    },
+    {
+      "action": "Take photos inside the inner sanctum (garbhagriha) of a Hindu temple",
+      "why_fails": "Photography inside the sanctum is forbidden in most Hindu temples — signs posted in English/Hindi/regional language. Shoes/socks must be off when crossing the threshold even to step further in for darshan. Some temples (Ranganathaswamy, Meenakshi) ban cameras entirely inside.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://incredibleindia.gov.in/"
+      ],
+      "condition": "Inside sanctum"
+    },
+    {
+      "action": "Visit Padmanabhaswamy (Kerala) or Jagannath Puri (Odisha) as a non-Hindu",
+      "why_fails": "Some major Hindu temples restrict entry to Hindus only. Non-Hindus (including Indian non-Hindus) are explicitly turned away at Padmanabhaswamy, Jagannath Puri inner temple, and parts of Guruvayur. Verification by name/passport happens at entry.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.padmanabhaswamytemple.in/",
+        "https://www.jagannathexp.com/"
+      ],
+      "condition": "Restricted-entry temples"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default temple/gurdwara/mosque dress: long pants or skirt below knee, sleeves to elbow, women cover hair (carry a light scarf), all visitors remove shoes at entrance. Carry small clean cloth bag for shoes if no shoe-keep, OR pay 10-20 rupees for the shoe-keep service.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://incredibleindia.gov.in/"
+      ],
+      "condition": "General temple visits"
+    },
+    {
+      "action": "At gurdwaras: take langar (free communal meal) sitting on the floor — eat with right hand only, finish all food on plate. Head cover required throughout (provided free). Sit cross-legged or feet-tucked, never with feet pointing at the Guru Granth Sahib.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.sgpc.net/"
+      ],
+      "condition": "Gurdwara visit"
+    },
+    {
+      "action": "Photography: assume NO inside the sanctum. Outer mandapa courtyards are usually OK for photos. Ask the priest (pujari) before flash photography. At mosques, no photos during prayer times.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://incredibleindia.gov.in/"
+      ],
+      "condition": "Photography decisions"
+    },
+    {
+      "action": "Hindu-only temples: respect the rule, view the exterior architecture from outside. Many alternative temples nearby welcome all visitors. Don't argue at the gate.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://incredibleindia.gov.in/"
+      ],
+      "condition": "Restricted temples"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

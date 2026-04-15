@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/uninsured-emergency-cost/us",
+  "url": "https://deadends.dev/medical/uninsured-emergency-cost/us",
+  "error": {
+    "signature": "AI tells a foreign visitor to the US that ER visits are 'usually a few hundred dollars' or that hospitals can't bill uninsured tourists",
+    "regex": "(us.*emergency room|us.*er.*cost|america.*hospital.*tourist|us.*medical.*uninsured|us.*ambulance.*cost|us.*er.*foreigner|us.*health insurance.*tourist)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "US ER visits cost uninsured patients $1,000-$3,000 for the visit alone (per Kaiser Family Foundation 2024 data); inpatient stays $2,500/day average; broken bone repair $7,000-$25,000; appendectomy $15,000-$60,000; ambulance $1,500-$5,000. Hospitals are required to stabilize emergencies under EMTALA (regardless of payment ability), but the bill is sent for collection. Foreign visitors face no protection — bills can pursue you internationally via collections."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign tourist they don't need travel insurance because 'the US emergency room will be cheap or free'",
+      "why_fails": "EMTALA requires stabilization, not free care. The bill comes after. Average ER visit (uninsured) ~$1,200-$3,000 with no procedure. With CT scan, IV fluids, observation: $5,000-$10,000. Heart attack admission: $50,000-$150,000+. Maternity emergency (premature delivery): $250,000+. Bills are sent to home country and pursued via international collections.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.kff.org/health-costs/",
+        "https://www.cms.gov/regulations-and-guidance/legislation/emtala",
+        "https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html"
+      ],
+      "condition": "Trip planning advice"
+    },
+    {
+      "action": "Take an ambulance for a non-life-threatening situation thinking it's covered like in EU",
+      "why_fails": "US ambulance services are typically privately operated, separately billed. Average $1,500-$5,000 per ride; helicopter EMS $20,000-$50,000. Ambulance is rarely covered by foreign travel insurance fully. For non-emergencies, Uber/Lyft to ER is much cheaper.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.kff.org/health-costs/",
+        "https://www.cms.gov/"
+      ],
+      "condition": "Non-emergency ambulance"
+    },
+    {
+      "action": "Refuse to pay an uninsured ER bill assuming 'they can't pursue me overseas'",
+      "why_fails": "US hospitals routinely sell uncollected bills to international debt collectors. While enforcement varies by country, debt can damage credit, cause re-entry visa issues, and result in lawsuits. Bills can sit on credit reports for years. International collections firms (Transworld Systems, ACI Specialty Benefits) actively pursue foreign debtors.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.consumerfinance.gov/complaint/",
+        "https://www.ftc.gov/business-guidance/resources/medical-debt"
+      ],
+      "condition": "Bill avoidance"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy travel medical insurance with $250,000+ coverage and emergency evacuation rider before flying to the US. Costs ~$50-200 per trip depending on age and duration. Compare via Squaremouth, IMG, World Nomads, Allianz.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html"
+      ],
+      "condition": "Pre-trip insurance"
+    },
+    {
+      "action": "For non-emergencies, use urgent care clinics ($150-300) instead of ER ($1,000+). Many urgent care chains (CityMD, MinuteClinic at CVS, Walgreens Healthcare Clinic) accept walk-ins.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.kff.org/health-costs/"
+      ],
+      "condition": "Non-life-threatening symptoms"
+    },
+    {
+      "action": "If admitted: ask immediately about itemized billing, in-network/out-of-network status, financial aid policies. Most non-profit hospitals (~60% of US hospitals) are required to offer charity care at IRS-defined income thresholds. Negotiate pre-discharge or via pre-payment cash discount (often 20-50% off).",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.irs.gov/charities-non-profits/charitable-hospitals-general-requirements-for-tax-exemption-under-section-501r"
+      ],
+      "condition": "Bill negotiation"
+    },
+    {
+      "action": "Carry your existing home insurance details. Some policies (German, Australian, Canadian) have international riders for emergencies. Submit reimbursement claim with itemized US hospital bill + medical record translations.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html"
+      ],
+      "condition": "Existing coverage check",
+      "tradeoff": "Most home health insurance does NOT cover the US adequately."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

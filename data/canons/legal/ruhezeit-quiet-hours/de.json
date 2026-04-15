@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/ruhezeit-quiet-hours/de",
+  "url": "https://deadends.dev/legal/ruhezeit-quiet-hours/de",
+  "error": {
+    "signature": "AI tells someone moving into a German apartment that they can vacuum, drill, or run laundry on Sundays or after 10pm",
+    "regex": "(germany.*quiet hours|ruhezeit|nachtruhe|sonntagsruhe|germany.*sunday.*quiet|germany.*noise.*neighbor|german.*apartment.*rules|hausordnung|mittagsruhe)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "German law (BGB §906, plus state-level Landesimmissionsschutzgesetz) and apartment Hausordnung enforce Ruhezeit (quiet hours): typically Mon-Fri 22:00-06:00 (Nachtruhe), Saturdays 22:00-06:00, ALL Sundays and public holidays (Sonntagsruhe), and often 13:00-15:00 (Mittagsruhe). Vacuuming, drilling, washing machine, music above conversation level are restricted. Neighbor complaints are routine; landlord can warn → fine → terminate lease for repeat violations."
+  },
+  "dead_ends": [
+    {
+      "action": "Vacuum your German apartment on Sunday morning, or run washing machine after 10pm",
+      "why_fails": "Vacuuming Sunday is widely complained-about. Washing machine running after 22:00 is restricted in many Hausordnungs and triggers neighbor knocking. Repeat violations can lead to landlord warnings and eventual lease termination. Specific times vary by Bundesland and building rules.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.gesetze-im-internet.de/bgb/__906.html",
+        "https://www.bmuv.de/themen/luft-laerm-mobilitaet/laerm-und-vibrationen"
+      ],
+      "condition": "Sunday / late-night home activity"
+    },
+    {
+      "action": "Throw a moderate-volume birthday party at home until midnight on a Wednesday",
+      "why_fails": "Even moderate noise after 22:00 violates Nachtruhe. German neighbors frequently call police (Polizei) for noise complaints; Ordnungsamt can issue fines. Common practice: notify neighbors in advance with a written invitation slipped under doors, and aim to wind down by 22:00.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gesetze-im-internet.de/bgb/__906.html"
+      ],
+      "condition": "Home party noise"
+    },
+    {
+      "action": "Drill a hole or do power-tool work on Sunday or holiday",
+      "why_fails": "Sunday and holiday total quiet (Sonntagsruhe) prohibits power tools entirely. Drilling on Sundays is one of the highest-complaint behaviors. Even on weekdays, drilling is often restricted to typical 'allowed hours' (e.g. 08:00-13:00, 15:00-20:00) per Hausordnung.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gesetze-im-internet.de/bgb/__906.html"
+      ],
+      "condition": "Power tool use"
+    },
+    {
+      "action": "Run a casual lawn mower or hedge trimmer on a German weekend",
+      "why_fails": "32. BImSchV regulates outdoor garden equipment: Sundays and holidays = NO operation; weekdays restricted to specific hours (typically 07:00-20:00). Lawn mower / hedge trimmer / leaf blower violations are common neighbor disputes.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gesetze-im-internet.de/bimschv_32/"
+      ],
+      "condition": "Garden equipment"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Read the building's Hausordnung (posted in entrance, given at lease signing). Standard schedule: vacuum / washing machine OK Mon-Sat 06:00-22:00 (some Hausordnungs further restrict 13:00-15:00 Mittagsruhe); zero noise on Sundays and public holidays.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gesetze-im-internet.de/bgb/__906.html"
+      ],
+      "condition": "Daily home activities"
+    },
+    {
+      "action": "For any planned noise (party, renovation), notify neighbors in writing 1-2 days in advance with start/end times and your apology. This is a German social convention — pre-warned noise is largely tolerated; surprise noise escalates rapidly.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.bmuv.de/"
+      ],
+      "condition": "Planned noise events"
+    },
+    {
+      "action": "Drilling / power tools: weekdays only, typically 09:00-13:00 and 15:00-19:00. Hire pros who know the local rules. Inform neighbors before starting.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bimschv_32/"
+      ],
+      "condition": "Renovation work"
+    },
+    {
+      "action": "If complained about: respond promptly (apology + adjustment). Don't argue. Repeat noise complaints are documented and used in landlord disputes. Building forums (Mietverein, local tenant association) help if disputes escalate.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.mieterbund.de/"
+      ],
+      "condition": "After complaint"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

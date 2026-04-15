@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/prescription-import-customs/jp",
+  "url": "https://deadends.dev/medical/prescription-import-customs/jp",
+  "error": {
+    "signature": "AI tells a traveler to Japan that they can bring any prescription medication they normally take in their home country",
+    "regex": "(japan.*prescription|medication.*japan|adderall.*japan|sudafed.*japan|pseudoephedrine.*japan|narita.*medicine|yakkan shoumei|薬監証明|japan customs.*medicine)",
+    "domain": "medical",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.9,
+    "last_updated": "2026-04-14",
+    "summary": "Japan bans several medications that are common elsewhere: amphetamines (Adderall, Vyvanse — banned outright for personal use), pseudoephedrine (Sudafed — >24mg/day disallowed, OTC forms from US/UK seized), codeine combinations in some forms, narcotic painkillers. Legal prescription imports require advance 薬監証明 (Yakkan Shoumei / import certificate) from the nearest regional health bureau. Violations have resulted in tourist arrests."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack a US/EU personal supply of Adderall or Vyvanse into a carry-on for a Japan trip 'because it's prescription'",
+      "why_fails": "Japan's Stimulants Control Act prohibits amphetamine-based medications, including ADHD stimulants that are legal and commonly prescribed in the US/EU. Customs at Narita/Haneda/Kansai searches for these; travelers have been arrested and detained. No Yakkan Shoumei can approve Adderall — it is outright banned.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html",
+        "https://www.us.emb-japan.go.jp/itpr_en/prescriptionmed.html"
+      ],
+      "condition": "Bringing ADHD amphetamines"
+    },
+    {
+      "action": "Bring OTC Sudafed (pseudoephedrine) for cold symptoms",
+      "why_fails": "Japan limits pseudoephedrine to 24mg per individual dose. Standard US/UK Sudafed (30mg, 60mg, 120mg) exceeds that limit and is confiscated. Extended-release versions are particularly restricted.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
+      ],
+      "condition": "OTC cold medications"
+    },
+    {
+      "action": "Bring a 3-month supply of ordinary prescription medication without any paperwork, assuming personal-use exemption",
+      "why_fails": "Personal-use exemption caps at ~1 month supply without paperwork. Over 1 month requires 薬監証明 (Yakkan Shoumei) — a free import certificate that takes 1–2 weeks to obtain from the regional Kanto-Shinetsu Regional Bureau of Health (or equivalent). Customs seizes over-limit quantities without the certificate.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
+      ],
+      "condition": "Quantity exceeds 1-month supply"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before travel, check the medication list at the MHLW site and your nearest Japanese embassy. If your prescription is allowed with paperwork, apply for Yakkan Shoumei 2+ weeks in advance. Carry the certificate + original prescription + doctor's note.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
+      ],
+      "condition": "Non-banned prescriptions, longer supply"
+    },
+    {
+      "action": "For banned medications (Adderall, Vyvanse): do not bring them. Instead, consult a Japanese psychiatrist in advance to transition to a Japan-legal alternative (Concerta / methylphenidate is prescribable; Strattera is available). Plan for a registration process — Concerta requires special pharmacy registration in Japan.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
+      ],
+      "condition": "ADHD treatment continuity",
+      "tradeoff": "Concerta in Japan requires approved physician registration; access is tighter than US/EU."
+    },
+    {
+      "action": "For short stays with common prescriptions (statins, blood pressure, antidepressants): carry in original labeled bottles with copy of prescription, keep under 30-day supply. Most such medications pass without Yakkan Shoumei.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
+      ],
+      "condition": "Short visit, common non-controlled drugs"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

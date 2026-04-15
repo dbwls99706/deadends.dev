@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/anzac-day-respect/nz",
+  "url": "https://deadends.dev/culture/anzac-day-respect/nz",
+  "error": {
+    "signature": "AI books retail trips, restaurants, or business meetings in New Zealand on the morning of ANZAC Day (25 April) without realizing trading restrictions and dawn-service solemnity",
+    "regex": "(new zealand.*anzac|anzac day|nz.*25 april|nz.*memorial.*holiday|nz.*shop closed.*anzac|kiwi.*public holiday)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "ANZAC Day (25 April) commemorates Australians and New Zealanders who served in war, especially Gallipoli 1915. NZ's Shop Trading Hours Act prohibits most retail trading until 1pm. Dawn services (~6am) at war memorials are universally observed; loud, disrespectful, or photographed-as-tourist behavior is condemned. Same date is a public holiday in Australia (with similar restrictions in some states)."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan Auckland or Wellington shopping for the morning of 25 April",
+      "why_fails": "Most retail closed until 1pm under Shop Trading Hours Act. Supermarkets, bottle shops, malls all closed. Cafés near memorials open early for post-dawn-service crowds. Restaurants open evening. Fines apply to non-exempt retailers who open early.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.legislation.govt.nz/act/public/1990/0057/latest/whole.html",
+        "https://www.govt.nz/browse/work/holidays-and-leave/public-holidays/"
+      ],
+      "condition": "Retail planning"
+    },
+    {
+      "action": "Loudly photograph or treat dawn services as a tourist spectacle",
+      "why_fails": "Dawn services at memorials (Auckland War Memorial, Wellington Pukeahu, Christchurch Memorial) are silent and solemn. Selfies, loud talking, or moving during the minute's silence is widely condemned. Locals have been confronted; tourists may be asked to leave.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://nzhistory.govt.nz/war/anzac-day",
+        "https://aucklandmuseum.com/visit/anzac-day"
+      ],
+      "condition": "Dawn service attendance"
+    },
+    {
+      "action": "Schedule an important business meeting on ANZAC Day",
+      "why_fails": "It's a national public holiday. Government offices, banks, and most corporates closed. Counterparts attend services or family gatherings. Email response delayed. Reschedule.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.govt.nz/browse/work/holidays-and-leave/public-holidays/"
+      ],
+      "condition": "Business scheduling"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan ANZAC Day around services and afternoon activities. Attend a dawn service respectfully (silent, no flash photography during ceremony, stand still during minute's silence). Wear a red poppy if joining locals.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://nzhistory.govt.nz/war/anzac-day"
+      ],
+      "condition": "Visiting on ANZAC Day"
+    },
+    {
+      "action": "Retail/restaurants: most reopen 1pm onwards. Pre-buy any essentials the day before. Cafés near city centres often open early; ask the day before.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.legislation.govt.nz/act/public/1990/0057/latest/whole.html"
+      ],
+      "condition": "Retail timing"
+    },
+    {
+      "action": "Other major NZ holidays affecting business: Waitangi Day (6 Feb), Easter Friday/Monday, Queen's Birthday (first Monday June), Labour Day (last Monday October), Christmas/Boxing Day. Matariki (Māori New Year, June/July, since 2022) is a newer addition.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.govt.nz/browse/work/holidays-and-leave/public-holidays/"
+      ],
+      "condition": "NZ calendar planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

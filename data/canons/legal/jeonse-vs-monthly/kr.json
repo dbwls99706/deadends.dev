@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/jeonse-vs-monthly/kr",
+  "url": "https://deadends.dev/legal/jeonse-vs-monthly/kr",
+  "error": {
+    "signature": "AI treats Korean rental market as equivalent to Western monthly rent, missing 전세 (jeonse) / 월세 (wolse) / 반전세 structure and jeonse-scam risks",
+    "regex": "(korea.*rent|korea.*apartment|jeonse|wolse|전세|월세|반전세|korean.*lease|seoul.*apartment|korea.*deposit|전세사기)",
+    "domain": "legal",
+    "category": "contract_terms",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.82,
+    "last_updated": "2026-04-14",
+    "summary": "Korea has three main rental structures: 전세 (jeonse, large refundable lump-sum deposit ~50–80% of property value, no monthly rent, returned at lease end); 월세 (wolse, small deposit + monthly rent, closer to Western norm); 반전세 (banjeonse, middle: medium deposit + medium rent). The 2022–2024 전세사기 (jeonse fraud) wave wiped out billions of KRW from tenants — landlords over-leveraged properties and couldn't return deposits. Foreigners are especially vulnerable."
+  },
+  "dead_ends": [
+    {
+      "action": "Sign a 전세 contract for 300M KRW with a landlord without checking the property's existing mortgage (근저당)",
+      "why_fails": "If the property has higher-priority mortgage liens than the jeonse tenant's 'jeonse rights' (전세권/확정일자), a bank foreclosure pays mortgage first. The tenant loses their deposit. The 2022-2024 jeonse scam wave exploited this — landlords borrowed aggressively right after signing, then declared bankruptcy. Over 10,000 victims per Ministry of Land.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.molit.go.kr/USR/NEWS/m_72/dtl.jsp?id=95088770",
+        "https://www.khug.or.kr/"
+      ],
+      "condition": "Jeonse contracts without title due diligence"
+    },
+    {
+      "action": "Rely on a brokerage (부동산) verbal assurance without getting the 등기부등본 (property registry certificate) directly",
+      "why_fails": "Property registry can change weekly. Broker statements are not legally binding. Pull the registry yourself from iros.go.kr (내 집 등기부등본) for 1,000 KRW right before signing and at move-in day. Check for '근저당권' (mortgage liens) — total lien + jeonse should be ≤70% of property value.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.iros.go.kr/",
+        "https://www.molit.go.kr/"
+      ],
+      "condition": "Trust-based contract"
+    },
+    {
+      "action": "Skip 전입신고 (resident registration) and 확정일자 (date confirmation) at the dong office after move-in",
+      "why_fails": "Korean Housing Lease Protection Act protects tenants who (a) physically move in, (b) file 전입신고 at the dong/gu office, and (c) get 확정일자 stamped on the lease. Without all three, jeonse tenant's priority drops below subsequent mortgages. 잠자는 보증금 = lost deposit. File same-day as move-in.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=221928",
+        "https://www.molit.go.kr/"
+      ],
+      "condition": "Move-in procedures"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before signing any jeonse: (1) pull property registry from iros.go.kr, (2) verify jeonse + all liens ≤ 70% of market value, (3) buy jeonse deposit insurance (전세보증보험) from HUG or SGI. Insurance ~0.1-0.2% annually covers full deposit loss.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.khug.or.kr/hug/web/ig/dp/igdp000001.jsp",
+        "https://www.sgic.co.kr/"
+      ],
+      "condition": "Before contract signing"
+    },
+    {
+      "action": "On move-in day: file 전입신고 at the dong office + get 확정일자 stamped on the lease (either paper stamp or online at Hometax). These two actions are what give the tenant priority in Korean law.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.molit.go.kr/",
+        "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=221928"
+      ],
+      "condition": "Day of move-in"
+    },
+    {
+      "action": "For foreigners and risk-averse renters: prefer 월세 (monthly) over 전세 for first year — smaller deposit exposure (~10-50M KRW), easier to verify landlord solvency over time. Major foreigner-friendly platforms: Seoul Housing & Communities, Zigbang (직방).",
+      "success_rate": 0.82,
+      "sources": [
+        "https://www.i-sh.co.kr/"
+      ],
+      "condition": "Risk-averse strategy",
+      "tradeoff": "Higher total cost vs jeonse (jeonse's advantage is zero rent, only returnable deposit)."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

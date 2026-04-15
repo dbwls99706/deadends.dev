@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tipping-is-the-wage/us",
+  "url": "https://deadends.dev/culture/tipping-is-the-wage/us",
+  "error": {
+    "signature": "AI tells a non-American visitor to the US they can tip 5-10% like in Europe, or skip tipping for 'bad service'",
+    "regex": "(us.*tip|america.*tipping|usa.*restaurant tip|us.*server.*wage|tipped wage|2.13 hour|us.*standard tip|america.*15.*20)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "US restaurant servers can be paid as low as $2.13/hour federal tipped minimum (FLSA Section 3(m)) — tips are not gratuity but the actual wage. Failing to tip 18-22% at sit-down restaurants effectively underpays the server. Some states (CA, NV, WA, OR) require full minimum wage regardless of tips; even there, tipping norms remain. Counter service (Starbucks-style) is more flexible. Hotels, taxis, hairdressers, food delivery all expect tips. Post-COVID 'tipflation' has pushed prompts to many new contexts."
+  },
+  "dead_ends": [
+    {
+      "action": "Tip 10% at a US sit-down restaurant for adequate service",
+      "why_fails": "Server takes home roughly half of the tip after splitting with bussers/runners/bartenders. 10% on a $50 meal = $5, of which the server keeps maybe $2.50 — which combined with $2.13/hour tipped minimum (in tipped-wage states) is below subsistence. Servers and managers may visibly react. In CA/NV (full minimum wage states) the moral pressure is lower but social norm still ~18%.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped",
+        "https://www.dol.gov/agencies/whd/fact-sheets/15-tipped-employees-flsa"
+      ],
+      "condition": "Sit-down restaurant"
+    },
+    {
+      "action": "Skip the tip entirely as 'protest' for slow service",
+      "why_fails": "The server's wage drops to $2.13/hour without the tip. Slow service may be due to kitchen, management, or other factors out of the server's control. Better to tip 15% (still low by US standards) and / or speak to manager about the issue. Zero-tip in protest is read as theft of service.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Service complaint"
+    },
+    {
+      "action": "Round up by $1 in a US taxi like in Germany",
+      "why_fails": "US taxi tipping norm is 15-20% of the fare. $1 tip on a $30 taxi ride is read as cheap. Uber/Lyft tipping is now in-app and similarly expected (drivers see tip behavior).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Taxi / rideshare"
+    },
+    {
+      "action": "Refuse to engage with restaurant POS terminals showing 18%/20%/25% tip prompts at quick-service / counter venues",
+      "why_fails": "POS-prompt tipping at coffee shops, fast-casual, food trucks is an evolving 'tipflation' debate. While socially acceptable to choose 'no tip' or custom-amount at counter service (no table service), staff still see your selection. Many businesses bake the tipped wage assumption into wages even at counter venues.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Counter service tipping"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Sit-down restaurant: 18-22% on pre-tax bill, generous (lower bound). Buffet / counter service: 10% or skip. Bartender: $1-2 per drink. Take-out: not expected but $1-3 appreciated.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Restaurant tipping"
+    },
+    {
+      "action": "Taxi / Uber / Lyft: 15-20% of fare. Hotel housekeeping: $2-5/night left in room. Bell staff: $1-2/bag. Valet: $2-5. Hairdressers: 15-20%. Delivery: 15-20% with $5 minimum.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Other service tipping"
+    },
+    {
+      "action": "If you can't afford to tip 18%+ on a sit-down meal, choose counter service / fast-casual instead. Many great US food experiences (food trucks, taquerías, cafes, In-N-Out) involve no expected tip.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "Budget alternative"
+    },
+    {
+      "action": "When using POS prompts, custom-amount option exists. Choosing 0% at counter service is socially acceptable (no table service rendered); choosing 0% at sit-down is not.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped"
+      ],
+      "condition": "POS interactions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

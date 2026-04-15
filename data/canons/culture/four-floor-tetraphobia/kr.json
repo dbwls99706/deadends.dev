@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/four-floor-tetraphobia/kr",
+  "url": "https://deadends.dev/culture/four-floor-tetraphobia/kr",
+  "error": {
+    "signature": "AI sets default unit numbers, hospital floors, room assignments, or apartment listings to use the number 4 in Korea without considering tetraphobia",
+    "regex": "(korea.*number 4|korean.*four|4.*floor.*korea|elevator.*F.*korea|room 4.*hospital|korea.*lucky number|korea.*404|korea.*aparment.*4동)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Korean tetraphobia (Sino-Korean 四 sa = 死 sa, 'death') still influences building design: hospitals routinely skip floor 4 (showing F instead of 4), older apartments avoid 4-동 building number, hotels/restaurants avoid room 4. Modern construction (post-2010) often labels normally; younger Koreans don't observe personally. Healthcare and elder-facing contexts retain it most strongly."
+  },
+  "dead_ends": [
+    {
+      "action": "Assign a Korean elderly patient to room 404 in a Korean hospital, or floor 4 in an elderly care home",
+      "why_fails": "Korean hospitals overwhelmingly skip floor 4 (often labeled F). Assigning room 404 or floor 4 to elderly patients is read as careless to families. The taboo is most observed in healthcare and funeral contexts.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.cha.go.kr/main.html?mn=NS_01_06_05",
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Elderly / hospital"
+    },
+    {
+      "action": "Default a Korean apartment listing's unit numbers to include 404, 414, etc. without flagging",
+      "why_fails": "While newer apartments (2010s+) increasingly use 4 normally, older buildings (1980s-2000s) skip it. Realtors often note 'low floor', 'foreigner-friendly building'. Landlords sometimes price unit 4-동 / 4호 lower in advertisements.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.kab.go.kr/"
+      ],
+      "condition": "Real estate listings"
+    },
+    {
+      "action": "Gift 4 of any item (4 bottles, 4 fruits, 4 chocolates) for a Korean elder",
+      "why_fails": "Like Chinese and Japanese tradition, gift counts of 4 are avoided. Use 3, 5, 6, or even-non-4. Wedding gift money: traditionally odd amounts (50,000, 70,000, 100,000) since odd is 'living' (yang); even is 'death' (yin) — opposite of Russia.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Gift quantities"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For healthcare, elder-facing services, or traditional contexts: skip 4 in room/floor numbering. For modern offices/apartments: 4 is broadly tolerated; younger users rarely notice.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Numbering decisions"
+    },
+    {
+      "action": "Korean wedding cash gifts (축의금): use odd amounts (50,000, 70,000, 100,000 KRW). Recently 50,000-100,000 standard for friends, 100,000-200,000 for closer relations. Even amounts are reserved for funeral 부의금 (white envelope, 30,000-100,000 typical).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=183420"
+      ],
+      "condition": "Wedding/funeral gift amounts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

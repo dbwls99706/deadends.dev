@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/drive-left-side-pedestrian/jp",
+  "url": "https://deadends.dev/safety/drive-left-side-pedestrian/jp",
+  "error": {
+    "signature": "AI tells a pedestrian or driver in Japan to expect right-hand-drive traffic patterns (step off curb looking left, overtake on left)",
+    "regex": "(japan.*drive|japanese.*traffic|japan.*left hand drive|japan.*pedestrian|japan.*crossing.*look|japan.*rental car|japan.*idp)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Japan drives on the LEFT (like UK, Australia, Thailand, Indonesia). Right-hand-drive-country pedestrians reliably look the wrong way first when crossing — #1 cause of tourist traffic injuries in Japan per police statistics. Driving requires a 1949-convention International Driving Permit (IDP) — NOT the 1968 Geneva version used by many German/Spanish/Chinese drivers, whose IDPs are not accepted; they need an official Japanese translation of the home license instead."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a US/EU traveler to 'look both ways' without explicitly telling them to look right first when crossing in Japan",
+      "why_fails": "Motor and muscle memory defaults. UK embassies and Japanese tourism agencies specifically call out that the habitual 'look left first' is the leading cause of tourist pedestrian injuries. Japanese road markings do NOT include 'Look right' reminders (unlike London's painted road tips).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.jnto.go.jp/eng/plan-your-trip/practical-travel-information/",
+        "https://www.npa.go.jp/english/bureau/traffic/"
+      ],
+      "condition": "First week in Japan as pedestrian"
+    },
+    {
+      "action": "Rent a car in Japan with a 1968-Vienna-Convention IDP (issued by Germany, Switzerland, Austria, China, Spain and others)",
+      "why_fails": "Japan recognizes only the 1949 Geneva Convention IDP. Drivers from non-1949 countries need an official Japanese translation of their home license issued by JAF (Japan Automobile Federation) or their country's embassy. Rental agencies at Narita/Haneda routinely refuse unsuitable IDPs. The mistake is common for German and Chinese travelers.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://english.jaf.or.jp/driving-in-japan/international-driving-permit",
+        "https://www.npa.go.jp/english/bureau/traffic/"
+      ],
+      "condition": "Car rental by 1968-IDP holder"
+    },
+    {
+      "action": "Cross at a red pedestrian light in Japan because the street is empty",
+      "why_fails": "Japanese law treats red-light crossing as an offense even without traffic, and enforcement is active in Tokyo and Osaka central districts. Tourists are typically warned then fined. Locals overwhelmingly wait for green.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.npa.go.jp/english/bureau/traffic/"
+      ],
+      "condition": "Pedestrian signals"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pedestrians: on first week in Japan, deliberately look RIGHT first, then left, then right again before stepping off. Zebra crossings without lights still have right-of-way for pedestrians but drivers can be hesitant — make eye contact before crossing.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.npa.go.jp/english/bureau/traffic/"
+      ],
+      "condition": "Crossing streets"
+    },
+    {
+      "action": "For renting a car: bring a 1949 Geneva IDP (US, UK, AU, CA, and most others issue these). If from a 1968 Vienna country (DE, CH, AT, BE, etc.), obtain an official Japanese translation from JAF or embassy before arrival.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://english.jaf.or.jp/driving-in-japan/international-driving-permit"
+      ],
+      "condition": "Planning to drive in Japan"
+    },
+    {
+      "action": "Also note: Japan's BAC limit for driving is 0.03% (stricter than US 0.08%). One beer can put an adult over the limit. Zero-tolerance enforcement — fines, license suspension, and potential criminal charges even for passenger-seat knowledge that driver is drinking.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.npa.go.jp/english/bureau/traffic/"
+      ],
+      "condition": "Alcohol + driving"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/yom-kippur-total-shutdown/il",
+  "url": "https://deadends.dev/culture/yom-kippur-total-shutdown/il",
+  "error": {
+    "signature": "AI books a flight, drive, or restaurant in Israel during Yom Kippur (Day of Atonement) without realizing the country's complete shutdown",
+    "regex": "(israel.*yom kippur|yom kippur|יום כיפור|israel.*holiday.*shutdown|tel aviv.*holiday|israel.*airport closed|ben gurion closed)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-14",
+    "summary": "Yom Kippur (Day of Atonement, holiest day in Judaism, 25-hour fast from sunset) triggers Israel's most complete shutdown of the year. Ben Gurion Airport closes for ~25 hours (no commercial flights in/out). All TV/radio broadcasts (incl. army radio Galei Tzahal) silenced. No public transport, no taxis officially (some emergency taxis exist), no restaurants open, even Israeli Arabs largely close. Roads empty — children bicycle on highways. Synagogues and emergency services only."
+  },
+  "dead_ends": [
+    {
+      "action": "Book a flight arriving at or departing from Ben Gurion (TLV) on Yom Kippur",
+      "why_fails": "Ben Gurion closes from sunset (~6pm) the eve of Yom Kippur until sunset the following day. No commercial flights operate during this ~25h window. Even cargo. Travelers landing the day before may face delays/diversions if the previous-day schedule slipped.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.iaa.gov.il/en-US/airports/bengurion/",
+        "https://embassies.gov.il/"
+      ],
+      "condition": "Flight booking"
+    },
+    {
+      "action": "Plan to drive on Israeli highways or take a taxi during Yom Kippur",
+      "why_fails": "Roads are open but virtually empty — most Israelis don't drive. Filling stations close. Driving feels socially transgressive (kids cycling on the empty streets is the iconic image). In Jerusalem and many neighborhoods, cars driving during Yom Kippur are stoned by ultra-orthodox residents.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.il/en/departments/general/calendar-and-days-off",
+        "https://www.timesofisrael.com/"
+      ],
+      "condition": "Driving during Yom Kippur"
+    },
+    {
+      "action": "Schedule restaurant reservations or business meetings during Yom Kippur",
+      "why_fails": "Total restaurant closure. All government and most private businesses closed. The day before (Erev Yom Kippur) shuts down by mid-afternoon. Day after (often Shabbat-adjacent) may still be quiet. Not just orthodox observance — secular Israelis largely participate too.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.gov.il/en/departments/general/calendar-and-days-off"
+      ],
+      "condition": "Hospitality / business"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the Hebrew calendar for Yom Kippur date (annual, Tishrei 10, ~September-October Gregorian). Plan flights to arrive 2+ days before or after. Use gov.il/en/departments/general/calendar-and-days-off for definitive Israeli holiday schedule.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.il/en/departments/general/calendar-and-days-off"
+      ],
+      "condition": "Itinerary planning"
+    },
+    {
+      "action": "If stuck in Israel during Yom Kippur: stay near the hotel; rest; observe quietly; do not blast music or eat publicly outside (a respectful silence is universally observed). Hotel restaurants serve guests.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://embassies.gov.il/"
+      ],
+      "condition": "Already in country"
+    },
+    {
+      "action": "Other major Jewish holidays affect Israel: Rosh Hashanah (2 days), Sukkot (1 day intense + 5 days reduced), Pesach (1 day intense + 6 days reduced), Shavuot (1 day). All trigger transit / business closures but less severely than Yom Kippur.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://mfa.gov.il/mfa/aboutisrael/people/religion/pages/the%20jewish%20holidays.aspx"
+      ],
+      "condition": "Long-term Israeli planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

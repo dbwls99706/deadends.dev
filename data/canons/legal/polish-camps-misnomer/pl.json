@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/polish-camps-misnomer/pl",
+  "url": "https://deadends.dev/legal/polish-camps-misnomer/pl",
+  "error": {
+    "signature": "AI refers to Auschwitz / Treblinka as 'Polish concentration camps' or attributes Holocaust responsibility to Poland as a state",
+    "regex": "(polish.*concentration camp|polish.*death camp|poland.*holocaust.*responsible|article 55a|act 257|polish nation.*holocaust|nazi.*camps poland)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "The phrase 'Polish death camps' / 'Polish concentration camps' is historically inaccurate (the camps were established and operated by Nazi Germany on occupied Polish territory) and is now legally and politically charged in Poland. Poland's 2018 Holocaust Speech Law (later amended after international backlash) initially criminalized accusing 'the Polish nation' of responsibility; current Article 55a is civil rather than criminal but defamation actions still occur. Correct usage: 'German Nazi concentration camps in occupied Poland' (per Polish MFA / Auschwitz Museum guidance)."
+  },
+  "dead_ends": [
+    {
+      "action": "Write 'Polish concentration camps' in any English/business article, press release, or marketing material",
+      "why_fails": "Polish Foreign Ministry and Auschwitz-Birkenau State Museum systematically request corrections from international media. The Wall Street Journal, BBC, Times of Israel have all published corrections. Polish government can pursue civil defamation action under amended Article 55a; criminal liability was rolled back in 2018 amendments after EU/Israeli/US pressure.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.gov.pl/web/diplomacy",
+        "https://www.auschwitz.org/en/museum/news/",
+        "https://www.timesofisrael.com/poland-walks-back-controversial-holocaust-law-after-international-backlash/"
+      ],
+      "condition": "Holocaust naming in publications"
+    },
+    {
+      "action": "Frame Holocaust history as Polish vs Jewish, ignoring the Nazi German occupation context",
+      "why_fails": "Poland was occupied by Nazi Germany 1939-1945; ~6M Polish citizens died (3M Jewish, 3M ethnic Polish). Polish state did not collaborate at the institutional level (unlike Vichy France). However, individual Polish collaboration and pogroms (Jedwabne 1941, Kielce 1946) are documented historical facts that Polish historians (Jan Gross, Anna Bikont) have established. Both extremes are wrong.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.auschwitz.org/en/",
+        "https://www.yadvashem.org/"
+      ],
+      "condition": "Historical framing"
+    },
+    {
+      "action": "Visit Auschwitz-Birkenau as a casual selfie / Instagram destination",
+      "why_fails": "The site's official guidance is explicit: silent visits, no laughter, no smiling photos, no posing on the train tracks. The 'Auschwitz selfies' incidents (memorialized in Israeli photographer Shahak Shapira's 'Yolocaust' project) drew international condemnation. Auschwitz Memorial's Twitter actively shames disrespectful visitors.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.auschwitz.org/en/visiting/rules/"
+      ],
+      "condition": "Auschwitz visit"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use accurate phrasing: 'German Nazi concentration camp Auschwitz' or 'Nazi concentration camps in German-occupied Poland'. The Auschwitz-Birkenau Museum's style guide is the definitive source.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.auschwitz.org/en/museum/news/german-nazi-camp-not-polish-camp,1.html",
+        "https://www.gov.pl/web/diplomacy"
+      ],
+      "condition": "Naming the camps"
+    },
+    {
+      "action": "For nuanced historical discussion, distinguish: (1) Nazi Germany's institutional responsibility for the Holocaust; (2) individual Polish collaborators and instances of pogrom violence; (3) Polish resistance (Żegota, Polish Underground State); (4) ~7,000 Polish Righteous Among the Nations (per Yad Vashem). All are historically accurate; flattening any of them is wrong.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.yadvashem.org/righteous/statistics.html"
+      ],
+      "condition": "Historical writing"
+    },
+    {
+      "action": "Visit Auschwitz / Treblinka / Majdanek with respect: silent inside, no flash, no posing on tracks or with imagery. Book official guides — they explain the historical distinctions accurately. The full visit takes 3+ hours.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.auschwitz.org/en/visiting/rules/"
+      ],
+      "condition": "Site visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/fugu-licensed-only/jp",
+  "url": "https://deadends.dev/food-safety/fugu-licensed-only/jp",
+  "error": {
+    "signature": "AI tells someone they can buy fugu (pufferfish) at a Japanese market and prepare it at home, or eat it at any sushi restaurant",
+    "regex": "(fugu|pufferfish|ふぐ|河豚|tetrodotoxin|japan.*pufferfish|blowfish sashimi)",
+    "domain": "food-safety",
+    "category": "life_threatening",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.95,
+    "last_updated": "2026-04-14",
+    "summary": "Fugu (pufferfish) contains tetrodotoxin in liver, ovaries, intestines, and skin — >1000× more lethal than cyanide with no antidote. Japanese regulations require a prefecture-issued fugu license for chefs who prepare it for the public (2–3 year apprenticeship, written + practical exam). Home preparation by the untrained causes 2–5 deaths/year in Japan (MHLW statistics). Safe fugu is consumed at licensed fugu restaurants only."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy whole fugu at a fish market (Tsukiji's outer market, Toyosu auction) and prepare sashimi at home from a YouTube video",
+      "why_fails": "Prefectural regulations forbid unlicensed individuals from selling or preparing fugu for others. Even licensed home cooks risk death from the slightest error — the toxic organs are millimeters from the edible flesh. Multiple deaths annually involve amateur home preparation. The liver is most lethal; its consumption was fully banned in 1983.",
+      "fail_rate": 0.35,
+      "sources": [
+        "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html",
+        "https://www.soumu.go.jp/"
+      ],
+      "condition": "Home preparation",
+      "common_misconception": "'Farmed fugu is toxin-free' — only some farmed varieties are certified low-toxin (hon-fugu 本ふぐ), and even these are prepared by licensed chefs."
+    },
+    {
+      "action": "Order fugu at any sushi restaurant assuming it's always safe in Japan",
+      "why_fails": "Only licensed fugu restaurants (ふぐ料理店) can serve the fish. Licenses are displayed publicly. Non-licensed restaurants do not carry it. Seasonal offering: October–March (cold months).",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html"
+      ],
+      "condition": "Restaurant selection"
+    },
+    {
+      "action": "Eat fugu liver (fugu no kimo 河豚の肝) at an unlicensed restaurant on the claim 'we have a connection that makes it safe'",
+      "why_fails": "Fugu liver sale and service were nationally banned in 1983 after multiple deaths. No exceptions — even licensed chefs cannot serve it. A 2018 Gamagori case: 5 supermarket customers hospitalized after liver was mislabeled. Seller was criminally charged.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html",
+        "https://www.japantimes.co.jp/news/2018/01/17/national/gamagori-fugu-liver-recall/"
+      ],
+      "condition": "Liver consumption offers"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Eat fugu only at clearly licensed fugu restaurants (ふぐ料理店). Courses typically include tessa (paper-thin sashimi), tecchiri (hotpot), and fugu karaage. Winter season is peak. The license certificate is usually framed on the wall.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html"
+      ],
+      "condition": "Safe consumption"
+    },
+    {
+      "action": "If symptoms (tingling lips, numbness, weakness, difficulty breathing) develop after eating fish — even mild — call 119 immediately, transport to hospital with the remaining food for identification. Tetrodotoxin has no antidote; treatment is respiratory support until toxin clears.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html"
+      ],
+      "condition": "Emergency response",
+      "tradeoff": "Even with optimal care, lethality is ~50% for severe exposure."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/baksheesh-tipping-tax/eg",
+  "url": "https://deadends.dev/culture/baksheesh-tipping-tax/eg",
+  "error": {
+    "signature": "AI tells a tourist in Egypt to refuse all baksheesh requests as scams, or conversely tip everyone equally without context",
+    "regex": "(egypt.*baksheesh|بقشيش|egypt.*tip|cairo.*tip|egypt.*service|egypt.*bathroom attendant|egypt.*tour guide tip|egyptian.*hassle)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "Baksheesh (بقشيش) in Egypt is part economic, part cultural — small payments expected for service (porters, bathroom attendants, drivers, guides) and as informal social lubricant. Service workers' wages assume baksheesh as supplemental income. Refusing all baksheesh undertips legitimately working people; tipping everyone identically rewards aggressive demands. Carry small bills (5, 10, 20 EGP); expect to use them constantly."
+  },
+  "dead_ends": [
+    {
+      "action": "Refuse all baksheesh requests as 'scams', including bathroom attendants and porters",
+      "why_fails": "Bathroom attendants stock toilet paper from baksheesh income. Porters at hotels expect 5-20 EGP per bag. Refusing legitimate service workers leaves them unpaid for actual work. Indignant 'no tipping in my culture' is read as cheap.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/local-laws-and-customs",
+        "https://egypt.travel/en/"
+      ],
+      "condition": "Service interactions"
+    },
+    {
+      "action": "Hand a 200 EGP bill to a bathroom attendant who's asking for 5 EGP",
+      "why_fails": "Massively overtipping signals you're a wealthy tourist mark — invites more aggressive baksheesh demands at every subsequent location. 'You gave 200 to the bathroom, surely 500 for me' becomes the next pitch. Carry small bills.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://egypt.travel/en/"
+      ],
+      "condition": "Tip sizing"
+    },
+    {
+      "action": "Tip a tour guide a 'standard 15%' of meal cost",
+      "why_fails": "Tour guides in Egypt are tipped per day (~$10-20 USD/day per person for full-day tours), not per meal. Drivers expect $5-10/day separately. Restaurant tipping is on top (10% on top of the often-included 12% service charge). Confusing the categories means undertipping the guide and overtipping the restaurant.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://egypt.travel/en/"
+      ],
+      "condition": "Tour guide / driver tipping"
+    },
+    {
+      "action": "Photograph someone in costume or pose with a camel handler in Giza, then walk away without paying",
+      "why_fails": "Costumed photographers, camel handlers, and 'helpful' impromptu guides at major sites EXPECT payment for the interaction. Walking away after a photo triggers loud, sustained chasing. Typical price: 20-50 EGP per photo. Better: ask the price first or politely decline before engaging.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security"
+      ],
+      "condition": "Tourist site interactions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry a constant supply of small EGP bills (5, 10, 20). Tip: porter 10-20 EGP/bag, bathroom attendant 5-10 EGP, hotel housekeeping 20-50 EGP/day, taxi driver 10% rounding, restaurant 10% on top of service charge, tour guide $10-20/day, driver $5-10/day.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://egypt.travel/en/",
+        "https://www.gov.uk/foreign-travel-advice/egypt"
+      ],
+      "condition": "Daily tipping budget"
+    },
+    {
+      "action": "At tourist sites: clarify price BEFORE engaging in any service or photo. 'بكام؟' (bekam? = how much?). If the price seems high, walk away — there's always another vendor. Don't accept 'just see, no charge' invitations into shops without budget set.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security"
+      ],
+      "condition": "Tourist site negotiation"
+    },
+    {
+      "action": "Tipping Etiquette: hand bill discreetly with right hand. Don't make a show of it. Polite Arabic phrase: 'شكرا' (shukran = thanks). For unwelcome service (someone insists on 'helping' you to your hotel without ask), firm 'la, shukran' (no thanks) early prevents baksheesh demand later.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://egypt.travel/en/"
+      ],
+      "condition": "Tipping form"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

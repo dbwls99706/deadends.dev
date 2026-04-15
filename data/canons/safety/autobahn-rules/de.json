@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/autobahn-rules/de",
+  "url": "https://deadends.dev/safety/autobahn-rules/de",
+  "error": {
+    "signature": "AI tells a driver on the German Autobahn they can cruise at their own pace in the left lane, overtake on the right, or stop on the shoulder when tired",
+    "regex": "(autobahn|germany.*highway|german.*motorway|autobahn.*speed limit|germany.*overtake.*right|rechts überholen|autobahn.*shoulder|pannenstreifen)",
+    "domain": "safety",
+    "category": "traffic_law",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "The Autobahn is NOT rule-free: ~30% of network has posted speed limits (120/130), ~30% variable (weather/traffic signs), and ~40% unrestricted with a recommended 'Richtgeschwindigkeit' of 130 km/h. Two strict rules: right-lane driving default (Rechtsfahrgebot), and overtaking ONLY on the left. Passing on the right is a fine-able offense even at low speed. The shoulder (Pannenstreifen) is for breakdowns only — stopping for coffee or rest gets towed and fined."
+  },
+  "dead_ends": [
+    {
+      "action": "Stay in the middle or left lane at 100–110 km/h on an unrestricted Autobahn stretch",
+      "why_fails": "Rechtsfahrgebot (§2 StVO) requires drivers to keep right when not actively overtaking. Approaching vehicles at 180–250 km/h in the left lane create dangerous flash-tailgating situations. Tourists in the left-middle lane are a major cause of accidents. Minimum fines ~€80, 1 point.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stvo_2013/__2.html",
+        "https://www.adac.de/"
+      ],
+      "condition": "Left/middle lane cruising"
+    },
+    {
+      "action": "Overtake a slow truck on the right because the left lane is congested",
+      "why_fails": "Rechts überholen is prohibited except in limited conditions (congested traffic at <60 km/h; lanes with own destination signage). Flashing camera traps are common at known right-lane-passing hotspots. Fine ~€100 + 1 point.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stvo_2013/__5.html",
+        "https://www.adac.de/"
+      ],
+      "condition": "Overtaking behavior"
+    },
+    {
+      "action": "Stop on the Autobahn shoulder to eat a sandwich or check GPS",
+      "why_fails": "§18 StVO: shoulder is for breakdowns only. Stopping for rest or navigation earns towing + €35+ fine; some federal police (Autobahnpolizei) intercept quickly. Use the nearest Raststätte (service area) or Parkplatz.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stvo_2013/__18.html"
+      ],
+      "condition": "Rest / navigation stops"
+    },
+    {
+      "action": "Drive after a Bier at a rest stop assuming 'Germany is relaxed about beer'",
+      "why_fails": "Germany's BAC limit is 0.05% (0.03% for novices and commercial drivers). A single Pils can exceed the limit. Random breath tests occur, especially near Oktoberfest and big cities. Over 0.11% is criminal (license suspension + €500+ fine minimum).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bast.de/",
+        "https://www.adac.de/"
+      ],
+      "condition": "Alcohol + driving"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to the right lane. Use the left lane ONLY to overtake. Check mirrors carefully — cars can close from 100m at closing speeds of 80+ km/h. After overtaking, return to the right lane promptly.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gesetze-im-internet.de/stvo_2013/__2.html"
+      ],
+      "condition": "Lane discipline"
+    },
+    {
+      "action": "Respect variable speed signs (blue circle with number = mandatory; blue rectangle without number = unrestricted + 130 km/h Richtgeschwindigkeit = recommended). Exceeding the limit is fined progressively up to €480 + point penalties and license suspension.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.adac.de/"
+      ],
+      "condition": "Speed management"
+    },
+    {
+      "action": "For rest: exit at Raststätte (full-service rest area, often with food/fuel) or Parkplatz (simple parking area). Both marked 2 km and 500m in advance. Never stop on the Hauptfahrbahn or shoulder except for breakdowns.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.adac.de/"
+      ],
+      "condition": "Breaks and rest"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

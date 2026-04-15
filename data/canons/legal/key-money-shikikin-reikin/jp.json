@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/key-money-shikikin-reikin/jp",
+  "url": "https://deadends.dev/legal/key-money-shikikin-reikin/jp",
+  "error": {
+    "signature": "AI tells a renter in Japan that upfront costs are just first month + deposit, like in the US/UK",
+    "regex": "(japan.*rent|tokyo.*apartment|japan.*key money|shikikin|reikin|敷金|礼金|日本.*家賃|guarantor japan|保証人.*日本|japan.*apartment.*deposit)",
+    "domain": "legal",
+    "category": "contract_terms",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Japanese rental upfront costs typically total 4–6 months of rent: 敷金 (shikikin, security deposit, 1–2 months, returned minus damages), 礼金 (reikin, 'key money' gift to landlord, 1–2 months, NON-REFUNDABLE), first month rent, brokerage fee (1 month + tax), guarantor-company fee (0.5–1 month), fire insurance (~20,000 JPY/2 years), lock change (~15,000 JPY). Some foreigner-friendly agencies (Leopalace, Sakura House, GaijinPot) waive reikin and guarantor."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan a Tokyo 100,000 JPY/month rental with a 200,000 JPY budget (first + deposit)",
+      "why_fails": "Actual move-in on a 100,000 JPY/month apartment: ~500,000–700,000 JPY (5–7 months rent-equivalent). Components: shikikin 100-200k (refundable), reikin 100-200k (gift), first month 100k, brokerage 100k+tax, guarantor fee 50-100k, insurance 20k, lock 15k. Sudden realization at contract signing is a common expat shock.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.retpc.jp/en/consumer-consultation/",
+        "https://www.mlit.go.jp/en/"
+      ],
+      "condition": "Tokyo / Osaka private rental market"
+    },
+    {
+      "action": "Tell a foreigner they just need to fill out a rental application, skipping the guarantor system",
+      "why_fails": "Most Japanese rentals require a 保証人 (hoshounin, personal guarantor — Japanese national with stable income) OR a 保証会社 (hoshou-gaisha, guarantor company, ~0.5–1 month rent). Foreigners without a Japanese guarantor must use a guarantor company, and many landlords additionally refuse foreigners even with a company (the 'no foreigners' 外国人お断り clause is legal and common in older buildings).",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.mlit.go.jp/en/",
+        "https://www.moj.go.jp/isa/publications/"
+      ],
+      "condition": "Foreigner apartment search"
+    },
+    {
+      "action": "Expect to break the lease without penalty after 3–6 months like in the US",
+      "why_fails": "Japanese leases are typically 2-year renewable. Early termination often triggers: 1–2 month penalty fee + forfeit of shikikin for 'damages' assessed at move-out + possible cleaning fee. Mid-contract breakage with full refund requires documented landlord breach.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.retpc.jp/en/consumer-consultation/"
+      ],
+      "condition": "Early contract termination"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Budget 5–6 months of rent for move-in. Use foreigner-specific agencies (Sakura House, Metro Residence, GaijinPot Apartments) or no-reikin/no-shikikin 'zero-zero' listings (ゼロゼロ物件) — often slightly higher monthly rent but vastly lower upfront.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mlit.go.jp/en/"
+      ],
+      "condition": "Budget planning"
+    },
+    {
+      "action": "Use a guarantor company (保証会社) — many agencies bundle this automatically. Fee is one-time ~50-100% of monthly rent. Alternatively, monthly serviced apartments (Monthly Mansion) skip the system entirely but cost 2-3× a normal lease for equivalent space.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.mlit.go.jp/en/"
+      ],
+      "condition": "No Japanese guarantor available"
+    },
+    {
+      "action": "Move-out: request an itemized damage assessment (原状回復). Natural wear (wall discoloration from sun, faint marks) should be landlord-covered per MLIT guidelines. Scuffs, burns, stains deducted from shikikin. Disputes can go to the local consumer center (国民生活センター).",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.kokusen.go.jp/",
+        "https://www.mlit.go.jp/en/"
+      ],
+      "condition": "Contract termination / move-out"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

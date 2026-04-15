@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/aboriginal-sensitivity-uluru/au",
+  "url": "https://deadends.dev/culture/aboriginal-sensitivity-uluru/au",
+  "error": {
+    "signature": "AI tells a tourist to climb Uluru, photograph sacred Aboriginal sites freely, or use 'Aboriginal' / 'Indigenous' interchangeably without nuance",
+    "regex": "(uluru.*climb|ayers rock.*climb|aboriginal.*sacred|first nations.*australia|australia.*indigenous|northern territory.*sacred|kakadu.*sacred|welcome to country|acknowledgement of country)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Climbing Uluru was permanently banned in 2019 (Anangu Traditional Owners' long-standing request). Many Aboriginal sites contain restricted areas where photography is prohibited. Indigenous Australians prefer 'Aboriginal and Torres Strait Islander', 'First Nations', or 'First Peoples' (avoid 'Aborigines' as noun). 'Welcome to Country' is performed by Traditional Owners; 'Acknowledgement of Country' is by anyone respectfully naming the local Traditional Owners."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell tourists they can climb Uluru / Ayers Rock for an iconic photo",
+      "why_fails": "Climbing was banned 26 October 2019. Anangu people consider Uluru sacred — climbing was a long-standing offense to traditional law. The chain that previously assisted climbers was removed. Visitors who attempt face fines and expulsion from the National Park.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://parksaustralia.gov.au/uluru/",
+        "https://www.npws.nsw.gov.au/"
+      ],
+      "condition": "Uluru visit advice"
+    },
+    {
+      "action": "Photograph anything at Uluru, Kakadu, or other Aboriginal sites without checking signage for restricted areas",
+      "why_fails": "Many Aboriginal sites contain men-only or women-only sacred areas where photography is forbidden under Anangu/local Traditional Owner law. Signs in English mark these. Photos taken in restricted areas may need to be deleted; commercial use violates Aboriginal cultural property law.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://parksaustralia.gov.au/uluru/",
+        "https://www.kakadu.com.au/"
+      ],
+      "condition": "Sacred site photography"
+    },
+    {
+      "action": "Refer to 'the Aboriginals' or 'Aborigines' as a noun in formal/business communication",
+      "why_fails": "'Aborigines' as noun has colonial connotations and is dispreferred. Current accepted usage: 'Aboriginal and Torres Strait Islander peoples', 'First Nations Australians', 'First Peoples', or 'Indigenous Australians'. Use 'Aboriginal' as adjective only ('Aboriginal art', 'Aboriginal community').",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://aiatsis.gov.au/",
+        "https://www.niaa.gov.au/"
+      ],
+      "condition": "Terminology"
+    },
+    {
+      "action": "Skip Welcome to Country / Acknowledgement of Country at the start of an Australian business event",
+      "why_fails": "Most Australian government, university, corporate, and even sports events open with one of these. Skipping in formal Australian contexts is now noticed — read as either careless or politically loaded. International visitors hosting events in Australia are expected to include an Acknowledgement (does not require Traditional Owner presence).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://aiatsis.gov.au/explore/welcome-country-and-acknowledgement-country",
+        "https://www.niaa.gov.au/"
+      ],
+      "condition": "Formal events in Australia"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "At Uluru: walk the base loop (10.6km), join Anangu-led cultural tours (Tjukurpa stories), watch sunrise/sunset from designated viewing areas. The Cultural Centre has First Nations art and history. Helicopter tours offer aerial views without climbing.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://parksaustralia.gov.au/uluru/"
+      ],
+      "condition": "Uluru visit"
+    },
+    {
+      "action": "Terminology: 'Aboriginal and Torres Strait Islander', 'First Nations', 'First Peoples', or 'Indigenous Australians'. 'Aboriginal' as adjective. Use the specific Nation's name when known (Anangu at Uluru, Larrakia in Darwin, Wurundjeri in Melbourne, Gadigal in Sydney CBD).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://aiatsis.gov.au/"
+      ],
+      "condition": "Communication"
+    },
+    {
+      "action": "For Acknowledgement of Country at events, a simple format: 'I would like to acknowledge the Traditional Owners of the land on which we meet today, the [local Nation, e.g. Gadigal of the Eora Nation] people, and pay my respects to their Elders past and present.' Look up the local Nation via aiatsis.gov.au.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://aiatsis.gov.au/explore/welcome-country-and-acknowledgement-country"
+      ],
+      "condition": "Acknowledgement format"
+    },
+    {
+      "action": "When buying Aboriginal art/souvenirs: choose Indigenous Art Code-certified shops (https://indigenousartcode.org/) — ensures fair attribution and payment to the artist. Avoid 'Aboriginal-style' mass-produced souvenirs (often made without First Nations involvement).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://indigenousartcode.org/"
+      ],
+      "condition": "Buying Aboriginal art"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-14"
+  }
+}

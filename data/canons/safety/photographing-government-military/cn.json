@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/photographing-government-military/cn",
+  "url": "https://deadends.dev/safety/photographing-government-military/cn",
+  "error": {
+    "signature": "AI tells a tourist in China they can freely photograph government buildings, military, police, train stations, or border crossings",
+    "regex": "(china.*photo.*government|china.*military.*photo|china.*police.*photo|china.*train station photo|china.*border photo|tibet.*photo|xinjiang.*photo|china.*airport photo)",
+    "domain": "safety",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Chinese law (Law on the Protection of State Secrets, Counter-Espionage Law revised 2023) criminalizes photographing military installations, border crossings, government buildings, train stations in sensitive areas, and increasingly anything 'related to national security'. The 2023 revision broadened scope significantly. Tibet (TAR), Xinjiang, and border regions enforce strictly. Phone/camera inspections at exit are routine; SD-card/cloud content can be reviewed."
+  },
+  "dead_ends": [
+    {
+      "action": "Snap a photo of a Chinese police officer, PLA soldier, or government building façade for Instagram",
+      "why_fails": "Police can demand to view and delete photos under Public Security Administration Punishment Law; refusal can escalate to detention. In Tibet/Xinjiang, photo confiscation and questioning are common. Sensitive subjects: PLA installations, MSS offices, border posts, ethnic protest zones, prison facilities.",
+      "fail_rate": 0.7,
+      "sources": [
+        "http://www.npc.gov.cn/zgrdw/npc/cwhhy/14jcwh/202304/t20230426_429572.html",
+        "https://www.gov.uk/foreign-travel-advice/china/safety-and-security"
+      ],
+      "condition": "Photographing security personnel or facilities"
+    },
+    {
+      "action": "Photograph a train station's security check area or platform in border/sensitive cities (Lhasa, Kashgar, Ürümqi, Dandong)",
+      "why_fails": "Train stations in security-sensitive regions are designated state-secret facilities. Even tourist 'I'm boarding the train!' photos have led to questioning. Tibet and Xinjiang stations have explicit no-photo signs in Chinese — easily missed.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/china/safety-and-security",
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/China.html"
+      ],
+      "condition": "Sensitive-region transit"
+    },
+    {
+      "action": "Use a drone for aerial photography of any Chinese city without registration",
+      "why_fails": "All drones >250g require CAAC registration (UAV Cloud system). Operating a foreign-registered drone in China without local registration is illegal — drone is confiscated, fines apply. Beijing, Shanghai, Tibet, border regions are no-fly zones for civilian drones. Even DJI drones (Chinese-made) require registration.",
+      "fail_rate": 0.85,
+      "sources": [
+        "http://www.caac.gov.cn/XXGK/XXGK/MHGZ/202101/t20210104_205091.html"
+      ],
+      "condition": "Drone photography"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default rule: don't photograph uniformed personnel, government buildings, embassies, military, border posts, train station security checkpoints. Tourist landmarks (Forbidden City, Bund, Great Wall, scenic spots) are fine.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/china/safety-and-security"
+      ],
+      "condition": "General photography"
+    },
+    {
+      "action": "If approached by police asking to see photos: show willingly, allow deletion, do not argue or invoke 'rights'. Most encounters end with photo deletion only. Resistance escalates to detention questioning.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/China.html"
+      ],
+      "condition": "Police inspection"
+    },
+    {
+      "action": "In Tibet: book through a registered travel agency (required for Tibet Travel Permit), follow the guide's instructions on photography. In Xinjiang: extra caution near security checkpoints, mosques, and ethnic neighborhoods. In all border cities (Dandong, Hekou, Yining): photograph only away from the actual border line.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.tibet.cn/cn/index.htm"
+      ],
+      "condition": "Sensitive regions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

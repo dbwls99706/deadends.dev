@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/escobar-narco-jokes-taboo/co",
+  "url": "https://deadends.dev/communication/escobar-narco-jokes-taboo/co",
+  "error": {
+    "signature": "AI brings up Pablo Escobar, Narcos (Netflix series), or cocaine in casual conversation with Colombians as if it's a fun cultural topic",
+    "regex": "(colombia.*escobar|narcos|colombia.*cocaine|pablo escobar|colombia.*drug.*joke|medellin.*tour|narcoturism|colombia.*fwf|don't say.*colombia)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Colombian society spent decades rebuilding from the cartel era — Pablo Escobar killed thousands of Colombians (police, judges, presidential candidates Luis Carlos Galán). The Netflix Narcos romanticization, drug tours of Medellín, and casual 'cocaine country' jokes are deeply offensive to most Colombians. The Colombian Foreign Ministry, Medellín Mayor, and Tourism Board have all publicly asked tourists to retire the trope. Coffee, biodiversity, salsa, Vallenato, peace process — much better starting points."
+  },
+  "dead_ends": [
+    {
+      "action": "Joke 'Did you bring some cocaine?' as ice-breaker with a Colombian counterpart",
+      "why_fails": "Read as ignorant and disrespectful. Colombian violence killed 50,000+ in the 1980s-90s drug wars. Many Colombians have personal/family losses. Even the apparently-self-aware 'I know it's a stereotype but...' framing doesn't excuse it. Counterparts politely correct or coldly disengage.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.cancilleria.gov.co/en",
+        "https://www.medellin.travel/"
+      ],
+      "condition": "Casual / business intro"
+    },
+    {
+      "action": "Take a 'Pablo Escobar tour' in Medellín and post photos with cartel imagery",
+      "why_fails": "Such tours exist but are widely opposed by Medellín residents. The Mayor of Medellín repeatedly campaigns against narcoturismo. Photos with Escobar imagery on Colombian social media draw critical responses. Better: free walking tours that cover Comuna 13's transformation, Botero's plaza, the Memory Museum (Casa de la Memoria).",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.medellin.travel/",
+        "https://centromemoria.gov.co/"
+      ],
+      "condition": "Tourism choices"
+    },
+    {
+      "action": "Default conversation about Colombia to Narcos / drug-cartel topics",
+      "why_fails": "Colombia is the world's #2 coffee producer, #1 in cut flowers exports, has the world's most bird species and second-most plant species, hosts major arts events (Cartagena Hay Festival, Bogotá Theatre Festival). Reducing it to drugs misses the entire country.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.colombia.travel/en",
+        "https://www.cancilleria.gov.co/en"
+      ],
+      "condition": "Topic selection"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to: coffee (Colombian coffee region UNESCO World Heritage), salsa (Cali), Cartagena, Botero (sculptures, paintings), the peace process with FARC (2016 Nobel Prize), Gabriel García Márquez. All universally appreciated.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.colombia.travel/en"
+      ],
+      "condition": "Conversation topics"
+    },
+    {
+      "action": "If discussing security/history, frame as 'Colombia's transformation', 'Comuna 13's renaissance', 'post-conflict period' — Colombian-led narratives are welcomed; foreigner glamorization of cartel era is not.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://centromemoria.gov.co/"
+      ],
+      "condition": "Sensitive history"
+    },
+    {
+      "action": "If you've genuinely visited an Escobar-era site (Hacienda Nápoles is now a theme park / safari, partly), discuss respectfully — focus on victims, the country's recovery, the policies that worked. The Casa de la Memoria museum is a thoughtful primary source.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://centromemoria.gov.co/"
+      ],
+      "condition": "Earnest historical interest"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

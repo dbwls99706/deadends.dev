@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/seollal-chuseok-mass-travel/kr",
+  "url": "https://deadends.dev/culture/seollal-chuseok-mass-travel/kr",
+  "error": {
+    "signature": "AI tells a traveler in Korea they can casually book domestic train/flight or expect normal restaurant hours during 설날 (Seollal) or 추석 (Chuseok)",
+    "regex": "(korea.*lunar new year|seollal|설날|chuseok|추석|korea.*hanbok|민족 대이동|korean thanksgiving|korea.*ktx.*holiday|seoul empty)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "설날 (Seollal, Lunar New Year, Jan/Feb, 3-day national holiday) and 추석 (Chuseok, Korean autumn harvest festival, mid-Sep to early Oct, 3-day) trigger 민족 대이동 ('great mass migration') — 30+ million domestic trips. KTX/SRT booking opens ~30 days ahead and sells out in minutes; expressways turn into 4-8h delays; restaurants in Seoul largely close (everyone leaves to hometowns); palace entry is free with hanbok. Plan around or with these patterns deliberately."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to book KTX from Seoul to Busan a week before Seollal/Chuseok",
+      "why_fails": "KTX/SRT holiday booking opens 30 days ahead at korail.com / sr.com and sells out within minutes — sometimes 30 seconds. Last-minute travelers find no seats; standing tickets sell out within 1-2 days. Express buses (고속버스) book up similarly. Driving: Seoul-Busan (normally 4h) becomes 8-12h.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.korail.com/",
+        "https://www.kotsa.or.kr/"
+      ],
+      "condition": "Last-minute holiday transport"
+    },
+    {
+      "action": "Plan a Seoul restaurant tour during Chuseok/Seollal expecting normal operating hours",
+      "why_fails": "Most independent restaurants close 2-4 days for holiday; Seoul restaurant occupancy drops dramatically as residents leave for hometowns. Many traditional shops in Insadong, Bukchon, Gwangjang Market close. Major hotel restaurants and fast-food chains stay open.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://english.visitkorea.or.kr/",
+        "https://www.seoul.go.kr/main/en/index.do"
+      ],
+      "condition": "Independent restaurants during holidays"
+    },
+    {
+      "action": "Schedule Korean business meetings or deliveries in the holiday week",
+      "why_fails": "All government offices, banks, courier services (CJ Logistics, Coupang Rocket), and most corporate offices close 3 days. Email replies rare; production lines pause; international shipments halt. Plan B2B for the week before or week after.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.kr/portal/holidays/holidayInfoView"
+      ],
+      "condition": "Business scheduling"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If holiday travel is required: book KTX/SRT exactly when reservations open (30 days prior, 7am or 9am depending on operator). Set alarms. Or fly domestic (less impacted).",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.korail.com/",
+        "https://www.sr.co.kr/"
+      ],
+      "condition": "Holiday transport need",
+      "tradeoff": "Even with optimal timing, popular routes sell out within minutes."
+    },
+    {
+      "action": "Use the holiday WHILE in Seoul: streets are emptier, hotel rates drop, palace entry (Gyeongbokgung, Changdeokgung, Deoksugung, Changgyeonggung) is FREE for visitors wearing hanbok (rentable for 10,000-30,000 KRW nearby). Major museums and theme parks (Lotte World, Everland) stay open.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://english.visitkorea.or.kr/",
+        "https://royal.cha.go.kr/"
+      ],
+      "condition": "Tourist alternative"
+    },
+    {
+      "action": "Check the lunar calendar — Seollal and Chuseok dates shift each year. Korean government publishes official holiday list at gov.kr/portal/holidays. Adjacent weekend dates can extend to 5-9 day breaks (replacement holidays).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.kr/portal/holidays/holidayInfoView"
+      ],
+      "condition": "Long-term planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/pakistan-kashmir-topic/in",
+  "url": "https://deadends.dev/communication/pakistan-kashmir-topic/in",
+  "error": {
+    "signature": "AI brings up Pakistan, Kashmir, India-Pakistan partition, Bangladesh 1971 war as small talk in business meetings inside India",
+    "regex": "(india.*pakistan.*small talk|kashmir.*india|article 370|india.*partition|india.*bangladesh.*1971|loc.*india|sino-india border)",
+    "domain": "communication",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-04-14",
+    "summary": "India-Pakistan, Kashmir status (esp. since Article 370 abrogation in 2019), the 1947 Partition (~2M deaths), the 1971 Bangladesh war, and Sino-Indian border tensions (Galwan 2020) are politically and emotionally heavy topics. Bringing them up in business / casual contexts can trigger long, charged conversation; advocating any particular framing (Indian sovereignty over Kashmir, Pakistan's claim, Chinese border reading) can damage relationships. Caste, religion, and these geopolitics all deserve hands-off treatment by foreigners."
+  },
+  "dead_ends": [
+    {
+      "action": "Open small talk with an Indian business contact by asking about 'tensions with Pakistan' or 'the Kashmir situation'",
+      "why_fails": "These topics are not abstract — many Indians have family with personal partition trauma or military service in Kashmir. Even framing the question 'neutrally' is read as either inviting an emotional response or signaling a foreign 'side'. Business meetings derail; counterparts reassess the foreigner's judgment.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.mea.gov.in/",
+        "https://www.gov.uk/foreign-travel-advice/india/safety-and-security"
+      ],
+      "condition": "Business small talk"
+    },
+    {
+      "action": "Reference Article 370 abrogation (2019) approvingly or critically in any India-distributed content",
+      "why_fails": "Article 370's revocation in Aug 2019 ended Jammu & Kashmir's special status — politically polarizing in India. Brand statements that touch the topic risk Hindu-nationalist or opposition backlash. International companies (Twitter, Microsoft, Apple) have faced scrutiny for any related content moderation choices. Best to publish nothing.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.mea.gov.in/",
+        "https://www.indianembassyusa.gov.in/"
+      ],
+      "condition": "Brand / commercial communications"
+    },
+    {
+      "action": "Use a map of India that omits Pakistan-administered Kashmir or shows the LoC in a 'disputed' way for India-distributed marketing",
+      "why_fails": "Indian Survey of India and Information Technology (Geospatial Information Regulation) Bill have strict rules: maps shown in India must depict the entire Kashmir (incl. PoK and Aksai Chin) as Indian territory. Failure can lead to fines under the Criminal Law Amendment Act and product takedown. Twitter, Wikipedia, Mercedes-Benz have been warned/fined.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.surveyofindia.gov.in/",
+        "https://www.meity.gov.in/"
+      ],
+      "condition": "Maps in commercial content"
+    },
+    {
+      "action": "Reference 'Free Tibet' or 'Free Kashmir' in shared India-China-distributed content",
+      "why_fails": "Both are political red lines but for different sides — Tibet for Chinese audiences, Kashmir for Indian. A single SKU image showing 'Free Tibet' or 'Free Kashmir' can trigger boycotts in both markets. Apple, H&M, Nike have all navigated similar minefields.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.mea.gov.in/"
+      ],
+      "condition": "Multi-market product"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default to commercial, family-life, food, cricket (universally safe small talk) topics. Avoid initiating geopolitics, religion, caste. If counterpart raises the topic, listen more than speak; do not advocate.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.mea.gov.in/"
+      ],
+      "condition": "Business small talk"
+    },
+    {
+      "action": "For map software / commercial content shown in India: source from a verified Indian provider or use Google Maps' India edition. Verify Kashmir representation against Survey of India guidelines. When in doubt, geo-restrict the asset.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.surveyofindia.gov.in/",
+        "https://www.meity.gov.in/"
+      ],
+      "condition": "Map / geographic content"
+    },
+    {
+      "action": "Cricket is the universally safe small-talk gateway: India-Pakistan cricket matches are emotional but conversation about cricket itself (favorite player, IPL teams, recent series) is welcome.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bcci.tv/"
+      ],
+      "condition": "Building rapport"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-14"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/queue-jumping-pub-rounds/uk",
+  "url": "https://deadends.dev/culture/queue-jumping-pub-rounds/uk",
+  "error": {
+    "signature": "AI tells a visitor to the UK to push to the bar to order, skip queues at bus stops, or split the bill at a pub for a single round of drinks",
+    "regex": "(uk.*queue|britain.*queue|british.*queue|uk.*pub.*round|pub.*round.*uk|english.*pub.*etiquette|cheers.*meaning|uk.*tips|britain tipping)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-04-14",
+    "summary": "Two near-sacred British social conventions: (1) queueing — orderly, single-file, by arrival order, even at unmarked spots; cutting in is loudly resented though rarely confronted directly. (2) Pub rounds — when drinking with a group, each person buys a 'round' for everyone in turn; refusing to take your turn is poor form. Tipping in the UK is modest (10-12.5% restaurant, often included as 'discretionary service charge'; not expected in pubs unless table service)."
+  },
+  "dead_ends": [
+    {
+      "action": "Push past people at a UK pub bar to flag down the bartender",
+      "why_fails": "British bar etiquette: stand at the bar, make eye contact with the bartender, wait your turn (bartender works left-to-right or by acknowledgment order). Pushing or waving cash is read as rude. Locals notice and silently judge. Leaning on the bar with money out is the discreet 'I'm next' signal.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink",
+        "https://www.britishlibrary.uk/"
+      ],
+      "condition": "Bar service"
+    },
+    {
+      "action": "Cut in line at a London bus stop or Tube ticket counter",
+      "why_fails": "Even unmarked queues are observed in the UK by arrival order. Cutting prompts loud sighs, exasperated 'excuse me!', or pointed throat-clearing. Repeated offenders may face confrontation. London Tube has explicit queue lines at busy stations.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Queue discipline"
+    },
+    {
+      "action": "Drink 4 pints in a pub group, each person buying their own — no rounds",
+      "why_fails": "British pub culture: when in a group of 3-6 friends, one person buys the first round (drinks for everyone), the next person buys the second round, etc. Refusing to take a turn is 'shilling' / cheapness. Avoid by either declining to join the round (stick to one drink and pay separately) or taking a turn.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Pub with British group"
+    },
+    {
+      "action": "Tip 18-22% at a London restaurant on top of a 'discretionary service charge'",
+      "why_fails": "UK restaurants routinely add 10-12.5% 'discretionary service charge'. Adding another 18-22% on top means tipping 30%+. Standard practice: pay the bill including the service charge. If service was poor, you can request the service charge be removed (it is genuinely discretionary). Pubs and casual: no expected tip on drinks at the bar.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Restaurant tipping"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Bar: stand at the bar, make eye contact, wait your turn. Have order + cash/card ready. 'Cheers' (= thanks) when handed the drink.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Pub service"
+    },
+    {
+      "action": "Queues: join the back, wait. If unsure where queue ends, ask 'Are you in the queue?' (universally answered politely). At Tube stations, follow painted lines.",
+      "success_rate": 0.98,
+      "sources": [
+        "https://tfl.gov.uk/"
+      ],
+      "condition": "Transit / counter queues"
+    },
+    {
+      "action": "Pub rounds: if joining a group of 4+ for an evening, expect to buy 1 round (~£20-40 depending on city/drinks). If you don't want to commit, say upfront 'I'm just having one, I'll pay for mine'. Or take your turn graciously.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Group drinking"
+    },
+    {
+      "action": "Restaurant tipping: 10-12.5% on top of pre-service-charge total OR pay the included service charge with no extra. Cash tip directly to server (some service charges go to management). Pubs / cafés: no tipping unless table service.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitbritain.com/en/things-to-do/food-drink"
+      ],
+      "condition": "Tipping"
+    },
+    {
+      "action": "'Cheers' has multiple uses in UK English: thanks, bye, hello, OK. Context decides. 'Sorry' likewise — used as polite filler, not always apologizing for fault. Don't overinterpret.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.britishcouncil.org/"
+      ],
+      "condition": "Language register"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}

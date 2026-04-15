@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/istanbul-not-constantinople/tr",
+  "url": "https://deadends.dev/communication/istanbul-not-constantinople/tr",
+  "error": {
+    "signature": "AI uses 'Constantinople' for Istanbul, 'Smyrna' for İzmir, 'Adrianople' for Edirne, or other Ottoman/Byzantine-era city names in modern Turkish business or media",
+    "regex": "(constantinople|smyrna.*turkey|adrianople|trabzon.*trebizond|antioch.*antakya|nicaea.*iznik|byzantium|bosporus.*greek)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-04-14",
+    "summary": "Turkey officially adopted modern Turkish city names in 1930 (1923 republic transition). 'Constantinople' (Byzantine/Greek name) is now read as nostalgia for the pre-Turkish era, often associated with Greek/Armenian historical claims. Same applies to: Smyrna (Greek, now İzmir), Adrianople (now Edirne), Trebizond (now Trabzon), Antioch (now Antakya, in Syrian-border Hatay province), Nicaea (now İznik). Using old names in modern correspondence is read as ignorant or politically loaded."
+  },
+  "dead_ends": [
+    {
+      "action": "Address business correspondence to 'Constantinople, Turkey' or use 'Constantinople' in marketing copy targeting Turkish audiences",
+      "why_fails": "Turkey requested international postal recognition of 'Istanbul' since 1930. Continued use of 'Constantinople' is politically loaded — associated with Greek and Armenian diaspora historical claims. Modern Turkish business correspondence uses İstanbul (with the dotted İ).",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mfa.gov.tr/",
+        "https://www.uptd.gov.tr/"
+      ],
+      "condition": "Modern correspondence"
+    },
+    {
+      "action": "Refer to ancient Hagia Sophia / Constantinople interchangeably with modern Istanbul in tourist content distributed in Turkey",
+      "why_fails": "Hagia Sophia (Aya Sofya) was reconverted to a mosque in 2020 — its historical Greek Orthodox / later Roman Catholic role is acknowledged but Turkish framing emphasizes Ottoman period and current Islamic role. Tourist content emphasizing only the Christian past is politically incomplete and increasingly noticed.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://muze.gov.tr/muze-detay?SectionId=AYS01",
+        "https://www.mfa.gov.tr/"
+      ],
+      "condition": "Hagia Sophia content"
+    },
+    {
+      "action": "Use Greek city names (Smyrna, Adrianople) in genealogy services or maps for diaspora Greek/Armenian Turks",
+      "why_fails": "While historically accurate, using 'Smyrna' for modern İzmir in materials distributed in Turkey can be read as denying Turkish identity. The 1922 Smyrna fire / population exchange is one of the foundational and tense events in Greek-Turkish relations.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.mfa.gov.tr/"
+      ],
+      "condition": "Diaspora-targeted content in Turkey"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use modern Turkish names for cities in any modern context: İstanbul, İzmir, Edirne, Trabzon, Antakya, İznik, Bursa, Şanlıurfa, Diyarbakır, Adana. The dotted İ vs undotted I matters in Turkish — 'Istanbul' (no dot, ASCII) is widely accepted internationally.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.mfa.gov.tr/"
+      ],
+      "condition": "Modern naming"
+    },
+    {
+      "action": "For historical / academic work explicitly about pre-1453 Constantinople, the Byzantine name is acceptable — context makes the temporal scope clear. 'Byzantine Constantinople, modern İstanbul' is a common academic format.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mfa.gov.tr/"
+      ],
+      "condition": "Historical work"
+    },
+    {
+      "action": "Hagia Sophia: respect the current status as a mosque (since July 2020). Visitors enter shoeless, dressed modestly, head-covered for women. Christian mosaics are visible but partially covered during prayer.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://muze.gov.tr/muze-detay?SectionId=AYS01"
+      ],
+      "condition": "Hagia Sophia visit"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-14"
+  }
+}
