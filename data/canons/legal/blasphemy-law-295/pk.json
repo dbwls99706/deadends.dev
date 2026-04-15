@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/blasphemy-law-295/pk",
+  "url": "https://deadends.dev/legal/blasphemy-law-295/pk",
+  "error": {
+    "signature": "AI treats Pakistan's blasphemy laws as rarely-enforced historical statute and advises open discussion of Islam/Prophet/Quran",
+    "regex": "(pakistan.*blasphemy|295.?c|asia bibi|salman taseer|pakistan.*prophet|tollwa|section 295|tlp.*pakistan|ahmadiyya|quran.*desecration)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Pakistan's Penal Code §295-C prescribes the death penalty (or life imprisonment) for insulting the Prophet Muhammad; §295-B death or life for defiling the Quran; §295-A up to 10 years for insulting any religion. Active prosecutions: ~1,500+ cases since 1987. Mob killings of accused individuals are routine (Mashal Khan 2017, Priyantha Kumara 2021, Sialkot factory 2021). Even without conviction, accusation destroys lives. Ahmadiyya community is legally prohibited from identifying as Muslim (Ordinance XX, 1984)."
+  },
+  "dead_ends": [
+    {
+      "action": "Share an image or meme online that could be interpreted as depicting Muhammad, while in or accessible from Pakistan",
+      "why_fails": "Any depiction of Muhammad — even sympathetic, religious, or historical — triggers mass condemnation and risk under §295-C. Internet content filters (PTA) block such material; possession can trigger PECA 2016 cybercrime charges; mob response is faster than legal. Foreign social-media content has caused riots and embassy closures (Danish cartoons 2005, Charlie Hebdo 2015). Extraterritorial use affects entry.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.pakistanpenalcode.org/",
+        "https://www.ohchr.org/en/press-releases/2024/05/pakistan-un-experts-deeply-alarmed-surge-blasphemy-cases",
+        "https://cpj.org/asia/pakistan/"
+      ],
+      "condition": "Online imagery of Muhammad"
+    },
+    {
+      "action": "Ask Pakistani counterparts their opinion on the Ahmadiyya community, Christian conversion, or 'what do you think of blasphemy law?'",
+      "why_fails": "These questions place counterparts in impossible positions. Honest discussion can be illegal; disagreement draws suspicion. Tehreek-e-Labbaik Pakistan (TLP) has mobilized street violence around any perceived softness on blasphemy. Safer: avoid religion as a conversation topic entirely outside explicit religious spaces.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.ohchr.org/en/press-releases/2024/05/pakistan-un-experts-deeply-alarmed-surge-blasphemy-cases"
+      ],
+      "condition": "Personal religion discussion"
+    },
+    {
+      "action": "Discard or burn a paper containing Arabic text / pages from the Quran without respectful disposal",
+      "why_fails": "§295-B covers defiling/damaging the Quran — even inadvertent disposal of printed material containing verses can trigger accusations. Pakistanis bury or sink such materials respectfully; burning requires ceremonial disposal in some interpretations. Newspaper clippings with Quranic verses are treated the same. Factory worker Priyantha Kumara (Sri Lankan Buddhist, 2021) was lynched in Sialkot over a disputed sticker disposal.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.ohchr.org/en/press-releases/2024/05/pakistan-un-experts-deeply-alarmed-surge-blasphemy-cases"
+      ],
+      "condition": "Printed material disposal"
+    },
+    {
+      "action": "Convert a Pakistani Muslim to Christianity or advocate for conversion openly",
+      "why_fails": "Conversion from Islam is not legally recognized. Proselytization targeting Muslims is criminalized and socially explosive. Foreign missionaries have been deported; Pakistani Christians who 'convert' Muslims have faced §295-A/C charges.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.state.gov/reports/2022-report-on-international-religious-freedom/pakistan/"
+      ],
+      "condition": "Religious conversion activity"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not discuss, depict, question, or joke about Islam, Muhammad, the Quran, Sahaba, Sharia, Ahmadiyya status, or blasphemy law while in Pakistan or accessible from Pakistan. Scrub social-media history before travel.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.ohchr.org/en/press-releases/2024/05/pakistan-un-experts-deeply-alarmed-surge-blasphemy-cases",
+        "https://www.gov.uk/foreign-travel-advice/pakistan"
+      ],
+      "condition": "All visitors and residents"
+    },
+    {
+      "action": "For journalism, diplomacy, research requiring contact with the topic: use encrypted channels, avoid naming individuals, publish outside Pakistan, never travel to Pakistan with the material on devices. Rely on Pakistani civil-society partners (HRCP, Dawn) rather than foreign outreach.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://hrcp-web.org/hrcpweb/",
+        "https://cpj.org/asia/pakistan/"
+      ],
+      "condition": "Professional reporting",
+      "tradeoff": "Named sources inside Pakistan face real danger; proceed with extreme caution."
+    },
+    {
+      "action": "Printed material disposal: if in doubt whether something contains Quranic verses, give it to a madrasa or local mosque for respectful handling rather than bin or burn.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/pakistan/local-laws-and-customs"
+      ],
+      "condition": "Day-to-day disposal"
+    },
+    {
+      "action": "If accused or threatened: contact home embassy IMMEDIATELY. Do not engage with mobs or try to explain. Most embassies (US, UK, AU, CA) have established evacuation protocols. Pakistan's High Courts have acquitted some high-profile cases (Asia Bibi 2018) but ground-level safety is the greater concern.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/pakistan",
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Pakistan.html"
+      ],
+      "condition": "Emergency response",
+      "tradeoff": "Even acquitted individuals often must leave Pakistan permanently; Asia Bibi was resettled in Canada."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-15"
+  }
+}

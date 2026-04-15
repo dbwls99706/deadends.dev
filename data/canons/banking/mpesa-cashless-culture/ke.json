@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/mpesa-cashless-culture/ke",
+  "url": "https://deadends.dev/banking/mpesa-cashless-culture/ke",
+  "error": {
+    "signature": "AI tells a traveler to Kenya to plan for Visa/cash economy like other African countries and ignore M-Pesa",
+    "regex": "(kenya.*payment|kenya.*m.?pesa|m-pesa|mpesa|kenya.*cashless|nairobi.*payment|kenya.*visa|safaricom.*kenya|paybill|till number)",
+    "domain": "banking",
+    "category": "payment_infrastructure",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ke",
+      "country_name": "Kenya",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Kenya is the world's mobile-money leader. M-Pesa (Safaricom, launched 2007) handles ~60% of Kenya's GDP in transactions; ~96% of Kenyan households use it. Merchants expect M-Pesa 'paybill' / 'till number' payment more than cash. Matatu (minibus) fares, hawkers, rent, utilities, peer transfers — all M-Pesa first. Visa/Mastercard accepted in Nairobi hotels and chain restaurants but struggles outside urban zones. Foreign travelers increasingly set up M-Pesa on a Safaricom SIM for the duration of the trip."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan a Kenya trip expecting to use foreign Visa everywhere and USD cash as backup",
+      "why_fails": "Outside Nairobi/Mombasa/Kisumu hotels, Visa terminals are rare. USD is accepted only in tourist zones and at poor exchange rates. Matatu conductors, market vendors, Uber/Bolt drivers, small restaurants, and apartment rentals overwhelmingly prefer M-Pesa. Cash (KES shillings) works but requires frequent ATM visits with withdrawal caps and ATM fees.",
+      "fail_rate": 0.68,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa",
+        "https://www.centralbank.go.ke/",
+        "https://www.worldbank.org/en/country/kenya"
+      ],
+      "condition": "Trip planning"
+    },
+    {
+      "action": "Register M-Pesa using a foreign passport without picking up a local Safaricom SIM",
+      "why_fails": "M-Pesa is tied to a Safaricom SIM. The Tourist M-Pesa registration requires a passport + Safaricom SIM (buy at Jomo Kenyatta Intl airport or Safaricom shops). Foreign SIMs don't connect. Registration ~15 min at the airport shop.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa/getting-started"
+      ],
+      "condition": "M-Pesa setup"
+    },
+    {
+      "action": "Pay a Nairobi restaurant bill in cash expecting quick change",
+      "why_fails": "Many restaurants lack change for larger KES notes (500, 1000) because they handle little cash. Paying M-Pesa to the restaurant's paybill or till number is faster and expected. Cash-on-delivery for Uber Eats / Glovo is possible but M-Pesa is default.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa"
+      ],
+      "condition": "Day-to-day payment"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "On arrival at JKIA/Moi Intl: buy Safaricom SIM (~100 KES, includes registration), activate M-Pesa Tourist account (bring passport). Top up with cash deposit at any M-Pesa agent (there are ~250,000 in Kenya). Pay via paybill/till number by scanning / USSD / app.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa/getting-started"
+      ],
+      "condition": "Arrival setup"
+    },
+    {
+      "action": "Merchant pays by: till number (5-7 digit) for small shops, paybill number (6 digit) + account reference for utilities/rent. The customer types: *334# → Lipa na M-Pesa → till/paybill → amount → PIN. Confirmation SMS within seconds.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa"
+      ],
+      "condition": "Paying merchants"
+    },
+    {
+      "action": "For foreign-bank top-up: WorldRemit, Wise, Remitly, and some foreign Visa cards now directly load M-Pesa. Check the destination's M-Pesa receive limits; sending USD → KES → M-Pesa settles in minutes.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.worldremit.com/",
+        "https://wise.com/"
+      ],
+      "condition": "Longer stays / larger amounts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

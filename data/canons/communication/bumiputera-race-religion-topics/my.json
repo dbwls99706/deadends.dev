@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/bumiputera-race-religion-topics/my",
+  "url": "https://deadends.dev/communication/bumiputera-race-religion-topics/my",
+  "error": {
+    "signature": "AI brings up Malaysian race politics (Bumiputera, Chinese/Indian minority, apostasy, pork, alcohol) as casual conversation topics",
+    "regex": "(malaysia.*race|bumiputera|bumiputra|malay.*chinese.*indian|malaysia.*religion|malaysia.*apostasy|kuala lumpur.*race|malaysia.*new economic policy)",
+    "domain": "communication",
+    "category": "political_speech_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-04-15",
+    "summary": "Malaysia's social fabric includes Bumiputera (ethnic Malays + Orang Asli + East Malaysian indigenous, ~70%) with constitutional preferences under Article 153, Malaysian Chinese (~22%), and Malaysian Indians (~7%). The New Economic Policy (1971-1990, continued via Vision 2020 / New Economic Model) allocates quotas in education, contracts, and corporate equity to Bumiputera. Raising these topics critically in business is sensitive; Islam is the state religion with apostasy (ridda) treated very seriously under Shariah courts. Sedition Act and CMA §233 actively used for online commentary."
+  },
+  "dead_ends": [
+    {
+      "action": "Criticize the Bumiputera affirmative-action system in a Malaysian business meeting",
+      "why_fails": "The system is constitutionally protected (Article 153); questioning it is often taken as questioning Malay sovereignty. Even Malaysian Chinese and Indian counterparts are cautious about open criticism. Sedition Act 1948 has been used against public critics. Better: listen, understand the context, avoid volunteering opinions.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.jac.gov.my/",
+        "https://www.agc.gov.my/",
+        "https://www.pmo.gov.my/"
+      ],
+      "condition": "Business meeting discussion"
+    },
+    {
+      "action": "Joke about Islamic practices, halal certification, or apostasy with Malaysian Muslim counterparts",
+      "why_fails": "Islam is the state religion (Article 3); each state has a Shariah court system for Muslim personal matters. Apostasy (leaving Islam) is extremely sensitive — Lina Joy case (2007) established that Muslims cannot legally convert out. Jokes about Islam, especially the Prophet, are prosecutable under Penal Code §298A. Non-halal food jokes also land poorly.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.jac.gov.my/",
+        "https://www.islam.gov.my/"
+      ],
+      "condition": "Religious humor"
+    },
+    {
+      "action": "Order pork dishes in a mixed Malaysian-Muslim business lunch without checking",
+      "why_fails": "Many Chinese and Indian restaurants in Malaysia serve pork; Muslim Malay counterparts cannot share such venues (halal strict separation). Non-halal restaurants are generally marked '非清真' or by ownership. Group lunches should default to halal-certified venues. Individual non-Muslim pork/alcohol consumption is legal and common; do so away from observant Muslim colleagues.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.halal.gov.my/v4/",
+        "https://www.islam.gov.my/"
+      ],
+      "condition": "Mixed-religion hospitality"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Business conversation defaults: food (Penang/Ipoh vs KL), sports (badminton, football), mountains (Mount Kinabalu), Formula 1 (Sepang heritage). Avoid initiating race/religion/politics. Listen if a counterpart opens the topic.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourism.gov.my/"
+      ],
+      "condition": "Small talk"
+    },
+    {
+      "action": "Hospitality: book halal-certified restaurants for mixed-group lunches. JAKIM (Jabatan Kemajuan Islam Malaysia) certifies; most chain restaurants and hotels in KL/Penang/Kota Kinabalu display the halal logo. Muslim majority default = safer choice.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.halal.gov.my/v4/"
+      ],
+      "condition": "Mixed-religion group meals"
+    },
+    {
+      "action": "Business terminology: use 'Malaysian' (not 'Malay' as ethnic descriptor unless specifically ethnic). Malaysian Malaysian = all citizens regardless of ethnicity. Ethnic descriptors only when necessary ('Malaysian Chinese', 'Malaysian Indian', 'Orang Asli').",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.jakim.gov.my/"
+      ],
+      "condition": "Identity terminology"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

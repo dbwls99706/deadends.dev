@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/419-scam-awareness/ng",
+  "url": "https://deadends.dev/safety/419-scam-awareness/ng",
+  "error": {
+    "signature": "AI treats unsolicited Nigerian business emails offering oil deals, inheritance transfers, or banking opportunities as legitimate investment leads",
+    "regex": "(nigeria.*419|nigerian prince|advance fee fraud|419 scam|nigeria.*oil deal|nigeria.*inheritance|nigeria.*business email|efcc nigeria|nigeria fraud)",
+    "domain": "safety",
+    "category": "fraud_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "'419' is Section 419 of Nigeria's Criminal Code (obtaining by false pretense), shorthand for advance-fee fraud. While legitimate Nigerian business is large and growing (Lagos is Africa's largest tech hub, Nollywood, Dangote Group), unsolicited international emails offering 'transfer of $25M' from Nigerian sources should be treated as fraud by default. FBI IC3 and NCA UK consistently rank advance-fee fraud among top international complaints. Legitimate Nigerian business partners communicate through formal channels, registered company email, and LinkedIn — not gmail/yahoo addresses."
+  },
+  "dead_ends": [
+    {
+      "action": "Respond to an unsolicited email from 'Prince Adebayo' / 'Barrister Johnson' / 'Central Bank of Nigeria' promising fund transfer in exchange for modest 'processing fees'",
+      "why_fails": "Classic advance-fee fraud. No legitimate Nigerian government official, bank, or royal family member would contact foreigners unsolicited via gmail. The fee escalates: $500 → $5K → $50K, none refundable. EFCC (Economic and Financial Crimes Commission) has prosecuted thousands of perpetrators; FBI has jailed key figures (Hushpuppi 2020). Zero recovery for victims.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.efccnigeria.org/efcc/",
+        "https://www.ic3.gov/",
+        "https://www.nationalcrimeagency.gov.uk/what-we-do/crime-threats/fraud"
+      ],
+      "condition": "Unsolicited financial proposal from Nigerian sender"
+    },
+    {
+      "action": "Conclude a business partnership with Nigerian counterparts without registered company verification",
+      "why_fails": "Nigerian Corporate Affairs Commission (CAC) maintains a public register (pre.cac.gov.ng). Legitimate companies have RC numbers, registered offices, verifiable directors. Skipping CAC verification costs foreign investors billions collectively. Western Union / moneygram remittances to first-contact strangers are near-universally fraud.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.cac.gov.ng/",
+        "https://pre.cac.gov.ng/"
+      ],
+      "condition": "Business partnership due diligence"
+    },
+    {
+      "action": "Ignore all Nigerian business opportunities as 'probably scams'",
+      "why_fails": "Nigeria is Africa's largest economy (~$440B GDP), major oil producer, Africa's #1 startup ecosystem (Flutterwave, Paystack, Jumia). Legitimate M&A, joint ventures, tech partnerships happen daily. Blanket avoidance misses genuine opportunities. The filter is 'unsolicited cold outreach with urgency and fee' vs 'verified company with registration and track record'.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.nigeria-tradehub.gov.ng/",
+        "https://www.cac.gov.ng/"
+      ],
+      "condition": "Legitimate business assessment"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Red flags: unsolicited email; gmail/yahoo sender (not company domain); urgency; 'fee' required to release larger amount; poor English AND/OR suspicious formality; secrecy request; royal/official-sounding name; request for bank account details. Two or more = near-certain fraud.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.ic3.gov/",
+        "https://www.efccnigeria.org/"
+      ],
+      "condition": "First-contact vetting"
+    },
+    {
+      "action": "Verify Nigerian company via CAC public register (pre.cac.gov.ng). Cross-check with tax certificate (TIN) via FIRS, and via local chamber of commerce (NACCIMA, LCCI). Request face-to-face meeting at their registered office in Lagos/Abuja.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.cac.gov.ng/",
+        "https://www.firs.gov.ng/",
+        "https://www.lagoschamber.com/"
+      ],
+      "condition": "Legitimate B2B due diligence"
+    },
+    {
+      "action": "Report fraud: EFCC Nigeria (+234 9 904 1500), FBI IC3 (ic3.gov) if US victim, Action Fraud UK (actionfraud.police.uk), local equivalents elsewhere. Preserve all correspondence; do not engage further.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.efccnigeria.org/efcc/",
+        "https://www.ic3.gov/"
+      ],
+      "condition": "Post-attempt reporting",
+      "tradeoff": "Recovery rates are low; reporting helps prevent others and may support criminal cases."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-15"
+  }
+}
