@@ -10,9 +10,12 @@
   {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ country_name }}, {{ country_name }} visa, {{ country_name }} banking, {{ country_name }} legal, {{ country_name }} culture, foreigner guide, expat pitfalls">
+  <meta name="author" content="deadends.dev">
 
   <link rel="alternate" type="application/json" href="{{ base_path }}/api/v1/index.json" title="Error Index JSON API">
+  <link rel="alternate" type="application/json" href="{{ base_path }}/api/v1/match.json" title="Lightweight Error Matching">
   <link rel="alternate" type="text/plain" href="{{ base_path }}/llms.txt" title="LLM-optimized error listing">
+  <link rel="describedby" href="{{ base_path }}/api/v1/openapi.json" type="application/json">
 
   <meta property="og:title" content="{{ country_name }} Dead Ends — Real-World Pitfalls AI Gets Wrong">
   <meta property="og:description" content="{{ total }} {{ country_name }} dead ends with documented workarounds.">
@@ -22,12 +25,16 @@
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds — deadends.dev">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ country_name }} Dead Ends — deadends.dev">
   <meta name="twitter:description" content="{{ total }} country-specific dead ends for {{ country_name }}.">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
+  <meta name="twitter:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds — deadends.dev">
 
   <link rel="canonical" href="{{ base_url }}/country/{{ country_code }}/">
+  <link rel="alternate" hreflang="en" href="{{ base_url }}/country/{{ country_code }}/">
 
   <script type="application/ld+json">
   {
@@ -38,6 +45,19 @@
       {"@type": "ListItem", "position": 2, "name": "Countries", "item": "{{ base_url }}/country/"},
       {"@type": "ListItem", "position": 3, "name": "{{ country_name | json_escape }}"}
     ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{ country_name | json_escape }} Dead Ends",
+    "url": "{{ base_url }}/country/{{ country_code }}/",
+    "description": "{{ total }} country-specific dead ends for {{ country_name | json_escape }} — visa, banking, legal, cultural, and emergency pitfalls.",
+    "inLanguage": "en",
+    "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
+    "about": {"@type": "Country", "name": "{{ country_name | json_escape }}"}
   }
   </script>
 
