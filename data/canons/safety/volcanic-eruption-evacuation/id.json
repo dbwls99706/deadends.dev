@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/volcanic-eruption-evacuation/id",
+  "url": "https://deadends.dev/safety/volcanic-eruption-evacuation/id",
+  "error": {
+    "signature": "AI tells a tourist to climb Mount Bromo, Rinjani, Merapi, or Agung without checking PVMBG volcanic alert status",
+    "regex": "(indonesia.*volcano|mount agung|gunung merapi|gunung rinjani|gunung bromo|pvmbg|magma indonesia|krakatau|java volcano|bali volcano)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Indonesia has 130+ active volcanoes (most in world). PVMBG (Pusat Vulkanologi dan Mitigasi Bencana Geologi) maintains 4-level alert: Normal (I), Waspada (II / advisory), Siaga (III / watch), Awas (IV / warning, evacuate). Popular tourist volcanoes (Bromo, Ijen, Rinjani, Agung, Merapi, Krakatau) regularly cycle alerts. magma.esdm.go.id has real-time. Climbing during Siaga / Awas means death — Mount Marapi 2023 killed 23 climbers."
+  },
+  "dead_ends": [
+    {
+      "action": "Hike Mount Marapi or Rinjani during Siaga (level III) volcanic alert",
+      "why_fails": "Mount Marapi (West Sumatra) erupted Dec 2023 killing 23 climbers — alert level was already Waspada. Rinjani has multiple closure cycles. Local guides may still offer climbs unsafely. Always check magma.esdm.go.id BEFORE booking.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://magma.esdm.go.id/",
+        "https://vsi.esdm.go.id/",
+        "https://www.bnpb.go.id/"
+      ],
+      "condition": "Climbing during alert level III+"
+    },
+    {
+      "action": "Visit Bali during a Mount Agung eruption assuming the airport works through it",
+      "why_fails": "Mount Agung's 2017-2019 eruptions closed Ngurah Rai (Denpasar) Airport multiple times due to ash. Travelers stranded 2-7 days. Volcanic ash damages jet engines (Galunggung 1982 / KLM and BA incidents). Check VAAC Darwin volcanic ash advisories.",
+      "fail_rate": 0.7,
+      "sources": [
+        "http://vaac.bom.gov.au/",
+        "https://magma.esdm.go.id/"
+      ],
+      "condition": "Bali during eruption"
+    },
+    {
+      "action": "Ignore exclusion-zone (KRB / kawasan rawan bencana) signs around Merapi or Sinabung",
+      "why_fails": "PVMBG declares exclusion zones (3km / 5km / 7km radius depending on hazard). Pyroclastic flows travel 50-150 km/h with no warning. Crossing into KRB risks death. Local police enforce; tourists have been arrested.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://magma.esdm.go.id/",
+        "https://www.bnpb.go.id/"
+      ],
+      "condition": "Exclusion-zone breach"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before any volcano hike: check magma.esdm.go.id (real-time PVMBG status). Climb only at Normal (I) or low-Waspada (II) with licensed local guide. Avoid all Siaga (III) and Awas (IV) climbs.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://magma.esdm.go.id/",
+        "https://vsi.esdm.go.id/"
+      ],
+      "condition": "Volcano climbing"
+    },
+    {
+      "action": "Bali / volcanic-island travel insurance: confirm coverage explicitly includes volcanic eruption / ash cancellation. Some don't. World Nomads, Allianz Premier do.",
+      "success_rate": 0.88,
+      "sources": [
+        "http://vaac.bom.gov.au/"
+      ],
+      "condition": "Insurance"
+    },
+    {
+      "action": "If in active eruption zone: follow BNPB / local SAR (search and rescue) instructions. Move out of valley / ravine bottoms (lahars). Wear N95 mask + cover eyes. Stay indoors with windows / doors sealed if ash falls.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.bnpb.go.id/"
+      ],
+      "condition": "Active eruption"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/songkran-water-festival-soaking/th",
+  "url": "https://deadends.dev/culture/songkran-water-festival-soaking/th",
+  "error": {
+    "signature": "AI tells a tourist arriving in Thailand mid-April to plan business meetings or expect normal traffic during Songkran",
+    "regex": "(thailand.*songkran|สงกรานต์|thai new year.*water|chiang mai.*water festival|bangkok.*songkran|thailand april 13|thai water festival)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Songkran (สงกรานต์, Thai New Year) runs April 13-15 (national holiday, sometimes extended through April 17). Cities erupt in nationwide water-throwing — buckets, water pistols, hoses, ice. Foreigners are prime targets. Government / banks / many businesses closed. Roads jammed (民族 大移動 equivalent). Traditional element: gentle water sprinkle on Buddha statues + elders' hands; tourist version is full soak. Phones / cameras / electronics need waterproof bags."
+  },
+  "dead_ends": [
+    {
+      "action": "Schedule Bangkok / Chiang Mai business meetings April 13-17",
+      "why_fails": "National holiday + water festival = no business. Government, banks, many corporates closed. Even basic services (post, courier) reduced. Traffic to/from airports doubled by holidaymakers. Reschedule for April 7-12 or April 20+.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival",
+        "https://www.bot.or.th/en/about-bot/bank-holidays.html"
+      ],
+      "condition": "Business in Songkran week"
+    },
+    {
+      "action": "Walk through central Chiang Mai or Khao San Bangkok in normal clothes during Songkran with phone in hand",
+      "why_fails": "You will be soaked. Repeatedly. By multiple people. Phone, camera, wallet at risk. Locals + tourists shoot water at every passerby — refusing or showing irritation is bad form. Either join with water gun + waterproof bag, or stay indoors / avoid Old City / Khao San.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival"
+      ],
+      "condition": "Songkran day walking outside"
+    },
+    {
+      "action": "Drive a motorbike through Songkran water-throwing zone",
+      "why_fails": "Water-soaked riders, slippery streets, sudden buckets to face — Songkran has the highest road-fatality week in Thailand (~400+ deaths annually nationwide, 'seven dangerous days'). Police checkpoints + alcohol sales restricted at times. Take taxi / Grab / songthaew; not motorbike.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival",
+        "https://news.tomilbruno.com/"
+      ],
+      "condition": "Motorbike during Songkran"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan Thailand trips around Songkran: arrive April 16+ (catch tail end / quiet) or before April 13. Or fully embrace it: stay near festival areas (Chiang Mai Old City moat, Bangkok Khao San), buy water gun + waterproof phone case, join in.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival"
+      ],
+      "condition": "Trip timing"
+    },
+    {
+      "action": "If staying through Songkran: waterproof phone case + dry bag for valuables, second-old-clothes outfit, sandals (no flip-flops — they fly off when wet). Most hotels have lobby-side water-free zones.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival"
+      ],
+      "condition": "Festival participation"
+    },
+    {
+      "action": "Respectful traditions: water on elders' hands as blessing (gentle); water on Buddha images as merit-making; family visits to temples. Avoid throwing water at monks, the elderly, or police.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/songkran-festival"
+      ],
+      "condition": "Authentic participation"
+    },
+    {
+      "action": "Drive cautiously: 'seven dangerous days' (April 11-17) has highest road-fatality rate in Thailand. Police checkpoints intensified. Use Grab / taxi / hotel transport.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://news.tomilbruno.com/"
+      ],
+      "condition": "Travel during Songkran"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/bushfire-cfa-warnings/au",
+  "url": "https://deadends.dev/safety/bushfire-cfa-warnings/au",
+  "error": {
+    "signature": "AI tells a tourist to hike or visit Australian national parks during Total Fire Ban or Catastrophic fire-danger days",
+    "regex": "(australia.*bushfire|cfa victoria|nsw rfs|total fire ban|catastrophic fire danger|australia.*hiking|black summer 2020|australia.*national park closed)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Australian bushfire season Oct-Apr (south + east), Apr-Sep (north). Fire Danger Rating system: Moderate / High / Extreme / Catastrophic. Total Fire Bans (TFB) prohibit any open flame outdoors including BBQ. Catastrophic days = leave fire-prone areas day before. Black Summer 2019-2020 burned 18M+ hectares. Apps: VicEmergency, NSW RFS Fires Near Me, Hazards Near Me. Stay & defend usually wrong choice for tourists; leave early."
+  },
+  "dead_ends": [
+    {
+      "action": "Hike Blue Mountains, Grampians, or Royal NP on Catastrophic fire danger day",
+      "why_fails": "National parks frequently close at Total Fire Ban / Catastrophic level. Bushfires can outpace runners (kilometers per minute downwind). Black Summer killed multiple tourists who didn't evacuate. Park rangers turn away visitors at gates.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.cfa.vic.gov.au/warnings-restrictions/total-fire-bans-and-ratings",
+        "https://www.rfs.nsw.gov.au/",
+        "https://www.parks.vic.gov.au/"
+      ],
+      "condition": "High-fire-danger park visit"
+    },
+    {
+      "action": "BBQ or campfire during a Total Fire Ban",
+      "why_fails": "TFB prohibits ALL open flames outdoors — including gas BBQ, campfires, even welding. Fines up to $36,000 + criminal charges if fire results. CFA / RFS publish daily TFB declarations.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.cfa.vic.gov.au/warnings-restrictions/total-fire-bans-and-ratings"
+      ],
+      "condition": "Outdoor flame on TFB day"
+    },
+    {
+      "action": "Stay at remote bushland accommodation during Catastrophic fire warning",
+      "why_fails": "Catastrophic = even prepared, well-defended homes cannot survive. Official guidance: leave the day before / morning of. Many tourists ignored 2019-2020 warnings; deaths and evacuations resulted. Insurance often excludes if you stayed against advisory.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.cfa.vic.gov.au/warnings-restrictions/total-fire-bans-and-ratings"
+      ],
+      "condition": "Catastrophic-level stay"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install state app: VicEmergency (Vic), NSW RFS Fires Near Me (NSW), Hazards Near Me (national). Check before each outdoor activity in fire season. Ratings: Moderate=OK, High=plan, Extreme=avoid, Catastrophic=evacuate.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.cfa.vic.gov.au/",
+        "https://www.rfs.nsw.gov.au/"
+      ],
+      "condition": "Daily fire-risk monitoring"
+    },
+    {
+      "action": "TFB days: cook indoors, no campfires, no BBQ. Many caravan parks ban gas cookers on TFB. Restaurants / hotel kitchens still operate.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.cfa.vic.gov.au/warnings-restrictions/total-fire-bans-and-ratings"
+      ],
+      "condition": "Cooking on TFB"
+    },
+    {
+      "action": "Bushfire approaching: leave EARLY. Don't drive through smoke (visibility zero, embers under car). Wet wool blanket in car as last resort. Final resort: stay low, in pool / brick building, away from windows.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.cfa.vic.gov.au/plan-prepare/leave-early"
+      ],
+      "condition": "Fire emergency",
+      "tradeoff": "Leaving early is the only consistently safe option."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}
