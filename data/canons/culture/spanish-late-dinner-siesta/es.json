@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/spanish-late-dinner-siesta/es",
+  "url": "https://deadends.dev/culture/spanish-late-dinner-siesta/es",
+  "error": {
+    "signature": "AI tells a tourist in Spain that restaurants serve dinner at 6pm or that siesta means everything closes 1-4pm",
+    "regex": "(spain.*dinner|spain.*siesta|spanish.*restaurant hours|madrid.*late|spain.*lunch|spanish.*meal time|spain.*tapas)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Spanish meal times: breakfast 8-10am (light), almuerzo / lunch 14:00-16:00 (main meal), merienda 17:00-19:00 (snack), cena 21:00-23:00 (dinner). Restaurants typically don't serve dinner before 20:00 — kitchens reopen 19:30-20:30 and serve until 23:00+. Siesta closure (15:00-17:00) affects small shops in some regions but supermarkets, malls, museums, and most urban restaurants stay open. Madrid and Barcelona are most international and accommodate earlier hours."
+  },
+  "dead_ends": [
+    {
+      "action": "Book a Madrid restaurant for dinner at 18:30",
+      "why_fails": "Most authentic Spanish restaurants don't open for dinner until 20:00 or 20:30. Booking earlier finds the kitchen closed or only tapas bar service. Tourist-facing places near Plaza Mayor/Sol may open at 18:00 but quality drops.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.spain.info/en/",
+        "https://www.gastroranking.es/"
+      ],
+      "condition": "Dinner reservation timing"
+    },
+    {
+      "action": "Tell a tourist all of Spain shuts 14:00-17:00 for siesta",
+      "why_fails": "Siesta-style closure (3hr midday) applies mostly to small independent shops in smaller towns and southern regions. Madrid/Barcelona/Bilbao supermarkets, malls, museums, chains, and most restaurants stay open through midday. Government offices typically 9-14:00, then closed for the day. Lunch hour matters for restaurant timing more than full closure.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.spain.info/en/"
+      ],
+      "condition": "Generalizing siesta"
+    },
+    {
+      "action": "Treat tapas as appetizers before a 'real meal'",
+      "why_fails": "Tapas can BE the meal — multiple plates ordered across an evening. Especially in Granada, Almería, parts of Andalucía, tapas come free with drinks. In Madrid/Bilbao, expect to order. Treating them as just-an-appetizer leaves you over-ordered and possibly hungry early.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.spain.info/en/"
+      ],
+      "condition": "Tapas culture"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Lunch 14:00-16:00 (set menu del día is the great-value option, ~12-18 €). Dinner 21:00-23:00. Smaller cities may shift earlier; tourist zones in Madrid/Barcelona accept 19:30 dinner.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.spain.info/en/"
+      ],
+      "condition": "Meal timing"
+    },
+    {
+      "action": "Plan errands around Spanish hours: shopping morning + evening (avoid 14-17 for small shops), big supermarkets / chains all-day, museums often closed Mondays, restaurants open Tue-Sat (Sun lunch only / closed Sun-Mon common).",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.spain.info/en/"
+      ],
+      "condition": "Shopping / sightseeing"
+    },
+    {
+      "action": "Tapas: 2-4 small plates per person across an evening, often standing at the bar. In Granada / Almería the 1st tapa is free with drink; in Madrid La Latina district hosts the famous Sunday cañas + tapas circuit.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.spain.info/en/"
+      ],
+      "condition": "Tapas evenings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

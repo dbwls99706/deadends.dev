@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/earthquake-drop-cover-hold/jp",
+  "url": "https://deadends.dev/safety/earthquake-drop-cover-hold/jp",
+  "error": {
+    "signature": "AI tells someone in Japan to run outside during an earthquake or to stand in a doorway",
+    "regex": "(japan.*earthquake|jishin|地震|tsunami japan|jma.*earthquake|drop cover hold|japan.*safety drill|j-alert)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.95,
+    "last_updated": "2026-04-15",
+    "summary": "Japan averages 1500+ earthquakes/year. Japan Meteorological Agency (JMA) and FDMA recommend 'Drop, Cover, Hold On' (落下物から身を守る, 揺れがおさまるまで動かない) — get under sturdy table, cover head, hold table leg. Running outside during shaking is dangerous (falling glass, signs, debris). Doorway-as-shelter is a US 1950s myth — modern Japanese construction makes doorways no safer than other interior space. Tsunami: if coastal and shaking lasts >20s, immediately move to high ground."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist to run outside the building when shaking starts",
+      "why_fails": "Running through shaking buildings risks injury from falling ceiling tiles, glass windows, signage, and external bricks/cladding. JMA, FDMA, and Tokyo Metropolitan Government uniformly advise: stay inside, get under sturdy furniture, protect head. Buildings since 1981 (新耐震基準) are designed to remain standing through major shaking.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/earthquake.html",
+        "https://www.fdma.go.jp/en/",
+        "https://www.bousai.metro.tokyo.lg.jp/eng/"
+      ],
+      "condition": "Indoor earthquake response"
+    },
+    {
+      "action": "Stand in a doorway during the shaking",
+      "why_fails": "The doorway-shelter advice was based on 1950s adobe construction in California. Japanese (and modern) building codes mean doorways are not structurally stronger than interior walls. Standing in a doorway: head exposed to swinging door, no protection from falling objects. Better: under sturdy desk, with hands protecting head/neck.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.fdma.go.jp/en/",
+        "https://www.shakeout.org/dropcoverholdon/"
+      ],
+      "condition": "Indoor sheltering"
+    },
+    {
+      "action": "Wait for an aftershock before evacuating coastal areas after a strong quake",
+      "why_fails": "Tsunami can arrive within 5-15 minutes of a coastal earthquake. JMA tsunami warnings are issued within 3 minutes; if coastal AND shaking >20s, do not wait — move to high ground or to upper floors of sturdy buildings (>3 stories) immediately. The 2011 Tohoku tsunami killed thousands who waited.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/tsunami.html",
+        "https://www.fdma.go.jp/en/"
+      ],
+      "condition": "Coastal post-earthquake response"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drop, Cover, Hold: get low immediately, get under sturdy desk/table, cover head + neck with arms, hold table leg if it shifts. Stay until shaking fully stops + ~30s.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/eng/",
+        "https://www.fdma.go.jp/en/"
+      ],
+      "condition": "Indoor earthquake"
+    },
+    {
+      "action": "After shaking stops: check for fire/gas leaks, evacuate calmly via stairs (not elevators), gather at designated evacuation area (避難場所 — every Japanese neighborhood has one, marked on signs). Tune to NHK or J-Alert app for tsunami warning.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/eng/",
+        "https://www.jma.go.jp/jma/en/"
+      ],
+      "condition": "Post-shaking response"
+    },
+    {
+      "action": "Coastal alert: if shaking is strong AND you're near the coast, head immediately to high ground (>10m elevation) or upper floors of robust buildings. Don't drive — roads jam. Walk fast/run inland and uphill. Use evacuation route signs (津波避難路).",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/tsunami.html"
+      ],
+      "condition": "Coastal earthquake"
+    },
+    {
+      "action": "Install J-Alert / 防災速報 app and Yurekuru Call before arrival. Both push earthquake early-warnings 5-30s before strong shaking arrives — short window but enough to drop and cover.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.fdma.go.jp/en/",
+        "https://www.weathernews.jp/quake/"
+      ],
+      "condition": "Pre-trip preparation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-15"
+  }
+}

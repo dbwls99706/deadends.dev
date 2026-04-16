@@ -299,6 +299,10 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if e["slug_key"] != current_slug
         ][:10]
 
+        country_info = _canon_country_info(canon)
+        country_code = country_info[0] if country_info else None
+        country_name = country_info[1] if country_info else None
+
         html = template.render(
             env_summary=env_summary,
             all_sources=all_sources,
@@ -308,6 +312,8 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             known_ids=known_ids,
             known_canons=known_canons,
             domain_errors=same_domain,
+            country_code=country_code,
+            country_name=country_name,
             noindex=False,
             **canon,
         )
@@ -421,8 +427,52 @@ def country_stats(canons: list[dict]) -> list[dict]:
     return sorted(by_country.values(), key=lambda b: (-b["count"], b["slug"]))
 
 
+def _build_country_faq(country_canons: list[dict], country_name: str) -> list[dict]:
+    """Build FAQPage Q&A items from a country's canons.
+
+    Picks the top dead-end + best workaround from each canon (limited to 5
+    canons by fix_success_rate) and frames them as 'What should I avoid /
+    do in {country}?' Q&A — the form Google's AI Overviews extracts.
+    """
+    items: list[dict] = []
+    sorted_canons = sorted(
+        country_canons,
+        key=lambda c: c["verdict"]["fix_success_rate"],
+        reverse=True,
+    )
+    for c in sorted_canons[:5]:
+        sig = c["error"]["signature"]
+        # Q1: what to avoid
+        if c["dead_ends"]:
+            de = c["dead_ends"][0]
+            q = (
+                f"What should I avoid in {country_name} regarding: "
+                f"{sig.lower()}?"
+            )
+            a = (
+                f"Avoid: {de['action']}. Why: {de.get('why_fails', '')} "
+                f"(fails {int(de['fail_rate'] * 100)}% of the time)."
+            )
+            items.append({"question": q, "answer": a})
+        # Q2: what works
+        if c.get("workarounds"):
+            wa = c["workarounds"][0]
+            q = (
+                f"What works in {country_name} regarding: "
+                f"{sig.lower()}?"
+            )
+            a = (
+                f"Try: {wa['action']} (succeeds "
+                f"{int(wa['success_rate'] * 100)}% of the time)."
+            )
+            items.append({"question": q, "answer": a})
+        if len(items) >= 8:
+            break
+    return items[:8]
+
+
 def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
-    """Generate per-country landing pages at /country/{cc}/."""
+    """Generate per-country landing pages at /country/{cc}/ and /country/ hub."""
     template = jinja_env.get_template("country.html")
 
     by_country: dict[str, list[dict]] = {}
@@ -461,12 +511,15 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
             key=lambda x: (-x["count"], x["slug"]),
         )
 
+        faq_items = _build_country_faq(country_canons, country_names[code])
+
         html = template.render(
             country_code=code,
             country_name=country_names[code],
             entries=entries,
             total=len(entries),
             domain_breakdown=domain_breakdown,
+            faq_items=faq_items,
             noindex=False,
         )
 
@@ -474,6 +527,105 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "index.html").write_text(html, encoding="utf-8")
         print(f"  Generated: /country/{code}/")
+
+    # --- Country hub /country/ ---
+    hub_template = jinja_env.get_template("country_hub.html")
+    countries = sorted(
+        [
+            {"slug": code, "name": country_names[code], "count": len(cs)}
+            for code, cs in by_country.items()
+        ],
+        key=lambda c: (-c["count"], c["name"]),
+    )
+    total_entries = sum(c["count"] for c in countries)
+    hub_html = hub_template.render(
+        countries=countries,
+        total_entries=total_entries,
+    )
+    hub_dir = SITE_DIR / "country"
+    hub_dir.mkdir(parents=True, exist_ok=True)
+    (hub_dir / "index.html").write_text(hub_html, encoding="utf-8")
+    print("  Generated: /country/ (hub)")
+
+
+def build_country_api(canons: list[dict]) -> None:
+    """Build /api/v1/countries.json index and /api/v1/country/{cc}.json per-country aggregates."""
+    by_country: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for canon in canons:
+        info = _canon_country_info(canon)
+        if info is None:
+            continue
+        code, name = info
+        by_country.setdefault(code, []).append(canon)
+        country_names[code] = name
+
+    if not by_country:
+        print("  No country-tagged canons — skipping country API")
+        return
+
+    api_dir = SITE_DIR / "api" / "v1" / "country"
+    api_dir.mkdir(parents=True, exist_ok=True)
+
+    countries_index: list[dict] = []
+    for code in sorted(by_country):
+        country_canons = by_country[code]
+        latest = max(
+            (c.get("error", {}).get("last_confirmed", "") or "")
+            for c in country_canons
+        )
+        agg = {
+            "country": code,
+            "country_name": country_names[code],
+            "url": f"{BASE_URL}/country/{code}/",
+            "page_url": f"{BASE_URL}/country/{code}/",
+            "last_updated": latest,
+            "total_entries": len(country_canons),
+            "domains": sorted({c["error"]["domain"] for c in country_canons}),
+            "entries": [
+                {
+                    "id": c["id"],
+                    "url": f"{BASE_URL}/{c['id']}/",
+                    "api_url": f"{BASE_URL}/api/v1/{c['id']}.json",
+                    "domain": c["error"]["domain"],
+                    "category": c["error"]["category"],
+                    "signature": c["error"]["signature"],
+                    "regex": c["error"]["regex"],
+                    "audience": c.get("environment", {})
+                        .get("additional", {}).get("audience"),
+                    "jurisdiction_level": c.get("environment", {})
+                        .get("additional", {}).get("jurisdiction_level"),
+                    "verdict": c["verdict"],
+                    "dead_end_count": len(c["dead_ends"]),
+                    "workaround_count": len(c.get("workarounds", [])),
+                }
+                for c in sorted(country_canons, key=lambda c: c["id"])
+            ],
+        }
+        (api_dir / f"{code}.json").write_text(
+            json.dumps(agg, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        countries_index.append({
+            "country": code,
+            "country_name": country_names[code],
+            "url": f"{BASE_URL}/country/{code}/",
+            "api_url": f"{BASE_URL}/api/v1/country/{code}.json",
+            "total_entries": len(country_canons),
+            "last_updated": latest,
+        })
+        print(f"  Generated: /api/v1/country/{code}.json")
+
+    countries_meta = {
+        "total_countries": len(countries_index),
+        "total_entries": sum(c["total_entries"] for c in countries_index),
+        "countries": countries_index,
+    }
+    (SITE_DIR / "api" / "v1" / "countries.json").write_text(
+        json.dumps(countries_meta, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    print(f"  Generated: /api/v1/countries.json ({len(countries_index)} countries)")
 
 
 def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
@@ -692,6 +844,14 @@ def build_sitemap(
         country_lastmod[code] = (
             last_confirmed if last_confirmed > existing else existing
         )
+
+    if country_lastmod:
+        # Country hub
+        url_elem = SubElement(main_urlset, "url")
+        SubElement(url_elem, "loc").text = f"{BASE_URL}/country/"
+        SubElement(url_elem, "lastmod").text = max(country_lastmod.values())
+        SubElement(url_elem, "changefreq").text = "weekly"
+        SubElement(url_elem, "priority").text = "0.9"
 
     for code in sorted(country_lastmod):
         url_elem = SubElement(main_urlset, "url")
@@ -1842,6 +2002,88 @@ def build_error_og_images(canons: list[dict]) -> None:
     print(f"  Generated: {count} per-error OG images in og/")
 
 
+def build_country_og_images(canons: list[dict]) -> None:
+    """Generate per-country SVG OG cards at /country/{cc}/og.svg.
+
+    Each card shows: country name, total entry count, top domain breakdown.
+    Visually distinct per country so social shares carry country branding.
+    """
+    by_country: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for canon in canons:
+        info = _canon_country_info(canon)
+        if info is None:
+            continue
+        code, name = info
+        by_country.setdefault(code, []).append(canon)
+        country_names[code] = name
+
+    if not by_country:
+        print("  No country canons — skipping country OG images")
+        return
+
+    # Country-color palette (deterministic from code)
+    palette = [
+        "#58a6ff", "#3fb950", "#d29922", "#a371f7",
+        "#f78166", "#ff7b72", "#56d364", "#79c0ff",
+    ]
+
+    f = "system-ui,sans-serif"
+    count = 0
+    for code, country_canons in by_country.items():
+        name = country_names[code]
+        total = len(country_canons)
+        # Top 3 domains by count
+        by_domain: dict[str, int] = {}
+        for c in country_canons:
+            d = c["error"]["domain"]
+            by_domain[d] = by_domain.get(d, 0) + 1
+        top_domains = sorted(
+            by_domain.items(), key=lambda x: -x[1]
+        )[:3]
+        # Color from code hash for stability
+        accent = palette[hash(code) % len(palette)]
+        name_display = _escape_svg(name)
+        domain_lines = "  ·  ".join(
+            f"{n} {_escape_svg(d)}" for d, n in top_domains
+        )
+
+        svg = "\n".join([
+            '<svg xmlns="http://www.w3.org/2000/svg"'
+            ' width="1200" height="630"'
+            ' viewBox="0 0 1200 630">',
+            '<rect width="1200" height="630" fill="#0d1117"/>',
+            f'<rect width="1200" height="6" fill="{accent}"/>',
+            f'<rect y="624" width="1200" height="6" fill="{accent}"/>',
+            f'<text x="80" y="100" fill="#8b949e" font-family="{f}"'
+            f' font-size="28">Country / {code.upper()}</text>',
+            f'<text x="80" y="220" fill="#e0e0e0"'
+            f' font-family="{f}" font-size="86"'
+            f' font-weight="bold">{name_display}</text>',
+            f'<text x="80" y="280" fill="#8b949e"'
+            f' font-family="{f}" font-size="32">'
+            "Real-world dead ends AI gets wrong</text>",
+            f'<text x="80" y="430" fill="{accent}"'
+            f' font-family="{f}" font-size="120"'
+            f' font-weight="bold">{total}</text>',
+            f'<text x="80" y="480" fill="#8b949e"'
+            f' font-family="{f}" font-size="28">'
+            f"verified entr{'ies' if total != 1 else 'y'}</text>",
+            f'<text x="80" y="540" fill="#8b949e"'
+            f' font-family="{f}" font-size="22">'
+            f"{_escape_svg(domain_lines)}</text>",
+            f'<text x="80" y="600" fill="#484f58"'
+            f' font-family="{f}" font-size="22">'
+            f"deadends.dev/country/{code}/</text>",
+            '</svg>',
+        ])
+        out_dir = SITE_DIR / "country" / code
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "og.svg").write_text(svg, encoding="utf-8")
+        count += 1
+    print(f"  Generated: {count} country OG cards")
+
+
 def build_favicon() -> None:
     """Generate a simple SVG favicon."""
     svg = (
@@ -2260,7 +2502,8 @@ def build_llms_txt(canons: list[dict]) -> None:
         "",
         "Tools: `lookup_error`, `get_error_detail`, `search_errors`, "
         "`batch_lookup`, `get_error_chain`, `list_error_domains`, "
-        "`list_errors_by_domain`, `get_domain_stats`",
+        "`list_errors_by_domain`, `get_domain_stats`, "
+        "`list_errors_by_country`, `get_country_summary`",
         "",
         "### Option 2: REST API",
         "",
@@ -2287,6 +2530,49 @@ def build_llms_txt(canons: list[dict]) -> None:
         "5. Read `transition_graph` — know what error comes next",
         "",
     ]
+
+    # --- Countries section (country-scoped real-world dead ends) ---
+    by_country: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for c in canons:
+        info = _canon_country_info(c)
+        if info is None:
+            continue
+        code, name = info
+        by_country.setdefault(code, []).append(c)
+        country_names[code] = name
+
+    if by_country:
+        lines.append("## Countries (jurisdiction-specific dead ends)")
+        lines.append("")
+        lines.append(
+            "Real-world friction that varies by country — visa, banking, "
+            "legal red lines, cultural taboos, food safety, emergency "
+            "numbers, driving norms. Each country page aggregates the "
+            "entries scoped to that jurisdiction. AI agents can fetch a "
+            "single JSON per country instead of looking up each canon."
+        )
+        lines.append("")
+        lines.append(f"- [Country hub]({BASE_URL}/country/) — all countries")
+        lines.append(
+            f"- [Countries API]({BASE_URL}/api/v1/countries.json) — "
+            "JSON index with counts and update dates"
+        )
+        lines.append(
+            f"- Per-country aggregate: "
+            f"`GET {BASE_URL}/api/v1/country/{{cc}}.json` "
+            "(ISO alpha-2 code)"
+        )
+        lines.append("")
+        for code in sorted(by_country):
+            entry_count = len(by_country[code])
+            domains = sorted({c["error"]["domain"] for c in by_country[code]})
+            lines.append(
+                f"- [{country_names[code]}]({BASE_URL}/country/{code}/) "
+                f"— {entry_count} entr{'ies' if entry_count != 1 else 'y'} "
+                f"across {', '.join(domains)}"
+            )
+        lines.append("")
 
     for domain in sorted(by_domain.keys()):
         domain_sigs = {}
@@ -2981,6 +3267,7 @@ def build_well_known(canons: list[dict]) -> None:
             "lookup_error", "get_error_detail", "search_errors",
             "batch_lookup", "get_error_chain", "list_error_domains",
             "list_errors_by_domain", "get_domain_stats",
+            "list_errors_by_country", "get_country_summary",
         ],
         "domains": domains,
         "homepage": BASE_URL,
@@ -3819,6 +4106,10 @@ def main():
     build_country_pages(canons, jinja_env)
     print()
 
+    print("Generating country API aggregates...")
+    build_country_api(canons)
+    print()
+
     print("Generating error summary pages...")
     summary_urls = build_error_summary_pages(canons, jinja_env)
     print()
@@ -3909,6 +4200,10 @@ def main():
 
     print("Generating per-error OG images...")
     build_error_og_images(canons)
+    print()
+
+    print("Generating per-country OG images...")
+    build_country_og_images(canons)
     print()
 
     print("Generating favicon...")

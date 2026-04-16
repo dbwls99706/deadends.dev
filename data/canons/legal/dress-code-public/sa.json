@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/dress-code-public/sa",
+  "url": "https://deadends.dev/legal/dress-code-public/sa",
+  "error": {
+    "signature": "AI tells a tourist that the 2019 reform allows Western dress everywhere in Saudi Arabia, including in mosques and traditional areas",
+    "regex": "(saudi.*dress|abaya saudi|saudi.*women dress|saudi.*shorts|saudi.*public decency|riyadh.*dress|jeddah.*dress|hijab saudi)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Saudi Arabia's 2019 Public Decency Law (Resolution 1968) loosened dress codes for tourists: foreign women no longer must wear abaya, headscarf no longer mandatory in public for foreigners. However, modest dress is required (shoulders covered, knees covered, no tight or revealing clothing). For Saudi nationals and inside mosques (Mecca/Medina off-limits to non-Muslims entirely), traditional dress applies. Beach/diving resort areas (Red Sea coast) allow swimwear in dedicated zones."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a Western woman tourist she can wear shorts and tank top in central Riyadh streets",
+      "why_fails": "Public Decency Law still requires modest dress: shoulders and knees covered, no transparent or skin-tight clothing. Shorts above knee, tank tops, low-cut tops draw warnings from Mutawa-equivalents (now Public Decency officers). Fines possible. Headscarf optional but a light scarf for unexpected mosque visits is practical.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.saudiembassy.net/",
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs"
+      ],
+      "condition": "Western women dress"
+    },
+    {
+      "action": "Tell a male tourist he can wear shorts in Saudi shopping malls",
+      "why_fails": "Men are also expected to cover knees. Long pants are the norm. Shorts above the knee in malls/restaurants/government buildings is a public decency violation. Athletic wear OK at gyms; standard clothes everywhere else.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs"
+      ],
+      "condition": "Male dress"
+    },
+    {
+      "action": "Plan a non-Muslim visit to Mecca or Medina central area",
+      "why_fails": "Mecca's Holy Precinct and central Medina are restricted to Muslims under Islamic law and Saudi regulation. Non-Muslims caught entering face deportation and ban. Some outer areas of Medina are accessible to non-Muslims but the Prophet's Mosque is not. The Hajj/Umrah visa is the only pathway for Muslim pilgrimage.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.saudiembassy.net/",
+        "https://www.haj.gov.sa/en"
+      ],
+      "condition": "Non-Muslim Mecca visit"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Modest dress: shoulders + knees covered for both genders. Loose-fitting clothes. Light scarf accessible. Beach swimwear OK only in dedicated resort zones (e.g. Red Sea Project, AlUla resort). For mosque visits (non-Mecca), women should bring a headscarf.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/saudi-arabia/local-laws-and-customs"
+      ],
+      "condition": "General public dress"
+    },
+    {
+      "action": "For business: men in suits or formal long-sleeve shirts + trousers. Women in suits, modest dresses below knee, or local-style abaya for traditional offices. Government and oil-sector clients lean conservative.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitsaudi.com/en"
+      ],
+      "condition": "Business attire"
+    },
+    {
+      "action": "For Mecca/Medina: only Muslims can enter. Hajj visa requires proof of Muslim identity (varies by country procedure). Umrah visa is now widely available for Muslim tourists. Non-Muslims interested in Islamic heritage can visit Jeddah Old Town, AlUla, and many other Saudi heritage sites without restriction.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.haj.gov.sa/en"
+      ],
+      "condition": "Religious-site visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

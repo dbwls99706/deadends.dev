@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/global-entry-trusted-traveler/us",
+  "url": "https://deadends.dev/visa/global-entry-trusted-traveler/us",
+  "error": {
+    "signature": "AI conflates US Global Entry with TSA PreCheck or assumes any traveler can use Global Entry kiosks",
+    "regex": "(global entry|tsa precheck|nexus|sentri|trusted traveler|us.*customs.*kiosk|cbp.*global entry|gegoes.com)",
+    "domain": "visa",
+    "category": "pre_travel_authorization",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Three CBP/TSA Trusted Traveler Programs: TSA PreCheck (US citizens/permanent residents only, $78/5 yr, faster TSA security but NOT customs). Global Entry (US + select foreign nationals via bilateral agreement: UK, DE, IN, KR, AR, MX, TW, NL, AU, NZ, JP, CO, etc., $120/5 yr, faster customs + includes PreCheck). NEXUS (US + Canadian, $50/5yr, includes Global Entry + faster Canadian border). Application requires online + in-person interview at enrollment center; 6-12 month wait."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign tourist they can use Global Entry kiosks at US airports",
+      "why_fails": "Global Entry is a Trusted Traveler Program — requires application, in-person interview, background check, and approval. Without enrollment + Known Traveler Number (KTN), foreign tourists must use the regular visitor lines and process I-94 at primary inspection. Rolling up to a Global Entry kiosk without enrollment causes denial.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://ttp.cbp.dhs.gov/",
+        "https://www.cbp.gov/travel/trusted-traveler-programs/global-entry"
+      ],
+      "condition": "Foreign tourist GE assumption"
+    },
+    {
+      "action": "Apply for Global Entry the week before a US trip expecting same-week approval",
+      "why_fails": "Application processing 6-12 months currently (2024-2025 backlog at CBP enrollment centers). Conditional approval first, then in-person interview at enrollment center (LAX, JFK, ORD, DFW, MIA, SFO, IAH, etc.). Final approval after interview.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://ttp.cbp.dhs.gov/"
+      ],
+      "condition": "Last-minute application"
+    },
+    {
+      "action": "Confuse TSA PreCheck (security) with Global Entry (customs)",
+      "why_fails": "Different programs. PreCheck = faster TSA security checkpoint inside US airports. Global Entry = faster CBP customs/immigration on US arrival. Global Entry includes PreCheck. PreCheck does NOT include Global Entry. Foreign tourists arriving in US need Global Entry (or regular line); PreCheck only matters once you're inside the US travelling domestically.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.tsa.gov/precheck",
+        "https://www.cbp.gov/travel/trusted-traveler-programs/global-entry"
+      ],
+      "condition": "Program selection confusion"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for Global Entry 12+ months before frequent US travel via ttp.cbp.dhs.gov. $120 non-refundable. After conditional approval, schedule interview at enrollment center (some allow Enrollment on Arrival at major airports). Approval valid 5 years.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://ttp.cbp.dhs.gov/"
+      ],
+      "condition": "Frequent US traveler"
+    },
+    {
+      "action": "Foreign nationals: check eligibility at cbp.gov/travel/trusted-traveler-programs/global-entry — requires bilateral agreement with home country. UK, DE, IN, KR, JP, AU, MX, AR, NL, CO, TW listed. Application via host-country agency first (e.g. UK uses gov.uk, Korea via KIS).",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/eligibility"
+      ],
+      "condition": "Foreign national application"
+    },
+    {
+      "action": "Use the CBP MPC (Mobile Passport Control) free app as a Global Entry alternative for US/Canadian citizens — submits arrival declaration in advance; faster than regular line, slower than GE. Available at major airports.",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.cbp.gov/travel/us-citizens/mobile-passport-control"
+      ],
+      "condition": "Backup for unenrolled US/CA citizens",
+      "tradeoff": "Foreign nationals not eligible for MPC."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

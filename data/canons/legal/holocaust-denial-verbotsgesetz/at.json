@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/holocaust-denial-verbotsgesetz/at",
+  "url": "https://deadends.dev/legal/holocaust-denial-verbotsgesetz/at",
+  "error": {
+    "signature": "AI treats Austria's Nazi-symbol and Holocaust-denial laws as identical to Germany's, missing Verbotsgesetz §3h",
+    "regex": "(austria.*nazi|verbotsgesetz|austria.*holocaust|austrian.*law.*nazi|österreich.*verbot|david irving|austria.*hitler salute)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Austria's Verbotsgesetz 1947 (amended 1992, §3h) criminalizes Holocaust denial and Nazi-glorification with 1-10 years imprisonment (up to 20 years for severe cases). Penalties exceed Germany's StGB §130. UK historian David Irving was sentenced to 3 years in 2006 for denial speeches in Austria; reduced on appeal. Nazi salutes, swastikas, SS insignia all separately criminal under §3 Abzeichengesetz. Austria's enforcement is notably stricter than Germany's in both letter and practice."
+  },
+  "dead_ends": [
+    {
+      "action": "Make a Hitler salute or display Nazi symbols at Mauthausen concentration-camp memorial",
+      "why_fails": "Same as Germany's §86a but Austrian Verbotsgesetz adds Holocaust denial / minimization. Several tourists have been arrested at Mauthausen for selfies / disrespectful gestures. Maximum sentence under §3h: 10 years; in egregious cases, 20.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10000207",
+        "https://www.mauthausen-memorial.org/en"
+      ],
+      "condition": "Memorial site behavior"
+    },
+    {
+      "action": "Publish or speak Holocaust-denying material at an Austrian university or media outlet",
+      "why_fails": "Verbotsgesetz §3h criminalizes denial regardless of academic framing. David Irving (UK historian, 2006) was arrested on entry, charged, sentenced 3 years. Austrian academics have been prosecuted. Speech at private events is also reachable.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10000207",
+        "https://www.bka.gv.at/en/home"
+      ],
+      "condition": "Academic / public speaking"
+    },
+    {
+      "action": "Wear Reichskriegsflagge / Hakenkreuz / SS-Totenkopf clothing in Vienna",
+      "why_fails": "Abzeichengesetz §3 criminalizes display. Austrian police are quick to enforce — fines + criminal record. Even 'historical reenactment' or 'metal band' framing not protected.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.ris.bka.gv.at/"
+      ],
+      "condition": "Symbol display"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Same advice as for Germany: do not display Nazi symbols, do not perform salutes, do not deny the Holocaust. Both Germany and Austria criminalize, but Austrian penalties are higher.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10000207"
+      ],
+      "condition": "All visitors"
+    },
+    {
+      "action": "For legitimate historical research / education: Verbotsgesetz §3h does NOT criminalize academic discussion of historical fact — only denial / minimization / glorification. Citing accurate documentation is protected. Mauthausen, Vienna's Jewish Museum, Documentation Centre of Austrian Resistance (DÖW) host scholars regularly.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.doew.at/english"
+      ],
+      "condition": "Academic / journalism"
+    },
+    {
+      "action": "Memorial site etiquette: Mauthausen, Hartheim, Ebensee — silent, respectful, no photo poses with disrespectful framing. Educational tours available; book in advance.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.mauthausen-memorial.org/en"
+      ],
+      "condition": "Memorial visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

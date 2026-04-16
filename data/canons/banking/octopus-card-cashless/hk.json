@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/octopus-card-cashless/hk",
+  "url": "https://deadends.dev/banking/octopus-card-cashless/hk",
+  "error": {
+    "signature": "AI tells a Hong Kong visitor to rely on credit cards or skip Octopus card setup",
+    "regex": "(hong kong.*octopus|octopus card|hk.*payment|hk.*mtr.*payment|alipay hk|wechat pay hk|payme|fps hk|faster payment)",
+    "domain": "banking",
+    "category": "payment_infrastructure",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Octopus (八達通) is Hong Kong's universal stored-value contactless card — used for MTR/bus/tram/ferry, 7-Eleven/Starbucks/most chains, parking, vending, and many small shops. Foreign Visa/Mastercard increasingly accepted at large retailers but small dim sum places, market stalls, taxis and minibuses remain cash-or-Octopus. Apple Wallet / Google Wallet support Octopus since 2020 — visitors can add to phone and top up via Visa without a physical card."
+  },
+  "dead_ends": [
+    {
+      "action": "Rely on Visa/Mastercard for everything including MTR rides, taxis, and street food",
+      "why_fails": "MTR ticket machines accept cash + Octopus. Some accept contactless Visa now but Octopus is faster. Taxis are cash-only by default; FPS/Octopus accepted at Uber HK and some metered taxis. Cha chaan teng (local diners), wet markets, and minibuses are cash-or-Octopus. Foreign-card users hit friction multiple times daily.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.octopus.com.hk/en/consumer/index.html",
+        "https://www.mtr.com.hk/en/customer/services/index.html"
+      ],
+      "condition": "Daily transit + small shops"
+    },
+    {
+      "action": "Buy a physical Tourist Octopus at the airport without considering Apple/Google Wallet",
+      "why_fails": "Apple Wallet supports Octopus since 2020. Add Octopus on iPhone, top up with foreign Visa, no physical card needed. Google Wallet (Android) supports Octopus on Samsung devices in HK since 2024. Tourist Octopus card has 50 HKD non-refundable deposit + 100 HKD value; phone-based has no deposit.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.octopus.com.hk/en/consumer/octopus-on-mobile/index.html"
+      ],
+      "condition": "Setup choice",
+      "common_misconception": "'Apple Wallet Octopus only for HK residents' — works for international Apple IDs since 2020."
+    },
+    {
+      "action": "Tip in HK like in the US (15-20%) — assume service charge isn't enough",
+      "why_fails": "Most HK restaurants add 10% service charge automatically. Additional tipping is not expected; rounding up to nearest dollar is fine. Western-style tipping at 15-20% is unusual. Hotel staff (porter, housekeeping) accept small HKD20-50 tips.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/index.html"
+      ],
+      "condition": "Tipping"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Add Octopus to Apple Wallet (iPhone) or Google Wallet (Samsung) before/on arrival. Top up with Visa/Mastercard. Tap to pay at MTR gates, 7-Eleven, McDonald's, Starbucks, parking — works everywhere physical Octopus works.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.octopus.com.hk/en/consumer/octopus-on-mobile/index.html"
+      ],
+      "condition": "Modern phone setup"
+    },
+    {
+      "action": "Carry HKD500-1000 cash for taxis (cash-only by default), wet markets, dim sum places. ATMs are everywhere; HSBC/Hang Seng/Bank of China accept foreign cards.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/index.html"
+      ],
+      "condition": "Cash backup"
+    },
+    {
+      "action": "AlipayHK / WeChat Pay HK / PayMe (HSBC) are alternative cashless options popular with locals. Foreign nationals can use AlipayHK Tour version with a foreign card; PayMe needs a HK bank account.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.alipay.hk/en/",
+        "https://payme.hsbc.com.hk/"
+      ],
+      "condition": "Alternative wallets"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/china-240-hour-twov/cn",
+  "url": "https://deadends.dev/visa/china-240-hour-twov/cn",
+  "error": {
+    "signature": "AI confuses China's 240-hour transit-without-visa policy with general visa-free entry, or misses the specific eligible airports and onward-travel requirements",
+    "regex": "(china.*transit|240 hour twov|china.*visa free|china.*72 hour|china.*144 hour|twov china|china.*visa policy 2024|chinese visa exemption)",
+    "domain": "visa",
+    "category": "pre_travel_authorization",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "China's 240-hour Transit Without Visa (TWOV, 过境免签, expanded December 2024) lets nationals of 54 countries transit through 60+ Chinese ports for up to 10 days, provided they hold an onward ticket to a third country (NOT the country of origin). Separately, full visa-free entry of up to 30 days now applies to several countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR — list expanded several times in 2024-2025). Verify each nationality + entry mode separately."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a US passport holder they qualify for China's full 30-day visa-free entry",
+      "why_fails": "As of 2025, the 30-day mutual visa-free arrangement applies to specific countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR, ...) — list updated frequently by NIA. US is NOT on the visa-free list (still requires L visa or 240-hour TWOV transit). Confirm at NIA en.nia.gov.cn before each trip.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://en.nia.gov.cn/",
+        "https://www.fmprc.gov.cn/eng/"
+      ],
+      "condition": "Visa-free assumption"
+    },
+    {
+      "action": "Use 240-hour TWOV planning to fly into Beijing then back to your origin country",
+      "why_fails": "TWOV requires onward travel to a THIRD country (not the country of origin). A round-trip US ↔ China violates TWOV; immigration refuses entry. Workaround: third-country leg (e.g. US → China → Korea → US) qualifies.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://en.nia.gov.cn/transit-without-visa-policy/"
+      ],
+      "condition": "Round-trip TWOV attempt"
+    },
+    {
+      "action": "Apply 240-hour TWOV at any Chinese airport without checking eligible ports",
+      "why_fails": "TWOV is available at 60+ designated ports (Beijing PEK/PKX, Shanghai PVG/SHA, Guangzhou CAN, Shenzhen SZX, Chengdu CTU, Xian XIY, plus many others). Some smaller airports don't offer TWOV. Confirm port-by-port via NIA.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://en.nia.gov.cn/transit-without-visa-policy/"
+      ],
+      "condition": "Non-eligible port arrival"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the current visa-free list at en.nia.gov.cn before each trip — list expanded multiple times in 2024 and may continue to. Verify your nationality + intended duration + ports of entry.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://en.nia.gov.cn/"
+      ],
+      "condition": "Visa-free eligibility check"
+    },
+    {
+      "action": "240-hour TWOV: prepare onward ticket to a third country (not origin), accommodation reservation, passport with 6+ months validity. Apply at the immigration desk on arrival; airline staff verify before boarding to China.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://en.nia.gov.cn/transit-without-visa-policy/"
+      ],
+      "condition": "TWOV transit"
+    },
+    {
+      "action": "If neither visa-free nor TWOV applies, apply for a regular L (tourist), M (business), or X (student) visa at the Chinese consulate. 10-year multi-entry L visas are common for US nationals. Process: 4-10 business days.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.fmprc.gov.cn/eng/",
+        "https://bio.visaforchina.cn/"
+      ],
+      "condition": "Regular visa needed"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

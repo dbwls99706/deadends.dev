@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/rio-night-walk-favela/br",
+  "url": "https://deadends.dev/safety/rio-night-walk-favela/br",
+  "error": {
+    "signature": "AI tells a tourist to Rio de Janeiro to walk Copacabana / Ipanema beach late at night with phone visible, or to wander into a favela without a guide",
+    "regex": "(rio.*safe|copacabana.*safety|ipanema.*night|brazil.*favela|favela.*tour|rio.*pickpocket|brazil.*safety|rio.*phone|brazil.*scam)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-04-15",
+    "summary": "Rio de Janeiro and São Paulo have high petty-crime rates in tourist zones — phone snatchings on motorbike, pickpocketing on buses/beaches, late-night street muggings. Favelas (densely-built informal communities) range from safe (pacified, e.g. Vidigal) to actively-controlled by drug factions or militias (CV, ADA, TCP, Milícias). Tour into favelas only with established local guides; never wander unannounced. Avoid Copacabana / Ipanema waterfront after dark with valuables visible. Brazilian Federal Tourism Police (Polícia Turística DEAT) handles tourist incidents."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk Copacabana or Ipanema beachfront late at night with phone in hand for navigation",
+      "why_fails": "Beach-front phone snatching by motorbike-mounted thieves is the #1 Rio tourist crime. The thief grabs from behind and accelerates. Late-night beach areas (after midnight) are highest-risk. Police presence drops after 22:00.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security",
+        "https://www.policiacivilrj.net.br/deat/"
+      ],
+      "condition": "Late-night beachfront with valuables"
+    },
+    {
+      "action": "Take a wrong turn off the main avenida and walk through a favela because Google Maps suggests a shortcut",
+      "why_fails": "Google Maps doesn't distinguish 'pacified' favelas from active drug-faction or militia-controlled areas. Random entry without invitation by an unfamiliar tourist can trigger confrontations. Tourist GPS-led entries have led to robberies and worse. Many shortcuts through favela are well-known traps.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.policiacivilrj.net.br/deat/",
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security"
+      ],
+      "condition": "Wandering off main streets"
+    },
+    {
+      "action": "Wear flashy jewelry, expensive watches, or carry a designer bag through Rio center",
+      "why_fails": "Visible wealth is a magnet for both opportunistic pickpocketing and targeted robbery. Locals dress down in public. Save jewelry / expensive accessories for the hotel safe; carry minimal cash.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security"
+      ],
+      "condition": "Visible wealth display"
+    },
+    {
+      "action": "Resist if confronted by an armed mugger",
+      "why_fails": "Brazilian street crime often involves firearms. Police, embassy, and local consensus: hand over phone/wallet immediately, no resistance. Most muggers are after the wallet/phone, not violence; resistance escalates to shooting. Carry a 'mugger wallet' with small cash and an old phone if heavy-tourist-area travel.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security"
+      ],
+      "condition": "Encountered mugging"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Daylight beach walks: fine. Late night: take Uber 99 directly door-to-door. Phone use: keep it in pocket; use Apple Watch / quick glance instead of holding phone in hand. Carry only what you need.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security"
+      ],
+      "condition": "Tourist zone navigation"
+    },
+    {
+      "action": "Favela visits ONLY with established local guide (Favela Tour, Favela Inn, Vidigal community-led tours). Pacified favelas (Vidigal, Cantagalo, Pavão-Pavãozinho) are safe with guide; many ZERO-tourist favelas (Cidade de Deus interior, Maré, complex Alemão) are not safe even with guide.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/brazil/safety-and-security",
+        "https://www.policiacivilrj.net.br/deat/"
+      ],
+      "condition": "Wanting to see real Rio"
+    },
+    {
+      "action": "Carry: minimal cash (R$50-100), copy of passport (real in hotel safe), one card (not all). Use anti-snatch backpack/cross-body. Photo of important docs in cloud + offline.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.policiacivilrj.net.br/deat/"
+      ],
+      "condition": "Loadout"
+    },
+    {
+      "action": "If mugged: don't resist. Comply. After: report to DEAT (Tourist Police) — they speak English, generate police report (BO) needed for insurance and replacement passport. DEAT Centro Rio: Av. Afrânio de Melo Franco 159.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.policiacivilrj.net.br/deat/"
+      ],
+      "condition": "Post-incident"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

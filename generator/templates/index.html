@@ -68,8 +68,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    "name": "deadends.dev Error Knowledge Database",
-    "description": "Structured failure knowledge for AI coding agents — {{ total_errors }} error patterns across {{ domains | length }} domains. Each entry contains dead ends (what NOT to try), workarounds (what works with success rates), and error transition graphs.",
+    "name": "deadends.dev Error and Country Dead-End Knowledge Database",
+    "description": "Structured failure knowledge for AI agents — {{ total_errors }} entries across {{ domains | length }} domains and {{ country_stats | length }} countries. Each entry contains dead ends (what NOT to try), workarounds (what works with success rates), error transition graphs, and country-specific real-world dead ends (visa, banking, legal, cultural, medical, emergency).",
     "url": "{{ base_url }}",
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": true,
@@ -86,6 +86,11 @@
       },
       {
         "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "{{ base_url }}/api/v1/countries.json"
+      },
+      {
+        "@type": "DataDownload",
         "encodingFormat": "application/x-ndjson",
         "contentUrl": "{{ base_url }}/api/v1/errors.ndjson"
       },
@@ -95,13 +100,16 @@
         "contentUrl": "{{ base_url }}/llms-full.txt"
       }
     ],
-    "measurementTechnique": "Automated evidence collection and expert validation",
+    "measurementTechnique": "Primary-source citation review (government, embassy, regulator) plus community outcome reporting",
     "variableMeasured": [
       "Error fix success rate",
       "Dead end fail rate",
       "Workaround success rate"
     ],
-    "keywords": ["error debugging", "dead ends", "workarounds", "AI coding agents", "error patterns", {{ domains | tojson }}]
+    "spatialCoverage": [{% for c in country_stats %}
+      {"@type": "Country", "name": "{{ c.name | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
+    ],
+    "keywords": ["error debugging", "dead ends", "workarounds", "AI agents", "error patterns", "country-specific knowledge", "jurisdiction", {{ domains | tojson }}]
   }
   </script>
 

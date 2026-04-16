@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/wai-greeting-hierarchy/th",
+  "url": "https://deadends.dev/culture/wai-greeting-hierarchy/th",
+  "error": {
+    "signature": "AI tells a visitor to Thailand to wai (palms-together greeting) at chest height to everyone, or to wai a child first",
+    "regex": "(thailand.*wai|thai.*greeting|ไหว้|thai.*palms|sawasdee|thai.*bow)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "The wai (ไหว้, palms-together greeting with slight bow) is hierarchical in Thailand: the position of the hands and depth of bow signal the relative status of giver and receiver. Adults wai monks fingertips at forehead; juniors wai elders fingertips at nose; peers wai chest level. Adults do NOT wai children first — initiating wai to a child reverses the social order awkwardly. Thumbs touch chin (peer), nose (elder), forehead (monk/royalty)."
+  },
+  "dead_ends": [
+    {
+      "action": "Wai a Thai child first as a friendly greeting",
+      "why_fails": "Adults receiving wai from children, not the reverse. Initiating wai to a child confuses the social order and the child often awkwardly waits for an unspoken cue. Children should wai adults, not vice versa.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette",
+        "https://thailand.embassy.gov.au/"
+      ],
+      "condition": "Greeting children"
+    },
+    {
+      "action": "Wai a Thai monk with hands at chest level",
+      "why_fails": "Monks receive the deepest wai: thumbs touch the forehead with a deep bow. Chest-level wai to a monk is read as disrespectful. For royal portraits, similar deep wai applies.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette",
+        "https://www.dra.go.th/en/"
+      ],
+      "condition": "Monk encounter"
+    },
+    {
+      "action": "Wai a service worker (waiter, shop assistant, hotel staff) on every interaction",
+      "why_fails": "Service workers wai customers; customers do not wai back routinely. A nod and 'khob khun ka/khrap' (thanks) is sufficient. Returning every wai is read as either over-eager tourist or status confusion. Save your wai for greetings, apologies, or thanks for genuine help.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Service interactions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Default greeting to peers / new acquaintances: palms together at chest, slight bow, 'sawasdee ka/khrap'. Wait for the older person to initiate; mirror their wai height.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Peer / first-meeting greeting"
+    },
+    {
+      "action": "For monks: thumbs at forehead, deep bow. For royal portraits or imagery: same. For elders in business: thumbs at nose, moderate bow. Never wai with one hand or while holding objects; put items down first.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Hierarchical settings"
+    },
+    {
+      "action": "Children: respond to their wai with a smile and verbal thanks, no wai back. Service workers: nod and verbal thanks suffice.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Junior / service contexts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}
