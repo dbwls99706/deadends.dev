@@ -337,3 +337,42 @@ def test_api_mcp_mirror_has_country_tools():
     tool_names = {t["name"] for t in api_mcp.TOOLS}
     assert "list_errors_by_country" in tool_names
     assert "get_country_summary" in tool_names
+
+
+def test_index_json_includes_country_for_country_canons(tmp_path, monkeypatch):
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_api_index(canons)
+    idx = json.loads(
+        (tmp_path / "api" / "v1" / "index.json").read_text(encoding="utf-8")
+    )
+    # Find any country entry
+    country_entries = [e for e in idx["errors"] if "country" in e]
+    assert country_entries, "No country entries in index.json"
+    e = country_entries[0]
+    assert e["country"] == e["country"].lower()
+    assert e["country_url"].endswith(f"/country/{e['country']}/")
+    assert e["country_api_url"].endswith(f"/country/{e['country']}.json")
+
+
+def test_match_json_includes_country_compact_field(tmp_path, monkeypatch):
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_match_json(canons)
+    match = json.loads(
+        (tmp_path / "api" / "v1" / "match.json").read_text(encoding="utf-8")
+    )
+    country_patterns = [p for p in match["patterns"] if "c" in p]
+    assert country_patterns, "No country-tagged patterns in match.json"
+    # Compact key 'c' is intentional for context-window efficiency
+    assert all(len(p["c"]) == 2 for p in country_patterns)

@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/dangerous-wildlife-au/au",
+  "url": "https://deadends.dev/safety/dangerous-wildlife-au/au",
+  "error": {
+    "signature": "AI tells a tourist in Australia to handle snakes, walk barefoot in northern beaches, or ignore stinger nets / jellyfish warnings",
+    "regex": "(australia.*snake|australia.*jellyfish|box jellyfish|irukandji|australia.*spider|funnel web|sting net|australia.*shark|saltwater crocodile)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Australian wildlife hazards: ~3000 snake bites/year (~2 deaths) — eastern brown, tiger, taipan; box jellyfish (Nov-May Tropical North, can kill in minutes); Irukandji jellyfish (tiny, severe systemic syndrome); Sydney funnel-web spider (lethal without antivenom); saltwater crocodiles (NT/Far North Queensland — 'Crocwise' campaign). National Antivenom and Vaccine Service available 24/7 via Poisons Hotline 13 11 26. Stinger nets at Tropical North beaches Nov-May."
+  },
+  "dead_ends": [
+    {
+      "action": "Approach or photograph a snake in Australian bush",
+      "why_fails": "Snakes bite when surprised or threatened — Australia has the world's most venomous land snakes (taipan, eastern brown, tiger). Average bystander response (running, screaming) increases risk. Slow back away; call 000 if bitten. Pressure-immobilization bandage from leg → torso slows venom spread.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://www.health.gov.au/topics/poisons/animal-bites-and-stings",
+        "https://www.poisonsinfo.nsw.gov.au/"
+      ],
+      "condition": "Snake encounter"
+    },
+    {
+      "action": "Swim outside stinger nets in Tropical North Queensland Nov-May",
+      "why_fails": "Box jellyfish Chironex fleckeri can kill an adult in 2-5 minutes. Irukandji syndrome causes severe systemic illness. Stinger nets at major beaches (Cairns, Port Douglas, Mission Beach) provide partial protection. Stinger suits (lycra) are routinely worn. Many beaches close stinger season.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.tropicalnorthqueensland.org.au/visitor-info/stinger-season/",
+        "https://www.health.gov.au/topics/poisons/animal-bites-and-stings"
+      ],
+      "condition": "Tropical north swimming"
+    },
+    {
+      "action": "Walk close to riverbanks or salt water in Northern Territory / Far North Queensland",
+      "why_fails": "Saltwater crocodiles inhabit rivers, estuaries, and even occasional beaches in NT and FNQ. Multiple fatal attacks each year. 'Crocwise' campaign: stay 5+ m from waterline, no swimming in marked areas, no fishing within reach. Don't approach water at dawn/dusk.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://nt.gov.au/marine/crocodile-safety",
+        "https://www.qld.gov.au/environment/plants-animals/animals/living-with/crocodiles"
+      ],
+      "condition": "NT / FNQ waterways"
+    },
+    {
+      "action": "Handle a Sydney funnel-web spider (or large dark spider) in NSW gardens",
+      "why_fails": "Sydney funnel-web venom is potentially lethal. Antivenom highly effective but must be administered urgently. Most bites occur Sept-April when males roam. Don't handle large dark spiders; shake out shoes; check pool covers (males drown in pools).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://australian.museum/learn/animals/spiders/sydney-funnel-web-spider/",
+        "https://www.health.gov.au/topics/poisons/animal-bites-and-stings"
+      ],
+      "condition": "NSW garden / pool area"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Snake encounter: stop, slow back away, do NOT try to kill or photograph. If bitten: call 000, lie still, apply pressure-immobilization bandage from bite-site upward toward heart, immobilize limb. Don't cut, suck, or use ice. Antivenom available at any Australian hospital.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.health.gov.au/topics/poisons/animal-bites-and-stings"
+      ],
+      "condition": "Snake bite response"
+    },
+    {
+      "action": "Tropical North swimming Nov-May: swim only inside stinger nets, wear stinger suit (rentable at beaches), check beach status (stingers logged daily). Vinegar (not freshwater) for box jellyfish stings — beaches stock it.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tropicalnorthqueensland.org.au/visitor-info/stinger-season/"
+      ],
+      "condition": "Tropical swimming"
+    },
+    {
+      "action": "Crocodile country: stay 5m+ from waterline, no swimming in NT rivers/estuaries, don't camp within 50m of waterline, no fishing standing on banks. Heed 'Be Crocwise' signs. Crocs strike from underwater with no warning.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://nt.gov.au/marine/crocodile-safety"
+      ],
+      "condition": "NT/FNQ waterway visit"
+    },
+    {
+      "action": "Spiders / scorpions: shake out shoes and clothing left outdoors. Check before sitting on outdoor furniture. Pool: scoop out drowning spiders with net, don't pick up by hand. Antivenom available; store-front first aid kits include relevant supplies.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://australian.museum/learn/animals/spiders/sydney-funnel-web-spider/"
+      ],
+      "condition": "Spider exposure"
+    },
+    {
+      "action": "Poisons Hotline 13 11 26 — 24/7 nationwide, staffed by toxicologists. Call BEFORE going to ER for any bite/sting; they advise on whether to seek hospital, what to bring, what to expect.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.poisonsinfo.nsw.gov.au/"
+      ],
+      "condition": "Bite/sting response"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-04-15"
+  }
+}

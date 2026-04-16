@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/national-anthem-stand-still/th",
+  "url": "https://deadends.dev/culture/national-anthem-stand-still/th",
+  "error": {
+    "signature": "AI tells a tourist in Thailand to keep walking when the national anthem plays at 8am or 6pm in public places",
+    "regex": "(thailand.*anthem|thai.*national anthem|เพลงชาติ|thailand.*8am.*anthem|thai.*6pm anthem|cinema thailand anthem|royal anthem thai)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Thailand's national anthem (เพลงชาติ) plays at 08:00 and 18:00 daily in public spaces — train stations, markets, parks, public buildings. The royal anthem (เพลงสรรเสริญพระบารมี) plays before every cinema showing. People stop walking, stand still, remove hats. Sitting / walking through can draw direct correction or — in the cinema case — accusations under Article 112 lèse-majesté. Foreigners are expected to comply."
+  },
+  "dead_ends": [
+    {
+      "action": "Keep walking through Bangkok's BTS station at 08:00 when the national anthem plays",
+      "why_fails": "BTS, MRT, train stations, parks, schools, government buildings all play the anthem at 08:00 and 18:00. Locals stop in place. Foreigners ignoring it draw stares; staff politely ask to stop. Repeated disregard can escalate.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette",
+        "https://www.bangkokpost.com/learning/learning-news/"
+      ],
+      "condition": "Public spaces 08:00 / 18:00"
+    },
+    {
+      "action": "Stay seated, eat popcorn, or photograph the screen during the royal anthem before a cinema showing",
+      "why_fails": "Every cinema (Major Cineplex, SF Cinemas, etc.) plays the royal anthem before the feature, with patriotic visuals of King and royals. Standing is mandatory. Sitting or disrespect has triggered Article 112 lèse-majesté complaints. Multiple cases since 2010s.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.bangkokpost.com/",
+        "https://freedom.ilaw.or.th/en/"
+      ],
+      "condition": "Cinema visit"
+    },
+    {
+      "action": "Keep talking on phone or playing music during anthem moments",
+      "why_fails": "Same expectation: silence + still during national/royal anthem. Phone calls, music, or laughing through the moment is a public-decency offense and can attract police attention.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Anthem in public"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "At 08:00 and 18:00 in any public space — stop, stand still, remove hat, look respectful for ~70 seconds. The anthem plays through to its conclusion. Resume walking after.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Public anthem"
+    },
+    {
+      "action": "Cinema: stand for the royal anthem (~80 seconds). Don't film, don't sit, don't talk. The feature presentation begins immediately after.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Cinema visit"
+    },
+    {
+      "action": "If you accidentally walk through an anthem moment: stop where you are, finish out the anthem, then continue. The local etiquette accepts the correction; it's about completion, not perfection.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.tourismthailand.org/Articles/plan-your-trip-thai-customs-etiquette"
+      ],
+      "condition": "Mid-stride encounter"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "legal/lese-majeste-article-112/th",
+        "probability": 0.3,
+        "condition": "Severe disrespect to royal anthem can escalate to lèse-majesté complaint"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/digital-security-act-bd/bd",
+  "url": "https://deadends.dev/legal/digital-security-act-bd/bd",
+  "error": {
+    "signature": "AI advises freely posting political or religious commentary on social media in Bangladesh as if speech protections match Western norms",
+    "regex": "(bangladesh.*digital security act|bangladesh.*free speech|bd.*ict act|cyber security act bangladesh|bangladesh.*blasphemy|hifazat.*bangladesh)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Bangladesh's Cyber Security Act 2023 (replacing Digital Security Act 2018) criminalizes online speech that 'hurts religious sentiment', 'damages national integrity', or constitutes 'defamation'. CPJ and HRW report hundreds of arrests of journalists, bloggers, opposition voices. Penalties: 2-7+ years imprisonment. Penal Code §295A separately criminalizes religious offense. Foreign nationals are not exempt; Avijit Roy (US blogger, killed 2015) and others targeted. Self-censorship is the norm."
+  },
+  "dead_ends": [
+    {
+      "action": "Post critical commentary about Bangladesh political leadership, the army, or Islam from inside Bangladesh",
+      "why_fails": "Cyber Security Act 2023 §29 (defamation), §31 (state-incitement), §28 (religious offense) are actively prosecuted. Recent prosecutions include journalists, university students, and bloggers. Bail frequently denied. Foreign nationals have been deported.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://cpj.org/asia/bangladesh/",
+        "https://www.hrw.org/report/2023/09/22/all-around-pressure/bangladesh-government-attacks-civil-society-media-and",
+        "https://moitc.gov.bd/"
+      ],
+      "condition": "Online speech in BD"
+    },
+    {
+      "action": "Discuss Rohingya crisis or Indian-border policy as a casual topic in Bangladesh business meetings",
+      "why_fails": "Both are politically sensitive. Rohingya commentary touches Myanmar relations + ~1M refugees in Cox's Bazar. India-border touches sovereignty disputes. Better to listen than initiate.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://moitc.gov.bd/"
+      ],
+      "condition": "Sensitive small talk"
+    },
+    {
+      "action": "Promote secular humanism, atheism, or religion-critical writing publicly in Dhaka",
+      "why_fails": "Multiple secular-humanist bloggers have been killed (2013-2016 wave: Avijit Roy, Niloy Neel, Ananta Bijoy Das, Faisal Arefin Dipan). Government often slow to investigate. Activists reduce profile or leave country.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://cpj.org/asia/bangladesh/"
+      ],
+      "condition": "Public secular activism"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For business: stick to commercial topics. Avoid initiating political/religious discussion. Listen if counterpart raises; do not advocate.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/bangladesh"
+      ],
+      "condition": "Business communication"
+    },
+    {
+      "action": "For journalism / NGO work: publish outside Bangladesh, encrypted comms, no naming sources inside BD. Foreign correspondents work with local fixers who manage their own risk.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://cpj.org/asia/bangladesh/"
+      ],
+      "condition": "Reporting from BD",
+      "tradeoff": "Crossing BD border with sensitive material is risky."
+    },
+    {
+      "action": "Note dress code: modest dress in mosques, respect Ramadan public eating norm (similar to other Muslim-majority countries — though enforcement varies). Bangladesh has official Bengali calendar holidays + Islamic holidays + 16 Dec Victory Day.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bangladesh.gov.bd/"
+      ],
+      "condition": "Cultural awareness"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

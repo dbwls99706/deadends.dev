@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/eta-uk-2025/uk",
+  "url": "https://deadends.dev/visa/eta-uk-2025/uk",
+  "error": {
+    "signature": "AI confuses UK ETA with Schengen ETIAS or assumes US/EU/AU travelers can enter UK without ETA after 2025",
+    "regex": "(uk eta|uk.*electronic travel authorisation|britain.*eta|gov.uk.*eta|uk.*visa free|uk visit visa)",
+    "domain": "visa",
+    "category": "pre_travel_authorization",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "UK ETA (Electronic Travel Authorisation) rolled out for Gulf nationals 2023, then non-EU visa-waiver travelers (US, CA, AU, NZ, JP, KR, SG, etc.) Jan 2025, and EU/EEA/CH from 2 Apr 2025. £16 fee, valid 2 years, multiple entries up to 6 months each. Apply via UK ETA app or gov.uk before boarding. Different from Schengen ETIAS (separate program for EU). Irish citizens exempt. Some transit-only routes exempt at LHR / MAN."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a US/EU traveler they can fly to UK in 2025+ without checking ETA status",
+      "why_fails": "From Jan 2025 (non-EU non-Irish) and Apr 2025 (EU/EEA/CH), most visa-waiver nationals must hold approved ETA before boarding. Airlines deny boarding without ETA Status. Last-minute applications can take 3+ days during peak.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta",
+        "https://www.gov.uk/government/news/eta-required-for-european-nationals-from-2-april-2025"
+      ],
+      "condition": "Post-Jan 2025 UK travel"
+    },
+    {
+      "action": "Confuse UK ETA with Schengen ETIAS (EU)",
+      "why_fails": "UK is not in Schengen. UK ETA = UK only, £16, via gov.uk. Schengen ETIAS = EU/Schengen area, €7, via travel-europe.europa.eu. Both are pre-travel; both required separately for trips that touch both areas.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta",
+        "https://travel-europe.europa.eu/etias_en"
+      ],
+      "condition": "EU + UK trip planning"
+    },
+    {
+      "action": "Apply for UK ETA at the airport on arrival day",
+      "why_fails": "Apply via app or gov.uk before boarding. Most approvals within minutes; some require manual review (24-72h). Airlines won't board without approved ETA. Apply 3+ days ahead minimum.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta"
+      ],
+      "condition": "Last-minute"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check eligibility at gov.uk/check-uk-visa BEFORE booking. If ETA needed, apply via UK ETA app or gov.uk; £16, valid 2 years, multiple entries 6 months each. Approval usually minutes; allow 3 days.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta"
+      ],
+      "condition": "Standard application"
+    },
+    {
+      "action": "Irish citizens are exempt under Common Travel Area (CTA). UK residence permit holders are exempt. Diplomatic passports may be exempt. Always verify on gov.uk for current exemptions.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta"
+      ],
+      "condition": "Exemption check"
+    },
+    {
+      "action": "For combined UK + EU trips: apply for UK ETA AND Schengen ETIAS (when ETIAS launches late-2026) separately. Different applications, different fees, different validity windows.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta",
+        "https://travel-europe.europa.eu/etias_en"
+      ],
+      "condition": "Multi-country itinerary"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

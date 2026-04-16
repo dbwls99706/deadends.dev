@@ -2688,7 +2688,8 @@ def build_api_index(canons: list[dict]) -> None:
     }
 
     for canon in sorted(canons, key=lambda c: c["id"]):
-        index["errors"].append({
+        country_info = _canon_country_info(canon)
+        entry = {
             "id": canon["id"],
             "signature": canon["error"]["signature"],
             "regex": canon["error"]["regex"],
@@ -2701,7 +2702,14 @@ def build_api_index(canons: list[dict]) -> None:
             "workaround_count": len(canon.get("workarounds", [])),
             "api_url": f"{BASE_URL}/api/v1/{canon['id']}.json",
             "page_url": f"{BASE_URL}/{'/'.join(canon['id'].split('/')[:2])}/",
-        })
+        }
+        if country_info is not None:
+            code, name = country_info
+            entry["country"] = code
+            entry["country_name"] = name
+            entry["country_url"] = f"{BASE_URL}/country/{code}/"
+            entry["country_api_url"] = f"{BASE_URL}/api/v1/country/{code}.json"
+        index["errors"].append(entry)
 
     api_dir = SITE_DIR / "api" / "v1"
     api_dir.mkdir(parents=True, exist_ok=True)
@@ -3707,7 +3715,8 @@ def build_match_json(canons: list[dict]) -> None:
     }
 
     for canon in sorted(canons, key=lambda c: c["id"]):
-        match_data["patterns"].append({
+        country_info = _canon_country_info(canon)
+        pattern = {
             "id": canon["id"],
             "sig": canon["error"]["signature"],
             "re": canon["error"]["regex"],
@@ -3718,7 +3727,11 @@ def build_match_json(canons: list[dict]) -> None:
             "de": len(canon["dead_ends"]),
             "wa": len(canon.get("workarounds", [])),
             "url": f"{BASE_URL}/api/v1/{canon['id']}.json",
-        })
+        }
+        if country_info is not None:
+            # Compact key for context-window efficiency
+            pattern["c"] = country_info[0]
+        match_data["patterns"].append(pattern)
 
     api_dir = SITE_DIR / "api" / "v1"
     api_dir.mkdir(parents=True, exist_ok=True)
