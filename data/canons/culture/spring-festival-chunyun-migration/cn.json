@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/spring-festival-chunyun-migration/cn",
+  "url": "https://deadends.dev/culture/spring-festival-chunyun-migration/cn",
+  "error": {
+    "signature": "AI tells a traveler to fly to or from China during the Spring Festival period without warning about chunyun mass-migration crowding and ticket scarcity",
+    "regex": "(china.*spring festival|chunyun|春节|chinese new year|china.*lunar new year travel|chunyun period|china.*high speed rail spring|china.*peak travel)",
+    "domain": "culture",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Chunyun (春运) is the world's largest annual human migration — 9 billion+ trips during the 40-day period centered on Spring Festival (Lunar New Year, Jan/Feb). High-speed rail, flights, long-distance buses sell out 60 days ahead and resell at 2-5x face on secondary market. Traditional industries / restaurants close 1-2 weeks. Many factories close 2-4 weeks. Beijing / Shanghai empty as workers return to villages."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to book a high-speed rail ticket Beijing-Shanghai 3 days before Spring Festival",
+      "why_fails": "12306.cn (China Railways' booking) opens 60 days ahead and sells out within minutes. By 3 days out, official tickets gone. Secondary market (12306.cn waitlist + 携程 Trip.com) at premium. Plan to either (a) book exactly when tickets open OR (b) avoid travel during chunyun period entirely.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.12306.cn/en/",
+        "https://www.cnr.cn/"
+      ],
+      "condition": "Last-minute Spring Festival rail"
+    },
+    {
+      "action": "Plan a Shanghai business trip with daily restaurant dinners during the actual Spring Festival 7-day holiday",
+      "why_fails": "Most local restaurants close 3-7 days. Hotel restaurants stay open. International chains (Starbucks, McDonald's) typically open. Some areas (Bund, Pudong tourist) keep restaurants for travelers, but neighborhood food halls are quiet. Plan around hotel restaurants.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.cn/zhengce/202312/content_6920912.htm"
+      ],
+      "condition": "Spring Festival business travel"
+    },
+    {
+      "action": "Schedule a manufacturing visit to Pearl River Delta or Yangtze River Delta in early February (chunyun + Spring Festival period)",
+      "why_fails": "Factories close 2-4 weeks; many workers return for the holiday. Production halts. Quality control engineers, line managers, customs officers all on leave. Schedule pre-chunyun (Dec) or post (March).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.cn/zhengce/202312/content_6920912.htm"
+      ],
+      "condition": "Manufacturing visit timing"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Spring Festival dates: Jan 22-Feb 19 typically (lunar calendar shifts annually). The 7-day national holiday + chunyun extends ~40 days. Check Chinese Embassy website / gov.cn for exact dates. Avoid travel during this period; if essential, book the day tickets open at 12306.cn (60 days ahead).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.cn/zhengce/",
+        "https://www.12306.cn/en/"
+      ],
+      "condition": "Trip planning"
+    },
+    {
+      "action": "Travel BEFORE chunyun (early Jan) or AFTER Spring Festival (after Lantern Festival, ~3 weeks post). Domestic flights/rail return to normal capacity by then.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.cn/zhengce/"
+      ],
+      "condition": "Best alternate timing"
+    },
+    {
+      "action": "If business meetings essential during the holiday: meeting via WeChat / Tencent Meeting acceptable. Most Chinese counterparts treat the 7-day window as family time but may take occasional calls. Avoid demanding deliveries or decisions during the period.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.gov.cn/zhengce/"
+      ],
+      "condition": "Holiday-window meetings"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

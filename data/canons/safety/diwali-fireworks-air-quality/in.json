@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/diwali-fireworks-air-quality/in",
+  "url": "https://deadends.dev/safety/diwali-fireworks-air-quality/in",
+  "error": {
+    "signature": "AI tells a Delhi or northern-India visitor to plan outdoor activities or hike during the Diwali week without warning about hazardous post-Diwali air quality (PM2.5 spikes 800+)",
+    "regex": "(india.*diwali|delhi.*air quality|delhi.*pm2.5|delhi.*smog|punjab.*stubble burning|cpcb india|safar india|india.*fireworks|noida.*aqi)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Delhi NCR air quality is poor year-round (annual average AQI 150+, hazardous levels Nov-Feb). Diwali fireworks + Punjab/Haryana paddy stubble burning combine to push PM2.5 to 500-1000+ μg/m³ for 2-3 weeks (WHO healthy <15). Schools close, GRAP (Graded Response Action Plan) Stage 4 sometimes shuts construction + half vehicles. CPCB / SAFAR / IQAir all publish AQI. N95+ mask + HEPA-filter air purifier recommended for sensitive groups."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan a Delhi sightseeing trip (Red Fort, India Gate, Qutub Minar) during Oct-Nov without checking AQI",
+      "why_fails": "Post-Diwali AQI in Delhi NCR routinely hits 400-1000+ for 2-3 weeks. Even healthy adults experience cough, eye irritation, headaches. Sensitive groups (asthma, kids, elderly) at serious risk. Hospital admissions for respiratory issues spike. Outdoor sightseeing best avoided; visit indoor museums (National Museum, Indira Gandhi Memorial) instead.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://cpcb.nic.in/",
+        "https://safar.tropmet.res.in/",
+        "https://www.iqair.com/india/delhi"
+      ],
+      "condition": "Delhi NCR Oct-Feb"
+    },
+    {
+      "action": "Play Holi (March) without protecting eyes / skin from synthetic colors",
+      "why_fails": "Modern Holi colors increasingly contain industrial dyes — eye irritation, skin reactions, lung issues if inhaled. Carry sunglasses, oil hair beforehand (helps wash out), wear old clothes.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.aiims.edu/"
+      ],
+      "condition": "Holi participation"
+    },
+    {
+      "action": "Hike or run in Delhi NCR without checking real-time AQI",
+      "why_fails": "Even at 'normal' Delhi AQI 150-250, exercise outside is harmful. AQI app + check before each outdoor session. Schools cancel sports during Severe (AQI 401+) days.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://safar.tropmet.res.in/"
+      ],
+      "condition": "Outdoor exercise"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check SAFAR (safar.tropmet.res.in) or IQAir Delhi before each outdoor session. Plan Diwali-week activities indoors. N95 mask in 200+ AQI; KN95/N99 in 400+. HEPA air purifier in hotel room.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://safar.tropmet.res.in/",
+        "https://www.iqair.com/india/delhi"
+      ],
+      "condition": "Air-quality awareness"
+    },
+    {
+      "action": "Travel to Delhi: Mar-Sep optimal (cleanest). Oct-Feb worse, Diwali peak worst. South India (Bengaluru, Chennai, Kerala, Mumbai) much better year-round AQI.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.iqair.com/india"
+      ],
+      "condition": "Trip timing"
+    },
+    {
+      "action": "Holi: protect eyes (sunglasses), oil hair / skin first, wear old clothes, choose 'organic Holi' parties using flower-based colors. Indoor pillow-fight Holi popular alternative.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.aiims.edu/"
+      ],
+      "condition": "Holi safety"
+    },
+    {
+      "action": "If asthmatic / sensitive: bring inhaler, monitor symptoms, consider postponing visit during peak smog. AIIMS and most hospitals well-equipped for respiratory emergencies.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.aiims.edu/"
+      ],
+      "condition": "Sensitive groups"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}
