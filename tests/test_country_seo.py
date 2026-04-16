@@ -274,3 +274,66 @@ def test_sitemap_main_includes_country_urls(tmp_path, monkeypatch):
     assert "/country/</loc>" in sm.replace("\n", "")  # hub
     code = canons[0]["environment"]["additional"]["country"].lower()
     assert f"/country/{code}/" in sm
+
+
+# --- Stats / OpenAPI / robots / HTML sitemap / api-mcp mirror ---------------
+
+
+def test_stats_json_includes_country_breakdown(tmp_path, monkeypatch):
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_stats_json(canons)
+    stats = json.loads(
+        (tmp_path / "api" / "v1" / "stats.json").read_text(encoding="utf-8")
+    )
+    assert "total_countries" in stats
+    assert "total_country_entries" in stats
+    assert "countries" in stats
+    assert isinstance(stats["countries"], dict)
+    assert stats["total_countries"] >= 1
+
+
+def test_openapi_documents_country_endpoints(tmp_path, monkeypatch):
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_openapi_spec(canons)
+    spec = json.loads(
+        (tmp_path / "api" / "v1" / "openapi.json").read_text(encoding="utf-8")
+    )
+    assert "/api/v1/countries.json" in spec["paths"]
+    assert "/api/v1/country/{country}.json" in spec["paths"]
+    assert "CountrySummary" in spec["components"]["schemas"]
+    assert "CountryAggregate" in spec["components"]["schemas"]
+
+
+def test_robots_allows_country_paths(tmp_path, monkeypatch):
+    import generator.build_site as bs
+
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_robots_txt()
+    robots = (tmp_path / "robots.txt").read_text(encoding="utf-8")
+    assert "Allow: /country/" in robots
+    assert "Allow: /api/v1/country/" in robots
+
+
+def test_api_mcp_mirror_has_country_tools():
+    """api/mcp.py (Vercel serverless) must mirror MCP country tools."""
+    import importlib.util
+
+    p = Path(__file__).resolve().parent.parent / "api" / "mcp.py"
+    spec = importlib.util.spec_from_file_location("api_mcp", p)
+    api_mcp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(api_mcp)
+    tool_names = {t["name"] for t in api_mcp.TOOLS}
+    assert "list_errors_by_country" in tool_names
+    assert "get_country_summary" in tool_names

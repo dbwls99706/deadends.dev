@@ -1079,10 +1079,21 @@ Allow: /
 
 Sitemap: {BASE_URL}/sitemap.xml
 
+# Country-scoped knowledge endpoints (explicit allow for AI agents
+# even where the global rule disallows /api/, since these aggregates
+# replace dozens of individual canon lookups):
+User-agent: *
+Allow: /country/
+Allow: /api/v1/country/
+Allow: /api/v1/countries.json
+
 # AI agent config files:
 # CLAUDE.md:      {BASE_URL}/CLAUDE.md
 # .cursorrules:   {BASE_URL}/.cursorrules
 # .windsurfrules: {BASE_URL}/.windsurfrules
+# Country hub:    {BASE_URL}/country/
+# Country API:    {BASE_URL}/api/v1/countries.json
+# llms.txt:       {BASE_URL}/llms.txt
 
 # AI agent discovery:
 # Match errors:    {BASE_URL}/api/v1/match.json
@@ -2954,6 +2965,82 @@ def build_openapi_spec(canons: list[dict]) -> None:
                     },
                 }
             },
+            "/api/v1/countries.json": {
+                "get": {
+                    "summary": "Country index",
+                    "description": (
+                        "Index of all countries with country-scoped dead "
+                        "ends. Returns total counts and last-update dates "
+                        "per country. Use this to discover which "
+                        "jurisdictions have coverage before fetching "
+                        "country aggregates."
+                    ),
+                    "operationId": "listCountries",
+                    "responses": {
+                        "200": {
+                            "description": "Country index",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "total_countries": {
+                                                "type": "integer"
+                                            },
+                                            "total_entries": {
+                                                "type": "integer"
+                                            },
+                                            "countries": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/CountrySummary"
+                                                },
+                                            },
+                                        },
+                                    }
+                                }
+                            },
+                        }
+                    },
+                }
+            },
+            "/api/v1/country/{country}.json": {
+                "get": {
+                    "summary": "Per-country aggregate",
+                    "description": (
+                        "Returns all country-scoped dead ends for a single "
+                        "country in one network call. Use this when an AI "
+                        "agent needs jurisdiction-specific knowledge "
+                        "(visa, banking, legal, cultural, medical, "
+                        "emergency) for a single country — replaces N "
+                        "individual canon lookups."
+                    ),
+                    "operationId": "getCountryAggregate",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "in": "path",
+                            "required": True,
+                            "description": (
+                                "ISO 3166-1 alpha-2 country code, lowercase"
+                            ),
+                            "schema": {"type": "string"},
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Country aggregate",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/CountryAggregate"
+                                    }
+                                }
+                            },
+                        }
+                    },
+                }
+            },
         },
         "components": {
             "schemas": {
@@ -3038,6 +3125,70 @@ def build_openapi_spec(canons: list[dict]) -> None:
                                 "leads_to": {"type": "array"},
                                 "preceded_by": {"type": "array"},
                                 "frequently_confused_with": {"type": "array"},
+                            },
+                        },
+                    },
+                },
+                "CountrySummary": {
+                    "type": "object",
+                    "properties": {
+                        "country": {
+                            "type": "string",
+                            "description": "ISO 3166-1 alpha-2 lowercase",
+                        },
+                        "country_name": {"type": "string"},
+                        "url": {"type": "string", "format": "uri"},
+                        "api_url": {"type": "string", "format": "uri"},
+                        "total_entries": {"type": "integer"},
+                        "last_updated": {
+                            "type": "string",
+                            "description": "Most recent last_confirmed",
+                        },
+                    },
+                },
+                "CountryAggregate": {
+                    "type": "object",
+                    "description": (
+                        "All country-scoped dead ends for a single country "
+                        "in one document."
+                    ),
+                    "properties": {
+                        "country": {"type": "string"},
+                        "country_name": {"type": "string"},
+                        "url": {"type": "string", "format": "uri"},
+                        "page_url": {"type": "string", "format": "uri"},
+                        "last_updated": {"type": "string"},
+                        "total_entries": {"type": "integer"},
+                        "domains": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                        },
+                        "entries": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {"type": "string"},
+                                    "url": {"type": "string", "format": "uri"},
+                                    "api_url": {
+                                        "type": "string",
+                                        "format": "uri",
+                                    },
+                                    "domain": {"type": "string"},
+                                    "category": {"type": "string"},
+                                    "signature": {"type": "string"},
+                                    "regex": {"type": "string"},
+                                    "audience": {"type": "string"},
+                                    "jurisdiction_level": {
+                                        "type": "string",
+                                        "enum": [
+                                            "national", "regional", "city"
+                                        ],
+                                    },
+                                    "verdict": {"type": "object"},
+                                    "dead_end_count": {"type": "integer"},
+                                    "workaround_count": {"type": "integer"},
+                                },
                             },
                         },
                     },
@@ -3350,6 +3501,21 @@ def build_well_known(canons: list[dict]) -> None:
                     "precede, or get confused with this one."
                 ),
             },
+            {
+                "name": "list_errors_by_country",
+                "description": (
+                    "List country-scoped dead ends by ISO alpha-2 code "
+                    "(visa, banking, legal, cultural, medical, emergency, "
+                    "safety) — jurisdiction knowledge LLMs lack."
+                ),
+            },
+            {
+                "name": "get_country_summary",
+                "description": (
+                    "Country-level summary: total entries, domain breakdown, "
+                    "average fix rate, latest update."
+                ),
+            },
         ],
         "domains": domains,
     }
@@ -3409,12 +3575,40 @@ def build_stats_json(canons: list[dict]) -> None:
         }
 
     all_rates = [c["verdict"]["fix_success_rate"] for c in canons]
+
+    # Country axis stats
+    country_buckets: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for c in canons:
+        info = _canon_country_info(c)
+        if info is None:
+            continue
+        code, name = info
+        country_buckets.setdefault(code, []).append(c)
+        country_names[code] = name
+    country_stats_dict: dict[str, dict] = {}
+    for code, cans in sorted(country_buckets.items()):
+        cr = [c["verdict"]["fix_success_rate"] for c in cans]
+        cdomains: dict[str, int] = {}
+        for c in cans:
+            d = c["error"]["domain"]
+            cdomains[d] = cdomains.get(d, 0) + 1
+        country_stats_dict[code] = {
+            "country_name": country_names[code],
+            "count": len(cans),
+            "avg_fix_rate": round(sum(cr) / len(cr), 3) if cr else 0,
+            "domains": cdomains,
+        }
+
     stats = {
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "total_errors": len(canons),
         "total_domains": len(domains),
+        "total_countries": len(country_buckets),
+        "total_country_entries": sum(len(v) for v in country_buckets.values()),
         "avg_fix_rate": round(sum(all_rates) / len(all_rates), 3) if all_rates else 0,
         "domains": domain_stats,
+        "countries": country_stats_dict,
     }
 
     api_dir = SITE_DIR / "api" / "v1"
@@ -3880,6 +4074,36 @@ def build_html_sitemap(canons: list[dict]) -> None:
         "  </header>",
         "  <main>",
     ]
+
+    # Country hub + per-country links (stable internal-link surface for
+    # search crawlers and an explicit hub-and-spoke for the country axis).
+    country_buckets: dict[str, list[dict]] = {}
+    country_names: dict[str, str] = {}
+    for c in canons:
+        info = _canon_country_info(c)
+        if info is None:
+            continue
+        code, name = info
+        country_buckets.setdefault(code, []).append(c)
+        country_names[code] = name
+    if country_buckets:
+        lines.append("  <section>")
+        lines.append(
+            f'    <h2><a href="{BASE_PATH}/country/">Countries</a>'
+            f' ({len(country_buckets)} countries, '
+            f'{sum(len(v) for v in country_buckets.values())} entries)</h2>'
+        )
+        lines.append("    <ul>")
+        for code in sorted(country_buckets.keys()):
+            count = len(country_buckets[code])
+            name = country_names[code]
+            lines.append(
+                f'      <li><a href="{BASE_PATH}/country/{code}/">{name}</a>'
+                f' — {count} entr{"ies" if count != 1 else "y"}'
+                f' (<a href="{BASE_PATH}/api/v1/country/{code}.json">JSON</a>)</li>'
+            )
+        lines.append("    </ul>")
+        lines.append("  </section>")
 
     total_summaries = 0
     for domain in sorted(by_domain.keys()):

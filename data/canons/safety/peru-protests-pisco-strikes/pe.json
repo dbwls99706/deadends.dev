@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/peru-protests-pisco-strikes/pe",
+  "url": "https://deadends.dev/safety/peru-protests-pisco-strikes/pe",
+  "error": {
+    "signature": "AI tells a tourist to fly into Cusco or visit Machu Picchu without checking current Peruvian protest / strike conditions on the rail line",
+    "regex": "(peru.*protest|peru.*strike|cusco.*paro|peru.*roadblock|machu picchu.*closed|peru.*political situation|peru.*instability|peru.*castillo|peru.*boluarte)",
+    "domain": "safety",
+    "category": "scheduling_conflict",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.78,
+    "last_updated": "2026-04-15",
+    "summary": "Peru has experienced periodic political instability (Castillo impeachment Dec 2022, Boluarte protests 2023-2024) with paros (general strikes), road blockades, and Machu Picchu rail-line closures lasting days to weeks. Cusco / Puno / Apurímac most affected. Tourists have been stranded multiple times. Always check Peru's MININTER bulletins, Inca Rail / PeruRail status, and home-country travel advisory within 48h of travel to the highlands."
+  },
+  "dead_ends": [
+    {
+      "action": "Book a same-week trip to Cusco / Machu Picchu without checking strike or blockade status",
+      "why_fails": "When paros (strikes) hit, the Cusco-Machu Picchu rail line halts; roads are blocked by piedras / boulders; Cusco airport diverts. Tourists have been stranded 5-15 days during 2022-2024 cycles. Insurance often excludes 'civil unrest' unless explicitly covered. Some operators do refund; some don't.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gob.pe/mininter",
+        "https://www.gov.uk/foreign-travel-advice/peru",
+        "https://www.incarail.com/en"
+      ],
+      "condition": "Highland trip planning"
+    },
+    {
+      "action": "Try to drive a rental car around a Peruvian roadblock during paro",
+      "why_fails": "Driving around or attempting to bypass roadblocks (piquetes) is dangerous — confrontations with protesters have led to vehicle damage and tourist injury. Local guides advise: stop, wait, or turn back. Local authorities don't reliably escort tourists through.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/peru/safety-and-security"
+      ],
+      "condition": "Active roadblock"
+    },
+    {
+      "action": "Take overnight bus from Cusco / Lima during high-tension protest periods",
+      "why_fails": "Buses have been stoned, blocked, and robbed during peak unrest. Inter-city overnight buses in Andean Peru carry elevated risk during protest cycles. Domestic flights LATAM / Sky Peru are safer alternatives.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/peru/safety-and-security"
+      ],
+      "condition": "Long-distance bus during protests"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Within 48h of any Peru highland trip, check: home-country travel advisory (gov.uk, travel.state.gov), MININTER alerts, PeruRail / Inca Rail operational status, X / Twitter for #cusco #paro #huelga.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/peru",
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Peru.html"
+      ],
+      "condition": "Pre-trip check"
+    },
+    {
+      "action": "If a paro hits while in Cusco: stay in your hotel area, avoid Plaza de Armas (protest hub), book a domestic flight out via LATAM / Sky if rail/road blocked. Consult tour operator — they have local contacts and updates.",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.gob.pe/mininter"
+      ],
+      "condition": "Caught in active strike"
+    },
+    {
+      "action": "Travel insurance with explicit 'civil unrest' / 'force majeure' coverage. Standard policies often exclude. World Nomads, Allianz Premier, IMG Patriot Platinum offer this.",
+      "success_rate": 0.78,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/peru"
+      ],
+      "condition": "Insurance choice",
+      "tradeoff": "Specialty coverage costs more."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

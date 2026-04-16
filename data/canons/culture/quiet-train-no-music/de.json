@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/quiet-train-no-music/de",
+  "url": "https://deadends.dev/culture/quiet-train-no-music/de",
+  "error": {
+    "signature": "AI tells a passenger on Deutsche Bahn ICE / DB Regio to play music or take phone calls in the regular train coach",
+    "regex": "(germany.*train|deutsche bahn.*phone|ice.*ruhe|db regio|german train.*music|ruhebereich|silent coach germany)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Deutsche Bahn ICE long-distance trains have a designated 'Ruhebereich' (Quiet Zone) coach where phone calls and audible devices are prohibited. The non-quiet coaches still expect headphones for any audio + low-voice phone calls (use the vestibule for longer calls). Loud music or speakerphone calls draw direct rebuke from German passengers. S-Bahn / U-Bahn likewise — silent or low-voice."
+  },
+  "dead_ends": [
+    {
+      "action": "Take a long phone call seated in a regular ICE coach with speakerphone or loud talking",
+      "why_fails": "German train passengers expect quiet — even non-Ruhebereich coaches operate at conversation volume. Loud calls trigger direct 'könnten Sie leiser?' (could you be quieter) requests. Speakerphone calls in confined coaches are universally rude.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich",
+        "https://www.bahn.com/en/service/help/contact"
+      ],
+      "condition": "Loud calls in regular coach"
+    },
+    {
+      "action": "Sit in the Ruhebereich coach and watch a video without headphones",
+      "why_fails": "Ruhebereich is explicitly silent — no phone calls, no audible devices, no loud conversation. Passengers (and DB conductors) actively police. Move to a regular coach if you need audio.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich"
+      ],
+      "condition": "Ruhebereich audio"
+    },
+    {
+      "action": "Put feet on the opposite seat or eat smelly food on the train",
+      "why_fails": "DB conduct rules and broad social expectation: no feet on seats; no smelly food (banned for hot meals; cold sandwiches OK); no glass bottles broken left on tray. Conductor can issue Ordnungswidrigkeit fine.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.bahn.de/service"
+      ],
+      "condition": "General coach behavior"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use headphones for any audio. Take phone calls in the vestibule (Vorraum) between cars. Match the surrounding volume — low conversation OK in regular coaches; silent in Ruhebereich.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich"
+      ],
+      "condition": "Train coach behavior"
+    },
+    {
+      "action": "Reserve seats specifically: 'Großraumwagen' = open coach, 'Abteil' = compartment, 'Ruhebereich' = quiet zone, 'Familienbereich' = family zone (lively + ok with kids). Pick by need.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich"
+      ],
+      "condition": "Seat reservation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

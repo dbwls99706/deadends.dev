@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/zona-traffico-limitato-fines/it",
+  "url": "https://deadends.dev/legal/zona-traffico-limitato-fines/it",
+  "error": {
+    "signature": "AI tells a tourist driving in Italy to drive into the historic city center of Florence/Rome/Milan/Bologna/Pisa to find parking near the hotel",
+    "regex": "(italy.*ztl|zona.*traffico limitato|florence.*driving|rome.*driving|italian city.*car|italy.*restricted zone|ztl fine italy|telecamera ztl)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Most Italian historic city centers (Florence, Rome, Milan, Bologna, Pisa, Verona, Siena, Lucca, etc.) have ZTL (Zona a Traffico Limitato) zones with camera-enforced restrictions. Entry without permit triggers €80-220 fine per breach (multiple breaches per single visit possible). Foreign tourists receive fines 6-12 months later via rental car company + administrative fee. Hotels inside ZTL can register guest plates for entry — but only on actual stay dates. Park outside ZTL and walk/use transit."
+  },
+  "dead_ends": [
+    {
+      "action": "Drive a rental car into Florence centro storico to find your hotel near Duomo",
+      "why_fails": "Florence ZTL covers most of the historic center 7:30-19:00 weekdays + weekends in tourist season. Cameras photograph plates; enforcement is automatic. Multiple cameras = multiple fines per drive-through. Bills (€80-220 each + ~€50 admin fee from rental company) arrive months later.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://servizi.comune.fi.it/mobilita/ztl/",
+        "https://www.romacapitale.it/"
+      ],
+      "condition": "Driving into ZTL"
+    },
+    {
+      "action": "Assume the hotel will register the rental car plate upon check-in arrival",
+      "why_fails": "Plate registration must be done by the hotel BEFORE camera capture, OR within 48h after — and only for guests' actual stay dates. If you arrive earlier or drive past the hotel without checking in first, the camera fines still trigger. Always call the hotel ahead with plate number.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://servizi.comune.fi.it/mobilita/ztl/"
+      ],
+      "condition": "Hotel-permit timing"
+    },
+    {
+      "action": "Ignore Italian driving fines arriving months later because 'I'm out of the country'",
+      "why_fails": "Italian municipal fines are enforced cross-border via Cross-Border Enforcement Directive (Dir 2015/413/EU) for EU/EEA residents. For non-EU residents, the rental company pays and recharges your card. Unpaid Italian fines can affect future Italian car rentals and Schengen border review.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://eur-lex.europa.eu/eli/dir/2015/413/oj"
+      ],
+      "condition": "Post-trip enforcement"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Park outside the ZTL: use city park-and-ride lots (Florence Villa Costanza, Rome Ponte Mammolo, Milan San Donato, Bologna Tanari) + tram / metro into center. Cheap (~€2-5/day).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://servizi.comune.fi.it/mobilita/parcheggi-scambiatori/"
+      ],
+      "condition": "Driving + sightseeing"
+    },
+    {
+      "action": "If your hotel is INSIDE ZTL: call the hotel BEFORE departure with rental plate. Hotel registers plate for arrival/departure dates. Drive directly to hotel; do not detour. Confirm registration was successful.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://servizi.comune.fi.it/mobilita/ztl/"
+      ],
+      "condition": "Hotel inside ZTL"
+    },
+    {
+      "action": "Many Italian cities have separated ZTL (24/7), ZTL Bus (only buses), Limited Pollution Zone (Milan Area C, Bologna LEZ). Consult muoversi[city].it or city tourism office before driving.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.muoversiamilano.it/"
+      ],
+      "condition": "Other restricted zones"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

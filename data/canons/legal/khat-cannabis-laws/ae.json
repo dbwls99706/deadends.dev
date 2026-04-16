@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/khat-cannabis-laws/ae",
+  "url": "https://deadends.dev/legal/khat-cannabis-laws/ae",
+  "error": {
+    "signature": "AI tells a traveler that small amounts of CBD, cannabis, or even khat are tolerated in the UAE for personal use",
+    "regex": "(uae.*drug|dubai.*drug|abu dhabi.*drug|uae.*cannabis|uae.*cbd|khat uae|emirates.*medication.*controlled)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "UAE Federal Law No. 14 of 1995 (amended via Federal Decree-Law No. 30 of 2021) lists cannabis, opioids, amphetamines, and khat as Schedule 1 narcotics. Federal Decree-Law 30/2021 reduced first-offense penalties from 4-year minimum to a rehabilitation order, but possession remains criminal. Trafficking still carries life imprisonment / death penalty. CBD is restricted unless prescribed in UAE. Codeine, ADHD stimulants, sleeping pills with BZD all need pre-approved import permits."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring CBD oil for personal anxiety relief into Dubai, expecting tolerance",
+      "why_fails": "CBD is restricted under UAE narcotics law unless prescribed by a UAE-licensed physician. Customs at DXB/AUH detects via x-ray and dogs. Tourists have been arrested for poppy seeds on bagels and prescription codeine cough syrup without paperwork.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/handling-the-law/narcotics-law",
+        "https://www.gov.uk/foreign-travel-advice/united-arab-emirates/local-laws-and-customs"
+      ],
+      "condition": "CBD/cannabis import"
+    },
+    {
+      "action": "Pack ADHD stimulants (Adderall, Vyvanse) without an import permit",
+      "why_fails": "Same Schedule-1 classification. Bring original Rx + doctor's letter + apply for import permit via MOH (Ministry of Health) at least 2 weeks before travel. Without permit, the medication is confiscated and the traveler may be detained pending investigation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://mohap.gov.ae/en/services/import-permit-of-personal-medication"
+      ],
+      "condition": "Stimulant Rx import"
+    },
+    {
+      "action": "Carry codeine-containing OTC pills (Sudafed, codeine paracetamol) into UAE",
+      "why_fails": "Codeine is a controlled substance. Pack original Rx for any opioid-containing medication. Pseudoephedrine OTC limited; consult MOH controlled-drug list before travel.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://mohap.gov.ae/en/services/import-permit-of-personal-medication"
+      ],
+      "condition": "OTC drug import"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for UAE Ministry of Health Personal Medication Import Permit (mohap.gov.ae) at least 2 weeks before travel for any controlled medication. Bring original Rx + doctor's letter + permit printout.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://mohap.gov.ae/en/services/import-permit-of-personal-medication"
+      ],
+      "condition": "Legitimate Rx travel"
+    },
+    {
+      "action": "Stop using cannabis / CBD / khat at least 1 month before travel. Even residual urine THC can trigger investigation if you're tested for any other reason.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/handling-the-law/narcotics-law"
+      ],
+      "condition": "Travel preparation"
+    },
+    {
+      "action": "If accused: contact embassy IMMEDIATELY. Do NOT sign any Arabic document without translator. UK FCDO and US State Dept maintain consular assistance. Federal Decree-Law 30/2021 favors rehabilitation over imprisonment for first offenders, but still requires legal representation.",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/united-arab-emirates",
+        "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/UnitedArabEmirates.html"
+      ],
+      "condition": "Emergency response",
+      "tradeoff": "Even mitigated penalties may include deportation."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}
