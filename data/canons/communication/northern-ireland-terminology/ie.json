@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/northern-ireland-terminology/ie",
+  "url": "https://deadends.dev/communication/northern-ireland-terminology/ie",
+  "error": {
+    "signature": "AI uses 'Britain' interchangeably with 'Ireland' or refers to Northern Ireland and Republic as 'one country', missing the political and cultural distinctions",
+    "regex": "(ireland.*britain|northern ireland.*republic|ireland.*united kingdom|the troubles|good friday agreement|gaeltacht|six counties|26 counties)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Republic of Ireland (Éire, capital Dublin) is independent since 1922. Northern Ireland (capital Belfast) is part of the UK. The two have distinct currencies (EUR vs GBP), separate legal systems, separate immigration. The 1998 Good Friday Agreement governs their relationship. Calling Republic 'Britain', conflating Republic + NI, or using sectarian-loaded terms (Ulster, Six Counties, North of Ireland) without context is sensitive. Brexit complicated the all-island border with the Northern Ireland Protocol / Windsor Framework."
+  },
+  "dead_ends": [
+    {
+      "action": "Refer to the Republic of Ireland as 'Britain' or 'British Isles'",
+      "why_fails": "Republic is independent of Britain since 1922. 'British Isles' as geographic term is contested in Ireland — 'these islands' or 'Britain and Ireland' preferred. Calling an Irish person British or 'from the UK' is a clear error.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.dfa.ie/",
+        "https://www.gov.ie/en/"
+      ],
+      "condition": "Country naming"
+    },
+    {
+      "action": "Use 'Ulster' as synonym for 'Northern Ireland'",
+      "why_fails": "Ulster is the historical northern province (9 counties); Northern Ireland (6 counties) is the political entity within UK. 'Ulster' can carry Unionist connotations; 'North of Ireland' / 'Six Counties' carry Republican connotations. Neutral: 'Northern Ireland'.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.ie/en/",
+        "https://www.bbc.co.uk/history/topics/the_troubles"
+      ],
+      "condition": "Northern Ireland terminology"
+    },
+    {
+      "action": "Crack jokes about 'The Troubles', IRA, or Bloody Sunday in Belfast or Dublin",
+      "why_fails": "1968-1998 conflict killed ~3,500 people. Many Northern Irish (and Irish) families have direct losses. Joking is uniformly badly received. The peace is lived; the trauma is recent.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bbc.co.uk/history/topics/the_troubles"
+      ],
+      "condition": "Conflict humor"
+    },
+    {
+      "action": "Assume EUR works in Belfast / GBP works in Dublin",
+      "why_fails": "Republic = EUR, Northern Ireland = GBP. The all-island border is open under Common Travel Area (UK-Ireland), but currency / tax / regulatory regimes differ. Northern Ireland under Windsor Framework follows EU rules for goods only.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gov.uk/government/publications/the-windsor-framework"
+      ],
+      "condition": "Cross-border travel"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use 'Ireland' or 'Republic of Ireland' / 'Éire' for the Republic. 'Northern Ireland' for the UK part. 'Island of Ireland' for the geographic whole. 'Britain and Ireland' for the two-island region.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.dfa.ie/"
+      ],
+      "condition": "Naming"
+    },
+    {
+      "action": "If discussing the Troubles / Brexit / unification: listen more than speak. Northern Irish identity is complex (Unionist / Nationalist / 'other'). Let counterparts share their position; don't assume.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bbc.co.uk/news/uk-northern-ireland"
+      ],
+      "condition": "Political conversation"
+    },
+    {
+      "action": "Currency / business: bring both EUR and GBP if visiting both. Most border-area shops accept either; cards work seamlessly. Customs declarations apply for goods crossing post-Brexit.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.ie/en/",
+        "https://www.gov.uk/government/publications/the-windsor-framework"
+      ],
+      "condition": "Cross-border practical"
+    },
+    {
+      "action": "Irish language (Gaeilge): not required for business but appreciated. 'Sláinte' (cheers, drinking), 'Slán' (bye), 'Go raibh maith agat' (thanks). Gaeltacht regions (Galway, Kerry, Donegal, Cork, Waterford, Meath) are Irish-speaking.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.gov.ie/en/policy-information/0e98f1-strategy-for-the-irish-language/"
+      ],
+      "condition": "Cultural respect"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

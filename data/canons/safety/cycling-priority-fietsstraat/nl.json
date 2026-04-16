@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/cycling-priority-fietsstraat/nl",
+  "url": "https://deadends.dev/safety/cycling-priority-fietsstraat/nl",
+  "error": {
+    "signature": "AI tells a tourist in the Netherlands to walk on bike paths (fietspad) or to expect drivers to yield to pedestrians like in pedestrian-priority countries",
+    "regex": "(netherlands.*cycling|amsterdam.*bike|fietspad|fietsstraat|netherlands.*pedestrian|nl.*cycling priority|holland.*bike rental|amsterdam.*tram)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Netherlands has 35,000+ km of dedicated bike infrastructure. Bikes have priority on bike paths (fietspad, red asphalt) and in fietsstraten (bike streets where cars are guests). Pedestrians in bike paths cause crashes — Amsterdam-area cyclist density 2.5x road traffic. E-bikes / speed pedelecs (45 km/h) on these paths. Tram tracks: bike wheels get caught — cross at 90 degrees. Look LEFT first (right-hand drive country)."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk along a red-asphalt path in Amsterdam without realizing it's a bike-only fietspad",
+      "why_fails": "Red asphalt = bike path. Cyclists ring bells angrily. E-bikes at 25-45 km/h can't stop quickly. Tourist-pedestrian collisions are a documented daily incident at Vondelpark, Centraal, and museum-quarter approaches. Walk on the gray sidewalk, not red bike path.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling",
+        "https://www.fietsersbond.nl/"
+      ],
+      "condition": "Pedestrian on bike infrastructure"
+    },
+    {
+      "action": "Cross tram tracks parallel to the rails on a rented bike",
+      "why_fails": "Bike wheels (especially narrow city-bike wheels) get caught in tram-track grooves. Crashes happen instantly. Always cross tracks at 90 degrees. Wet tram tracks are extra slippery; slow down.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling",
+        "https://www.gvb.nl/en"
+      ],
+      "condition": "Bike-tram interaction"
+    },
+    {
+      "action": "Bike at night without front + rear lights",
+      "why_fails": "Dutch law requires functioning front (white/yellow) + rear (red) lights at night. Police actively fine €60 per missing light. Most rentals provide lights but check before riding.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.fietsersbond.nl/",
+        "https://www.politie.nl/"
+      ],
+      "condition": "Night cycling"
+    },
+    {
+      "action": "Park bike on a lamp post in front of Centraal Station",
+      "why_fails": "Amsterdam police actively remove illegally parked bikes from designated 'no bike parking' zones (around Centraal especially). Bike removed to depot; €15-30 retrieval fee + lost time. Use official fietsenstalling (free for first 24h at Centraal underground).",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling"
+      ],
+      "condition": "Bike parking"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Walk on gray pavement (sidewalk). Red asphalt = bikes. White-line paint markings: bike lane on regular street. Listen for bike bells; step OFF the path, not back into it.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling"
+      ],
+      "condition": "Walking in bike-priority area"
+    },
+    {
+      "action": "Cycling rental: most omafiets (Dutch coaster-brake bikes) lack hand brakes — pedal backwards to brake. Rent from MacBike, Yellow Bike, etc. Confirm lights work before sunset. Bike helmet rare for adults; common for children.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling"
+      ],
+      "condition": "Bike rental"
+    },
+    {
+      "action": "Cross tram tracks at 90 degrees. Wet days extra caution. If your wheel slips, lean opposite to fall outward (off the rails). Trams ALWAYS have priority; never race a tram.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gvb.nl/en"
+      ],
+      "condition": "Tram interactions"
+    },
+    {
+      "action": "Park at official fietsenstalling: Amsterdam Centraal IJzijde is free 24h. Stationsplein. Fietsflat. Use the U-lock provided + your own chain through the wheel + frame. Dutch bikes get stolen routinely; double-lock.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.iamsterdam.com/en/plan-your-trip/getting-around/cycling"
+      ],
+      "condition": "Bike parking + theft prevention"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

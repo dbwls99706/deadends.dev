@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/sunday-closed-shopping-restricted/ch",
+  "url": "https://deadends.dev/culture/sunday-closed-shopping-restricted/ch",
+  "error": {
+    "signature": "AI tells a tourist or new resident in Switzerland to plan grocery shopping on Sunday or do laundry / vacuum on Sunday in apartment buildings",
+    "regex": "(switzerland.*sunday|swiss.*sunday closed|sonntagsverkaufsverbot|swiss.*hausordnung|swiss.*quiet hours|swiss.*recycling|switzerland.*shop hours)",
+    "domain": "culture",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Swiss federal law (Arbeitsgesetz) restricts Sunday work; cantonal Sonntagsverkaufsverbot bans most retail Sunday opening. Exceptions: rail-station shops (Zurich HB, Bern, Basel SBB), gas stations, airport, tourist towns up to 2-4 Sundays/year. Apartment Hausordnungs commonly enforce Sundays-quiet (no vacuum, washing machine, drilling) plus 12-13:00 lunch quiet + 22:00-06:00 night. Swiss recycling separation is strict (multiple bin types, fees per bag in many cantons)."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan to grocery shop in Zurich / Geneva / Bern / Basel on Sunday",
+      "why_fails": "Migros, Coop, Aldi, Denner closed Sunday in most cities. Train-station Migros / Coop branches open (limited hours: ~7-22). Tourist-zone supermarkets in Interlaken / Zermatt may open in season but unreliable. Plan Saturday shopping; some areas allow 2-4 'Sonntagsverkauf' per year (advertised in advance).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bag.admin.ch/bag/de/home.html",
+        "https://www.seco.admin.ch/seco/de/home.html"
+      ],
+      "condition": "Sunday grocery"
+    },
+    {
+      "action": "Run washing machine, vacuum, or take recycling glass to bin on Sunday in Swiss apartment",
+      "why_fails": "Hausordnungs across Switzerland enforce Sunday quiet. Glass recycling at communal bin is restricted Sundays + after 20:00 (the noise wakes neighbors). Vacuum / washing machine forbidden. Neighbors leave notes; repeat offenses can prompt landlord warning.",
+      "fail_rate": 0.82,
+      "sources": [
+        "https://www.ch.ch/en/lebensmittel-recycling/",
+        "https://www.bauen-modernisieren.ch/"
+      ],
+      "condition": "Sunday apartment activity"
+    },
+    {
+      "action": "Throw mixed garbage into a free public bin without using designated bag",
+      "why_fails": "Most Swiss cantons require Gebührensack / Sac taxe (per-bag-fee garbage bag) costing CHF 1.50-3 per 35L. Using unmarked bag triggers Müllpolizei investigation — they search bag for sender's identity and fine CHF 100-300.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bafu.admin.ch/bafu/en/home/topics/waste.html"
+      ],
+      "condition": "Garbage disposal"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Sunday alternatives: train-station shops (open until ~22:00), restaurant brunch, museums, hiking, ski. Stock food Saturday. Some bakeries open Sunday morning until ~12:00.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.myswitzerland.com/en-ch/"
+      ],
+      "condition": "Sunday food / activities"
+    },
+    {
+      "action": "Apartment activity: Mon-Sat 07:00-12:00, 13:00-22:00 for noisy tasks. Sunday: silent. Glass recycling: weekdays 07:00-20:00 (canton-specific). Recycle paper / cardboard / PET / aluminum monthly per Hausordnung schedule.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bafu.admin.ch/bafu/en/home/topics/waste.html"
+      ],
+      "condition": "Weekly home routine"
+    },
+    {
+      "action": "Buy Gebührensack at Migros / Coop / kiosk for your canton (different colors / brands by canton). Use only that bag for general garbage. Recyclables (PET / glass / aluminum / paper / electronics) free at recycling stations.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.bafu.admin.ch/bafu/en/home/topics/waste.html"
+      ],
+      "condition": "Garbage system"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

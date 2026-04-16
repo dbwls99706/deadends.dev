@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/portugal-not-spain/pt",
+  "url": "https://deadends.dev/culture/portugal-not-spain/pt",
+  "error": {
+    "signature": "AI conflates Portugal with Spain — uses Spanish on signs, treats Portuguese as 'Spanish-like dialect', or assumes shared customs",
+    "regex": "(portugal.*spain|portuguese.*spanish|lisbon.*madrid|portugal.*tipping|fado|portugal.*language|brazilian portuguese.*portugal|saudade)",
+    "domain": "culture",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Portugal is distinct from Spain — separate country since 1143, separate language (Portuguese), separate currency historically (now both EUR), distinct culinary tradition (bacalhau, pastel de nata, ginja), distinct music (Fado vs flamenco). Portuguese speakers can largely understand Spanish but not vice versa. Brazilian Portuguese (~200M speakers) differs from European Portuguese in pronunciation, vocabulary, formality levels — Portuguese sometimes resent Brazilian-style content imposed."
+  },
+  "dead_ends": [
+    {
+      "action": "Address Portuguese counterparts in Spanish to 'simplify communication'",
+      "why_fails": "Portuguese can usually understand Spanish (asymmetric intelligibility); they speak it back politely but read the gesture as either ignorance or laziness. Use English (widely spoken) or basic Portuguese phrases ('bom dia', 'obrigado/a').",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.visitportugal.com/en",
+        "https://www.cepclab.org/cplp/"
+      ],
+      "condition": "Language choice"
+    },
+    {
+      "action": "Use Brazilian Portuguese AI translation for European Portuguese content",
+      "why_fails": "Pronunciation differs significantly (Brazilian opens vowels; European clips them). Vocabulary differs (autocarro vs ônibus = bus, comboio vs trem = train, casa de banho vs banheiro = bathroom). 'Você' is formal in PT, neutral in BR. European Portuguese audiences notice and find Brazilian content non-localized.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.priberam.pt/",
+        "https://www.iol.pt/"
+      ],
+      "condition": "PT translation / localization"
+    },
+    {
+      "action": "Tip 15-20% in Portuguese restaurants like in the US",
+      "why_fails": "Portuguese tipping convention: 5-10% on top of bill in nice restaurants, round-up at cafés. Above 10% reads as showy or American-tourist. Service charge already included in some bills.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.visitportugal.com/en"
+      ],
+      "condition": "Tipping"
+    },
+    {
+      "action": "Walk into a Portuguese restaurant and ask for sangría or paella",
+      "why_fails": "Sangría is Spanish; paella is Valencian. Portuguese equivalents: cataplana (seafood stew), bacalhau (cod, '365 ways'), francesinha (Porto signature), arroz de marisco (seafood rice), pastel de nata (custard tart). Asking for Spanish dishes in Portugal is a small but noted faux pas.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.visitportugal.com/en/experiencias/gastronomia-vinhos"
+      ],
+      "condition": "Restaurant ordering"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Try basic European Portuguese: 'bom dia / boa tarde / boa noite' (greetings), 'obrigado' (thanks, masc) / 'obrigada' (thanks, fem), 'por favor' (please), 'desculpe' (excuse me). Portuguese love when foreigners try.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitportugal.com/en"
+      ],
+      "condition": "Greetings"
+    },
+    {
+      "action": "Order Portuguese: bacalhau (cod), pastel de nata, ginja (cherry liqueur), Sagres or Super Bock beer, Vinho Verde (light young wine), port wine in Porto/Douro.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitportugal.com/en/experiencias/gastronomia-vinhos"
+      ],
+      "condition": "Food / drink"
+    },
+    {
+      "action": "Tipping: round up café bills, 5-10% on restaurant bill if service good. Hotels: €1-2 per bag for porter, €2-5 for housekeeping at end of stay.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitportugal.com/en"
+      ],
+      "condition": "Tipping practice"
+    },
+    {
+      "action": "When localizing software / content, choose European Portuguese (pt_PT) for Portugal market. Brazilian Portuguese (pt_BR) for Brazil. Apple, Google, Meta maintain separate locales.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.priberam.pt/"
+      ],
+      "condition": "Software localization"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

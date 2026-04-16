@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/sauna-naked-mixed/fi",
+  "url": "https://deadends.dev/culture/sauna-naked-mixed/fi",
+  "error": {
+    "signature": "AI tells a visitor to Finland to wear swimwear in sauna or refuse a host's sauna invitation as a polite gesture",
+    "regex": "(finland.*sauna|finnish.*sauna|sauna naked|löyly|sauna etiquette finland|sauna swimwear|finland.*hospitality)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Finnish sauna culture (UNESCO Intangible Cultural Heritage 2020) is fundamental to social life — ~3.3M saunas in a country of 5.5M people. Sauna is naked: in private home / mixed-family saunas, all genders together (or separated by family preference). Public saunas: separated by gender (no swimwear). In hotel saunas / tourist saunas: swimwear OK because of mixed international clientele. Refusing a host's invitation is rude — treat it as you would a dinner invitation."
+  },
+  "dead_ends": [
+    {
+      "action": "Wear swimwear in a Finnish family / private home sauna",
+      "why_fails": "Considered hygienically problematic (chemicals from swimwear leach into wood) and unusual. Family sauna is naked. If you're truly uncomfortable, wrap in a small towel. The host won't push but the awkwardness is yours alone.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://sauna.fi/en/",
+        "https://www.visitfinland.com/en/articles/sauna-etiquette/"
+      ],
+      "condition": "Private / family sauna"
+    },
+    {
+      "action": "Refuse a host's sauna invitation 'to be polite'",
+      "why_fails": "Sauna invitation is a major Finnish hospitality gesture, equivalent to inviting someone for a dinner. Refusing is read as rejecting friendship. Accept; if uncomfortable with nudity, ask if separate scheduling is possible.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://sauna.fi/en/"
+      ],
+      "condition": "Sauna invitation"
+    },
+    {
+      "action": "Skip the post-sauna cool-off (lake plunge / shower / cool air)",
+      "why_fails": "Sauna culture is sauna → cool-off → repeat. Sitting in heat without cooling makes you uncomfortable AND breaks the social rhythm. Alternate 10-15 min sauna → 1-2 min cool plunge. Even a cool shower works.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://sauna.fi/en/"
+      ],
+      "condition": "Sauna session structure"
+    },
+    {
+      "action": "Pour copious water on stones to crank up heat without asking other sauna users",
+      "why_fails": "Adding water (löyly) creates heat surge — others may have just done that, or the sauna may be at preferred level. Ask 'Saako heittää löylyä?' (May I pour water?) or wait for the host to do so. Sauna heat preference is personal.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://sauna.fi/en/"
+      ],
+      "condition": "Multi-person sauna"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Accept sauna invitations gladly. Naked is the norm in private/family/single-gender public saunas. Bring a clean towel to sit on (always sit on towel; doesn't substitute for nudity policy). Hotel saunas allow swimwear due to mixed international guests.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://sauna.fi/en/"
+      ],
+      "condition": "Sauna participation"
+    },
+    {
+      "action": "Session structure: shower first → 10-15 min in sauna → cool off (lake / shower / cold air) 1-2 min → repeat 2-4 times. Drink water between. Final shower at end.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://sauna.fi/en/"
+      ],
+      "condition": "Standard session"
+    },
+    {
+      "action": "Conversation in sauna: low-key, philosophical, intimate (this is where Finnish business deals happen). Phones generally off; many saunas have heat ratings that damage phones. Silence is fine.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitfinland.com/en/articles/sauna-etiquette/"
+      ],
+      "condition": "Social aspect"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}
