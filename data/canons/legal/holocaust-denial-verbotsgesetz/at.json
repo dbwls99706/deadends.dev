@@ -87,7 +87,10 @@
   "transition_graph": {
     "leads_to": [],
     "preceded_by": [],
-    "frequently_confused_with": []
+    "frequently_confused_with": [
+      {"error_id": "legal/nazi-symbols-stgb-86a/de", "distinction": "Germany's StGB §86a covers symbol ban; §130 Holocaust denial — together still lighter than Austria's Verbotsgesetz §3h."},
+      {"error_id": "legal/polish-camps-misnomer/pl", "distinction": "Poland's speech law addresses naming/attribution ('Polish camps'), not denial or symbols — different offense category."}
+    ]
   },
   "metadata": {
     "generated_by": "manual",

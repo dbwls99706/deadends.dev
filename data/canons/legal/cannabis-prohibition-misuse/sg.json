@@ -92,7 +92,10 @@
   "transition_graph": {
     "leads_to": [],
     "preceded_by": [],
-    "frequently_confused_with": []
+    "frequently_confused_with": [
+      {"error_id": "legal/drug-death-penalty/id", "distinction": "Indonesia has similar death-penalty trafficking thresholds (Bali Nine 2015) but 2021 reform softened possession; SG retains strict first-offense consequences."},
+      {"error_id": "legal/khat-cannabis-laws/ae", "distinction": "UAE Federal Decree-Law 30/2021 reduced first-offense penalties to rehabilitation; SG retains caning + mandatory sentencing."}
+    ]
   },
   "metadata": {
     "generated_by": "manual",

@@ -376,3 +376,182 @@ def test_match_json_includes_country_compact_field(tmp_path, monkeypatch):
     assert country_patterns, "No country-tagged patterns in match.json"
     # Compact key 'c' is intentional for context-window efficiency
     assert all(len(p["c"]) == 2 for p in country_patterns)
+
+
+# --- S-grade additions -------------------------------------------------------
+
+
+def test_country_aggregate_enriched_with_entity(tmp_path, monkeypatch):
+    """Per-country aggregate JSON must carry currency / emergency / language entity."""
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_country_api(canons)
+    # Pick jp (rich metadata)
+    jp_path = tmp_path / "api" / "v1" / "country" / "jp.json"
+    if not jp_path.exists():
+        pytest.skip("jp canon not present")
+    agg = json.loads(jp_path.read_text(encoding="utf-8"))
+    assert "entity" in agg
+    assert agg["entity"]["currency"]["code"] == "JPY"
+    assert "emergency" in agg["entity"]
+    assert "gov_url" in agg["entity"]
+    assert "faq_url" in agg
+    assert "llms_txt_url" in agg
+    assert "agents_md_url" in agg
+    assert "source_urls" in agg
+    assert isinstance(agg["source_urls"], list)
+
+
+def test_country_faq_endpoint_generated(tmp_path, monkeypatch):
+    """Per-country FAQ endpoint /api/v1/country/{cc}-faq.json must be schema.org FAQPage."""
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_country_api(canons)
+    code = canons[0]["environment"]["additional"]["country"].lower()
+    faq_path = tmp_path / "api" / "v1" / "country" / f"{code}-faq.json"
+    assert faq_path.exists(), f"Missing FAQ endpoint for {code}"
+    faq = json.loads(faq_path.read_text(encoding="utf-8"))
+    assert faq["@type"] == "FAQPage"
+    assert "mainEntity" in faq
+    if faq["mainEntity"]:  # some countries may have no FAQ
+        assert faq["mainEntity"][0]["@type"] == "Question"
+
+
+def test_country_errors_ndjson_stream(tmp_path, monkeypatch):
+    """NDJSON stream for country canons must exist and parse line-by-line."""
+    import generator.build_site as bs
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+    bs.build_country_api(canons)
+    ndjson_path = tmp_path / "api" / "v1" / "country-errors.ndjson"
+    assert ndjson_path.exists(), "Missing country-errors.ndjson"
+    lines = ndjson_path.read_text(encoding="utf-8").strip().split("\n")
+    # Every non-empty line must be valid JSON with a country field
+    for line in lines:
+        obj = json.loads(line)
+        assert obj["environment"]["additional"].get("country")
+
+
+def test_per_country_llms_txt_and_agents_md(tmp_path, monkeypatch):
+    """Per-country /country/{cc}/llms.txt + AGENTS.md must exist and be substantive."""
+    from jinja2 import Environment, FileSystemLoader
+    from markupsafe import Markup
+
+    import generator.build_site as bs
+    from generator.domains import domain_display_name
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+    monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
+
+    # Need Jinja env for build_country_pages which runs first in real flow
+    template_dir = (
+        Path(__file__).resolve().parent.parent / "generator" / "templates"
+    )
+    env = Environment(loader=FileSystemLoader(str(template_dir)), autoescape=True)
+    env.globals["base_path"] = ""
+    env.globals["base_url"] = "https://deadends.dev"
+    env.filters["display_name"] = domain_display_name
+
+    def _json_escape(s: str) -> Markup:
+        if not isinstance(s, str):
+            s = str(s) if s is not None else ""
+        dumped = json.dumps(s)
+        escaped = dumped[1:-1] if len(dumped) >= 2 else ""
+        escaped = escaped.replace("</", r"<\/").replace("<!--", "\\u003C!--")
+        return Markup(escaped)
+    env.filters["json_escape"] = _json_escape
+
+    bs.build_country_pages(canons, env)
+    bs.build_per_country_llms_and_agents(canons)
+
+    code = canons[0]["environment"]["additional"]["country"].lower()
+    llms_path = tmp_path / "country" / code / "llms.txt"
+    agents_path = tmp_path / "country" / code / "AGENTS.md"
+    assert llms_path.exists(), f"Missing /country/{code}/llms.txt"
+    assert agents_path.exists(), f"Missing /country/{code}/AGENTS.md"
+    llms_text = llms_path.read_text(encoding="utf-8")
+    agents_text = agents_path.read_text(encoding="utf-8")
+    # llms.txt should include entity facts + integration URLs
+    assert "Currency:" in llms_text or "currency" in llms_text.lower()
+    assert f"/api/v1/country/{code}.json" in llms_text
+    # AGENTS.md should include task instructions
+    assert "When responding" in agents_text
+    assert f"/api/v1/country/{code}.json" in agents_text
+
+
+def test_mcp_resources_list_includes_country_aggregates():
+    from mcp import server as mcp_server
+
+    canons = _load_country_canons()
+    if not canons:
+        pytest.skip("No country canons present")
+    result = mcp_server.handle_request("resources/list", {}, canons)
+    uris = {r["uri"] for r in result["resources"]}
+    assert "https://deadends.dev/api/v1/countries.json" in uris
+    # At least one per-country resource
+    assert any("/api/v1/country/" in u for u in uris)
+    assert any("/llms.txt" in u for u in uris)
+
+
+def test_mcp_prompts_list_includes_country_prompts():
+    from mcp import server as mcp_server
+
+    result = mcp_server.handle_request("prompts/list", {}, [])
+    prompt_names = {p["name"] for p in result["prompts"]}
+    assert "country_pre_travel_check" in prompt_names
+    assert "country_business_etiquette" in prompt_names
+    assert "country_legal_red_lines" in prompt_names
+
+
+def test_mcp_prompts_get_returns_country_scoped_template():
+    from mcp import server as mcp_server
+
+    result = mcp_server.handle_request(
+        "prompts/get",
+        {
+            "name": "country_pre_travel_check",
+            "arguments": {"country_code": "jp"},
+        },
+        [],
+    )
+    assert "messages" in result
+    assert result["messages"]
+    text = result["messages"][0]["content"]["text"]
+    assert "/api/v1/country/jp.json" in text
+
+
+def test_transition_graph_cross_links_exist_for_related_country_canons():
+    """Related country canons should cross-reference each other via
+    frequently_confused_with to help AI agents traverse related
+    jurisdictions."""
+    canons = _load_country_canons()
+    by_id = {c["id"]: c for c in canons}
+    # SG cannabis must reference ID / AE drug laws
+    sg = by_id.get("legal/cannabis-prohibition-misuse/sg")
+    if sg:
+        refs = {
+            r["error_id"]
+            for r in sg["transition_graph"]["frequently_confused_with"]
+        }
+        assert any("drug-death-penalty/id" in r or "khat" in r for r in refs)
+    # DE nazi-symbols should reference AT Verbotsgesetz
+    de = by_id.get("legal/nazi-symbols-stgb-86a/de")
+    if de:
+        refs = {
+            r["error_id"]
+            for r in de["transition_graph"]["frequently_confused_with"]
+        }
+        assert any("verbotsgesetz/at" in r for r in refs)

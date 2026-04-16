@@ -682,9 +682,162 @@ def handle_request(method: str, params: dict, canons: list[dict]) -> dict:
     elif method == "ping":
         return {}
     elif method == "resources/list":
-        return {"resources": []}
+        # Expose country aggregates + llms-full.txt as MCP resources so
+        # clients that browse resources find the country knowledge without
+        # needing a tool call.
+        country_codes: list[str] = []
+        country_names_rsrc: dict[str, str] = {}
+        for c in canons:
+            additional = c.get("environment", {}).get("additional", {})
+            code = additional.get("country")
+            if code and code not in country_codes:
+                country_codes.append(code)
+                country_names_rsrc[code] = additional.get(
+                    "country_name", code.upper()
+                )
+        resources = [
+            {
+                "uri": "https://deadends.dev/api/v1/index.json",
+                "name": "Full error index",
+                "description": (
+                    "Master index of all errors across 54 domains, "
+                    "including country-scoped entries with country/"
+                    "country_url/country_api_url fields."
+                ),
+                "mimeType": "application/json",
+            },
+            {
+                "uri": "https://deadends.dev/api/v1/countries.json",
+                "name": "Country index",
+                "description": (
+                    "Index of all countries with country-scoped dead ends "
+                    "(currency, emergency numbers, languages, counts, "
+                    "last-update dates)."
+                ),
+                "mimeType": "application/json",
+            },
+            {
+                "uri": "https://deadends.dev/llms-full.txt",
+                "name": "Full database dump",
+                "description": "Complete error database in plain text.",
+                "mimeType": "text/plain",
+            },
+        ]
+        for code in sorted(country_codes):
+            resources.append({
+                "uri": f"https://deadends.dev/api/v1/country/{code}.json",
+                "name": f"{country_names_rsrc[code]} country aggregate",
+                "description": (
+                    f"All dead-end entries scoped to {country_names_rsrc[code]} "
+                    f"(ISO {code}) with entity data (currency, emergency, "
+                    "language), source URLs, and FAQ."
+                ),
+                "mimeType": "application/json",
+            })
+            resources.append({
+                "uri": f"https://deadends.dev/country/{code}/llms.txt",
+                "name": f"{country_names_rsrc[code]} LLM context",
+                "description": (
+                    f"Per-country LLM-optimized context for {country_names_rsrc[code]}"
+                ),
+                "mimeType": "text/plain",
+            })
+        return {"resources": resources}
     elif method == "prompts/list":
-        return {"prompts": []}
+        # Expose common question templates as MCP prompts so clients can
+        # offer them as one-click inputs.
+        return {
+            "prompts": [
+                {
+                    "name": "country_pre_travel_check",
+                    "description": (
+                        "Given a destination country, run through visa / "
+                        "banking / legal / cultural / emergency dead ends "
+                        "and emit a pre-travel checklist."
+                    ),
+                    "arguments": [{
+                        "name": "country_code",
+                        "description": "ISO 3166-1 alpha-2 (e.g. 'jp', 'th')",
+                        "required": True,
+                    }],
+                },
+                {
+                    "name": "country_business_etiquette",
+                    "description": (
+                        "Given a country, summarize business etiquette dead "
+                        "ends (communication, gift-giving, meetings)."
+                    ),
+                    "arguments": [{
+                        "name": "country_code",
+                        "description": "ISO 3166-1 alpha-2",
+                        "required": True,
+                    }],
+                },
+                {
+                    "name": "country_legal_red_lines",
+                    "description": (
+                        "Given a country, list the legal red lines (speech, "
+                        "drugs, photography, religion) that AI tends to miss."
+                    ),
+                    "arguments": [{
+                        "name": "country_code",
+                        "description": "ISO 3166-1 alpha-2",
+                        "required": True,
+                    }],
+                },
+            ]
+        }
+    elif method == "prompts/get":
+        # MCP clients that select a prompt expect its content. We return
+        # the per-country aggregate URL for the requested country, letting
+        # the model fetch and synthesize on its side.
+        name = params.get("name", "")
+        args = params.get("arguments", {}) or {}
+        code = (args.get("country_code") or "").strip().lower()
+        if not code:
+            return {"description": "Missing country_code", "messages": []}
+        return {
+            "description": f"{name} for country {code}",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": {
+                        "type": "text",
+                        "text": (
+                            f"Using the country aggregate at "
+                            f"https://deadends.dev/api/v1/country/{code}.json "
+                            f"(FAQ at https://deadends.dev/api/v1/country/"
+                            f"{code}-faq.json, plain-text context at "
+                            f"https://deadends.dev/country/{code}/llms.txt): "
+                            f"perform task '{name}'. Always cite the "
+                            "primary-source URLs from the entries' sources[] "
+                            "arrays. If a dead_end matches the naive AI "
+                            "answer, use the workaround instead."
+                        ),
+                    },
+                }
+            ],
+        }
+    elif method == "resources/read":
+        # Clients can read MCP resources by URI. We return a stub that
+        # points to the canonical HTTP URL so the client fetches it
+        # directly (we don't ship large payloads through stdio MCP).
+        uri = (params.get("uri") or "").strip()
+        if not uri:
+            return {"contents": []}
+        return {
+            "contents": [
+                {
+                    "uri": uri,
+                    "mimeType": "text/plain",
+                    "text": (
+                        f"Fetch the canonical content at {uri}. "
+                        "MCP stdio returns a pointer rather than inlining "
+                        "the large aggregate. Use an HTTP client."
+                    ),
+                }
+            ]
+        }
     elif method == "tools/list":
         return {"tools": TOOLS}
     elif method == "tools/call":
