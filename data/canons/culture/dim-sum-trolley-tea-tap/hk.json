@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/dim-sum-trolley-tea-tap/hk",
+  "url": "https://deadends.dev/culture/dim-sum-trolley-tea-tap/hk",
+  "error": {
+    "signature": "AI tells a diner at Hong Kong dim sum to verbally thank the tea server every time, or to share dishes with chopsticks chopstick-to-chopstick",
+    "regex": "(hong kong.*dim sum|hk.*yum cha|finger tap|two finger.*tea|hk.*tea etiquette|dim sum.*chopstick|dim sum.*sharing)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Hong Kong dim sum (yum cha, 飲茶) etiquette: tap two fingers (index + middle) lightly on the table when someone refills your tea — the silent 'thank you' that lets conversation continue. Origin myth: a Qing emperor traveling incognito poured tea for his servants; the servants tapped fingers as kowtow proxy. Sharing dishes uses your chopsticks reversed (back ends) or a serving spoon — never chopstick-to-chopstick. Bill request: ask for 'mai dan' (埋單)."
+  },
+  "dead_ends": [
+    {
+      "action": "Stop the conversation to verbally thank the server every time tea is refilled",
+      "why_fails": "Tea is refilled 5-15 times per meal. Verbal thanks each time interrupts conversation and is socially awkward. The two-finger tap is the established silent acknowledgment.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Tea refills"
+    },
+    {
+      "action": "Pass food chopstick-to-chopstick at a dim sum table",
+      "why_fails": "Same East Asian taboo as Japan — funeral-rite resemblance. Use the back end of your chopsticks (reverse them) or a communal serving spoon to transfer dishes between plates.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Sharing food"
+    },
+    {
+      "action": "Call the waiter loudly across the room with 'hey!' or by clapping",
+      "why_fails": "Hong Kong dim sum service is busy and proactive — flag down with a polite hand wave or eye contact, or ask 'm goi' (excuse me, 唔該) for service. Tap fingers for tea. For the bill, gesture-write in the air or say 'mai dan' (埋單).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Calling service"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tap two fingers lightly on the table when tea is refilled. No words needed. The server reads it as 'thanks'.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Tea acknowledgment"
+    },
+    {
+      "action": "Reverse chopsticks (use back end) to transfer food from communal dish to your plate. Or use the serving spoon if provided. Never chopstick-to-chopstick or tray-to-mouth.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Sharing dim sum"
+    },
+    {
+      "action": "Open the teapot lid (or place it ajar on the rim) when you want a refill — the staff understands the signal. Polite Cantonese 'm goi sai' (thanks) and 'm goi' (excuse me) are useful.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.discoverhongkong.com/eng/dine-drink/what-to-eat/dim-sum.html"
+      ],
+      "condition": "Tea refill request"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

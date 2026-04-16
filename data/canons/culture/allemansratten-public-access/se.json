@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/allemansratten-public-access/se",
+  "url": "https://deadends.dev/culture/allemansratten-public-access/se",
+  "error": {
+    "signature": "AI tells a hiker in Sweden they cannot freely walk through forests / camp wild, or conversely that allemansrätten allows hunting / fires anywhere",
+    "regex": "(sweden.*allemansrätten|right to roam|allemansrätten|swedish.*camping|sweden.*public access|swedish.*forest|sweden.*berries|right of public access)",
+    "domain": "culture",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "se",
+      "country_name": "Sweden",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Sweden's allemansrätten (right of public access) is constitutionally protected — anyone can walk, swim, ski, pick berries/mushrooms, and camp 1 night on uncultivated land. Limits: no fires during fire-ban (eldningsförbud, often summer); no camping within sight of houses or for 2+ nights without permission; no hunting; no driving off-road; no damage. Norway and Finland have similar (allemansretten / jokamiehenoikeus). Iceland and Denmark more restrictive."
+  },
+  "dead_ends": [
+    {
+      "action": "Light a campfire during summer eldningsförbud (fire ban)",
+      "why_fails": "Eldningsförbud declared by local Länsstyrelsen during dry periods (June-Sept typical). Fines up to SEK 4000+ + criminal liability if fire spreads. Check brandriskprognos.se before any fire. Camping stoves usually still allowed; open fires not.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/right-of-public-access/",
+        "https://www.msb.se/en/"
+      ],
+      "condition": "Summer / fire-ban period"
+    },
+    {
+      "action": "Camp on the same spot for a week, or pitch within sight of a house",
+      "why_fails": "Allemansrätten allows 'one night' camping on uncultivated land (interpretation: 1-2 nights tolerated; 'inte mer än något dygn' / 'not more than a day or two'). Camping within sight of someone's home requires permission. Multiple nights = need landowner permission or move on.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/right-of-public-access/"
+      ],
+      "condition": "Long-stay wild camping"
+    },
+    {
+      "action": "Drive an off-road vehicle / mountain bike across uncultivated forest",
+      "why_fails": "Allemansrätten covers walking, skiing, cycling on roads/paths — NOT off-road motor vehicles or mountain biking through sensitive vegetation. Damaging plants is an offense (Naturvårdslag).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/right-of-public-access/"
+      ],
+      "condition": "Off-road motor / MTB"
+    },
+    {
+      "action": "Pick rare wild flowers or take birds eggs / nests",
+      "why_fails": "Allemansrätten covers berries, mushrooms, common flowers. Protected species (orchids, fritillaria, etc.) prohibited. Bird eggs / nests fully protected. Naturvårdsverket lists protected species.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/animals-and-plants/"
+      ],
+      "condition": "Wild harvesting"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Allemansrätten safe activities: walk, swim, ski, ice-skate (own risk), pick berries / mushrooms / common flowers, camp 1 night out of sight of homes. Carry out all garbage. Don't disturb wildlife / livestock.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/right-of-public-access/"
+      ],
+      "condition": "Standard outdoor recreation"
+    },
+    {
+      "action": "Check eldningsförbud at brandriskprognos.se OR app SOS Alarm before any fire. Use designated fire pits at official campgrounds. Camping stoves generally exempt.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.msb.se/en/"
+      ],
+      "condition": "Fire planning"
+    },
+    {
+      "action": "Multi-night wild camping or close to house: ask landowner permission. Most Swedes give it freely if you ask. Or use STF (Svenska Turistföreningen) huts and campgrounds — extensive network across Norrland.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.svenskaturistforeningen.se/en/"
+      ],
+      "condition": "Long stays"
+    },
+    {
+      "action": "Protected species: photograph only. Naturvårdsverket app + 'Artportalen' database for verification. National park rules supersede allemansrätten — strict.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.naturvardsverket.se/en/topics/animals-and-plants/"
+      ],
+      "condition": "National park visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

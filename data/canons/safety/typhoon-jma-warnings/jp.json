@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/typhoon-jma-warnings/jp",
+  "url": "https://deadends.dev/safety/typhoon-jma-warnings/jp",
+  "error": {
+    "signature": "AI tells a traveler in Japan to fly out / take Shinkansen / hike during a JMA typhoon warning or heavy-rain alert",
+    "regex": "(japan.*typhoon|jma.*typhoon|台風|tokyo.*typhoon|kanto.*flood|japan.*tropical storm|japan.*evacuation order|警報.*japan|大雨警報)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "Japan averages 25-30 typhoons forming annually with ~3-5 making direct landfall (June-October peak). JMA warning levels: 注意報 (Advisory), 警報 (Warning), 特別警報 (Emergency Warning, rare, life-threat level). Shinkansen / regular trains suspend at Warning level; flights cancel; evacuation orders issued (Level 4 全員避難, Level 5 緊急安全確保). Tourists ignoring warnings have been killed in floods (2018 West Japan), landslides, and high winds."
+  },
+  "dead_ends": [
+    {
+      "action": "Take a planned Shinkansen / domestic flight during a JMA Warning level typhoon",
+      "why_fails": "JR East / JR Tokai suspend Shinkansen service when sustained winds exceed 25 m/s. ANA / JAL cancel flights along typhoon track. Forcing through won't be possible — better to delay 24-48h for the storm to pass. Insurance often covers force-majeure delay.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/typhoon.html",
+        "https://www.jreast.co.jp/e/customer_support/"
+      ],
+      "condition": "JMA Warning during scheduled travel"
+    },
+    {
+      "action": "Hike Mt Fuji / Hakone / Kumano Kodo during a typhoon advisory",
+      "why_fails": "Mountain trails close during typhoons. Wind on exposed ridges can reach 30+ m/s. Landslides common. Tourists have been killed on Mt Fuji and elsewhere ignoring closure. JMA Advisory = postpone; Warning = absolute no.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/typhoon.html",
+        "https://www.fujisan-climb.jp/en/"
+      ],
+      "condition": "Mountain hiking during storm"
+    },
+    {
+      "action": "Walk along Tokyo riverside or low-lying area during heavy-rain warning",
+      "why_fails": "Tama-gawa, Arakawa, and many other Tokyo rivers can flash-flood. Underground passages flood. Recent (2019, 2021, 2023) typhoons caused tourist + resident drownings in low-lying areas. Stay on high ground / inside.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/eng/"
+      ],
+      "condition": "Heavy-rain advisory"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install JMA Weather app + 防災速報 + Yahoo! Bousai. Check before each travel day during typhoon season (Jun-Oct). Heed Warning-level: stay indoors, postpone non-essential travel.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/typhoon.html"
+      ],
+      "condition": "Pre-trip preparation"
+    },
+    {
+      "action": "If Shinkansen/flight cancels mid-trip: rebook at JR ticket office (no extra fee for typhoon cancellations). Hotels may extend bookings; many do for force-majeure. Convenience-store food + hotel stays beat outdoor risk.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.jreast.co.jp/e/customer_support/"
+      ],
+      "condition": "Stranded by typhoon"
+    },
+    {
+      "action": "Tsunami after coastal earthquake: same protocol — JMA tsunami warning within 3 minutes. Move to high ground >10m elevation immediately if coastal AND shaking >20s.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/tsunami.html"
+      ],
+      "condition": "Coastal post-earthquake"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

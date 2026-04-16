@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/dont-compare-argentina/cl",
+  "url": "https://deadends.dev/culture/dont-compare-argentina/cl",
+  "error": {
+    "signature": "AI compliments a Chilean by comparing them positively to Argentina, or assumes Patagonia is interchangeable between the two countries",
+    "regex": "(chile.*argentina|chilean.*argentine|patagonia.*chile.*argentina|santiago.*buenos aires|chile.*peru.*nitrate|chile.*pisco|chilean identity)",
+    "domain": "culture",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.78,
+    "last_updated": "2026-04-15",
+    "summary": "Chile and Argentina share Patagonia + Andes border + 5400km of history including territorial disputes (Beagle Channel, Laguna del Desierto). The two have a long-standing cultural rivalry: pisco origin (both claim), Patagonian heritage, football. Praising Argentina to Chileans is read as either ignorance or backhanded comparison. Likewise the Pacific War (1879-1884) with Peru/Bolivia is a sensitive topic for all three. Chileans value distinct identity: empanada de pino, cueca, completos, terremoto."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a Chilean 'You're like Argentinians but more polite!' as a compliment",
+      "why_fails": "Read as either reductive (Chileans are not Argentinians-lite) or condescending. Chileans express their identity through difference from Argentina — not similarity. Best response: ask about Chilean specifics (Concepción, Valparaíso, the Atacama, Chiloé).",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.chile.travel/en/",
+        "https://www.cancilleria.gob.cl/"
+      ],
+      "condition": "Identity comments"
+    },
+    {
+      "action": "Refer to pisco as an Argentinian drink",
+      "why_fails": "Chile and Peru both protect pisco as a national heritage drink (Denomination of Origin). Both have legal claims; Argentina has no significant pisco history. Calling pisco Argentinian gets simultaneous correction from Chileans and Peruvians. Pisco sour is the iconic cocktail.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.chile.travel/en/articles/discover-chile/pisco/",
+        "https://www.peru.travel/en/about-peru/pisco-the-flagship-drink-of-peru"
+      ],
+      "condition": "Beverage origin claims"
+    },
+    {
+      "action": "Discuss the Pacific War / sea-to-Bolivia / Atacama as a casual conversation topic",
+      "why_fails": "1879-1884 War of the Pacific is sensitive in Chile (victorious but constantly raised by Bolivia / Peru), Bolivia (lost sea access — daily political grievance), and Peru (lost southern provinces). Bolivia's 'Día del Mar' (March 23) and ongoing ICJ disputes keep it current. Best to listen if raised, never initiate.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.cancilleria.gob.cl/"
+      ],
+      "condition": "Historical politics"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Talk about Chilean specifics: wine (Maipo Valley, Casablanca), Pablo Neruda, Patagonia (Torres del Paine), Atacama Desert observatories, Chiloé church heritage, modern Santiago architecture. All universally welcomed.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.chile.travel/en/"
+      ],
+      "condition": "Conversation topics"
+    },
+    {
+      "action": "Pisco: defer to host's framing. In Chile, drink pisco sour Chilean style (no egg white). In Peru, Peruvian style (with egg white). Don't take sides; appreciate both.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.chile.travel/en/articles/discover-chile/pisco/"
+      ],
+      "condition": "Cross-border drink discussion"
+    },
+    {
+      "action": "Spanish: Chilean Spanish has unique slang (cachai, weón, bacán, fome, pololo). Different from Argentine voseo. Use neutral Spanish; Chileans code-switch when speaking with foreigners.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.chile.travel/en/"
+      ],
+      "condition": "Language"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/hygge-deep-not-superficial/dk",
+  "url": "https://deadends.dev/culture/hygge-deep-not-superficial/dk",
+  "error": {
+    "signature": "AI markets to Danish customers reducing Danish culture to commodified 'hygge' candles + cushions, missing the actual social meaning",
+    "regex": "(denmark.*hygge|danish.*hygge|hygge candles|hygge marketing|denmark.*social culture|janteloven|jante law|denmark.*tax|danish flag)",
+    "domain": "culture",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "dk",
+      "country_name": "Denmark",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-04-15",
+    "summary": "Hygge (cozy + togetherness, hard to translate) is a real Danish cultural value but its 2016-2018 international commodification (candles, cushions, lifestyle books) reduced it to aesthetic decor. Danes find marketed 'hygge' off-brand. Real hygge is unforced social warmth — meals with friends, long unhurried evenings. Janteloven (Law of Jante, 1933 novel by Aksel Sandemose) describes social pressure against standing out — relevant to business: don't boast. Danish flag (Dannebrog) is used for birthdays / celebrations, NOT just national pride."
+  },
+  "dead_ends": [
+    {
+      "action": "Run a Denmark marketing campaign with 'hygge' candle imagery, cozy slippers, and 'find your hygge' tagline",
+      "why_fails": "Reads as appropriated foreign caricature. Danes find the commodification embarrassing. Brands like Visit Denmark (DK tourism) reframe hygge as social-warmth, not products. Better: human moments, family meals, friendship.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.visitdenmark.com/denmark/things-do/danish-culture/what-hygge",
+        "https://denmark.dk/people-and-culture/hygge"
+      ],
+      "condition": "Hygge marketing"
+    },
+    {
+      "action": "Boast about own achievements / company size in a Danish business pitch",
+      "why_fails": "Janteloven's 10 commandments (a literary device, but real social check): 'Don't think you're anything special'. Danish business culture values understatement. Self-promotion read as crass; let work speak. Equal hierarchy in offices; first-name basis with CEO common.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://denmark.dk/people-and-culture/janteloven"
+      ],
+      "condition": "Business presentation"
+    },
+    {
+      "action": "Wave a Danish Dannebrog flag thinking it's purely patriotic display",
+      "why_fails": "Dannebrog is used for birthdays, anniversaries, celebrations — Danes string up flags on garden poles for personal events. Foreigners flying Dannebrog without context can confuse — it's not exclusively about national identity, more like balloons in other cultures.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://denmark.dk/people-and-culture/danish-flag"
+      ],
+      "condition": "Flag use"
+    },
+    {
+      "action": "Tell a Dane that 50%+ income tax must hurt their economy",
+      "why_fails": "Danish high-tax / high-services model is broadly supported across Danish political spectrum. World Happiness Reports consistently rank Denmark top-3. Lecturing Danes about their tax system reads as condescending.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://denmark.dk/society-and-business/welfare"
+      ],
+      "condition": "Tax / welfare comments"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Hygge: experience it (long unhurried meals, candlelight + friends, walks). Don't market it as products. If discussing in business / content, frame as social warmth.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://denmark.dk/people-and-culture/hygge"
+      ],
+      "condition": "Cultural reference"
+    },
+    {
+      "action": "Business presentation: data-driven, modest, short-form. Decisions are consensus-based. Trust personal network. Personal modesty is professional polish.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://denmark.dk/people-and-culture/janteloven"
+      ],
+      "condition": "Business style"
+    },
+    {
+      "action": "Cycling everywhere: Copenhagen has 380km bike infrastructure. Bike etiquette: signal turns, ring bell at pedestrians, follow bike lights, no phone while riding. Cph has more bikes than residents.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitcopenhagen.com/copenhagen/cyclist-citizens"
+      ],
+      "condition": "Daily transport"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

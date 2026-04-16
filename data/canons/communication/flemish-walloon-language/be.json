@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/flemish-walloon-language/be",
+  "url": "https://deadends.dev/communication/flemish-walloon-language/be",
+  "error": {
+    "signature": "AI defaults French in Belgium without checking region or treats Flemish (Dutch) and Walloon (French) areas as interchangeable",
+    "regex": "(belgium.*language|flemish.*walloon|brussels.*language|antwerp.*flemish|liege.*french|belgium.*dutch french|bruxelles)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "regional",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Belgium has 3 official languages: Dutch (Flemish, ~60% — northern Flanders), French (~40% — southern Wallonia + Brussels), German (~1% — east cantons). Brussels is officially bilingual French-Dutch. Defaulting French throughout Belgium offends Flemish region; defaulting Dutch in Wallonia equally so. Always check region. Linguistic boundary (taalgrens / frontière linguistique) is a constitutional line. English widely spoken in business / Brussels."
+  },
+  "dead_ends": [
+    {
+      "action": "Greet a Flemish (Antwerp / Ghent / Bruges) shopkeeper or business contact in French",
+      "why_fails": "Antwerp / Ghent / Bruges are Flemish-speaking. Greeting in French is read as outsider imposition. Even though many Flemish speak French, they prefer not to. Use English or Dutch ('hallo', 'goedemiddag'). Same in reverse: Dutch in Wallonia is awkward.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.belgium.be/en",
+        "https://www.diplomatie.belgium.be/en"
+      ],
+      "condition": "Wrong-region language"
+    },
+    {
+      "action": "Use 'Flemish' for the language as a different language from Dutch",
+      "why_fails": "Flemish (Vlaams) is a regional variant of Dutch (Nederlands), like Austrian German vs German. Officially the same language, with accent/vocabulary differences. Calling it a separate language is technically wrong though informally common in English.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.belgium.be/en"
+      ],
+      "condition": "Linguistic terminology"
+    },
+    {
+      "action": "Refer to Brussels as a French-speaking city without acknowledging its bilingual official status",
+      "why_fails": "Brussels-Capital Region is officially Dutch-French bilingual (Brussel-Hoofdstad / Bruxelles-Capitale). Both languages on signs. Federal institutions function in both. While ~85% French-speaking in practice, formal communications and government must accommodate both.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://be.brussels/about-the-region"
+      ],
+      "condition": "Brussels framing"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the region first. Flanders (Antwerp, Ghent, Bruges, Leuven, Hasselt): default Dutch or English. Wallonia (Liège, Namur, Charleroi, Mons): default French. Brussels: French OR Dutch OR English; English safest if unsure.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.belgium.be/en"
+      ],
+      "condition": "Region-based language choice"
+    },
+    {
+      "action": "English is widely accepted in business, especially Brussels (EU institutions). 'Hello / Bonjour / Goedemiddag' tri-greeting works in Brussels. Pronouncing place names: Bruges = Brugge in Flanders, Bruges in French; Ghent = Gent / Gand; Antwerp = Antwerpen / Anvers.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.belgium.be/en"
+      ],
+      "condition": "Business / cross-region"
+    },
+    {
+      "action": "For commercial content distribution: localize to BOTH nl_BE and fr_BE for serious market presence. Many Belgian brands (Delhaize, KBC, Bpost) maintain parallel sites. Federal government does the same.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.belgium.be/en"
+      ],
+      "condition": "Commercial localization"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -4,10 +4,10 @@
 
 [![Precision@1](https://img.shields.io/badge/Precision%401-90%25-brightgreen)](https://deadends.dev/dashboard/)
 [![MRR](https://img.shields.io/badge/MRR-0.935-brightgreen)](https://deadends.dev/dashboard/)
-[![Entries](https://img.shields.io/badge/entries-2174-blue)](https://deadends.dev)
+[![Entries](https://img.shields.io/badge/entries-2204-blue)](https://deadends.dev)
 [![Domains](https://img.shields.io/badge/domains-54-green)](https://deadends.dev)
-[![Countries](https://img.shields.io/badge/countries-28%2B-orange)](https://deadends.dev)
-[![MCP Tools](https://img.shields.io/badge/MCP_tools-9-purple)](https://smithery.ai/server/deadend/deadends-dev)
+[![Countries](https://img.shields.io/badge/countries-39%2B-orange)](https://deadends.dev/country/)
+[![MCP Tools](https://img.shields.io/badge/MCP_tools-11-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey)](LICENSE)
 
@@ -178,15 +178,17 @@ Resolvable: true | Fix rate: 0.88
 - Use python -m pip install instead of bare pip (works 90%)
 ```
 
-## MCP Tools (9)
+## MCP Tools (11)
 
 | Tool | Description |
 |------|-------------|
 | `lookup_error` | Match an error message against 2000+ known patterns |
 | `get_error_detail` | Full canon by ID |
-| `list_error_domains` | All 51 domains with counts |
+| `list_error_domains` | All 54 domains with counts |
 | `search_errors` | TF-IDF keyword search across all domains |
 | `list_errors_by_domain` | All errors in a domain |
+| `list_errors_by_country` | All country-scoped dead ends for an ISO alpha-2 code |
+| `get_country_summary` | Country-level summary (entries, fix rate, domain mix) |
 | `batch_lookup` | Look up multiple errors at once (max 10) |
 | `get_domain_stats` | Domain quality metrics and confidence levels |
 | `get_error_chain` | Traverse the error transition graph |
@@ -197,8 +199,10 @@ Resolvable: true | Fix rate: 0.88
 | Endpoint | Description |
 |----------|-------------|
 | [`/api/v1/match.json`](https://deadends.dev/api/v1/match.json) | Lightweight regex matching (fits in context window) |
-| [`/api/v1/index.json`](https://deadends.dev/api/v1/index.json) | Full error index with metadata |
+| [`/api/v1/index.json`](https://deadends.dev/api/v1/index.json) | Full error index with metadata (entries include `country` field for country canons) |
 | [`/api/v1/{id}.json`](https://deadends.dev/api/v1/python/modulenotfounderror/py311-linux.json) | Individual ErrorCanon |
+| [`/api/v1/countries.json`](https://deadends.dev/api/v1/countries.json) | Country index with counts and update dates |
+| [`/api/v1/country/{cc}.json`](https://deadends.dev/api/v1/country/kr.json) | Per-country aggregate (one call returns all entries for that country) |
 | [`/api/v1/openapi.json`](https://deadends.dev/api/v1/openapi.json) | OpenAPI 3.1 spec |
 | [`/api/v1/stats.json`](https://deadends.dev/api/v1/stats.json) | Dataset quality metrics by domain |
 | [`/api/v1/errors.ndjson`](https://deadends.dev/api/v1/errors.ndjson) | NDJSON streaming |
@@ -245,18 +249,23 @@ Resolvable: true | Fix rate: 0.88
 
 All metrics are publicly available on the [Data Quality Dashboard](https://deadends.dev/dashboard/):
 
-- **2,174** canon entries across **54** domains and **28+** countries
+- **2,204** canon entries across **54** domains and **39+** countries
 - **Benchmark**: 90% Precision@1, 95% Precision@3, 0.935 MRR (on code scenarios)
 - **Error transition graph**: 4,330+ edges connecting related errors
 - **Community feedback loop**: `report_outcome` updates fix success rates from real usage
 - **Country canons**: every entry cites primary gov/embassy/regulator sources,
   reviewed by humans (`review_status: human_reviewed`), no LLM bulk generation
 
-### Country coverage (as of v0.9)
+### Country coverage (39 countries as of v0.9)
 
-`kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `cn` · `hk` · `tw` · `th` ·
-`in` · `vn` · `id` · `sg` · `ph` · `sa` · `ae` · `tr` · `il` · `ru` · `br` ·
-`mx` · `ar` · `co` · `au` · `nz` · `eg` · `pl`
+`kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `es` · `cn` · `hk` · `tw` ·
+`th` · `in` · `vn` · `id` · `sg` · `ph` · `my` · `pk` · `sa` · `ae` · `tr` ·
+`il` · `ru` · `br` · `mx` · `ar` · `co` · `pe` · `au` · `nz` · `eg` · `ma` ·
+`et` · `ng` · `ke` · `ca` · `pl` · `at`
+
+See [/country/](https://deadends.dev/country/) hub or
+[/api/v1/countries.json](https://deadends.dev/api/v1/countries.json) for the
+authoritative list with counts.
 
 See [`docs/country-canon-guide.md`](docs/country-canon-guide.md) for the
 authoring workflow, sourcing requirements, and confidence calibration.

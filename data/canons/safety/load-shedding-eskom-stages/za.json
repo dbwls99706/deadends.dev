@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/load-shedding-eskom-stages/za",
+  "url": "https://deadends.dev/safety/load-shedding-eskom-stages/za",
+  "error": {
+    "signature": "AI tells a visitor to South Africa to plan around 'occasional power outages' without explaining stage-based load shedding schedules and indoor/security risks",
+    "regex": "(south africa.*load shedding|eskom|stage 6|south africa.*power|sa.*electricity|joburg.*outage|cape town.*power|gauteng.*loadshedding)",
+    "domain": "safety",
+    "category": "infrastructure_disruption",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "South Africa's Eskom-managed grid has periodic 'load shedding' — scheduled rolling blackouts to prevent national grid collapse. Stages range 1-8; stage 6+ means most areas without power 8-12 hours/day in 2-4 hour blocks. Schedules per municipality, published via Eskom SE Push app. Affects: traffic lights (intersections become 4-way stops), ATMs, fuel pumps, hotel lifts, internet, mobile data (some), security alarms. Plan around it."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visitor to plan dinner reservations at 19:00 in Johannesburg without checking load-shedding schedule",
+      "why_fails": "Load shedding can hit any 2-4 hour window. Many small restaurants close during blackouts; hotels with generators stay open. Without checking the day's schedule, dinner plans collapse routinely. EskomSePush app is the de-facto schedule lookup.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.eskom.co.za/distribution/customer-service/loadshedding-schedules/",
+        "https://sepush.co.za/"
+      ],
+      "condition": "Restaurant / activity timing"
+    },
+    {
+      "action": "Drive through Joburg / Cape Town intersections during load shedding without preparing for traffic-light failures",
+      "why_fails": "When power's out, traffic lights default to off — every intersection becomes 4-way stop convention. Locals know this; tourists often don't. Accident risk spikes. SAPS warns to treat dark intersections as 4-way stops.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.saps.gov.za/"
+      ],
+      "condition": "Driving during outage"
+    },
+    {
+      "action": "Use ATMs, gas stations, or rely on home alarms during stage 4+ load shedding",
+      "why_fails": "Many ATMs, gas pumps, and security systems lose power. Home alarms beep during outage and may trigger false alarms (or miss real ones during gap). Stock cash before outages.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.eskom.co.za/distribution/customer-service/loadshedding-schedules/"
+      ],
+      "condition": "Power-dependent infrastructure"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install EskomSePush app — provides schedule by area (need municipality + suburb), real-time stage notifications, and outage logs. Free tier sufficient for most.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://sepush.co.za/"
+      ],
+      "condition": "Daily planning"
+    },
+    {
+      "action": "Stay at hotels with backup generators (most 4-5 star hotels). Confirm at booking. Some malls run on generator continuously. Boutique B&Bs may not have backup.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.southafrica.net/za/en/travel/category/news/eskom-load-shedding"
+      ],
+      "condition": "Accommodation choice"
+    },
+    {
+      "action": "Driving: treat dark intersections as 4-way stops; alternate yielding. Watch for guards manually directing at major junctions. Allow 2x travel time during stage 4+.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.saps.gov.za/"
+      ],
+      "condition": "Driving during outage"
+    },
+    {
+      "action": "Carry: power bank charged before outage, small flashlight, cash for shops without working POS. Mobile data often degrades during outages — download offline maps.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.eskom.co.za/distribution/customer-service/loadshedding-schedules/"
+      ],
+      "condition": "Tourist preparedness"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

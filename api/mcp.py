@@ -407,6 +407,64 @@ TOOLS = [
         },
     },
     {
+        "name": "list_errors_by_country",
+        "description": (
+            "List all country-scoped dead ends for a given country (ISO "
+            "alpha-2 code, e.g. 'kr', 'jp', 'us', 'de'). Returns visa, "
+            "banking, legal, cultural, medical, food-safety, emergency, "
+            "and safety dead ends specific to that jurisdiction."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string",
+                    "description": (
+                        "ISO 3166-1 alpha-2 country code, lowercase"
+                    ),
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "Optional: filter by domain",
+                },
+            },
+            "required": ["country"],
+        },
+        "annotations": {
+            "title": "List by country",
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
+    },
+    {
+        "name": "get_country_summary",
+        "description": (
+            "Get a country-level summary: total entries, domain breakdown, "
+            "average fix rate, and most-recent updates for the country."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string",
+                    "description": (
+                        "ISO 3166-1 alpha-2 country code, lowercase"
+                    ),
+                }
+            },
+            "required": ["country"],
+        },
+        "annotations": {
+            "title": "Country summary",
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
+    },
+    {
         "name": "get_error_chain",
         "description": (
             "Traverse the error transition graph for a specific error. "
@@ -905,6 +963,117 @@ def handle_mcp(method, params, canons, config=None):
                     "\nUse get_error_detail with the ID "
                     "for full dead ends and workarounds."
                 )
+                text = "\n".join(parts)
+            return {"content": [{"type": "text", "text": text}]}
+
+        elif tool_name == "list_errors_by_country":
+            country = args.get("country", "").strip().lower()
+            domain_filter = args.get("domain", "").strip()
+            country_canons = []
+            for c in canons:
+                additional = c.get("environment", {}).get("additional", {})
+                if additional.get("country", "").lower() != country:
+                    continue
+                if domain_filter and c.get("error", {}).get("domain") != domain_filter:
+                    continue
+                country_canons.append(c)
+            if not country_canons:
+                available = sorted({
+                    c.get("environment", {}).get("additional", {})
+                        .get("country", "")
+                    for c in canons
+                    if c.get("environment", {}).get("additional", {})
+                        .get("country")
+                })
+                text = (
+                    f"No entries for country '{country}'.\n"
+                    f"Available: {', '.join(available)}"
+                )
+            else:
+                country_canons.sort(
+                    key=lambda c: (
+                        c["error"]["domain"], -c["verdict"]["fix_success_rate"]
+                    )
+                )
+                country_name = (
+                    country_canons[0]["environment"]["additional"]
+                    .get("country_name", country.upper())
+                )
+                parts = [
+                    f"## {country_name} — {len(country_canons)} entries\n",
+                ]
+                current_domain = None
+                for c in country_canons:
+                    d = c["error"]["domain"]
+                    if d != current_domain:
+                        parts.append(f"\n### {d}")
+                        current_domain = d
+                    res = c["verdict"]["resolvable"]
+                    rate = int(c["verdict"]["fix_success_rate"] * 100)
+                    parts.append(
+                        f"- [{res}] {c['error']['signature']} "
+                        f"(fix: {rate}%) — {c['id']}"
+                    )
+                parts.append(
+                    f"\nFull aggregate: GET https://deadends.dev/api/v1/country/{country}.json"
+                )
+                text = "\n".join(parts)
+            return {"content": [{"type": "text", "text": text}]}
+
+        elif tool_name == "get_country_summary":
+            country = args.get("country", "").strip().lower()
+            country_canons = [
+                c for c in canons
+                if c.get("environment", {}).get("additional", {})
+                    .get("country", "").lower() == country
+            ]
+            if not country_canons:
+                available = sorted({
+                    c.get("environment", {}).get("additional", {})
+                        .get("country", "")
+                    for c in canons
+                    if c.get("environment", {}).get("additional", {})
+                        .get("country")
+                })
+                text = (
+                    f"No entries for country '{country}'.\n"
+                    f"Available: {', '.join(available)}"
+                )
+            else:
+                additional = country_canons[0]["environment"]["additional"]
+                country_name = additional.get("country_name", country.upper())
+                domains: dict = {}
+                rates = []
+                resolvable_counts = {"true": 0, "partial": 0, "false": 0}
+                latest = ""
+                for c in country_canons:
+                    d = c["error"]["domain"]
+                    domains[d] = domains.get(d, 0) + 1
+                    rates.append(c["verdict"]["fix_success_rate"])
+                    r = c["verdict"]["resolvable"]
+                    resolvable_counts[r] = resolvable_counts.get(r, 0) + 1
+                    last = c.get("error", {}).get("last_confirmed", "")
+                    if last and last > latest:
+                        latest = last
+                avg_fix = sum(rates) / len(rates) if rates else 0
+                domain_list = sorted(
+                    domains.items(), key=lambda x: -x[1]
+                )
+                parts = [
+                    f"## {country_name} ({country})",
+                    f"Total entries: {len(country_canons)}",
+                    f"Average fix rate: {int(avg_fix * 100)}%",
+                    f"Resolvable: {resolvable_counts['true']} fixable, "
+                    f"{resolvable_counts['partial']} partial, "
+                    f"{resolvable_counts['false']} not fixable",
+                    f"Most recent update: {latest or 'unknown'}",
+                    "",
+                    "### Domain breakdown",
+                    *[f"- {d}: {n}" for d, n in domain_list],
+                    "",
+                    f"Country page: https://deadends.dev/country/{country}/",
+                    f"JSON aggregate: https://deadends.dev/api/v1/country/{country}.json",
+                ]
                 text = "\n".join(parts)
             return {"content": [{"type": "text", "text": text}]}
 

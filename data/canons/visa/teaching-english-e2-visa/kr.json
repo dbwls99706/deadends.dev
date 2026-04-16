@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/teaching-english-e2-visa/kr",
+  "url": "https://deadends.dev/visa/teaching-english-e2-visa/kr",
+  "error": {
+    "signature": "AI tells a US/UK/CA/AU/NZ/IE/SA citizen they can teach English in Korea on a tourist visa, or that any TEFL certificate qualifies for E-2",
+    "regex": "(korea.*teach english|e-2 visa|korea.*esl|korea.*tefl|kotesol|hagwon visa|korea.*sponsorship|korea.*F-2-7)",
+    "domain": "visa",
+    "category": "regulatory_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "Korean E-2 (회화지도) visa for English teaching requires: (1) citizenship of US, UK, CA, AU, NZ, IE, or South Africa (the 7 official native English countries); (2) Bachelor's degree from accredited 4-year university; (3) clean criminal background check; (4) job offer from approved hagwon / school. TEFL/CELTA NOT required for E-2 (some employers prefer it). Online teaching from Korea on tourist visa illegal — requires E-2 sponsor. F-series spouse visas (F-2-7, F-6) allow free employment."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a Filipino, Indian, or German citizen they can apply for Korean E-2 with a strong English degree",
+      "why_fails": "E-2 (회화지도) restricted to 7 'native English' countries: US, UK, CA, AU, NZ, IE, South Africa. Other native or near-native English speakers (PH, IN, DE) ineligible regardless of qualification. They may qualify for E-7 (specialty work) at international schools, or F-2-7 if married to Korean citizen.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=130",
+        "https://overseas.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Non-eligible nationality"
+    },
+    {
+      "action": "Arrive in Korea on tourist (B-2) visa and start teaching at a hagwon, planning to convert later",
+      "why_fails": "Tourist work is illegal under Immigration Act. Periodic crackdowns; unauthorized work = deportation + 5-year re-entry ban. Hagwons offering 'we'll sort the visa' often face periodic raids. Must obtain E-2 BEFORE arrival; visa application via Korean consulate in home country.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.hikorea.go.kr/",
+        "https://overseas.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Tourist-then-work approach"
+    },
+    {
+      "action": "Try to use a community college / 2-year associate degree for E-2 application",
+      "why_fails": "E-2 requires Bachelor's from accredited 4-year university. Associate degrees, vocational diplomas, or unaccredited online degrees rejected. Apostilled / consulate-verified degree certificate required. Document review takes 4-6 weeks.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=130"
+      ],
+      "condition": "Degree credential"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "E-2 path: secure job offer from registered hagwon / school → submit BA degree (apostilled) + clean criminal background check (FBI for US, equivalent for others, apostilled) + medical (after arrival) → consulate processes 2-4 weeks → arrive on E-2 visa.",
+      "success_rate": 0.88,
+      "sources": [
+        "https://www.hikorea.go.kr/info/InfoDatail.pt?CAT_SEQ=130",
+        "https://overseas.mofa.go.kr/eng/index.do"
+      ],
+      "condition": "Standard E-2 application"
+    },
+    {
+      "action": "Non-eligible nationality but want to teach in Korea: target international schools (E-7), or arrive on study visa (D-2) for graduate school + part-time teaching with permission. Marriage visa (F-6) opens free employment.",
+      "success_rate": 0.65,
+      "sources": [
+        "https://www.hikorea.go.kr/"
+      ],
+      "condition": "Non-E-2 path",
+      "tradeoff": "International school positions competitive; require teaching credentials."
+    },
+    {
+      "action": "Recruiters: Korvia, Adventure Teaching, Reach to Teach, Footprints Recruiting handle E-2 placement legitimately. Avoid hagwons that say 'we'll handle visa later' = often illegal arrangements.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.korvia.com/",
+        "https://www.epik.go.kr/"
+      ],
+      "condition": "Recruiter selection"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/dui-zero-tolerance-states/us",
+  "url": "https://deadends.dev/safety/dui-zero-tolerance-states/us",
+  "error": {
+    "signature": "AI tells a US driver that '2 drinks is fine' assuming European 0.05% BAC limit, missing US state-by-state enforcement",
+    "regex": "(us.*dui|dwi.*usa|america.*drunk driving|us.*bac|0.08 bac|us.*dui penalty|interlock device|dui.*felony)",
+    "domain": "safety",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.92,
+    "last_updated": "2026-04-15",
+    "summary": "US DUI/DWI thresholds: federal+most states 0.08% BAC, Utah 0.05% (since 2018, lowest), commercial 0.04%, drivers under 21 zero tolerance (typically 0.02%). Penalties scale by state: first offense $1000-2500 fines, license suspension 30-365 days, mandatory ignition interlock in 30+ states, jail 1-6 months in some. Fatalities = vehicular manslaughter (felony, 4-25 years). Foreign licenses honored but DUI on US license/IDP creates US conviction record; USCIS Adjustment of Status considers."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist in Utah they can drive after 2 drinks because 'it's only 2 drinks'",
+      "why_fails": "Utah's 0.05% BAC is the lowest in the US (lower than EU norm 0.05%). 2 standard drinks puts most adults over Utah threshold. Police DUI checkpoints common, especially Salt Lake City. First offense: license suspension 120 days, $1310+ fine, 2-day jail OR community service.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://le.utah.gov/xcode/Title41/Chapter6A/41-6a-S502.html",
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "Utah specifically"
+    },
+    {
+      "action": "Drive in California after smoking cannabis (legal in CA) without checking impaired-driving laws",
+      "why_fails": "Cannabis is legal recreationally in CA but DUI under VC §23152(f) — driving while impaired by ANY substance illegal regardless of state legality. THC blood test → arrest. No 'safe limit' for THC; convictions on impairment evidence (officer observation, FST, blood test).",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/laws-and-rules-of-the-road/",
+        "https://www.nhtsa.gov/risky-driving/drug-impaired-driving"
+      ],
+      "condition": "Cannabis-legal state driving"
+    },
+    {
+      "action": "Refuse a roadside breath test thinking 'I have the right to refuse'",
+      "why_fails": "All 50 states have implied-consent law: refusal triggers automatic license suspension (12 months in CA, varies elsewhere) and is admissible at trial. In some states (NV, ND, MN, WV) refusal is its own crime. Comply with the test; legal challenge later if needed.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "Roadside testing"
+    },
+    {
+      "action": "Drive after 1 wine with dinner in Wisconsin / Texas, assuming low risk",
+      "why_fails": "0.08% threshold doesn't mean '1-2 drinks safe'. Body weight, food, time, prior tolerance all factor. Sub-0.08% can still be 'driving while impaired' (DWI) — no fixed minimum. Modern DUI enforcement increasingly catches lower-BAC impaired drivers.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "Sub-0.08% impaired driving"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Don't drive after drinking. Use Uber, Lyft, taxi, designated driver, hotel within walking distance. US-wide 0.08% (0.05% Utah). Cost of Uber back to hotel: $20-50. Cost of DUI: $10,000+ over 5 years (fines, lawyer, insurance increase, license).",
+      "success_rate": 0.99,
+      "sources": [
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "Universal best practice"
+    },
+    {
+      "action": "If pulled over: exit vehicle if asked, present license + insurance + registration. Decline to answer 'how many drinks have you had' (5th Amendment) but DO submit to breath test (implied consent). Lawyer up immediately if arrested.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "DUI stop response",
+      "tradeoff": "Even compliant arrest can result in conviction; minimize self-incrimination."
+    },
+    {
+      "action": "International Driving Permit: 1949 Geneva works in all 50 states alongside home license. Carry both. DUI conviction goes on US record AND reported to home country in some cases (UK, AU, CA via mutual recognition).",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.nhtsa.gov/risky-driving/drunk-driving"
+      ],
+      "condition": "Foreign drivers"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

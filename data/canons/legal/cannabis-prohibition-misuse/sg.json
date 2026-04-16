@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/cannabis-prohibition-misuse/sg",
+  "url": "https://deadends.dev/legal/cannabis-prohibition-misuse/sg",
+  "error": {
+    "signature": "AI tells a tourist that small cannabis amounts in Singapore are like other Asian countries — fines or short sentence",
+    "regex": "(singapore.*cannabis|singapore.*marijuana|singapore.*drug.*sentence|sg.*death penalty.*drug|misuse of drugs act|cnb singapore|nagaenthran)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.97,
+    "confidence": 0.95,
+    "last_updated": "2026-04-15",
+    "summary": "Singapore's Misuse of Drugs Act has the world's strictest drug regime. Death penalty (mandatory) for trafficking >500g cannabis, >15g heroin, >30g cocaine, >250g methamphetamine. Possession of any cannabis triggers up to 10 years + caning + heavy fine. Random urine tests at airport entry for travelers from cannabis-legal countries; positive test = trafficking presumption. Recent executions (Nagaenthran 2022, Tangaraju 2023) show enforcement is real."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring 'just a little bit' of cannabis (legal in your home country) into Singapore for personal use",
+      "why_fails": "Sniffer dogs at Changi T1-T4. Random urine tests at Tuas/Woodlands/Changi for travelers from cannabis-legal jurisdictions (US, Canada, Thailand). Positive test triggers trafficking-presumption arrest under Misuse of Drugs Act §17. Foreign nationals are not exempt; Australian, Mexican, and other tourists have been arrested.",
+      "fail_rate": 0.98,
+      "sources": [
+        "https://www.cnb.gov.sg/",
+        "https://sso.agc.gov.sg/Act/MDA1973",
+        "https://www.gov.uk/foreign-travel-advice/singapore/local-laws-and-customs"
+      ],
+      "condition": "Cannabis in any form"
+    },
+    {
+      "action": "Smoke cannabis in Thailand the night before flying to Singapore, assuming the trip won't be tested",
+      "why_fails": "CNB conducts random urine tests at Changi for travelers from Thailand and other cannabis-legal regions specifically. Positive THC test = arrest = trafficking-presumption charge under §31AA (presumption of consumption immediately before entry). 10-year jail + caning. Tourists have been jailed for this exact scenario.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.cnb.gov.sg/",
+        "https://www.straitstimes.com/singapore/courts-crime/"
+      ],
+      "condition": "Pre-trip cannabis use abroad"
+    },
+    {
+      "action": "Pack THC vape pens, edibles, or CBD products assuming they're 'milder'",
+      "why_fails": "All forms of cannabis (flower, oil, edibles, vape concentrates, CBD products containing any THC) are Class A controlled substances. Edibles concentrate THC; weight-based trafficking thresholds apply equally. CBD with even 0.1% THC counts.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.cnb.gov.sg/",
+        "https://www.hsa.gov.sg/"
+      ],
+      "condition": "Cannabis derivatives"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not consume cannabis in any form for at least 1 month before traveling to Singapore. Check medications for codeine / pseudoephedrine / amphetamines (all controlled) — bring original prescription if needed.",
+      "success_rate": 0.99,
+      "sources": [
+        "https://www.cnb.gov.sg/",
+        "https://www.hsa.gov.sg/"
+      ],
+      "condition": "All travelers"
+    },
+    {
+      "action": "If you take legitimate prescriptions: bring original pharmacy bottles, doctor's letter, and check Health Sciences Authority HSA list of controlled drugs before travel. Some opioid pain relievers and ADHD medications need import permit.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.hsa.gov.sg/"
+      ],
+      "condition": "Prescription medication import",
+      "tradeoff": "Some Western medications are simply not allowed."
+    },
+    {
+      "action": "If a urine test is requested at Changi, comply — refusal triggers arrest. If you are confident you are clean, the test resolves quickly. If you have used cannabis recently abroad, you are at serious risk; legal counsel should be sought immediately.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.cnb.gov.sg/"
+      ],
+      "condition": "On-arrival testing",
+      "tradeoff": "Singapore Bar mandates representation but penalties are severe regardless."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {"error_id": "legal/drug-death-penalty/id", "distinction": "Indonesia has similar death-penalty trafficking thresholds (Bali Nine 2015) but 2021 reform softened possession; SG retains strict first-offense consequences."},
+      {"error_id": "legal/khat-cannabis-laws/ae", "distinction": "UAE Federal Decree-Law 30/2021 reduced first-offense penalties to rehabilitation; SG retains caning + mandatory sentencing."}
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-04-15"
+  }
+}

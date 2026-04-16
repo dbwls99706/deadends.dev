@@ -103,7 +103,11 @@
   "transition_graph": {
     "leads_to": [],
     "preceded_by": [],
-    "frequently_confused_with": []
+    "frequently_confused_with": [
+      {"error_id": "culture/tipping-refused/jp", "distinction": "US: 18-22% required. JP: refused. Opposite frameworks; collapsing them produces wrong answer in both directions."},
+      {"error_id": "culture/coperto-pane-charge/it", "distinction": "IT: 10-12% service charge pre-added; round-up generous. US: tip ON TOP of any service charge since the charge may not reach server."},
+      {"error_id": "culture/queue-jumping-pub-rounds/uk", "distinction": "UK: 10-12.5% service charge often already on bill; additional tip optional. Less variable than US."}
+    ]
   },
   "metadata": {
     "generated_by": "manual",

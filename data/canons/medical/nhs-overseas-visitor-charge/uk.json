@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/nhs-overseas-visitor-charge/uk",
+  "url": "https://deadends.dev/medical/nhs-overseas-visitor-charge/uk",
+  "error": {
+    "signature": "AI tells a foreign visitor to the UK that NHS treatment is universally free for everyone, including non-residents",
+    "regex": "(uk.*nhs|nhs.*tourist|nhs.*overseas|uk.*free healthcare|overseas visitor regulations|nhs charge|uk.*emergency.*free|ehic uk|ghic uk)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.88,
+    "last_updated": "2026-04-15",
+    "summary": "NHS coverage is residence-based, not nationality-based. Under the National Health Service (Charges to Overseas Visitors) Regulations 2015, non-residents pay 150% of NHS tariff for hospital treatment. Free for all: A&E (until admitted), urgent COVID/STI care, GP appointment for assessment. Charged: planned treatment, inpatient admission, GP-prescribed medications. Reciprocal: EU/EEA visitors with valid EHIC/GHIC get covered for needed care. Long-stay visa holders pay Immigration Health Surcharge (£1,035/year) for full NHS access."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a US tourist visiting the UK that NHS will treat them for free if they need hospital care",
+      "why_fails": "Hospital treatment is charged at 150% of NHS tariff (Overseas Visitor Charging Regulations 2015). A&E visit free until admitted; once admitted, the bill arrives. Average inpatient day £400-1500+. Bills are pursued internationally; unpaid > £500 affects future UK visa applications under Immigration Rules.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/government/publications/how-the-nhs-charges-overseas-visitors-for-nhs-hospital-care",
+        "https://www.legislation.gov.uk/uksi/2015/238/contents/made"
+      ],
+      "condition": "Tourist medical advice"
+    },
+    {
+      "action": "Use an old EHIC card from a non-EU country",
+      "why_fails": "EHIC is valid for residents of EU/EEA/Switzerland/UK only. Post-Brexit UK residents use the GHIC card for EU travel and vice versa. US, Japanese, Australian etc. residents need standalone travel insurance — no EHIC equivalent.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/european-health-insurance-card",
+        "https://www.gov.uk/global-health-insurance-card"
+      ],
+      "condition": "Non-EU EHIC use"
+    },
+    {
+      "action": "Schedule a GP visit for a chronic condition without checking visitor charging",
+      "why_fails": "GP consultation for assessment is free, but follow-up tests, prescribed medications, and specialist referrals can be charged for non-residents. Some GP practices register short-term visitors as temporary residents (free); others refuse. Practice policies vary.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/government/publications/how-the-nhs-charges-overseas-visitors-for-nhs-hospital-care"
+      ],
+      "condition": "GP visit by visitor"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy travel medical insurance with £500k+ coverage for any UK trip; £50-100/trip for typical adults. EU/EEA/CH/UK residents bring EHIC/GHIC for needed treatment (limited to acute care).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.uk/government/publications/how-the-nhs-charges-overseas-visitors-for-nhs-hospital-care"
+      ],
+      "condition": "Pre-trip insurance"
+    },
+    {
+      "action": "Long-stay (Tier 2/4/5 work/student visa, family route): Immigration Health Surcharge £1,035/year (£776/year for students and Youth Mobility) paid with visa application — gives full NHS access including planned treatment.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.gov.uk/healthcare-immigration-application"
+      ],
+      "condition": "Long-stay visa"
+    },
+    {
+      "action": "Free for all regardless of residence: A&E until admitted, urgent COVID-19 testing/treatment, urgent STI/sexual health, urgent infectious disease treatment, family planning. NHS 111 telephone advice is free worldwide.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.gov.uk/government/publications/how-the-nhs-charges-overseas-visitors-for-nhs-hospital-care"
+      ],
+      "condition": "Knowing what's free"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

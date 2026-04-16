@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/fjord-driving-tunnels/no",
+  "url": "https://deadends.dev/safety/fjord-driving-tunnels/no",
+  "error": {
+    "signature": "AI tells a tourist driving in Norway to take the shortest GPS route through fjord regions in winter without checking road status, ferry schedules, or tunnel closures",
+    "regex": "(norway.*driving|fjord.*car|norway.*winter road|norwegian.*tunnel|trollstigen|atlantic ocean road|norway.*ferry|nrk vegtrafikksentralen)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Norwegian roads include 1100+ tunnels (longest 24.5km Lærdal Tunnel), 40+ active car ferries replacing bridges, and seasonal mountain pass closures (Trollstigen, Strynefjell, Sognefjell, Geiranger, Atlantic Ocean Road — closed Oct/Nov to May). GPS often shows 'shortest' route via closed roads. Vegvesenet (Roads Authority) maintains real-time status at 175.no. Winter driving: studded tires Nov-Apr per region; mandatory reflectors at all times outside settlement."
+  },
+  "dead_ends": [
+    {
+      "action": "Trust GPS to route through Trollstigen / Sognefjell / Geiranger road in October-May",
+      "why_fails": "Mountain passes close seasonally — typically Nov to May, varies year. Trollstigen reopens late May. GPS doesn't always reflect closures; you may drive 2-3 hours then encounter closed barriers. Always check Vegvesen 175.no or Norwegian Public Roads Administration app before mountain trips.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.vegvesen.no/en/",
+        "https://www.175.no/"
+      ],
+      "condition": "Mountain pass winter"
+    },
+    {
+      "action": "Plan a Bergen-Stavanger drive without ferry timetables",
+      "why_fails": "Multiple Bergen-Stavanger routes require ferries — at Ranavik, Halhjem-Sandvikvåg, Mortavika-Arsvågen. Ferries run hourly daytime, less frequent nights. Booking ahead recommended in summer; off-peak just-arrive works. Ferry queues 30-60 min in summer.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.fjord1.no/en/",
+        "https://www.norled.no/en/"
+      ],
+      "condition": "Ferry-route planning"
+    },
+    {
+      "action": "Drive a sub-compact rental car through Lærdal Tunnel 24.5km without preparation",
+      "why_fails": "World's longest road tunnel. Some drivers experience claustrophobia / disorientation. Ventilated colored-light areas every 6km help. Bring water, music. If anxious, take alternate routes (Aurland-Flåm scenic road, longer but spectacular).",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.vegvesen.no/en/"
+      ],
+      "condition": "Long tunnel travel"
+    },
+    {
+      "action": "Drive with summer tires in November-April in northern Norway",
+      "why_fails": "Norwegian regulations require winter tires Nov-Apr (varies by region — Nordland 16 Oct, Trøndelag 16 Oct, southern Norway 1 Nov). Studs allowed in winter. Police checks; fine ~NOK 750+. Rental companies switch tires automatically; verify if uncertain.",
+      "fail_rate": 0.78,
+      "sources": [
+        "https://www.vegvesen.no/en/driving-conditions/winter-tyres/"
+      ],
+      "condition": "Winter driving tires"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pre-trip: install Vegvesen / 175 app; check road status before leaving for mountain or fjord destinations. Confirm ferry timetables (Fjord1, Norled, Boreal) and book where applicable.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.vegvesen.no/en/",
+        "https://www.fjord1.no/en/"
+      ],
+      "condition": "Trip planning"
+    },
+    {
+      "action": "For scenic drives (Trollstigen, Atlantic Ocean Road, Geiranger), check season + reopen dates in advance. Many close Oct-May. Atlantic Ocean Road open year-round but storms can close briefly.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitnorway.com/"
+      ],
+      "condition": "Tourist scenic route"
+    },
+    {
+      "action": "Winter tires automatic on rentals during winter season. If renting personal car, ensure mounted before Nov 1 (or earlier in north). Carry tire chains for high-elevation routes.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.vegvesen.no/en/driving-conditions/winter-tyres/"
+      ],
+      "condition": "Tires"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

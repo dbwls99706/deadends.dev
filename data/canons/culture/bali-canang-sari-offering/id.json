@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/bali-canang-sari-offering/id",
+  "url": "https://deadends.dev/culture/bali-canang-sari-offering/id",
+  "error": {
+    "signature": "AI tells a tourist in Bali to step over or pick up the small daily offerings (canang sari) on sidewalks and shops",
+    "regex": "(bali.*canang|canang sari|bali.*offering|bali.*sidewalk.*flower|bali.*hindu|bali.*shrine|nyepi|bali.*silence)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Balinese Hindus place canang sari (small palm-leaf trays with flowers, rice, and incense) at home shrines, temples, and shopfronts three times daily as offerings to gods and lower spirits. Stepping on, kicking, or picking up an offering is a serious religious offense — the offering is sacred. Walk around them. Bali also observes Nyepi (Day of Silence, Saka new year, March): all activity stops, including the airport, for 24 hours."
+  },
+  "dead_ends": [
+    {
+      "action": "Step on or kick a canang sari offering on a Bali sidewalk because it 'looks like trash'",
+      "why_fails": "Canang sari are religious offerings placed three times daily by devout Balinese. Stepping on one is a direct insult to gods and ancestral spirits in the local cosmology. Locals are usually too polite to confront tourists but the act is noted and reported.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali",
+        "https://www.balitravelguide.com/"
+      ],
+      "condition": "Walking past offerings"
+    },
+    {
+      "action": "Pick up or move a canang sari to take a 'cute Instagram shot'",
+      "why_fails": "Same religious significance — handling someone else's offering is interference with their daily ritual. Leave them in place. If you want to photograph, do so without touching.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali"
+      ],
+      "condition": "Photography"
+    },
+    {
+      "action": "Plan a Bali trip departing or arriving on Nyepi (March, exact date varies by Saka calendar)",
+      "why_fails": "On Nyepi (Day of Silence) the entire island shuts: Ngurah Rai Airport closes for 24 hours (no arrivals or departures), no driving, no light at night, no work or entertainment. Visitors stay inside hotels. Pecalang (cultural police) enforce. Plan flights to arrive day before or day after Nyepi.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali",
+        "https://www.balidiscovery.com/"
+      ],
+      "condition": "Nyepi day flight planning"
+    },
+    {
+      "action": "Wear shorts and sleeveless tops to enter Pura Tanah Lot, Pura Besakih, or other Balinese temples",
+      "why_fails": "Balinese temples require sarong (kain) and sash (selendang). Most major temples rent or include them with admission. Tank tops and shorts above knee are refused at entry. Menstruating women are traditionally asked not to enter (signage at gate).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali"
+      ],
+      "condition": "Temple visit"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Walk around canang sari offerings. Don't step on, kick, pick up, or move them. Leave them undisturbed. If you stumble onto one accidentally, a quiet apology gesture is appropriate.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali"
+      ],
+      "condition": "Daily walking"
+    },
+    {
+      "action": "Check the Saka calendar for Nyepi date. Plan flights either day before or day after. Hotels stock guests with food/drink for the silent day. Day before is Melasti procession (welcome); day after is Ngembak Geni (resume normal activity).",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali"
+      ],
+      "condition": "Trip planning around Nyepi"
+    },
+    {
+      "action": "Temple visits: wear or rent sarong + sash at the entrance. Cover shoulders. Hair tied or covered for temple ceremonies. Photography usually allowed in outer areas, NOT inner sanctums.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.indonesia.travel/id/en/destinations/bali"
+      ],
+      "condition": "Temple visits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

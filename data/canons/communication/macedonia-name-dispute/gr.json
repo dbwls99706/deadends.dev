@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/macedonia-name-dispute/gr",
+  "url": "https://deadends.dev/communication/macedonia-name-dispute/gr",
+  "error": {
+    "signature": "AI uses 'Macedonia' alone (without 'North' qualifier) when referring to the modern country, in Greek-language or Greece-distributed content",
+    "regex": "(macedonia.*name|fyrom|north macedonia|prespa agreement|greece.*macedonia|macedonia.*country|alexander.*macedonia|skopje.*greece)",
+    "domain": "communication",
+    "category": "cultural_sensitivity",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "Under the 2018 Prespa Agreement, the country formerly 'Republic of Macedonia' is now officially 'Republic of North Macedonia'. Greece had blocked the unqualified name for decades — Macedonia is also the historic Greek province + Alexander's birthplace. Using 'Macedonia' alone for the modern country in Greek contexts is politically charged. Use 'North Macedonia' or 'Republic of North Macedonia'. The historic Macedonian Greek heritage (Pella, Vergina, Thessaloniki) is unrelated and freely referenced."
+  },
+  "dead_ends": [
+    {
+      "action": "Refer to the modern country as just 'Macedonia' in Greek media, business correspondence, or signage in Greece",
+      "why_fails": "Pre-Prespa terminology was 'FYROM' (Former Yugoslav Republic of Macedonia). Post-Prespa = 'North Macedonia'. Calling it just 'Macedonia' is read as either ignorance or political provocation in Greece.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mfa.gr/en/the-foreign-policy-of-greece/the-prespa-agreement.html",
+        "https://www.kathimerini.com/"
+      ],
+      "condition": "Greek media / business"
+    },
+    {
+      "action": "Tell a Greek 'Alexander the Great was Macedonian, like the modern country'",
+      "why_fails": "Alexander's Macedonia was the ancient Greek kingdom. Modern North Macedonia is largely Slavic. Conflating the two is a deep wound from 30-year diplomatic dispute. Greek view: Alexander is Hellenic heritage; Slavic North Macedonia adopted the name. Avoid.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.mfa.gr/"
+      ],
+      "condition": "Historical attribution"
+    },
+    {
+      "action": "Buy 'Made in Macedonia' wine or olive oil at a Greek market expecting it from the country North Macedonia",
+      "why_fails": "Greek 'Macedonia' refers to the Greek geographic province (capital Thessaloniki) — wines, oils, and produce labeled Macedonia in Greece are Greek-Macedonian, not from North Macedonia.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.visitgreece.gr/"
+      ],
+      "condition": "Product origin in Greece"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Always say 'North Macedonia' or 'Republic of North Macedonia' for the modern country (post-2018). Use 'Greek Macedonia' or just 'Macedonia (Greek province)' for the historical / current Greek region. Disambiguate when in doubt.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.mfa.gr/en/the-foreign-policy-of-greece/the-prespa-agreement.html"
+      ],
+      "condition": "Naming convention"
+    },
+    {
+      "action": "Greek-Macedonian heritage discussion (Vergina tombs, Pella mosaics, Aristotle, Thessaloniki) is welcomed and connects to ancient Hellenic culture. Modern North Macedonian heritage (Ohrid, Skopje) is separate and equally valid in its own right.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.visitgreece.gr/"
+      ],
+      "condition": "Heritage discussion"
+    },
+    {
+      "action": "For business: use formal country names in contracts ('Hellenic Republic' / 'Republic of North Macedonia'). Avoid the dispute by sticking to formal nomenclature throughout.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://www.mfa.gr/en/"
+      ],
+      "condition": "Business contracts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/western-wall-etiquette/il",
+  "url": "https://deadends.dev/culture/western-wall-etiquette/il",
+  "error": {
+    "signature": "AI tells a tourist to walk freely between the men's and women's sections at the Western Wall, photograph during Shabbat, or leave the wall walking forwards",
+    "regex": "(western wall|wailing wall|kotel|israel.*temple mount|jerusalem.*shabbat|israel.*photo.*shabbat|kotel etiquette)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-04-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-04-15",
+    "summary": "The Western Wall (Kotel, הכותל המערבי) plaza in Jerusalem's Old City is divided men's (left) and women's (right) sections. Modest dress required (shoulders covered, knees covered, head cover for men — kippot provided free). No photography during Shabbat (Fri sunset to Sat sunset) or holidays — strict observance. Leave wall walking backwards (don't turn back to it) for several steps. Jewish prayer notes (kvitlach) into wall cracks; written notes are removed and buried twice yearly."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into the wrong gendered section of the Kotel plaza",
+      "why_fails": "Strict separation: men's section (left, larger), women's section (right, smaller). Wandering into wrong section gets verbal correction. The mixed plaza behind the prayer area is OK for everyone.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://english.thekotel.org/",
+        "https://www.itraveljerusalem.com/"
+      ],
+      "condition": "Section navigation"
+    },
+    {
+      "action": "Take photos of the wall during Shabbat (Fri evening to Sat sundown)",
+      "why_fails": "Photography on Shabbat violates Jewish law (writing/recording = creating). Religious observers actively police; can confront. Phones / cameras out at all is taboo. After Havdalah Saturday evening, photography resumes.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://english.thekotel.org/",
+        "https://www.itraveljerusalem.com/"
+      ],
+      "condition": "Shabbat / holiday photography"
+    },
+    {
+      "action": "Turn your back on the wall and walk away normally",
+      "why_fails": "Tradition: walk backwards from the wall for several meters before turning, as a sign of respect for the holy site. Like leaving a king's presence — don't turn back. Most observers do this; foreigners are gently corrected.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://english.thekotel.org/"
+      ],
+      "condition": "Departing the wall"
+    },
+    {
+      "action": "Visit Temple Mount / Haram al-Sharif (above the Western Wall) on a Friday or during Muslim prayer times",
+      "why_fails": "Non-Muslim visiting hours to Temple Mount are restricted (varies; typically Sun-Thu mornings + early afternoon, closed Fridays). Tickets via designated Mughrabi Gate only. Politically sensitive — recent flare-ups (2021, 2023) closed access for periods. Check Israeli Tourism Ministry / Waqf updates daily.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.il/en/departments/ministry_of_tourism",
+        "https://www.itraveljerusalem.com/"
+      ],
+      "condition": "Temple Mount visit"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Approach Kotel: enter through security check (passport may be requested). Cover shoulders + knees; men take a kippah from the basket. Choose correct section. Approach wall, place written prayer in cracks if you have one, take a moment, walk backwards 5+ meters before turning.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://english.thekotel.org/"
+      ],
+      "condition": "Standard visit"
+    },
+    {
+      "action": "On Shabbat: visit OK, just no photography, no writing, no electronics. Many religious Jews come to pray; non-Jewish tourists can stand respectfully behind the praying area.",
+      "success_rate": 0.92,
+      "sources": [
+        "https://english.thekotel.org/"
+      ],
+      "condition": "Shabbat visit"
+    },
+    {
+      "action": "Temple Mount: pre-check Israeli MFA + Waqf for current visitor hours. Enter via Mughrabi Gate (only entry for non-Muslims). Modest dress strict — long pants, covered shoulders, no overt religious symbols (cross, Star of David). Photography of guards, IDF, and prayer not allowed.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.il/en/departments/ministry_of_tourism"
+      ],
+      "condition": "Temple Mount"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-04-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-04-15"
+  }
+}
