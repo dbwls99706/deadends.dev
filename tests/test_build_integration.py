@@ -143,6 +143,20 @@ class TestSiteBuildIntegration:
                 f"Missing URL in sub-sitemap: {summary['url']}"
             )
 
+    def test_sitemap_covers_every_canon(self, built_site):
+        """Every canon ID must appear in some sitemap-*.xml sub-sitemap."""
+        all_sub_content = ""
+        for f in built_site["site_dir"].glob("sitemap-*.xml"):
+            all_sub_content += f.read_text(encoding="utf-8")
+        missing = [
+            c["id"] for c in built_site["canons"]
+            if f"/{c['id']}/" not in all_sub_content
+        ]
+        assert not missing, (
+            f"{len(missing)} canon(s) missing from sub-sitemaps "
+            f"(first 5: {missing[:5]})"
+        )
+
     def test_html_pages_have_json_ld(self, built_site):
         """Every error page should contain valid JSON-LD."""
         site_dir = built_site["site_dir"]

@@ -6,6 +6,7 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 from jsonschema import ValidationError, validate
 
@@ -16,6 +17,39 @@ BASE_URL = "https://deadends.dev"
 # Staleness thresholds (days since last_confirmed)
 STALE_THRESHOLD_DAYS = 365
 AGING_THRESHOLD_DAYS = 180
+
+_UNSAFE_HOSTS = frozenset({
+    "localhost", "127.0.0.1", "0.0.0.0", "::1", "[::1]",  # noqa: S104
+})
+
+
+def is_safe_url(url: str) -> bool:
+    """Reject non-http(s), localhost, private, link-local, and octal-IP URLs."""
+    try:
+        parsed = urlparse(url)
+        if parsed.scheme not in ("http", "https"):
+            return False
+        host = (parsed.hostname or "").lower()
+        if not host:
+            return False
+        if host in _UNSAFE_HOSTS:
+            return False
+        if host.startswith(("10.", "192.168.")):
+            return False
+        if host.startswith("172."):
+            parts = host.split(".")
+            if len(parts) >= 2 and parts[1].isdigit() and 16 <= int(parts[1]) <= 31:
+                return False
+        if host.startswith("169.254."):
+            return False
+        if host.startswith("::ffff:"):
+            return False
+        first = host.split(".")[0]
+        if first.startswith("0") and first != "0":
+            return False
+        return True
+    except Exception:
+        return False
 
 
 def _parse_date(date_str: str) -> date | None:
@@ -121,6 +155,17 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
             f"Regex has excessive nesting ({regex_str.count('(')} groups): "
             f"{regex_str[:80]}"
         )
+
+    # Error: source URLs must pass safety check (no localhost, private IPs,
+    # metadata endpoints, javascript:/data:/file: schemes).
+    for i, de in enumerate(data.get("dead_ends", [])):
+        for j, src in enumerate(de.get("sources") or []):
+            if not is_safe_url(src):
+                errors.append(f"dead_ends[{i}].sources[{j}] unsafe URL: {src}")
+    for i, wa in enumerate(data.get("workarounds", [])):
+        for j, src in enumerate(wa.get("sources") or []):
+            if not is_safe_url(src):
+                errors.append(f"workarounds[{i}].sources[{j}] unsafe URL: {src}")
 
     # Warning: dead_ends with empty sources
     for i, de in enumerate(data.get("dead_ends", [])):

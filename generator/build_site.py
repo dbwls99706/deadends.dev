@@ -7,13 +7,13 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
 
 from generator.domains import domain_display_name
+from generator.validate import is_safe_url as _is_safe_url
 
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "canons"
@@ -80,44 +80,6 @@ def build_env_summary(canon: dict) -> str:
         parts.append(additional["audience"])
 
     return " · ".join(parts)
-
-
-_UNSAFE_HOSTS = frozenset({
-    "localhost", "127.0.0.1", "0.0.0.0", "::1", "[::1]",  # noqa: S104
-})
-
-
-def _is_safe_url(url: str) -> bool:
-    """Validate that a URL uses http/https and is not a local/internal address."""
-    try:
-        parsed = urlparse(url)
-        if parsed.scheme not in ("http", "https"):
-            return False
-        host = (parsed.hostname or "").lower()
-        if not host:
-            return False
-        # Block localhost and loopback
-        if host in _UNSAFE_HOSTS:
-            return False
-        # Block private IPv4 ranges (10.x, 172.16-31.x, 192.168.x)
-        if host.startswith(("10.", "192.168.")):
-            return False
-        if host.startswith("172."):
-            parts = host.split(".")
-            if len(parts) >= 2 and parts[1].isdigit() and 16 <= int(parts[1]) <= 31:
-                return False
-        # Block 169.254.x.x (link-local / metadata endpoint)
-        if host.startswith("169.254."):
-            return False
-        # Block IPv6-mapped IPv4 (e.g. ::ffff:127.0.0.1)
-        if host.startswith("::ffff:"):
-            return False
-        # Block octal IP representations (e.g. 0177.0.0.1 = 127.0.0.1)
-        if host.split(".")[0].startswith("0") and host.split(".")[0] != "0":
-            return False
-        return True
-    except Exception:
-        return False
 
 
 def _sanitize_sources(sources: list[str]) -> list[str]:
@@ -2814,8 +2776,9 @@ def build_llms_txt(canons: list[dict]) -> None:
     (SITE_DIR / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
     print("  Generated: llms.txt")
 
-    # llms-full.txt — complete data dump for AI context windows
-    full_lines = [
+    # llms-full.txt — complete dump, plus /llms-full-{domain}.txt
+    # variants so agents can load only the domain they need.
+    header = [
         "# deadends.dev — Complete Error Database",
         "",
         f"> {len(canons)} errors across {len(by_domain)} domains. "
@@ -2825,65 +2788,90 @@ def build_llms_txt(canons: list[dict]) -> None:
         "",
         "- Match endpoint: `GET /api/v1/match.json`",
         "- Full canon: `GET /api/v1/{domain}/{slug}/{env}.json`",
+        f"- Per-domain slices: `{BASE_URL}/llms-full-{{domain}}.txt`",
         "",
     ]
-    for canon in sorted(canons, key=lambda c: c["id"]):
-        full_lines.append(f"## {canon['id']}")
-        full_lines.append("")
-        full_lines.append(f"- ERROR: {canon['error']['signature']}")
-        full_lines.append(f"- REGEX: `{canon['error']['regex']}`")
-        full_lines.append(f"- RESOLVABLE: {canon['verdict']['resolvable']}")
-        full_lines.append(
-            f"- FIX_RATE: {canon['verdict']['fix_success_rate']}"
-        )
-        full_lines.append(f"- SUMMARY: {canon['verdict']['summary']}")
-        full_lines.append("")
-        full_lines.append("### Dead Ends")
-        full_lines.append("")
+
+    def _canon_block(canon: dict) -> list[str]:
+        block = [
+            f"## {canon['id']}",
+            "",
+            f"- ERROR: {canon['error']['signature']}",
+            f"- REGEX: `{canon['error']['regex']}`",
+            f"- RESOLVABLE: {canon['verdict']['resolvable']}",
+            f"- FIX_RATE: {canon['verdict']['fix_success_rate']}",
+            f"- SUMMARY: {canon['verdict']['summary']}",
+            "",
+            "### Dead Ends",
+            "",
+        ]
         for de in canon["dead_ends"]:
-            full_lines.append(
+            block.append(
                 f"- {de['action']} (fail_rate={de['fail_rate']}): "
                 f"{de['why_fails']}"
             )
-        full_lines.append("")
-        full_lines.append("### Workarounds")
-        full_lines.append("")
+        block.append("")
+        block.append("### Workarounds")
+        block.append("")
         for wa in canon.get("workarounds", []):
             how_text = f" — `{wa['how']}`" if wa.get("how") else ""
-            full_lines.append(
+            block.append(
                 f"- {wa['action']} "
                 f"(success_rate={wa['success_rate']}){how_text}"
             )
-        full_lines.append("")
+        block.append("")
 
         tg = canon.get("transition_graph", {})
         leads = tg.get("leads_to", [])
         preceded = tg.get("preceded_by", [])
         confused = tg.get("frequently_confused_with", [])
         if leads or preceded or confused:
-            full_lines.append("### Error Chain")
-            full_lines.append("")
+            block.append("### Error Chain")
+            block.append("")
             if leads:
                 ids = [e["error_id"] for e in leads
                        if isinstance(e, dict) and "error_id" in e]
                 if ids:
-                    full_lines.append(f"- LEADS_TO: {', '.join(ids)}")
+                    block.append(f"- LEADS_TO: {', '.join(ids)}")
             if preceded:
                 ids = [e["error_id"] for e in preceded
                        if isinstance(e, dict) and "error_id" in e]
                 if ids:
-                    full_lines.append(f"- PRECEDED_BY: {', '.join(ids)}")
+                    block.append(f"- PRECEDED_BY: {', '.join(ids)}")
             if confused:
                 ids = [e["error_id"] for e in confused
                        if isinstance(e, dict) and "error_id" in e]
                 if ids:
-                    full_lines.append(f"- CONFUSED_WITH: {', '.join(ids)}")
-            full_lines.append("")
+                    block.append(f"- CONFUSED_WITH: {', '.join(ids)}")
+            block.append("")
+        return block
+
+    full_lines = list(header)
+    for canon in sorted(canons, key=lambda c: c["id"]):
+        full_lines.extend(_canon_block(canon))
 
     (SITE_DIR / "llms-full.txt").write_text(
         "\n".join(full_lines), encoding="utf-8"
     )
     print("  Generated: llms-full.txt")
+
+    # Per-domain slices — bounded size, one domain per file.
+    for domain in sorted(by_domain.keys()):
+        domain_canons = sorted(by_domain[domain], key=lambda c: c["id"])
+        dom_lines = [
+            f"# deadends.dev — {domain} domain",
+            "",
+            f"> {len(domain_canons)} errors in `{domain}`. "
+            f"Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d')}. "
+            f"Full database: {BASE_URL}/llms-full.txt",
+            "",
+        ]
+        for canon in domain_canons:
+            dom_lines.extend(_canon_block(canon))
+        (SITE_DIR / f"llms-full-{domain}.txt").write_text(
+            "\n".join(dom_lines), encoding="utf-8"
+        )
+    print(f"  Generated: {len(by_domain)} per-domain llms-full-*.txt slices")
 
 
 def build_api_index(canons: list[dict]) -> None:
