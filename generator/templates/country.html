@@ -63,7 +63,7 @@
     "inLanguage": "en",
     "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
     "about": {"@type": "Country", "name": "{{ country_name | json_escape }}"},
-    "spatialCoverage": {"@type": "Place", "name": "{{ country_name | json_escape }}", "address": {"@type": "PostalAddress", "addressCountry": "{{ country_code | upper }}"}},
+    "spatialCoverage": {"@type": "Place", "name": "{{ country_name | json_escape }}", "address": {"@type": "PostalAddress", "addressCountry": "{{ 'GB' if country_code == 'uk' else country_code | upper }}"}},
     "numberOfItems": {{ total }},
     "speakable": {
       "@type": "SpeakableSpecification",

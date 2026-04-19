@@ -114,6 +114,17 @@ class TestSiteBuildIntegration:
         """The main index page should exist."""
         assert (built_site["site_dir"] / "index.html").exists()
 
+    def test_index_spatial_coverage_uses_place_type(self, built_site):
+        """Dataset.spatialCoverage must use Place, not Country (GSC warning)."""
+        html = (built_site["site_dir"] / "index.html").read_text(encoding="utf-8")
+        assert '"spatialCoverage": [' in html
+        assert '"@type": "Place"' in html
+        assert '"@type": "Country"' not in html.split('"spatialCoverage"', 1)[1].split("]", 1)[0]
+        # uk slug must be emitted as ISO 3166-1 alpha-2 "GB"
+        if "United Kingdom" in html:
+            assert '"addressCountry": "GB"' in html
+            assert '"addressCountry": "UK"' not in html
+
     def test_sitemap_created(self, built_site):
         """Sitemap index should exist and reference sub-sitemaps."""
         sitemap_path = built_site["site_dir"] / "sitemap.xml"

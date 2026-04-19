@@ -107,7 +107,7 @@
       "Workaround success rate"
     ],
     "spatialCoverage": [{% for c in country_stats %}
-      {"@type": "Place", "name": "{{ c.name | json_escape }}", "address": {"@type": "PostalAddress", "addressCountry": "{{ c.slug | upper }}"}}{{ "," if not loop.last else "" }}{% endfor %}
+      {"@type": "Place", "name": "{{ c.name | json_escape }}", "address": {"@type": "PostalAddress", "addressCountry": "{{ 'GB' if c.slug == 'uk' else c.slug | upper }}"}}{{ "," if not loop.last else "" }}{% endfor %}
     ],
     "keywords": ["error debugging", "dead ends", "workarounds", "AI agents", "error patterns", "country-specific knowledge", "jurisdiction", {{ domains | tojson }}]
   }
