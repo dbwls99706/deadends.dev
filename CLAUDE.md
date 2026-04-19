@@ -42,7 +42,7 @@ generator/
   __init__.py
   build_site.py        # Static site builder (Jinja2 templates → site/)
   bulk_generate.py     # Generate canon JSON from seed definitions (current version)
-  bulk_generate_v2-v16.py  # Historical bulk generation versions (excluded from linting)
+                       # Historical versions v2-v16 live under archive/bulk_generate_history/
   collect_evidence.py  # Evidence collection utilities
   collect_signatures.py # Signature collection utilities
   domains.py           # Domain constants: KEYWORD_MAP, DOMAIN_DISPLAY_NAMES, suggest_domains()
