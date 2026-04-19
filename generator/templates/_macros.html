@@ -1,0 +1,13 @@
+{# Shared JSON-LD macros. Centralize schema.org type choices here so a GSC
+   warning about structured data can be fixed in one file. #}
+
+{# schema.org spatialCoverage wants a Place (not Country). PostalAddress
+   holds the ISO 3166-1 alpha-2 code. The `uk` slug is not valid ISO;
+   map it to GB. Extend this mapping if more non-ISO slugs are added. #}
+{%- macro iso_alpha2(slug) -%}
+{%- if slug == 'uk' -%}GB{%- else -%}{{ slug | upper }}{%- endif -%}
+{%- endmacro -%}
+
+{%- macro spatial_place(country_slug, country_name) -%}
+{"@type": "Place", "name": "{{ country_name | json_escape }}", "address": {"@type": "PostalAddress", "addressCountry": "{{ iso_alpha2(country_slug) }}"}}
+{%- endmacro -%}

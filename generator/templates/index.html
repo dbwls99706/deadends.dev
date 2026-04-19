@@ -106,8 +106,9 @@
       "Dead end fail rate",
       "Workaround success rate"
     ],
+    {% from "_macros.html" import spatial_place %}
     "spatialCoverage": [{% for c in country_stats %}
-      {"@type": "Country", "name": "{{ c.name | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
+      {{ spatial_place(c.slug, c.name) }}{{ "," if not loop.last else "" }}{% endfor %}
     ],
     "keywords": ["error debugging", "dead ends", "workarounds", "AI agents", "error patterns", "country-specific knowledge", "jurisdiction", {{ domains | tojson }}]
   }

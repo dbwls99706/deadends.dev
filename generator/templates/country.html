@@ -63,7 +63,8 @@
     "inLanguage": "en",
     "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
     "about": {"@type": "Country", "name": "{{ country_name | json_escape }}"},
-    "spatialCoverage": {"@type": "Country", "name": "{{ country_name | json_escape }}"},
+    {% from "_macros.html" import spatial_place %}
+    "spatialCoverage": {{ spatial_place(country_code, country_name) }},
     "numberOfItems": {{ total }},
     "speakable": {
       "@type": "SpeakableSpecification",

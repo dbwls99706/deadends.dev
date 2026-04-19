@@ -114,6 +114,17 @@ class TestSiteBuildIntegration:
         """The main index page should exist."""
         assert (built_site["site_dir"] / "index.html").exists()
 
+    def test_index_spatial_coverage_uses_place_type(self, built_site):
+        """Dataset.spatialCoverage must use Place, not Country (GSC warning)."""
+        html = (built_site["site_dir"] / "index.html").read_text(encoding="utf-8")
+        assert '"spatialCoverage": [' in html
+        assert '"@type": "Place"' in html
+        assert '"@type": "Country"' not in html.split('"spatialCoverage"', 1)[1].split("]", 1)[0]
+        # uk slug must be emitted as ISO 3166-1 alpha-2 "GB"
+        if "United Kingdom" in html:
+            assert '"addressCountry": "GB"' in html
+            assert '"addressCountry": "UK"' not in html
+
     def test_sitemap_created(self, built_site):
         """Sitemap index should exist and reference sub-sitemaps."""
         sitemap_path = built_site["site_dir"] / "sitemap.xml"
@@ -131,6 +142,20 @@ class TestSiteBuildIntegration:
             assert summary["url"] in all_sub_content, (
                 f"Missing URL in sub-sitemap: {summary['url']}"
             )
+
+    def test_sitemap_covers_every_canon(self, built_site):
+        """Every canon ID must appear in some sitemap-*.xml sub-sitemap."""
+        all_sub_content = ""
+        for f in built_site["site_dir"].glob("sitemap-*.xml"):
+            all_sub_content += f.read_text(encoding="utf-8")
+        missing = [
+            c["id"] for c in built_site["canons"]
+            if f"/{c['id']}/" not in all_sub_content
+        ]
+        assert not missing, (
+            f"{len(missing)} canon(s) missing from sub-sitemaps "
+            f"(first 5: {missing[:5]})"
+        )
 
     def test_html_pages_have_json_ld(self, built_site):
         """Every error page should contain valid JSON-LD."""

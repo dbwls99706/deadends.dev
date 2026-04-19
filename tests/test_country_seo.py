@@ -206,6 +206,10 @@ def test_per_country_page_has_faqpage_and_speakable(tmp_path, monkeypatch):
     assert "FAQPage" in page_html, "Country page missing FAQPage JSON-LD"
     assert "speakable" in page_html, "Country page missing speakable spec"
     assert "spatialCoverage" in page_html, "Country page missing spatialCoverage"
+    assert '"spatialCoverage": {"@type": "Place"' in page_html, (
+        "spatialCoverage must use Place type (Country triggers GSC Dataset warnings)"
+    )
+    assert '"addressCountry"' in page_html, "spatialCoverage must include addressCountry"
     # Country aggregate API alternate
     assert (
         f"/api/v1/country/{code}.json" in page_html
