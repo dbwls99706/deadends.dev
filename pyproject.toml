@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deadends-dev"
-version = "0.7.0"
+version = "0.9.0"
 description = "Structured failure knowledge for AI agents — dead ends, workarounds, error chains"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -27,12 +27,15 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "jinja2>=3.1,<4",
+    "jinja2>=3.1.6,<4",
 ]
 
 [project.urls]
 Homepage = "https://deadends.dev"
 Repository = "https://github.com/dbwls99706/deadends.dev"
+Source = "https://github.com/dbwls99706/deadends.dev"
+Issues = "https://github.com/dbwls99706/deadends.dev/issues"
+Changelog = "https://github.com/dbwls99706/deadends.dev/blob/main/README.md#changelog"
 API = "https://deadends.dev/api/v1/index.json"
 
 [project.optional-dependencies]
@@ -53,6 +56,7 @@ pipeline = [
 [project.scripts]
 deadends = "generator.lookup:main"
 deadends-mcp = "mcp.server:main"
+deadends-dev = "mcp.server:main"
 
 [tool.setuptools.packages.find]
 include = ["generator*", "mcp*", "data*"]

@@ -961,11 +961,15 @@ def build_robots_txt() -> None:
     """Generate robots.txt with explicit AI crawler allowances."""
     content = f"""# deadends.dev - Structured failure knowledge for AI coding agents
 # All crawlers welcome — this site is BUILT for AI consumption
+#
+# /api/ endpoints serve application/json and are discoverable from HTML
+# via <link rel="alternate"> tags. We deliberately do NOT block them so
+# search engines don't report "blocked by robots.txt" conflicts for URLs
+# that HTML pages reference. JSON responses are not indexed in web search
+# by default (wrong Content-Type) but remain reachable to every crawler.
 
 User-agent: *
 Allow: /
-# Block API directories for generic crawlers — JSON endpoints, not indexable pages
-Disallow: /api/
 
 # AI training crawlers — full access to API and HTML
 User-agent: GPTBot
@@ -994,15 +998,12 @@ Allow: /
 
 User-agent: Googlebot
 Allow: /
-Disallow: /api/
 
 User-agent: GoogleOther
 Allow: /
-Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
-Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
@@ -1101,14 +1102,6 @@ User-agent: Perplexity-User
 Allow: /
 
 Sitemap: {BASE_URL}/sitemap.xml
-
-# Country-scoped knowledge endpoints (explicit allow for AI agents
-# even where the global rule disallows /api/, since these aggregates
-# replace dozens of individual canon lookups):
-User-agent: *
-Allow: /country/
-Allow: /api/v1/country/
-Allow: /api/v1/countries.json
 
 # AI agent config files:
 # CLAUDE.md:      {BASE_URL}/CLAUDE.md

@@ -326,8 +326,17 @@ def test_robots_allows_country_paths(tmp_path, monkeypatch):
     monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
     bs.build_robots_txt()
     robots = (tmp_path / "robots.txt").read_text(encoding="utf-8")
-    assert "Allow: /country/" in robots
-    assert "Allow: /api/v1/country/" in robots
+    # Country paths must remain crawlable. The file now uses a blanket
+    # `Allow: /` for every user-agent (including Googlebot/Bingbot) instead
+    # of per-section exception blocks, so assert the absence of any
+    # Disallow directive that would block /country/ or /api/v1/country/.
+    assert "Allow: /" in robots
+    for line in robots.splitlines():
+        if line.startswith("Disallow:"):
+            path = line.split(":", 1)[1].strip()
+            assert not path or not (
+                "/country" in path or "/api" in path
+            ), f"unexpected Disallow that blocks country paths: {line!r}"
 
 
 def test_api_mcp_mirror_has_country_tools():
