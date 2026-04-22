@@ -48,7 +48,10 @@
     "description": "Structured failure knowledge for AI coding agents — dead ends, workarounds, error chains. {{ total_errors }} errors across {{ domains | length }} domains.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "{{ base_url }}/search/?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ base_url }}/search/?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
