@@ -37,11 +37,11 @@
   <!-- Open Graph -->
   {% set id_parts = id.split('/') %}
   {% set summary_url = base_url ~ '/' ~ id_parts[0] ~ '/' ~ id_parts[1] ~ '/' %}
+  {% set self_url = base_url ~ '/' ~ id ~ '/' %}
   <meta property="og:title" content="{{ error.signature }} — {{ dead_ends|length }} Dead Ends to Avoid">
   <meta property="og:description" content="Avoid {{ dead_ends|length }} dead ends fixing {{ error.signature }}. {{ workarounds|default([])|length }} verified workarounds with {{ (verdict.fix_success_rate * 100)|int }}% fix rate.">
   <meta property="og:type" content="article">
-  {% set self_url = base_url ~ '/' ~ id ~ '/' %}
-  <meta property="og:url" content="{{ self_url }}">
+  <meta property="og:url" content="{{ summary_url }}">
   <meta property="og:site_name" content="deadends.dev">
   <meta property="og:image" content="{{ base_url }}/og/{{ id_parts[0] }}/{{ id_parts[1] }}.svg">
   <meta property="og:image:width" content="1200">
@@ -61,10 +61,10 @@
   <!-- Citation meta for AI citation engines and Google Scholar -->
   <meta name="citation_title" content="Fix {{ error.signature }} — Verified Workarounds">
   <meta name="citation_date" content="{{ error.first_seen|default(metadata.generation_date, true) }}">
-  <meta name="citation_public_url" content="{{ self_url }}">
+  <meta name="citation_public_url" content="{{ summary_url }}">
   <meta name="citation_author" content="deadends.dev">
 
-  <link rel="canonical" href="{{ self_url }}">
+  <link rel="canonical" href="{{ summary_url }}">
   <link rel="up" href="{{ summary_url }}">
 
   <!-- BreadcrumbList for Google rich results -->
