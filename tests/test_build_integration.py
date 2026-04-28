@@ -144,17 +144,44 @@ class TestSiteBuildIntegration:
             )
 
     def test_sitemap_covers_every_canon(self, built_site):
-        """Every canon ID must appear in some sitemap-*.xml sub-sitemap."""
+        """Every canon's slug summary URL must appear in a sub-sitemap.
+
+        Env-specific URLs are intentionally excluded — they canonicalize
+        to the slug summary, so listing them in the sitemap creates
+        duplicate-content signals in Search Console. Coverage is verified
+        at the slug level instead.
+        """
         all_sub_content = ""
         for f in built_site["site_dir"].glob("sitemap-*.xml"):
             all_sub_content += f.read_text(encoding="utf-8")
+        slug_keys = {
+            "/".join(c["id"].split("/")[:2]) for c in built_site["canons"]
+        }
         missing = [
-            c["id"] for c in built_site["canons"]
-            if f"/{c['id']}/" not in all_sub_content
+            slug_key for slug_key in sorted(slug_keys)
+            if f"/{slug_key}/" not in all_sub_content
         ]
         assert not missing, (
-            f"{len(missing)} canon(s) missing from sub-sitemaps "
+            f"{len(missing)} slug summary URL(s) missing from sub-sitemaps "
             f"(first 5: {missing[:5]})"
+        )
+
+    def test_sitemap_excludes_env_specific_urls(self, built_site):
+        """Sub-sitemaps should not list env-specific URLs (only summary URLs).
+
+        Listing both forms creates duplicate-content noise in Search
+        Console because env pages canonicalize to the summary URL.
+        """
+        all_sub_content = ""
+        for f in built_site["site_dir"].glob("sitemap-*.xml"):
+            all_sub_content += f.read_text(encoding="utf-8")
+        leaked = [
+            c["id"] for c in built_site["canons"]
+            if f"/{c['id']}/</loc>" in all_sub_content
+        ]
+        assert not leaked, (
+            f"{len(leaked)} env-specific URL(s) leaked into sitemap "
+            f"(first 5: {leaked[:5]})"
         )
 
     def test_html_pages_have_json_ld(self, built_site):
