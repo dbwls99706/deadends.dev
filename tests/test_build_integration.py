@@ -166,22 +166,38 @@ class TestSiteBuildIntegration:
             f"(first 5: {missing[:5]})"
         )
 
-    def test_sitemap_excludes_env_specific_urls(self, built_site):
-        """Sub-sitemaps should not list env-specific URLs (only summary URLs).
-
-        Listing both forms creates duplicate-content noise in Search
-        Console because env pages canonicalize to the summary URL.
+    def test_sitemap_excludes_single_env_urls(self, built_site):
+        """Single-env env URLs must stay out of the sitemap (they are
+        noindex duplicates of the summary). Multi-env env URLs ARE
+        listed because each carries unique per-env content and should
+        be indexed independently.
         """
         all_sub_content = ""
         for f in built_site["site_dir"].glob("sitemap-*.xml"):
             all_sub_content += f.read_text(encoding="utf-8")
-        leaked = [
-            c["id"] for c in built_site["canons"]
-            if f"/{c['id']}/</loc>" in all_sub_content
-        ]
-        assert not leaked, (
-            f"{len(leaked)} env-specific URL(s) leaked into sitemap "
-            f"(first 5: {leaked[:5]})"
+
+        env_count: dict[str, int] = {}
+        for canon in built_site["canons"]:
+            slug_key = canon["id"].rsplit("/", 1)[0]
+            env_count[slug_key] = env_count.get(slug_key, 0) + 1
+
+        single_env_leaked = []
+        multi_env_missing = []
+        for canon in built_site["canons"]:
+            slug_key = canon["id"].rsplit("/", 1)[0]
+            present = f"/{canon['id']}/</loc>" in all_sub_content
+            if env_count[slug_key] <= 1 and present:
+                single_env_leaked.append(canon["id"])
+            elif env_count[slug_key] > 1 and not present:
+                multi_env_missing.append(canon["id"])
+
+        assert not single_env_leaked, (
+            f"{len(single_env_leaked)} single-env URL(s) leaked into "
+            f"sitemap (first 5: {single_env_leaked[:5]})"
+        )
+        assert not multi_env_missing, (
+            f"{len(multi_env_missing)} multi-env URL(s) missing from "
+            f"sitemap (first 5: {multi_env_missing[:5]})"
         )
 
     def test_html_pages_have_json_ld(self, built_site):

@@ -174,13 +174,20 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if "sources" in wa:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
-        # JSON-LD outer URL must match canonical (summary URL) so Google
-        # consolidates ranking signals to a single landing page per error.
-        # The embedded ErrorCanon retains the env-specific URL because that
-        # is the API/canon identity (one record per environment).
+        # JSON-LD outer URL matches canonical. Single-env pages canonical
+        # to the summary URL (those env pages are noindex duplicates of the
+        # summary). Multi-env pages self-canonical to the env URL because
+        # each per-env page carries genuinely distinct content (different
+        # workarounds per runtime/OS) and should be indexed on its own
+        # merits — folding them into a shared summary URL was costing
+        # long-tail traffic. The embedded ErrorCanon always keeps the
+        # env-specific URL because that's the canon record identity.
         env_page_url = f"{BASE_URL}/{error_id}/"
         slug_parts = error_id.split("/")
-        page_url = f"{BASE_URL}/{slug_parts[0]}/{slug_parts[1]}/"
+        summary_url = f"{BASE_URL}/{slug_parts[0]}/{slug_parts[1]}/"
+        slug_key = error_id.rsplit("/", 1)[0]
+        is_only_env = env_count_by_slug.get(slug_key, 1) <= 1
+        page_url = summary_url if is_only_env else env_page_url
         json_ld_data = {
             "@context": [
                 "https://schema.org",
@@ -284,9 +291,6 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         country_code = country_info[0] if country_info else None
         country_name = country_info[1] if country_info else None
 
-        slug_key = error_id.rsplit("/", 1)[0]
-        is_only_env = env_count_by_slug.get(slug_key, 1) <= 1
-
         html = template.render(
             env_summary=env_summary,
             all_sources=all_sources,
@@ -299,6 +303,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             country_code=country_code,
             country_name=country_name,
             noindex=is_only_env,
+            canonical_url=page_url,
             **canon,
         )
 
@@ -920,16 +925,37 @@ def build_sitemap(
             existing = slug_lastmod.get(slug_key, "")
             slug_lastmod[slug_key] = date if date > existing else existing
 
-    # --- Per-domain sitemaps: summary (canonical) pages only ---
-    # Env-specific pages canonicalize to the summary URL, so listing both
-    # in the sitemap creates duplicate-content signals and triggers
-    # "Crawled - currently not indexed" / "Alternate page with proper
-    # canonical tag" entries in Search Console. Sitemaps should only
-    # advertise canonical URLs.
+    # --- Per-domain sitemaps: summary pages + multi-env env pages ---
+    # Single-env env pages are noindex duplicates of their summary page, so
+    # listing them creates the same duplicate-content signals that triggered
+    # the original Search Console backlog. We list them only when the slug
+    # has more than one env (in which case the env page self-canonicals and
+    # is independently indexable).
     summaries_by_domain: dict[str, list[dict]] = {}
     for summary in summary_urls or []:
         domain = summary["slug_key"].split("/", 1)[0]
         summaries_by_domain.setdefault(domain, []).append(summary)
+
+    # Count envs per slug so we know which canon pages are multi-env.
+    env_count_by_slug: dict[str, int] = {}
+    for c in canons:
+        slug_key = c["id"].rsplit("/", 1)[0]
+        env_count_by_slug[slug_key] = env_count_by_slug.get(slug_key, 0) + 1
+
+    # Group multi-env canon URLs per domain.
+    env_urls_by_domain: dict[str, list[dict]] = {}
+    for c in canons:
+        slug_key = c["id"].rsplit("/", 1)[0]
+        if env_count_by_slug[slug_key] <= 1:
+            continue
+        domain = c["error"]["domain"]
+        last = c.get("error", {}).get("last_confirmed", now)
+        if not last or not isinstance(last, str):
+            last = now
+        env_urls_by_domain.setdefault(domain, []).append({
+            "url": f"{BASE_URL}/{c['id']}/",
+            "lastmod": last,
+        })
 
     # Track domains that have any canons so we still emit their sub-sitemap
     # for completeness (even if summary_urls happens to be empty).
@@ -940,13 +966,21 @@ def build_sitemap(
     for domain in all_domains:
         domain_urlset = Element("urlset", xmlns=ns)
 
-        # Summary (canonical) pages only
+        # Summary (canonical) pages
         for s in summaries_by_domain.get(domain, []):
             url_elem = SubElement(domain_urlset, "url")
             SubElement(url_elem, "loc").text = s["url"]
             SubElement(url_elem, "lastmod").text = slug_lastmod.get(s["slug_key"], now)
             SubElement(url_elem, "changefreq").text = "monthly"
             SubElement(url_elem, "priority").text = "0.8"
+
+        # Multi-env env-specific pages (each carries unique per-env content)
+        for env in env_urls_by_domain.get(domain, []):
+            url_elem = SubElement(domain_urlset, "url")
+            SubElement(url_elem, "loc").text = env["url"]
+            SubElement(url_elem, "lastmod").text = env["lastmod"]
+            SubElement(url_elem, "changefreq").text = "monthly"
+            SubElement(url_elem, "priority").text = "0.6"
 
         fname = f"sitemap-{domain}.xml"
         _write_urlset(domain_urlset, SITE_DIR / fname)
@@ -4140,9 +4174,17 @@ def build_indexnow(canons: list[dict]) -> None:
             domains_seen.add(domain)
             urls.append(f"{BASE_URL}/{domain}/")
 
-    # Submit canonical summary URLs only. Env-specific pages canonicalize
-    # to the summary URL, so notifying IndexNow of both forms wastes
-    # crawl budget on URLs Google will fold into the canonical anyway.
+    # Submit canonical URLs:
+    # - Summary URL for every slug (always indexable as a hub).
+    # - Env URL only when the slug is multi-env (those pages self-canonical
+    #   and are independently indexable). Single-env env pages are noindex
+    #   duplicates of the summary, so notifying IndexNow about them wastes
+    #   crawl budget on URLs Google will skip anyway.
+    env_count_by_slug: dict[str, int] = {}
+    for c in canons:
+        sk = c["id"].rsplit("/", 1)[0]
+        env_count_by_slug[sk] = env_count_by_slug.get(sk, 0) + 1
+
     seen_slugs: set[str] = set()
     for canon in sorted(canons, key=lambda c: c["id"]):
         parts = canon["id"].split("/")
@@ -4151,6 +4193,8 @@ def build_indexnow(canons: list[dict]) -> None:
             if slug_key not in seen_slugs:
                 seen_slugs.add(slug_key)
                 urls.append(f"{BASE_URL}/{slug_key}/")
+            if env_count_by_slug.get(slug_key, 1) > 1:
+                urls.append(f"{BASE_URL}/{canon['id']}/")
 
     urls.append(f"{BASE_URL}/sitemap/")
     urls.append(f"{BASE_URL}/api/v1/index.json")
