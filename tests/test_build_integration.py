@@ -245,6 +245,63 @@ class TestSiteBuildIntegration:
             page_path = site_dir / slug / "index.html"
             assert page_path.exists(), f"Missing summary page for {slug}"
 
+    def test_single_env_pages_are_noindex(self, built_site):
+        """Env pages for slugs with only one environment must declare
+        noindex so Search Console stops folding them as duplicates of the
+        summary page (the canonical landing). Multi-env pages stay
+        indexable on their own merits.
+        """
+        site_dir = built_site["site_dir"]
+        env_count: dict[str, int] = {}
+        for canon in built_site["canons"]:
+            slug_key = canon["id"].rsplit("/", 1)[0]
+            env_count[slug_key] = env_count.get(slug_key, 0) + 1
+
+        single_env_violations = []
+        multi_env_violations = []
+        for canon in built_site["canons"]:
+            slug_key = canon["id"].rsplit("/", 1)[0]
+            content = (site_dir / canon["id"] / "index.html").read_text(
+                encoding="utf-8"
+            )
+            has_noindex = 'name="robots" content="noindex' in content
+            if env_count[slug_key] <= 1 and not has_noindex:
+                single_env_violations.append(canon["id"])
+            elif env_count[slug_key] > 1 and has_noindex:
+                multi_env_violations.append(canon["id"])
+
+        assert not single_env_violations, (
+            f"{len(single_env_violations)} single-env pages missing noindex "
+            f"(first 5: {single_env_violations[:5]})"
+        )
+        assert not multi_env_violations, (
+            f"{len(multi_env_violations)} multi-env pages should be indexable "
+            f"(first 5: {multi_env_violations[:5]})"
+        )
+
+    def test_summary_omits_env_link_when_single_env(self, built_site):
+        """When a slug has only one environment, the summary page must
+        not render the redundant 'Environments' link list — that link
+        targets the noindex env duplicate and wastes crawl budget.
+        """
+        site_dir = built_site["site_dir"]
+        slug_canons: dict[str, list[dict]] = {}
+        for canon in built_site["canons"]:
+            slug_canons.setdefault(
+                canon["id"].rsplit("/", 1)[0], []
+            ).append(canon)
+
+        for slug_key, group in slug_canons.items():
+            if len(group) != 1:
+                continue
+            env_id = group[0]["id"]
+            summary_html = (site_dir / slug_key / "index.html").read_text(
+                encoding="utf-8"
+            )
+            assert f'href="/{env_id}/"' not in summary_html, (
+                f"Summary for {slug_key} still links to its only env page"
+            )
+
     def test_search_page_created(self, built_site):
         """The search page should exist and contain search data."""
         search_path = built_site["site_dir"] / "search" / "index.html"

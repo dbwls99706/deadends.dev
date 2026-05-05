@@ -149,6 +149,17 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "signature": c["error"]["signature"],
             })
 
+    # Count environments per slug. Single-env env pages are pure duplicates of
+    # the summary page (97% of slugs in our dataset), so we mark them noindex
+    # to stop Search Console reporting them as "Crawled - currently not
+    # indexed" / "Alternate page with proper canonical tag". The summary URL
+    # is the only canonical landing for those slugs; the env URL stays
+    # reachable for deep links and the JSON API mirrors via /api/v1/{id}.json.
+    env_count_by_slug: dict[str, int] = {}
+    for c in canons:
+        slug_key = c["id"].rsplit("/", 1)[0]
+        env_count_by_slug[slug_key] = env_count_by_slug.get(slug_key, 0) + 1
+
     for canon in canons:
         error_id = canon["id"]
         env_summary = build_env_summary(canon)
@@ -273,6 +284,9 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         country_code = country_info[0] if country_info else None
         country_name = country_info[1] if country_info else None
 
+        slug_key = error_id.rsplit("/", 1)[0]
+        is_only_env = env_count_by_slug.get(slug_key, 1) <= 1
+
         html = template.render(
             env_summary=env_summary,
             all_sources=all_sources,
@@ -284,7 +298,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             domain_errors=same_domain,
             country_code=country_code,
             country_name=country_name,
-            noindex=False,
+            noindex=is_only_env,
             **canon,
         )
 
@@ -2575,6 +2589,7 @@ def build_error_summary_pages(
             date_published=date_published,
             date_modified=date_modified,
             noindex=False,
+            is_single_env=len(environments) <= 1,
         )
 
         # Write to /{domain}/{slug}/index.html
