@@ -144,6 +144,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </section>
   {% endif %}
 
+  {% if not is_single_env %}
   <section>
     <h2>Environments</h2>
     <p>This error behaves differently across environments. Choose yours:</p>
@@ -155,6 +156,13 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     </div>
     {% endfor %}
   </section>
+  {% else %}
+  {% set env = environments[0] %}
+  <section>
+    <h2>Environment</h2>
+    <p class="meta">Verified for {{ env.env_summary }} · Fix rate: {{ (env.fix_rate * 100)|int }}% · {{ env.dead_end_count }} dead ends · {{ env.workaround_count }} workarounds</p>
+  </section>
+  {% endif %}
 
   <section id="dead-ends">
     <h2>Common Dead Ends — Do NOT Try These</h2>
