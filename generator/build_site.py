@@ -116,6 +116,69 @@ def collect_sources(canon: dict) -> list[str]:
     return sorted(sources)
 
 
+def canon_lastmod(canon: dict) -> str:
+    """Return the most-recent real content modification date for a canon.
+
+    Never falls back to the build time. Per Search Central's lastmod
+    guidance, an inaccurate lastmod ("lying") teaches Google to ignore
+    the field entirely. We walk last_confirmed → verdict.last_updated →
+    metadata.generation_date and return "" if none are set, in which
+    case the sitemap omits <lastmod> rather than fabricating one.
+    """
+    candidates = [
+        canon.get("error", {}).get("last_confirmed"),
+        canon.get("verdict", {}).get("last_updated"),
+        canon.get("metadata", {}).get("generation_date"),
+    ]
+    for c in candidates:
+        if isinstance(c, str) and c:
+            return c
+    return ""
+
+
+_TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
+_STOPWORDS = {
+    "the", "a", "an", "and", "or", "of", "in", "on", "to", "for",
+    "with", "is", "be", "not", "no", "this", "that", "it", "as", "at",
+    "by", "from", "error", "errors", "fix",
+}
+
+
+def _signature_tokens(text: str) -> set[str]:
+    """Lowercase alphanumeric tokens, minus stopwords, length >= 2."""
+    return {
+        t.lower() for t in _TOKEN_RE.findall(text or "")
+        if len(t) >= 2 and t.lower() not in _STOPWORDS
+    }
+
+
+def related_in_domain(
+    domain_entries: list[dict],
+    current_slug_key: str,
+    current_signature: str,
+    limit: int = 10,
+) -> list[dict]:
+    """Pick the most topically related same-domain peers for internal linking.
+
+    Replaces the old alphabetical-first-N slice, which produced a
+    near-identical link set on every page (one of the "weak internal
+    linking" patterns Google's indexing guidance flags as a cause of
+    "Crawled - currently not indexed"). Ranks by token overlap with the
+    current signature; falls back to alphabetical when overlap is zero
+    so we never return fewer links than before.
+    """
+    current_tokens = _signature_tokens(current_signature)
+    scored = []
+    for entry in domain_entries:
+        if entry["slug_key"] == current_slug_key:
+            continue
+        peer_tokens = _signature_tokens(entry["signature"])
+        score = len(current_tokens & peer_tokens)
+        scored.append((score, entry["signature"], entry))
+    scored.sort(key=lambda x: (-x[0], x[1]))
+    return [e for _s, _sig, e in scored[:limit]]
+
+
 def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
     """Generate individual error pages."""
     template = jinja_env.get_template("page.html")
@@ -278,14 +341,18 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             }
             howto_json_ld = _safe_json_ld(howto_data)
 
-        # Same-domain errors for internal linking (exclude self)
+        # Same-domain errors for internal linking (topically ranked).
+        # Picking by signature-token overlap instead of alphabetical means
+        # every page links to actually-related peers, which materially
+        # strengthens the internal-linking graph that Google uses when
+        # deciding whether to keep a crawled URL in the index.
         current_slug = error_id.rsplit("/", 1)[0]
-        same_domain = [
-            e for e in domain_summaries.get(
-                canon["error"]["domain"], []
-            )
-            if e["slug_key"] != current_slug
-        ][:10]
+        same_domain = related_in_domain(
+            domain_summaries.get(canon["error"]["domain"], []),
+            current_slug_key=current_slug,
+            current_signature=canon["error"]["signature"],
+            limit=10,
+        )
 
         country_info = _canon_country_info(canon)
         country_code = country_info[0] if country_info else None
@@ -837,93 +904,85 @@ def build_sitemap(
     Google can discover and index all unique content.
     """
     ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # Per-canon and per-domain real modification dates. Static hub pages
+    # (home, search, dashboard, domain index) inherit the maximum lastmod
+    # from the canons they aggregate, so we never advertise "today" as
+    # the modification date — Google deweights sources whose lastmod
+    # turns out to be unreliable, per Search Central guidance.
+    canon_dates: list[str] = [d for d in (canon_lastmod(c) for c in canons) if d]
+    site_lastmod = max(canon_dates) if canon_dates else ""
+
+    domain_lastmod: dict[str, str] = {}
+    for canon in canons:
+        d = canon["error"]["domain"]
+        cd = canon_lastmod(canon)
+        if cd and cd > domain_lastmod.get(d, ""):
+            domain_lastmod[d] = cd
+
+    def _add_url(parent, loc, lastmod, changefreq, priority):
+        u = SubElement(parent, "url")
+        SubElement(u, "loc").text = loc
+        if lastmod:
+            SubElement(u, "lastmod").text = lastmod
+        SubElement(u, "changefreq").text = changefreq
+        SubElement(u, "priority").text = priority
 
     # --- Main sitemap: index, search, domain pages ---
     main_urlset = Element("urlset", xmlns=ns)
+    _add_url(main_urlset, f"{BASE_URL}/", site_lastmod, "weekly", "1.0")
+    _add_url(main_urlset, f"{BASE_URL}/search/", site_lastmod, "weekly", "0.9")
+    _add_url(main_urlset, f"{BASE_URL}/sitemap/", site_lastmod, "weekly", "0.5")
+    _add_url(main_urlset, f"{BASE_URL}/dashboard/", site_lastmod, "weekly", "0.7")
 
-    url_elem = SubElement(main_urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "1.0"
-
-    url_elem = SubElement(main_urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/search/"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "0.9"
-
-    url_elem = SubElement(main_urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/sitemap/"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "0.5"
-
-    url_elem = SubElement(main_urlset, "url")
-    SubElement(url_elem, "loc").text = f"{BASE_URL}/dashboard/"
-    SubElement(url_elem, "lastmod").text = now
-    SubElement(url_elem, "changefreq").text = "weekly"
-    SubElement(url_elem, "priority").text = "0.7"
-
-    domains_seen = set()
-    for canon in canons:
-        domain = canon["error"]["domain"]
-        if domain not in domains_seen:
-            domains_seen.add(domain)
-            url_elem = SubElement(main_urlset, "url")
-            SubElement(url_elem, "loc").text = f"{BASE_URL}/{domain}/"
-            SubElement(url_elem, "lastmod").text = now
-            SubElement(url_elem, "changefreq").text = "weekly"
-            SubElement(url_elem, "priority").text = "0.9"
+    for domain in sorted(domain_lastmod):
+        _add_url(
+            main_urlset,
+            f"{BASE_URL}/{domain}/",
+            domain_lastmod[domain],
+            "weekly",
+            "0.9",
+        )
 
     # --- Country landing pages — included so Google and other crawlers
     # can discover /country/{cc}/ without having to traverse the homepage
-    # "Browse by country" section. Last-mod reflects most recent
-    # last_confirmed among canons tagged with that country.
+    # "Browse by country" section.
     country_lastmod: dict[str, str] = {}
     for canon in canons:
         info = _canon_country_info(canon)
         if info is None:
             continue
         code, _name = info
-        last_confirmed = canon.get("error", {}).get("last_confirmed", now)
-        if not last_confirmed or not isinstance(last_confirmed, str):
-            last_confirmed = now
-        existing = country_lastmod.get(code, "")
-        country_lastmod[code] = (
-            last_confirmed if last_confirmed > existing else existing
-        )
+        cd = canon_lastmod(canon)
+        if cd and cd > country_lastmod.get(code, ""):
+            country_lastmod[code] = cd
 
     if country_lastmod:
-        # Country hub
-        url_elem = SubElement(main_urlset, "url")
-        SubElement(url_elem, "loc").text = f"{BASE_URL}/country/"
-        SubElement(url_elem, "lastmod").text = max(country_lastmod.values())
-        SubElement(url_elem, "changefreq").text = "weekly"
-        SubElement(url_elem, "priority").text = "0.9"
+        _add_url(
+            main_urlset, f"{BASE_URL}/country/",
+            max(country_lastmod.values()), "weekly", "0.9",
+        )
 
     for code in sorted(country_lastmod):
-        url_elem = SubElement(main_urlset, "url")
-        SubElement(url_elem, "loc").text = f"{BASE_URL}/country/{code}/"
-        SubElement(url_elem, "lastmod").text = country_lastmod[code]
-        SubElement(url_elem, "changefreq").text = "weekly"
-        SubElement(url_elem, "priority").text = "0.85"
+        _add_url(
+            main_urlset, f"{BASE_URL}/country/{code}/",
+            country_lastmod[code], "weekly", "0.85",
+        )
 
     _write_urlset(main_urlset, SITE_DIR / "sitemap-main.xml")
     print("  Generated: sitemap-main.xml")
 
-    # Build a lookup: slug_key → most recent last_confirmed date across all envs
+    # Build a lookup: slug_key → most recent real modification date across
+    # all envs of that slug. Empty when none of the canons carry a date —
+    # we'd rather omit <lastmod> than fabricate one (see canon_lastmod).
     slug_lastmod: dict[str, str] = {}
     for canon in canons:
         parts = canon["id"].split("/")
         if len(parts) == 3:
             slug_key = f"{parts[0]}/{parts[1]}"
-            date = canon.get("error", {}).get("last_confirmed", now)
-            if not date or not isinstance(date, str):
-                date = now
-            existing = slug_lastmod.get(slug_key, "")
-            slug_lastmod[slug_key] = date if date > existing else existing
+            cd = canon_lastmod(canon)
+            if cd and cd > slug_lastmod.get(slug_key, ""):
+                slug_lastmod[slug_key] = cd
 
     # --- Per-domain sitemaps: summary pages + multi-env env pages ---
     # Single-env env pages are noindex duplicates of their summary page, so
@@ -949,12 +1008,9 @@ def build_sitemap(
         if env_count_by_slug[slug_key] <= 1:
             continue
         domain = c["error"]["domain"]
-        last = c.get("error", {}).get("last_confirmed", now)
-        if not last or not isinstance(last, str):
-            last = now
         env_urls_by_domain.setdefault(domain, []).append({
             "url": f"{BASE_URL}/{c['id']}/",
-            "lastmod": last,
+            "lastmod": canon_lastmod(c),
         })
 
     # Track domains that have any canons so we still emit their sub-sitemap
@@ -968,19 +1024,18 @@ def build_sitemap(
 
         # Summary (canonical) pages
         for s in summaries_by_domain.get(domain, []):
-            url_elem = SubElement(domain_urlset, "url")
-            SubElement(url_elem, "loc").text = s["url"]
-            SubElement(url_elem, "lastmod").text = slug_lastmod.get(s["slug_key"], now)
-            SubElement(url_elem, "changefreq").text = "monthly"
-            SubElement(url_elem, "priority").text = "0.8"
+            _add_url(
+                domain_urlset, s["url"],
+                slug_lastmod.get(s["slug_key"], ""),
+                "monthly", "0.8",
+            )
 
         # Multi-env env-specific pages (each carries unique per-env content)
         for env in env_urls_by_domain.get(domain, []):
-            url_elem = SubElement(domain_urlset, "url")
-            SubElement(url_elem, "loc").text = env["url"]
-            SubElement(url_elem, "lastmod").text = env["lastmod"]
-            SubElement(url_elem, "changefreq").text = "monthly"
-            SubElement(url_elem, "priority").text = "0.6"
+            _add_url(
+                domain_urlset, env["url"], env["lastmod"],
+                "monthly", "0.6",
+            )
 
         fname = f"sitemap-{domain}.xml"
         _write_urlset(domain_urlset, SITE_DIR / fname)
@@ -988,12 +1043,23 @@ def build_sitemap(
         print(f"  Generated: {fname}")
 
     # --- Sitemap index ---
+    # Each <sitemap> entry's lastmod reflects the most recent real
+    # modification date among its URLs. The main sub-sitemap inherits
+    # the site-wide max; per-domain sub-sitemaps inherit their domain's
+    # max. If we have no real date at all we omit lastmod rather than
+    # fabricating one (Search Central guidance on lastmod accuracy).
     idx_ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
     sitemap_index = Element("sitemapindex", xmlns=idx_ns)
     for fname in domain_sitemap_files:
         sm = SubElement(sitemap_index, "sitemap")
         SubElement(sm, "loc").text = f"{BASE_URL}/{fname}"
-        SubElement(sm, "lastmod").text = now
+        if fname == "sitemap-main.xml":
+            file_lm = site_lastmod
+        else:
+            domain = fname.removeprefix("sitemap-").removesuffix(".xml")
+            file_lm = domain_lastmod.get(domain, "")
+        if file_lm:
+            SubElement(sm, "lastmod").text = file_lm
 
     xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml_body = tostring(sitemap_index, encoding="unicode")
@@ -1002,7 +1068,7 @@ def build_sitemap(
     )
     total = sum(
         len(v) for v in summaries_by_domain.values()
-    ) + 4 + len(domains_seen) + len(country_lastmod)
+    ) + 4 + len(domain_lastmod) + len(country_lastmod)
     print(f"  Generated: sitemap.xml (index, {total} URLs)")
 
 
@@ -2588,12 +2654,20 @@ def build_error_summary_pages(
                 "mainEntity": faq_items,
             })
 
-        # Same-domain errors for cross-linking (exclude self)
-        same_domain = [
+        # Same-domain errors for cross-linking (topically ranked).
+        # See related_in_domain() docstring for why this beats the prior
+        # alphabetical slice on weak-internal-linking grounds.
+        domain_peers = [
             {"slug_key": sk, "signature": sig}
             for sk, sig in slug_signatures.items()
-            if sk.startswith(f"{domain}/") and sk != slug_key
-        ][:10]
+            if sk.startswith(f"{domain}/")
+        ]
+        same_domain = related_in_domain(
+            domain_peers,
+            current_slug_key=slug_key,
+            current_signature=signature,
+            limit=10,
+        )
 
         date_published = (
             min(first_seen_dates) if first_seen_dates else ""
