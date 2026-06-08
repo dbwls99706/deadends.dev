@@ -117,12 +117,17 @@ Rationale:
 ## Robots / indexability
 
 `build_robots_txt()` emits a canonical robots.txt with the sitemap URL and
-explicit Allow for `/api/`. Pages use `noindex, follow` only for:
+explicit Allow for `/api/`. Pages use `noindex` only for:
 
-- The main `/sitemap/` HTML page (the XML version is canonical).
-- Deliberate noindex for duplicate pivots (none today).
+- Redirect stub pages emitted by `_write_redirect_html` (old URL → new URL).
 
-Every other page renders `index, follow, max-snippet:-1`.
+Duplicate env pages are consolidated with `rel=canonical` → their summary
+page, **never** `noindex`: combining `noindex` with `rel=canonical` is
+contradictory and can propagate the `noindex` to the canonical target (the
+summary), deindexing it too. Single-env env pages therefore render
+`index, follow` with `rel=canonical` → summary; multi-env env pages
+self-canonical. Every content page — summaries, env pages, domain, country,
+and the `/sitemap/` directory — renders `index, follow, max-snippet:-1`.
 
 ## Image OpenGraph policy
 

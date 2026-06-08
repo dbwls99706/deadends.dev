@@ -212,12 +212,13 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "signature": c["error"]["signature"],
             })
 
-    # Count environments per slug. Single-env env pages are pure duplicates of
-    # the summary page (97% of slugs in our dataset), so we mark them noindex
-    # to stop Search Console reporting them as "Crawled - currently not
-    # indexed" / "Alternate page with proper canonical tag". The summary URL
-    # is the only canonical landing for those slugs; the env URL stays
-    # reachable for deep links and the JSON API mirrors via /api/v1/{id}.json.
+    # Count environments per slug. Single-env env pages (97% of slugs in our
+    # dataset) are near-duplicates of the summary page, so they declare
+    # rel=canonical -> summary and Google consolidates them into that one
+    # indexable landing. They stay indexable (NO noindex): combining noindex
+    # with rel=canonical is contradictory and can deindex the canonical target
+    # (the summary) as well. The env URL stays reachable for deep links and the
+    # JSON API mirrors via /api/v1/{id}.json.
     env_count_by_slug: dict[str, int] = {}
     for c in canons:
         slug_key = c["id"].rsplit("/", 1)[0]
@@ -238,8 +239,8 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
         # JSON-LD outer URL matches canonical. Single-env pages canonical
-        # to the summary URL (those env pages are noindex duplicates of the
-        # summary). Multi-env pages self-canonical to the env URL because
+        # to the summary URL (they consolidate into the summary via that
+        # canonical, no noindex). Multi-env pages self-canonical to the env URL because
         # each per-env page carries genuinely distinct content (different
         # workarounds per runtime/OS) and should be indexed on its own
         # merits — folding them into a shared summary URL was costing
@@ -369,7 +370,13 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             domain_errors=same_domain,
             country_code=country_code,
             country_name=country_name,
-            noindex=is_only_env,
+            # Never combine noindex with rel=canonical: the noindex can
+            # propagate to the canonical target (the summary) and deindex it
+            # too. Single-env env pages stay indexable and consolidate via
+            # their canonical -> summary instead (GSC shows them as the normal
+            # "Alternate page with proper canonical tag"). Multi-env pages
+            # self-canonical (page_url == env URL) and index on their own.
+            noindex=False,
             canonical_url=page_url,
             **canon,
         )
@@ -985,11 +992,11 @@ def build_sitemap(
                 slug_lastmod[slug_key] = cd
 
     # --- Per-domain sitemaps: summary pages + multi-env env pages ---
-    # Single-env env pages are noindex duplicates of their summary page, so
-    # listing them creates the same duplicate-content signals that triggered
-    # the original Search Console backlog. We list them only when the slug
-    # has more than one env (in which case the env page self-canonicals and
-    # is independently indexable).
+    # Single-env env pages canonicalize to their summary page, so the summary
+    # (already listed below) is their canonical URL. A sitemap should advertise
+    # canonical URLs only, so we list env pages only when the slug has more than
+    # one env (in which case the env page self-canonicals and is independently
+    # indexable).
     summaries_by_domain: dict[str, list[dict]] = {}
     for summary in summary_urls or []:
         domain = summary["slug_key"].split("/", 1)[0]
@@ -4251,9 +4258,9 @@ def build_indexnow(canons: list[dict]) -> None:
     # Submit canonical URLs:
     # - Summary URL for every slug (always indexable as a hub).
     # - Env URL only when the slug is multi-env (those pages self-canonical
-    #   and are independently indexable). Single-env env pages are noindex
-    #   duplicates of the summary, so notifying IndexNow about them wastes
-    #   crawl budget on URLs Google will skip anyway.
+    #   and are independently indexable). Single-env env pages canonicalize to
+    #   the summary, so notifying IndexNow about them wastes crawl budget on
+    #   non-canonical URLs Google will fold into the summary anyway.
     env_count_by_slug: dict[str, int] = {}
     for c in canons:
         sk = c["id"].rsplit("/", 1)[0]
