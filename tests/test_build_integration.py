@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from generator.build_site import (
+    BASE_URL,
     build_domain_pages,
     build_error_pages,
     build_error_summary_pages,
@@ -167,9 +168,10 @@ class TestSiteBuildIntegration:
         )
 
     def test_sitemap_excludes_single_env_urls(self, built_site):
-        """Single-env env URLs must stay out of the sitemap (they are
-        noindex duplicates of the summary). Multi-env env URLs ARE
-        listed because each carries unique per-env content and should
+        """Single-env env URLs must stay out of the sitemap (they
+        canonicalize to the summary, so the summary is their canonical URL
+        and a sitemap should list canonical URLs only). Multi-env env URLs
+        ARE listed because each carries unique per-env content and should
         be indexed independently.
         """
         all_sub_content = ""
@@ -261,11 +263,11 @@ class TestSiteBuildIntegration:
             page_path = site_dir / slug / "index.html"
             assert page_path.exists(), f"Missing summary page for {slug}"
 
-    def test_single_env_pages_are_noindex(self, built_site):
-        """Env pages for slugs with only one environment must declare
-        noindex so Search Console stops folding them as duplicates of the
-        summary page (the canonical landing). Multi-env pages stay
-        indexable on their own merits.
+    def test_single_env_pages_canonical_to_summary_not_noindex(self, built_site):
+        """Env pages must NOT carry noindex: combining noindex with a
+        rel=canonical can deindex the canonical target (the summary) too.
+        Single-env env pages consolidate via rel=canonical -> their summary
+        page; multi-env env pages self-canonical and index on their own merits.
         """
         site_dir = built_site["site_dir"]
         env_count: dict[str, int] = {}
@@ -273,32 +275,36 @@ class TestSiteBuildIntegration:
             slug_key = canon["id"].rsplit("/", 1)[0]
             env_count[slug_key] = env_count.get(slug_key, 0) + 1
 
-        single_env_violations = []
-        multi_env_violations = []
+        noindex_violations = []
+        canonical_violations = []
         for canon in built_site["canons"]:
             slug_key = canon["id"].rsplit("/", 1)[0]
             content = (site_dir / canon["id"] / "index.html").read_text(
                 encoding="utf-8"
             )
-            has_noindex = 'name="robots" content="noindex' in content
-            if env_count[slug_key] <= 1 and not has_noindex:
-                single_env_violations.append(canon["id"])
-            elif env_count[slug_key] > 1 and has_noindex:
-                multi_env_violations.append(canon["id"])
+            if 'name="robots" content="noindex' in content:
+                noindex_violations.append(canon["id"])
+            if env_count[slug_key] <= 1:
+                expected = f'<link rel="canonical" href="{BASE_URL}/{slug_key}/">'
+            else:
+                expected = f'<link rel="canonical" href="{BASE_URL}/{canon["id"]}/">'
+            if expected not in content:
+                canonical_violations.append(canon["id"])
 
-        assert not single_env_violations, (
-            f"{len(single_env_violations)} single-env pages missing noindex "
-            f"(first 5: {single_env_violations[:5]})"
+        assert not noindex_violations, (
+            f"{len(noindex_violations)} env page(s) still declare noindex "
+            f"(first 5: {noindex_violations[:5]})"
         )
-        assert not multi_env_violations, (
-            f"{len(multi_env_violations)} multi-env pages should be indexable "
-            f"(first 5: {multi_env_violations[:5]})"
+        assert not canonical_violations, (
+            f"{len(canonical_violations)} env page(s) have the wrong canonical "
+            f"(first 5: {canonical_violations[:5]})"
         )
 
     def test_summary_omits_env_link_when_single_env(self, built_site):
         """When a slug has only one environment, the summary page must
         not render the redundant 'Environments' link list — that link
-        targets the noindex env duplicate and wastes crawl budget.
+        targets the env duplicate (which canonicalizes back to this
+        summary) and wastes crawl budget.
         """
         site_dir = built_site["site_dir"]
         slug_canons: dict[str, list[dict]] = {}
