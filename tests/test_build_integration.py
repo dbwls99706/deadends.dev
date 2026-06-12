@@ -8,6 +8,7 @@ import pytest
 
 from generator.build_site import (
     BASE_URL,
+    build_about_page,
     build_domain_pages,
     build_error_pages,
     build_error_summary_pages,
@@ -19,6 +20,19 @@ from generator.build_site import (
 from generator.validate import validate_all
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
+
+
+def _env_counts(canons: list[dict]) -> dict[str, int]:
+    """Number of environments per slug_key (domain/slug)."""
+    counts: dict[str, int] = {}
+    for canon in canons:
+        slug_key = canon["id"].rsplit("/", 1)[0]
+        counts[slug_key] = counts.get(slug_key, 0) + 1
+    return counts
+
+
+def _is_redirect_stub(content: str) -> bool:
+    return 'http-equiv="refresh"' in content
 
 
 @pytest.fixture(scope="module")
@@ -65,6 +79,7 @@ def built_site(tmp_path_factory):
         build_domain_pages(canons, jinja_env)
         summary_urls = build_error_summary_pages(canons, jinja_env)
         build_search_page(canons, jinja_env)
+        build_about_page(canons, jinja_env)
         build_index_page(canons, jinja_env)
         build_sitemap(canons, summary_urls)
 
@@ -79,11 +94,23 @@ def built_site(tmp_path_factory):
 
 class TestSiteBuildIntegration:
     def test_error_pages_created(self, built_site):
-        """Each canon should have an index.html page."""
+        """Each canon id resolves to a page: a real env page for multi-env
+        slugs, a redirect stub (-> summary) for single-env slugs."""
         site_dir = built_site["site_dir"]
+        env_counts = _env_counts(built_site["canons"])
         for canon in built_site["canons"]:
             page_path = site_dir / canon["id"] / "index.html"
             assert page_path.exists(), f"Missing page for {canon['id']}"
+            content = page_path.read_text(encoding="utf-8")
+            slug_key = canon["id"].rsplit("/", 1)[0]
+            if env_counts[slug_key] <= 1:
+                assert _is_redirect_stub(content), (
+                    f"Single-env page {canon['id']} should be a redirect stub"
+                )
+            else:
+                assert not _is_redirect_stub(content), (
+                    f"Multi-env page {canon['id']} must be a real page"
+                )
 
     def test_api_endpoints_created(self, built_site):
         """Each canon should have a JSON API endpoint."""
@@ -203,9 +230,16 @@ class TestSiteBuildIntegration:
         )
 
     def test_html_pages_have_json_ld(self, built_site):
-        """Every error page should contain valid JSON-LD."""
+        """Every real (multi-env) error page should contain valid JSON-LD.
+
+        Single-env pages are redirect stubs and carry no JSON-LD; their
+        canonical summary page is covered by the summary-page tests.
+        """
         site_dir = built_site["site_dir"]
+        env_counts = _env_counts(built_site["canons"])
         for canon in built_site["canons"]:
+            if env_counts[canon["id"].rsplit("/", 1)[0]] <= 1:
+                continue
             page_path = site_dir / canon["id"] / "index.html"
             content = page_path.read_text(encoding="utf-8")
 
@@ -232,9 +266,12 @@ class TestSiteBuildIntegration:
             )
 
     def test_html_pages_have_ai_summary(self, built_site):
-        """Every error page should have an ai-summary section."""
+        """Every real (multi-env) error page should have an ai-summary."""
         site_dir = built_site["site_dir"]
+        env_counts = _env_counts(built_site["canons"])
         for canon in built_site["canons"]:
+            if env_counts[canon["id"].rsplit("/", 1)[0]] <= 1:
+                continue
             page_path = site_dir / canon["id"] / "index.html"
             content = page_path.read_text(encoding="utf-8")
             assert 'id="ai-summary"' in content, (
@@ -242,14 +279,22 @@ class TestSiteBuildIntegration:
             )
 
     def test_html_pages_have_faq_schema(self, built_site):
-        """Every error page should have FAQPage JSON-LD."""
+        """Real error pages carry FAQPage JSON-LD AND a matching visible
+        FAQ section (Google requires structured-data content visible)."""
         site_dir = built_site["site_dir"]
+        env_counts = _env_counts(built_site["canons"])
         for canon in built_site["canons"]:
+            if env_counts[canon["id"].rsplit("/", 1)[0]] <= 1:
+                continue
             page_path = site_dir / canon["id"] / "index.html"
             content = page_path.read_text(encoding="utf-8")
             assert "FAQPage" in content, (
                 f"Missing FAQPage schema in {canon['id']}"
             )
+            if canon["dead_ends"]:
+                assert 'id="faq"' in content, (
+                    f"Missing visible FAQ section in {canon['id']}"
+                )
 
     def test_error_summary_pages_created(self, built_site):
         """Each unique error slug should have a summary page."""
@@ -263,41 +308,42 @@ class TestSiteBuildIntegration:
             page_path = site_dir / slug / "index.html"
             assert page_path.exists(), f"Missing summary page for {slug}"
 
-    def test_single_env_pages_canonical_to_summary_not_noindex(self, built_site):
-        """Env pages must NOT carry noindex: combining noindex with a
-        rel=canonical can deindex the canonical target (the summary) too.
-        Single-env env pages consolidate via rel=canonical -> their summary
-        page; multi-env env pages self-canonical and index on their own merits.
+    def test_env_page_canonicals(self, built_site):
+        """Single-env env URLs are redirect stubs (meta refresh + noindex +
+        canonical -> summary, the static-host 301 equivalent). Multi-env
+        env pages are real, self-canonical and indexable (no noindex).
         """
         site_dir = built_site["site_dir"]
-        env_count: dict[str, int] = {}
-        for canon in built_site["canons"]:
-            slug_key = canon["id"].rsplit("/", 1)[0]
-            env_count[slug_key] = env_count.get(slug_key, 0) + 1
+        env_count = _env_counts(built_site["canons"])
 
-        noindex_violations = []
-        canonical_violations = []
+        violations = []
         for canon in built_site["canons"]:
             slug_key = canon["id"].rsplit("/", 1)[0]
             content = (site_dir / canon["id"] / "index.html").read_text(
                 encoding="utf-8"
             )
-            if 'name="robots" content="noindex' in content:
-                noindex_violations.append(canon["id"])
             if env_count[slug_key] <= 1:
-                expected = f'<link rel="canonical" href="{BASE_URL}/{slug_key}/">'
+                summary_url = f"{BASE_URL}/{slug_key}/"
+                if not _is_redirect_stub(content):
+                    violations.append(f"{canon['id']}: not a redirect stub")
+                if f'<link rel="canonical" href="{summary_url}">' not in content:
+                    violations.append(f"{canon['id']}: wrong stub canonical")
+                if 'content="noindex"' not in content:
+                    violations.append(f"{canon['id']}: stub missing noindex")
+                if f'url={summary_url}' not in content:
+                    violations.append(f"{canon['id']}: wrong refresh target")
             else:
-                expected = f'<link rel="canonical" href="{BASE_URL}/{canon["id"]}/">'
-            if expected not in content:
-                canonical_violations.append(canon["id"])
+                expected = (
+                    f'<link rel="canonical" href="{BASE_URL}/{canon["id"]}/">'
+                )
+                if expected not in content:
+                    violations.append(f"{canon['id']}: wrong self-canonical")
+                if 'name="robots" content="noindex' in content:
+                    violations.append(f"{canon['id']}: multi-env noindex")
 
-        assert not noindex_violations, (
-            f"{len(noindex_violations)} env page(s) still declare noindex "
-            f"(first 5: {noindex_violations[:5]})"
-        )
-        assert not canonical_violations, (
-            f"{len(canonical_violations)} env page(s) have the wrong canonical "
-            f"(first 5: {canonical_violations[:5]})"
+        assert not violations, (
+            f"{len(violations)} env page violation(s) "
+            f"(first 5: {violations[:5]})"
         )
 
     def test_summary_omits_env_link_when_single_env(self, built_site):
@@ -323,6 +369,106 @@ class TestSiteBuildIntegration:
             assert f'href="/{env_id}/"' not in summary_html, (
                 f"Summary for {slug_key} still links to its only env page"
             )
+
+    def test_summary_pages_have_visible_faq(self, built_site):
+        """Summary pages with FAQPage JSON-LD must render a visible FAQ
+        section with one <details> entry per JSON-LD Question."""
+        site_dir = built_site["site_dir"]
+        checked = 0
+        for summary in built_site["summary_urls"]:
+            content = (site_dir / summary["slug_key"] / "index.html").read_text(
+                encoding="utf-8"
+            )
+            if '"@type": "FAQPage"' not in content:
+                continue
+            assert 'id="faq"' in content, (
+                f"{summary['slug_key']}: FAQPage JSON-LD without visible FAQ"
+            )
+            blocks = re.findall(
+                r'<script type="application/ld\+json">\s*(.*?)\s*</script>',
+                content,
+                re.DOTALL,
+            )
+            faq_ld = next(
+                (
+                    json.loads(b)
+                    for b in blocks
+                    if '"FAQPage"' in b
+                ),
+                None,
+            )
+            assert faq_ld is not None
+            faq_section = content.split('id="faq"', 1)[1].split("</section>", 1)[0]
+            details_count = faq_section.count("<details")
+            assert details_count == len(faq_ld["mainEntity"]), (
+                f"{summary['slug_key']}: visible FAQ has {details_count} "
+                f"entries but JSON-LD has {len(faq_ld['mainEntity'])}"
+            )
+            checked += 1
+        assert checked > 0, "No summary page with FAQPage JSON-LD found"
+
+    def test_summary_titles_are_bounded(self, built_site):
+        """Generated <title> tags must stay within ~70 visible chars so
+        Google doesn't truncate/rewrite them sitewide."""
+        import html as html_mod
+
+        site_dir = built_site["site_dir"]
+        violations = []
+        for summary in built_site["summary_urls"]:
+            content = (site_dir / summary["slug_key"] / "index.html").read_text(
+                encoding="utf-8"
+            )
+            m = re.search(r"<title>(.*?)</title>", content, re.DOTALL)
+            assert m, f"{summary['slug_key']}: missing <title>"
+            title = html_mod.unescape(m.group(1))
+            if len(title) > 70:
+                violations.append(f"{summary['slug_key']} ({len(title)} chars)")
+        assert not violations, (
+            f"{len(violations)} summary title(s) exceed 70 chars "
+            f"(first 5: {violations[:5]})"
+        )
+
+    def test_summary_pages_have_intro(self, built_site):
+        """Summary pages carry the generated intro paragraph."""
+        site_dir = built_site["site_dir"]
+        for summary in built_site["summary_urls"][:25]:
+            content = (site_dir / summary["slug_key"] / "index.html").read_text(
+                encoding="utf-8"
+            )
+            assert 'class="intro"' in content, (
+                f"{summary['slug_key']}: missing intro paragraph"
+            )
+
+    def test_homepage_links_no_single_env_urls(self, built_site):
+        """The homepage must link canonical summary URLs, never single-env
+        URLs (those are redirect stubs)."""
+        html = (built_site["site_dir"] / "index.html").read_text(
+            encoding="utf-8"
+        )
+        env_counts = _env_counts(built_site["canons"])
+        single_env_ids = {
+            c["id"]
+            for c in built_site["canons"]
+            if env_counts[c["id"].rsplit("/", 1)[0]] <= 1
+        }
+        hrefs = set(re.findall(r'href="/([^"]+)/"', html))
+        leaked = sorted(h for h in hrefs if h in single_env_ids)
+        assert not leaked, (
+            f"Homepage links {len(leaked)} single-env stub URL(s) "
+            f"(first 5: {leaked[:5]})"
+        )
+
+    def test_about_page_created(self, built_site):
+        """The /about/ methodology page exists, self-canonicals, and is
+        listed in the main sitemap."""
+        about = built_site["site_dir"] / "about" / "index.html"
+        assert about.exists()
+        content = about.read_text(encoding="utf-8")
+        assert f'<link rel="canonical" href="{BASE_URL}/about/">' in content
+        main_sitemap = (built_site["site_dir"] / "sitemap-main.xml").read_text(
+            encoding="utf-8"
+        )
+        assert f"{BASE_URL}/about/" in main_sitemap
 
     def test_search_page_created(self, built_site):
         """The search page should exist and contain search data."""

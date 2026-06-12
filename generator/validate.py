@@ -441,13 +441,23 @@ def validate_all(
     # Validate HTML files if site_dir provided
     if site_dir and site_dir.exists():
         html_files = list(site_dir.rglob("index.html"))
-        # Only validate env-specific error pages (depth >= 4: domain/slug/env/index.html)
-        # Excludes: top-level index, domain listings (depth 2), error summaries (depth 3)
-        all_error_pages = [
-            f
-            for f in html_files
-            if f.parent != site_dir and len(f.relative_to(site_dir).parts) > 3
-        ]
+        # Validate error content pages:
+        #  - env pages (depth >= 4: domain/slug/env/index.html)
+        #  - slug summary pages (depth 3: domain/slug/index.html) — these are
+        #    the canonical landing pages, so they must carry the same JSON-LD,
+        #    canonical, ai-summary and dead-ends markers as env pages.
+        # Excludes: top-level index, domain listings (depth 2), and non-error
+        # depth-3 trees (country pages). Redirect stubs are filtered below.
+        non_error_prefixes = {"country", "api", "og", "sitemap"}
+        all_error_pages = []
+        for f in html_files:
+            if f.parent == site_dir:
+                continue
+            parts = f.relative_to(site_dir).parts
+            if len(parts) > 3 or (
+                len(parts) == 3 and parts[0] not in non_error_prefixes
+            ):
+                all_error_pages.append(f)
         # Pre-filter redirect pages (read once, skip both validation passes)
         error_pages = []
         for html_file in all_error_pages:
