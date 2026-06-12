@@ -13,9 +13,63 @@ from generator.build_site import (
     build_env_summary,
     collect_sources,
     load_canons,
+    seo_description,
+    seo_title,
 )
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
+
+
+class TestSeoTitle:
+    def test_short_signature_untouched(self):
+        title = seo_title("ENOSPC: no space left on device")
+        assert title == "Fix ENOSPC: no space left on device | deadends.dev"
+        assert len(title) <= 70
+
+    def test_long_signature_truncated_at_word_boundary(self):
+        sig = (
+            "RuntimeError: CUDA error: out of memory and a very long tail "
+            "that keeps going on and on far beyond any sane title length"
+        )
+        title = seo_title(sig)
+        assert len(title) <= 70
+        assert title.startswith("Fix RuntimeError: CUDA error:")
+        assert title.endswith(" | deadends.dev")
+        assert "…" in title
+        # No mid-word cut: the char before the ellipsis ends a whole word
+        head = title.split("…")[0]
+        assert sig.startswith(head[len("Fix "):])
+
+    def test_context_included_when_it_fits(self):
+        title = seo_title("ENOSPC", context="node20-linux")
+        assert title == "Fix ENOSPC on node20-linux | deadends.dev"
+
+    def test_context_dropped_when_it_crowds_signature(self):
+        sig = "Some moderately long signature text here"
+        ctx = "a very long environment summary that eats the whole budget"
+        title = seo_title(sig, context=ctx)
+        assert len(title) <= 70
+        assert ctx not in title
+
+    def test_suffix_always_present(self):
+        for sig in ("x", "y" * 200):
+            assert seo_title(sig).endswith(" | deadends.dev")
+
+
+class TestSeoDescription:
+    def test_joins_parts(self):
+        assert (
+            seo_description("First part.", "Second part.")
+            == "First part. Second part."
+        )
+
+    def test_caps_length(self):
+        desc = seo_description("word " * 100, max_len=155)
+        assert len(desc) <= 155
+        assert desc.endswith("…")
+
+    def test_skips_empty_parts_and_collapses_whitespace(self):
+        assert seo_description("a\n b", "", "  ", "c") == "a b c"
 
 
 class TestLoadCanons:

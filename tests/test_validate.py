@@ -5,10 +5,48 @@ from datetime import date
 from generator.validate import (
     _canon_age_days,
     staleness_summary,
+    validate_all,
     validate_canon_json,
     validate_cross_references,
     validate_unique_ids,
 )
+
+THIN_HTML = "<html><body>thin page with no SEO markers</body></html>"
+REDIRECT_HTML = (
+    '<html><head><meta http-equiv="refresh" content="0;url=/x/y/">'
+    "</head><body></body></html>"
+)
+
+
+class TestValidateAllSitePages:
+    def test_summary_pages_are_content_validated(self, tmp_path):
+        """A depth-3 slug summary page missing required markers must fail."""
+        page_dir = tmp_path / "python" / "some-error"
+        page_dir.mkdir(parents=True)
+        (page_dir / "index.html").write_text(THIN_HTML, encoding="utf-8")
+        assert validate_all(data_dir=None, site_dir=tmp_path) is False
+
+    def test_env_pages_are_content_validated(self, tmp_path):
+        """A depth-4 env page missing required markers must fail."""
+        page_dir = tmp_path / "python" / "some-error" / "py311-linux"
+        page_dir.mkdir(parents=True)
+        (page_dir / "index.html").write_text(THIN_HTML, encoding="utf-8")
+        assert validate_all(data_dir=None, site_dir=tmp_path) is False
+
+    def test_redirect_stubs_are_skipped(self, tmp_path):
+        """Redirect stubs (single-env env URLs, renamed slugs) are exempt."""
+        page_dir = tmp_path / "python" / "some-error" / "py311-linux"
+        page_dir.mkdir(parents=True)
+        (page_dir / "index.html").write_text(REDIRECT_HTML, encoding="utf-8")
+        assert validate_all(data_dir=None, site_dir=tmp_path) is True
+
+    def test_country_pages_are_not_error_validated(self, tmp_path):
+        """Depth-3 country pages use a different template and are excluded
+        from error-page marker validation."""
+        page_dir = tmp_path / "country" / "jp"
+        page_dir.mkdir(parents=True)
+        (page_dir / "index.html").write_text(THIN_HTML, encoding="utf-8")
+        assert validate_all(data_dir=None, site_dir=tmp_path) is True
 
 
 class TestValidCanon:

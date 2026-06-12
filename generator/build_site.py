@@ -179,6 +179,45 @@ def related_in_domain(
     return [e for _s, _sig, e in scored[:limit]]
 
 
+def _truncate_at_word(text: str, max_len: int) -> str:
+    """Collapse whitespace and truncate at a word boundary with an ellipsis."""
+    text = " ".join((text or "").split())
+    if len(text) <= max_len:
+        return text
+    cut = text[: max_len - 1]
+    if " " in cut:
+        cut = cut.rsplit(" ", 1)[0]
+    return cut.rstrip(" .,:;—–-") + "…"
+
+
+def seo_title(signature: str, context: str = "", max_len: int = 70) -> str:
+    """Build a SERP-safe <title>: "Fix {signature}[ on {context}] | deadends.dev".
+
+    Google truncates titles around 60–70 characters and rewrites sitewide
+    boilerplate-heavy ones, so we keep the keyword-bearing signature first
+    and word-boundary-truncate it to fit within max_len overall.
+    """
+    suffix = " | deadends.dev"
+    ctx = f" on {context}" if context else ""
+    budget = max_len - len("Fix ") - len(ctx) - len(suffix)
+    if budget < 20 and ctx:
+        # Context would crowd out the signature itself — drop it.
+        ctx = ""
+        budget = max_len - len("Fix ") - len(suffix)
+    return f"Fix {_truncate_at_word(signature, budget)}{ctx}{suffix}"
+
+
+def seo_description(*parts: str, max_len: int = 155) -> str:
+    """Join text fragments into a meta description capped at max_len.
+
+    Built from per-page verdict text rather than templated counts so each
+    page's snippet is unique — sitewide-identical descriptions are one of
+    the "scaled content" footprints that suppress indexing.
+    """
+    text = " ".join(" ".join(p.split()) for p in parts if p and p.strip())
+    return _truncate_at_word(text, max_len)
+
+
 def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
     """Generate individual error pages."""
     template = jinja_env.get_template("page.html")
@@ -212,13 +251,16 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
                 "signature": c["error"]["signature"],
             })
 
-    # Count environments per slug. Single-env env pages (97% of slugs in our
-    # dataset) are near-duplicates of the summary page, so they declare
-    # rel=canonical -> summary and Google consolidates them into that one
-    # indexable landing. They stay indexable (NO noindex): combining noindex
-    # with rel=canonical is contradictory and can deindex the canonical target
-    # (the summary) as well. The env URL stays reachable for deep links and the
-    # JSON API mirrors via /api/v1/{id}.json.
+    # Count environments per slug. Single-env slugs (97% of our dataset)
+    # would render an env page that is a near-exact duplicate of its summary
+    # page — roughly half the site's HTML. Hosting thousands of crawlable
+    # "duplicate, canonical elsewhere" pages is the classic profile behind
+    # "Crawled - currently not indexed" plateaus, so instead of rendering
+    # them we emit a redirect stub (canonical + meta refresh + noindex, the
+    # static-host equivalent of a 301) pointing at the summary. Deep links
+    # keep working and the JSON API still mirrors every canon at
+    # /api/v1/{id}.json. Multi-env slugs render real env pages because each
+    # carries genuinely distinct per-environment content.
     env_count_by_slug: dict[str, int] = {}
     for c in canons:
         slug_key = c["id"].rsplit("/", 1)[0]
@@ -226,6 +268,38 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
 
     for canon in canons:
         error_id = canon["id"]
+
+        # Defense-in-depth: reject path traversal before writing anything
+        if ".." in error_id:
+            print(f"  SKIP (unsafe id): {error_id}")
+            continue
+
+        slug_parts = error_id.split("/")
+        env_page_url = f"{BASE_URL}/{error_id}/"
+        summary_url = f"{BASE_URL}/{slug_parts[0]}/{slug_parts[1]}/"
+        slug_key = error_id.rsplit("/", 1)[0]
+        is_only_env = env_count_by_slug.get(slug_key, 1) <= 1
+
+        # Write JSON API endpoint (hierarchical path) for every canon,
+        # including single-env ones whose HTML is a redirect stub.
+        # Normalize url to include trailing slash so crawlers don't discover
+        # non-trailing-slash URLs that GitHub Pages 301-redirects
+        api_canon = dict(canon)
+        canon_url = api_canon.get("url", "")
+        if canon_url and not canon_url.endswith("/"):
+            api_canon["url"] = canon_url + "/"
+        api_file = SITE_DIR / "api" / "v1" / f"{error_id}.json"
+        api_file.parent.mkdir(parents=True, exist_ok=True)
+        api_file.write_text(
+            json.dumps(api_canon, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+        if is_only_env:
+            _write_redirect_html(error_id, summary_url)
+            print(f"  Generated: {error_id} (redirect -> summary)")
+            continue
+
         env_summary = build_env_summary(canon)
         all_sources = collect_sources(canon)
 
@@ -238,20 +312,12 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             if "sources" in wa:
                 wa["sources"] = _sanitize_sources(wa["sources"])
 
-        # JSON-LD outer URL matches canonical. Single-env pages canonical
-        # to the summary URL (they consolidate into the summary via that
-        # canonical, no noindex). Multi-env pages self-canonical to the env URL because
-        # each per-env page carries genuinely distinct content (different
-        # workarounds per runtime/OS) and should be indexed on its own
-        # merits — folding them into a shared summary URL was costing
-        # long-tail traffic. The embedded ErrorCanon always keeps the
-        # env-specific URL because that's the canon record identity.
-        env_page_url = f"{BASE_URL}/{error_id}/"
-        slug_parts = error_id.split("/")
-        summary_url = f"{BASE_URL}/{slug_parts[0]}/{slug_parts[1]}/"
-        slug_key = error_id.rsplit("/", 1)[0]
-        is_only_env = env_count_by_slug.get(slug_key, 1) <= 1
-        page_url = summary_url if is_only_env else env_page_url
+        # Only multi-env canons reach this point. Each env page carries
+        # genuinely distinct content (different workarounds per runtime/OS),
+        # so it self-canonicals to its env URL and is indexed on its own
+        # merits. The embedded ErrorCanon always keeps the env-specific URL
+        # because that's the canon record identity.
+        page_url = env_page_url
         json_ld_data = {
             "@context": [
                 "https://schema.org",
@@ -299,48 +365,34 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         }
         json_ld = _safe_json_ld(json_ld_data)
 
-        # FAQPage schema — dead ends as FAQ questions for Google rich snippets
-        faq_entities = []
+        # FAQ — dead ends as Q&A. Rendered BOTH as visible page content
+        # (templates show faq_items) and as FAQPage JSON-LD: Google's
+        # structured-data guidelines require FAQ content to be visible on
+        # the page, and invisible-FAQ markup at scale is a spam signal.
         sig = canon["error"]["signature"]
-        for de in canon["dead_ends"]:
-            faq_entities.append({
-                "@type": "Question",
-                "name": f"Why doesn't '{de['action']}' fix {sig}?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": de["why_fails"],
-                },
-            })
+        faq_items = [
+            {
+                "question": f"Why doesn't '{de['action']}' fix {sig}?",
+                "answer": de["why_fails"],
+            }
+            for de in canon["dead_ends"][:4]
+        ]
         faq_json_ld_data = {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": faq_entities,
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": item["question"],
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item["answer"],
+                    },
+                }
+                for item in faq_items
+            ],
         }
         faq_json_ld = _safe_json_ld(faq_json_ld_data)
-
-        # HowTo schema — workarounds as step-by-step fix instructions
-        howto_json_ld = ""
-        workarounds = canon.get("workarounds", [])
-        if workarounds:
-            howto_steps = []
-            for i, wa in enumerate(workarounds, 1):
-                step = {
-                    "@type": "HowToStep",
-                    "position": i,
-                    "name": wa["action"],
-                    "text": wa.get("how", wa["action"]),
-                }
-                if wa.get("tradeoff"):
-                    step["text"] += f" (Tradeoff: {wa['tradeoff']})"
-                howto_steps.append(step)
-            howto_data = {
-                "@context": "https://schema.org",
-                "@type": "HowTo",
-                "name": f"How to fix {sig}",
-                "description": canon["verdict"]["summary"],
-                "step": howto_steps,
-            }
-            howto_json_ld = _safe_json_ld(howto_data)
 
         # Same-domain errors for internal linking (topically ranked).
         # Picking by signature-token overlap instead of alphabetical means
@@ -364,44 +416,25 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             all_sources=all_sources,
             json_ld=json_ld,
             faq_json_ld=faq_json_ld,
-            howto_json_ld=howto_json_ld,
+            faq_items=faq_items,
+            page_title=seo_title(sig, context=env_summary),
+            meta_description=seo_description(
+                canon["verdict"]["summary"],
+                f"Verified for {env_summary}.",
+            ),
             known_ids=known_ids,
             known_canons=known_canons,
             domain_errors=same_domain,
             country_code=country_code,
             country_name=country_name,
-            # Never combine noindex with rel=canonical: the noindex can
-            # propagate to the canonical target (the summary) and deindex it
-            # too. Single-env env pages stay indexable and consolidate via
-            # their canonical -> summary instead (GSC shows them as the normal
-            # "Alternate page with proper canonical tag"). Multi-env pages
-            # self-canonical (page_url == env URL) and index on their own.
             noindex=False,
             canonical_url=page_url,
             **canon,
         )
 
-        # Write HTML page (defense-in-depth: reject path traversal)
-        if ".." in error_id:
-            print(f"  SKIP (unsafe id): {error_id}")
-            continue
         page_dir = SITE_DIR / error_id
         page_dir.mkdir(parents=True, exist_ok=True)
         (page_dir / "index.html").write_text(html, encoding="utf-8")
-
-        # Write JSON API endpoint (hierarchical path)
-        # Normalize url to include trailing slash so crawlers don't discover
-        # non-trailing-slash URLs that GitHub Pages 301-redirects
-        api_canon = dict(canon)
-        canon_url = api_canon.get("url", "")
-        if canon_url and not canon_url.endswith("/"):
-            api_canon["url"] = canon_url + "/"
-        api_file = SITE_DIR / "api" / "v1" / f"{error_id}.json"
-        api_file.parent.mkdir(parents=True, exist_ok=True)
-        api_file.write_text(
-            json.dumps(api_canon, indent=2, ensure_ascii=False),
-            encoding="utf-8",
-        )
 
         print(f"  Generated: {error_id}")
 
@@ -552,11 +585,24 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
         print("  No country-tagged canons — skipping country pages")
         return
 
+    # Single-env canon pages are redirect stubs, so country listings must
+    # link the canonical summary URL instead of the env URL.
+    env_count_by_slug: dict[str, int] = {}
+    for c in canons:
+        sk = c["id"].rsplit("/", 1)[0]
+        env_count_by_slug[sk] = env_count_by_slug.get(sk, 0) + 1
+
     for code, country_canons in by_country.items():
         entries = []
         for c in sorted(country_canons, key=lambda c: c["id"]):
+            slug_key = c["id"].rsplit("/", 1)[0]
             entries.append({
                 "id": c["id"],
+                "url_path": (
+                    slug_key
+                    if env_count_by_slug.get(slug_key, 1) <= 1
+                    else c["id"]
+                ),
                 "signature": c["error"]["signature"],
                 "domain": c["error"]["domain"],
                 "fix_success_rate": c["verdict"]["fix_success_rate"],
@@ -770,19 +816,55 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
 
     domains = sorted(domain_counts.keys())
 
-    # Recent entries (sorted by generation_date descending)
+    # Recent entries (sorted by generation_date descending). Linked by
+    # canonical summary URL (deduped by slug): pointing the homepage at
+    # non-canonical env URLs funnels crawl equity into redirect stubs.
     recent = sorted(
         canons,
         key=lambda c: c["metadata"].get("generation_date", ""),
         reverse=True,
-    )[:10]
-    recent_entries = [
-        {"id": c["id"], "error": c["error"], "env_summary": build_env_summary(c)}
-        for c in recent
-    ]
+    )
+    recent_entries: list[dict] = []
+    recent_slugs_seen: set[str] = set()
+    for c in recent:
+        slug_key = c["id"].rsplit("/", 1)[0]
+        if slug_key in recent_slugs_seen:
+            continue
+        recent_slugs_seen.add(slug_key)
+        recent_entries.append({
+            "id": c["id"],
+            "slug_key": slug_key,
+            "error": c["error"],
+            "env_summary": build_env_summary(c),
+        })
+        if len(recent_entries) >= 10:
+            break
 
     # Pick a representative example error for API/feature links
     example_error_id = recent_entries[0]["id"] if recent_entries else canons[0]["id"]
+    example_slug_key = example_error_id.rsplit("/", 1)[0]
+
+    # "Most-fixed errors" — high-evidence, high-success summaries linked
+    # directly from the homepage (the site's highest-equity page) so deep
+    # error pages are reachable in a single hop.
+    best_by_slug: dict[str, dict] = {}
+    for c in canons:
+        slug_key = c["id"].rsplit("/", 1)[0]
+        score = (
+            c["verdict"]["fix_success_rate"]
+            * c["metadata"].get("evidence_count", 0)
+        )
+        cur = best_by_slug.get(slug_key)
+        if cur is None or score > cur["score"]:
+            best_by_slug[slug_key] = {
+                "slug_key": slug_key,
+                "signature": c["error"]["signature"],
+                "fix_rate": int(c["verdict"]["fix_success_rate"] * 100),
+                "score": score,
+            }
+    top_fixed = sorted(
+        best_by_slug.values(), key=lambda x: (-x["score"], x["slug_key"])
+    )[:20]
 
     # Compute aggregate stats for dynamic hero/trust sections
     total_dead_ends = sum(len(c["dead_ends"]) for c in canons)
@@ -879,6 +961,8 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
         country_stats=country_list,
         recent_entries=recent_entries,
         example_error_id=example_error_id,
+        example_slug_key=example_slug_key,
+        top_fixed=top_fixed,
         total_dead_ends=f"{total_dead_ends:,}",
         total_workarounds=f"{total_workarounds:,}",
         total_edges=f"{total_edges:,}+",
@@ -941,6 +1025,7 @@ def build_sitemap(
     _add_url(main_urlset, f"{BASE_URL}/search/", site_lastmod, "weekly", "0.9")
     _add_url(main_urlset, f"{BASE_URL}/sitemap/", site_lastmod, "weekly", "0.5")
     _add_url(main_urlset, f"{BASE_URL}/dashboard/", site_lastmod, "weekly", "0.7")
+    _add_url(main_urlset, f"{BASE_URL}/about/", site_lastmod, "monthly", "0.5")
 
     for domain in sorted(domain_lastmod):
         _add_url(
@@ -1877,6 +1962,27 @@ def build_stylesheet() -> None:
         "  font-size: 0.9rem; }",
         ".feedback-hidden { display: none; }",
         "",
+        "/* === FAQ (visible Q&A mirroring FAQPage JSON-LD) === */",
+        ".faq-item { background: #161b22;",
+        "  border: 1px solid #30363d;",
+        "  border-radius: 6px; margin: 0.5rem 0;",
+        "  padding: 0.5rem 0.75rem; }",
+        ".faq-item summary { cursor: pointer;",
+        "  font-weight: 600; color: #e0e0e0; }",
+        ".faq-item p { margin: 0.5rem 0 0.25rem;",
+        "  color: #8b949e; }",
+        "",
+        "/* === PREV/NEXT NAV === */",
+        ".prev-next { display: flex;",
+        "  justify-content: space-between; gap: 1rem;",
+        "  flex-wrap: wrap; margin: 1.5rem 0;",
+        "  font-size: 0.9rem; }",
+        ".prev-next .next-link { margin-left: auto; }",
+        "",
+        "/* === SUMMARY INTRO PARAGRAPH === */",
+        "header .intro { color: #c9d1d9;",
+        "  margin: 0.75rem 0 0; max-width: 70ch; }",
+        "",
         "/* === SHARE BAR === */",
         ".share-bar { display: flex;",
         "  gap: 0.5rem; margin: 1.5rem 0; }",
@@ -2485,6 +2591,18 @@ def build_error_summary_pages(
     for sk, sc in by_slug.items():
         slug_signatures[sk] = sc[0]["error"]["signature"]
 
+    # Alphabetical prev/next chain within each domain. Guarantees every
+    # summary page has at least two stable inbound links beyond the domain
+    # hub, forming a fully crawlable chain through all summaries.
+    slugs_by_domain: dict[str, list[str]] = {}
+    for sk in by_slug:
+        slugs_by_domain.setdefault(sk.split("/", 1)[0], []).append(sk)
+    slug_position: dict[str, int] = {}
+    for domain_slugs in slugs_by_domain.values():
+        domain_slugs.sort()
+        for i, sk in enumerate(domain_slugs):
+            slug_position[sk] = i
+
     summaries = []
     for slug_key, slug_canons in by_slug.items():
         domain, slug = slug_key.split("/", 1)
@@ -2533,6 +2651,12 @@ def build_error_summary_pages(
             key=lambda x: x["success_rate"],
             reverse=True,
         )
+
+        # Sanitize source URLs before they reach href attributes (single-env
+        # canons no longer pass through build_error_pages' sanitization)
+        for item in common_dead_ends + common_workarounds:
+            if "sources" in item:
+                item["sources"] = _sanitize_sources(item["sources"])
 
         rates = [c["verdict"]["fix_success_rate"] for c in slug_canons]
         min_rate = int(min(rates) * 100)
@@ -2624,7 +2748,10 @@ def build_error_summary_pages(
             },
         })
 
-        # FAQPage JSON-LD for rich results in Google Search
+        # FAQ — rendered BOTH as visible page content (template section
+        # #faq) and as FAQPage JSON-LD. Google's structured-data guidelines
+        # require FAQ content to be visible on the page; markup-only FAQs
+        # across thousands of pages read as a spam signal.
         faq_items = []
         # Top dead ends as "Why does X fail?" questions
         for de in common_dead_ends[:3]:
@@ -2632,33 +2759,34 @@ def build_error_summary_pages(
             why = de.get("why_fails", "")
             if action and why:
                 faq_items.append({
-                    "@type": "Question",
-                    "name": f"Why does '{action}' fail for {signature}?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": why,
-                    },
+                    "question": f"Why does '{action}' fail for {signature}?",
+                    "answer": why,
                 })
-        # Top workarounds as "How to fix?" questions
-        for wa in common_workarounds[:3]:
+        # Top workaround as the single "How to fix?" question
+        for wa in common_workarounds[:1]:
             action = wa.get("action", "")
-            how = wa.get("how", action)
+            how = wa.get("how", "")
             if action:
                 faq_items.append({
-                    "@type": "Question",
-                    "name": f"How to fix {signature}?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": how if how else action,
-                    },
+                    "question": f"How to fix {signature}?",
+                    "answer": how or action,
                 })
-                break  # Only one "How to fix?" to avoid duplicates
         faq_json_ld = ""
         if faq_items:
             faq_json_ld = _safe_json_ld({
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
-                "mainEntity": faq_items,
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": item["question"],
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": item["answer"],
+                        },
+                    }
+                    for item in faq_items
+                ],
             })
 
         # Same-domain errors for cross-linking (topically ranked).
@@ -2681,6 +2809,63 @@ def build_error_summary_pages(
         )
         date_modified = max(dates) if dates else ""
 
+        # Generated intro paragraph — deterministic but unique per page
+        # (category, rates, actions and dates all differ), adding visible
+        # prose depth that the structured sections alone don't provide.
+        category = first["error"].get("category", "")
+        fixable_phrase = {
+            "true": "reliably fixable",
+            "partial": "partially fixable",
+            "false": "rarely fixable",
+        }.get(first["verdict"]["resolvable"], "of unknown fixability")
+        evidence_total = sum(
+            c["metadata"].get("evidence_count", 0) for c in slug_canons
+        )
+        if category:
+            intro_sentences = [
+                f"This is a {category} error in the "
+                f"{domain_display_name(domain)} domain."
+            ]
+        else:
+            intro_sentences = [
+                f"This is a known {domain_display_name(domain)} error."
+            ]
+        if common_workarounds and common_dead_ends:
+            top_wa = common_workarounds[0]
+            top_de = common_dead_ends[0]
+            intro_sentences.append(
+                f"Current evidence says it is {fixable_phrase}: the most "
+                f"effective workaround ({top_wa['action']}) succeeds in "
+                f"about {int(top_wa['success_rate'] * 100)}% of cases, "
+                f"while the most commonly attempted fix ({top_de['action']}) "
+                f"fails about {int(top_de['fail_rate'] * 100)}% of the time."
+            )
+        elif common_dead_ends:
+            top_de = common_dead_ends[0]
+            intro_sentences.append(
+                f"Current evidence says it is {fixable_phrase}; the most "
+                f"commonly attempted fix ({top_de['action']}) fails about "
+                f"{int(top_de['fail_rate'] * 100)}% of the time."
+            )
+        if date_modified:
+            intro_sentences.append(
+                f"Last verified {date_modified} across {evidence_total} "
+                f"collected sources."
+            )
+        intro_text = " ".join(intro_sentences)
+
+        # Prev/next within the domain's alphabetical slug chain
+        domain_slugs = slugs_by_domain[domain]
+        pos = slug_position[slug_key]
+        prev_entry = None
+        next_entry = None
+        if pos > 0:
+            pk = domain_slugs[pos - 1]
+            prev_entry = {"slug_key": pk, "signature": slug_signatures[pk]}
+        if pos < len(domain_slugs) - 1:
+            nk = domain_slugs[pos + 1]
+            next_entry = {"slug_key": nk, "signature": slug_signatures[nk]}
+
         html = template.render(
             signature=signature,
             regex=regex,
@@ -2696,6 +2881,16 @@ def build_error_summary_pages(
             max_rate=max_rate,
             summary_json_ld=summary_json_ld,
             faq_json_ld=faq_json_ld,
+            faq_items=faq_items,
+            page_title=seo_title(signature),
+            meta_description=seo_description(
+                verdict_summary,
+                f"{len(common_workarounds)} verified fixes, "
+                f"up to {max_rate}% success.",
+            ),
+            intro_text=intro_text,
+            prev_entry=prev_entry,
+            next_entry=next_entry,
             transition_graph=aggregated_graph,
             known_ids=known_ids,
             known_canons=known_canons,
@@ -2719,6 +2914,44 @@ def build_error_summary_pages(
         })
 
     return summaries
+
+
+def build_about_page(canons: list[dict], jinja_env: Environment) -> None:
+    """Generate the /about/ methodology page (E-E-A-T signal).
+
+    Explains what the dataset is, where dead-end/workaround rates come
+    from, and how to contribute — the kind of provenance page quality
+    raters and search engines look for on data-driven sites.
+    """
+    template = jinja_env.get_template("about.html")
+
+    domains = {c["error"]["domain"] for c in canons}
+    slugs = {c["id"].rsplit("/", 1)[0] for c in canons}
+    countries = {
+        info[0]
+        for c in canons
+        if (info := _canon_country_info(c)) is not None
+    }
+    review_counts: dict[str, int] = {}
+    for c in canons:
+        status = c["metadata"].get("review_status", "auto_generated")
+        review_counts[status] = review_counts.get(status, 0) + 1
+
+    html = template.render(
+        total_canons=len(canons),
+        total_slugs=len(slugs),
+        total_domains=len(domains),
+        total_countries=len(countries),
+        total_dead_ends=sum(len(c["dead_ends"]) for c in canons),
+        total_workarounds=sum(len(c.get("workarounds", [])) for c in canons),
+        human_reviewed=review_counts.get("human_reviewed", 0)
+        + review_counts.get("community_verified", 0),
+    )
+
+    out_dir = SITE_DIR / "about"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "index.html").write_text(html, encoding="utf-8")
+    print("  Generated: /about/")
 
 
 def build_search_page(
@@ -4688,6 +4921,10 @@ def main():
 
     print("Generating search page...")
     build_search_page(canons, jinja_env)
+    print()
+
+    print("Generating about page...")
+    build_about_page(canons, jinja_env)
     print()
 
     print("Generating index page...")

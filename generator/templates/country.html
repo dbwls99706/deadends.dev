@@ -74,7 +74,7 @@
       "@type": "ItemList",
       "numberOfItems": {{ total }},
       "itemListElement": [{% for e in entries %}
-        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.id }}/", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
+        {"@type": "ListItem", "position": {{ loop.index }}, "url": "{{ base_url }}/{{ e.url_path }}/", "name": "{{ e.signature | json_escape }}"}{{ "," if not loop.last else "" }}{% endfor %}
       ]
     }
   }
@@ -135,7 +135,7 @@ COUNTRY_API={{ base_url }}/api/v1/country/{{ country_code }}.json
     <h2>All entries</h2>
     {% for e in entries %}
     <div class="entry">
-      <a href="{{ base_path }}/{{ e.id }}/"><code>{{ e.signature }}</code></a>
+      <a href="{{ base_path }}/{{ e.url_path }}/"><code>{{ e.signature }}</code></a>
       <span class="meta">{{ e.domain | display_name }} · Fix rate: {{ (e.fix_success_rate * 100)|int }}% · {{ e.dead_end_count }} dead end{{ 's' if e.dead_end_count != 1 else '' }} · {{ e.workaround_count }} workaround{{ 's' if e.workaround_count != 1 else '' }}</span>
       <p class="meta entry-summary">{{ e.summary }}</p>
     </div>

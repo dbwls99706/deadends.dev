@@ -64,7 +64,8 @@
     "url": "{{ base_url }}",
     "logo": "{{ base_url }}/favicon.svg",
     "description": "Structured failure knowledge database for AI coding agents. {{ total_errors }} error entries across {{ domains | length }} domains.",
-    "sameAs": ["https://github.com/dbwls99706/deadends.dev"]
+    "sameAs": ["https://github.com/dbwls99706/deadends.dev"],
+    "subjectOf": {"@type": "AboutPage", "url": "{{ base_url }}/about/"}
   }
   </script>
   <script type="application/ld+json">
@@ -323,8 +324,8 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     </ul>
     <h3>Structured Data &amp; Feeds</h3>
     <ul>
-      <li><strong>JSON-LD</strong> — Schema.org TechArticle + ErrorCanon in every page <code>&lt;head&gt;</code> — <a href="{{ base_path }}/{{ example_error_id }}/">example</a></li>
-      <li><strong>ai-summary</strong> — parseable <code>&lt;pre id="ai-summary"&gt;</code> block in every page — <a href="{{ base_path }}/{{ example_error_id }}/#ai-summary">example</a></li>
+      <li><strong>JSON-LD</strong> — Schema.org TechArticle + ErrorCanon in every page <code>&lt;head&gt;</code> — <a href="{{ base_path }}/{{ example_slug_key }}/">example</a></li>
+      <li><strong>ai-summary</strong> — parseable <code>&lt;pre id="ai-summary"&gt;</code> block in every page — <a href="{{ base_path }}/{{ example_slug_key }}/#ai-summary">example</a></li>
       <li><strong>Stats</strong> — <code>GET <a href="{{ base_path }}/api/v1/stats.json">/api/v1/stats.json</a></code> — dataset quality metrics</li>
       <li><strong>NDJSON</strong> — <code>GET <a href="{{ base_path }}/api/v1/errors.ndjson">/api/v1/errors.ndjson</a></code> — streaming format</li>
       <li><strong>llms.txt</strong> — <code>GET <a href="{{ base_path }}/llms.txt">/llms.txt</a></code> — error listing for LLMs</li>
@@ -334,12 +335,27 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <p>URL pattern: <code>{{ base_url }}/{domain}/{error-slug}/{env-hash}</code></p>
   </section>
 
+  {% if top_fixed %}
+  <section>
+    <h2>Most Reliably Fixed Errors</h2>
+    <p class="meta">High-evidence entries with the best verified fix rates.</p>
+    <ul>
+      {% for entry in top_fixed %}
+      <li>
+        <a href="{{ base_path }}/{{ entry.slug_key }}/">{{ entry.signature }}</a>
+        <span class="meta">— {{ entry.fix_rate }}% fix rate</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <section>
     <h2>Recent Entries</h2>
     <ul>
       {% for entry in recent_entries %}
       <li>
-        <a href="{{ base_path }}/{{ entry.id }}/">{{ entry.error.signature }}</a>
+        <a href="{{ base_path }}/{{ entry.slug_key }}/">{{ entry.error.signature }}</a>
         <span class="meta">— {{ entry.env_summary }}</span>
       </li>
       {% endfor %}
@@ -349,7 +365,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   </main>
 
   <footer class="meta">
-    <p>deadends.dev · <a href="{{ base_path }}/search/">Search</a> · <a href="{{ base_path }}/dashboard/">Dashboard</a> · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · CC BY 4.0</p>
+    <p>deadends.dev · <a href="{{ base_path }}/about/">About</a> · <a href="{{ base_path }}/search/">Search</a> · <a href="{{ base_path }}/dashboard/">Dashboard</a> · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a> · CC BY 4.0</p>
   </footer>
 </body>
 </html>

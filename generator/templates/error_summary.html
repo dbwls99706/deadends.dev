@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>Fix {{ signature }} — {{ total_dead_ends }} Dead Ends to Avoid &amp; {{ total_workarounds }} Verified Workarounds | deadends.dev</title>
-  <meta name="description" content="Fix {{ signature }} with {{ total_workarounds }} step-by-step workarounds (up to {{ max_rate }}% success rate). Skip {{ total_dead_ends }} common approaches that waste your time. Covers {{ environments|length }} environment{% if environments|length != 1 %}s{% endif %}.">
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ meta_description }}">
   {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ signature }}, {{ domain }}, error fix, troubleshooting, dead end, workaround, how to fix, solve{% for env in environments %}, {{ env.env_summary }}{% endfor %}{% for v in common_variations|default([]) %}, {{ v }}{% endfor %}">
@@ -14,8 +14,8 @@
   <link rel="canonical" href="{{ base_url }}/{{ domain }}/{{ slug }}/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ signature }} — {{ total_dead_ends }} Dead Ends to Avoid, {{ total_workarounds }} Verified Fixes">
-  <meta property="og:description" content="Don't waste time on dead-end fixes. {{ total_workarounds }} verified workarounds across {{ environments|length }} environments. Fix rates: {{ min_rate }}%–{{ max_rate }}%.">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ meta_description }}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/{{ slug }}/">
   <meta property="og:site_name" content="deadends.dev">
@@ -26,8 +26,8 @@
   <meta property="og:image:alt" content="{{ signature }} — {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ signature }} — {{ total_dead_ends }} Dead Ends to Avoid, {{ total_workarounds }} Verified Fixes">
-  <meta name="twitter:description" content="Don't waste time on dead-end fixes. {{ total_workarounds }} verified workarounds across {{ environments|length }} environments. Fix rates: {{ min_rate }}%–{{ max_rate }}%.">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ meta_description }}">
   <meta name="twitter:image" content="{{ base_url }}/og/{{ domain }}/{{ slug }}.svg">
   <meta name="twitter:image:alt" content="{{ signature }} — {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
 
@@ -73,7 +73,7 @@ ENVIRONMENTS={{ environments|length }}
 TOTAL_DEAD_ENDS={{ total_dead_ends }}
 TOTAL_WORKAROUNDS={{ total_workarounds }}
 FIX_RATE_RANGE={{ min_rate }}%-{{ max_rate }}%
-{% for env in environments %}ENV={{ env.env_summary }} | resolvable={{ env.resolvable }} | rate={{ env.fix_rate }} | url={{ base_url }}/{{ env.id }}/
+{% for env in environments %}ENV={{ env.env_summary }} | resolvable={{ env.resolvable }} | rate={{ env.fix_rate }} | url={% if is_single_env %}{{ base_url }}/{{ domain }}/{{ slug }}/{% else %}{{ base_url }}/{{ env.id }}/{% endif %}
 {% endfor %}DEAD_ENDS={% for de in common_dead_ends %}{{ de.action }} (fail_rate={{ de.fail_rate }}){% if not loop.last %}; {% endif %}{% endfor %}
 JSON_API_PATTERN={{ base_url }}/api/v1/{{ domain }}/{{ slug }}/{env}.json
 MATCH_API={{ base_url }}/api/v1/match.json</pre>
@@ -84,6 +84,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   <header>
     <h1><code>{{ signature }}</code></h1>
     <p class="meta">{{ environments|length }} environment{{ 's' if environments|length != 1 else '' }} · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds · Fix rates: {{ min_rate }}%–{{ max_rate }}%</p>
+    {% if intro_text %}<p class="intro">{{ intro_text }}</p>{% endif %}
   </header>
 
   <!-- TL;DR for AI coding agents -->
@@ -171,6 +172,11 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     <div class="dead-end">
       <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
       <p>{{ de.why_fails }}</p>
+      {% if de.common_misconception %}<p><em>Common misconception:</em> {{ de.common_misconception }}</p>{% endif %}
+      {% if de.condition %}<p class="meta">Condition: {{ de.condition }}</p>{% endif %}
+      {% if de.sources %}
+      <p class="meta">Sources: {% for src in de.sources %}<a href="{{ src }}">{{ src }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
     </div>
     {% endfor %}
   </section>
@@ -182,6 +188,11 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
     <div class="workaround">
       <strong>{{ wa.action }}</strong> <span class="success-rate">({{ (wa.success_rate * 100)|int }}% success)</span>
       {% if wa.how %}<p><code>{{ wa.how }}</code></p>{% endif %}
+      {% if wa.tradeoff %}<p>Tradeoff: {{ wa.tradeoff }}</p>{% endif %}
+      {% if wa.condition %}<p class="meta">Condition: {{ wa.condition }}</p>{% endif %}
+      {% if wa.sources %}
+      <p class="meta">Sources: {% for src in wa.sources %}<a href="{{ src }}">{{ src }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
     </div>
     {% endfor %}
   </section>
@@ -271,6 +282,27 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </section>
   {% endif %}
 
+  {% if faq_items|default([]) %}
+  <!-- Visible FAQ — must mirror the FAQPage JSON-LD (Google requires
+       structured-data content to be visible on the page) -->
+  <section id="faq" aria-label="Frequently asked questions">
+    <h2>Frequently Asked Questions</h2>
+    {% for item in faq_items %}
+    <details class="faq-item">
+      <summary>{{ item.question }}</summary>
+      <p>{{ item.answer }}</p>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if prev_entry or next_entry %}
+  <nav class="prev-next" aria-label="More {{ domain | display_name }} errors">
+    {% if prev_entry %}<span class="prev-link">&#x2190; <a href="{{ base_path }}/{{ prev_entry.slug_key }}/">{{ prev_entry.signature }}</a></span>{% endif %}
+    {% if next_entry %}<span class="next-link"><a href="{{ base_path }}/{{ next_entry.slug_key }}/">{{ next_entry.signature }}</a> &#x2192;</span>{% endif %}
+  </nav>
+  {% endif %}
+
   <!-- SHARE & FEEDBACK -->
   <div class="share-bar">
     <button type="button" class="share-btn" id="copy-link-btn" title="Copy link">Copy link</button>
@@ -287,7 +319,7 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </main>
 
   <footer class="meta">
-    <p>Generated by deadends.dev · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">Raw data on GitHub</a></p>
+    <p>Generated by deadends.dev · <a href="{{ base_path }}/about/">About &amp; Methodology</a> · <a href="{{ base_path }}/sitemap/">All Errors</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">Raw data on GitHub</a></p>
   </footer>
   <script>
   (function(){
