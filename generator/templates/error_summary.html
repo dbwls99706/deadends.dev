@@ -282,6 +282,20 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
   </section>
   {% endif %}
 
+  {% if country_related|default([]) %}
+  <!-- Same-country dead ends across other domains: a by-destination internal
+       link cluster (e.g. a Japan visa page links to Japan emergency/banking). -->
+  <section id="country-related">
+    <h2>{% if country_related_name %}More dead ends in {{ country_related_name }}{% else %}Related dead ends for these countries{% endif %}</h2>
+    <p class="meta">Other real-world dead ends to know for the same destination:</p>
+    <ul>
+      {% for e in country_related %}
+      <li><a href="{{ base_path }}/{{ e.slug_key }}/">{{ e.signature }}</a> <span class="meta">({{ e.domain | display_name }})</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   {% if faq_items|default([]) %}
   <!-- Visible FAQ - must mirror the FAQPage JSON-LD (Google requires
        structured-data content to be visible on the page) -->

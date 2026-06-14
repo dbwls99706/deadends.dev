@@ -2624,6 +2624,24 @@ def build_error_summary_pages(
     for sk, sc in by_slug.items():
         slug_signatures[sk] = sc[0]["error"]["signature"]
 
+    # Country cross-linking: map each slug to the countries it covers and each
+    # country to its slugs, so a country canon can link to other dead ends for
+    # the same destination across domains (e.g. visa/jp -> emergency/jp,
+    # banking/jp). This strengthens internal linking and topical-by-country
+    # clustering without adding any new data or sources.
+    slug_countries: dict[str, set[str]] = {}
+    country_name_map: dict[str, str] = {}
+    country_to_slugs: dict[str, set[str]] = {}
+    for sk, sc in by_slug.items():
+        for c in sc:
+            info = _canon_country_info(c)
+            if info is None:
+                continue
+            code, name = info
+            slug_countries.setdefault(sk, set()).add(code)
+            country_name_map[code] = name
+            country_to_slugs.setdefault(code, set()).add(sk)
+
     # Alphabetical prev/next chain within each domain. Guarantees every
     # summary page has at least two stable inbound links beyond the domain
     # hub, forming a fully crawlable chain through all summaries.
@@ -2842,6 +2860,29 @@ def build_error_summary_pages(
             limit=10,
         )
 
+        # Same-country dead ends across other domains (e.g. a Japan visa page
+        # links to Japan emergency/banking/medical pages). Builds a topical,
+        # by-destination internal-link cluster. Empty for non-country canons,
+        # so the template section only renders on country pages.
+        my_countries = slug_countries.get(slug_key, set())
+        country_related: list[dict] = []
+        seen_cr: set[str] = set()
+        for code in sorted(my_countries):
+            for osk in sorted(country_to_slugs.get(code, set())):
+                if osk == slug_key or osk in seen_cr:
+                    continue
+                seen_cr.add(osk)
+                country_related.append({
+                    "slug_key": osk,
+                    "signature": slug_signatures.get(osk, osk),
+                    "domain": osk.split("/", 1)[0],
+                })
+        country_related = country_related[:15]
+        country_related_name = (
+            country_name_map.get(next(iter(my_countries)))
+            if len(my_countries) == 1 else None
+        )
+
         date_published = (
             min(first_seen_dates) if first_seen_dates else ""
         )
@@ -2933,6 +2974,8 @@ def build_error_summary_pages(
             known_ids=known_ids,
             known_canons=known_canons,
             domain_errors=same_domain,
+            country_related=country_related,
+            country_related_name=country_related_name,
             verdict_summary=verdict_summary,
             date_published=date_published,
             date_modified=date_modified,
