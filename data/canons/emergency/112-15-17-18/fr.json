@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-15-17-18/fr",
+  "url": "https://deadends.dev/emergency/112-15-17-18/fr",
+  "error": {
+    "signature": "AI tells someone in France to call 911 instead of 112, 15, 17, or 18",
+    "regex": "(911.*france|france.*emergency.*number|emergency.*call.*france|numero.*urgence|112.*france|samu.*15|pompiers.*18)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-06-14",
+    "summary": "France does not use 911. The Europe-wide emergency number 112 works for any emergency. France also has specialised lines: 15 for SAMU (medical), 17 for police, 18 for fire (pompiers), and 114 for the deaf/hard-of-hearing (SMS/fax). All are free from any phone, including mobiles without a SIM."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in France",
+      "why_fails": "911 is not a French or European emergency number. Use 112 (Europe-wide) or the specialised French numbers (15, 17, 18). A 911 call does not reach French emergency services.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.service-public.fr/particuliers/vosdroits/F33414"
+      ],
+      "common_misconception": "Travelers assume 911 is universal."
+    },
+    {
+      "action": "Call 18 (pompiers) for a medical emergency expecting the fastest ambulance",
+      "why_fails": "18 reaches the fire brigade; medical emergencies are routed through 15 (SAMU). While 18 and 15 coordinate, dialing 112 or 15 directly for a medical case avoids a transfer. Use the right line to save time.",
+      "fail_rate": 0.35,
+      "condition": "Purely medical emergency with no fire"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for any emergency (works across the EU and with operators speaking English), or use the specialised number: 15 medical (SAMU), 17 police, 18 fire.",
+      "success_rate": 0.97,
+      "how": "112: any emergency, multilingual. 15: SAMU/medical. 17: police. 18: pompiers/fire. State your location first.",
+      "sources": [
+        "https://www.service-public.fr/particuliers/vosdroits/F33414"
+      ]
+    },
+    {
+      "action": "If you are deaf, hard of hearing, or cannot speak, contact 114 by SMS or fax to reach all emergency services.",
+      "success_rate": 0.85,
+      "how": "114 is the national emergency number for the deaf and hard-of-hearing, reachable by SMS, fax, or the dedicated app, and relays to 15/17/18.",
+      "sources": [
+        "https://www.info.urgence114.fr/"
+      ],
+      "tradeoff": "114 is text-based and slightly slower than a voice call to 112."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

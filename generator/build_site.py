@@ -1105,6 +1105,38 @@ def build_sitemap(
             "lastmod": canon_lastmod(c),
         })
 
+    # Per-slug crawl priority. A new, low-authority domain gets a limited
+    # crawl/index budget, so we concentrate it on the strongest, most-unique
+    # pages instead of advertising one flat priority for all 2,000+ canons.
+    # Country canons (the site's genuinely-unique differentiator, which
+    # generic models get wrong) and high-evidence / multi-env errors rank
+    # above thin single-env auto-generated canons. Values stay in a 0.6–0.9
+    # band so the relative ordering is a usable signal without collapsing to
+    # a single number (which Search Central treats as no signal at all).
+    slug_strength: dict[str, dict] = {}
+    for c in canons:
+        parts = c["id"].split("/")
+        if len(parts) != 3:
+            continue
+        sk = f"{parts[0]}/{parts[1]}"
+        cur = slug_strength.setdefault(
+            sk, {"evidence": 0, "confidence": 0.0, "country": False}
+        )
+        cur["evidence"] = max(cur["evidence"], c["metadata"].get("evidence_count", 0))
+        cur["confidence"] = max(cur["confidence"], c["verdict"].get("confidence", 0.0))
+        cur["country"] = cur["country"] or _canon_country_info(c) is not None
+
+    def _summary_priority(slug_key: str) -> str:
+        s = slug_strength.get(slug_key, {})
+        multi_env = env_count_by_slug.get(slug_key, 1) > 1
+        if s.get("country"):
+            return "0.9"
+        if multi_env or (s.get("evidence", 0) >= 5 and s.get("confidence", 0.0) >= 0.7):
+            return "0.85"
+        if s.get("evidence", 0) >= 3:
+            return "0.8"
+        return "0.7"
+
     # Track domains that have any canons so we still emit their sub-sitemap
     # for completeness (even if summary_urls happens to be empty).
     domains_with_canons: set[str] = {c["error"]["domain"] for c in canons}
@@ -1114,12 +1146,13 @@ def build_sitemap(
     for domain in all_domains:
         domain_urlset = Element("urlset", xmlns=ns)
 
-        # Summary (canonical) pages
+        # Summary (canonical) pages — priority weighted by page strength so
+        # crawl budget favours unique/high-evidence pages (see _summary_priority).
         for s in summaries_by_domain.get(domain, []):
             _add_url(
                 domain_urlset, s["url"],
                 slug_lastmod.get(s["slug_key"], ""),
-                "monthly", "0.8",
+                "monthly", _summary_priority(s["slug_key"]),
             )
 
         # Multi-env env-specific pages (each carries unique per-env content)
@@ -2720,7 +2753,11 @@ def build_error_summary_pages(
             for c in slug_canons
             if c["error"].get("first_seen")
         ]
-        summary_json_ld = _safe_json_ld({
+        # Omit empty date fields rather than emitting "" — an empty-string
+        # date is invalid structured data and Google flags it in the
+        # TechArticle rich-result report.
+        valid_dates = [d for d in dates if d]
+        summary_json_ld_obj = {
             "@context": "https://schema.org",
             "@type": "TechArticle",
             "name": signature,
@@ -2732,10 +2769,6 @@ def build_error_summary_pages(
                 f"Fix rates: {min_rate}%–{max_rate}%."
             ),
             "url": f"{BASE_URL}/{domain}/{slug}/",
-            "datePublished": min(first_seen_dates)
-            if first_seen_dates
-            else "",
-            "dateModified": max(dates) if dates else "",
             "image": f"{BASE_URL}/og-image.png",
             "publisher": {
                 "@type": "Organization",
@@ -2746,7 +2779,12 @@ def build_error_summary_pages(
                 "@type": "SoftwareSourceCode",
                 "programmingLanguage": domain,
             },
-        })
+        }
+        if first_seen_dates:
+            summary_json_ld_obj["datePublished"] = min(first_seen_dates)
+        if valid_dates:
+            summary_json_ld_obj["dateModified"] = max(valid_dates)
+        summary_json_ld = _safe_json_ld(summary_json_ld_obj)
 
         # FAQ — rendered BOTH as visible page content (template section
         # #faq) and as FAQPage JSON-LD. Google's structured-data guidelines

@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/110-119-not-911/jp",
+  "url": "https://deadends.dev/emergency/110-119-not-911/jp",
+  "error": {
+    "signature": "AI tells someone in Japan to call 911 in an emergency",
+    "regex": "(911.*japan|japan.*emergency.*number|emergency.*call.*japan|日本.*緊急|110.*119|救急車.*呼)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-06-14",
+    "summary": "Japan does NOT use 911. Dial 110 for police and 119 for fire and ambulance (119 covers both medical emergencies and fires). Both numbers are free from any phone, including mobiles and payphones, and work without a SIM. English support is limited; speak slowly and state your location first."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Japan and wait for a dispatcher",
+      "why_fails": "911 is the North American emergency number and is not assigned in Japan. Calls to 911 do not reach Japanese police, fire, or ambulance services and waste critical time. Japan's numbers are 110 (police) and 119 (fire/ambulance).",
+      "fail_rate": 0.99,
+      "sources": [
+        "https://www.npa.go.jp/english/index.html",
+        "https://www.tfd.metro.tokyo.lg.jp/eng/"
+      ],
+      "common_misconception": "Many travelers assume 911 is universal because of US film and TV."
+    },
+    {
+      "action": "Call 119 for police matters such as theft or assault",
+      "why_fails": "119 in Japan dispatches fire engines and ambulances only. Crimes, accidents, and lost-person reports go to 110 (police). Calling the wrong line forces a transfer and delays response.",
+      "fail_rate": 0.6,
+      "condition": "Reporting a crime rather than a fire or medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 110 for police (crime, accident, danger) or 119 for fire and ambulance (medical emergency or fire). Both are free and work from any phone.",
+      "success_rate": 0.97,
+      "how": "Police: 110. Fire / Ambulance: 119. State your location (nearest landmark or address) before anything else, then the nature of the emergency.",
+      "sources": [
+        "https://www.npa.go.jp/english/index.html",
+        "https://www.tfd.metro.tokyo.lg.jp/eng/"
+      ]
+    },
+    {
+      "action": "If your Japanese is limited, ask for an English interpreter or use the multilingual relay; many fire departments have three-way interpretation.",
+      "success_rate": 0.8,
+      "how": "Say 'English please' clearly; Tokyo Fire Department and major cities offer interpretation. The JNTO Japan Visitor Hotline (050-3816-2787) runs 24/7 for non-life-threatening help and translation.",
+      "sources": [
+        "https://www.japan.travel/en/plan/hotline/"
+      ],
+      "tradeoff": "Interpretation adds a short delay; for life-threatening cases speak slowly in simple words first."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
