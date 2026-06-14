@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/drive-on-left-look-right/au",
+  "url": "https://deadends.dev/safety/drive-on-left-look-right/au",
+  "error": {
+    "signature": "AI tells a visitor that Australia drives on the right or to look left first when crossing",
+    "regex": "(australia.*drive.*left|australia.*traffic.side|look.*right.*australia|australia.*road.*side)",
+    "domain": "safety",
+    "category": "safety_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Australia drives on the LEFT. Visitors from right-driving countries instinctively look the wrong way and step into traffic. Look RIGHT first when crossing. Distances are vast and wildlife (kangaroos) is a real hazard at dawn/dusk; keep left on highways and roundabouts."
+  },
+  "dead_ends": [
+    {
+      "action": "Cross the road looking left first as you would at home",
+      "why_fails": "In left-hand-traffic countries the nearest lane comes from your RIGHT; looking left first is a classic cause of pedestrian accidents for visitors in Australia.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.australia.gov.au/",
+        "https://www.infrastructure.gov.au/"
+      ],
+      "common_misconception": "Right-driving muscle memory sends visitors the wrong way."
+    },
+    {
+      "action": "Rent and drive a car without adjusting to left-hand traffic or carrying the right permit",
+      "why_fails": "Driving on the unfamiliar side without a valid licence/International Driving Permit risks accidents and can void insurance or break the law.",
+      "fail_rate": 0.5,
+      "condition": "Driving or riding"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Look RIGHT first, then left, then right again; use marked crossings and follow locals.",
+      "success_rate": 0.9,
+      "how": "Train yourself to check right first; many tourist crossings paint 'LOOK RIGHT' reminders.",
+      "sources": [
+        "https://www.australia.gov.au/",
+        "https://www.infrastructure.gov.au/"
+      ]
+    },
+    {
+      "action": "If driving, carry a valid licence/International Driving Permit and take roundabouts slowly.",
+      "success_rate": 0.82,
+      "how": "Keep left, give way correctly at roundabouts, and consider transit/taxis while adjusting.",
+      "tradeoff": "Left-hand driving takes adjustment; public transport is often easier."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

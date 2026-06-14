@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/mdac-digital-arrival-card/my",
+  "url": "https://deadends.dev/visa/mdac-digital-arrival-card/my",
+  "error": {
+    "signature": "AI tells a visitor to Malaysia they only need a passport and no online form",
+    "regex": "(malaysia.*visa|mdac|malaysia.*arrival.card|malaysia.*digital.arrival|visa.free.*malaysia)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Most foreign visitors to Malaysia must complete the free Malaysia Digital Arrival Card (MDAC) online within 3 days before arrival, in addition to any visa. Many nationalities are visa-free for 30 or 90 days. Singapore citizens and a few others are exempt from the MDAC."
+  },
+  "dead_ends": [
+    {
+      "action": "Arrive in Malaysia without completing the MDAC, assuming visa-free means no paperwork",
+      "why_fails": "Since 2024 most travelers must submit the MDAC online before arrival; immigration expects it and missing it causes delays at the counter.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://imigresen-online.imi.gov.my/mdac/main",
+        "https://www.imi.gov.my/"
+      ],
+      "common_misconception": "Visa-free entry still requires the digital arrival card."
+    },
+    {
+      "action": "Complete the MDAC on an unofficial third-party site",
+      "why_fails": "Only the official immigration MDAC portal is valid and free; third-party sites may charge fees or phish for data.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Submit the free MDAC on the official immigration portal within 3 days before arrival and confirm your visa-free period.",
+      "success_rate": 0.9,
+      "how": "Fill the MDAC at the official imigresen portal; keep the confirmation.",
+      "sources": [
+        "https://imigresen-online.imi.gov.my/mdac/main"
+      ]
+    },
+    {
+      "action": "Check MDAC exemptions (e.g., Singapore citizens) on the official site.",
+      "success_rate": 0.85,
+      "how": "Verify whether your nationality is exempt before assuming you must file."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

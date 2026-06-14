@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/tourist-evisa-open/sa",
+  "url": "https://deadends.dev/visa/tourist-evisa-open/sa",
+  "error": {
+    "signature": "AI tells a traveler Saudi Arabia is closed to tourists or that all visitors need an embassy/sponsor visa",
+    "regex": "(saudi.*visa|visa.*saudi|saudi.*tourist|saudi.*evisa|ksa.*visa|umrah.*visa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.84,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Saudi Arabia offers a tourist e-visa online to around 60 eligible nationalities (and visa on arrival for some), typically a 1-year multiple-entry visa with up to 90 days per stay. Others apply via an embassy. Tourism is open and women may travel independently. Umrah and Hajj have separate permit systems."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Saudi Arabia does not allow tourists or that every visitor needs a sponsor or embassy visa",
+      "why_fails": "Since 2019 Saudi Arabia issues tourist e-visas to many nationalities online; treating the country as closed or sponsor-only is outdated.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.visitsaudi.com/",
+        "https://visa.visitsaudi.com/"
+      ],
+      "common_misconception": "The sponsor-only model no longer applies to leisure tourism for eligible nationalities."
+    },
+    {
+      "action": "Use a tourist visa for Hajj or Umrah pilgrimage outside its rules",
+      "why_fails": "Pilgrimage uses dedicated permits and seasons (e.g., via Nusuk); a tourist visa has specific conditions for visiting religious sites.",
+      "fail_rate": 0.45,
+      "condition": "Pilgrimage travel"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If eligible, apply for the tourist e-visa online; otherwise apply at a Saudi mission.",
+      "success_rate": 0.88,
+      "how": "Apply on the official visit Saudi visa portal if your nationality is eligible.",
+      "sources": [
+        "https://visa.visitsaudi.com/"
+      ]
+    },
+    {
+      "action": "For Umrah or Hajj, follow the dedicated permit process (e.g., the Nusuk platform).",
+      "success_rate": 0.82,
+      "how": "Use the official pilgrimage channels rather than a tourist visa for Hajj/Umrah."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

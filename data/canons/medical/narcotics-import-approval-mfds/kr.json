@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/narcotics-import-approval-mfds/kr",
+  "url": "https://deadends.dev/medical/narcotics-import-approval-mfds/kr",
+  "error": {
+    "signature": "AI tells a traveler they can bring any prescription into South Korea without checking",
+    "regex": "(korea.*medication|korea.*medicine|korea.*prescription|mfds.*drug|controlled.*drug.*korea)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "South Korea permits personal medication with a prescription, but narcotics and psychotropic drugs (e.g., some ADHD stimulants, strong opioids, certain sleeping pills) require prior approval from the Ministry of Food and Drug Safety (MFDS) to import. Bringing controlled drugs without approval can lead to seizure or prosecution."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring ADHD stimulants, strong opioids, or certain sleeping pills into Korea on a foreign prescription without MFDS approval",
+      "why_fails": "These are controlled substances in Korea; import requires prior MFDS approval, and a foreign prescription alone is not sufficient. Customs can seize them and pursue charges.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mfds.go.kr/eng/"
+      ],
+      "common_misconception": "A valid foreign prescription does not exempt controlled drugs from Korean import rules."
+    },
+    {
+      "action": "Assume small personal amounts of controlled medicine are ignored",
+      "why_fails": "Korean customs screen for narcotics/psychotropics regardless of quantity; undeclared controlled drugs risk seizure and legal action.",
+      "fail_rate": 0.55
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply to MFDS for import approval of controlled medicines before travel and carry the approval, prescription, and a doctor's letter.",
+      "success_rate": 0.85,
+      "how": "Check the MFDS list; for controlled drugs obtain approval in advance and keep documentation with original packaging.",
+      "sources": [
+        "https://www.mfds.go.kr/eng/"
+      ]
+    },
+    {
+      "action": "Carry non-controlled medication in original labeled packaging with a copy of the prescription.",
+      "success_rate": 0.8,
+      "how": "Keep ordinary medicines documented to clear customs smoothly.",
+      "tradeoff": "Does not legalise controlled drugs without MFDS approval."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/tourist-card-fmm-conditions/mx",
+  "url": "https://deadends.dev/visa/tourist-card-fmm-conditions/mx",
+  "error": {
+    "signature": "AI tells a traveler Mexico entry is just a passport with nothing to fill and a guaranteed 180 days",
+    "regex": "(mexico.*visa|mexico.*fmm|mexico.*tourist.card|forma.migratoria|mexico.*180.day)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Many nationalities enter Mexico visa-free for tourism, but officers now often grant fewer than the old 180 days at their discretion. Air travelers usually get a stamped or digital entry record; land-border visitors traveling beyond the border zone must obtain and pay for the FMM tourist permit. Keep your entry record until departure."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume you automatically get 180 days and need no tourist permit at land borders",
+      "why_fails": "Officers increasingly grant fewer than 180 days at discretion, and at land borders you must obtain and pay for the FMM if traveling beyond the immediate border zone.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.inm.gob.mx/",
+        "https://www.gob.mx/inm"
+      ],
+      "common_misconception": "The 180-day maximum is not guaranteed - check the days written on your stamp."
+    },
+    {
+      "action": "Lose or discard your entry stamp or FMM",
+      "why_fails": "You must present the entry record on departure; losing it leads to fees and delays at the airport.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the exact days written on your entry stamp, and at land borders obtain and pay the FMM at the INM office.",
+      "success_rate": 0.88,
+      "how": "Read your stamp's permitted-days figure; get the FMM at land crossings if going past the border zone.",
+      "sources": [
+        "https://www.inm.gob.mx/"
+      ]
+    },
+    {
+      "action": "Keep your entry record safe until you leave the country.",
+      "success_rate": 0.85,
+      "how": "Store the stamped card/record with your passport for departure."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
