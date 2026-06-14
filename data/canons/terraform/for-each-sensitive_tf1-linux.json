@@ -36,7 +36,7 @@
     },
     {
       "action": "Use count instead of for_each",
-      "why_fails": "Loses the benefit of stable resource keys — risky for updates",
+      "why_fails": "Loses the benefit of stable resource keys - risky for updates",
       "fail_rate": 0.6,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/meta-arguments/count"

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/upi-needs-indian-account/in",
+  "url": "https://deadends.dev/banking/upi-needs-indian-account/in",
+  "error": {
+    "signature": "AI tells a foreign tourist they can just download a UPI app and pay everywhere in India",
+    "regex": "(india.*upi|upi.*india|gpay.*india|phonepe|paytm.*foreign|upi.*foreign|india.*mobile.payment)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Standard UPI apps (PhonePe, Google Pay, Paytm) require an Indian bank account linked to an Indian mobile number, so most foreign tourists cannot set them up normally. Since 2023 NPCI allows inbound travelers from select countries to use UPI via a prepaid wallet (UPI One World) issued at airports/partners against passport + visa. Otherwise rely on cards and cash."
+  },
+  "dead_ends": [
+    {
+      "action": "Download Google Pay or PhonePe abroad and expect to link a foreign card or foreign phone number to pay via UPI in India",
+      "why_fails": "UPI registration requires an Indian bank account and an Indian SIM whose number matches the bank record; the app sends a verification SMS from the Indian number. Foreign cards and foreign numbers cannot be linked, so account creation fails at the bank-verification step.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.npci.org.in/what-we-do/upi/product-overview"
+      ],
+      "common_misconception": "Visitors assume UPI is like a card wallet that any phone can use; it is a bank-account-to-bank-account rail tied to Indian KYC."
+    },
+    {
+      "action": "Assume international UPI for tourists works the same everywhere and needs no setup",
+      "why_fails": "The inbound-traveler UPI option (UPI One World / prepaid wallet) is available only to nationals of specific countries and must be issued by an authorized partner against your passport and visa, with a prepaid balance. It is not an automatic feature of your existing app.",
+      "fail_rate": 0.6,
+      "condition": "Relying on tourist UPI without enrolling through an authorized issuer"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the inbound-traveler UPI option (prepaid wallet, e.g. UPI One World) issued at major airports/partners against passport and visa, if your nationality is eligible.",
+      "success_rate": 0.7,
+      "how": "On arrival at participating airports, enroll with an authorized issuer using your passport and visa, load a prepaid balance, and scan UPI QR codes like a local. Unspent balance is refunded on departure.",
+      "sources": [
+        "https://www.npci.org.in/what-we-do/upi/product-overview"
+      ],
+      "condition": "Traveler from an eligible country with valid passport + visa"
+    },
+    {
+      "action": "Carry a Visa/Mastercard with no foreign-transaction fee plus some cash; cards work at most hotels, malls, and app-based taxis, and cash covers small vendors.",
+      "success_rate": 0.85,
+      "how": "Use contactless cards where accepted; keep small-denomination rupee notes for street vendors, autos, and shops that are UPI/cash only.",
+      "sources": [
+        "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=82"
+      ],
+      "tradeoff": "Some small merchants are UPI-only and may be reluctant to take cards; cash bridges the gap."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

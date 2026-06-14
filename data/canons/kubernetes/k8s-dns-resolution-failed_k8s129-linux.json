@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add custom /etc/hosts entries to all pods",
-      "why_fails": "Doesn't scale — service IPs change and new services won't be resolvable",
+      "why_fails": "Doesn't scale - service IPs change and new services won't be resolvable",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
@@ -48,7 +48,7 @@
     {
       "action": "Check CoreDNS pod status and logs: kubectl get pods -n kube-system -l k8s-app=kube-dns",
       "success_rate": 0.92,
-      "how": "kubectl logs -n kube-system -l k8s-app=kube-dns — look for upstream DNS failures or loop detection",
+      "how": "kubectl logs -n kube-system -l k8s-app=kube-dns - look for upstream DNS failures or loop detection",
       "sources": [
         "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
       ],

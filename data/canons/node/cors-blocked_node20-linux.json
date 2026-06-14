@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Disable CORS in the browser",
-      "why_fails": "Only works for development — can't ask users to disable CORS",
+      "why_fails": "Only works for development - can't ask users to disable CORS",
       "fail_rate": 0.8,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use no-cors mode in fetch",
-      "why_fails": "Response becomes opaque — you can't read the data",
+      "why_fails": "Response becomes opaque - you can't read the data",
       "fail_rate": 0.85,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/API/Request/mode"

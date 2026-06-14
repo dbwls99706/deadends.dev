@@ -23,12 +23,12 @@
     "fix_success_rate": 0.9,
     "confidence": 0.9,
     "last_updated": "2026-02-11",
-    "summary": "Assert statement failed. Never use assert for data validation — it's stripped with python -O."
+    "summary": "Assert statement failed. Never use assert for data validation - it's stripped with python -O."
   },
   "dead_ends": [
     {
       "action": "Remove the assert statement",
-      "why_fails": "Hides the bug — the assertion caught a real problem",
+      "why_fails": "Hides the bug - the assertion caught a real problem",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement"

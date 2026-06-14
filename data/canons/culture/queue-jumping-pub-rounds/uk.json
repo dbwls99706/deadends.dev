@@ -25,7 +25,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.85,
     "last_updated": "2026-04-14",
-    "summary": "Two near-sacred British social conventions: (1) queueing — orderly, single-file, by arrival order, even at unmarked spots; cutting in is loudly resented though rarely confronted directly. (2) Pub rounds — when drinking with a group, each person buys a 'round' for everyone in turn; refusing to take your turn is poor form. Tipping in the UK is modest (10-12.5% restaurant, often included as 'discretionary service charge'; not expected in pubs unless table service)."
+    "summary": "Two near-sacred British social conventions: (1) queueing - orderly, single-file, by arrival order, even at unmarked spots; cutting in is loudly resented though rarely confronted directly. (2) Pub rounds - when drinking with a group, each person buys a 'round' for everyone in turn; refusing to take your turn is poor form. Tipping in the UK is modest (10-12.5% restaurant, often included as 'discretionary service charge'; not expected in pubs unless table service)."
   },
   "dead_ends": [
     {
@@ -48,7 +48,7 @@
       "condition": "Queue discipline"
     },
     {
-      "action": "Drink 4 pints in a pub group, each person buying their own — no rounds",
+      "action": "Drink 4 pints in a pub group, each person buying their own - no rounds",
       "why_fails": "British pub culture: when in a group of 3-6 friends, one person buys the first round (drinks for everyone), the next person buys the second round, etc. Refusing to take a turn is 'shilling' / cheapness. Avoid by either declining to join the round (stick to one drink and pay separately) or taking a turn.",
       "fail_rate": 0.6,
       "sources": [
@@ -100,7 +100,7 @@
       "condition": "Tipping"
     },
     {
-      "action": "'Cheers' has multiple uses in UK English: thanks, bye, hello, OK. Context decides. 'Sorry' likewise — used as polite filler, not always apologizing for fault. Don't overinterpret.",
+      "action": "'Cheers' has multiple uses in UK English: thanks, bye, hello, OK. Context decides. 'Sorry' likewise - used as polite filler, not always apologizing for fault. Don't overinterpret.",
       "success_rate": 0.92,
       "sources": [
         "https://www.britishcouncil.org/"

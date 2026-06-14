@@ -48,14 +48,14 @@
     {
       "action": "Use a JPQL/HQL JOIN FETCH query or an EntityGraph to load the needed associations within the transaction",
       "success_rate": 0.92,
-      "how": "1. In your repository or DAO, write a query that explicitly fetches the required association: 'SELECT o FROM Order o JOIN FETCH o.items WHERE o.id = :id'. 2. Alternatively, use @EntityGraph on the repository method: @EntityGraph(attributePaths = {'items'}) Optional<Order> findById(Long id). 3. This loads the association in a single query within the transaction, so no lazy loading is needed later. 4. Only fetch what the specific use case needs — different service methods can use different fetch strategies.",
+      "how": "1. In your repository or DAO, write a query that explicitly fetches the required association: 'SELECT o FROM Order o JOIN FETCH o.items WHERE o.id = :id'. 2. Alternatively, use @EntityGraph on the repository method: @EntityGraph(attributePaths = {'items'}) Optional<Order> findById(Long id). 3. This loads the association in a single query within the transaction, so no lazy loading is needed later. 4. Only fetch what the specific use case needs - different service methods can use different fetch strategies.",
       "sources": [],
       "condition": ""
     },
     {
       "action": "Use DTOs or projections to transfer only the needed data out of the transaction boundary",
       "success_rate": 0.9,
-      "how": "1. Create a DTO class with only the fields needed by the caller. 2. Map entity data to the DTO within the @Transactional service method: new OrderDTO(order.getId(), order.getItems().stream().map(ItemDTO::from).toList()). 3. The DTO is a plain POJO — no lazy proxies, no Session needed. 4. Alternatively, use Spring Data projections (interface-based or class-based) to have the repository return DTOs directly. 5. This approach cleanly separates the persistence layer from the presentation layer.",
+      "how": "1. Create a DTO class with only the fields needed by the caller. 2. Map entity data to the DTO within the @Transactional service method: new OrderDTO(order.getId(), order.getItems().stream().map(ItemDTO::from).toList()). 3. The DTO is a plain POJO - no lazy proxies, no Session needed. 4. Alternatively, use Spring Data projections (interface-based or class-based) to have the repository return DTOs directly. 5. This approach cleanly separates the persistence layer from the presentation layer.",
       "sources": [],
       "condition": ""
     }

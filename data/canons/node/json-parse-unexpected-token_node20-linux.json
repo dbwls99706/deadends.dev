@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add try/catch and return empty object",
-      "why_fails": "Hides the real issue — the response isn't JSON",
+      "why_fails": "Hides the real issue - the response isn't JSON",
       "fail_rate": 0.7,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"

@@ -48,7 +48,7 @@
     {
       "action": "Use git pull --rebase to replay local commits on top of remote",
       "success_rate": 0.95,
-      "how": "git pull --rebase origin main — creates linear history",
+      "how": "git pull --rebase origin main - creates linear history",
       "sources": [
         "https://git-scm.com/docs/git-pull#_rebase"
       ],
@@ -57,7 +57,7 @@
     {
       "action": "Use git pull (merge) if you want a merge commit",
       "success_rate": 0.9,
-      "how": "git pull origin main — creates a merge commit preserving both histories",
+      "how": "git pull origin main - creates a merge commit preserving both histories",
       "sources": [],
       "condition": ""
     }

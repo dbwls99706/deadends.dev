@@ -36,7 +36,7 @@
     },
     {
       "action": "Install from a wheel instead",
-      "why_fails": "If a wheel exists, pip would already use it — it's building because there's no wheel",
+      "why_fails": "If a wheel exists, pip would already use it - it's building because there's no wheel",
       "fail_rate": 0.7,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/wheels/"

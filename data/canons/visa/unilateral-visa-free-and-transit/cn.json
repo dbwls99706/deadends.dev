@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/unilateral-visa-free-and-transit/cn",
+  "url": "https://deadends.dev/visa/unilateral-visa-free-and-transit/cn",
+  "error": {
+    "signature": "AI tells a traveler that China always requires a visa arranged at an embassy in advance",
+    "regex": "(china.*visa.free|visa.free.*china|china.*240.hour|china.*unilateral|china.*transit.visa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.83,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "China has expanded entry options. A unilateral visa-free policy now lets ordinary passport holders of many countries enter for up to 30 days for tourism or business without a visa (the eligible list changed through 2024-2025), and visa-free transit was extended to 240 hours (10 days) at many ports. The lists update frequently, so verify the current rules."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume every traveler to China must obtain a consular visa in advance",
+      "why_fails": "China introduced unilateral visa-free entry (up to 30 days) for many nationalities and 240-hour visa-free transit; assuming a consular visa is always required is outdated for eligible travelers.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.nia.gov.cn/",
+        "https://www.gov.cn/"
+      ],
+      "common_misconception": "The unilateral visa-free and expanded transit policies are recent and frequently overlooked."
+    },
+    {
+      "action": "Rely on visa-free transit while leaving the permitted area or exceeding the time limit",
+      "why_fails": "Visa-free transit (e.g., 240 hours) is limited to specific ports/regions and requires an onward ticket to a third country or region; overstaying or leaving the permitted zone breaches it.",
+      "fail_rate": 0.5,
+      "condition": "Using transit visa-free incorrectly"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the current unilateral visa-free list and conditions on the National Immigration Administration site; if eligible, enter visa-free for up to 30 days.",
+      "success_rate": 0.88,
+      "how": "Verify your nationality and purpose on nia.gov.cn before relying on visa-free entry.",
+      "sources": [
+        "https://www.nia.gov.cn/"
+      ]
+    },
+    {
+      "action": "For transit, confirm the port supports 240-hour visa-free and carry an onward ticket to a third country/region.",
+      "success_rate": 0.82,
+      "how": "Check port eligibility and keep proof of onward travel for transit visa-free."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

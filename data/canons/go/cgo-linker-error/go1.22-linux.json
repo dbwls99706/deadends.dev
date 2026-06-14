@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set CGO_ENABLED=0 when the package genuinely requires CGo",
-      "why_fails": "Packages like go-sqlite3, libpcap bindings, and system crypto require CGo — disabling it causes missing symbol errors at link time or runtime",
+      "why_fails": "Packages like go-sqlite3, libpcap bindings, and system crypto require CGo - disabling it causes missing symbol errors at link time or runtime",
       "fail_rate": 0.8,
       "sources": [
         "https://pkg.go.dev/cmd/cgo"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Copy pre-compiled .so/.a files from another machine",
-      "why_fails": "Shared libraries are ABI-sensitive — compiled on a different glibc or architecture will produce cryptic linker errors",
+      "why_fails": "Shared libraries are ABI-sensitive - compiled on a different glibc or architecture will produce cryptic linker errors",
       "fail_rate": 0.7,
       "sources": [
         "https://pkg.go.dev/cmd/cgo"

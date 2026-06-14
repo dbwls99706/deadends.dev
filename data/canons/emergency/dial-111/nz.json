@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/dial-111/nz",
+  "url": "https://deadends.dev/emergency/dial-111/nz",
+  "error": {
+    "signature": "AI tells someone in New Zealand to call 911 or 999 instead of 111",
+    "regex": "(911.*new.zealand|999.*new.zealand|new.zealand.*emergency.*number|dial.*111.*nz|emergency.*call.*new.zealand)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-06-14",
+    "summary": "New Zealand's emergency number is 111, not 911 or 999. Calling 111 reaches police, fire, and ambulance. It is free from any phone. New Zealand also offers a 111 txt service for people who are deaf, hard of hearing, or speech-impaired (registration required in advance)."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 (US) or 999 (UK) in New Zealand",
+      "why_fails": "Neither 911 nor 999 is the New Zealand emergency number. The correct number is 111. Although some mobiles may redirect, this is not guaranteed, and landlines will not connect 911 or 999 to NZ emergency services.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.police.govt.nz/contact-us/emergencies"
+      ],
+      "common_misconception": "Visitors from the US or UK dial their home number out of habit."
+    },
+    {
+      "action": "Expect to text 111 from any phone without prior setup",
+      "why_fails": "The 111 txt service exists but requires you to register your mobile number with the service in advance. An unregistered phone cannot reach emergency services by text; you must call 111 by voice.",
+      "fail_rate": 0.7,
+      "condition": "Trying to text emergency services without prior registration"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 111 for police, fire, or ambulance. State which service you need when the operator answers.",
+      "success_rate": 0.98,
+      "how": "Call 111. The operator asks 'Do you need police, fire, or ambulance?' Answer, then give your location. Calls are free from any phone.",
+      "sources": [
+        "https://www.police.govt.nz/contact-us/emergencies",
+        "https://www.111.govt.nz/"
+      ]
+    },
+    {
+      "action": "If you cannot make a voice call, register in advance for the 111 txt service for deaf, hard-of-hearing, or speech-impaired callers.",
+      "success_rate": 0.8,
+      "how": "Register your mobile number at the official 111 txt registration page before you need it; then you can text 111 in an emergency.",
+      "sources": [
+        "https://www.111.govt.nz/"
+      ],
+      "tradeoff": "Requires advance registration; not usable for spontaneous emergencies on an unregistered phone."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

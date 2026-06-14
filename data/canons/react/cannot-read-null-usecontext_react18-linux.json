@@ -22,12 +22,12 @@
     "fix_success_rate": 0.9,
     "confidence": 0.9,
     "last_updated": "2026-02-11",
-    "summary": "React hooks internals are null — usually multiple React copies or calling hooks outside component."
+    "summary": "React hooks internals are null - usually multiple React copies or calling hooks outside component."
   },
   "dead_ends": [
     {
       "action": "Downgrade React version",
-      "why_fails": "Usually not a version issue — it's duplicate React installations",
+      "why_fails": "Usually not a version issue - it's duplicate React installations",
       "fail_rate": 0.75,
       "sources": [
         "https://react.dev/warnings/invalid-hook-call-warning"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check for duplicate React: npm ls react — should have only one copy",
+      "action": "Check for duplicate React: npm ls react - should have only one copy",
       "success_rate": 0.95,
       "how": "npm ls react\nnpm dedupe",
       "sources": [

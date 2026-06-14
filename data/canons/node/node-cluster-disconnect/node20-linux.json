@@ -57,7 +57,7 @@
     {
       "action": "Implement graceful shutdown with server.close() before disconnecting",
       "success_rate": 0.88,
-      "how": "In the worker: server.close(() => { process.disconnect(); }); — ensures all connections drain before exiting",
+      "how": "In the worker: server.close(() => { process.disconnect(); }); - ensures all connections drain before exiting",
       "sources": [
         "https://nodejs.org/api/cluster.html#workerdisconnect"
       ],

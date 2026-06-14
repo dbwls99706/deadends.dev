@@ -36,7 +36,7 @@
     },
     {
       "action": "Adding @Component to a class in a package that is not covered by @ComponentScan",
-      "why_fails": "Spring only scans packages explicitly listed in @ComponentScan or sub-packages of the @SpringBootApplication class. Adding @Component to a class outside the scan path has no effect — Spring never sees the annotation.",
+      "why_fails": "Spring only scans packages explicitly listed in @ComponentScan or sub-packages of the @SpringBootApplication class. Adding @Component to a class outside the scan path has no effect - Spring never sees the annotation.",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.spring.io/spring-framework/reference/"

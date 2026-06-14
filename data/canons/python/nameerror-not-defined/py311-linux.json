@@ -37,7 +37,7 @@
     },
     {
       "action": "Initialize variable to None at module level",
-      "why_fails": "Hides the real bug — the variable should come from specific logic",
+      "why_fails": "Hides the real bug - the variable should come from specific logic",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.python.org/3/reference/executionmodel.html#naming-and-binding"

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>Fix Your Error — Search {{ total_errors }} Known Dead Ends &amp; Verified Workarounds | deadends.dev</title>
-  <meta name="description" content="Stop wasting time on fixes that don't work. Paste your error message to find dead ends to avoid and verified workarounds across {{ domain_count }} domains — Python, Node, Docker, Kubernetes &amp; more.">
+  <title>Fix Your Error - Search {{ total_errors }} Known Dead Ends &amp; Verified Workarounds | deadends.dev</title>
+  <meta name="description" content="Stop wasting time on fixes that don't work. Paste your error message to find dead ends to avoid and verified workarounds across {{ domain_count }} domains - Python, Node, Docker, Kubernetes &amp; more.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="error search, error fix, troubleshooting, dead end, workaround, python error, cuda error, node error, docker error, pip error, git error">
@@ -15,7 +15,7 @@
   <link rel="alternate" type="application/json" href="{{ base_path }}/api/v1/match.json" title="Lightweight Error Matching">
   <link rel="alternate" type="text/plain" href="{{ base_path }}/llms.txt" title="LLM-optimized error listing">
   <link rel="describedby" href="{{ base_path }}/api/v1/openapi.json" type="application/json">
-  <meta property="og:title" content="Fix Your Error — Search {{ total_errors }} Known Dead Ends &amp; Workarounds">
+  <meta property="og:title" content="Fix Your Error - Search {{ total_errors }} Known Dead Ends &amp; Workarounds">
   <meta property="og:description" content="Stop wasting time on fixes that don't work. Paste your error to find dead ends and verified workarounds.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}/search/">
@@ -23,13 +23,13 @@
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="deadends.dev error search — find dead ends and verified fixes">
+  <meta property="og:image:alt" content="deadends.dev error search - find dead ends and verified fixes">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fix Your Error — Search {{ total_errors }} Known Dead Ends &amp; Workarounds">
+  <meta name="twitter:title" content="Fix Your Error - Search {{ total_errors }} Known Dead Ends &amp; Workarounds">
   <meta name="twitter:description" content="Stop wasting time on fixes that don't work. Paste your error to find dead ends and verified workarounds.">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
-  <meta name="twitter:image:alt" content="deadends.dev error search — find dead ends and verified fixes">
+  <meta name="twitter:image:alt" content="deadends.dev error search - find dead ends and verified fixes">
 
   <!-- BreadcrumbList for Google rich results -->
   <script type="application/ld+json">
@@ -46,7 +46,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Error Search — deadends.dev",
+    "name": "Error Search - deadends.dev",
     "url": "{{ base_url }}/search/",
     "description": "Search {{ total_errors }} known error patterns and find dead ends to avoid plus verified workarounds.",
     "isPartOf": {"@type": "WebSite", "name": "deadends.dev", "url": "{{ base_url }}"},
@@ -230,7 +230,7 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
           .replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       }
 
-      /* Domain filter — keyboard support */
+      /* Domain filter - keyboard support */
       function selectDomain(tag) {
         document.querySelectorAll('.domain-tag').forEach(function(t) {
           t.classList.remove('active');

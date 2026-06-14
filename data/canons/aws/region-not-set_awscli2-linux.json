@@ -36,7 +36,7 @@
     },
     {
       "action": "Set region in every boto3 call",
-      "why_fails": "Verbose and easy to miss — set it once globally",
+      "why_fails": "Verbose and easy to miss - set it once globally",
       "fail_rate": 0.55,
       "sources": [
         "https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use pip install . instead (non-editable)",
-      "why_fails": "Loses live editing — need to reinstall after every change",
+      "why_fails": "Loses live editing - need to reinstall after every change",
       "fail_rate": 0.55,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/local-project-installs/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Downgrade pip to bypass the check",
-      "why_fails": "Old pip has other issues — better to fix the build config",
+      "why_fails": "Old pip has other issues - better to fix the build config",
       "fail_rate": 0.65,
       "sources": [
         "https://pip.pypa.io/en/stable/installation/"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Add setuptools to build-system in pyproject.toml — it supports build_editable",
+      "action": "Add setuptools to build-system in pyproject.toml - it supports build_editable",
       "success_rate": 0.95,
       "how": "[build-system]\nrequires = ['setuptools>=64']\nbuild-backend = 'setuptools.build_meta'",
       "sources": [

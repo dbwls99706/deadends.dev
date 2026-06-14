@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Run as administrator/root",
-      "why_fails": "Security risk — fix the permission issue instead",
+      "why_fails": "Security risk - fix the permission issue instead",
       "fail_rate": 0.7,
       "sources": [
         "https://nodejs.org/api/fs.html"

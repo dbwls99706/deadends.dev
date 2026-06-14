@@ -3,7 +3,7 @@
   "id": "communication/twilio-webhook-signature-validation-fail/twilio-api-any",
   "url": "https://deadends.dev/communication/twilio-webhook-signature-validation-fail/twilio-api-any",
   "error": {
-    "signature": "Twilio webhook signature validation fails — URL mismatch with proxy",
+    "signature": "Twilio webhook signature validation fails - URL mismatch with proxy",
     "regex": "[Tt]wilio.*signature.*fail|X-Twilio-Signature.*invalid|webhook.*validat.*fail",
     "domain": "communication",
     "category": "webhook_security",

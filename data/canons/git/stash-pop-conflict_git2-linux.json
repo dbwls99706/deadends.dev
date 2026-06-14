@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force drop the stash: git stash drop",
-      "why_fails": "Loses the stashed changes — they may still be needed",
+      "why_fails": "Loses the stashed changes - they may still be needed",
       "fail_rate": 0.8,
       "sources": [
         "https://git-scm.com/docs/git-stash"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Resolve conflicts like a merge — edit files, mark resolved, then git stash drop",
+      "action": "Resolve conflicts like a merge - edit files, mark resolved, then git stash drop",
       "success_rate": 0.92,
       "how": "# After resolving:\ngit add <resolved-files>\ngit stash drop",
       "sources": [
@@ -55,13 +55,13 @@
       "condition": ""
     },
     {
-      "action": "Use git stash apply instead of pop — apply doesn't auto-drop on success either way",
+      "action": "Use git stash apply instead of pop - apply doesn't auto-drop on success either way",
       "success_rate": 0.85,
       "sources": [
         "https://git-scm.com/docs/git-stash#Documentation/git-stash.txt-apply"
       ],
       "condition": "",
-      "how": "Use git stash apply instead of pop — apply doesn't auto-drop on success either way"
+      "how": "Use git stash apply instead of pop - apply doesn't auto-drop on success either way"
     }
   ],
   "transition_graph": {

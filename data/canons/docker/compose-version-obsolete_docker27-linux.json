@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Downgrade Docker Compose",
-      "why_fails": "Older versions are unmaintained — accept the new format",
+      "why_fails": "Older versions are unmaintained - accept the new format",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.docker.com/compose/releases/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Pin version to '3.8' or another specific version",
-      "why_fails": "Still triggers the warning — the field itself is obsolete",
+      "why_fails": "Still triggers the warning - the field itself is obsolete",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.docker.com/reference/compose-file/version-and-name/"
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "It's just a warning — it still works. But removing it is cleaner",
+      "action": "It's just a warning - it still works. But removing it is cleaner",
       "success_rate": 0.9,
       "sources": [
         "https://docs.docker.com/reference/compose-file/version-and-name/"

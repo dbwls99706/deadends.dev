@@ -36,7 +36,7 @@
     },
     {
       "action": "Add act() around every single assertion",
-      "why_fails": "Over-wrapping — only wrap state-changing operations",
+      "why_fails": "Over-wrapping - only wrap state-changing operations",
       "fail_rate": 0.55,
       "sources": [
         "https://react.dev/reference/react/act"

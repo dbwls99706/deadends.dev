@@ -22,12 +22,12 @@
     "fix_success_rate": 0.85,
     "confidence": 0.88,
     "last_updated": "2026-02-11",
-    "summary": "ESLint exhaustive-deps rule warning. Tricky — blindly adding deps can cause infinite loops."
+    "summary": "ESLint exhaustive-deps rule warning. Tricky - blindly adding deps can cause infinite loops."
   },
   "dead_ends": [
     {
       "action": "Disable the ESLint rule",
-      "why_fails": "Hides real bugs — stale closures cause subtle issues",
+      "why_fails": "Hides real bugs - stale closures cause subtle issues",
       "fail_rate": 0.65,
       "sources": [
         "https://react.dev/reference/react/useEffect#specifying-reactive-dependencies"

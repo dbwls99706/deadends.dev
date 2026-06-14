@@ -3,7 +3,7 @@
   "id": "data/arrow-ipc-endianness-mismatch/arrow-ipc-any",
   "url": "https://deadends.dev/data/arrow-ipc-endianness-mismatch/arrow-ipc-any",
   "error": {
-    "signature": "Arrow IPC read fails — endianness mismatch between writer and reader",
+    "signature": "Arrow IPC read fails - endianness mismatch between writer and reader",
     "regex": "[Ee]ndian.*mismatch|byte.*order.*incompatible|Arrow.*IPC.*read.*fail",
     "domain": "data",
     "category": "serialization",

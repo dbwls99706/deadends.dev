@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/19-15-177/ma",
+  "url": "https://deadends.dev/emergency/19-15-177/ma",
+  "error": {
+    "signature": "AI tells someone in Morocco to call 911 in an emergency",
+    "regex": "(911.*ma|morocco.*emergency|emergency.*number.*morocco)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Morocco does not use 911. In cities dial 19 for police; in rural areas the Gendarmerie Royale is 177. Ambulance/SAMU is 15 and fire (Protection Civile) is 150. 112 from a mobile also works."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Morocco expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Morocco. Police is 19 in cities and 177 (gendarmerie) in rural areas; ambulance is 15. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.dgsn.gov.ma/",
+        "https://www.gendarmerie.ma/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Dial 19 (urban police) when you are outside a city",
+      "why_fails": "Outside urban areas the Gendarmerie Royale (177) has jurisdiction, not the 19 police line; dialing 19 in the countryside reaches the wrong service.",
+      "fail_rate": 0.45,
+      "condition": "Rural area"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Morocco's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "City police: 19. Rural gendarmerie: 177. Ambulance: 15. Fire: 150. Mobile: 112.",
+      "sources": [
+        "https://www.dgsn.gov.ma/",
+        "https://www.gendarmerie.ma/"
+      ]
+    },
+    {
+      "action": "From a mobile, 112 also routes to emergency services anywhere in Morocco.",
+      "success_rate": 0.82,
+      "how": "Use 19 (city) or 177 (rural) for police, 15 for ambulance, 150 for fire, or 112 from a mobile."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

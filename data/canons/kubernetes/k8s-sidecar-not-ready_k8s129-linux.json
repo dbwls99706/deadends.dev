@@ -3,7 +3,7 @@
   "id": "kubernetes/k8s-sidecar-not-ready/k8s129-linux",
   "url": "https://deadends.dev/kubernetes/k8s-sidecar-not-ready/k8s129-linux",
   "error": {
-    "signature": "containers with unready status: [sidecar-container] — pod not ready due to sidecar",
+    "signature": "containers with unready status: [sidecar-container] - pod not ready due to sidecar",
     "regex": "containers with unready status.*sidecar|sidecar.*not ready|sidecar.*CrashLoopBackOff|istio-proxy.*not ready",
     "domain": "kubernetes",
     "category": "pod_error",
@@ -48,14 +48,14 @@
     {
       "action": "Check sidecar container logs to find the failure reason",
       "success_rate": 0.90,
-      "how": "kubectl logs <pod> -c <sidecar-name> — look for certificate errors, config issues, or port conflicts",
+      "how": "kubectl logs <pod> -c <sidecar-name> - look for certificate errors, config issues, or port conflicts",
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/"
       ],
       "condition": ""
     },
     {
-      "action": "Verify sidecar configuration and resource limits — sidecars often need specific memory/CPU",
+      "action": "Verify sidecar configuration and resource limits - sidecars often need specific memory/CPU",
       "success_rate": 0.85,
       "how": "kubectl describe pod <pod> to check sidecar resource usage and events",
       "sources": [

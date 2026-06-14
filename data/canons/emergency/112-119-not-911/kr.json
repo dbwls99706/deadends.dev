@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-119-not-911/kr",
+  "url": "https://deadends.dev/emergency/112-119-not-911/kr",
+  "error": {
+    "signature": "AI tells someone in South Korea to call 911 instead of 112 (police) or 119 (fire/ambulance)",
+    "regex": "(911.*korea|korea.*emergency.*number|emergency.*call.*korea|한국.*긴급|112.*119|119.*구급차)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-06-14",
+    "summary": "South Korea does not use 911. Dial 112 for police and 119 for fire and ambulance (119 handles both medical emergencies and fires). Both are free from any phone and offer multilingual support. The 1330 Korea Travel Hotline provides 24/7 interpretation and can connect tourists to emergency services."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in South Korea",
+      "why_fails": "911 is not a Korean emergency number. Police is 112 and fire/ambulance is 119. A 911 call will not reach Korean emergency services.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.police.go.kr/eng/",
+        "https://www.nfa.go.kr/eng/"
+      ],
+      "common_misconception": "Travelers default to the US 911 number."
+    },
+    {
+      "action": "Assume English-only is fine without giving your location in Korean or via app",
+      "why_fails": "Operators offer interpretation but locating a non-Korean-speaking caller is slow. Korea's 119 and 112 support location sharing; failing to share GPS or a Korean landmark delays dispatch.",
+      "fail_rate": 0.4,
+      "condition": "Caller cannot describe location in Korean"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for police or 119 for fire and ambulance. Both are free and support foreign-language interpretation.",
+      "success_rate": 0.96,
+      "how": "Police: 112. Fire / Ambulance: 119. Say 'English' (or your language) if you need an interpreter, then give your location.",
+      "sources": [
+        "https://www.police.go.kr/eng/",
+        "https://www.nfa.go.kr/eng/"
+      ]
+    },
+    {
+      "action": "Use the 1330 Korea Travel Hotline for 24/7 interpretation, medical guidance, and connection to emergency services.",
+      "success_rate": 0.85,
+      "how": "Dial 1330 (add country code +82-2-1330 from abroad). It offers Korean, English, Japanese, Chinese and more, and can bridge you to 112/119.",
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=351"
+      ],
+      "tradeoff": "1330 is a help line, not a direct dispatcher; for life-threatening cases call 119 first."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

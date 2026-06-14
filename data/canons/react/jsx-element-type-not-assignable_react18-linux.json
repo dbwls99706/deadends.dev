@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap return in <></>",
-      "why_fails": "Fragment doesn't fix undefined — you need to handle the null case",
+      "why_fails": "Fragment doesn't fix undefined - you need to handle the null case",
       "fail_rate": 0.65,
       "sources": [
         "https://react.dev/reference/react/Fragment"

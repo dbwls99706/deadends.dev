@@ -3,8 +3,8 @@
   "id": "node/npm-install-unicode-path-failure/node20-any",
   "url": "https://deadends.dev/node/npm-install-unicode-path-failure/node20-any",
   "error": {
-    "signature": "npm ERR! ENOENT \u2014 npm install fails in directory with Korean or CJK characters",
-    "regex": "(npm ERR!.*ENOENT.*[\uac00-\ud7a3]|ENOENT.*[\\\\u]|npm.*non-ascii.*path|npm\\ ERR!\\ ENOENT\\ \u2014\\ npm\\ install\\ fails\\ in\\ directory\\ with\\ Korean)",
+    "signature": "npm ERR! ENOENT - npm install fails in directory with Korean or CJK characters",
+    "regex": "(npm ERR!.*ENOENT.*[\uac00-\ud7a3]|ENOENT.*[\\\\u]|npm.*non-ascii.*path|npm\\ ERR!\\ ENOENT\\ -\\ npm\\ install\\ fails\\ in\\ directory\\ with\\ Korean)",
     "domain": "node",
     "category": "path_encoding",
     "first_seen": "2023-01-01",

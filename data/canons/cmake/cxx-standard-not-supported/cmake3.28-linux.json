@@ -3,7 +3,7 @@
   "id": "cmake/cxx-standard-not-supported/cmake3.28-linux",
   "url": "https://deadends.dev/cmake/cxx-standard-not-supported/cmake3.28-linux",
   "error": {
-    "signature": "CMake Error: CXX_STANDARD is set to invalid value '20' — compiler does not support C++20",
+    "signature": "CMake Error: CXX_STANDARD is set to invalid value '20' - compiler does not support C++20",
     "regex": "(CXX_STANDARD.*invalid value|compiler.*does not support.*C\\+\\+|CMAKE_CXX_STANDARD.*not supported|CXX_STANDARD_REQUIRED.*failed)",
     "domain": "cmake",
     "category": "compiler_error",

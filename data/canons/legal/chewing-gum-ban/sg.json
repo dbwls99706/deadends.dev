@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.9,
     "last_updated": "2026-04-14",
-    "summary": "Singapore's Regulation of Imports and Exports Act (Chewing Gum Import Control) prohibits importing, selling, and distributing chewing gum — a ban dating from 1992 after MRT door sensors were repeatedly jammed with gum. Since 2004, only therapeutic/dental gum is sold in pharmacies with prescription. Personal consumption is not criminal, but import quantities or sale are. Additional strict bans/penalties: vaping (fully illegal since 2018), drug offenses (death penalty for trafficking), littering (heavy fines), jaywalking, smoking outside designated areas."
+    "summary": "Singapore's Regulation of Imports and Exports Act (Chewing Gum Import Control) prohibits importing, selling, and distributing chewing gum - a ban dating from 1992 after MRT door sensors were repeatedly jammed with gum. Since 2004, only therapeutic/dental gum is sold in pharmacies with prescription. Personal consumption is not criminal, but import quantities or sale are. Additional strict bans/penalties: vaping (fully illegal since 2018), drug offenses (death penalty for trafficking), littering (heavy fines), jaywalking, smoking outside designated areas."
   },
   "dead_ends": [
     {
       "action": "Bring a box of chewing gum into Singapore as a gift or for personal resale",
-      "why_fails": "Customs seizes gum at Changi. Importing 'for trade' (commercial quantity) is prosecutable — up to S$100,000 fine and 2 years imprisonment under Regulation of Imports and Exports Act. Small personal amounts for own use have historically been tolerated in carry-on but not guaranteed.",
+      "why_fails": "Customs seizes gum at Changi. Importing 'for trade' (commercial quantity) is prosecutable - up to S$100,000 fine and 2 years imprisonment under Regulation of Imports and Exports Act. Small personal amounts for own use have historically been tolerated in carry-on but not guaranteed.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.customs.gov.sg/businesses/valuation-duties-taxes--fees/types-of-duties-and-dutiable-goods/",
@@ -49,8 +49,8 @@
       "condition": "Any e-cigarette use or import"
     },
     {
-      "action": "Transit through Changi with any amount of cannabis, cocaine, MDMA, or other Class A drugs — even in checked luggage, even in transit to a third country",
-      "why_fails": "Misuse of Drugs Act imposes death penalty for trafficking above threshold amounts: 15g heroin, 30g cocaine, 500g cannabis, 250g MA (methamphetamine). Transit does not exempt — possession on Singapore soil counts. Multiple foreign nationals have been executed. Random drug tests on passengers exist.",
+      "action": "Transit through Changi with any amount of cannabis, cocaine, MDMA, or other Class A drugs - even in checked luggage, even in transit to a third country",
+      "why_fails": "Misuse of Drugs Act imposes death penalty for trafficking above threshold amounts: 15g heroin, 30g cocaine, 500g cannabis, 250g MA (methamphetamine). Transit does not exempt - possession on Singapore soil counts. Multiple foreign nationals have been executed. Random drug tests on passengers exist.",
       "fail_rate": 0.98,
       "sources": [
         "https://www.cnb.gov.sg/",

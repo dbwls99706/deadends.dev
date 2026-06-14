@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Use the package's public API — check its package.json exports field for available paths",
+      "action": "Use the package's public API - check its package.json exports field for available paths",
       "success_rate": 0.93,
       "how": "Import from the documented public paths, not internal modules",
       "sources": [],

@@ -37,7 +37,7 @@
     },
     {
       "action": "Check if len() > 0 with try/except",
-      "why_fails": "Hides the root cause — variable shouldn't be None",
+      "why_fails": "Hides the root cause - variable shouldn't be None",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/library/functions.html#len"
@@ -47,7 +47,7 @@
   ],
   "workarounds": [
     {
-      "action": "The variable is probably None — check function that assigns it (many list methods return None)",
+      "action": "The variable is probably None - check function that assigns it (many list methods return None)",
       "success_rate": 0.95,
       "how": "# Bad: my_list = my_list.sort()  # .sort() returns None!\n# Good: my_list.sort()  # sorts in place",
       "sources": [

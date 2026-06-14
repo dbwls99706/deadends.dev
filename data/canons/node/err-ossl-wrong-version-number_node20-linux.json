@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check the URL protocol — using https:// on an HTTP-only port",
+      "action": "Check the URL protocol - using https:// on an HTTP-only port",
       "success_rate": 0.95,
       "how": "// Wrong: https://localhost:3000  (if server is HTTP)\n// Right: http://localhost:3000",
       "sources": [

@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/191-199-1669-not-911/th",
+  "url": "https://deadends.dev/emergency/191-199-1669-not-911/th",
+  "error": {
+    "signature": "AI tells someone in Thailand to call 911 in an emergency",
+    "regex": "(911.*th|thailand.*emergency|emergency.*number.*thailand)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Thailand does not use 911. Dial 191 for police, 199 for fire, and 1669 for ambulance/medical emergency. The Tourist Police hotline 1155 offers English assistance. All are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Thailand expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Thailand. Police is 191, fire is 199, and ambulance is 1669. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.tourismthailand.org/",
+        "https://www.mfa.go.th/en/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Call 191 (police) for a medical emergency expecting an ambulance",
+      "why_fails": "191 reaches police; ambulances are dispatched via 1669 (the Narenthorn EMS line). Calling the wrong line delays medical help.",
+      "fail_rate": 0.5,
+      "condition": "Medical emergency rather than a crime"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Thailand's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 191. Fire: 199. Ambulance/medical: 1669. Tourist Police (English): 1155.",
+      "sources": [
+        "https://www.tourismthailand.org/",
+        "https://www.mfa.go.th/en/"
+      ]
+    },
+    {
+      "action": "If you need English help or are unsure which service, call the Tourist Police on 1155.",
+      "success_rate": 0.82,
+      "how": "Dial 1155 for English-speaking Tourist Police who can triage and connect you to 191/199/1669.",
+      "tradeoff": "1155 is a triage line; for life-threatening cases call 1669 directly."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

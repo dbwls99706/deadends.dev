@@ -57,7 +57,7 @@
     {
       "action": "Use git symbolic-ref to manually set HEAD",
       "success_rate": 0.85,
-      "how": "git symbolic-ref HEAD refs/heads/main — this directly sets HEAD to point to the main branch. Ensure the branch exists first.",
+      "how": "git symbolic-ref HEAD refs/heads/main - this directly sets HEAD to point to the main branch. Ensure the branch exists first.",
       "sources": [],
       "condition": ""
     }

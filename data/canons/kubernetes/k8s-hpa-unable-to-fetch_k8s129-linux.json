@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Manually scale replicas instead of using HPA",
-      "why_fails": "Loses autoscaling capability — doesn't address the root cause",
+      "why_fails": "Loses autoscaling capability - doesn't address the root cause",
       "fail_rate": 0.70,
       "sources": [
         "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/"

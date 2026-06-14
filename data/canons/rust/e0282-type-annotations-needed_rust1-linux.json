@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use dyn Any to avoid specifying types",
-      "why_fails": "Loses all type safety — defeats the purpose of Rust's type system",
+      "why_fails": "Loses all type safety - defeats the purpose of Rust's type system",
       "fail_rate": 0.85,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0282.html"

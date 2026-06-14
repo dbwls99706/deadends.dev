@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Add a default value to input()",
-      "why_fails": "input() doesn't support defaults — need try/except",
+      "why_fails": "input() doesn't support defaults - need try/except",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/library/functions.html#input"

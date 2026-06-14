@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set MaxOpenConns to unlimited (0)",
-      "why_fails": "Database servers have connection limits — unlimited Go connections hit the DB limit and cause 'too many connections' errors instead",
+      "why_fails": "Database servers have connection limits - unlimited Go connections hit the DB limit and cause 'too many connections' errors instead",
       "fail_rate": 0.70,
       "sources": [
         "https://pkg.go.dev/database/sql#DB.SetMaxOpenConns"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Create a new sql.DB for each request",
-      "why_fails": "sql.DB is designed to be a long-lived pool — creating new pools per request exhausts OS resources and DB connections",
+      "why_fails": "sql.DB is designed to be a long-lived pool - creating new pools per request exhausts OS resources and DB connections",
       "fail_rate": 0.85,
       "sources": [
         "https://pkg.go.dev/database/sql#Open"

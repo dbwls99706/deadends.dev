@@ -22,7 +22,7 @@
     "fix_success_rate": 0.91,
     "confidence": 0.93,
     "last_updated": "2026-02-11",
-    "summary": "Cannot connect to RDS instance — usually a security group or network configuration issue."
+    "summary": "Cannot connect to RDS instance - usually a security group or network configuration issue."
   },
   "dead_ends": [
     {
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Verify the instance is in a reachable subnet — check VPC routing tables and NAT gateway",
+      "action": "Verify the instance is in a reachable subnet - check VPC routing tables and NAT gateway",
       "success_rate": 0.88,
       "how": "Private subnets need NAT gateway for outbound; clients need a route to the RDS subnet",
       "sources": [],

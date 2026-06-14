@@ -3,7 +3,7 @@
   "id": "security/csp-header-bypass-inline-script/browser-security-any",
   "url": "https://deadends.dev/security/csp-header-bypass-inline-script/browser-security-any",
   "error": {
-    "signature": "XSS despite CSP — Content-Security-Policy allows unsafe-inline",
+    "signature": "XSS despite CSP - Content-Security-Policy allows unsafe-inline",
     "regex": "Content-Security-Policy.*unsafe-inline|CSP.*bypass|inline.*script.*blocked",
     "domain": "security",
     "category": "web_security",

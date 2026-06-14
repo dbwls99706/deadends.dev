@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force push to override remote",
-      "why_fails": "Destroys remote commits — other collaborators will lose work",
+      "why_fails": "Destroys remote commits - other collaborators will lose work",
       "fail_rate": 0.85,
       "sources": [
         "https://git-scm.com/docs/git-push#Documentation/git-push.txt---force"

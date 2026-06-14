@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check namespace — resources are namespace-scoped",
+      "action": "Check namespace - resources are namespace-scoped",
       "success_rate": 0.88,
       "how": "kubectl get secrets -n target-namespace",
       "sources": [

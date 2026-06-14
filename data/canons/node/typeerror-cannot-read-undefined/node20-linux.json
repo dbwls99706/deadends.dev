@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add optional chaining (?.) everywhere",
-      "why_fails": "Masks bugs — undefined propagates silently through the chain",
+      "why_fails": "Masks bugs - undefined propagates silently through the chain",
       "fail_rate": 0.6,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Trace where the variable becomes undefined — check async timing, missing return, wrong key name",
+      "action": "Trace where the variable becomes undefined - check async timing, missing return, wrong key name",
       "success_rate": 0.92,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cant_access_property"

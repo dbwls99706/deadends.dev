@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add || [] everywhere data is mapped",
-      "why_fails": "Masks underlying data issues — undefined data might indicate a real bug",
+      "why_fails": "Masks underlying data issues - undefined data might indicate a real bug",
       "fail_rate": 0.55,
       "sources": [
         "https://react.dev/learn/rendering-lists"

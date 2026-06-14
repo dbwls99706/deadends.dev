@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase gRPC MaxRecvMsgSize to fix connection errors",
-      "why_fails": "MaxRecvMsgSize controls message size limits, not connection establishment — UNAVAILABLE means the transport layer cannot connect",
+      "why_fails": "MaxRecvMsgSize controls message size limits, not connection establishment - UNAVAILABLE means the transport layer cannot connect",
       "fail_rate": 0.90,
       "sources": [
         "https://pkg.go.dev/google.golang.org/grpc"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable gRPC keepalive pings",
-      "why_fails": "Keepalives detect dead connections — disabling them hides connection failures without fixing the root cause",
+      "why_fails": "Keepalives detect dead connections - disabling them hides connection failures without fixing the root cause",
       "fail_rate": 0.75,
       "sources": [
         "https://pkg.go.dev/google.golang.org/grpc/keepalive"

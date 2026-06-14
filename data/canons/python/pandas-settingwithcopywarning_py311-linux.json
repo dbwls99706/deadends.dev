@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Suppress the warning with pd.options.mode.chained_assignment = None",
-      "why_fails": "Silences the warning but the bug remains — data may not be modified",
+      "why_fails": "Silences the warning but the bug remains - data may not be modified",
       "fail_rate": 0.8,
       "sources": [
         "https://pandas.pydata.org/docs/user_guide/indexing.html#returning-a-view-versus-a-copy"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Add .copy() everywhere",
-      "why_fails": "Overkill and wastes memory — only copy when needed",
+      "why_fails": "Overkill and wastes memory - only copy when needed",
       "fail_rate": 0.55,
       "sources": [
         "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.copy.html"

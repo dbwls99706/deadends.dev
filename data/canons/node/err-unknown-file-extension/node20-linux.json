@@ -36,7 +36,7 @@
     },
     {
       "action": "Add type:module to package.json",
-      "why_fails": "Doesn't help — Node still can't parse TypeScript",
+      "why_fails": "Doesn't help - Node still can't parse TypeScript",
       "fail_rate": 0.7,
       "sources": [
         "https://nodejs.org/api/packages.html#type"

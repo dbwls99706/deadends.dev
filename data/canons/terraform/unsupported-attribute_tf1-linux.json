@@ -64,13 +64,13 @@
       "condition": ""
     },
     {
-      "action": "Check provider version — attribute may have been added/removed in a version change",
+      "action": "Check provider version - attribute may have been added/removed in a version change",
       "success_rate": 0.85,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/providers/requirements"
       ],
       "condition": "",
-      "how": "Check provider version — attribute may have been added/removed in a version change"
+      "how": "Check provider version - attribute may have been added/removed in a version change"
     }
   ],
   "transition_graph": {

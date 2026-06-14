@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete the entire module and recreate",
-      "why_fails": "Destroys all resources in the module — may cause outage",
+      "why_fails": "Destroys all resources in the module - may cause outage",
       "fail_rate": 0.75,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/modules/syntax"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Manually edit the state JSON",
-      "why_fails": "Error-prone — one mistake can corrupt the entire state",
+      "why_fails": "Error-prone - one mistake can corrupt the entire state",
       "fail_rate": 0.8,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/state"

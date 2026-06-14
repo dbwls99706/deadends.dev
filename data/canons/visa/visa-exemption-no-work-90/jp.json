@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-exemption-no-work-90/jp",
+  "url": "https://deadends.dev/visa/visa-exemption-no-work-90/jp",
+  "error": {
+    "signature": "AI tells a visitor that Japan's visa-free entry lets them work or stay beyond 90 days",
+    "regex": "(japan.*visa.free|visa.exempt.*japan|japan.*90.day|japan.*tourist.visa|japan.*work.*tourist)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Japan grants visa-exemption (typically up to 90 days) to nationals of roughly 70 countries/regions for short-term tourism or business meetings, but you may NOT engage in paid work, and the 90 days generally cannot be extended. Some nationalities get shorter periods."
+  },
+  "dead_ends": [
+    {
+      "action": "Take up any paid work while on the visa-free short-stay entry",
+      "why_fails": "Visa-exemption permits tourism and certain unpaid business activities only. Paid work requires a work visa/status of residence; working without it risks detention, deportation, and re-entry bans.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html"
+      ],
+      "common_misconception": "People assume 'visa-free' allows remote or casual paid work - it does not."
+    },
+    {
+      "action": "Plan to extend the 90-day visa-free stay to keep living in Japan",
+      "why_fails": "The visa-exemption period generally cannot be extended; you must leave and the rule is not a renewable residence permit. Repeated back-to-back entries can also be refused.",
+      "fail_rate": 0.7,
+      "condition": "Trying to extend beyond the granted short-stay period"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm your nationality's exact visa-free period and limit activities to tourism/unpaid business; apply for the correct status of residence for anything else.",
+      "success_rate": 0.9,
+      "how": "Check the MOFA visa-exemption list; for work, study, or long stays apply for the appropriate visa/Certificate of Eligibility before travel.",
+      "sources": [
+        "https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html"
+      ]
+    },
+    {
+      "action": "If you need to stay longer, obtain the appropriate visa in advance rather than relying on extensions.",
+      "success_rate": 0.8,
+      "how": "Apply through a Japanese embassy/consulate; work and long-stay categories usually require a Certificate of Eligibility sponsored in Japan.",
+      "tradeoff": "Work/long-stay visas require sponsorship and processing time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

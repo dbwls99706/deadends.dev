@@ -3,7 +3,7 @@
   "id": "docker/build-context-korean-path-failure/docker24-linux",
   "url": "https://deadends.dev/docker/build-context-korean-path-failure/docker24-linux",
   "error": {
-    "signature": "error: failed to solve: failed to read dockerfile — Korean characters in build context path",
+    "signature": "error: failed to solve: failed to read dockerfile - Korean characters in build context path",
     "regex": "failed to solve.*dockerfile|invalid.*path.*character|build.*context.*[가-힣]",
     "domain": "docker",
     "category": "path_encoding",

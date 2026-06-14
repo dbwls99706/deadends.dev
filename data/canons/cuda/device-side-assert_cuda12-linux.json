@@ -48,7 +48,7 @@
     {
       "action": "Set CUDA_LAUNCH_BLOCKING=1 to get the exact line that triggered the assert",
       "success_rate": 0.93,
-      "how": "CUDA_LAUNCH_BLOCKING=1 python train.py\n# This makes CUDA operations synchronous so the Python traceback\n# shows exactly which operation triggered the assert.\n# Look for the line number in the traceback — that's the offending op.",
+      "how": "CUDA_LAUNCH_BLOCKING=1 python train.py\n# This makes CUDA operations synchronous so the Python traceback\n# shows exactly which operation triggered the assert.\n# Look for the line number in the traceback - that's the offending op.",
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#assertion"
       ],

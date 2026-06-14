@@ -3,7 +3,7 @@
   "id": "communication/smtp-tls-starttls-port-confusion/email-server-any",
   "url": "https://deadends.dev/communication/smtp-tls-starttls-port-confusion/email-server-any",
   "error": {
-    "signature": "SMTP connection fails — TLS vs STARTTLS port confusion (465 vs 587)",
+    "signature": "SMTP connection fails - TLS vs STARTTLS port confusion (465 vs 587)",
     "regex": "SMTP.*TLS.*fail|STARTTLS.*465|port.*587.*SSL|connection.*refused.*SMTP",
     "domain": "communication",
     "category": "email_config",

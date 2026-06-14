@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap class component in a function component",
-      "why_fails": "Over-engineering — convert the class component instead",
+      "why_fails": "Over-engineering - convert the class component instead",
       "fail_rate": 0.65,
       "sources": [
         "https://react.dev/reference/rules/rules-of-hooks"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use a higher-order component to inject hooks",
-      "why_fails": "Works but adds complexity — better to convert to function component",
+      "why_fails": "Works but adds complexity - better to convert to function component",
       "fail_rate": 0.5,
       "sources": [
         "https://react.dev/reference/rules/rules-of-hooks"

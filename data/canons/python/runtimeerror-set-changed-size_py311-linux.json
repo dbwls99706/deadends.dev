@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Use try/except to catch and retry",
-      "why_fails": "Unreliable — iteration results are undefined after modification",
+      "why_fails": "Unreliable - iteration results are undefined after modification",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/stdtypes.html#set"

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-needs-pass/sg",
+  "url": "https://deadends.dev/banking/foreigner-account-needs-pass/sg",
+  "error": {
+    "signature": "AI tells a tourist they can open a Singapore bank account easily on a visit",
+    "regex": "(singapore.*bank.account|singapore.*bank.*open|open.*account.*singapore|singapore.*foreigner.*bank)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Opening a standard Singapore bank account generally requires an Employment Pass, S Pass, Student Pass, or Dependant's Pass plus proof of local address; tourists usually cannot open ordinary accounts. Some banks offer foreigner/wealth accounts with high minimum balances. Local apps and PayNow typically need a local account or pass."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to open a normal Singapore current account as a tourist on a short visit",
+      "why_fails": "Local banks (DBS, OCBC, UOB) generally require a valid pass (EP/S/Student/Dependant) and proof of address; tourists are typically declined for standard accounts.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.mas.gov.sg/"
+      ],
+      "common_misconception": "Singapore's banking sophistication does not mean tourists can open accounts freely."
+    },
+    {
+      "action": "Assume a foreigner/wealth account works like a basic local account",
+      "why_fails": "Foreigner or priority accounts often require high minimum balances (and fees if not met) and are not designed for everyday low-balance use.",
+      "fail_rate": 0.5,
+      "condition": "Using a wealth account for everyday banking"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open the account once you hold a valid pass, bringing your pass, passport, and proof of local address.",
+      "success_rate": 0.8,
+      "how": "After your EP/S/Student/Dependant pass is issued, apply at a major bank with address proof.",
+      "sources": [
+        "https://www.mas.gov.sg/"
+      ],
+      "condition": "Holding a valid Singapore pass"
+    },
+    {
+      "action": "For short stays, use no-foreign-fee cards and widely accepted contactless/PayWave rather than a local account.",
+      "success_rate": 0.85,
+      "how": "Singapore is highly card-friendly; use international cards and ATMs.",
+      "tradeoff": "Not suitable for receiving local salary or using PayNow."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

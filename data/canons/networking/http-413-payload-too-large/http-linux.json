@@ -36,7 +36,7 @@
     },
     {
       "action": "Split the request body into chunks sent in the same single request",
-      "why_fails": "HTTP request body size limits apply to the total content-length, not individual chunks. Chunked transfer encoding does not bypass body size limits — the server still counts the total bytes received.",
+      "why_fails": "HTTP request body size limits apply to the total content-length, not individual chunks. Chunked transfer encoding does not bypass body size limits - the server still counts the total bytes received.",
       "fail_rate": 0.85,
       "sources": [
         "https://man7.org/linux/man-pages/"

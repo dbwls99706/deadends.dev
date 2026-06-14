@@ -3,7 +3,7 @@
   "id": "cloud/aws-rds-storage-full-readonly/aws-rds-any",
   "url": "https://deadends.dev/cloud/aws-rds-storage-full-readonly/aws-rds-any",
   "error": {
-    "signature": "RDS instance becomes read-only — storage full auto-scaling lag",
+    "signature": "RDS instance becomes read-only - storage full auto-scaling lag",
     "regex": "[Rr]ead.only|storage.*full|cannot.*write|The table.*is full",
     "domain": "cloud",
     "category": "database",

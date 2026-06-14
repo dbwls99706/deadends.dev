@@ -3,7 +3,7 @@
   "id": "cloud/gcp-metadata-server-timeout/gcp-compute-any",
   "url": "https://deadends.dev/cloud/gcp-metadata-server-timeout/gcp-compute-any",
   "error": {
-    "signature": "metadata.google.internal timeout — GCP metadata server unreachable",
+    "signature": "metadata.google.internal timeout - GCP metadata server unreachable",
     "regex": "metadata\\.google\\.internal.*timeout|169\\.254\\.169\\.254.*timeout",
     "domain": "cloud",
     "category": "metadata",

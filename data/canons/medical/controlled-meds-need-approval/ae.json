@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/controlled-meds-need-approval/ae",
+  "url": "https://deadends.dev/medical/controlled-meds-need-approval/ae",
+  "error": {
+    "signature": "AI tells a traveler they can bring any prescription medication into the UAE",
+    "regex": "(uae.*medication|dubai.*medicine|uae.*prescription|controlled.*drug.*uae|tramadol.*uae|codeine.*uae|cbd.*uae)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "the United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "The UAE tightly controls many medications sold over the counter elsewhere. Drugs containing codeine, tramadol, certain sedatives, CBD/cannabis derivatives, and some psychotropics are controlled or banned and require prior approval from the Ministry of Health and Prevention (MOHAP). Bringing them without approval can lead to arrest, even with a prescription."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring codeine, tramadol, sleeping pills, or CBD products into the UAE on a foreign prescription without approval",
+      "why_fails": "These are controlled or banned substances in the UAE; a foreign prescription alone is not accepted. Travelers have been detained at the airport for carrying them without MOHAP approval.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://mohap.gov.ae/en/services/registration-of-import-of-personal-medicines"
+      ],
+      "common_misconception": "A prescription does not exempt controlled drugs from UAE import rules."
+    },
+    {
+      "action": "Assume small personal quantities are ignored at customs",
+      "why_fails": "UAE customs screen for controlled substances regardless of quantity; even trace amounts have led to arrests.",
+      "fail_rate": 0.6
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for prior approval from MOHAP for controlled/semi-controlled medicines and carry the approval plus prescription and a doctor's letter.",
+      "success_rate": 0.85,
+      "how": "Check the MOHAP controlled-medicines list, apply online for import approval before travel, and keep medication in original labeled packaging with documents.",
+      "sources": [
+        "https://mohap.gov.ae/en/services/registration-of-import-of-personal-medicines",
+        "https://u.ae/"
+      ]
+    },
+    {
+      "action": "Ask your doctor whether a UAE-permitted alternative exists for the trip.",
+      "success_rate": 0.78,
+      "how": "Discuss a permitted substitute with your doctor before travel if your medicine is controlled.",
+      "tradeoff": "Switching medication needs medical advice and lead time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

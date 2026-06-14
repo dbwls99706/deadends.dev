@@ -41,7 +41,7 @@
       "sources": [
         "https://github.com/pytorch/pytorch/issues/100974"
       ],
-      "common_misconception": "Users assume 'pip install torch' will auto-detect the system CUDA version and pull the correct binary. PyPI does not perform CUDA detection — it always serves the default wheel."
+      "common_misconception": "Users assume 'pip install torch' will auto-detect the system CUDA version and pull the correct binary. PyPI does not perform CUDA detection - it always serves the default wheel."
     },
     {
       "action": "Using plain pip install torch (without --index-url)",
@@ -54,12 +54,12 @@
     },
     {
       "action": "Downgrading the NVIDIA driver to match an older CUDA toolkit",
-      "why_fails": "NVIDIA drivers are forward-compatible: a driver for CUDA 12.x supports CUDA 11.x runtimes. Downgrading the driver to target CUDA 11.8 may break other software, and the correct solution is to install the matching PyTorch wheel — not to change the driver.",
+      "why_fails": "NVIDIA drivers are forward-compatible: a driver for CUDA 12.x supports CUDA 11.x runtimes. Downgrading the driver to target CUDA 11.8 may break other software, and the correct solution is to install the matching PyTorch wheel - not to change the driver.",
       "fail_rate": 0.78,
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/"
       ],
-      "common_misconception": "Users conflate driver version with CUDA toolkit version. The driver API version and the runtime toolkit version are independent — a newer driver supports older CUDA runtimes."
+      "common_misconception": "Users conflate driver version with CUDA toolkit version. The driver API version and the runtime toolkit version are independent - a newer driver supports older CUDA runtimes."
     }
   ],
   "workarounds": [

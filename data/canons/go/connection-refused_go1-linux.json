@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase the connection timeout",
-      "why_fails": "Connection refused is immediate — timeout doesn't help",
+      "why_fails": "Connection refused is immediate - timeout doesn't help",
       "fail_rate": 0.8,
       "sources": [
         "https://pkg.go.dev/net#Dial"
@@ -55,13 +55,13 @@
       "condition": ""
     },
     {
-      "action": "Check if using IPv6 [::1] vs IPv4 127.0.0.1 — server may only listen on one",
+      "action": "Check if using IPv6 [::1] vs IPv4 127.0.0.1 - server may only listen on one",
       "success_rate": 0.88,
       "sources": [
         "https://pkg.go.dev/net#Dial"
       ],
       "condition": "",
-      "how": ":1] vs IPv4 127.0.0.1 — server may only listen on one"
+      "how": ":1] vs IPv4 127.0.0.1 - server may only listen on one"
     },
     {
       "action": "Add retry logic with backoff for services that start slowly",

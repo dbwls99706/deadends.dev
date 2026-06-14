@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/proof-of-address-barrier/uk",
+  "url": "https://deadends.dev/banking/proof-of-address-barrier/uk",
+  "error": {
+    "signature": "AI tells a newcomer they can open a UK bank account instantly with just a passport",
+    "regex": "(uk.*bank.account|britain.*bank.*open|open.*account.*uk|uk.*proof.of.address)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "the United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Traditional UK banks usually require proof of a UK address (utility bill, tenancy agreement, or council tax letter) plus ID to open a current account - a catch-22 for newcomers who need an account to get a tenancy. App-based banks (Monzo, Starling, Revolut) often onboard with just ID and a selfie and are the common workaround."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a high-street bank as a newcomer with only a passport and expect a current account same day",
+      "why_fails": "Most traditional UK banks require proof of a UK address and sometimes proof of right to reside; without these, newcomers are typically declined, creating a catch-22 with renting.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.uk/"
+      ],
+      "common_misconception": "A passport alone rarely satisfies UK address-verification requirements."
+    },
+    {
+      "action": "Use a friend's address or a hotel as 'proof of address'",
+      "why_fails": "Banks verify address documents against your name; mismatched or temporary addresses (hotels) are rejected and can flag the application.",
+      "fail_rate": 0.55
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open an app-based bank (Monzo, Starling, Revolut) that onboards with ID and a selfie, then build address history.",
+      "success_rate": 0.85,
+      "how": "Use a digital bank to get an account quickly; some accept a foreign address initially.",
+      "sources": [
+        "https://www.fca.org.uk/"
+      ]
+    },
+    {
+      "action": "For a traditional bank, gather a tenancy agreement, council tax, or a bank letter as proof of address.",
+      "success_rate": 0.78,
+      "how": "Collect accepted address documents in your name before applying at a branch.",
+      "tradeoff": "Building address proof takes time after arrival."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

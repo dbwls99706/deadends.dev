@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete the state file and re-import",
-      "why_fails": "Deleting state loses all resource tracking — very dangerous",
+      "why_fails": "Deleting state loses all resource tracking - very dangerous",
       "fail_rate": 0.9,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/state"

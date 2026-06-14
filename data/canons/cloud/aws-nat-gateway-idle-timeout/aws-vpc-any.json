@@ -3,7 +3,7 @@
   "id": "cloud/aws-nat-gateway-idle-timeout/aws-vpc-any",
   "url": "https://deadends.dev/cloud/aws-nat-gateway-idle-timeout/aws-vpc-any",
   "error": {
-    "signature": "Connection drops after 350s idle — NAT Gateway idle timeout",
+    "signature": "Connection drops after 350s idle - NAT Gateway idle timeout",
     "regex": "NAT.*[Gg]ateway.*idle.*timeout|350.*seconds|connection.*drop.*NAT",
     "domain": "cloud",
     "category": "networking",

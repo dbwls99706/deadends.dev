@@ -3,7 +3,7 @@
   "id": "policy/aws-lambda-deployment-package-size-limit/aws-lambda-any",
   "url": "https://deadends.dev/policy/aws-lambda-deployment-package-size-limit/aws-lambda-any",
   "error": {
-    "signature": "RequestEntityTooLargeException — Lambda deployment package exceeds 50MB/250MB",
+    "signature": "RequestEntityTooLargeException - Lambda deployment package exceeds 50MB/250MB",
     "regex": "RequestEntityTooLargeException|[Dd]eployment.*package.*size|[Ee]xceeds.*[0-9]+MB",
     "domain": "policy",
     "category": "service_limits",

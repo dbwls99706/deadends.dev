@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set InsecureSkipVerify=true on TLS config",
-      "why_fails": "InsecureSkipVerify skips certificate validation but does not fix handshake timeouts — the timeout occurs before certificate verification",
+      "why_fails": "InsecureSkipVerify skips certificate validation but does not fix handshake timeouts - the timeout occurs before certificate verification",
       "fail_rate": 0.9,
       "sources": [
         "https://pkg.go.dev/crypto/tls#Config"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Downgrade to HTTP instead of HTTPS",
-      "why_fails": "Removes transport security entirely — only masks the problem",
+      "why_fails": "Removes transport security entirely - only masks the problem",
       "fail_rate": 0.8,
       "sources": [
         "https://pkg.go.dev/errors"

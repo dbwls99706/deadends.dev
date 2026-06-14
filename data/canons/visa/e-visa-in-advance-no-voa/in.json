@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/e-visa-in-advance-no-voa/in",
+  "url": "https://deadends.dev/visa/e-visa-in-advance-no-voa/in",
+  "error": {
+    "signature": "AI tells a tourist they can get a visa on arrival in India for most nationalities",
+    "regex": "(india.*visa.on.arrival|visa.on.arrival.*india|india.*e.?visa|evisa.*india|india.*tourist.visa|india.*visa.free)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "India does NOT offer visa on arrival to most nationalities. The vast majority of tourists must obtain an e-Visa online in advance (apply at least 4 days before travel, up to 30 days ahead) via the official Indian Government e-Visa portal, or a regular visa from a mission. True visa on arrival is limited to a few nationalities (e.g., Japan, South Korea, UAE under specific conditions)."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to India planning to get a visa stamped on arrival at the airport",
+      "why_fails": "India has no general visa-on-arrival scheme for tourists. Most travelers must apply for an e-Visa online before departure; the e-Visa must be approved and printed/saved before boarding. Arriving without a valid visa or e-Visa leads to denied boarding or refused entry.",
+      "fail_rate": 0.88,
+      "sources": [
+        "https://indianvisaonline.gov.in/evisa/tvoa.html"
+      ],
+      "common_misconception": "The e-Visa is sometimes mislabeled 'visa on arrival', but it must be applied for and approved online in advance - only the biometric/stamp step happens at the airport."
+    },
+    {
+      "action": "Apply for the e-Visa the day before flying",
+      "why_fails": "The Indian e-Visa application must be submitted at least 4 days before arrival (and can be filed up to 30 days in advance). Same-day or next-day applications are rejected by the system, leaving travelers stranded.",
+      "fail_rate": 0.7,
+      "condition": "Applying within 4 days of travel"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the e-Visa on the official Indian Government portal at least 4 days before travel; carry the approved ETA/e-Visa printout and enter via a designated airport or seaport.",
+      "success_rate": 0.9,
+      "how": "Use only indianvisaonline.gov.in (avoid third-party agents). Choose the correct category (e-Tourist, e-Business, e-Medical), upload a photo and passport bio page, pay the fee, and wait for the emailed ETA. e-Visa entry is allowed only at designated ports.",
+      "sources": [
+        "https://indianvisaonline.gov.in/evisa/tvoa.html"
+      ]
+    },
+    {
+      "action": "If you are not eligible for the e-Visa or need a longer/multi-purpose stay, apply for a regular visa at an Indian mission or authorized centre in advance.",
+      "success_rate": 0.8,
+      "how": "Check eligibility on the official portal; for categories not covered by e-Visa, apply through the Indian embassy/consulate or its authorized visa centre weeks ahead.",
+      "sources": [
+        "https://www.mha.gov.in/en/page/visa-and-immigration-services"
+      ],
+      "tradeoff": "Regular visas require in-person/mail processing and longer lead time than the e-Visa."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

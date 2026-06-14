@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Hardcode credentials in source code",
-      "why_fails": "Security risk — credentials in git history",
+      "why_fails": "Security risk - credentials in git history",
       "fail_rate": 0.95,
       "sources": [
         "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html"

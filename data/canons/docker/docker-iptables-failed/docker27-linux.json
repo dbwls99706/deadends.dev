@@ -48,7 +48,7 @@
     {
       "action": "Restart the Docker daemon to recreate iptables chains",
       "success_rate": 0.88,
-      "how": "sudo systemctl restart docker — Docker will re-create its iptables chains cleanly",
+      "how": "sudo systemctl restart docker - Docker will re-create its iptables chains cleanly",
       "sources": [
         "https://docs.docker.com/network/packet-filtering-firewalls/"
       ],

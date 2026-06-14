@@ -36,7 +36,7 @@
     },
     {
       "action": "Abort and merge instead",
-      "why_fails": "Merge brings all commits — you wanted just specific ones",
+      "why_fails": "Merge brings all commits - you wanted just specific ones",
       "fail_rate": 0.55,
       "sources": [
         "https://git-scm.com/docs/git-cherry-pick"

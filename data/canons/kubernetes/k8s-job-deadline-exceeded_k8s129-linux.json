@@ -36,7 +36,7 @@
     },
     {
       "action": "Set backoffLimit to a very high number",
-      "why_fails": "backoffLimit controls retries, not the deadline — job will still be killed at the deadline",
+      "why_fails": "backoffLimit controls retries, not the deadline - job will still be killed at the deadline",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy"
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Optimize the job to complete faster — check for resource constraints or slow dependencies",
+      "action": "Optimize the job to complete faster - check for resource constraints or slow dependencies",
       "success_rate": 0.82,
       "how": "Increase CPU/memory requests, parallelize with spec.parallelism, or fix slow database queries",
       "sources": [

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/evisa-reinstated-2025/br",
+  "url": "https://deadends.dev/visa/evisa-reinstated-2025/br",
+  "error": {
+    "signature": "AI tells a US, Canadian, or Australian traveler that Brazil is visa-free",
+    "regex": "(brazil.*visa|visa.*brazil|brazil.*evisa|e.?visa.*brazil|brazil.*us.*citizen.*visa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Since April 2025 Brazil again requires an e-visa for citizens of the United States, Canada, and Australia, applied for online in advance. Many other nationalities (EU, UK, and others) remain visa-free for short tourism. The rule changed recently, so check your nationality."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Brazil is still visa-free for US, Canadian, and Australian citizens",
+      "why_fails": "Brazil reinstated an e-visa requirement for US, Canadian, and Australian passport holders in April 2025; they must obtain an e-visa online before travel or be denied boarding.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gov.br/mre/",
+        "https://brazil.vfsevisa.com/"
+      ],
+      "common_misconception": "The 2019-2024 visa-free window for these nationalities ended; the requirement returned in 2025."
+    },
+    {
+      "action": "Apply through an unofficial 'Brazil visa' website",
+      "why_fails": "Only the official e-visa portal issues a valid visa; third-party sites overcharge and may submit incorrectly.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you hold a US, Canadian, or Australian passport, apply for the Brazil e-visa on the official portal before travel.",
+      "success_rate": 0.9,
+      "how": "Apply via the official Brazil e-visa system well ahead of travel; carry the approved e-visa.",
+      "sources": [
+        "https://brazil.vfsevisa.com/"
+      ]
+    },
+    {
+      "action": "Other nationalities should confirm visa-free eligibility and allowed days on the Brazilian government/consulate site.",
+      "success_rate": 0.85,
+      "how": "Check your specific passport's rule; many remain visa-free for up to 90 days."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Add default=None to all params",
-      "why_fails": "Hides the real issue — caller should provide the value",
+      "why_fails": "Hides the real issue - caller should provide the value",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.python.org/3/tutorial/controlflow.html#default-argument-values"

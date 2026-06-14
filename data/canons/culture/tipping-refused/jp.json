@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.9,
     "last_updated": "2026-04-14",
-    "summary": "Tipping is not a Japanese custom and is routinely refused. Good service is considered baseline, not something requiring bonus payment. High-end ryokan / restaurants add a service charge (サービス料 10%) automatically. Pushing cash on staff is often awkward or offensive — they may chase after you to return it."
+    "summary": "Tipping is not a Japanese custom and is routinely refused. Good service is considered baseline, not something requiring bonus payment. High-end ryokan / restaurants add a service charge (サービス料 10%) automatically. Pushing cash on staff is often awkward or offensive - they may chase after you to return it."
   },
   "dead_ends": [
     {
       "action": "Leave 15–20% cash on the table at a Japanese restaurant",
-      "why_fails": "Staff will typically run after the diner to return the 'forgotten' money. Some establishments interpret unsolicited cash as an insult implying the service was inadequate and requires apology/correction. There is no Japanese equivalent of the US tipping wage — staff are paid living wages and do not expect gratuity.",
+      "why_fails": "Staff will typically run after the diner to return the 'forgotten' money. Some establishments interpret unsolicited cash as an insult implying the service was inadequate and requires apology/correction. There is no Japanese equivalent of the US tipping wage - staff are paid living wages and do not expect gratuity.",
       "fail_rate": 0.88,
       "sources": [
         "https://www.jnto.go.jp/eng/basic-info/customs.html"
@@ -75,7 +75,7 @@
       "tradeoff": "Still rare; many modern ryokan have abolished the custom and may return the envelope."
     },
     {
-      "action": "Check the bill for a 10% サービス料 line — if present, the restaurant/hotel has already handled service compensation systemically; no further tip is needed.",
+      "action": "Check the bill for a 10% サービス料 line - if present, the restaurant/hotel has already handled service compensation systemically; no further tip is needed.",
       "success_rate": 0.95,
       "sources": [
         "https://www.jnto.go.jp/eng/basic-info/customs.html"

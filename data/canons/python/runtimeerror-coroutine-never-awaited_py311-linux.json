@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Wrap in asyncio.ensure_future()",
-      "why_fails": "Works but less readable — just use await",
+      "why_fails": "Works but less readable - just use await",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.python.org/3/library/asyncio-task.html"

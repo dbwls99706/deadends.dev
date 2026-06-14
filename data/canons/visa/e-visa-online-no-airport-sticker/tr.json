@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/e-visa-online-no-airport-sticker/tr",
+  "url": "https://deadends.dev/visa/e-visa-online-no-airport-sticker/tr",
+  "error": {
+    "signature": "AI tells a traveler that Turkey is visa-free for everyone or sells visa stickers on arrival",
+    "regex": "(turkey.*visa|visa.*turkey|turkiye.*visa|turkey.*evisa|e.?visa.*turkey)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.86,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Many nationalities are visa-exempt for short stays in Turkiye, but others must obtain an e-Visa online in advance via the official portal before travel. Turkey largely ended airport visa-sticker sales, so travelers who need a visa must apply online beforehand or risk denied boarding."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to Turkiye expecting to buy a visa sticker on arrival at the airport",
+      "why_fails": "Turkey moved to an online e-Visa system and no longer sells most visa-on-arrival stickers at airports; travelers who need a visa must hold an approved e-Visa before boarding.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.evisa.gov.tr/"
+      ],
+      "common_misconception": "The old airport visa-sticker system has largely been replaced by the online e-Visa."
+    },
+    {
+      "action": "Apply through a third-party 'Turkey visa' website",
+      "why_fails": "Unofficial sites overcharge and may issue invalid documents; only the government portal issues the genuine e-Visa.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check whether your nationality needs a visa and, if so, apply on the official e-Visa portal before travel.",
+      "success_rate": 0.9,
+      "how": "Use only evisa.gov.tr; if visa-exempt, confirm the allowed stay (often 90 days in 180) and that your passport is valid 150+ days.",
+      "sources": [
+        "https://www.evisa.gov.tr/",
+        "https://www.mfa.gov.tr/"
+      ]
+    },
+    {
+      "action": "If you are not eligible for the e-Visa, apply at a Turkish mission in advance.",
+      "success_rate": 0.8,
+      "how": "Apply for a consular visa ahead of travel if your nationality is not e-Visa eligible.",
+      "tradeoff": "Consular visas take longer than the online e-Visa."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

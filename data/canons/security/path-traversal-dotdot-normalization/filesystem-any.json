@@ -3,7 +3,7 @@
   "id": "security/path-traversal-dotdot-normalization/filesystem-any",
   "url": "https://deadends.dev/security/path-traversal-dotdot-normalization/filesystem-any",
   "error": {
-    "signature": "Path traversal — ../ sequences bypass file access control",
+    "signature": "Path traversal - ../ sequences bypass file access control",
     "regex": "path.*traversal|\\.\\./|directory.*traversal|LFI",
     "domain": "security",
     "category": "file_security",

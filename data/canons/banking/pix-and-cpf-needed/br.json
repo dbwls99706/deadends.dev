@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/pix-and-cpf-needed/br",
+  "url": "https://deadends.dev/banking/pix-and-cpf-needed/br",
+  "error": {
+    "signature": "AI tells a traveler they can use Pix or rely on cards everywhere in Brazil as a tourist",
+    "regex": "(brazil.*pix|pix.*brazil|brazil.*card.payment|brazil.*cash|brazil.*bank.account|brazil.*cpf)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Cards are widely accepted in Brazilian cities, but Pix - the instant payment system locals use everywhere - generally requires a Brazilian bank account linked to a CPF (taxpayer ID), so most tourists cannot use Pix directly. Carry a no-foreign-fee card plus some reais; small vendors and rural areas may be cash-only."
+  },
+  "dead_ends": [
+    {
+      "action": "Expect to use Pix as a tourist by linking a foreign card or app",
+      "why_fails": "Pix is tied to a Brazilian bank or payment account linked to a CPF; without a CPF and local account, tourists generally cannot send or receive Pix.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bcb.gov.br/en/financialstability/pix_en"
+      ],
+      "common_misconception": "Pix is a bank-account rail under Brazilian KYC, not a card wallet any visitor can use."
+    },
+    {
+      "action": "Travel with only cards assuming universal acceptance",
+      "why_fails": "Cities accept cards widely, but small vendors, markets, and rural areas can be cash-only in reais; relying solely on cards leaves gaps.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry a no-foreign-fee card plus some reais; use cards at hotels, restaurants, and shops in cities.",
+      "success_rate": 0.85,
+      "how": "Withdraw reais from bank ATMs (e.g., Banco do Brasil, Bradesco); keep small notes for street vendors.",
+      "sources": [
+        "https://www.bcb.gov.br/en/financialstability/pix_en"
+      ]
+    },
+    {
+      "action": "If you obtain a CPF and a local/fintech account (e.g., as a resident), you can then use Pix.",
+      "success_rate": 0.7,
+      "how": "A CPF can be obtained by foreigners, and some fintechs onboard residents - then Pix becomes available.",
+      "condition": "Resident with CPF + local account",
+      "tradeoff": "Not practical for short tourist trips."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

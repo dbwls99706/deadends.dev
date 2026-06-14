@@ -3,7 +3,7 @@
   "id": "api/multipart-boundary-content-type-mismatch/rest-api-any",
   "url": "https://deadends.dev/api/multipart-boundary-content-type-mismatch/rest-api-any",
   "error": {
-    "signature": "400 Bad Request — multipart boundary in Content-Type does not match body",
+    "signature": "400 Bad Request - multipart boundary in Content-Type does not match body",
     "regex": "multipart.*boundary.*mismatch|400.*[Bb]ad [Rr]equest.*multipart",
     "domain": "api",
     "category": "file_upload",

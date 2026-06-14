@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Increase disk size as first response",
-      "why_fails": "May be a temp dir issue — check where the writes are going",
+      "why_fails": "May be a temp dir issue - check where the writes are going",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.python.org/3/library/os.html"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add suppressWarning prop",
-      "why_fails": "No such prop exists — fix the state management",
+      "why_fails": "No such prop exists - fix the state management",
       "fail_rate": 0.9,
       "sources": [
         "https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use defaultValue and value together",
-      "why_fails": "React doesn't support both — pick one pattern",
+      "why_fails": "React doesn't support both - pick one pattern",
       "fail_rate": 0.85,
       "sources": [
         "https://react.dev/reference/react-dom/components/input"

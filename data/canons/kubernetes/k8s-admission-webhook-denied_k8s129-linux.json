@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete the webhook configuration to bypass validation",
-      "why_fails": "Removes security policies — the webhook exists for a reason and may be required by compliance",
+      "why_fails": "Removes security policies - the webhook exists for a reason and may be required by compliance",
       "fail_rate": 0.75,
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Retry the same request hoping it will pass",
-      "why_fails": "Admission webhooks are deterministic — same input yields same denial",
+      "why_fails": "Admission webhooks are deterministic - same input yields same denial",
       "fail_rate": 0.95,
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/"
@@ -48,7 +48,7 @@
     {
       "action": "Read the denial message to understand which policy was violated and fix the resource spec",
       "success_rate": 0.90,
-      "how": "kubectl apply -f resource.yaml 2>&1 | grep 'denied the request' — the message usually explains exactly what's wrong",
+      "how": "kubectl apply -f resource.yaml 2>&1 | grep 'denied the request' - the message usually explains exactly what's wrong",
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/"
       ],

@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check the cipher algorithm — different ciphers require different IV lengths",
+      "action": "Check the cipher algorithm - different ciphers require different IV lengths",
       "success_rate": 0.88,
       "how": "AES-CBC/CTR needs 16 bytes; ChaCha20 needs 12 bytes",
       "sources": [],

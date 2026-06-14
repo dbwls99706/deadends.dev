@@ -25,12 +25,12 @@
     "fix_success_rate": 0.95,
     "confidence": 0.92,
     "last_updated": "2026-04-14",
-    "summary": "Japanese taxi rear-left door (curb-side passenger door) opens and closes automatically, controlled by the driver via lever or button. Pulling it open by hand can damage the mechanism — drivers occasionally call out '危ない!' (kiken / dangerous). Slamming it shut similarly damages closing motor. Tips are not given (driver may chase you to return). Cash and major credit/IC cards (Suica/Pasmo) all accepted in most cities."
+    "summary": "Japanese taxi rear-left door (curb-side passenger door) opens and closes automatically, controlled by the driver via lever or button. Pulling it open by hand can damage the mechanism - drivers occasionally call out '危ない!' (kiken / dangerous). Slamming it shut similarly damages closing motor. Tips are not given (driver may chase you to return). Cash and major credit/IC cards (Suica/Pasmo) all accepted in most cities."
   },
   "dead_ends": [
     {
       "action": "Yank the taxi door open in Tokyo / Osaka while the driver is reaching for the lever",
-      "why_fails": "Most Japanese taxis use an automatic rear-door system since the 1964 Olympics. The handle is mostly decorative for emergencies. Pulling on the closed door hard enough can bend the linkage — a repair the driver pays for. Drivers expect tourists to wait 1-2 seconds.",
+      "why_fails": "Most Japanese taxis use an automatic rear-door system since the 1964 Olympics. The handle is mostly decorative for emergencies. Pulling on the closed door hard enough can bend the linkage - a repair the driver pays for. Drivers expect tourists to wait 1-2 seconds.",
       "fail_rate": 0.75,
       "sources": [
         "https://www.taxi-tokyo.or.jp/en/",
@@ -59,7 +59,7 @@
   ],
   "workarounds": [
     {
-      "action": "Stand back from the door slightly. Wait 1-2 seconds — the driver opens the rear-left door automatically. Step in. The driver closes it after you sit. Same on exit: wait for the driver to open before stepping out.",
+      "action": "Stand back from the door slightly. Wait 1-2 seconds - the driver opens the rear-left door automatically. Step in. The driver closes it after you sit. Same on exit: wait for the driver to open before stepping out.",
       "success_rate": 0.98,
       "sources": [
         "https://www.taxi-tokyo.or.jp/en/"
@@ -67,7 +67,7 @@
       "condition": "Standard taxi entry / exit"
     },
     {
-      "action": "Pay with cash, IC card (Suica, Pasmo, ICOCA), or credit card. Major chains (Nihon Kotsu, Kokusai, MK) take all. Some smaller individual taxis cash-only — display sign in window.",
+      "action": "Pay with cash, IC card (Suica, Pasmo, ICOCA), or credit card. Major chains (Nihon Kotsu, Kokusai, MK) take all. Some smaller individual taxis cash-only - display sign in window.",
       "success_rate": 0.95,
       "sources": [
         "https://www.taxi-tokyo.or.jp/en/"
@@ -75,7 +75,7 @@
       "condition": "Payment options"
     },
     {
-      "action": "Use the GO app (formerly Japan Taxi + Mov merger) or DiDi for hailing — works in major cities, English interface, no language barrier with the driver.",
+      "action": "Use the GO app (formerly Japan Taxi + Mov merger) or DiDi for hailing - works in major cities, English interface, no language barrier with the driver.",
       "success_rate": 0.92,
       "sources": [
         "https://go.mo-t.com/taxi/"

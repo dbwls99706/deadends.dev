@@ -26,7 +26,7 @@
   },
   "dead_ends": [
     {
-      "action": "Ignore the warning — it's just a warning",
+      "action": "Ignore the warning - it's just a warning",
       "why_fails": "Causes memory leaks and wasted computation",
       "fail_rate": 0.65,
       "sources": [
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use a global isMounted flag",
-      "why_fails": "Anti-pattern — use AbortController or cleanup function instead",
+      "why_fails": "Anti-pattern - use AbortController or cleanup function instead",
       "fail_rate": 0.7,
       "sources": [
         "https://react.dev/reference/react/useEffect"

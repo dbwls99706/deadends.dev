@@ -36,7 +36,7 @@
     },
     {
       "action": "Use extern crate (pre-2018 edition syntax)",
-      "why_fails": "Unnecessary since Rust 2018 — just add to Cargo.toml",
+      "why_fails": "Unnecessary since Rust 2018 - just add to Cargo.toml",
       "fail_rate": 0.7,
       "sources": [
         "https://doc.rust-lang.org/edition-guide/rust-2018/module-system/path-clarity.html"

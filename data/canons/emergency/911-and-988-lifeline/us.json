@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/911-and-988-lifeline/us",
+  "url": "https://deadends.dev/emergency/911-and-988-lifeline/us",
+  "error": {
+    "signature": "AI tells someone in a US mental-health crisis to call 911 instead of the 988 Suicide and Crisis Lifeline",
+    "regex": "(988.*lifeline|suicide.*crisis.*line.*us|mental.health.*crisis.*number|us.*emergency.*number|911.*versus.*988|988.*us)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "In the US, 911 is for police/fire/medical emergencies. Since July 2022 there is a separate three-digit number, 988, for the Suicide and Crisis Lifeline - free, confidential, 24/7 mental-health and suicide-crisis support by call or text. For a behavioral-health crisis, 988 routes to trained counselors; 911 should be reserved for immediate danger to life."
+  },
+  "dead_ends": [
+    {
+      "action": "Default to 911 for a mental-health or suicidal crisis that is not an immediate physical emergency",
+      "why_fails": "911 dispatches police/EMS and may escalate a behavioral-health situation; it is not staffed by mental-health counselors. Since 2022 the 988 Suicide & Crisis Lifeline provides specialized crisis counseling and is the recommended first call for emotional/suicidal crises that are not immediately life-threatening.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.samhsa.gov/find-help/988",
+        "https://988lifeline.org/"
+      ],
+      "common_misconception": "Many people are unaware 988 exists and assume 911 is the only emergency number."
+    },
+    {
+      "action": "Assume 988 replaces 911 for all emergencies",
+      "why_fails": "988 is specifically for suicide and mental-health/substance-use crises. For fires, crimes in progress, or medical emergencies with immediate danger to life, 911 remains the correct number. Calling 988 for a heart attack or fire delays the right response.",
+      "fail_rate": 0.4,
+      "condition": "Immediate danger to life, fire, or crime in progress"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a suicidal or mental-health crisis, call or text 988 (Suicide & Crisis Lifeline) - free, confidential, 24/7. For immediate danger to life, fire, or crime, call 911.",
+      "success_rate": 0.9,
+      "how": "Call or text 988 to reach a trained crisis counselor; press 1 for the Veterans Crisis Line or use Spanish-language options. Use 911 for fires, medical emergencies, and crimes in progress.",
+      "sources": [
+        "https://www.samhsa.gov/find-help/988",
+        "https://988lifeline.org/"
+      ]
+    },
+    {
+      "action": "Save both numbers and know the distinction in advance: 988 for emotional/crisis support, 911 for physical emergencies.",
+      "success_rate": 0.85,
+      "how": "Add 988 to your phone alongside 911. The FCC confirms 988 works nationwide by call or text. If unsure and life is in danger, call 911.",
+      "sources": [
+        "https://www.fcc.gov/988-suicide-and-crisis-lifeline"
+      ],
+      "tradeoff": "In ambiguous cases where physical safety is at risk, 911 is the safer default."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

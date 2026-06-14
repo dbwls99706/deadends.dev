@@ -46,9 +46,9 @@
   ],
   "workarounds": [
     {
-      "action": "Simply retry the push — existing layers will be skipped efficiently",
+      "action": "Simply retry the push - existing layers will be skipped efficiently",
       "success_rate": 0.95,
-      "how": "docker push <image>:<tag> — Docker will skip layers that already exist and only upload new ones",
+      "how": "docker push <image>:<tag> - Docker will skip layers that already exist and only upload new ones",
       "sources": [
         "https://docs.docker.com/engine/reference/commandline/push/"
       ],

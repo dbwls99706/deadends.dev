@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Mark every component as 'use client'",
-      "why_fails": "Defeats the purpose of Server Components — only mark interactive ones",
+      "why_fails": "Defeats the purpose of Server Components - only mark interactive ones",
       "fail_rate": 0.7,
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/rendering/client-components"

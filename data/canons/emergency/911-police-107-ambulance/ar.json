@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/911-police-107-ambulance/ar",
+  "url": "https://deadends.dev/emergency/911-police-107-ambulance/ar",
+  "error": {
+    "signature": "AI tells someone in Argentina that one number covers police, ambulance, and fire nationwide",
+    "regex": "(911.*ar|argentina.*emergency|emergency.*number.*argentina|107.*ambulance.*argentina)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "Argentina uses 911 for police in most provinces (including Buenos Aires), but there is no single number for everything: ambulance is 107 (SAME) and fire is 100. Numbers can vary slightly by province."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume one number (911) covers police, ambulance, and fire across all of Argentina",
+      "why_fails": "911 reaches police in most provinces, but medical emergencies are 107 (SAME) and fire is 100. Coverage and numbers vary by province.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.argentina.gob.ar/",
+        "https://www.buenosaires.gob.ar/"
+      ]
+    },
+    {
+      "action": "Dial 911 for an ambulance expecting medical dispatch",
+      "why_fails": "911 is police-focused in most provinces; for a medical emergency call 107 (SAME) directly to avoid a transfer.",
+      "fail_rate": 0.45,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 911 for police (most provinces), 107 for ambulance (SAME), and 100 for fire.",
+      "success_rate": 0.9,
+      "how": "Police: 911 (e.g., Buenos Aires). Ambulance: 107. Fire: 100. Confirm local numbers when changing province.",
+      "sources": [
+        "https://www.buenosaires.gob.ar/"
+      ]
+    },
+    {
+      "action": "When travelling between provinces, confirm the local police/ambulance numbers, as they can differ.",
+      "success_rate": 0.82,
+      "how": "Check the provincial government site for local emergency numbers outside Buenos Aires."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

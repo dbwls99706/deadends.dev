@@ -22,12 +22,12 @@
     "fix_success_rate": 0.95,
     "confidence": 0.95,
     "last_updated": "2026-02-11",
-    "summary": "Syntax error — often caused by wrong tsconfig target, unsupported syntax, or genuine typo."
+    "summary": "Syntax error - often caused by wrong tsconfig target, unsupported syntax, or genuine typo."
   },
   "dead_ends": [
     {
       "action": "Add semicolons everywhere",
-      "why_fails": "Often not a real missing semicolon — it's a parser confusion from other syntax issues",
+      "why_fails": "Often not a real missing semicolon - it's a parser confusion from other syntax issues",
       "fail_rate": 0.7,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Downgrade TypeScript version",
-      "why_fails": "Usually not a TS version issue — it's a code syntax problem",
+      "why_fails": "Usually not a TS version issue - it's a code syntax problem",
       "fail_rate": 0.75,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html"
@@ -46,13 +46,13 @@
   ],
   "workarounds": [
     {
-      "action": "Check the line BEFORE the reported error — that's usually where the real issue is",
+      "action": "Check the line BEFORE the reported error - that's usually where the real issue is",
       "success_rate": 0.95,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
       ],
       "condition": "",
-      "how": "Check the line BEFORE the reported error — that's usually where the real issue is"
+      "how": "Check the line BEFORE the reported error - that's usually where the real issue is"
     },
     {
       "action": "Look for unclosed brackets, parentheses, or template literals",
@@ -64,13 +64,13 @@
       "how": "// Check for mismatched JSX braces:\nreturn (\n  <div>\n    {items.map(item => (\n      <span key={item.id}>{item.name}</span>\n    ))}\n  </div>\n)\n// Use editor bracket matching (Ctrl+Shift+\\) to find unmatched pairs"
     },
     {
-      "action": "Check tsconfig.json target — some syntax requires ES2020+",
+      "action": "Check tsconfig.json target - some syntax requires ES2020+",
       "success_rate": 0.85,
       "sources": [
         "https://www.typescriptlang.org/tsconfig/#target"
       ],
       "condition": "",
-      "how": "Check tsconfig.json target — some syntax requires ES2020+"
+      "how": "Check tsconfig.json target - some syntax requires ES2020+"
     }
   ],
   "transition_graph": {

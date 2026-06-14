@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-free-but-conditions/za",
+  "url": "https://deadends.dev/visa/visa-free-but-conditions/za",
+  "error": {
+    "signature": "AI tells a traveler South Africa is visa-free for everyone with no conditions",
+    "regex": "(south.africa.*visa|visa.*south.africa|sa.*evisa|south.africa.*blank.page)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Many nationalities get visa-free entry to South Africa (up to 90 days for some, 30 for others); others must obtain a visa in advance, with an e-Visa system for select countries. Passports need adequate validity and at least 2 blank visa pages, and travelers with children face extra documentation rules."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume visa-free entry applies to every nationality and for a full 90 days",
+      "why_fails": "Visa-free access and length depend on nationality; some travelers must apply for a visa or e-Visa in advance, and assuming otherwise risks denied boarding.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.dha.gov.za/",
+        "https://www.ehome.dha.gov.za/"
+      ],
+      "common_misconception": "Visa-free length varies by nationality (30 vs 90 days) and some need a visa."
+    },
+    {
+      "action": "Travel with a passport that has fewer than 2 blank pages",
+      "why_fails": "South Africa requires sufficient passport validity and at least 2 blank visa pages; insufficient pages can lead to refused entry.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check your nationality's rule on the Department of Home Affairs site and apply for the e-Visa if required.",
+      "success_rate": 0.85,
+      "how": "Confirm visa-free eligibility/length or apply for the e-Visa; verify passport validity.",
+      "sources": [
+        "https://www.dha.gov.za/"
+      ]
+    },
+    {
+      "action": "Ensure 2+ blank pages and carry required documents, especially when traveling with minors.",
+      "success_rate": 0.82,
+      "how": "Bring unabridged birth certificates/consent letters for children where required."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

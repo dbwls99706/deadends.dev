@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase Node stack size with --stack-size",
-      "why_fails": "Just delays the crash — infinite recursion will still overflow",
+      "why_fails": "Just delays the crash - infinite recursion will still overflow",
       "fail_rate": 0.8,
       "sources": [
         "https://nodejs.org/api/cli.html#--stack-sizesize"

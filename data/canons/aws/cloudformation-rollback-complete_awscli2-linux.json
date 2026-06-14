@@ -22,7 +22,7 @@
     "fix_success_rate": 0.9,
     "confidence": 0.9,
     "last_updated": "2026-02-11",
-    "summary": "CloudFormation stack failed creation and rolled back. Can't update — must delete and recreate."
+    "summary": "CloudFormation stack failed creation and rolled back. Can't update - must delete and recreate."
   },
   "dead_ends": [
     {
@@ -36,7 +36,7 @@
     },
     {
       "action": "Manually create the resources outside CloudFormation",
-      "why_fails": "Resources drift from IaC — hard to manage",
+      "why_fails": "Resources drift from IaC - hard to manage",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html"

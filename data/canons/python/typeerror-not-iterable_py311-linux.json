@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Wrap in list() blindly",
-      "why_fails": "Doesn't fix the root cause — the variable shouldn't be an int",
+      "why_fails": "Doesn't fix the root cause - the variable shouldn't be an int",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/library/functions.html#iter"
@@ -47,13 +47,13 @@
   ],
   "workarounds": [
     {
-      "action": "Check the variable type — it's probably returning a single value instead of a collection",
+      "action": "Check the variable type - it's probably returning a single value instead of a collection",
       "success_rate": 0.95,
       "sources": [
         "https://docs.python.org/3/library/functions.html#isinstance"
       ],
       "condition": "",
-      "how": "Check the variable type — it's probably returning a single value instead of a collection"
+      "how": "Check the variable type - it's probably returning a single value instead of a collection"
     },
     {
       "action": "If you need to iterate over digits/chars, convert first: str(num) or [num]",

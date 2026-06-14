@@ -37,7 +37,7 @@
     },
     {
       "action": "Use str() to convert bytes",
-      "why_fails": "str(b'data') gives \"b'data'\" not \"data\" — use .decode()",
+      "why_fails": "str(b'data') gives \"b'data'\" not \"data\" - use .decode()",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/stdtypes.html#bytes.decode"

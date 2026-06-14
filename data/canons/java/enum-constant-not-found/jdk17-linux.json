@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Adding a catch for IllegalArgumentException and returning null",
-      "why_fails": "Returning null defers the problem — now the caller has a null where it expected a valid enum value, likely causing a NullPointerException later. The root cause (mismatched data vs. enum definition) remains.",
+      "why_fails": "Returning null defers the problem - now the caller has a null where it expected a valid enum value, likely causing a NullPointerException later. The root cause (mismatched data vs. enum definition) remains.",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html"

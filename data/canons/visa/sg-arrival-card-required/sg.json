@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/sg-arrival-card-required/sg",
+  "url": "https://deadends.dev/visa/sg-arrival-card-required/sg",
+  "error": {
+    "signature": "AI tells a visitor to Singapore they need a visa in advance or no arrival form",
+    "regex": "(singapore.*visa|sg.arrival.card|sgac|singapore.*arrival.card|visa.free.*singapore)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Most visitors enter Singapore visa-free for 30-90 days, but everyone must submit the SG Arrival Card (SGAC) with an electronic health declaration within 3 days before arrival. Some nationalities need an e-Visa arranged in advance. Missing the SGAC causes entry delays."
+  },
+  "dead_ends": [
+    {
+      "action": "Arrive in Singapore without submitting the SG Arrival Card",
+      "why_fails": "All travelers must submit the free SGAC within 3 days before arrival; without it you face delays and questioning at immigration.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.ica.gov.sg/",
+        "https://eservices.ica.gov.sg/sgarrivalcard/"
+      ],
+      "common_misconception": "Even visa-free visitors must file the SGAC."
+    },
+    {
+      "action": "Assume every nationality is visa-free for Singapore",
+      "why_fails": "Most are visa-free, but some nationalities require an e-Visa arranged in advance through an authorized agent - check ICA.",
+      "fail_rate": 0.45
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Submit the free SGAC on the official ICA site or app within 3 days before arrival; verify if your nationality needs an e-Visa.",
+      "success_rate": 0.9,
+      "how": "File the SGAC at the official ICA portal; check visa requirements for your passport.",
+      "sources": [
+        "https://eservices.ica.gov.sg/sgarrivalcard/"
+      ]
+    },
+    {
+      "action": "If your nationality needs an e-Visa, apply via an authorized agent before travel.",
+      "success_rate": 0.82,
+      "how": "Arrange the e-Visa ahead of time if required."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

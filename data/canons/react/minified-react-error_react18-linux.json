@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Search the error number on Google",
-      "why_fails": "Decoder URL gives the exact message — Google results are usually generic",
+      "why_fails": "Decoder URL gives the exact message - Google results are usually generic",
       "fail_rate": 0.6,
       "sources": [
         "https://react.dev/errors"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Switch to development build in production",
-      "why_fails": "Never ship React dev build to production — huge performance penalty",
+      "why_fails": "Never ship React dev build to production - huge performance penalty",
       "fail_rate": 0.9,
       "sources": [
         "https://react.dev/learn/start-a-new-react-project"

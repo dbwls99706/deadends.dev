@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap with RouterContext.Provider",
-      "why_fails": "Hack that doesn't work — App Router has a different router",
+      "why_fails": "Hack that doesn't work - App Router has a different router",
       "fail_rate": 0.85,
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks"

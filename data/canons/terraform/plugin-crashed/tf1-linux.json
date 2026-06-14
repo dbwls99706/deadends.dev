@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check system resources (memory) — large state files can OOM the provider",
+      "action": "Check system resources (memory) - large state files can OOM the provider",
       "success_rate": 0.82,
       "sources": [
         "https://developer.hashicorp.com/terraform/cli/commands/providers"

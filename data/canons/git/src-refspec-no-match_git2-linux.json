@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force push",
-      "why_fails": "Can't force push a non-existent branch — the branch literally doesn't exist",
+      "why_fails": "Can't force push a non-existent branch - the branch literally doesn't exist",
       "fail_rate": 0.9,
       "sources": [
         "https://git-scm.com/docs/git-push"
@@ -55,9 +55,9 @@
       "how": "git add . && git commit -m 'initial'"
     },
     {
-      "action": "Check current branch name: git branch — default may be 'master' not 'main'",
+      "action": "Check current branch name: git branch - default may be 'master' not 'main'",
       "success_rate": 0.92,
-      "how": "git branch — default may be 'master' not 'main'",
+      "how": "git branch - default may be 'master' not 'main'",
       "sources": [
         "https://git-scm.com/docs/git-branch"
       ],

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete other pods to free resources",
-      "why_fails": "Those pods are running for a reason — may cause outages",
+      "why_fails": "Those pods are running for a reason - may cause outages",
       "fail_rate": 0.75,
       "sources": [
         "https://kubernetes.io/docs/concepts/scheduling-eviction/"
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Scale up the cluster — add more nodes",
+      "action": "Scale up the cluster - add more nodes",
       "success_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/cluster-administration/"

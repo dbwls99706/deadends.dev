@@ -57,7 +57,7 @@
     {
       "action": "Use searchParams page prop for server-side access",
       "success_rate": 0.88,
-      "how": "export default function Page({ searchParams }) — available in Server Components",
+      "how": "export default function Page({ searchParams }) - available in Server Components",
       "sources": [],
       "condition": ""
     }

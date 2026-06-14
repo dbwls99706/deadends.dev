@@ -3,7 +3,7 @@
   "id": "docker/copy-space-in-path-failure/docker24-linux",
   "url": "https://deadends.dev/docker/copy-space-in-path-failure/docker24-linux",
   "error": {
-    "signature": "COPY failed: file not found — Dockerfile COPY with spaces in path",
+    "signature": "COPY failed: file not found - Dockerfile COPY with spaces in path",
     "regex": "COPY failed.*file not found|ADD.*failed.*space|COPY.*no such file.*space",
     "domain": "docker",
     "category": "path_handling",

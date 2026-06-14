@@ -3,7 +3,7 @@
   "id": "llm/prompt-injection-system-prompt-leak/llm-api-any",
   "url": "https://deadends.dev/llm/prompt-injection-system-prompt-leak/llm-api-any",
   "error": {
-    "signature": "System prompt leaked via prompt injection — user input not sanitized",
+    "signature": "System prompt leaked via prompt injection - user input not sanitized",
     "regex": "[Ss]ystem.*prompt.*leak|prompt.*injection|ignore.*previous.*instructions",
     "domain": "llm",
     "category": "security",

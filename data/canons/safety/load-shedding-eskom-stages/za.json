@@ -25,7 +25,7 @@
     "fix_success_rate": 0.85,
     "confidence": 0.85,
     "last_updated": "2026-04-15",
-    "summary": "South Africa's Eskom-managed grid has periodic 'load shedding' — scheduled rolling blackouts to prevent national grid collapse. Stages range 1-8; stage 6+ means most areas without power 8-12 hours/day in 2-4 hour blocks. Schedules per municipality, published via Eskom SE Push app. Affects: traffic lights (intersections become 4-way stops), ATMs, fuel pumps, hotel lifts, internet, mobile data (some), security alarms. Plan around it."
+    "summary": "South Africa's Eskom-managed grid has periodic 'load shedding' - scheduled rolling blackouts to prevent national grid collapse. Stages range 1-8; stage 6+ means most areas without power 8-12 hours/day in 2-4 hour blocks. Schedules per municipality, published via Eskom SE Push app. Affects: traffic lights (intersections become 4-way stops), ATMs, fuel pumps, hotel lifts, internet, mobile data (some), security alarms. Plan around it."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Drive through Joburg / Cape Town intersections during load shedding without preparing for traffic-light failures",
-      "why_fails": "When power's out, traffic lights default to off — every intersection becomes 4-way stop convention. Locals know this; tourists often don't. Accident risk spikes. SAPS warns to treat dark intersections as 4-way stops.",
+      "why_fails": "When power's out, traffic lights default to off - every intersection becomes 4-way stop convention. Locals know this; tourists often don't. Accident risk spikes. SAPS warns to treat dark intersections as 4-way stops.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.saps.gov.za/"
@@ -59,7 +59,7 @@
   ],
   "workarounds": [
     {
-      "action": "Install EskomSePush app — provides schedule by area (need municipality + suburb), real-time stage notifications, and outage logs. Free tier sufficient for most.",
+      "action": "Install EskomSePush app - provides schedule by area (need municipality + suburb), real-time stage notifications, and outage logs. Free tier sufficient for most.",
       "success_rate": 0.95,
       "sources": [
         "https://sepush.co.za/"
@@ -83,7 +83,7 @@
       "condition": "Driving during outage"
     },
     {
-      "action": "Carry: power bank charged before outage, small flashlight, cash for shops without working POS. Mobile data often degrades during outages — download offline maps.",
+      "action": "Carry: power bank charged before outage, small flashlight, cash for shops without working POS. Mobile data often degrades during outages - download offline maps.",
       "success_rate": 0.92,
       "sources": [
         "https://www.eskom.co.za/distribution/customer-service/loadshedding-schedules/"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Give cluster-admin role to the service account",
-      "why_fails": "Overly permissive — principle of least privilege",
+      "why_fails": "Overly permissive - principle of least privilege",
       "fail_rate": 0.75,
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable RBAC",
-      "why_fails": "Removes all authorization — anyone can do anything",
+      "why_fails": "Removes all authorization - anyone can do anything",
       "fail_rate": 0.95,
       "sources": [
         "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"

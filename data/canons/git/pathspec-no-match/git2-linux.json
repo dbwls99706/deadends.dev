@@ -22,7 +22,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.9,
     "last_updated": "2026-02-11",
-    "summary": "This error occurs when git cannot find a file, directory, or branch matching the name you specified. Common causes include typos in file/branch names, forgetting to fetch remote branches before checkout, or running git commands from the wrong directory. The pathspec argument is matched against tracked files and known refs — if neither matches, git reports this error."
+    "summary": "This error occurs when git cannot find a file, directory, or branch matching the name you specified. Common causes include typos in file/branch names, forgetting to fetch remote branches before checkout, or running git commands from the wrong directory. The pathspec argument is matched against tracked files and known refs - if neither matches, git reports this error."
   },
   "dead_ends": [
     {

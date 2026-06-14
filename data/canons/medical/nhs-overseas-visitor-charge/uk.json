@@ -40,7 +40,7 @@
     },
     {
       "action": "Use an old EHIC card from a non-EU country",
-      "why_fails": "EHIC is valid for residents of EU/EEA/Switzerland/UK only. Post-Brexit UK residents use the GHIC card for EU travel and vice versa. US, Japanese, Australian etc. residents need standalone travel insurance — no EHIC equivalent.",
+      "why_fails": "EHIC is valid for residents of EU/EEA/Switzerland/UK only. Post-Brexit UK residents use the GHIC card for EU travel and vice versa. US, Japanese, Australian etc. residents need standalone travel insurance - no EHIC equivalent.",
       "fail_rate": 0.92,
       "sources": [
         "https://www.gov.uk/european-health-insurance-card",
@@ -68,7 +68,7 @@
       "condition": "Pre-trip insurance"
     },
     {
-      "action": "Long-stay (Tier 2/4/5 work/student visa, family route): Immigration Health Surcharge £1,035/year (£776/year for students and Youth Mobility) paid with visa application — gives full NHS access including planned treatment.",
+      "action": "Long-stay (Tier 2/4/5 work/student visa, family route): Immigration Health Surcharge £1,035/year (£776/year for students and Youth Mobility) paid with visa application - gives full NHS access including planned treatment.",
       "success_rate": 0.92,
       "sources": [
         "https://www.gov.uk/healthcare-immigration-application"

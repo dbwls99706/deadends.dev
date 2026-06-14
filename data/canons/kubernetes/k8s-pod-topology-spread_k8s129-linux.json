@@ -22,12 +22,12 @@
     "fix_success_rate": 0.80,
     "confidence": 0.85,
     "last_updated": "2026-02-12",
-    "summary": "Pod can't be scheduled because topology spread constraints can't be satisfied — not enough nodes/zones or maxSkew is too strict."
+    "summary": "Pod can't be scheduled because topology spread constraints can't be satisfied - not enough nodes/zones or maxSkew is too strict."
   },
   "dead_ends": [
     {
       "action": "Remove topology spread constraints entirely",
-      "why_fails": "Loses availability guarantees — all pods may end up on one node/zone",
+      "why_fails": "Loses availability guarantees - all pods may end up on one node/zone",
       "fail_rate": 0.60,
       "sources": [
         "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Force schedule with nodeName",
-      "why_fails": "Bypasses scheduler — breaks topology spread for the entire deployment",
+      "why_fails": "Bypasses scheduler - breaks topology spread for the entire deployment",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/"

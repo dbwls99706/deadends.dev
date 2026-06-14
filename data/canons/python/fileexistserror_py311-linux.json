@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Delete the file/directory first",
-      "why_fails": "Race condition — another process may recreate it",
+      "why_fails": "Race condition - another process may recreate it",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.python.org/3/library/os.html#os.makedirs"

@@ -40,7 +40,7 @@
     },
     {
       "action": "Tell a foreigner they just need to fill out a rental application, skipping the guarantor system",
-      "why_fails": "Most Japanese rentals require a 保証人 (hoshounin, personal guarantor — Japanese national with stable income) OR a 保証会社 (hoshou-gaisha, guarantor company, ~0.5–1 month rent). Foreigners without a Japanese guarantor must use a guarantor company, and many landlords additionally refuse foreigners even with a company (the 'no foreigners' 外国人お断り clause is legal and common in older buildings).",
+      "why_fails": "Most Japanese rentals require a 保証人 (hoshounin, personal guarantor - Japanese national with stable income) OR a 保証会社 (hoshou-gaisha, guarantor company, ~0.5–1 month rent). Foreigners without a Japanese guarantor must use a guarantor company, and many landlords additionally refuse foreigners even with a company (the 'no foreigners' 外国人お断り clause is legal and common in older buildings).",
       "fail_rate": 0.8,
       "sources": [
         "https://www.mlit.go.jp/en/",
@@ -60,7 +60,7 @@
   ],
   "workarounds": [
     {
-      "action": "Budget 5–6 months of rent for move-in. Use foreigner-specific agencies (Sakura House, Metro Residence, GaijinPot Apartments) or no-reikin/no-shikikin 'zero-zero' listings (ゼロゼロ物件) — often slightly higher monthly rent but vastly lower upfront.",
+      "action": "Budget 5–6 months of rent for move-in. Use foreigner-specific agencies (Sakura House, Metro Residence, GaijinPot Apartments) or no-reikin/no-shikikin 'zero-zero' listings (ゼロゼロ物件) - often slightly higher monthly rent but vastly lower upfront.",
       "success_rate": 0.92,
       "sources": [
         "https://www.mlit.go.jp/en/"
@@ -68,7 +68,7 @@
       "condition": "Budget planning"
     },
     {
-      "action": "Use a guarantor company (保証会社) — many agencies bundle this automatically. Fee is one-time ~50-100% of monthly rent. Alternatively, monthly serviced apartments (Monthly Mansion) skip the system entirely but cost 2-3× a normal lease for equivalent space.",
+      "action": "Use a guarantor company (保証会社) - many agencies bundle this automatically. Fee is one-time ~50-100% of monthly rent. Alternatively, monthly serviced apartments (Monthly Mansion) skip the system entirely but cost 2-3× a normal lease for equivalent space.",
       "success_rate": 0.9,
       "sources": [
         "https://www.mlit.go.jp/en/"

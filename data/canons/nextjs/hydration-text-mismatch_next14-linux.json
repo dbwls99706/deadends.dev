@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Ensure server and client render the same content — avoid Date.now(), Math.random() in render",
+      "action": "Ensure server and client render the same content - avoid Date.now(), Math.random() in render",
       "success_rate": 0.93,
       "how": "Move dynamic content to useEffect or use suppressHydrationWarning only on specific elements",
       "sources": [

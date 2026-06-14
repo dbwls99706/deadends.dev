@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Cast arguments to any",
-      "why_fails": "Bypasses type checking entirely — the overloads exist for correctness",
+      "why_fails": "Bypasses type checking entirely - the overloads exist for correctness",
       "fail_rate": 0.8,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
@@ -46,13 +46,13 @@
   ],
   "workarounds": [
     {
-      "action": "Read each overload signature in the error — match your args to one of them",
+      "action": "Read each overload signature in the error - match your args to one of them",
       "success_rate": 0.92,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads"
       ],
       "condition": "",
-      "how": "// Read the error carefully — it lists each overload:\n// Overload 1 of 3: (a: string, b: number) => void\n// Overload 2 of 3: (a: number) => void\n// Overload 3 of 3: (a: Config) => void\n\n// Match your arguments to one of them:\nmyFunction('hello', 42);  // matches overload 1\nmyFunction(42);            // matches overload 2"
+      "how": "// Read the error carefully - it lists each overload:\n// Overload 1 of 3: (a: string, b: number) => void\n// Overload 2 of 3: (a: number) => void\n// Overload 3 of 3: (a: Config) => void\n\n// Match your arguments to one of them:\nmyFunction('hello', 42);  // matches overload 1\nmyFunction(42);            // matches overload 2"
     },
     {
       "action": "Check for subtle type differences: string vs String, number vs bigint",

@@ -3,7 +3,7 @@
   "id": "api/rate-limit-retry-after-ignored/rest-api-any",
   "url": "https://deadends.dev/api/rate-limit-retry-after-ignored/rest-api-any",
   "error": {
-    "signature": "429 Too Many Requests — Retry-After header ignored by client",
+    "signature": "429 Too Many Requests - Retry-After header ignored by client",
     "regex": "429\\s+Too Many Requests",
     "domain": "api",
     "category": "rate_limiting",

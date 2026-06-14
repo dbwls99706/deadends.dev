@@ -48,7 +48,7 @@
     {
       "action": "Verify the JAR containing the class is on the runtime classpath and the dependency scope is correct",
       "success_rate": 0.9,
-      "how": "1. Identify which JAR provides the missing class (search Maven Central or use 'jar tf *.jar | grep ClassName'). 2. Check your build tool dependency declaration — ensure the scope is 'compile' or 'runtime', not 'provided' or 'test'. 3. For Maven: run 'mvn dependency:tree' to verify the dependency is included. For Gradle: run 'gradle dependencies'. 4. Ensure the dependency version matches what is expected (no exclusions removing it transitively).",
+      "how": "1. Identify which JAR provides the missing class (search Maven Central or use 'jar tf *.jar | grep ClassName'). 2. Check your build tool dependency declaration - ensure the scope is 'compile' or 'runtime', not 'provided' or 'test'. 3. For Maven: run 'mvn dependency:tree' to verify the dependency is included. For Gradle: run 'gradle dependencies'. 4. Ensure the dependency version matches what is expected (no exclusions removing it transitively).",
       "sources": [],
       "condition": ""
     },

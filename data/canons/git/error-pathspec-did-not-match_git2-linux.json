@@ -46,7 +46,7 @@
       "how": "git fetch --all\ngit branch -a | grep <branch-name>\n# If the branch exists on remote, checkout with tracking:\ngit checkout -b <branch-name> origin/<branch-name>"
     },
     {
-      "action": "Use git ls-files to find the actual path — it may be case-sensitive",
+      "action": "Use git ls-files to find the actual path - it may be case-sensitive",
       "success_rate": 0.9,
       "sources": [
         "https://git-scm.com/docs/git-ls-files"
@@ -55,7 +55,7 @@
       "how": "# Find tracked files matching a pattern:\ngit ls-files | grep -i '<filename>'\n\n# On case-insensitive filesystems (macOS, Windows), git may track\n# 'README.md' but you typed 'readme.md'. Use the exact case shown by ls-files.\n# For branches:\ngit branch -a | grep -i '<branch-name>'"
     },
     {
-      "action": "Check .gitignore — the file may be excluded from tracking",
+      "action": "Check .gitignore - the file may be excluded from tracking",
       "success_rate": 0.85,
       "sources": [
         "https://git-scm.com/docs/gitignore"

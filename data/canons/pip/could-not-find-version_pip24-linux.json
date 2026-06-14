@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force install with --no-deps",
-      "why_fails": "Package genuinely doesn't exist — forcing won't create it",
+      "why_fails": "Package genuinely doesn't exist - forcing won't create it",
       "fail_rate": 0.85,
       "sources": [
         "https://pip.pypa.io/en/stable/cli/pip_install/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Upgrade pip",
-      "why_fails": "Rarely helps — the package name or version constraint is wrong",
+      "why_fails": "Rarely helps - the package name or version constraint is wrong",
       "fail_rate": 0.6,
       "sources": [
         "https://pip.pypa.io/en/stable/installation/"

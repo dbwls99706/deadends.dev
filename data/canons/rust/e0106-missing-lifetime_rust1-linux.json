@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use 'static lifetime on everything",
-      "why_fails": "'static means lives forever — wrong for most references",
+      "why_fails": "'static means lives forever - wrong for most references",
       "fail_rate": 0.8,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0106.html"

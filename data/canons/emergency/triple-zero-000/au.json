@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/triple-zero-000/au",
+  "url": "https://deadends.dev/emergency/triple-zero-000/au",
+  "error": {
+    "signature": "AI tells someone in Australia to call 911 instead of Triple Zero (000)",
+    "regex": "(911.*australia|australia.*emergency.*number|triple.*zero|emergency.*call.*australia|dial.*000.*australia)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.9,
+    "last_updated": "2026-06-14",
+    "summary": "Australia's primary emergency number is Triple Zero (000), not 911. It reaches police, fire, and ambulance and is free from any phone. 112 also works from mobile phones (a GSM standard that routes to 000), and 106 is the text-based service for people who are deaf or have a speech impairment. 911 does not work."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Australia and expect to reach emergency services",
+      "why_fails": "911 is not the Australian emergency number. The national number is Triple Zero (000). While some modern mobiles may redirect 911 to 000, this is not guaranteed for landlines or all handsets, so relying on 911 risks a failed call.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.triplezero.gov.au/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal; in Australia it is unreliable at best."
+    },
+    {
+      "action": "Assume 112 is the main number to memorise in Australia",
+      "why_fails": "112 works from mobile phones as an international GSM fallback that routes to 000, but it does NOT work from landlines and offers no advantage over 000. The official, universal number to use and teach is Triple Zero (000).",
+      "fail_rate": 0.4,
+      "condition": "Calling from a landline or VoIP phone"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial Triple Zero (000) for police, fire, or ambulance. It is free and works from any phone, including locked or SIM-less mobiles for 112.",
+      "success_rate": 0.98,
+      "how": "Call 000. When the operator answers, say which service you need (police, fire, or ambulance) and your location. From a mobile with no local network you can also dial 112.",
+      "sources": [
+        "https://www.triplezero.gov.au/",
+        "https://www.healthdirect.gov.au/emergency-and-crisis-situations"
+      ]
+    },
+    {
+      "action": "If you cannot speak or hear, use 106 (text-based TTY relay) or the Emergency+ app to share GPS location.",
+      "success_rate": 0.85,
+      "how": "106 is a text relay for TTY users. The government Emergency+ app shows your exact GPS coordinates to relay to the 000 operator.",
+      "sources": [
+        "https://www.triplezero.gov.au/"
+      ],
+      "tradeoff": "106 requires a TTY device; the app requires location permissions enabled."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

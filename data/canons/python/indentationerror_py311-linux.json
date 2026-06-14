@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Auto-format with a random formatter",
-      "why_fails": "Different formatters have different defaults — pick one and stick with it",
+      "why_fails": "Different formatters have different defaults - pick one and stick with it",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.python.org/3/reference/lexical_analysis.html#indentation"

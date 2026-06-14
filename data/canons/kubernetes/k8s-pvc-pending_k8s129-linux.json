@@ -36,7 +36,7 @@
     },
     {
       "action": "Switch StorageClass binding mode to Immediate",
-      "why_fails": "Breaks topology-aware scheduling — PV may be provisioned in wrong zone",
+      "why_fails": "Breaks topology-aware scheduling - PV may be provisioned in wrong zone",
       "fail_rate": 0.60,
       "sources": [
         "https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "For WaitForFirstConsumer, create a pod that uses the PVC — binding happens only when a pod is scheduled",
+      "action": "For WaitForFirstConsumer, create a pod that uses the PVC - binding happens only when a pod is scheduled",
       "success_rate": 0.92,
       "how": "Create a deployment or pod that references the PVC in its volumes section",
       "sources": [

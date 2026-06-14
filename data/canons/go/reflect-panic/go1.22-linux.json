@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use recover() to catch reflect panics and continue",
-      "why_fails": "Catching the panic masks the root cause — the reflected value is wrong, so the operation never produces correct results",
+      "why_fails": "Catching the panic masks the root cause - the reflected value is wrong, so the operation never produces correct results",
       "fail_rate": 0.80,
       "sources": [
         "https://pkg.go.dev/reflect#Value"

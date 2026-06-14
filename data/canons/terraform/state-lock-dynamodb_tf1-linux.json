@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable state locking with -lock=false",
-      "why_fails": "Risks concurrent state modifications — data corruption",
+      "why_fails": "Risks concurrent state modifications - data corruption",
       "fail_rate": 0.85,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/state/locking"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Wait for the other process to finish — check the Lock Info in the error for who holds it",
+      "action": "Wait for the other process to finish - check the Lock Info in the error for who holds it",
       "success_rate": 0.9,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/state/locking"

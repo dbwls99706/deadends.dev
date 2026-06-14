@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Remove readiness probes to make endpoints always ready",
-      "why_fails": "Sends traffic to unready pods — causes application errors and timeouts",
+      "why_fails": "Sends traffic to unready pods - causes application errors and timeouts",
       "fail_rate": 0.80,
       "sources": [
         "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Restart the kube-proxy pods",
-      "why_fails": "kube-proxy reads from endpoints API — if endpoints aren't ready, restarting kube-proxy won't help",
+      "why_fails": "kube-proxy reads from endpoints API - if endpoints aren't ready, restarting kube-proxy won't help",
       "fail_rate": 0.75,
       "sources": [
         "https://kubernetes.io/docs/concepts/services-networking/service/"

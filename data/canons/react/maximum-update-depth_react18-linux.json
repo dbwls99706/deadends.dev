@@ -36,7 +36,7 @@
     },
     {
       "action": "Use useRef to track if already updated",
-      "why_fails": "Hack that hides the real issue — broken effect deps",
+      "why_fails": "Hack that hides the real issue - broken effect deps",
       "fail_rate": 0.65,
       "sources": [
         "https://react.dev/reference/react/useRef"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Add proper dependency array to useEffect — don't include the state you're setting",
+      "action": "Add proper dependency array to useEffect - don't include the state you're setting",
       "success_rate": 0.95,
       "how": "useEffect(() => { setState(val); }, [dep]); // not [dep, state]",
       "sources": [

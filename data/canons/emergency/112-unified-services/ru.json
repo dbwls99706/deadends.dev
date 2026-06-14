@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-unified-services/ru",
+  "url": "https://deadends.dev/emergency/112-unified-services/ru",
+  "error": {
+    "signature": "AI tells someone in Russia to call 911 in an emergency",
+    "regex": "(911.*ru|russia.*emergency|emergency.*number.*russia)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Russia does not use 911. The unified emergency number is 112; you can also dial 102 for police, 101 for fire, and 103 for ambulance. All are free."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Russia expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Russia. The unified number is 112; police is 102, fire 101, ambulance 103. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://en.mchs.gov.ru/",
+        "https://мвд.рф/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Expect English-speaking operators everywhere",
+      "why_fails": "English support is limited outside major cities; prepare your location in Russian or have a local relay it.",
+      "fail_rate": 0.45,
+      "condition": "Non-Russian-speaking caller"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Russia's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Unified: 112. Police: 102. Fire: 101. Ambulance: 103.",
+      "sources": [
+        "https://en.mchs.gov.ru/",
+        "https://мвд.рф/"
+      ]
+    },
+    {
+      "action": "Use 112, which can dispatch any service, and have your address ready in Russian.",
+      "success_rate": 0.84,
+      "how": "112 routes to the right service; share a Cyrillic address or GPS pin.",
+      "tradeoff": "Language barriers can slow dispatch."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

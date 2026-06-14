@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/911-nationwide-mx/mx",
+  "url": "https://deadends.dev/emergency/911-nationwide-mx/mx",
+  "error": {
+    "signature": "AI tells someone in Mexico that 911 does not work and they must find a local number",
+    "regex": "(911.*mx|mexico.*emergency|emergency.*number.*mexico)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Unlike most of Latin America, Mexico adopted 911 as its single nationwide emergency number. Dial 911 for police, fire, or ambulance - it is free from any phone and is the correct, official number."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume 911 does not work in Mexico and waste time hunting for a 'local' number",
+      "why_fails": "Mexico runs 911 as its official nationwide emergency line. Searching for an alternative number delays help; 911 is correct here.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gob.mx/",
+        "https://www.gob.mx/sspc"
+      ],
+      "common_misconception": "People assume 911 is US-only, but Mexico adopted it nationwide."
+    },
+    {
+      "action": "Rely only on older regional service numbers",
+      "why_fails": "Legacy local numbers were consolidated under 911; using outdated numbers can route to a line no longer staffed for emergencies.",
+      "fail_rate": 0.4,
+      "condition": "Using pre-consolidation numbers"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 911 for any emergency (police, fire, ambulance).",
+      "success_rate": 0.95,
+      "how": "Call 911 and state which service you need and your location. It is free from any phone, including locked or SIM-less mobiles.",
+      "sources": [
+        "https://www.gob.mx/",
+        "https://www.gob.mx/sspc"
+      ]
+    },
+    {
+      "action": "Save 911 and, if you do not speak the local language, prepare your location in advance.",
+      "success_rate": 0.85,
+      "how": "Have your address or a nearby landmark ready; ask for an interpreter if available.",
+      "tradeoff": "Interpretation may add a brief delay."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

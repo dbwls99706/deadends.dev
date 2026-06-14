@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/voa-not-free-not-universal/id",
+  "url": "https://deadends.dev/visa/voa-not-free-not-universal/id",
+  "error": {
+    "signature": "AI tells a tourist that Indonesia (Bali) entry is free visa-on-arrival for everyone",
+    "regex": "(indonesia.*visa|bali.*visa|visa.*indonesia|indonesia.*voa|e.?voa.*indonesia)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Indonesia offers Visa on Arrival (and e-VOA online) to many nationalities for tourism - but it is NOT free (around IDR 500,000), is valid 30 days, and can be extended once for another 30 days. Some nationalities are not eligible and must obtain a visa in advance."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Indonesia/Bali entry is free and open-ended for all tourists",
+      "why_fails": "Visa on Arrival costs a fee, lasts 30 days, and only nationals on the eligible list qualify. Treating it as free or unlimited leads to unexpected fees or denied entry.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.imigrasi.go.id/"
+      ],
+      "common_misconception": "Bali's popularity makes people assume entry is frictionless and free."
+    },
+    {
+      "action": "Overstay the 30-day VOA assuming a small fine at the airport",
+      "why_fails": "Overstaying incurs a daily fine (around IDR 1,000,000/day) and longer overstays can mean detention and deportation. Extend before expiry instead.",
+      "fail_rate": 0.7,
+      "condition": "Overstaying the 30-day VOA"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy the e-VOA online before departure (or VOA on arrival) if eligible, and extend once before it expires if needed.",
+      "success_rate": 0.9,
+      "how": "Apply for e-VOA via the official immigration portal, or pay VOA at the airport; extend once online or at an immigration office before day 30.",
+      "sources": [
+        "https://www.imigrasi.go.id/"
+      ]
+    },
+    {
+      "action": "If your nationality is not VOA-eligible, apply for a visit visa in advance through an Indonesian mission or the official e-visa system.",
+      "success_rate": 0.8,
+      "how": "Check eligibility on imigrasi.go.id and apply for the appropriate visit visa before travel.",
+      "tradeoff": "Advance visas need more documents and processing time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

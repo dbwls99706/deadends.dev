@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase memory with --max-old-space-size",
-      "why_fails": "Segfaults aren't OOM errors — more memory won't help",
+      "why_fails": "Segfaults aren't OOM errors - more memory won't help",
       "fail_rate": 0.8,
       "sources": [
         "https://nodejs.org/api/report.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use try/catch to handle segfaults",
-      "why_fails": "Segfaults can't be caught by JavaScript — they crash the process",
+      "why_fails": "Segfaults can't be caught by JavaScript - they crash the process",
       "fail_rate": 0.95,
       "sources": [
         "https://nodejs.org/api/process.html#event-uncaughtexception"

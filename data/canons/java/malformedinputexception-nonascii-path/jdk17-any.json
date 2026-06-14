@@ -3,7 +3,7 @@
   "id": "java/malformedinputexception-nonascii-path/jdk17-any",
   "url": "https://deadends.dev/java/malformedinputexception-nonascii-path/jdk17-any",
   "error": {
-    "signature": "java.nio.charset.MalformedInputException: Input length = 1 — non-ASCII path or filename",
+    "signature": "java.nio.charset.MalformedInputException: Input length = 1 - non-ASCII path or filename",
     "regex": "MalformedInputException.*Input length|charset.*[Mm]alformed|java\\.nio.*encoding",
     "domain": "java",
     "category": "encoding",

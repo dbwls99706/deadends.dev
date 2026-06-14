@@ -3,7 +3,7 @@
   "id": "python/import-hyphenated-module-name/py311-linux",
   "url": "https://deadends.dev/python/import-hyphenated-module-name/py311-linux",
   "error": {
-    "signature": "SyntaxError or ModuleNotFoundError — cannot import module with hyphen in name",
+    "signature": "SyntaxError or ModuleNotFoundError - cannot import module with hyphen in name",
     "regex": "SyntaxError.*import.*-|ModuleNotFoundError.*-|cannot import.*hyphen",
     "domain": "python",
     "category": "naming",

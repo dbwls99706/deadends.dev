@@ -3,7 +3,7 @@
   "id": "java/gradle-space-in-java-home/gradle8-any",
   "url": "https://deadends.dev/java/gradle-space-in-java-home/gradle8-any",
   "error": {
-    "signature": "Gradle build fails: Could not determine java version — JAVA_HOME path has spaces",
+    "signature": "Gradle build fails: Could not determine java version - JAVA_HOME path has spaces",
     "regex": "Could not determine java version|JAVA_HOME.*space|gradle.*java.*path.*error",
     "domain": "java",
     "category": "path_handling",

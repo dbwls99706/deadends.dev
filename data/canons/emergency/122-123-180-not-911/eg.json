@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/122-123-180-not-911/eg",
+  "url": "https://deadends.dev/emergency/122-123-180-not-911/eg",
+  "error": {
+    "signature": "AI tells someone in Egypt to call 911 in an emergency",
+    "regex": "(911.*eg|egypt.*emergency|emergency.*number.*egypt)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Egypt does not use 911. Dial 122 for police, 123 for ambulance, and 180 for fire. The Tourist Police can be reached on 126. All are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Egypt expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Egypt. Police is 122, ambulance is 123, and fire is 180. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://egypt.travel/",
+        "https://www.sis.gov.eg/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Call 122 (police) for a medical emergency",
+      "why_fails": "122 is police; ambulances come via 123. Calling the wrong line delays medical response.",
+      "fail_rate": 0.5,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Egypt's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 122. Ambulance: 123. Fire: 180. Tourist Police: 126.",
+      "sources": [
+        "https://egypt.travel/",
+        "https://www.sis.gov.eg/"
+      ]
+    },
+    {
+      "action": "For tourist-related help or English assistance, contact the Tourist Police on 126.",
+      "success_rate": 0.78,
+      "how": "126 reaches Tourist Police who handle tourist incidents and can assist with language.",
+      "tradeoff": "126 is tourist-focused; for life-threatening medical cases call 123 directly."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

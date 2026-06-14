@@ -3,7 +3,7 @@
   "id": "api/etag-weak-vs-strong-comparison/rest-api-any",
   "url": "https://deadends.dev/api/etag-weak-vs-strong-comparison/rest-api-any",
   "error": {
-    "signature": "If-None-Match always misses — weak vs strong ETag comparison",
+    "signature": "If-None-Match always misses - weak vs strong ETag comparison",
     "regex": "ETag.*mismatch|If-None-Match.*miss|W/",
     "domain": "api",
     "category": "caching",

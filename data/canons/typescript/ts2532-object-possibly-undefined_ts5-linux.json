@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Using the non-null assertion operator (!) everywhere",
-      "why_fails": "Tells TypeScript 'trust me' — runtime errors when wrong",
+      "why_fails": "Tells TypeScript 'trust me' - runtime errors when wrong",
       "fail_rate": 0.75,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"

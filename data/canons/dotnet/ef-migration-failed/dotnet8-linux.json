@@ -3,7 +3,7 @@
   "id": "dotnet/ef-migration-failed/dotnet8-linux",
   "url": "https://deadends.dev/dotnet/ef-migration-failed/dotnet8-linux",
   "error": {
-    "signature": "Build started... Build succeeded. fail: Microsoft.EntityFrameworkCore.Database.Command — Failed executing DbCommand. An error occurred while applying migration 'XXXXXXXX_MigrationName'.",
+    "signature": "Build started... Build succeeded. fail: Microsoft.EntityFrameworkCore.Database.Command - Failed executing DbCommand. An error occurred while applying migration 'XXXXXXXX_MigrationName'.",
     "regex": "(error occurred while applying migration|Migration.*failed|dotnet.ef.*database update.*error|Build.*Failed executing DbCommand)",
     "domain": "dotnet",
     "category": "database",

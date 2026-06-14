@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set terminationGracePeriodSeconds to 0",
-      "why_fails": "Skips graceful shutdown — data loss risk",
+      "why_fails": "Skips graceful shutdown - data loss risk",
       "fail_rate": 0.65,
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination"
@@ -55,13 +55,13 @@
       "how": "kubectl get pod <name> -o json | jq '.metadata.finalizers'"
     },
     {
-      "action": "Check if the container's SIGTERM handler is stuck — may need code fix",
+      "action": "Check if the container's SIGTERM handler is stuck - may need code fix",
       "success_rate": 0.82,
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination"
       ],
       "condition": "",
-      "how": "Check if the container's SIGTERM handler is stuck — may need code fix"
+      "how": "Check if the container's SIGTERM handler is stuck - may need code fix"
     }
   ],
   "transition_graph": {

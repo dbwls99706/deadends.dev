@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force-delete the CRD and recreate it",
-      "why_fails": "Deleting a CRD deletes ALL custom resources of that type — catastrophic data loss",
+      "why_fails": "Deleting a CRD deletes ALL custom resources of that type - catastrophic data loss",
       "fail_rate": 0.90,
       "sources": [
         "https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/"
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Ensure only one operator version manages each CRD — uninstall the old version first",
+      "action": "Ensure only one operator version manages each CRD - uninstall the old version first",
       "success_rate": 0.85,
       "how": "helm uninstall old-operator && helm install new-operator",
       "sources": [

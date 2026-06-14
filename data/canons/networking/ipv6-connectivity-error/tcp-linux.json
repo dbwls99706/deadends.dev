@@ -48,7 +48,7 @@
     {
       "action": "Configure Happy Eyeballs (RFC 8305) to prefer IPv4 when IPv6 is broken",
       "success_rate": 0.88,
-      "how": "1. Most modern applications use Happy Eyeballs by default — verify it is not disabled\n2. In curl: --happy-eyeballs-timeout-ms 300\n3. In /etc/gai.conf, set precedence for IPv4: precedence ::ffff:0:0/96 100\n4. This allows applications to quickly fall back to IPv4 when IPv6 fails\n5. Test: curl -v https://example.com — should show the fallback in verbose output",
+      "how": "1. Most modern applications use Happy Eyeballs by default - verify it is not disabled\n2. In curl: --happy-eyeballs-timeout-ms 300\n3. In /etc/gai.conf, set precedence for IPv4: precedence ::ffff:0:0/96 100\n4. This allows applications to quickly fall back to IPv4 when IPv6 fails\n5. Test: curl -v https://example.com - should show the fallback in verbose output",
       "sources": [],
       "condition": ""
     },

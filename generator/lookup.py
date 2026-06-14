@@ -155,7 +155,7 @@ def lookup_all(error_message: str) -> list[dict]:
         try:
             score = 0
 
-            # Regex match — try extracted first, then full text as fallback
+            # Regex match - try extracted first, then full text as fallback
             if pattern.search(extracted):
                 score += 100
             elif extracted != error_message and pattern.search(error_message):
@@ -170,7 +170,7 @@ def lookup_all(error_message: str) -> list[dict]:
             elif sig in msg_lower or msg_lower in sig:
                 score += 50
 
-            # Word overlap (excluding stopwords) — use extracted
+            # Word overlap (excluding stopwords) - use extracted
             sig_words = set(re.split(r"\W+", sig))
             msg_words = set(re.split(r"\W+", ext_lower))
             overlap = (sig_words & msg_words) - _STOPWORDS
@@ -409,12 +409,12 @@ def main():
 
         print("\n  DEAD ENDS (do NOT try):")
         for d in m["dead_ends"]:
-            print(f"    X {d['action']} — fails {int(d['fail_rate']*100)}%")
+            print(f"    X {d['action']} - fails {int(d['fail_rate']*100)}%")
             print(f"      {d['why_fails']}")
 
         print("\n  WORKAROUNDS (try these):")
         for w in m["workarounds"]:
-            print(f"    > {w['action']} — works {int(w['success_rate']*100)}%")
+            print(f"    > {w['action']} - works {int(w['success_rate']*100)}%")
             if w["how"]:
                 print(f"      {w['how']}")
 

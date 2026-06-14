@@ -48,7 +48,7 @@
     {
       "action": "Add --add-opens flags for the specific module/package combinations needed",
       "success_rate": 0.9,
-      "how": "1. Read the error message — it specifies the module and package (e.g., 'module java.base does not opens java.lang to unnamed module'). 2. Add --add-opens java.base/java.lang=ALL-UNNAMED to JVM arguments. 3. For Spring/Hibernate on JDK 17, common flags: --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED. 4. Add these to your application startup script or JAVA_OPTS environment variable.",
+      "how": "1. Read the error message - it specifies the module and package (e.g., 'module java.base does not opens java.lang to unnamed module'). 2. Add --add-opens java.base/java.lang=ALL-UNNAMED to JVM arguments. 3. For Spring/Hibernate on JDK 17, common flags: --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED. 4. Add these to your application startup script or JAVA_OPTS environment variable.",
       "sources": [],
       "condition": ""
     },

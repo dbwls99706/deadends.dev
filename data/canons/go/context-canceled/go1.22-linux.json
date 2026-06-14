@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Ignore the context cancellation and retry immediately",
-      "why_fails": "If the parent context is canceled, all child contexts are also canceled — retrying with the same context will fail instantly",
+      "why_fails": "If the parent context is canceled, all child contexts are also canceled - retrying with the same context will fail instantly",
       "fail_rate": 0.80,
       "sources": [
         "https://pkg.go.dev/context#WithCancel"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Remove cancel() defer calls to prevent cancellation",
-      "why_fails": "Skipping cancel() causes resource leaks — the goroutine and its resources are never freed",
+      "why_fails": "Skipping cancel() causes resource leaks - the goroutine and its resources are never freed",
       "fail_rate": 0.75,
       "sources": [
         "https://pkg.go.dev/context"

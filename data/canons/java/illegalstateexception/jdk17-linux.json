@@ -48,7 +48,7 @@
     {
       "action": "Read the exception message to identify which state is expected vs. actual, then fix the method call ordering",
       "success_rate": 0.9,
-      "how": "1. Read the full exception message — it typically describes the expected state. 2. Trace the code to understand the state machine (e.g., for HTTP response: headers must be set before body is written). 3. Reorder method calls to match the expected lifecycle. 4. Common cases: call iterator.next() before iterator.remove(); ensure connection is open before executing queries; commit transaction before starting a new one.",
+      "how": "1. Read the full exception message - it typically describes the expected state. 2. Trace the code to understand the state machine (e.g., for HTTP response: headers must be set before body is written). 3. Reorder method calls to match the expected lifecycle. 4. Common cases: call iterator.next() before iterator.remove(); ensure connection is open before executing queries; commit transaction before starting a new one.",
       "sources": [],
       "condition": ""
     },

@@ -25,12 +25,12 @@
     "fix_success_rate": 0.85,
     "confidence": 0.85,
     "last_updated": "2026-04-15",
-    "summary": "China's 240-hour Transit Without Visa (TWOV, 过境免签, expanded December 2024) lets nationals of 54 countries transit through 60+ Chinese ports for up to 10 days, provided they hold an onward ticket to a third country (NOT the country of origin). Separately, full visa-free entry of up to 30 days now applies to several countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR — list expanded several times in 2024-2025). Verify each nationality + entry mode separately."
+    "summary": "China's 240-hour Transit Without Visa (TWOV, 过境免签, expanded December 2024) lets nationals of 54 countries transit through 60+ Chinese ports for up to 10 days, provided they hold an onward ticket to a third country (NOT the country of origin). Separately, full visa-free entry of up to 30 days now applies to several countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR - list expanded several times in 2024-2025). Verify each nationality + entry mode separately."
   },
   "dead_ends": [
     {
       "action": "Tell a US passport holder they qualify for China's full 30-day visa-free entry",
-      "why_fails": "As of 2025, the 30-day mutual visa-free arrangement applies to specific countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR, ...) — list updated frequently by NIA. US is NOT on the visa-free list (still requires L visa or 240-hour TWOV transit). Confirm at NIA en.nia.gov.cn before each trip.",
+      "why_fails": "As of 2025, the 30-day mutual visa-free arrangement applies to specific countries (FR, DE, IT, NL, ES, MY, SG, NZ, AU, JP, KR, ...) - list updated frequently by NIA. US is NOT on the visa-free list (still requires L visa or 240-hour TWOV transit). Confirm at NIA en.nia.gov.cn before each trip.",
       "fail_rate": 0.85,
       "sources": [
         "https://en.nia.gov.cn/",
@@ -59,7 +59,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check the current visa-free list at en.nia.gov.cn before each trip — list expanded multiple times in 2024 and may continue to. Verify your nationality + intended duration + ports of entry.",
+      "action": "Check the current visa-free list at en.nia.gov.cn before each trip - list expanded multiple times in 2024 and may continue to. Verify your nationality + intended duration + ports of entry.",
       "success_rate": 0.95,
       "sources": [
         "https://en.nia.gov.cn/"

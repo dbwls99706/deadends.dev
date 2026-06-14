@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Switch to a different AWS service",
-      "why_fails": "Likely a temporary issue — switching services is a massive change",
+      "why_fails": "Likely a temporary issue - switching services is a massive change",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/api-retries.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Increase request timeout",
-      "why_fails": "The service is unavailable — waiting longer per-request doesn't help",
+      "why_fails": "The service is unavailable - waiting longer per-request doesn't help",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/api-retries.html"

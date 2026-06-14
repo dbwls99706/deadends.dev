@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable mixed content blocking in browser developer settings",
-      "why_fails": "Browser mixed content restrictions cannot be permanently disabled in production environments—only in local developer tools. End users will still see blocked content. Chrome removed the option to allow mixed content per-site in 2021, so this is not a viable workaround for any real user.",
+      "why_fails": "Browser mixed content restrictions cannot be permanently disabled in production environments-only in local developer tools. End users will still see blocked content. Chrome removed the option to allow mixed content per-site in 2021, so this is not a viable workaround for any real user.",
       "fail_rate": 0.98,
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"
@@ -57,7 +57,7 @@
     {
       "action": "Audit and rewrite all HTTP asset URLs to HTTPS in templates, CSS, and CMS content",
       "success_rate": 0.94,
-      "how": "1. Open browser DevTools → Console and filter for 'Mixed Content' errors to identify all HTTP resources\n2. Run: grep -r 'http://' templates/ static/ --include='*.html' --include='*.css' --include='*.js'\n3. Replace hardcoded http:// URLs with https:// for resources that support HTTPS\n4. For CMS content (WordPress, etc.), run a database search-and-replace: UPDATE wp_posts SET post_content = REPLACE(post_content, 'http://your-cdn.com', 'https://your-cdn.com')\n5. Use protocol-relative URLs (//example.com/resource) only as a last resort—they inherit the page protocol\n6. Verify with: curl -s https://yoursite.com | grep -o 'src=\"http://[^\"]*\"'",
+      "how": "1. Open browser DevTools → Console and filter for 'Mixed Content' errors to identify all HTTP resources\n2. Run: grep -r 'http://' templates/ static/ --include='*.html' --include='*.css' --include='*.js'\n3. Replace hardcoded http:// URLs with https:// for resources that support HTTPS\n4. For CMS content (WordPress, etc.), run a database search-and-replace: UPDATE wp_posts SET post_content = REPLACE(post_content, 'http://your-cdn.com', 'https://your-cdn.com')\n5. Use protocol-relative URLs (//example.com/resource) only as a last resort-they inherit the page protocol\n6. Verify with: curl -s https://yoursite.com | grep -o 'src=\"http://[^\"]*\"'",
       "sources": [
         "https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"
       ],

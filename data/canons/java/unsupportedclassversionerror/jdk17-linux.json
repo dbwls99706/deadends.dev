@@ -55,7 +55,7 @@
     {
       "action": "Set the build tool to cross-compile to the target JRE's bytecode version",
       "success_rate": 0.88,
-      "how": "1. In Maven, set <maven.compiler.release>17</maven.compiler.release> in pom.xml to target JDK 17 bytecode. 2. In Gradle, set java { toolchain { languageVersion = JavaLanguageVersion.of(17) } } to compile for JDK 17. 3. This only works for your own code — ensure all dependencies also target the same or lower bytecode version. 4. The --release flag is preferred over -source/-target as it also checks API compatibility.",
+      "how": "1. In Maven, set <maven.compiler.release>17</maven.compiler.release> in pom.xml to target JDK 17 bytecode. 2. In Gradle, set java { toolchain { languageVersion = JavaLanguageVersion.of(17) } } to compile for JDK 17. 3. This only works for your own code - ensure all dependencies also target the same or lower bytecode version. 4. The --release flag is preferred over -source/-target as it also checks API compatibility.",
       "sources": [],
       "condition": "when you control the compilation but not the runtime"
     }

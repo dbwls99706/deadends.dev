@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Copy module source manually into .terraform/",
-      "why_fails": "Terraform manages .terraform/ — manual changes will be overwritten",
+      "why_fails": "Terraform manages .terraform/ - manual changes will be overwritten",
       "fail_rate": 0.85,
       "sources": [
         "https://developer.hashicorp.com/terraform/cli/commands/init"

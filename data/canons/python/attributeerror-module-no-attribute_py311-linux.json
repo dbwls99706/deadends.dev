@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Reinstall the package",
-      "why_fails": "Usually not a package issue — it's a naming conflict in your project",
+      "why_fails": "Usually not a package issue - it's a naming conflict in your project",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.python.org/3/reference/import.html"
@@ -56,7 +56,7 @@
       "condition": ""
     },
     {
-      "action": "Check the module version — attribute may have been added/removed in an update",
+      "action": "Check the module version - attribute may have been added/removed in an update",
       "success_rate": 0.88,
       "how": "python -c 'import module; print(module.__version__)'",
       "sources": [

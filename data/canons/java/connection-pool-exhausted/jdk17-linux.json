@@ -48,7 +48,7 @@
     {
       "action": "Enable HikariCP leak detection to find unclosed connections",
       "success_rate": 0.9,
-      "how": "1. Set leakDetectionThreshold in HikariCP config (e.g., 30000 for 30 seconds). 2. Run the application under load — HikariCP will log stack traces of code that borrowed a connection and did not return it within the threshold. 3. Fix the leak by ensuring every connection/statement/resultset is closed in a try-with-resources block. 4. Verify the fix by monitoring active connection count.",
+      "how": "1. Set leakDetectionThreshold in HikariCP config (e.g., 30000 for 30 seconds). 2. Run the application under load - HikariCP will log stack traces of code that borrowed a connection and did not return it within the threshold. 3. Fix the leak by ensuring every connection/statement/resultset is closed in a try-with-resources block. 4. Verify the fix by monitoring active connection count.",
       "sources": [],
       "condition": ""
     },

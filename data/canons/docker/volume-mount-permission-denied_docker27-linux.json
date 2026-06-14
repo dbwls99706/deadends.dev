@@ -36,7 +36,7 @@
     },
     {
       "action": "chmod 777 on host directory",
-      "why_fails": "Major security risk — opens directory to all users",
+      "why_fails": "Major security risk - opens directory to all users",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.docker.com/engine/storage/volumes/"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap every URL in try/catch",
-      "why_fails": "Hides the real issue — the URL source is producing bad data",
+      "why_fails": "Hides the real issue - the URL source is producing bad data",
       "fail_rate": 0.65,
       "sources": [
         "https://nodejs.org/api/url.html#new-urlinput-base"

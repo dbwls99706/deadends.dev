@@ -24,7 +24,7 @@
   "dead_ends": [
     {
       "action": "Suggest sharing human food with dogs without checking toxicity",
-      "why_fails": "Xylitol (in sugar-free gum, peanut butter, toothpaste): causes rapid insulin release, liver failure — lethal in small amounts. Grapes/raisins: acute kidney failure, mechanism unknown — even one grape can be fatal. Chocolate: theobromine poisoning, especially dark chocolate. Onions/garlic: hemolytic anemia.",
+      "why_fails": "Xylitol (in sugar-free gum, peanut butter, toothpaste): causes rapid insulin release, liver failure - lethal in small amounts. Grapes/raisins: acute kidney failure, mechanism unknown - even one grape can be fatal. Chocolate: theobromine poisoning, especially dark chocolate. Onions/garlic: hemolytic anemia.",
       "fail_rate": 0.90,
       "sources": [],
       "condition": "Dog feeding advice"
@@ -45,7 +45,7 @@
       "condition": "Dog feeding safety"
     },
     {
-      "action": "If dog ingests toxic food: note what was eaten and how much, call vet or pet poison helpline immediately, do NOT induce vomiting unless instructed by vet. Time is critical — especially for xylitol (30 minutes to liver failure).",
+      "action": "If dog ingests toxic food: note what was eaten and how much, call vet or pet poison helpline immediately, do NOT induce vomiting unless instructed by vet. Time is critical - especially for xylitol (30 minutes to liver failure).",
       "success_rate": 0.90,
       "sources": [],
       "condition": "Dog poisoning emergency"

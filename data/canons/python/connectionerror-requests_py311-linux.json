@@ -37,7 +37,7 @@
     },
     {
       "action": "Disable SSL verification",
-      "why_fails": "ConnectionError is not an SSL error — wrong fix",
+      "why_fails": "ConnectionError is not an SSL error - wrong fix",
       "fail_rate": 0.8,
       "sources": [
         "https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification"

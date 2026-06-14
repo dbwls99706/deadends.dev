@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-997-998-not-911/ae",
+  "url": "https://deadends.dev/emergency/999-997-998-not-911/ae",
+  "error": {
+    "signature": "AI tells someone in the United Arab Emirates to call 911 in an emergency",
+    "regex": "(911.*ae|the.united.arab.emirates.*emergency|emergency.*number.*the)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "the United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "The UAE does not use 911. Dial 999 for police, 997 for fire (Civil Defence), and 998 for ambulance. 112 also works from mobile phones. All are free and have English support."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in the United Arab Emirates expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in the United Arab Emirates. Police is 999, fire is 997, and ambulance is 998. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/emergencies-and-accidents",
+        "https://u.ae/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Dial 999 for an ambulance",
+      "why_fails": "999 is police; ambulances are dispatched on 998. While services coordinate, dialing 998 directly for medical emergencies is faster.",
+      "fail_rate": 0.4,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the United Arab Emirates's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 999. Fire / Civil Defence: 997. Ambulance: 998. From mobile: 112.",
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/emergencies-and-accidents",
+        "https://u.ae/"
+      ]
+    },
+    {
+      "action": "From a mobile you can dial 112 for any emergency; English-speaking operators are available.",
+      "success_rate": 0.85,
+      "how": "112 from a mobile routes to emergency services with English support across all emirates.",
+      "tradeoff": "112 is mobile-oriented; from a landline use 999/997/998."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

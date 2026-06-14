@@ -22,7 +22,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.96,
     "last_updated": "2026-02-11",
-    "summary": "Git cannot automatically merge changes — both branches modified the same lines."
+    "summary": "Git cannot automatically merge changes - both branches modified the same lines."
   },
   "dead_ends": [
     {
@@ -53,7 +53,7 @@
       "condition": ""
     },
     {
-      "action": "Use a merge tool: git mergetool — opens a visual diff/merge editor",
+      "action": "Use a merge tool: git mergetool - opens a visual diff/merge editor",
       "success_rate": 0.9,
       "how": "Configure with: git config merge.tool vimdiff",
       "sources": [

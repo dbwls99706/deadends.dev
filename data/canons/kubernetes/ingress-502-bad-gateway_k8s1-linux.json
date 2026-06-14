@@ -46,7 +46,7 @@
       "how": "kubectl get ep <service>"
     },
     {
-      "action": "Check pod readiness — unready pods are removed from endpoints",
+      "action": "Check pod readiness - unready pods are removed from endpoints",
       "success_rate": 0.9,
       "how": "kubectl get pods -o wide\nkubectl describe endpoints <service-name>",
       "sources": [

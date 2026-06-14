@@ -48,14 +48,14 @@
     {
       "action": "Identify and fix the classloader leak using JVM diagnostic tools",
       "success_rate": 0.82,
-      "how": "1. Add -verbose:class to JVM args to log class loading/unloading. 2. Monitor Metaspace usage with 'jstat -gc <pid>'. 3. Take a heap dump and analyze classloader instances in Eclipse MAT — look for duplicate classloaders or classloaders with unexpectedly many loaded classes. 4. Common culprits: ThreadLocal values holding references to webapp classloaders, JDBC driver registration not cleaned up on undeploy, logging frameworks caching classloader references. 5. Fix by properly cleaning up resources in servlet context listeners or @PreDestroy methods.",
+      "how": "1. Add -verbose:class to JVM args to log class loading/unloading. 2. Monitor Metaspace usage with 'jstat -gc <pid>'. 3. Take a heap dump and analyze classloader instances in Eclipse MAT - look for duplicate classloaders or classloaders with unexpectedly many loaded classes. 4. Common culprits: ThreadLocal values holding references to webapp classloaders, JDBC driver registration not cleaned up on undeploy, logging frameworks caching classloader references. 5. Fix by properly cleaning up resources in servlet context listeners or @PreDestroy methods.",
       "sources": [],
       "condition": ""
     },
     {
       "action": "Reduce dynamic class generation by using method handles or interface-based proxies instead of CGLIB/byte-code generation",
       "success_rate": 0.78,
-      "how": "1. If using Spring, prefer JDK dynamic proxies (interface-based) over CGLIB proxies: set spring.aop.proxy-target-class=false. 2. If using Groovy/scripting, cache compiled scripts instead of recompiling on each invocation. 3. For reflection-heavy code, use java.lang.invoke.MethodHandle instead of Method.invoke() — MethodHandles use less Metaspace. 4. Set -XX:MaxMetaspaceSize to a reasonable limit (e.g., 256m-512m) so leaks surface quickly rather than consuming all system memory.",
+      "how": "1. If using Spring, prefer JDK dynamic proxies (interface-based) over CGLIB proxies: set spring.aop.proxy-target-class=false. 2. If using Groovy/scripting, cache compiled scripts instead of recompiling on each invocation. 3. For reflection-heavy code, use java.lang.invoke.MethodHandle instead of Method.invoke() - MethodHandles use less Metaspace. 4. Set -XX:MaxMetaspaceSize to a reasonable limit (e.g., 256m-512m) so leaks surface quickly rather than consuming all system memory.",
       "sources": [],
       "condition": ""
     }

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Check for nil before every map write",
-      "why_fails": "Verbose and error-prone — just initialize the map",
+      "why_fails": "Verbose and error-prone - just initialize the map",
       "fail_rate": 0.7,
       "sources": [
         "https://go.dev/blog/maps"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use sync.Map for all maps",
-      "why_fails": "sync.Map is for concurrent access — overkill for single-goroutine use",
+      "why_fails": "sync.Map is for concurrent access - overkill for single-goroutine use",
       "fail_rate": 0.65,
       "sources": [
         "https://pkg.go.dev/sync#Map"

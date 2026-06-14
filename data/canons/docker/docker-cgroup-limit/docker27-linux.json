@@ -48,7 +48,7 @@
     {
       "action": "Increase the container memory limit: docker run -m 2g",
       "success_rate": 0.9,
-      "how": "docker run -m 2g --memory-swap 4g <image> — sets 2GB RAM limit with 4GB total (including swap)",
+      "how": "docker run -m 2g --memory-swap 4g <image> - sets 2GB RAM limit with 4GB total (including swap)",
       "sources": [
         "https://docs.docker.com/config/containers/resource_constraints/"
       ],

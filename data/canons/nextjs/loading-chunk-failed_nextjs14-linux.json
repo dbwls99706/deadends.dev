@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Disable code splitting",
-      "why_fails": "Destroys performance — one huge bundle",
+      "why_fails": "Destroys performance - one huge bundle",
       "fail_rate": 0.8,
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Force reload on every navigation",
-      "why_fails": "Terrible UX — kills SPA behavior",
+      "why_fails": "Terrible UX - kills SPA behavior",
       "fail_rate": 0.75,
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/deploying"

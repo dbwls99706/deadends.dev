@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Adding the missing method to your own code when the error is in a third-party library",
-      "why_fails": "The error occurs because two versions of the same library disagree on a method signature. Writing your own version of the method does not fix the root cause — the wrong version of the library is on the classpath. The caller expects the method to be in the specific library class, not in your code.",
+      "why_fails": "The error occurs because two versions of the same library disagree on a method signature. Writing your own version of the method does not fix the root cause - the wrong version of the library is on the classpath. The caller expects the method to be in the specific library class, not in your code.",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/NoSuchMethodError.html"

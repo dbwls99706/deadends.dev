@@ -36,7 +36,7 @@
     },
     {
       "action": "Use useRef to track which hooks to skip",
-      "why_fails": "Over-engineering — just follow Rules of Hooks",
+      "why_fails": "Over-engineering - just follow Rules of Hooks",
       "fail_rate": 0.75,
       "sources": [
         "https://react.dev/reference/react/useRef"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Hooks must be called in the same order every render — move conditionals INSIDE hooks, not around them",
+      "action": "Hooks must be called in the same order every render - move conditionals INSIDE hooks, not around them",
       "success_rate": 0.95,
       "how": "// Bad: if (cond) { useState(...) }\n// Good: const [val] = useState(cond ? x : y)",
       "sources": [
@@ -64,13 +64,13 @@
       "how": "// Split:\nfunction Wrapper({ showEditor }) {\n  if (!showEditor) return <Preview />;\n  return <Editor />;  // Editor uses its own hooks internally\n}\nfunction Editor() {\n  const [text, setText] = useState('');  // Hook always called\n}"
     },
     {
-      "action": "Check for early returns before hooks — all hooks must run before any return",
+      "action": "Check for early returns before hooks - all hooks must run before any return",
       "success_rate": 0.9,
       "sources": [
         "https://react.dev/reference/rules/rules-of-hooks"
       ],
       "condition": "",
-      "how": "Check for early returns before hooks — all hooks must run before any return"
+      "how": "Check for early returns before hooks - all hooks must run before any return"
     }
   ],
   "transition_graph": {

@@ -3,7 +3,7 @@
   "id": "node/require-hyphenated-local-folder/node20-any",
   "url": "https://deadends.dev/node/require-hyphenated-local-folder/node20-any",
   "error": {
-    "signature": "Cannot find module './my-component' — hyphenated folder misresolved or confused with npm scope",
+    "signature": "Cannot find module './my-component' - hyphenated folder misresolved or confused with npm scope",
     "regex": "Cannot find module.*-|MODULE_NOT_FOUND.*-|ERR_MODULE_NOT_FOUND.*hyphen",
     "domain": "node",
     "category": "naming",

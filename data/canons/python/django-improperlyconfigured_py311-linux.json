@@ -37,7 +37,7 @@
     },
     {
       "action": "Import settings directly from the file",
-      "why_fails": "Bypasses Django's settings machinery — may miss configured apps",
+      "why_fails": "Bypasses Django's settings machinery - may miss configured apps",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.djangoproject.com/en/5.0/topics/settings/"

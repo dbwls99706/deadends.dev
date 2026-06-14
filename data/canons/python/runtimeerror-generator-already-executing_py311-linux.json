@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Use threading lock on the generator",
-      "why_fails": "Generators are not thread-safe by design — restructure instead",
+      "why_fails": "Generators are not thread-safe by design - restructure instead",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/reference/expressions.html#generator-expressions"

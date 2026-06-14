@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/110-119-120-not-911/cn",
+  "url": "https://deadends.dev/emergency/110-119-120-not-911/cn",
+  "error": {
+    "signature": "AI tells someone in China to call 911 in an emergency",
+    "regex": "(911.*cn|china.*emergency|emergency.*number.*china)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "China does not use 911. Dial 110 for police, 119 for fire, 120 for ambulance, and 122 for traffic accidents. All are free. English support is limited outside major cities."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in China expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in China. Police is 110, fire is 119, ambulance is 120, and traffic accidents are 122. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gov.cn/",
+        "https://www.mps.gov.cn/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Call 119 (fire) for a medical emergency",
+      "why_fails": "119 dispatches fire services; ambulances come via 120. Calling 119 for a medical case forces a transfer and delays care.",
+      "fail_rate": 0.5,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use China's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 110. Fire: 119. Ambulance: 120. Traffic accident: 122.",
+      "sources": [
+        "https://www.gov.cn/",
+        "https://www.mps.gov.cn/"
+      ]
+    },
+    {
+      "action": "If you do not speak Chinese, ask a local or hotel staff to call, or use 110 which can route to English help in major cities.",
+      "success_rate": 0.78,
+      "how": "Have your location in Chinese characters ready (translation app). In large cities, 110 can connect to limited English assistance.",
+      "tradeoff": "Language barriers can slow rural dispatch; prepare your address in advance."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

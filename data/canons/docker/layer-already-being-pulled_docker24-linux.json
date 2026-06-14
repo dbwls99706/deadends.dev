@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Wait for the other pull to complete — this is expected behavior during parallel pulls",
+      "action": "Wait for the other pull to complete - this is expected behavior during parallel pulls",
       "success_rate": 0.9,
       "how": "Docker daemon serializes layer downloads; the second pull reuses the first's result",
       "sources": [],

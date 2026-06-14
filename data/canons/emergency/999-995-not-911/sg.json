@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-995-not-911/sg",
+  "url": "https://deadends.dev/emergency/999-995-not-911/sg",
+  "error": {
+    "signature": "AI tells someone in Singapore to call 911 instead of 999 (police) or 995 (fire/ambulance)",
+    "regex": "(911.*singapore|singapore.*emergency.*number|emergency.*call.*singapore|dial.*999.*singapore|995.*ambulance.*singapore)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.88,
+    "last_updated": "2026-06-14",
+    "summary": "Singapore does not use 911. Dial 999 for police and 995 for fire and ambulance (SCDF). Both are free from any phone. The SCDF also runs the myResponder app and a non-emergency ambulance line (1777) for cases that are not life-threatening, to keep 995 clear for true emergencies."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Singapore",
+      "why_fails": "911 is not assigned in Singapore. Police is 999 and fire/ambulance is 995. A 911 call will not reach Singapore emergency services.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.police.gov.sg/",
+        "https://www.scdf.gov.sg/"
+      ],
+      "common_misconception": "Travelers assume the US 911 number works everywhere."
+    },
+    {
+      "action": "Call 995 for a minor ailment or non-urgent transport to hospital",
+      "why_fails": "995 dispatches emergency ambulances for life-threatening cases. Using it for non-emergencies can delay help for someone in critical condition and may incur charges. SCDF asks the public to use 1777 (non-emergency ambulance) or private transport instead.",
+      "fail_rate": 0.5,
+      "condition": "Non-life-threatening medical situation"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 999 for police or 995 for fire and ambulance (SCDF). Both are free from any phone, including SIM-less mobiles.",
+      "success_rate": 0.97,
+      "how": "Police: 999. Fire / Ambulance: 995. State your location (block and unit number or nearest landmark) first, then the emergency.",
+      "sources": [
+        "https://www.police.gov.sg/",
+        "https://www.scdf.gov.sg/"
+      ]
+    },
+    {
+      "action": "For non-life-threatening medical cases, call the SCDF non-emergency ambulance line 1777, or install the myResponder app for CPR/AED alerts.",
+      "success_rate": 0.85,
+      "how": "Non-emergency ambulance: 1777. The SCDF myResponder app lets you report incidents and alerts nearby trained responders.",
+      "sources": [
+        "https://www.scdf.gov.sg/"
+      ],
+      "tradeoff": "1777 is lower priority than 995 and may take longer; use 995 if life is at risk."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

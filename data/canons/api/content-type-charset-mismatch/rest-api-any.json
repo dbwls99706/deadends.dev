@@ -3,7 +3,7 @@
   "id": "api/content-type-charset-mismatch/rest-api-any",
   "url": "https://deadends.dev/api/content-type-charset-mismatch/rest-api-any",
   "error": {
-    "signature": "Response body garbled — Content-Type charset mismatch",
+    "signature": "Response body garbled - Content-Type charset mismatch",
     "regex": "Content-Type.*charset.*mismatch|garbled|mojibake",
     "domain": "api",
     "category": "encoding",

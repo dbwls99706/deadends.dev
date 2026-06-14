@@ -48,7 +48,7 @@
     {
       "action": "Run kustomize build with verbose output to identify the exact failing resource",
       "success_rate": 0.90,
-      "how": "kustomize build . --enable-alpha-plugins 2>&1 | head -50 — check each listed resource path exists",
+      "how": "kustomize build . --enable-alpha-plugins 2>&1 | head -50 - check each listed resource path exists",
       "sources": [
         "https://kubectl.docs.kubernetes.io/references/kustomize/"
       ],
@@ -57,7 +57,7 @@
     {
       "action": "Verify all referenced resources, bases, and overlays exist at the correct paths",
       "success_rate": 0.88,
-      "how": "Check kustomization.yaml resources: list — ensure each file/directory exists and each remote URL is accessible",
+      "how": "Check kustomization.yaml resources: list - ensure each file/directory exists and each remote URL is accessible",
       "sources": [
         "https://kubectl.docs.kubernetes.io/references/kustomize/"
       ],

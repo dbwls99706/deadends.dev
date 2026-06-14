@@ -66,7 +66,7 @@
     {
       "action": "Submit to HSTS preload list only after all subdomains are HTTPS-ready",
       "success_rate": 0.85,
-      "how": "1. Audit all subdomains: for sub in www api staging mail; do curl -I https://$sub.yourdomain.com 2>&1 | head -3; done\n2. Ensure ALL subdomains have valid HTTPS certificates (or decommission HTTP-only ones)\n3. Set the full preload header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload\n4. Validate at https://hstspreload.org/ (checks all requirements automatically)\n5. Submit via https://hstspreload.org/ once the checker shows all green\n6. Note: removal requests take 6-12 months to propagate—be certain before submitting",
+      "how": "1. Audit all subdomains: for sub in www api staging mail; do curl -I https://$sub.yourdomain.com 2>&1 | head -3; done\n2. Ensure ALL subdomains have valid HTTPS certificates (or decommission HTTP-only ones)\n3. Set the full preload header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload\n4. Validate at https://hstspreload.org/ (checks all requirements automatically)\n5. Submit via https://hstspreload.org/ once the checker shows all green\n6. Note: removal requests take 6-12 months to propagate-be certain before submitting",
       "sources": [
         "https://hstspreload.org/"
       ],

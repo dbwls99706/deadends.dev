@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Manually edit generated .pb.go files to fix type mismatches",
-      "why_fails": "Generated files are overwritten on next protoc run — manual edits are lost and the underlying .proto mismatch remains",
+      "why_fails": "Generated files are overwritten on next protoc run - manual edits are lost and the underlying .proto mismatch remains",
       "fail_rate": 0.95,
       "sources": [
         "https://protobuf.dev/reference/go/go-generated/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Mix google.golang.org/protobuf and github.com/golang/protobuf v1 APIs",
-      "why_fails": "The two protobuf Go API versions generate incompatible types — mixing them causes type assertion failures",
+      "why_fails": "The two protobuf Go API versions generate incompatible types - mixing them causes type assertion failures",
       "fail_rate": 0.80,
       "sources": [
         "https://pkg.go.dev/google.golang.org/protobuf"

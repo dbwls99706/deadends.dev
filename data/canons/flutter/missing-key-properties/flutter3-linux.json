@@ -36,7 +36,7 @@
     },
     {
       "action": "Use index as key in a list (Key(index.toString()))",
-      "why_fails": "Index-based keys break when items are reordered, inserted, or deleted — state attaches to wrong items",
+      "why_fails": "Index-based keys break when items are reordered, inserted, or deleted - state attaches to wrong items",
       "fail_rate": 0.78,
       "sources": [
         "https://docs.flutter.dev/testing/debugging"

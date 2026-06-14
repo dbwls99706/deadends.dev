@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Retry the same request",
-      "why_fails": "Validation errors are deterministic — same request will always fail",
+      "why_fails": "Validation errors are deterministic - same request will always fail",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/api-retries.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Upgrade AWS CLI version",
-      "why_fails": "Validation happens server-side — CLI version rarely matters",
+      "why_fails": "Validation happens server-side - CLI version rarely matters",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Read the full error message — it usually tells you exactly which parameter is invalid",
+      "action": "Read the full error message - it usually tells you exactly which parameter is invalid",
       "success_rate": 0.95,
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/error-responses.html"

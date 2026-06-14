@@ -25,7 +25,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.9,
     "last_updated": "2026-04-14",
-    "summary": "Japanese train etiquette: phones on silent (マナーモード, manner mode), no calls inside the cabin, low-volume conversation only. Eating discouraged on commuter trains (acceptable on Shinkansen and limited express). Priority seats (優先席) are designated for elderly, pregnant, disabled, parents with infants — phones must be turned OFF (not silent) near them in many lines (older policy; many lines now relaxed to 'silent'). Pushing onto crowded trains during rush requires near-silence."
+    "summary": "Japanese train etiquette: phones on silent (マナーモード, manner mode), no calls inside the cabin, low-volume conversation only. Eating discouraged on commuter trains (acceptable on Shinkansen and limited express). Priority seats (優先席) are designated for elderly, pregnant, disabled, parents with infants - phones must be turned OFF (not silent) near them in many lines (older policy; many lines now relaxed to 'silent'). Pushing onto crowded trains during rush requires near-silence."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Eat a smelly food (ramen, kimchi, tonkatsu sandwich) on a commuter train at lunch hour",
-      "why_fails": "Eating on commuter trains is mostly avoided — Yamanote, Tokyo Metro, Osaka subway etc. Smell-heavy foods especially frowned upon. Acceptable on Shinkansen (eki-ben culture), limited express (Romance Car, Odoriko), and some long-distance JR.",
+      "why_fails": "Eating on commuter trains is mostly avoided - Yamanote, Tokyo Metro, Osaka subway etc. Smell-heavy foods especially frowned upon. Acceptable on Shinkansen (eki-ben culture), limited express (Romance Car, Odoriko), and some long-distance JR.",
       "fail_rate": 0.65,
       "sources": [
         "https://www.tokyometro.jp/en/manners/"
@@ -49,7 +49,7 @@
     },
     {
       "action": "Sit in a priority seat (優先席, often near doors) and leave phone screen-on / vibrating",
-      "why_fails": "Priority seats are reserved for elderly, pregnant, disabled, injured, parents with infants. Sitting is OK if no one matching the criteria is present, but yield immediately if they board. Phone policy near priority seats varies — older signs say 'OFF', newer say 'manner mode'; safer default to fully off.",
+      "why_fails": "Priority seats are reserved for elderly, pregnant, disabled, injured, parents with infants. Sitting is OK if no one matching the criteria is present, but yield immediately if they board. Phone policy near priority seats varies - older signs say 'OFF', newer say 'manner mode'; safer default to fully off.",
       "fail_rate": 0.55,
       "sources": [
         "https://www.tokyometro.jp/en/manners/",

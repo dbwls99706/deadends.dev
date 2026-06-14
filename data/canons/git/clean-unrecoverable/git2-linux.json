@@ -3,7 +3,7 @@
   "id": "git/clean-unrecoverable/git2-linux",
   "url": "https://deadends.dev/git/clean-unrecoverable/git2-linux",
   "error": {
-    "signature": "Removing <path>... — git clean permanently deleted untracked files",
+    "signature": "Removing <path>... - git clean permanently deleted untracked files",
     "regex": "(?:Removing .+|git clean.*-(?:f|fd|fdx)|Would remove .+)",
     "domain": "git",
     "category": "data_loss",

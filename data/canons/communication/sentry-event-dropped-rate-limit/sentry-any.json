@@ -3,7 +3,7 @@
   "id": "communication/sentry-event-dropped-rate-limit/sentry-any",
   "url": "https://deadends.dev/communication/sentry-event-dropped-rate-limit/sentry-any",
   "error": {
-    "signature": "Sentry events silently dropped — rate limit or quota exceeded",
+    "signature": "Sentry events silently dropped - rate limit or quota exceeded",
     "regex": "[Ss]entry.*rate.*limit|events.*dropped|quota.*exceeded|429.*sentry",
     "domain": "communication",
     "category": "observability",

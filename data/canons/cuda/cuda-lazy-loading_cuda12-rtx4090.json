@@ -31,7 +31,7 @@
   "dead_ends": [
     {
       "action": "Set CUDA_MODULE_LOADING=EAGER",
-      "why_fails": "EAGER is the default — you want LAZY for better performance",
+      "why_fails": "EAGER is the default - you want LAZY for better performance",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html"

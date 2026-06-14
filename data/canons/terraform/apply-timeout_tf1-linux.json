@@ -36,7 +36,7 @@
     },
     {
       "action": "Increase timeout to a very large value",
-      "why_fails": "May work but hides the real issue — why is it so slow?",
+      "why_fails": "May work but hides the real issue - why is it so slow?",
       "fail_rate": 0.5,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/resources/syntax#operation-timeouts"
@@ -46,13 +46,13 @@
   ],
   "workarounds": [
     {
-      "action": "Check the resource in AWS Console — it may still be creating",
+      "action": "Check the resource in AWS Console - it may still be creating",
       "success_rate": 0.9,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/resources/syntax#operation-timeouts"
       ],
       "condition": "",
-      "how": "Check the resource in AWS Console — it may still be creating"
+      "how": "Check the resource in AWS Console - it may still be creating"
     },
     {
       "action": "Run terraform refresh to sync state, then terraform apply",

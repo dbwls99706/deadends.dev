@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use interface{} for all struct fields",
-      "why_fails": "Loses all type safety — every field needs type assertion",
+      "why_fails": "Loses all type safety - every field needs type assertion",
       "fail_rate": 0.75,
       "sources": [
         "https://pkg.go.dev/encoding/json#Unmarshal"
@@ -46,7 +46,7 @@
       "condition": ""
     },
     {
-      "action": "Match struct field types to actual JSON — use string if API sends strings",
+      "action": "Match struct field types to actual JSON - use string if API sends strings",
       "success_rate": 0.92,
       "sources": [
         "https://pkg.go.dev/encoding/json#Unmarshal"

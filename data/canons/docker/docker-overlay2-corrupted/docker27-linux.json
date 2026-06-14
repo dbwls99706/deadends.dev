@@ -48,7 +48,7 @@
     {
       "action": "Remove the affected image and re-pull it",
       "success_rate": 0.9,
-      "how": "docker rmi <image> && docker pull <image> — forces fresh download of all layers",
+      "how": "docker rmi <image> && docker pull <image> - forces fresh download of all layers",
       "sources": [
         "https://docs.docker.com/storage/storagedriver/overlayfs-driver/"
       ],
@@ -57,7 +57,7 @@
     {
       "action": "If widespread corruption, reset Docker storage entirely",
       "success_rate": 0.95,
-      "how": "sudo systemctl stop docker && sudo rm -rf /var/lib/docker/overlay2 && sudo systemctl start docker — WARNING: this removes all local images and containers",
+      "how": "sudo systemctl stop docker && sudo rm -rf /var/lib/docker/overlay2 && sudo systemctl start docker - WARNING: this removes all local images and containers",
       "sources": [
         "https://docs.docker.com/storage/storagedriver/overlayfs-driver/"
       ],

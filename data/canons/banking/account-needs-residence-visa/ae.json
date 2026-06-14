@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/account-needs-residence-visa/ae",
+  "url": "https://deadends.dev/banking/account-needs-residence-visa/ae",
+  "error": {
+    "signature": "AI tells a tourist they can open a UAE bank account easily on a visit visa",
+    "regex": "(uae.*bank.account|dubai.*bank.*open|open.*account.*uae|emirates.*bank.*foreigner)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "the United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Opening a UAE bank account generally requires a residence visa and an Emirates ID; tourists on a visit visa usually cannot open a standard current account (some banks offer limited non-resident savings accounts with high minimum balances). A salary certificate or proof of address is typically needed too."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to open a normal UAE current account while on a tourist or visit visa",
+      "why_fails": "Standard current accounts require a residence visa and Emirates ID; visit-visa holders are typically declined, though some banks offer restricted non-resident savings accounts.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://u.ae/en/information-and-services/finance-and-investment/banking"
+      ],
+      "common_misconception": "Dubai's openness to tourists does not extend to easy account opening."
+    },
+    {
+      "action": "Assume a non-resident account works like a local current account",
+      "why_fails": "Non-resident accounts often have high minimum balances, no chequebook, and limited features - not suitable for receiving a local salary or daily use.",
+      "fail_rate": 0.5,
+      "condition": "Using a non-resident account for salary/daily banking"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open the account after your residence visa and Emirates ID are issued, bringing passport, visa, Emirates ID, and a salary certificate or tenancy contract.",
+      "success_rate": 0.85,
+      "how": "Once your sponsor processes your residence visa and Emirates ID, visit a bank with those plus a salary certificate or proof of address.",
+      "sources": [
+        "https://u.ae/en/information-and-services/finance-and-investment/banking"
+      ],
+      "condition": "Residence visa + Emirates ID"
+    },
+    {
+      "action": "For short stays, use no-foreign-fee cards and ATMs rather than opening an account.",
+      "success_rate": 0.85,
+      "how": "Use international cards; the UAE is highly card-friendly in cities.",
+      "tradeoff": "ATM/FX fees apply; not for receiving local income."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

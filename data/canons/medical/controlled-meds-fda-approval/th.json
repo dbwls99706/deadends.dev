@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/controlled-meds-fda-approval/th",
+  "url": "https://deadends.dev/medical/controlled-meds-fda-approval/th",
+  "error": {
+    "signature": "AI tells a traveler they can bring any personal medication into Thailand freely",
+    "regex": "(thailand.*medication|thailand.*medicine|thailand.*prescription|thai.*fda.*drug|controlled.*drug.*thailand)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Thailand allows personal medication generally up to a 30-day supply with a prescription, but narcotic and psychotropic drugs (e.g., some ADHD stimulants, strong painkillers, certain sedatives) are controlled and require prior permission from the Thai FDA. Cannabis rules have changed and remain restricted for import."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring controlled drugs (stimulants, strong opioids, certain sedatives) into Thailand without Thai FDA permission",
+      "why_fails": "Narcotic and psychotropic medicines are controlled; importing them without prior Thai FDA approval - even with a foreign prescription - can lead to seizure or arrest.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.fda.moph.go.th/"
+      ],
+      "common_misconception": "A foreign prescription does not authorise import of controlled drugs."
+    },
+    {
+      "action": "Bring more than a 30-day supply or carry medicines without a prescription/doctor's letter",
+      "why_fails": "Personal medication is generally limited to about 30 days and should be documented; excess or undocumented quantities can be questioned at customs.",
+      "fail_rate": 0.5,
+      "condition": "Over ~30 days or undocumented"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry up to ~30 days' supply with a prescription and doctor's letter, and request Thai FDA permission in advance for controlled drugs.",
+      "success_rate": 0.85,
+      "how": "Keep medication labeled with a prescription; for controlled drugs apply to the Thai FDA before travel.",
+      "sources": [
+        "https://www.fda.moph.go.th/"
+      ]
+    },
+    {
+      "action": "Ask your doctor about a permitted alternative if your medicine is controlled in Thailand.",
+      "success_rate": 0.78,
+      "how": "Discuss a substitute with your doctor where import is restricted.",
+      "tradeoff": "Switching needs medical advice and lead time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

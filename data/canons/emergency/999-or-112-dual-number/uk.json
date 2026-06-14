@@ -59,7 +59,7 @@
   ],
   "workarounds": [
     {
-      "action": "Call 999 for any life-threatening emergency (or 112 — it works identically across the UK). State: service needed (police/fire/ambulance), location, nature of emergency.",
+      "action": "Call 999 for any life-threatening emergency (or 112 - it works identically across the UK). State: service needed (police/fire/ambulance), location, nature of emergency.",
       "success_rate": 0.98,
       "sources": [
         "https://www.gov.uk/call-999"
@@ -67,7 +67,7 @@
       "condition": "Life-threatening emergency"
     },
     {
-      "action": "If unable to speak, call 999 and press 55 when prompted — 'Silent Solution' triggers police response. Register your mobile in advance at emergencysms.org.uk to text 999.",
+      "action": "If unable to speak, call 999 and press 55 when prompted - 'Silent Solution' triggers police response. Register your mobile in advance at emergencysms.org.uk to text 999.",
       "success_rate": 0.85,
       "sources": [
         "https://www.policeconduct.gov.uk/research-and-learning/learning-recommendations/silent-solution",

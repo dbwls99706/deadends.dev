@@ -3,7 +3,7 @@
   "id": "kubernetes/pod-pending/k8s1-linux",
   "url": "https://deadends.dev/kubernetes/pod-pending/k8s1-linux",
   "error": {
-    "signature": "Pod status: Pending — 0/N nodes are available",
+    "signature": "Pod status: Pending - 0/N nodes are available",
     "regex": "0/\\d+ nodes are available|Insufficient (cpu|memory)|Unschedulable",
     "domain": "kubernetes",
     "category": "scheduling_error",

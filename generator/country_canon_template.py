@@ -98,7 +98,7 @@ SUPPORTED_COUNTRIES: dict[str, str] = {
     "hk": "Hong Kong",
 }
 
-# Who the guidance is aimed at — used for filtering and UI hints.
+# Who the guidance is aimed at - used for filtering and UI hints.
 VALID_AUDIENCES = frozenset({
     "traveler",
     "foreigner-resident",

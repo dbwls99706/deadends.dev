@@ -48,7 +48,7 @@
     {
       "action": "Read the compiler error output carefully and fix the specific source code issue",
       "success_rate": 0.92,
-      "how": "1. Look for the '[ERROR]' lines in Maven output — they contain the file path, line number, and error description. 2. Common errors: 'cannot find symbol' (missing import or dependency), 'incompatible types' (type mismatch), 'method does not override' (incorrect @Override). 3. Fix the source code error. 4. If the error references a class from a dependency, verify the dependency is declared in pom.xml with the correct groupId, artifactId, and version.",
+      "how": "1. Look for the '[ERROR]' lines in Maven output - they contain the file path, line number, and error description. 2. Common errors: 'cannot find symbol' (missing import or dependency), 'incompatible types' (type mismatch), 'method does not override' (incorrect @Override). 3. Fix the source code error. 4. If the error references a class from a dependency, verify the dependency is declared in pom.xml with the correct groupId, artifactId, and version.",
       "sources": [],
       "condition": ""
     },

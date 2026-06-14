@@ -22,7 +22,7 @@
     "fix_success_rate": 0.85,
     "confidence": 0.88,
     "last_updated": "2026-02-11",
-    "summary": "GPU kernel accessed invalid memory — buffer overrun, freed memory, or wrong tensor shape."
+    "summary": "GPU kernel accessed invalid memory - buffer overrun, freed memory, or wrong tensor shape."
   },
   "dead_ends": [
     {
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check tensor shapes and indices — off-by-one errors are the most common cause",
+      "action": "Check tensor shapes and indices - off-by-one errors are the most common cause",
       "success_rate": 0.88,
       "how": "Verify all indexing operations stay within tensor dimensions",
       "sources": [],

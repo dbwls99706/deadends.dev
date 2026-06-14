@@ -3,7 +3,7 @@
   "id": "git/config-email-autodetect/git2-linux",
   "url": "https://deadends.dev/git/config-email-autodetect/git2-linux",
   "error": {
-    "signature": "fatal: unable to auto-detect email address — git user.email not configured",
+    "signature": "fatal: unable to auto-detect email address - git user.email not configured",
     "regex": "(?:unable to auto-detect email address|Please tell me who you are|user\\.(?:email|name).*not set|Author identity unknown|Committer identity unknown)",
     "domain": "git",
     "category": "configuration_error",

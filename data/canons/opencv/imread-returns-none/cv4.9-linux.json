@@ -3,7 +3,7 @@
   "id": "opencv/imread-returns-none/cv4.9-linux",
   "url": "https://deadends.dev/opencv/imread-returns-none/cv4.9-linux",
   "error": {
-    "signature": "cv2.error: (-215:Assertion failed) !_src.empty() — imread returned None for valid file path",
+    "signature": "cv2.error: (-215:Assertion failed) !_src.empty() - imread returned None for valid file path",
     "regex": "(!_src\\.empty\\(\\)|imread.*None|imread.*returned None|image.*is empty|NoneType.*has no attribute.*shape)",
     "domain": "opencv",
     "category": "io_error",

@@ -45,7 +45,7 @@
     },
     {
       "action": "Adding class Config: orm_mode = True",
-      "why_fails": "In Pydantic v2, orm_mode was renamed to from_attributes in model_config. The old class Config with orm_mode is silently ignored — your model loses ORM support without any error or warning.",
+      "why_fails": "In Pydantic v2, orm_mode was renamed to from_attributes in model_config. The old class Config with orm_mode is silently ignored - your model loses ORM support without any error or warning.",
       "fail_rate": 0.88,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html"

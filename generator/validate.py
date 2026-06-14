@@ -73,7 +73,7 @@ def _canon_age_days(data: dict, reference_date: date | None = None) -> int | Non
 def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
     """Validate an ErrorCanon JSON object against the schema and business rules.
 
-    Returns (errors, warnings) — errors fail the build, warnings do not.
+    Returns (errors, warnings) - errors fail the build, warnings do not.
     """
     errors = []
     warnings = []
@@ -171,7 +171,7 @@ def validate_canon_json(data: dict) -> tuple[list[str], list[str]]:
     for i, de in enumerate(data.get("dead_ends", [])):
         if not de.get("sources"):
             warnings.append(
-                f"dead_ends[{i}] '{de['action']}' has no sources — "
+                f"dead_ends[{i}] '{de['action']}' has no sources - "
                 "consider adding evidence URLs"
             )
 
@@ -241,7 +241,7 @@ def staleness_summary(
         stale_ids.sort(key=lambda x: x[1], reverse=True)
         lines.append(f"\n  Top stale canons (>{STALE_THRESHOLD_DAYS} days):")
         for canon_id, age in stale_ids[:10]:
-            lines.append(f"    {canon_id} — {age} days")
+            lines.append(f"    {canon_id} - {age} days")
         if len(stale_ids) > 10:
             lines.append(f"    ... and {len(stale_ids) - 10} more")
 
@@ -426,13 +426,13 @@ def validate_all(
                     print(f"  FAIL: {canon_file}: Invalid JSON: {e}")
 
             if not skip_data_validation:
-                # Duplicate ID validation (errors — fail the build)
+                # Duplicate ID validation (errors - fail the build)
                 dup_errors = validate_unique_ids(all_canons)
                 for error in dup_errors:
                     all_errors.append(error)
                     print(f"  FAIL: {error}")
 
-                # Cross-reference validation (errors — fail the build)
+                # Cross-reference validation (errors - fail the build)
                 xref_errors = validate_cross_references(all_canons)
                 for error in xref_errors:
                     all_errors.append(error)
@@ -443,7 +443,7 @@ def validate_all(
         html_files = list(site_dir.rglob("index.html"))
         # Validate error content pages:
         #  - env pages (depth >= 4: domain/slug/env/index.html)
-        #  - slug summary pages (depth 3: domain/slug/index.html) — these are
+        #  - slug summary pages (depth 3: domain/slug/index.html) - these are
         #    the canonical landing pages, so they must carry the same JSON-LD,
         #    canonical, ai-summary and dead-ends markers as env pages.
         # Excludes: top-level index, domain listings (depth 2), and non-error

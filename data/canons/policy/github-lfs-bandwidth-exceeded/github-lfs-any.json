@@ -3,7 +3,7 @@
   "id": "policy/github-lfs-bandwidth-exceeded/github-lfs-any",
   "url": "https://deadends.dev/policy/github-lfs-bandwidth-exceeded/github-lfs-any",
   "error": {
-    "signature": "GitHub LFS bandwidth quota exceeded — pushes and pulls fail",
+    "signature": "GitHub LFS bandwidth quota exceeded - pushes and pulls fail",
     "regex": "[Bb]andwidth.*exceeded|LFS.*quota|batch response.*error",
     "domain": "policy",
     "category": "service_limits",

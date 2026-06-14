@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Suppress the deprecation warning",
-      "why_fails": "The function will be removed — fix it now",
+      "why_fails": "The function will be removed - fix it now",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/datetime.html#datetime.datetime.utcnow"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Use datetime.now() without timezone",
-      "why_fails": "Returns local time, not UTC — different behavior",
+      "why_fails": "Returns local time, not UTC - different behavior",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/library/datetime.html#datetime.datetime.now"

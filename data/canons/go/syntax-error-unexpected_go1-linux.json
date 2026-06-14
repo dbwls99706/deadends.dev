@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Ignore and rely on gofmt",
-      "why_fails": "gofmt can't fix syntax errors — it requires valid Go code",
+      "why_fails": "gofmt can't fix syntax errors - it requires valid Go code",
       "fail_rate": 0.8,
       "sources": [
         "https://pkg.go.dev/cmd/gofmt"

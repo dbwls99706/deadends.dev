@@ -36,7 +36,7 @@
   "dead_ends": [
     {
       "action": "Reinstalling the binary inside the container",
-      "why_fails": "The binary itself is compiled correctly — it is compiled for a different CPU architecture. Reinstalling fetches the same architecture-mismatched binary because the base image is the wrong platform.",
+      "why_fails": "The binary itself is compiled correctly - it is compiled for a different CPU architecture. Reinstalling fetches the same architecture-mismatched binary because the base image is the wrong platform.",
       "fail_rate": 0.92,
       "sources": [
         "https://docs.docker.com/reference/"

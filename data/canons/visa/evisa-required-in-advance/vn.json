@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/evisa-required-in-advance/vn",
+  "url": "https://deadends.dev/visa/evisa-required-in-advance/vn",
+  "error": {
+    "signature": "AI tells a tourist they can enter Vietnam visa-free or get a visa on arrival without arranging anything",
+    "regex": "(vietnam.*visa|visa.*vietnam|vietnam.*evisa|e.?visa.*vietnam|vietnam.*visa.on.arrival)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.86,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Most visitors to Vietnam need a visa. Since August 2023 Vietnam issues an e-visa valid up to 90 days (single or multiple entry) applied for online in advance via the official portal. A limited list of nationalities is visa-exempt for short stays; 'visa on arrival' still requires a pre-approval letter arranged beforehand."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to Vietnam expecting a free visa-on-arrival stamp with no prior paperwork",
+      "why_fails": "Vietnam's 'visa on arrival' is not a walk-up service - it requires a pre-approval letter arranged before travel. Without an e-visa or approval letter (and outside the short visa-exempt list), you are denied boarding or entry.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://evisa.gov.vn/"
+      ],
+      "common_misconception": "VOA implies arranging nothing in advance, but it needs a pre-approval letter."
+    },
+    {
+      "action": "Apply for the e-visa through a random third-party site at the last minute",
+      "why_fails": "Unofficial sites overcharge and may submit incorrectly; processing also takes about 3 working days, so last-minute applications can miss the flight.",
+      "fail_rate": 0.5,
+      "condition": "Using non-official sites or applying too late"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the e-visa on the official Vietnam Immigration portal several working days before travel.",
+      "success_rate": 0.9,
+      "how": "Use only evisa.gov.vn; upload a photo and passport page, pay the fee, and download the approved e-visa to print before boarding.",
+      "sources": [
+        "https://evisa.gov.vn/"
+      ]
+    },
+    {
+      "action": "If visa-exempt for a short stay, confirm the exact allowed days and carry proof of onward travel.",
+      "success_rate": 0.8,
+      "how": "Check the official visa-exemption list and your allowed period; bring return/onward tickets and accommodation details.",
+      "tradeoff": "Visa-exempt periods are short and nationality-specific."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

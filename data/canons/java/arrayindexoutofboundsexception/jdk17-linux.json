@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Catching ArrayIndexOutOfBoundsException to return a default value instead of fixing the indexing logic",
-      "why_fails": "Using try-catch for array bounds is an anti-pattern in Java. Exceptions are expensive to create (stack trace capture), and this approach hides logic bugs. The incorrect index indicates a flaw in the algorithm — a loop boundary error, an off-by-one error, or an assumption about data size that is violated.",
+      "why_fails": "Using try-catch for array bounds is an anti-pattern in Java. Exceptions are expensive to create (stack trace capture), and this approach hides logic bugs. The incorrect index indicates a flaw in the algorithm - a loop boundary error, an off-by-one error, or an assumption about data size that is violated.",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.oracle.com/en/java/javase/21/docs/api/"

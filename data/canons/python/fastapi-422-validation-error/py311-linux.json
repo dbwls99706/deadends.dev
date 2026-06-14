@@ -44,7 +44,7 @@
     },
     {
       "action": "Switching from Pydantic BaseModel to plain dict parameter",
-      "why_fails": "Loses all validation and type safety. The error shifts downstream to application logic where it is harder to debug. The 422 is actually helpful — it tells you exactly what is wrong with the request.",
+      "why_fails": "Loses all validation and type safety. The error shifts downstream to application logic where it is harder to debug. The 422 is actually helpful - it tells you exactly what is wrong with the request.",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html"

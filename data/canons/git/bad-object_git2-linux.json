@@ -36,7 +36,7 @@
     },
     {
       "action": "Run git gc --aggressive",
-      "why_fails": "gc can't fix corrupted objects — may make things worse",
+      "why_fails": "gc can't fix corrupted objects - may make things worse",
       "fail_rate": 0.75,
       "sources": [
         "https://git-scm.com/docs/git-gc"

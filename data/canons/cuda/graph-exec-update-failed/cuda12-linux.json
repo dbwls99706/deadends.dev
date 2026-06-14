@@ -22,7 +22,7 @@
     "fix_success_rate": 0.83,
     "confidence": 0.86,
     "last_updated": "2026-02-12",
-    "summary": "An attempt to update an instantiated CUDA graph (cudaGraphExecUpdate) failed because the new graph topology or node parameters violate the constraints of graph updates. CUDA graphs can only be updated with changes that preserve the graph structure — you cannot add/remove nodes, change node types, or modify the graph topology after instantiation."
+    "summary": "An attempt to update an instantiated CUDA graph (cudaGraphExecUpdate) failed because the new graph topology or node parameters violate the constraints of graph updates. CUDA graphs can only be updated with changes that preserve the graph structure - you cannot add/remove nodes, change node types, or modify the graph topology after instantiation."
   },
   "dead_ends": [
     {

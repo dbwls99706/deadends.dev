@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.85,
     "last_updated": "2026-04-15",
-    "summary": "Norwegian roads include 1100+ tunnels (longest 24.5km Lærdal Tunnel), 40+ active car ferries replacing bridges, and seasonal mountain pass closures (Trollstigen, Strynefjell, Sognefjell, Geiranger, Atlantic Ocean Road — closed Oct/Nov to May). GPS often shows 'shortest' route via closed roads. Vegvesenet (Roads Authority) maintains real-time status at 175.no. Winter driving: studded tires Nov-Apr per region; mandatory reflectors at all times outside settlement."
+    "summary": "Norwegian roads include 1100+ tunnels (longest 24.5km Lærdal Tunnel), 40+ active car ferries replacing bridges, and seasonal mountain pass closures (Trollstigen, Strynefjell, Sognefjell, Geiranger, Atlantic Ocean Road - closed Oct/Nov to May). GPS often shows 'shortest' route via closed roads. Vegvesenet (Roads Authority) maintains real-time status at 175.no. Winter driving: studded tires Nov-Apr per region; mandatory reflectors at all times outside settlement."
   },
   "dead_ends": [
     {
       "action": "Trust GPS to route through Trollstigen / Sognefjell / Geiranger road in October-May",
-      "why_fails": "Mountain passes close seasonally — typically Nov to May, varies year. Trollstigen reopens late May. GPS doesn't always reflect closures; you may drive 2-3 hours then encounter closed barriers. Always check Vegvesen 175.no or Norwegian Public Roads Administration app before mountain trips.",
+      "why_fails": "Mountain passes close seasonally - typically Nov to May, varies year. Trollstigen reopens late May. GPS doesn't always reflect closures; you may drive 2-3 hours then encounter closed barriers. Always check Vegvesen 175.no or Norwegian Public Roads Administration app before mountain trips.",
       "fail_rate": 0.65,
       "sources": [
         "https://www.vegvesen.no/en/",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Plan a Bergen-Stavanger drive without ferry timetables",
-      "why_fails": "Multiple Bergen-Stavanger routes require ferries — at Ranavik, Halhjem-Sandvikvåg, Mortavika-Arsvågen. Ferries run hourly daytime, less frequent nights. Booking ahead recommended in summer; off-peak just-arrive works. Ferry queues 30-60 min in summer.",
+      "why_fails": "Multiple Bergen-Stavanger routes require ferries - at Ranavik, Halhjem-Sandvikvåg, Mortavika-Arsvågen. Ferries run hourly daytime, less frequent nights. Booking ahead recommended in summer; off-peak just-arrive works. Ferry queues 30-60 min in summer.",
       "fail_rate": 0.5,
       "sources": [
         "https://www.fjord1.no/en/",
@@ -59,7 +59,7 @@
     },
     {
       "action": "Drive with summer tires in November-April in northern Norway",
-      "why_fails": "Norwegian regulations require winter tires Nov-Apr (varies by region — Nordland 16 Oct, Trøndelag 16 Oct, southern Norway 1 Nov). Studs allowed in winter. Police checks; fine ~NOK 750+. Rental companies switch tires automatically; verify if uncertain.",
+      "why_fails": "Norwegian regulations require winter tires Nov-Apr (varies by region - Nordland 16 Oct, Trøndelag 16 Oct, southern Norway 1 Nov). Studs allowed in winter. Police checks; fine ~NOK 750+. Rental companies switch tires automatically; verify if uncertain.",
       "fail_rate": 0.78,
       "sources": [
         "https://www.vegvesen.no/en/driving-conditions/winter-tyres/"

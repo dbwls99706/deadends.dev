@@ -3,7 +3,7 @@
   "id": "data/protobuf-field-number-reuse-corruption/protobuf-any",
   "url": "https://deadends.dev/data/protobuf-field-number-reuse-corruption/protobuf-any",
   "error": {
-    "signature": "Data corruption — Protobuf field number reused after deletion",
+    "signature": "Data corruption - Protobuf field number reused after deletion",
     "regex": "[Pp]rotobuf.*corrupt|field.*number.*reuse|wire.*type.*mismatch",
     "domain": "data",
     "category": "serialization",

@@ -55,7 +55,7 @@
     {
       "action": "If you need to move the tag: git tag -d <tag> && git push origin :refs/tags/<tag> && git tag <tag> && git push origin <tag>",
       "success_rate": 0.88,
-      "how": "Deletes locally and remotely, then recreates — communicate to team",
+      "how": "Deletes locally and remotely, then recreates - communicate to team",
       "sources": [
         "https://git-scm.com/docs/git-tag"
       ],

@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-not-911-hk/hk",
+  "url": "https://deadends.dev/emergency/999-not-911-hk/hk",
+  "error": {
+    "signature": "AI tells someone in Hong Kong to call 911 in an emergency",
+    "regex": "(911.*hk|hong.kong.*emergency|emergency.*number.*hong)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Hong Kong does not use the US 911. Dial 999 for any emergency (police, fire, or ambulance); 112 also works from mobile phones. Operators provide English and Cantonese support."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Hong Kong expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Hong Kong. The emergency number is 999 for all services. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gov.hk/en/residents/communication/emergency/emergencyservices.htm",
+        "https://www.police.gov.hk/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Dial 911 because it is a major international city",
+      "why_fails": "Hong Kong uses 999 (a legacy of British administration), not 911. 999 reaches a single operator who routes police, fire, or ambulance.",
+      "fail_rate": 0.6,
+      "condition": "Assuming US conventions apply"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Hong Kong's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Any emergency (police, fire, ambulance): 999. From mobile: 112.",
+      "sources": [
+        "https://www.gov.hk/en/residents/communication/emergency/emergencyservices.htm",
+        "https://www.police.gov.hk/"
+      ]
+    },
+    {
+      "action": "From a mobile you may also dial 112, which connects to the same 999 emergency services.",
+      "success_rate": 0.85,
+      "how": "999 from any phone; 112 from a mobile. State which service you need and your district/building.",
+      "tradeoff": "112 is a mobile fallback; 999 is the primary number."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

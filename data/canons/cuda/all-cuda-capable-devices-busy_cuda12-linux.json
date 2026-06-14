@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check GPU usage: nvidia-smi — identify which processes are using the GPUs",
+      "action": "Check GPU usage: nvidia-smi - identify which processes are using the GPUs",
       "success_rate": 0.93,
       "how": "Look for processes with high memory usage that can be stopped safely",
       "sources": [],
@@ -55,7 +55,7 @@
     {
       "action": "Set CUDA_VISIBLE_DEVICES to use a specific free GPU",
       "success_rate": 0.9,
-      "how": "export CUDA_VISIBLE_DEVICES=1 — restricts to GPU 1 only",
+      "how": "export CUDA_VISIBLE_DEVICES=1 - restricts to GPU 1 only",
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars"
       ],

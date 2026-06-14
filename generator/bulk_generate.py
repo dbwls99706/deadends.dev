@@ -1120,7 +1120,7 @@ def get_all_canons() -> list[dict]:
         "ssl_tls", "http", "HTTP/1.1+", "linux", "true", 0.91, 0.92,
         "The browser blocked an HTTP sub-resource (image, script, stylesheet, XHR) loaded on an HTTPS page. Occurs most often during HTTP-to-HTTPS migrations when asset URLs were not updated.",
         [de("Add 'upgrade-insecure-requests' meta tag to the HTML head", "Only works when the HTTPS version of the resource exists; fails for third-party assets without HTTPS endpoints", 0.55, sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"]),
-         de("Disable mixed content blocking in browser developer settings", "Cannot be disabled in production—only in local dev tools. Chrome removed per-site mixed content allowance in 2021.", 0.98, sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"]),
+         de("Disable mixed content blocking in browser developer settings", "Cannot be disabled in production-only in local dev tools. Chrome removed per-site mixed content allowance in 2021.", 0.98, sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content"]),
          de("Proxy all mixed content through the origin server to rewrite URLs on the fly", "Violates CDN terms of service, breaks cache-busting, introduces latency, and is complex to maintain", 0.72, sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"])],
         [wa("Audit and rewrite all HTTP asset URLs to HTTPS in templates, CSS, and CMS content", 0.94, "grep -r 'http://' templates/ static/ --include='*.html' --include='*.css'", sources=["https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content"]),
          wa("Add Content-Security-Policy: upgrade-insecure-requests header at the web server (TLS termination) layer", 0.82, "nginx: add_header Content-Security-Policy \"upgrade-insecure-requests\";", sources=["https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests"]),
@@ -1829,7 +1829,7 @@ def get_all_canons() -> list[dict]:
          de("Ignore the error assuming it is cosmetic",
             "RViz displays with transform errors render nothing or render in wrong positions", 0.78)],
         [wa("Set Fixed Frame to a frame that exists in your TF tree", 0.92,
-            "Set Fixed Frame to 'base_link' or 'odom' — check available frames with ros2 run tf2_tools view_frames"),
+            "Set Fixed Frame to 'base_link' or 'odom' - check available frames with ros2 run tf2_tools view_frames"),
          wa("Verify TF is being published at sufficient rate", 0.85,
             "ros2 topic hz /tf  # should be >= 10 Hz for smooth display"),
          wa("Check the topic name and message type for each display", 0.88,
@@ -3097,7 +3097,7 @@ def get_all_canons() -> list[dict]:
         "Gradle task assembleDebug failed with exit code 1",
         r"(assembleDebug.*failed|Gradle.*exit code 1|Could not determine.*dependencies|Execution failed.*task.*android)",
         "build_error", "flutter", ">=3.0", "linux", "true", 0.80, 0.85,
-        "Android build failed. Generic Gradle failure — the real error is further up in the log output.",
+        "Android build failed. Generic Gradle failure - the real error is further up in the log output.",
         [de("Run flutter clean and retry without reading the log",
             "flutter clean rarely fixes Gradle errors. The real error is in the log above the exit code.", 0.72),
          de("Delete the android/ folder and recreate with flutter create",
@@ -4754,7 +4754,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "api", "rate-limit-retry-after-ignored", "rest-api-any",
-        "429 Too Many Requests — Retry-After header ignored by client",
+        "429 Too Many Requests - Retry-After header ignored by client",
         r"429\s+Too Many Requests",
         "rate_limiting", "HTTP", ">=1.1", "any", "true", 0.92, 0.90,
         "Client ignores Retry-After header causing progressive backoff escalation or IP ban.",
@@ -4773,7 +4773,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "api", "content-type-charset-mismatch", "rest-api-any",
-        "Response body garbled — Content-Type charset mismatch",
+        "Response body garbled - Content-Type charset mismatch",
         r"Content-Type.*charset.*mismatch|garbled|mojibake",
         "encoding", "HTTP", ">=1.1", "any", "true", 0.88, 0.87,
         "API returns Content-Type without charset=utf-8, client assumes latin-1 and gets mojibake.",
@@ -4792,7 +4792,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "api", "idempotency-key-not-propagated", "rest-api-any",
-        "Duplicate resource created — idempotency key not forwarded through proxy",
+        "Duplicate resource created - idempotency key not forwarded through proxy",
         r"[Dd]uplicate.*created|idempotency.*key.*missing",
         "idempotency", "HTTP", ">=1.1", "any", "true", 0.85, 0.88,
         "Reverse proxy strips Idempotency-Key header, causing retries to create duplicates.",
@@ -4811,7 +4811,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "api", "etag-weak-vs-strong-comparison", "rest-api-any",
-        "If-None-Match always misses — weak vs strong ETag comparison",
+        "If-None-Match always misses - weak vs strong ETag comparison",
         r"ETag.*mismatch|If-None-Match.*miss|W/",
         "caching", "HTTP", ">=1.1", "any", "true", 0.82, 0.85,
         "Server returns weak ETag W/ but client uses strong comparison, so conditional requests always miss.",
@@ -4830,7 +4830,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "api", "multipart-boundary-content-type-mismatch", "rest-api-any",
-        "400 Bad Request — multipart boundary in Content-Type does not match body",
+        "400 Bad Request - multipart boundary in Content-Type does not match body",
         r"multipart.*boundary.*mismatch|400.*[Bb]ad [Rr]equest.*multipart",
         "file_upload", "HTTP", ">=1.1", "any", "true", 0.90, 0.88,
         "Manually setting Content-Type with wrong boundary causes multipart parse failure.",
@@ -4853,7 +4853,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "cloud", "aws-nat-gateway-idle-timeout", "aws-vpc-any",
-        "Connection drops after 350s idle — NAT Gateway idle timeout",
+        "Connection drops after 350s idle - NAT Gateway idle timeout",
         r"NAT.*[Gg]ateway.*idle.*timeout|350.*seconds|connection.*drop.*NAT",
         "networking", "AWS VPC", ">=any", "linux", "true", 0.85, 0.88,
         "AWS NAT Gateway silently drops idle TCP connections after 350 seconds.",
@@ -4872,7 +4872,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "cloud", "gcp-metadata-server-timeout", "gcp-compute-any",
-        "metadata.google.internal timeout — GCP metadata server unreachable",
+        "metadata.google.internal timeout - GCP metadata server unreachable",
         r"metadata\.google\.internal.*timeout|169\.254\.169\.254.*timeout",
         "metadata", "GCP Compute", ">=any", "linux", "true", 0.82, 0.85,
         "GCP metadata server becomes temporarily unreachable during high network load.",
@@ -4891,7 +4891,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "cloud", "azure-blob-lease-conflict", "azure-storage-any",
-        "409 Conflict — There is currently a lease on the blob",
+        "409 Conflict - There is currently a lease on the blob",
         r"409.*Conflict.*lease|LeaseIdMissing|There is currently a lease",
         "storage", "Azure Blob", ">=any", "any", "true", 0.88, 0.90,
         "Attempting to modify or delete a blob that has an active lease without providing the lease ID.",
@@ -4910,7 +4910,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "cloud", "aws-rds-storage-full-readonly", "aws-rds-any",
-        "RDS instance becomes read-only — storage full auto-scaling lag",
+        "RDS instance becomes read-only - storage full auto-scaling lag",
         r"[Rr]ead.only|storage.*full|cannot.*write|The table.*is full",
         "database", "AWS RDS", ">=any", "any", "true", 0.85, 0.88,
         "RDS storage auto-scaling has a 6-hour cooldown. Instance goes read-only if storage fills between scaling events.",
@@ -4929,7 +4929,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "cloud", "aws-sqs-visibility-timeout-reprocessing", "aws-sqs-any",
-        "Message reprocessed — SQS visibility timeout too short for processing time",
+        "Message reprocessed - SQS visibility timeout too short for processing time",
         r"visibility.*timeout|message.*reprocessed|duplicate.*processing",
         "messaging", "AWS SQS", ">=any", "any", "true", 0.90, 0.92,
         "SQS visibility timeout shorter than processing time causes message to become visible again.",
@@ -4952,7 +4952,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "llm", "prompt-injection-system-prompt-leak", "llm-api-any",
-        "System prompt leaked via prompt injection — user input not sanitized",
+        "System prompt leaked via prompt injection - user input not sanitized",
         r"[Ss]ystem.*prompt.*leak|prompt.*injection|ignore.*previous.*instructions",
         "security", "LLM API", ">=any", "any", "partial", 0.60, 0.85,
         "Adversarial user input can leak system prompts or override behavior.",
@@ -4971,7 +4971,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "llm", "token-limit-silent-input-truncation", "llm-api-any",
-        "Input silently truncated — total tokens exceed model context window",
+        "Input silently truncated - total tokens exceed model context window",
         r"[Tt]runcate|[Mm]ax.*tokens.*exceeded|context.*length.*exceeded",
         "context_management", "LLM API", ">=any", "any", "true", 0.88, 0.90,
         "Some APIs silently truncate input that exceeds the context window.",
@@ -4990,7 +4990,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "llm", "embedding-cosine-similarity-threshold-arbitrary", "embedding-api-any",
-        "RAG retrieval misses relevant docs — cosine similarity threshold too high",
+        "RAG retrieval misses relevant docs - cosine similarity threshold too high",
         r"cosine.*similarity.*threshold|no.*relevant.*documents|retrieval.*miss",
         "retrieval", "Embedding API", ">=any", "any", "true", 0.82, 0.85,
         "Hardcoded cosine similarity threshold misses semantically relevant documents.",
@@ -5009,7 +5009,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "llm", "tool-calling-parallel-race-condition", "llm-api-any",
-        "Tool results conflict — parallel tool calls create race condition",
+        "Tool results conflict - parallel tool calls create race condition",
         r"[Pp]arallel.*tool.*call|race.*condition|conflicting.*tool.*results",
         "function_calling", "LLM API", ">=any", "any", "true", 0.80, 0.85,
         "LLM issues multiple tool calls in parallel that modify the same resource.",
@@ -5028,7 +5028,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "llm", "streaming-json-partial-parse-error", "llm-api-any",
-        "JSON parse error during streaming — incomplete JSON in stream chunk",
+        "JSON parse error during streaming - incomplete JSON in stream chunk",
         r"JSON.*parse.*error.*stream|Unexpected.*end.*JSON|partial.*JSON",
         "streaming", "LLM API", ">=any", "any", "true", 0.90, 0.92,
         "Parsing JSON from streamed LLM output fails because chunks contain incomplete JSON.",
@@ -5051,7 +5051,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "data", "parquet-schema-evolution-incompatible", "parquet-any",
-        "ArrowInvalid: Schema mismatch — Parquet files have incompatible schemas",
+        "ArrowInvalid: Schema mismatch - Parquet files have incompatible schemas",
         r"ArrowInvalid.*[Ss]chema|[Ss]chema.*mismatch.*[Pp]arquet|incompatible.*column",
         "serialization", "Apache Arrow", ">=any", "any", "true", 0.85, 0.88,
         "Reading multiple Parquet files fails because column types differ between files.",
@@ -5070,7 +5070,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "data", "avro-schema-registry-version-conflict", "avro-kafka-any",
-        "Schema registry conflict — Avro schema evolution breaks compatibility",
+        "Schema registry conflict - Avro schema evolution breaks compatibility",
         r"[Ss]chema.*registry.*conflict|[Ii]ncompatible.*schema.*change|409.*Conflict.*schema",
         "serialization", "Confluent Schema Registry", ">=any", "any", "true", 0.82, 0.87,
         "Adding a required field without default value breaks backward compatibility.",
@@ -5089,7 +5089,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "data", "protobuf-field-number-reuse-corruption", "protobuf-any",
-        "Data corruption — Protobuf field number reused after deletion",
+        "Data corruption - Protobuf field number reused after deletion",
         r"[Pp]rotobuf.*corrupt|field.*number.*reuse|wire.*type.*mismatch",
         "serialization", "Protocol Buffers", ">=3.0", "any", "partial", 0.70, 0.90,
         "Reusing a deleted field number causes old serialized data to be deserialized with wrong types.",
@@ -5108,7 +5108,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "data", "msgpack-timestamp-extension-incompatible", "msgpack-any",
-        "Timestamp deserialization fails — msgpack extension type mismatch across languages",
+        "Timestamp deserialization fails - msgpack extension type mismatch across languages",
         r"msgpack.*timestamp|extension.*type.*-1|[Dd]eserializ.*time.*fail",
         "serialization", "MessagePack", ">=any", "any", "true", 0.80, 0.85,
         "MessagePack timestamp extension type -1 is not supported uniformly across implementations.",
@@ -5127,7 +5127,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "data", "arrow-ipc-endianness-mismatch", "arrow-ipc-any",
-        "Arrow IPC read fails — endianness mismatch between writer and reader",
+        "Arrow IPC read fails - endianness mismatch between writer and reader",
         r"[Ee]ndian.*mismatch|byte.*order.*incompatible|Arrow.*IPC.*read.*fail",
         "serialization", "Apache Arrow IPC", ">=any", "any", "true", 0.75, 0.82,
         "Arrow IPC files written on big-endian systems cannot be read on little-endian.",
@@ -5150,7 +5150,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "security", "csp-header-bypass-inline-script", "browser-security-any",
-        "XSS despite CSP — Content-Security-Policy allows unsafe-inline",
+        "XSS despite CSP - Content-Security-Policy allows unsafe-inline",
         r"Content-Security-Policy.*unsafe-inline|CSP.*bypass|inline.*script.*blocked",
         "web_security", "Browser", ">=any", "any", "true", 0.88, 0.90,
         "CSP with unsafe-inline directive effectively disables script-src protection.",
@@ -5169,7 +5169,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "security", "sql-injection-orm-raw-query", "sql-any",
-        "SQL injection via ORM raw query — parameterization bypassed",
+        "SQL injection via ORM raw query - parameterization bypassed",
         r"SQL.*injection|raw.*query.*unsaniti|parameteriz.*bypass",
         "injection", "SQL", ">=any", "any", "true", 0.92, 0.93,
         "Using ORM raw query with string formatting instead of parameterized queries.",
@@ -5188,7 +5188,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "security", "httponly-cookie-missing-xss-token-theft", "browser-security-any",
-        "Session token stolen via XSS — cookie missing HttpOnly flag",
+        "Session token stolen via XSS - cookie missing HttpOnly flag",
         r"[Hh]ttp[Oo]nly|document\.cookie|session.*stolen|XSS.*cookie",
         "session_security", "Browser", ">=any", "any", "true", 0.90, 0.92,
         "Session tokens in cookies without HttpOnly flag are accessible to JavaScript.",
@@ -5207,7 +5207,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "security", "path-traversal-dotdot-normalization", "filesystem-any",
-        "Path traversal — ../ sequences bypass file access control",
+        "Path traversal - ../ sequences bypass file access control",
         r"path.*traversal|\.\./|directory.*traversal|LFI",
         "file_security", "Filesystem", ">=any", "any", "true", 0.90, 0.92,
         "User input containing ../ allows access to files outside the intended directory.",
@@ -5226,7 +5226,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "security", "deserialization-rce-untrusted-input", "serialization-any",
-        "Remote code execution — unsafe deserialization of untrusted data",
+        "Remote code execution - unsafe deserialization of untrusted data",
         r"[Dd]eserializ.*RCE|pickle.*untrusted|ObjectInputStream.*untrusted|insecure.*deserializ",
         "deserialization", "Serialization", ">=any", "any", "true", 0.88, 0.92,
         "Using pickle or Java ObjectInputStream on untrusted input allows arbitrary code execution.",
@@ -5249,7 +5249,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "policy", "github-lfs-bandwidth-exceeded", "github-lfs-any",
-        "GitHub LFS bandwidth quota exceeded — pushes and pulls fail",
+        "GitHub LFS bandwidth quota exceeded - pushes and pulls fail",
         r"[Bb]andwidth.*exceeded|LFS.*quota|batch response.*error",
         "service_limits", "GitHub LFS", ">=any", "any", "true", 0.80, 0.85,
         "GitHub LFS has 1GB storage and 1GB/month bandwidth on free plan.",
@@ -5268,7 +5268,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "policy", "aws-lambda-deployment-package-size-limit", "aws-lambda-any",
-        "RequestEntityTooLargeException — Lambda deployment package exceeds 50MB/250MB",
+        "RequestEntityTooLargeException - Lambda deployment package exceeds 50MB/250MB",
         r"RequestEntityTooLargeException|[Dd]eployment.*package.*size|[Ee]xceeds.*[0-9]+MB",
         "service_limits", "AWS Lambda", ">=any", "linux", "true", 0.88, 0.90,
         "Lambda has 50MB zipped / 250MB unzipped deployment limit.",
@@ -5287,7 +5287,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "policy", "vercel-edge-function-size-limit", "vercel-edge-any",
-        "Edge Function exceeds 1MB limit — deployment fails",
+        "Edge Function exceeds 1MB limit - deployment fails",
         r"[Ee]dge.*[Ff]unction.*size|1\s*MB.*limit|EDGE_FUNCTION_SIZE",
         "service_limits", "Vercel Edge", ">=any", "any", "true", 0.82, 0.87,
         "Vercel Edge Functions have a 1MB compressed size limit.",
@@ -5306,7 +5306,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "policy", "stripe-api-version-pinning-silent-break", "stripe-api-any",
-        "Stripe webhook payload format changed — API version not pinned",
+        "Stripe webhook payload format changed - API version not pinned",
         r"[Ss]tripe.*API.*version|webhook.*format.*changed|api_version.*mismatch",
         "api_versioning", "Stripe", ">=any", "any", "true", 0.85, 0.88,
         "Stripe dashboard API version upgrade changes webhook payload format silently.",
@@ -5325,7 +5325,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "policy", "cloudflare-free-plan-no-custom-rules-order", "cloudflare-any",
-        "Cloudflare rules fire in wrong order — free plan has no rule ordering control",
+        "Cloudflare rules fire in wrong order - free plan has no rule ordering control",
         r"[Cc]loudflare.*rule.*order|[Pp]age [Rr]ule.*priority|free.*plan.*rules",
         "service_limits", "Cloudflare", ">=any", "any", "partial", 0.70, 0.80,
         "Cloudflare free plan limits Page Rules to 3 with no execution order control.",
@@ -5348,7 +5348,7 @@ def get_all_canons() -> list[dict]:
     # =====================================================================
     canons.append(canon(
         "communication", "twilio-webhook-signature-validation-fail", "twilio-api-any",
-        "Twilio webhook signature validation fails — URL mismatch with proxy",
+        "Twilio webhook signature validation fails - URL mismatch with proxy",
         r"[Tt]wilio.*signature.*fail|X-Twilio-Signature.*invalid|webhook.*validat.*fail",
         "webhook_security", "Twilio", ">=any", "any", "true", 0.88, 0.90,
         "Twilio signature validation fails because URL used for validation does not match what Twilio sees.",
@@ -5367,7 +5367,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "communication", "smtp-tls-starttls-port-confusion", "email-server-any",
-        "SMTP connection fails — TLS vs STARTTLS port confusion (465 vs 587)",
+        "SMTP connection fails - TLS vs STARTTLS port confusion (465 vs 587)",
         r"SMTP.*TLS.*fail|STARTTLS.*465|port.*587.*SSL|connection.*refused.*SMTP",
         "email_config", "SMTP", ">=any", "any", "true", 0.90, 0.92,
         "Using implicit TLS (port 465) settings with STARTTLS port (587) or vice versa.",
@@ -5386,7 +5386,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "communication", "sentry-event-dropped-rate-limit", "sentry-any",
-        "Sentry events silently dropped — rate limit or quota exceeded",
+        "Sentry events silently dropped - rate limit or quota exceeded",
         r"[Ss]entry.*rate.*limit|events.*dropped|quota.*exceeded|429.*sentry",
         "observability", "Sentry", ">=any", "any", "true", 0.85, 0.88,
         "Sentry drops events silently when project rate limit or org quota is exceeded.",
@@ -5405,7 +5405,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "communication", "datadog-custom-metric-cardinality-explosion", "datadog-any",
-        "Datadog custom metric bill spike — tag cardinality explosion",
+        "Datadog custom metric bill spike - tag cardinality explosion",
         r"[Cc]ardinality.*explosion|custom.*metric.*spike|[Dd]atadog.*bill|tag.*combination",
         "observability", "Datadog", ">=any", "any", "true", 0.82, 0.87,
         "High-cardinality tags (user_id) on custom metrics create millions of unique time series.",
@@ -5424,7 +5424,7 @@ def get_all_canons() -> list[dict]:
     ))
     canons.append(canon(
         "communication", "pagerduty-alert-grouping-swallows-unique", "pagerduty-any",
-        "Unique alerts grouped into existing incident — PagerDuty grouping too aggressive",
+        "Unique alerts grouped into existing incident - PagerDuty grouping too aggressive",
         r"[Aa]lert.*grouped|[Pp]agerduty.*grouping|incident.*merge|swallow.*alert",
         "alerting", "PagerDuty", ">=any", "any", "true", 0.80, 0.85,
         "PagerDuty intelligent grouping merges distinct alerts into one incident.",
@@ -5449,7 +5449,7 @@ def get_all_canons() -> list[dict]:
     # --- Korean / Non-ASCII folder names ---
     canons.append(canon(
         "python", "unicode-path-encoding-error", "py311-linux",
-        "UnicodeEncodeError: 'ascii' codec can't encode characters — Korean folder in sys.path",
+        "UnicodeEncodeError: 'ascii' codec can't encode characters - Korean folder in sys.path",
         r"UnicodeEncodeError.*ascii.*can't encode|codec can't encode character.*\\u[0-9a-fA-F]",
         "encoding", "python", ">=3.11,<3.13", "linux", "true", 0.90, 0.92,
         "Python process fails when project lives in a Korean-named directory (e.g. /home/user/프로젝트) and locale is not UTF-8.",
@@ -5470,7 +5470,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "node", "npm-install-unicode-path-failure", "node20-any",
-        "npm ERR! ENOENT — npm install fails in directory with Korean or CJK characters",
+        "npm ERR! ENOENT - npm install fails in directory with Korean or CJK characters",
         r"npm ERR!.*ENOENT.*[가-힣]|ENOENT.*[\\u]|npm.*non-ascii.*path",
         "path_encoding", "node", ">=20", "any", "true", 0.88, 0.90,
         "npm install fails or produces corrupted node_modules when the project directory contains Korean/CJK characters in its path.",
@@ -5490,7 +5490,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "docker", "build-context-korean-path-failure", "docker24-linux",
-        "error: failed to solve: failed to read dockerfile — Korean characters in build context path",
+        "error: failed to solve: failed to read dockerfile - Korean characters in build context path",
         r"failed to solve.*dockerfile|invalid.*path.*character|build.*context.*[가-힣]",
         "path_encoding", "docker", ">=24", "linux", "true", 0.85, 0.88,
         "Docker build fails when Dockerfile or build context is in a directory with Korean/non-ASCII characters.",
@@ -5530,7 +5530,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "java", "malformedinputexception-nonascii-path", "jdk17-any",
-        "java.nio.charset.MalformedInputException: Input length = 1 — non-ASCII path or filename",
+        "java.nio.charset.MalformedInputException: Input length = 1 - non-ASCII path or filename",
         r"MalformedInputException.*Input length|charset.*[Mm]alformed|java\.nio.*encoding",
         "encoding", "java", ">=17", "any", "true", 0.85, 0.88,
         "Java Files.readAllLines() or similar API throws MalformedInputException when file path or content contains Korean/CJK and no charset is specified.",
@@ -5571,7 +5571,7 @@ def get_all_canons() -> list[dict]:
     # --- Spaces in folder/path names ---
     canons.append(canon(
         "python", "subprocess-space-in-path-split", "py311-linux",
-        "FileNotFoundError: No such file or directory — subprocess fails on path with spaces",
+        "FileNotFoundError: No such file or directory - subprocess fails on path with spaces",
         r"FileNotFoundError.*No such file|subprocess.*space|OSError.*Errno 2.*space",
         "path_handling", "python", ">=3.11,<3.13", "linux", "true", 0.92, 0.93,
         "subprocess.run() with shell=False splits path containing spaces into multiple arguments instead of treating it as one path.",
@@ -5592,7 +5592,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "cmake", "space-in-path-build-failure", "cmake3-linux",
-        "CMake Error: The source directory does not exist — spaces in project path",
+        "CMake Error: The source directory does not exist - spaces in project path",
         r"CMake Error.*source directory.*does not exist|CMake.*path.*space|make.*No rule.*space",
         "path_handling", "CMake", ">=3.16", "linux", "true", 0.88, 0.90,
         "CMake build fails when project path contains spaces because generated Makefiles do not quote paths properly.",
@@ -5605,14 +5605,14 @@ def get_all_canons() -> list[dict]:
         [wa("Move or symlink the project to a path without spaces", 0.93,
             "ln -s '/home/user/My Projects/app' /home/user/app-build && cmake -S /home/user/app-build -B build",
             sources=["https://cmake.org/cmake/help/latest/manual/cmake.1.html"]),
-         wa("Use Ninja generator instead of Make — Ninja handles spaces in paths correctly", 0.90,
+         wa("Use Ninja generator instead of Make - Ninja handles spaces in paths correctly", 0.90,
             "cmake -S . -B build -G Ninja  # Ninja properly escapes spaces in generated build files",
             sources=["https://cmake.org/cmake/help/latest/generator/Ninja.html"])],
     ))
 
     canons.append(canon(
         "docker", "copy-space-in-path-failure", "docker24-linux",
-        "COPY failed: file not found — Dockerfile COPY with spaces in path",
+        "COPY failed: file not found - Dockerfile COPY with spaces in path",
         r"COPY failed.*file not found|ADD.*failed.*space|COPY.*no such file.*space",
         "path_handling", "docker", ">=24", "linux", "true", 0.90, 0.92,
         "Dockerfile COPY instruction fails when source or destination path contains spaces without proper quoting.",
@@ -5632,7 +5632,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "java", "gradle-space-in-java-home", "gradle8-any",
-        "Gradle build fails: Could not determine java version — JAVA_HOME path has spaces",
+        "Gradle build fails: Could not determine java version - JAVA_HOME path has spaces",
         r"Could not determine java version|JAVA_HOME.*space|gradle.*java.*path.*error",
         "path_handling", "Gradle", ">=8", "any", "true", 0.88, 0.90,
         "Gradle build fails when JAVA_HOME or project path contains spaces, especially on Windows with backslash paths.",
@@ -5652,7 +5652,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "node", "enoent-space-in-project-path", "node20-any",
-        "Error: ENOENT: no such file or directory — Node.js path resolution fails with spaces",
+        "Error: ENOENT: no such file or directory - Node.js path resolution fails with spaces",
         r"ENOENT.*no such file.*space|Cannot find module.*space|ENOENT.*\\s",
         "path_handling", "node", ">=20", "any", "true", 0.88, 0.90,
         "Node.js or npm scripts fail when project directory contains spaces, commonly in Windows 'My Documents' or 'Program Files'.",
@@ -5672,7 +5672,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "cicd", "github-actions-space-in-path-artifact", "github-actions-any",
-        "upload-artifact fails — path with spaces not properly quoted in GitHub Actions",
+        "upload-artifact fails - path with spaces not properly quoted in GitHub Actions",
         r"upload-artifact.*not found|actions.*artifact.*space|ENOENT.*artifact",
         "path_handling", "GitHub Actions", ">=any", "any", "true", 0.85, 0.88,
         "GitHub Actions upload-artifact or cache action fails when path contains spaces or special characters.",
@@ -5693,7 +5693,7 @@ def get_all_canons() -> list[dict]:
     # --- Hyphens in folder/module names ---
     canons.append(canon(
         "python", "import-hyphenated-module-name", "py311-linux",
-        "SyntaxError or ModuleNotFoundError — cannot import module with hyphen in name",
+        "SyntaxError or ModuleNotFoundError - cannot import module with hyphen in name",
         r"SyntaxError.*import.*-|ModuleNotFoundError.*-|cannot import.*hyphen",
         "naming", "python", ">=3.11,<3.13", "linux", "true", 0.95, 0.95,
         "Python import system treats hyphens as minus operators: 'import my-module' is parsed as 'import my - module'.",
@@ -5714,7 +5714,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "go", "hyphen-in-package-directory-name", "go1.21-linux",
-        "could not import — Go package in directory with hyphen causes import path mismatch",
+        "could not import - Go package in directory with hyphen causes import path mismatch",
         r"could not import|package.*not found.*-|import.*hyphen|invalid import path",
         "naming", "go", ">=1.21", "linux", "true", 0.85, 0.88,
         "Go package directory named with hyphens (my-package) creates a mismatch because Go package names cannot contain hyphens.",
@@ -5734,7 +5734,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "node", "require-hyphenated-local-folder", "node20-any",
-        "Cannot find module './my-component' — hyphenated folder misresolved or confused with npm scope",
+        "Cannot find module './my-component' - hyphenated folder misresolved or confused with npm scope",
         r"Cannot find module.*-|MODULE_NOT_FOUND.*-|ERR_MODULE_NOT_FOUND.*hyphen",
         "naming", "node", ">=20", "any", "true", 0.80, 0.85,
         "require('./my-component') works but is confused with npm scoped packages or case-insensitive filesystems create mismatches.",
@@ -5754,7 +5754,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "rust", "hyphen-underscore-crate-name-confusion", "rust1.70-any",
-        "can't find crate — Rust crate name has hyphens but use/extern expects underscores",
+        "can't find crate - Rust crate name has hyphens but use/extern expects underscores",
         r"can't find crate|unresolved import.*-|extern crate.*not found",
         "naming", "rust", ">=1.70", "any", "true", 0.92, 0.93,
         "Cargo allows hyphens in crate names (my-crate) but Rust source code requires underscores (my_crate) for use/extern statements.",
@@ -6027,7 +6027,7 @@ def get_all_canons() -> list[dict]:
          wa("Check load balancer or service mesh routing configuration", 0.88,
             "Verify Envoy/Istio/nginx-grpc routes match the gRPC service name; check upstream health checks"),
          wa("Ensure the full service name matches: package.ServiceName/MethodName", 0.85,
-            "The gRPC service path is /package.ServiceName/MethodName — check proto package name matches registration")],
+            "The gRPC service path is /package.ServiceName/MethodName - check proto package name matches registration")],
     ))
 
     # =====================================================================
@@ -6854,7 +6854,7 @@ def get_all_canons() -> list[dict]:
         [wa("Cancel async operations in dispose()", 0.92,
             "Timer? _timer; StreamSubscription? _sub; @override void dispose() { _timer?.cancel(); _sub?.cancel(); super.dispose(); }"),
          wa("Use mounted check combined with proper cleanup pattern", 0.88,
-            "if (mounted) setState(() { ... }); — but also cancel the underlying async work in dispose()"),
+            "if (mounted) setState(() { ... }); - but also cancel the underlying async work in dispose()"),
          wa("Convert to StatelessWidget with provider/bloc for state management", 0.80,
             "Move async logic to a provider or cubit; widget just rebuilds from stream, no manual setState needed")],
     ))
@@ -6886,7 +6886,7 @@ def get_all_canons() -> list[dict]:
         [de("Use UniqueKey() on every widget to force rebuilds",
             "UniqueKey creates a new key every build, destroying and recreating the widget each time. Defeats the purpose of keys.", 0.85),
          de("Use index as key in a list (Key(index.toString()))",
-            "Index-based keys break when items are reordered, inserted, or deleted — state attaches to wrong items", 0.78)],
+            "Index-based keys break when items are reordered, inserted, or deleted - state attaches to wrong items", 0.78)],
         [wa("Use ValueKey with a stable unique identifier from the data", 0.92,
             "ListView.builder(itemBuilder: (ctx, i) => ListTile(key: ValueKey(items[i].id), ...))"),
          wa("Use ObjectKey when items lack a unique ID", 0.85,
@@ -7098,7 +7098,7 @@ def get_all_canons() -> list[dict]:
          de("Use separate single-key commands for every operation",
             "Replacing MGET with N GET commands increases latency by N round trips and loses atomicity", 0.65)],
         [wa("Use hash tags to force related keys into the same slot", 0.92,
-            "Use {user:123}:profile and {user:123}:settings — the part in {} determines the slot"),
+            "Use {user:123}:profile and {user:123}:settings - the part in {} determines the slot"),
          wa("Redesign data model to co-locate related keys", 0.88,
             "Store related data in a single hash: HSET user:123 profile '...' settings '...'"),
          wa("Use Lua scripting for atomic multi-key operations within the same slot", 0.82,
@@ -7199,7 +7199,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "cmake", "cxx-standard-not-supported", "cmake3.28-linux",
-        "CMake Error: CXX_STANDARD is set to invalid value '20' — compiler does not support C++20",
+        "CMake Error: CXX_STANDARD is set to invalid value '20' - compiler does not support C++20",
         r"(CXX_STANDARD.*invalid value|compiler.*does not support.*C\+\+|CMAKE_CXX_STANDARD.*not supported|CXX_STANDARD_REQUIRED.*failed)",
         "compiler_error", "cmake", ">=3.16", "linux", "true", 0.88, 0.90,
         "The CXX_STANDARD value (e.g., 20, 23) exceeds what the installed compiler version supports.",
@@ -7408,7 +7408,7 @@ def get_all_canons() -> list[dict]:
 
     canons.append(canon(
         "opencv", "imread-returns-none", "cv4.9-linux",
-        "cv2.error: (-215:Assertion failed) !_src.empty() — imread returned None for valid file path",
+        "cv2.error: (-215:Assertion failed) !_src.empty() - imread returned None for valid file path",
         r"(!_src\.empty\(\)|imread.*None|imread.*returned None|image.*is empty|NoneType.*has no attribute.*shape)",
         "io_error", "opencv", ">=4.5", "linux", "true", 0.90, 0.92,
         "cv2.imread returns None silently when it cannot read the file. Path typo, missing codec, or permission issue.",

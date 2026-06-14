@@ -3,7 +3,7 @@
   "id": "rust/hyphen-underscore-crate-name-confusion/rust1.70-any",
   "url": "https://deadends.dev/rust/hyphen-underscore-crate-name-confusion/rust1.70-any",
   "error": {
-    "signature": "can't find crate — Rust crate name has hyphens but use/extern expects underscores",
+    "signature": "can't find crate - Rust crate name has hyphens but use/extern expects underscores",
     "regex": "can't find crate|unresolved import.*-|extern crate.*not found",
     "domain": "rust",
     "category": "naming",

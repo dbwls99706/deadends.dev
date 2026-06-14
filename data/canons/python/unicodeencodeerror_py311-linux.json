@@ -57,7 +57,7 @@
     {
       "action": "Set PYTHONIOENCODING=utf-8 for stdout encoding issues",
       "success_rate": 0.88,
-      "how": "export PYTHONIOENCODING=utf-8 — fixes encoding errors when piping output",
+      "how": "export PYTHONIOENCODING=utf-8 - fixes encoding errors when piping output",
       "sources": [],
       "condition": ""
     }

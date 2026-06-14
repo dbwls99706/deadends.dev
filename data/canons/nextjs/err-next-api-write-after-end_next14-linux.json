@@ -22,7 +22,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.96,
     "last_updated": "2026-02-11",
-    "summary": "API route sends response twice — usually a missing return after res.json()."
+    "summary": "API route sends response twice - usually a missing return after res.json()."
   },
   "dead_ends": [
     {
@@ -55,7 +55,7 @@
     {
       "action": "Use response.json() instead of manual write in App Router",
       "success_rate": 0.90,
-      "how": "// App Router (app/api/route.ts):\nexport async function POST(request: Request) {\n  const body = await request.json();\n  return Response.json({ success: true, data: body });\n}\n// Avoid res.write() / res.end() — use the Response API instead",
+      "how": "// App Router (app/api/route.ts):\nexport async function POST(request: Request) {\n  const body = await request.json();\n  return Response.json({ success: true, data: body });\n}\n// Avoid res.write() / res.end() - use the Response API instead",
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/routing/route-handlers"
       ],
@@ -64,7 +64,7 @@
     {
       "action": "Ensure the response body is not written to after the response has ended",
       "success_rate": 0.88,
-      "how": "// Pages Router — add return after each response:\nexport default function handler(req, res) {\n  if (!req.body.name) {\n    return res.status(400).json({ error: 'Name required' });\n    // return prevents further writes\n  }\n  return res.status(200).json({ ok: true });\n}",
+      "how": "// Pages Router - add return after each response:\nexport default function handler(req, res) {\n  if (!req.body.name) {\n    return res.status(400).json({ error: 'Name required' });\n    // return prevents further writes\n  }\n  return res.status(200).json({ ok: true });\n}",
       "sources": [
         "https://nextjs.org/docs/pages/building-your-application/routing/api-routes"
       ],

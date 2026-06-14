@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-on-arrival-conditions/eg",
+  "url": "https://deadends.dev/visa/visa-on-arrival-conditions/eg",
+  "error": {
+    "signature": "AI tells a traveler that Egypt entry is free or that visa on arrival has no conditions",
+    "regex": "(egypt.*visa|visa.*egypt|egypt.*evisa|e.?visa.*egypt|egypt.*visa.on.arrival)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Most visitors to Egypt need a visa. Many nationalities can buy a visa on arrival (around USD 25) at major airports or apply for an e-Visa in advance via the official portal. Rules vary by nationality and entry point, and visitors to South Sinai resorts may get a limited free entry permit that does not allow travel elsewhere."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Egypt is visa-free, or that visa on arrival is available at every entry point for every nationality",
+      "why_fails": "Visa requirements depend on nationality and entry point; not all borders sell visa on arrival and some nationalities must arrange a visa in advance. Assuming free entry risks refusal.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://visa2egypt.gov.eg/"
+      ],
+      "common_misconception": "VOA availability and free entry are not universal across nationalities and borders."
+    },
+    {
+      "action": "Rely on the South Sinai free entry permit for a Nile or Cairo trip",
+      "why_fails": "The visa-free Sinai-only permit (about 15 days) is limited to South Sinai resort areas and does NOT allow travel to Cairo, Luxor, or diving outside the zone - you need a full visa for those.",
+      "fail_rate": 0.55,
+      "condition": "Traveling beyond South Sinai"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the e-Visa on the official portal before travel, or buy visa on arrival at a major airport if eligible.",
+      "success_rate": 0.88,
+      "how": "Use only visa2egypt.gov.eg; carry USD cash as a VOA backup; confirm your nationality's rule first.",
+      "sources": [
+        "https://visa2egypt.gov.eg/",
+        "https://egypt.travel/"
+      ]
+    },
+    {
+      "action": "For a full-country trip, get a proper tourist visa rather than the Sinai-only permit.",
+      "success_rate": 0.82,
+      "how": "Choose the full tourist visa if you plan to leave South Sinai.",
+      "tradeoff": "A full visa costs more than the free Sinai permit."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

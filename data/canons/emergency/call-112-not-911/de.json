@@ -25,7 +25,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.95,
     "last_updated": "2026-04-14",
-    "summary": "Germany uses 112 for fire/medical and 110 for police — the EU-wide 112 also reaches police dispatch. 911 does not route to German emergency services. Operators speak German and usually English; calls from any phone (incl. locked or SIM-less) are free and mandatory to connect by EU law."
+    "summary": "Germany uses 112 for fire/medical and 110 for police - the EU-wide 112 also reaches police dispatch. 911 does not route to German emergency services. Operators speak German and usually English; calls from any phone (incl. locked or SIM-less) are free and mandatory to connect by EU law."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Suggest hanging up and retrying if the 112 operator speaks only German",
-      "why_fails": "Under EU Directive 2002/22/EC, 112 dispatchers must handle calls in the caller's language where possible; in Germany major call centers handle English directly. Hanging up delays help — staying on the line and saying 'English please' or 'Hilfe' triggers escalation.",
+      "why_fails": "Under EU Directive 2002/22/EC, 112 dispatchers must handle calls in the caller's language where possible; in Germany major call centers handle English directly. Hanging up delays help - staying on the line and saying 'English please' or 'Hilfe' triggers escalation.",
       "fail_rate": 0.8,
       "sources": [
         "https://eur-lex.europa.eu/eli/dir/2002/22/oj"
@@ -67,7 +67,7 @@
       "condition": "Once connected to 112/110"
     },
     {
-      "action": "Save the Hausnotruf app or nora-Notruf app on your phone for text-based 112 contact — useful for hearing impaired or where voice calls are unsafe.",
+      "action": "Save the Hausnotruf app or nora-Notruf app on your phone for text-based 112 contact - useful for hearing impaired or where voice calls are unsafe.",
       "success_rate": 0.85,
       "sources": [
         "https://www.nora-notruf.de/"

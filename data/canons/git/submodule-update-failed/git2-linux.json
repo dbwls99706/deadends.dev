@@ -3,7 +3,7 @@
   "id": "git/submodule-update-failed/git2-linux",
   "url": "https://deadends.dev/git/submodule-update-failed/git2-linux",
   "error": {
-    "signature": "Failed to recurse into submodule path — submodule update/checkout failure",
+    "signature": "Failed to recurse into submodule path - submodule update/checkout failure",
     "regex": "(?:Failed to recurse into submodule|fatal:.*submodule.*(?:update|checkout|fetch)|Unable to checkout.*submodule|Submodule path.*not initialized|reference is not a tree)",
     "domain": "git",
     "category": "submodule_error",

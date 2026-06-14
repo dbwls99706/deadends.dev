@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/tap-water-unsafe-for-visitors/bd",
+  "url": "https://deadends.dev/food-safety/tap-water-unsafe-for-visitors/bd",
+  "error": {
+    "signature": "AI tells a traveler that tap water is safe to drink in Bangladesh",
+    "regex": "(bangladesh.*tap.water|drink.*water.*bangladesh|bangladesh.*water.safe)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "Tap water in Bangladesh is generally not safe for visitors to drink. Tap and shallow groundwater can carry pathogens and, in places, arsenic; bottled or boiled water is the norm. Use sealed bottled water, or water boiled or properly filtered/treated, and avoid ice of unknown origin and raw produce washed in tap water."
+  },
+  "dead_ends": [
+    {
+      "action": "Drink straight from the tap or use tap ice because the place looks developed",
+      "why_fails": "Visitors lack local immunity; tap water and untreated ice are common causes of traveler's diarrhea and more serious infections in Bangladesh.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/bangladesh",
+        "https://www.who.int/health-topics/water-sanitation-and-hygiene-wash"
+      ],
+      "common_misconception": "A modern setting does not guarantee potable tap water for visitors."
+    },
+    {
+      "action": "Brush teeth or rinse raw salad with tap water",
+      "why_fails": "Even small amounts of contaminated water - brushing teeth, rinsing produce, melting ice - can cause illness.",
+      "fail_rate": 0.45
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drink sealed bottled water, or water boiled for 1+ minute (3 minutes at altitude), or treated with a reliable filter/purifier.",
+      "success_rate": 0.92,
+      "how": "Buy sealed bottled water, boil, or use a certified filter/UV purifier; check that bottle seals are intact.",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/bangladesh",
+        "https://www.who.int/health-topics/water-sanitation-and-hygiene-wash"
+      ]
+    },
+    {
+      "action": "Avoid ice of unknown origin and raw produce you did not peel or wash with safe water.",
+      "success_rate": 0.85,
+      "how": "Skip ice when unsure; eat fruit you peel yourself.",
+      "tradeoff": "Some venues use purified ice; when in doubt, skip it."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

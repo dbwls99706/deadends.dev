@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/nzeta-and-ivl-required/nz",
+  "url": "https://deadends.dev/visa/nzeta-and-ivl-required/nz",
+  "error": {
+    "signature": "AI tells a visa-waiver traveler they can fly to New Zealand without any pre-authorization",
+    "regex": "(new.zealand.*visa|nzeta|nz.*eta|visa.waiver.*new.zealand|new.zealand.*ivl)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "Visa-waiver visitors to New Zealand must request an NZeTA (Electronic Travel Authority) before travel and pay the International Visitor Conservation and Tourism Levy (IVL). The NZeTA is valid up to 2 years. Without it, airlines deny boarding. Australian citizens are exempt, but Australian permanent residents are not."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to New Zealand on a visa-waiver passport without requesting an NZeTA",
+      "why_fails": "Visa-waiver travelers must hold an approved NZeTA before boarding; airlines verify it and deny boarding without it.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.immigration.govt.nz/",
+        "https://nzeta.immigration.govt.nz/"
+      ],
+      "common_misconception": "Visa-waiver does not mean zero paperwork - the NZeTA is mandatory."
+    },
+    {
+      "action": "Assume the NZeTA is free and instant",
+      "why_fails": "The NZeTA has a processing fee plus the IVL levy and can take up to 72 hours to approve, so last-minute requests can miss a flight.",
+      "fail_rate": 0.4
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Request the NZeTA via the official Immigration NZ app or site and pay the IVL before flying; allow up to 72 hours.",
+      "success_rate": 0.9,
+      "how": "Apply on the official NZeTA channel; budget for the NZeTA fee and IVL together.",
+      "sources": [
+        "https://nzeta.immigration.govt.nz/"
+      ]
+    },
+    {
+      "action": "Australian citizens need no NZeTA, but Australian permanent residents do - check your status.",
+      "success_rate": 0.85,
+      "how": "Confirm whether you are an Australian citizen (exempt) or PR (NZeTA required)."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

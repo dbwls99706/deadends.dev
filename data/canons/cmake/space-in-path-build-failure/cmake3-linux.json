@@ -3,7 +3,7 @@
   "id": "cmake/space-in-path-build-failure/cmake3-linux",
   "url": "https://deadends.dev/cmake/space-in-path-build-failure/cmake3-linux",
   "error": {
-    "signature": "CMake Error: The source directory does not exist — spaces in project path",
+    "signature": "CMake Error: The source directory does not exist - spaces in project path",
     "regex": "CMake Error.*source directory.*does not exist|CMake.*path.*space|make.*No rule.*space",
     "domain": "cmake",
     "category": "path_handling",
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Use Ninja generator instead of Make — Ninja handles spaces in paths correctly",
+      "action": "Use Ninja generator instead of Make - Ninja handles spaces in paths correctly",
       "success_rate": 0.9,
       "how": "cmake -S . -B build -G Ninja  # Ninja properly escapes spaces in generated build files",
       "sources": [

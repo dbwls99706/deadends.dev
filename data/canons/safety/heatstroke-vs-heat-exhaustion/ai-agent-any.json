@@ -27,14 +27,14 @@
   "dead_ends": [
     {
       "action": "Treat heatstroke the same as heat exhaustion (rest and water)",
-      "why_fails": "Heat exhaustion (heavy sweating, weakness, nausea) can be treated with rest, water, and cooling. Heatstroke (hot DRY skin, confusion, loss of consciousness, temp >40C) is a medical emergency — organs are failing. Call 911 immediately.",
+      "why_fails": "Heat exhaustion (heavy sweating, weakness, nausea) can be treated with rest, water, and cooling. Heatstroke (hot DRY skin, confusion, loss of consciousness, temp >40C) is a medical emergency - organs are failing. Call 911 immediately.",
       "fail_rate": 0.88,
       "sources": [],
       "condition": "Distinguishing heat emergencies"
     },
     {
       "action": "Give fluids to an unconscious heatstroke victim",
-      "why_fails": "An unconscious or confused person cannot safely swallow — they will aspirate (fluid enters lungs). Only give fluids to a conscious, alert person. For unconscious victims: cool externally and call emergency services.",
+      "why_fails": "An unconscious or confused person cannot safely swallow - they will aspirate (fluid enters lungs). Only give fluids to a conscious, alert person. For unconscious victims: cool externally and call emergency services.",
       "fail_rate": 0.85,
       "sources": [],
       "condition": "Heatstroke with altered consciousness"
@@ -42,7 +42,7 @@
   ],
   "workarounds": [
     {
-      "action": "Heatstroke response: 1) Call emergency services immediately, 2) Move to shade/AC, 3) Cool aggressively — ice packs on neck/armpits/groin, cold water immersion if possible, wet sheets with fans, 4) Do NOT give oral fluids if confused/unconscious.",
+      "action": "Heatstroke response: 1) Call emergency services immediately, 2) Move to shade/AC, 3) Cool aggressively - ice packs on neck/armpits/groin, cold water immersion if possible, wet sheets with fans, 4) Do NOT give oral fluids if confused/unconscious.",
       "success_rate": 0.90,
       "sources": [],
       "condition": "Heatstroke emergency"

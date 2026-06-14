@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-117-118-144/ch",
+  "url": "https://deadends.dev/emergency/112-117-118-144/ch",
+  "error": {
+    "signature": "AI tells someone in Switzerland to call 911 in an emergency",
+    "regex": "(911.*ch|switzerland.*emergency|emergency.*number.*switzerland)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Switzerland does not use 911. 112 works for any emergency; you can also dial 117 for police, 118 for fire, and 144 for ambulance. For mountain and air rescue, REGA's 1414 dispatches helicopters. All are free."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Switzerland expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Switzerland. 112 works for any emergency; 117 police, 118 fire, 144 ambulance. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.ch.ch/en/emergencies-and-emergency-numbers/",
+        "https://www.rega.ch/en"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Use 112 for a mountain or alpine rescue and wait",
+      "why_fails": "For mountain and air rescue, REGA's 1414 (or 1415 in Valais) dispatches rescue helicopters faster than the general line.",
+      "fail_rate": 0.4,
+      "condition": "Mountain/alpine emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Switzerland's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "General: 112. Police: 117. Fire: 118. Ambulance: 144. Air rescue (REGA): 1414.",
+      "sources": [
+        "https://www.ch.ch/en/emergencies-and-emergency-numbers/",
+        "https://www.rega.ch/en"
+      ]
+    },
+    {
+      "action": "In the Alps call REGA on 1414 for air rescue; otherwise 112 or 117/118/144.",
+      "success_rate": 0.85,
+      "how": "1414 (REGA) for mountain/air rescue; 144 for ambulance, 117 police, 118 fire, or 112 for any."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

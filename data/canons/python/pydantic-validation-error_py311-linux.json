@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Use model_construct() to skip validation",
-      "why_fails": "Creates invalid model instances — bugs will surface later",
+      "why_fails": "Creates invalid model instances - bugs will surface later",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.pydantic.dev/latest/concepts/models/#model-methods-and-properties"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Make all fields Optional",
-      "why_fails": "Defeats the purpose of validation — model can hold invalid state",
+      "why_fails": "Defeats the purpose of validation - model can hold invalid state",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.pydantic.dev/latest/concepts/fields/"
@@ -47,7 +47,7 @@
   ],
   "workarounds": [
     {
-      "action": "Read the error details — Pydantic tells you exactly which field and what's wrong",
+      "action": "Read the error details - Pydantic tells you exactly which field and what's wrong",
       "success_rate": 0.95,
       "how": "try:\n    Model(**data)\nexcept ValidationError as e:\n    print(e.errors())  # detailed field-by-field errors",
       "sources": [

@@ -36,7 +36,7 @@
     },
     {
       "action": "Cordon and ignore",
-      "why_fails": "Doesn't fix the issue — workloads won't be scheduled there",
+      "why_fails": "Doesn't fix the issue - workloads won't be scheduled there",
       "fail_rate": 0.5,
       "sources": [
         "https://kubernetes.io/docs/concepts/architecture/nodes/"

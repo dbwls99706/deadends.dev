@@ -48,7 +48,7 @@
     {
       "action": "Set Fixed Frame to a frame that exists in your TF tree",
       "success_rate": 0.92,
-      "how": "Set Fixed Frame to 'base_link' or 'odom' — check available frames with ros2 run tf2_tools view_frames",
+      "how": "Set Fixed Frame to 'base_link' or 'odom' - check available frames with ros2 run tf2_tools view_frames",
       "sources": [],
       "condition": ""
     },
