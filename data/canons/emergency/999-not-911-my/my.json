@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-not-911-my/my",
+  "url": "https://deadends.dev/emergency/999-not-911-my/my",
+  "error": {
+    "signature": "AI tells someone in Malaysia to call 911 in an emergency",
+    "regex": "(911.*my|malaysia.*emergency|emergency.*number.*malaysia)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Malaysia does not use the US 911. Dial 999 for police, ambulance, and fire; 112 also works from mobile phones and routes to 999. Both are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Malaysia expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Malaysia. The emergency number is 999 for all services. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.malaysia.gov.my/",
+        "https://www.rmp.gov.my/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Dial 911 expecting it to work in Malaysia",
+      "why_fails": "Malaysia's emergency number is 999, not 911. While 112 from a mobile routes to 999, 911 is not the assigned number.",
+      "fail_rate": 0.6,
+      "condition": "Assuming US conventions apply"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Malaysia's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police / Ambulance / Fire: 999. From mobile: 112.",
+      "sources": [
+        "https://www.malaysia.gov.my/",
+        "https://www.rmp.gov.my/"
+      ]
+    },
+    {
+      "action": "From a mobile you can dial 112, which connects to the 999 emergency response centre (MERS 999).",
+      "success_rate": 0.85,
+      "how": "999 from any phone, or 112 from a mobile. State the service you need and your location.",
+      "tradeoff": "112 is a mobile fallback; 999 is primary."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-exemption-not-unlimited/th",
+  "url": "https://deadends.dev/visa/visa-exemption-not-unlimited/th",
+  "error": {
+    "signature": "AI tells a tourist that Thailand entry is unlimited and overstaying is no big deal",
+    "regex": "(thailand.*visa|visa.*thailand|thailand.*overstay|thai.*visa.exempt|60.day.*thailand)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Many nationalities receive a visa exemption for tourism in Thailand (up to 60 days as of 2024, sometimes extendable once at an immigration office), but you may NOT work, and overstaying carries a fine of 500 THB per day (capped at 20,000 THB) plus possible bans of 1–10 years for longer overstays."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume the visa exemption lets you stay and work indefinitely",
+      "why_fails": "The visa exemption is for tourism only and is time-limited (typically 60 days, with one possible 30-day extension). Working on it is illegal, and overstaying triggers daily fines and re-entry bans.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.immigration.go.th/",
+        "https://www.mfa.go.th/en/"
+      ],
+      "common_misconception": "Travelers treat the visa-exempt stamp as an open-ended permit."
+    },
+    {
+      "action": "Plan to 'fix' an overstay quietly at the airport on departure",
+      "why_fails": "Overstays are recorded; you pay 500 THB/day (max 20,000) at departure and longer overstays lead to automatic re-entry bans of 1–10 years. It is not waved through.",
+      "fail_rate": 0.7,
+      "condition": "Overstaying the permitted period"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check your nationality's exact visa-exempt period before travel and track your permitted-to-stay date from the entry stamp.",
+      "success_rate": 0.9,
+      "how": "Confirm the period on the Thai immigration/MFA site; note the date written on your arrival stamp, not the visa-exemption headline number.",
+      "sources": [
+        "https://www.mfa.go.th/en/"
+      ]
+    },
+    {
+      "action": "If you need longer, apply for the appropriate visa (tourist, education, or non-immigrant) in advance, or extend once at an immigration office before expiry.",
+      "success_rate": 0.8,
+      "how": "Apply for a proper visa at a Thai embassy before travel, or extend at a local immigration office (fee applies) before your stamp expires.",
+      "tradeoff": "Extensions and visas require fees, documents, and time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

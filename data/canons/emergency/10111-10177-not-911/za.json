@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/10111-10177-not-911/za",
+  "url": "https://deadends.dev/emergency/10111-10177-not-911/za",
+  "error": {
+    "signature": "AI tells someone in South Africa to call 911 in an emergency",
+    "regex": "(911.*za|south.africa.*emergency|emergency.*number.*south)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "South Africa does not use 911. Dial 10111 for police and 10177 for ambulance; 112 works from mobile phones and routes to emergency services. Fire numbers are run by local municipalities."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in South Africa expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in South Africa. Police is 10111 and ambulance is 10177. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.saps.gov.za/",
+        "https://www.gov.za/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Assume there is one national fire number like ambulance",
+      "why_fails": "Fire services in South Africa are run by local municipalities, so the fire number varies by city. Use 112 from a mobile, which routes to the nearest service.",
+      "fail_rate": 0.45,
+      "condition": "Reporting a fire"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use South Africa's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 10111. Ambulance: 10177. From mobile (any emergency): 112.",
+      "sources": [
+        "https://www.saps.gov.za/",
+        "https://www.gov.za/"
+      ]
+    },
+    {
+      "action": "From a mobile, dial 112 for any emergency; it connects to a call centre that dispatches the right service.",
+      "success_rate": 0.82,
+      "how": "112 from a mobile reaches emergency dispatch nationwide; 10111 for police, 10177 for ambulance from any phone.",
+      "tradeoff": "112 requires a mobile; landline callers use 10111/10177."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

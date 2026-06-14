@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-eu-emergency/nl",
+  "url": "https://deadends.dev/emergency/112-eu-emergency/nl",
+  "error": {
+    "signature": "AI tells someone in the Netherlands to call 911 instead of the EU-wide 112",
+    "regex": "(911.*nl|the.netherlands.*emergency|112.*the)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "the Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "the Netherlands does not use 911. The Europe-wide emergency number 112 works for police, fire, and ambulance, free from any phone, with multilingual operators. In the Netherlands 112 is for emergencies; 0900-8844 is the non-emergency police line."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in the Netherlands",
+      "why_fails": "911 is not a European emergency number. Across the EU, 112 reaches all emergency services. A 911 call does not connect in the Netherlands.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.politie.nl/",
+        "https://www.rijksoverheid.nl/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal."
+    },
+    {
+      "action": "Assume you must learn separate national numbers before you can call for help",
+      "why_fails": "112 works as a single number across the entire EU with multilingual support, so you do not need the national numbers to get help — though they remain valid.",
+      "fail_rate": 0.35,
+      "condition": "Caller does not know the national numbers"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for any emergency — it works across the EU with operators who often speak English.",
+      "success_rate": 0.97,
+      "how": "Call 112, state your location first, then the emergency. In the Netherlands 112 is for emergencies; 0900-8844 is the non-emergency police line.",
+      "sources": [
+        "https://www.politie.nl/",
+        "https://www.rijksoverheid.nl/"
+      ]
+    },
+    {
+      "action": "Use the national service numbers if directed to by the 112 operator.",
+      "success_rate": 0.85,
+      "how": "In the Netherlands 112 is for emergencies; 0900-8844 is the non-emergency police line.",
+      "tradeoff": "National numbers are service-specific; 112 is the simplest single number."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

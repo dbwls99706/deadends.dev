@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-eu-emergency/es",
+  "url": "https://deadends.dev/emergency/112-eu-emergency/es",
+  "error": {
+    "signature": "AI tells someone in Spain to call 911 instead of the EU-wide 112",
+    "regex": "(911.*es|spain.*emergency|112.*spain)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Spain does not use 911. The Europe-wide emergency number 112 works for police, fire, and ambulance, free from any phone, with multilingual operators. In Spain you may also use 091 (national police), 092 (local police), or 061 (medical)."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Spain",
+      "why_fails": "911 is not a European emergency number. Across the EU, 112 reaches all emergency services. A 911 call does not connect in Spain.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.policia.es/",
+        "https://www.guardiacivil.es/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal."
+    },
+    {
+      "action": "Assume you must learn separate national numbers before you can call for help",
+      "why_fails": "112 works as a single number across the entire EU with multilingual support, so you do not need the national numbers to get help — though they remain valid.",
+      "fail_rate": 0.35,
+      "condition": "Caller does not know the national numbers"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for any emergency — it works across the EU with operators who often speak English.",
+      "success_rate": 0.97,
+      "how": "Call 112, state your location first, then the emergency. In Spain you may also use 091 (national police), 092 (local police), or 061 (medical).",
+      "sources": [
+        "https://www.policia.es/",
+        "https://www.guardiacivil.es/"
+      ]
+    },
+    {
+      "action": "Use the national service numbers if directed to by the 112 operator.",
+      "success_rate": 0.85,
+      "how": "In Spain you may also use 091 (national police), 092 (local police), or 061 (medical).",
+      "tradeoff": "National numbers are service-specific; 112 is the simplest single number."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

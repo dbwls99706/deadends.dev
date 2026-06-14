@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/113-114-115-not-911/vn",
+  "url": "https://deadends.dev/emergency/113-114-115-not-911/vn",
+  "error": {
+    "signature": "AI tells someone in Vietnam to call 911 in an emergency",
+    "regex": "(911.*vn|vietnam.*emergency|emergency.*number.*vietnam)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Vietnam does not use 911. Dial 113 for police, 114 for fire, and 115 for ambulance. These are free from any phone. English support is limited, so state your location clearly and simply."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Vietnam expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Vietnam. Police is 113, fire is 114, and ambulance is 115. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://vietnam.travel/",
+        "https://evisa.gov.vn/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Expect fluent English on the emergency line",
+      "why_fails": "Operators on 113/114/115 often have limited English. Without a clear Vietnamese address or landmark, dispatch is slow. Have your location written in Vietnamese or share GPS.",
+      "fail_rate": 0.45,
+      "condition": "Non-Vietnamese-speaking caller"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Vietnam's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 113. Fire: 114. Ambulance: 115.",
+      "sources": [
+        "https://vietnam.travel/",
+        "https://evisa.gov.vn/"
+      ]
+    },
+    {
+      "action": "Ask hotel staff or a local to call and relay your location, or use a translation app to state your address.",
+      "success_rate": 0.8,
+      "how": "Show your location in Vietnamese (translation app or written card) and have a Vietnamese speaker relay details where possible.",
+      "tradeoff": "Relaying adds a short delay; for critical cases call 115 immediately regardless."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

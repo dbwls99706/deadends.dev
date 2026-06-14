@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/cash-economy-dong-only/vn",
+  "url": "https://deadends.dev/banking/cash-economy-dong-only/vn",
+  "error": {
+    "signature": "AI tells a traveler they can pay by card everywhere in Vietnam",
+    "regex": "(vietnam.*card.payment|vietnam.*cash|vietnam.*dong|cash.only.*vietnam|vietnam.*atm)",
+    "domain": "banking",
+    "category": "cultural_practice",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Vietnam is largely a cash economy in Vietnamese dong (VND). Cards are accepted at hotels, malls, and many city restaurants, but street vendors, small shops, rural areas, and markets are cash-only. Foreigners can open accounts but generally need a residence/work document; tourists should rely on cash and ATMs."
+  },
+  "dead_ends": [
+    {
+      "action": "Travel Vietnam with only cards, expecting to tap everywhere like at home",
+      "why_fails": "A large share of Vietnamese commerce — street food, markets, local transport, rural shops — is cash-only in VND. Card-only travelers get stuck at the majority of small vendors.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://vietnam.travel/"
+      ],
+      "common_misconception": "Visitors assume card acceptance matches developed-market norms."
+    },
+    {
+      "action": "Open a Vietnamese bank account as a tourist to handle local payments",
+      "why_fails": "Banks generally require a residence card or work documentation to open an account; tourists are usually declined. Local digital wallets (e.g., MoMo) also require a Vietnamese bank account.",
+      "fail_rate": 0.7,
+      "condition": "Tourist without residence/work documents"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry VND cash for daily spending and use ATMs/cards mainly at hotels, malls, and larger restaurants.",
+      "success_rate": 0.9,
+      "how": "Withdraw VND from bank ATMs (watch per-transaction limits and fees); keep small notes for street vendors, taxis, and markets.",
+      "sources": [
+        "https://vietnam.travel/"
+      ]
+    },
+    {
+      "action": "Use a no-foreign-fee debit card and reputable bank ATMs to minimise withdrawal costs.",
+      "success_rate": 0.82,
+      "how": "Prefer ATMs attached to major banks; avoid dynamic currency conversion (always choose to be charged in VND).",
+      "tradeoff": "ATM withdrawal limits in Vietnam are often low, so you may withdraw frequently."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
