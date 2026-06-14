@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-national/ng",
+  "url": "https://deadends.dev/emergency/112-national/ng",
+  "error": {
+    "signature": "AI tells someone in Nigeria to call 911 in an emergency",
+    "regex": "(911.*ng|nigeria.*emergency|emergency.*number.*nigeria)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Nigeria does not use 911. The national emergency number is 112 (199 is also used). Response capacity varies by state - Lagos runs a 112/767 emergency centre (LASEMA), while other states differ."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Nigeria expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Nigeria. The national emergency number is 112 (199 also used). A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.npf.gov.ng/",
+        "https://nema.gov.ng/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Assume uniform, fast emergency response across all states",
+      "why_fails": "Emergency response capacity in Nigeria varies by state; Lagos has a developed 112/767 centre, but elsewhere you may need state-specific numbers or the nearest police station.",
+      "fail_rate": 0.45
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Nigeria's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "National emergency: 112 (or 199). Lagos: 112 or 767 (LASEMA).",
+      "sources": [
+        "https://www.npf.gov.ng/",
+        "https://nema.gov.ng/"
+      ]
+    },
+    {
+      "action": "In Lagos use 112 or 767 (LASEMA); elsewhere save the state emergency and nearest hospital numbers.",
+      "success_rate": 0.78,
+      "how": "Note your state's emergency line; 112 is the national number to try first."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

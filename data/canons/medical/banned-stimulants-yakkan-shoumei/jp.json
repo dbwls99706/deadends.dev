@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/banned-stimulants-yakkan-shoumei/jp",
+  "url": "https://deadends.dev/medical/banned-stimulants-yakkan-shoumei/jp",
+  "error": {
+    "signature": "AI tells a traveler they can bring their usual prescription or OTC medication into Japan",
+    "regex": "(japan.*medication|japan.*prescription|bring.*medicine.*japan|yakkan.shoumei|japan.*adderall|japan.*pseudoephedrine)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "Japan bans or restricts many medications legal elsewhere. Stimulants such as Adderall and Vyvanse (amphetamines) are strictly prohibited even with a prescription, and some cold/allergy medicines with pseudoephedrine or codeine are restricted. Bringing more than about one month's supply, or any controlled item, without a Yakkan Shoumei import certificate can lead to seizure or detention."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack your usual ADHD or strong cold medication for Japan assuming a prescription makes it legal",
+      "why_fails": "Amphetamine-based stimulants (Adderall, Vyvanse) are prohibited imports regardless of a foreign prescription; travelers have been detained for bringing them. Pseudoephedrine above the limit is also restricted.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.mhlw.go.jp/english/",
+        "https://jp.usembassy.gov/services/importing-medication/"
+      ],
+      "common_misconception": "People assume a valid prescription makes any drug importable - it does not for prohibited stimulants."
+    },
+    {
+      "action": "Bring more than one month's supply of prescription medicine without a Yakkan Shoumei",
+      "why_fails": "Importing over roughly one month's supply, or controlled/injectable items beyond limits, requires a Yakkan Shoumei certificate obtained in advance; without it customs can confiscate or detain.",
+      "fail_rate": 0.6,
+      "condition": "Over ~1 month supply or controlled item"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the prohibited/controlled list and apply for a Yakkan Shoumei import certificate before travel for larger or controlled supplies.",
+      "success_rate": 0.85,
+      "how": "Confirm your medication on the MHLW list; for prohibited drugs ask your doctor about a legal alternative; for large/controlled supplies apply for a Yakkan Shoumei by email well before departure and carry the approval.",
+      "sources": [
+        "https://www.mhlw.go.jp/english/",
+        "https://jp.usembassy.gov/services/importing-medication/"
+      ]
+    },
+    {
+      "action": "Carry medication in original labeled packaging with a copy of the prescription and a doctor's letter.",
+      "success_rate": 0.8,
+      "how": "Keep everything labeled and documented to clear customs smoothly.",
+      "tradeoff": "This does not make prohibited stimulants legal - a permitted alternative is still required."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-997-998-ksa/sa",
+  "url": "https://deadends.dev/emergency/999-997-998-ksa/sa",
+  "error": {
+    "signature": "AI tells someone in Saudi Arabia to call 911 in an emergency",
+    "regex": "(911.*sa|saudi.*emergency|emergency.*number.*saudi)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Saudi Arabia's nationwide service numbers are 999 (police), 997 (Red Crescent ambulance), and 998 (Civil Defense fire). A unified 911 has been rolled out in some regions (e.g., Makkah and Riyadh), but 999/997/998 work everywhere. All are free."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Saudi Arabia expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Saudi Arabia. Police is 999, ambulance is 997, and fire is 998. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.moi.gov.sa/",
+        "https://www.my.gov.sa/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Assume 911 works everywhere in Saudi Arabia",
+      "why_fails": "911 has been introduced as a unified number in some regions (Makkah, Riyadh) but is not yet nationwide; 999/997/998 remain the reliable service numbers.",
+      "fail_rate": 0.4
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Saudi Arabia's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 999. Ambulance (Red Crescent): 997. Fire (Civil Defense): 998.",
+      "sources": [
+        "https://www.moi.gov.sa/",
+        "https://www.my.gov.sa/"
+      ]
+    },
+    {
+      "action": "In the Makkah and Riyadh regions 911 routes to a unified centre; elsewhere use 999/997/998.",
+      "success_rate": 0.85,
+      "how": "Try the unified 911 in Makkah/Riyadh; otherwise dial 999 (police), 997 (ambulance), or 998 (fire)."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

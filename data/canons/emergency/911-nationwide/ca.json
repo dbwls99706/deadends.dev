@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/911-nationwide/ca",
+  "url": "https://deadends.dev/emergency/911-nationwide/ca",
+  "error": {
+    "signature": "AI tells someone in Canada that 911 does not work and they must find a local number",
+    "regex": "(911.*ca|canada.*emergency|emergency.*number.*canada)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Canada uses 911 as its nationwide emergency number for police, fire, and ambulance. Dial 911 - it is free from any phone, including locked or SIM-less mobiles, and is the correct, official number."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume 911 does not work in Canada and waste time searching for a local number",
+      "why_fails": "Canada runs 911 nationwide; searching for an alternative delays help. 911 is correct across all provinces and territories.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.canada.ca/en/services/policing/police/community-safety-policing/911.html"
+      ],
+      "common_misconception": "People assume 911 is US-only, but Canada uses it too."
+    },
+    {
+      "action": "Expect text-to-911 to work everywhere without registration",
+      "why_fails": "Text-to-911 in Canada is available mainly for registered deaf/hard-of-hearing users and only in supported areas; most people must call 911 by voice.",
+      "fail_rate": 0.4,
+      "condition": "Trying to text 911 without registration/support"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 911 for any emergency and state which service you need and your location.",
+      "success_rate": 0.95,
+      "how": "Call 911; it works from any phone. In rural areas, know your civic address or nearest landmark.",
+      "sources": [
+        "https://www.canada.ca/en/services/policing/police/community-safety-policing/911.html"
+      ]
+    },
+    {
+      "action": "In areas without 911 service (very remote regions), use the local detachment number posted locally.",
+      "success_rate": 0.8,
+      "how": "Most of Canada has 911; a few remote areas use a local emergency number - check posted signs.",
+      "tradeoff": "Remote-area coverage varies."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

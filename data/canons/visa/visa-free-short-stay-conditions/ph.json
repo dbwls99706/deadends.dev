@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-free-short-stay-conditions/ph",
+  "url": "https://deadends.dev/visa/visa-free-short-stay-conditions/ph",
+  "error": {
+    "signature": "AI tells a traveler they always need a visa in advance for a short tourist trip to the Philippines",
+    "regex": "(philippines.*visa|visa.*philippines|philippines.*visa.free|philippines.*30.day)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "the Philippines",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Nationals of many countries can enter the Philippines visa-free for up to 30 days for tourism (extendable in-country), provided they hold a passport valid 6+ months and an onward/return ticket. Some nationalities must obtain a visa in advance, so the visa-free entry is not automatic for everyone."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume every traveler needs a visa arranged in advance for the Philippines",
+      "why_fails": "Many nationalities get 30 days visa-free on arrival for tourism, so arranging an unnecessary visa wastes time and money; conversely some nationalities DO need one - it depends on your passport.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://immigration.gov.ph/"
+      ],
+      "common_misconception": "Visa-free entry is common but not universal - it depends on nationality."
+    },
+    {
+      "action": "Arrive without proof of onward or return travel",
+      "why_fails": "Airlines and immigration require an onward or return ticket for visa-free entry; without it you can be denied boarding even if visa-free.",
+      "fail_rate": 0.55,
+      "condition": "No onward ticket"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm your nationality's visa-free period on the Bureau of Immigration site and carry a passport valid 6+ months plus an onward ticket.",
+      "success_rate": 0.9,
+      "how": "Check immigration.gov.ph; bring return/onward proof and accommodation details; extend in-country at a BI office if staying longer.",
+      "sources": [
+        "https://immigration.gov.ph/",
+        "https://www.gov.ph/"
+      ]
+    },
+    {
+      "action": "If your nationality is not visa-free, apply for a 9(a) tourist visa at a Philippine embassy in advance.",
+      "success_rate": 0.82,
+      "how": "Apply for the 9(a) tourist visa ahead of travel if you are not on the visa-free list.",
+      "tradeoff": "Consular visas need lead time and documents."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

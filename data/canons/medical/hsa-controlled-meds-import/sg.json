@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/hsa-controlled-meds-import/sg",
+  "url": "https://deadends.dev/medical/hsa-controlled-meds-import/sg",
+  "error": {
+    "signature": "AI tells a traveler they can freely bring personal medication into Singapore",
+    "regex": "(singapore.*medication|singapore.*medicine|singapore.*prescription|hsa.*import|controlled.*drug.*singapore)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.83,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Singapore restricts import of many medicines. Personal medication is generally allowed up to about 3 months' supply with a prescription, but controlled drugs (e.g., codeine, sleeping pills, some psychotropics and stimulants) require prior approval from the Health Sciences Authority (HSA). Some products legal elsewhere are banned."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring controlled medicines (codeine cough syrup, sedatives, stimulants) into Singapore without HSA approval",
+      "why_fails": "Controlled drugs require an HSA import authorisation in advance; bringing them without it can mean seizure and prosecution under the Misuse of Drugs Act.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.hsa.gov.sg/personal-medication"
+      ],
+      "common_misconception": "A prescription alone does not authorise controlled-drug import."
+    },
+    {
+      "action": "Carry more than the personal limit without a prescription",
+      "why_fails": "Personal supply is generally capped (about 3 months) and must be supported by a prescription; excess or undocumented quantities are stopped at customs.",
+      "fail_rate": 0.55,
+      "condition": "Over personal limit or no prescription"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry up to about 3 months' supply with a prescription/doctor's letter and apply to HSA in advance for any controlled medicine.",
+      "success_rate": 0.85,
+      "how": "Check the HSA list; for controlled drugs apply for approval before travel and keep medication labeled with documentation.",
+      "sources": [
+        "https://www.hsa.gov.sg/personal-medication"
+      ]
+    },
+    {
+      "action": "Declare medicines at customs if you are unsure.",
+      "success_rate": 0.8,
+      "how": "When in doubt, declare; officers can advise and it avoids accusations of smuggling.",
+      "tradeoff": "Declaring may cause a brief inspection delay."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

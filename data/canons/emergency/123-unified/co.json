@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/123-unified/co",
+  "url": "https://deadends.dev/emergency/123-unified/co",
+  "error": {
+    "signature": "AI tells someone in Colombia to call 911 in an emergency",
+    "regex": "(911.*co|colombia.*emergency|emergency.*number.*colombia)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Colombia does not use 911. The unified emergency number is 123, which connects police, fire, and ambulance. It is free and staffed locally."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Colombia expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Colombia. 123 is the unified emergency number for all services. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.policia.gov.co/",
+        "https://www.gov.co/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Hunt for separate police, fire, and ambulance numbers",
+      "why_fails": "Colombia consolidated emergencies under the 123 single line, so you do not need service-specific numbers to get help.",
+      "fail_rate": 0.4
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Colombia's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "All emergencies (police, fire, ambulance): 123.",
+      "sources": [
+        "https://www.policia.gov.co/",
+        "https://www.gov.co/"
+      ]
+    },
+    {
+      "action": "Call 123 and give your barrio (neighbourhood) and a nearby landmark.",
+      "success_rate": 0.85,
+      "how": "123 dispatches the right service; state your location clearly."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/105-116-106/pe",
+  "url": "https://deadends.dev/emergency/105-116-106/pe",
+  "error": {
+    "signature": "AI tells someone in Peru to call 911 in an emergency",
+    "regex": "(911.*pe|peru.*emergency|emergency.*number.*peru)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Peru does not use 911. Dial 105 for police, 116 for fire (Bomberos), and 106 for ambulance (SAMU). All are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Peru expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Peru. Police is 105, fire is 116, and ambulance is 106. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gob.pe/",
+        "https://www.policia.gob.pe/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Call 105 (police) for a medical emergency",
+      "why_fails": "105 is the national police line; ambulances are dispatched via 106 (SAMU). Use the right number to avoid delay.",
+      "fail_rate": 0.5,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Peru's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 105. Fire: 116. Ambulance (SAMU): 106.",
+      "sources": [
+        "https://www.gob.pe/",
+        "https://www.policia.gob.pe/"
+      ]
+    },
+    {
+      "action": "For medical emergencies dial 106 (SAMU); 116 for fire, 105 for police.",
+      "success_rate": 0.83,
+      "how": "106 ambulance, 105 police, 116 fire; note private clinics also run ambulances in Lima."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

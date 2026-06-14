@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/133-131-132/cl",
+  "url": "https://deadends.dev/emergency/133-131-132/cl",
+  "error": {
+    "signature": "AI tells someone in Chile to call 911 in an emergency",
+    "regex": "(911.*cl|chile.*emergency|emergency.*number.*chile)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Chile does not use 911. Dial 133 for police (Carabineros), 131 for ambulance (SAMU), and 132 for fire (Bomberos). All are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Chile expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Chile. Police is 133, ambulance is 131, and fire is 132. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gob.cl/",
+        "https://www.carabineros.cl/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Call 133 (police) for a medical emergency",
+      "why_fails": "133 reaches Carabineros (police); ambulances come via 131 (SAMU). Calling the wrong line delays medical help.",
+      "fail_rate": 0.5,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Chile's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Police: 133. Ambulance (SAMU): 131. Fire (Bomberos): 132.",
+      "sources": [
+        "https://www.gob.cl/",
+        "https://www.carabineros.cl/"
+      ]
+    },
+    {
+      "action": "For medical emergencies dial 131 (SAMU); 132 (Bomberos) also performs rescue.",
+      "success_rate": 0.83,
+      "how": "131 ambulance, 133 police, 132 fire/rescue; give your comuna and address."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

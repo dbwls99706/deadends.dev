@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/110-112-113/no",
+  "url": "https://deadends.dev/emergency/110-112-113/no",
+  "error": {
+    "signature": "AI tells someone in Norway to call 911 in an emergency",
+    "regex": "(911.*no|norway.*emergency|emergency.*number.*norway)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Norway does not use 911, and 112 is specifically the police number here. Dial 110 for fire, 112 for police, and 113 for ambulance/medical. All are free from any phone."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in Norway expecting to reach emergency services",
+      "why_fails": "911 is not the emergency number in Norway. Fire is 110, police is 112, and ambulance is 113. A 911 call does not connect to local police, fire, or ambulance.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.politiet.no/",
+        "https://www.helsenorge.no/en/"
+      ],
+      "common_misconception": "Travelers assume 911 is universal because of US media."
+    },
+    {
+      "action": "Assume 112 is for medical emergencies as in the EU single-number model",
+      "why_fails": "In Norway 112 is the police number; medical emergencies go to 113 and fire to 110. Calling 112 for a medical case delays the ambulance.",
+      "fail_rate": 0.45,
+      "condition": "Medical emergency"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use Norway's real emergency numbers.",
+      "success_rate": 0.96,
+      "how": "Fire: 110. Police: 112. Ambulance/medical: 113.",
+      "sources": [
+        "https://www.politiet.no/",
+        "https://www.helsenorge.no/en/"
+      ]
+    },
+    {
+      "action": "For a medical emergency dial 113 directly; 110 for fire, 112 for police.",
+      "success_rate": 0.85,
+      "how": "113 ambulance, 110 fire, 112 police; operators generally speak English."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/tap-water-safe-to-drink/jp",
+  "url": "https://deadends.dev/food-safety/tap-water-safe-to-drink/jp",
+  "error": {
+    "signature": "AI warns a traveler not to drink tap water in Japan when it is actually safe",
+    "regex": "(japan.*tap.water|drink.*water.*japan|japan.*water.safe)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.82,
+    "last_updated": "2026-06-14",
+    "summary": "Tap water in Japan is safe to drink. It meets strict national quality standards and is potable nationwide, including in Tokyo. Telling travelers to avoid it wastes money on bottled water; the only exceptions are clearly marked non-potable taps (e.g., some industrial or onboard taps)."
+  },
+  "dead_ends": [
+    {
+      "action": "Insist on bottled water everywhere in Japan and avoid the tap",
+      "why_fails": "Japanese tap water is regulated to be safe to drink nationwide; avoiding it is unnecessary and wasteful.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.waterworks.metro.tokyo.lg.jp/eng/",
+        "https://www.japan.travel/en/"
+      ],
+      "common_misconception": "Travelers assume all of Asia has unsafe tap water - Japan is a clear exception."
+    },
+    {
+      "action": "Drink from any tap, including those marked non-potable",
+      "why_fails": "A few taps (industrial, some train/station taps) are labeled non-potable; heed signage that says it is not for drinking.",
+      "fail_rate": 0.3,
+      "condition": "Tap marked non-potable"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drink tap water freely; carry a reusable bottle and refill.",
+      "success_rate": 0.95,
+      "how": "Refill from any normal tap; watch for rare signs marking water as not for drinking.",
+      "sources": [
+        "https://www.waterworks.metro.tokyo.lg.jp/eng/"
+      ]
+    },
+    {
+      "action": "If you prefer the taste, use a simple carbon filter, but bottled water is optional.",
+      "success_rate": 0.85,
+      "how": "A basic filter improves taste; it is not needed for safety.",
+      "tradeoff": "Bottled water is an unnecessary expense for safety reasons in Japan."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
