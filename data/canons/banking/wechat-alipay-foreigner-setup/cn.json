@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Plan a China trip with the assumption that 'I'll just use Visa and pay cash as backup'",
-      "why_fails": "Many small shops, food stalls, taxi drivers, and rural vendors have NO POS terminal — payment by Visa is impossible. Cash is increasingly refused; vendors say 没有零钱 (no change) and refuse the bill. The People's Bank of China has explicitly required vendors to accept cash but enforcement is weak. WeChat/Alipay is genuinely default.",
+      "why_fails": "Many small shops, food stalls, taxi drivers, and rural vendors have NO POS terminal - payment by Visa is impossible. Cash is increasingly refused; vendors say 没有零钱 (no change) and refuse the bill. The People's Bank of China has explicitly required vendors to accept cash but enforcement is weak. WeChat/Alipay is genuinely default.",
       "fail_rate": 0.78,
       "sources": [
         "http://www.pbc.gov.cn/",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Try to register WeChat Pay or Alipay only after arriving in China",
-      "why_fails": "Both apps require SMS verification — a Chinese phone number works best, but foreign numbers can register since 2023. The first transaction often triggers identity verification (passport + selfie), which works inconsistently from inside China. Setting up before arrival is much smoother.",
+      "why_fails": "Both apps require SMS verification - a Chinese phone number works best, but foreign numbers can register since 2023. The first transaction often triggers identity verification (passport + selfie), which works inconsistently from inside China. Setting up before arrival is much smoother.",
       "fail_rate": 0.6,
       "sources": [
         "https://global.alipay.com/docs/ac/tour_card",
@@ -61,7 +61,7 @@
   ],
   "workarounds": [
     {
-      "action": "Pre-trip: install WeChat + Alipay. Verify identity with passport. Bind a Visa or Mastercard. Carry small RMB cash (~500 RMB) for backup. Register both apps — some merchants take only one.",
+      "action": "Pre-trip: install WeChat + Alipay. Verify identity with passport. Bind a Visa or Mastercard. Carry small RMB cash (~500 RMB) for backup. Register both apps - some merchants take only one.",
       "success_rate": 0.92,
       "sources": [
         "https://global.alipay.com/docs/ac/tour_card"

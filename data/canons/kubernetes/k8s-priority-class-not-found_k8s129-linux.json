@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Remove priorityClassName from the pod spec",
-      "why_fails": "Pod loses scheduling priority — may be preempted by other workloads",
+      "why_fails": "Pod loses scheduling priority - may be preempted by other workloads",
       "fail_rate": 0.55,
       "sources": [
         "https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use a numeric priority value directly",
-      "why_fails": "Kubernetes requires a PriorityClass resource — numeric priority is set on the PriorityClass, not the pod",
+      "why_fails": "Kubernetes requires a PriorityClass resource - numeric priority is set on the PriorityClass, not the pod",
       "fail_rate": 0.90,
       "sources": [
         "https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/"

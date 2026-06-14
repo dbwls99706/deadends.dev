@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use unsafe to get a pointer to the map value",
-      "why_fails": "Unsafe and undefined behavior — map values can move in memory",
+      "why_fails": "Unsafe and undefined behavior - map values can move in memory",
       "fail_rate": 0.95,
       "sources": [
         "https://go.dev/ref/spec#Assignments"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use a different data structure",
-      "why_fails": "Maps are fine — just use pointer values",
+      "why_fails": "Maps are fine - just use pointer values",
       "fail_rate": 0.55,
       "sources": [
         "https://go.dev/blog/maps"

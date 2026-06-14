@@ -36,7 +36,7 @@
     },
     {
       "action": "Throw a custom 404 error",
-      "why_fails": "Next.js has built-in notFound() — custom errors bypass its handling",
+      "why_fails": "Next.js has built-in notFound() - custom errors bypass its handling",
       "fail_rate": 0.7,
       "sources": [
         "https://nextjs.org/docs/app/api-reference/functions/not-found"

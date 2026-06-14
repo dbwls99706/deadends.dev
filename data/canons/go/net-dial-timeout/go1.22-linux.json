@@ -22,12 +22,12 @@
     "fix_success_rate": 0.80,
     "confidence": 0.85,
     "last_updated": "2026-02-12",
-    "summary": "TCP connection attempt timed out. The remote host is unreachable — firewall blocking, wrong IP/port, service not running, or network routing issues."
+    "summary": "TCP connection attempt timed out. The remote host is unreachable - firewall blocking, wrong IP/port, service not running, or network routing issues."
   },
   "dead_ends": [
     {
       "action": "Set an extremely long dial timeout",
-      "why_fails": "If the host is truly unreachable (firewall, wrong IP), no timeout duration will help — the connection will never succeed",
+      "why_fails": "If the host is truly unreachable (firewall, wrong IP), no timeout duration will help - the connection will never succeed",
       "fail_rate": 0.80,
       "sources": [
         "https://pkg.go.dev/net#Dialer"

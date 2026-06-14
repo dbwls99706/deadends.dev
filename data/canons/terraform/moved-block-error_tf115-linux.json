@@ -48,7 +48,7 @@
     {
       "action": "Remove the old resource block after adding the moved block",
       "success_rate": 0.94,
-      "how": "moved { from = old_address; to = new_address } — then delete the old resource block",
+      "how": "moved { from = old_address; to = new_address } - then delete the old resource block",
       "sources": [
         "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring"
       ],

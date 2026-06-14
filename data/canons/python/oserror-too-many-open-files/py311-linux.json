@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Increase ulimit to very high value",
-      "why_fails": "Band-aid — the real issue is file descriptor leak",
+      "why_fails": "Band-aid - the real issue is file descriptor leak",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.python.org/3/library/resource.html"

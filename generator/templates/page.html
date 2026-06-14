@@ -48,7 +48,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/svg+xml">
-  <meta property="og:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
+  <meta property="og:image:alt" content="{{ error.signature }} - {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content="{{ error.first_seen }}">
   <meta property="article:modified_time" content="{{ verdict.last_updated }}">
@@ -56,11 +56,11 @@
   <meta name="twitter:title" content="{{ page_title }}">
   <meta name="twitter:description" content="{{ meta_description }}">
   <meta name="twitter:image" content="{{ base_url }}/og/{{ id_parts[0] }}/{{ id_parts[1] }}.svg">
-  <meta name="twitter:image:alt" content="{{ error.signature }} — {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
+  <meta name="twitter:image:alt" content="{{ error.signature }} - {{ dead_ends|length }} dead ends, {{ workarounds|default([])|length }} workarounds">
   <meta name="keywords" content="{{ error.signature }}, {{ error.domain }}, {{ error.category }}, error fix, troubleshooting, how to fix {{ error.signature }}, {{ env_summary }}">
 
   <!-- Citation meta for AI citation engines and Google Scholar -->
-  <meta name="citation_title" content="Fix {{ error.signature }} — Verified Workarounds">
+  <meta name="citation_title" content="Fix {{ error.signature }} - Verified Workarounds">
   <meta name="citation_date" content="{{ error.first_seen|default(metadata.generation_date, true) }}">
   <meta name="citation_public_url" content="{{ page_canonical }}">
   <meta name="citation_author" content="deadends.dev">
@@ -90,7 +90,7 @@
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
 <body class="pg-detail">
-  <!-- AI-PARSEABLE STRUCTURED SUMMARY — Use /api/v1/{{ id }}.json for full data -->
+  <!-- AI-PARSEABLE STRUCTURED SUMMARY - Use /api/v1/{{ id }}.json for full data -->
   <pre id="ai-summary" class="ai-summary">ERROR_ID={{ id }}
 SIGNATURE={{ error.signature }}
 REGEX={{ error.regex }}
@@ -122,7 +122,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     </p>
   </header>
 
-  <!-- ABOVE-FOLD VERDICT CARD — The most important info visible without scrolling -->
+  <!-- ABOVE-FOLD VERDICT CARD - The most important info visible without scrolling -->
   <section id="verdict-card" class="verdict-card verdict-card-{{ verdict.resolvable }}" aria-label="Verdict summary">
     <div class="verdict-card-header">
       <span class="verdict-badge verdict-badge-{{ verdict.resolvable }}">
@@ -159,7 +159,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
     </div>
   </section>
 
-  <!-- DETAILED FIX GUIDE — step-by-step for humans landing from search -->
+  <!-- DETAILED FIX GUIDE - step-by-step for humans landing from search -->
   {% if workarounds|default([]) %}
   <section id="fix-guide" class="human-guide" aria-label="Step-by-step fix guide">
     <div class="human-guide-header">
@@ -180,7 +180,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   {% endif %}
 
   <section id="dead-ends" aria-label="Dead ends to avoid">
-    <h2>Dead Ends — Do NOT Try These</h2>
+    <h2>Dead Ends - Do NOT Try These</h2>
     {% for de in dead_ends %}
     <div class="dead-end">
       <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
@@ -195,7 +195,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   </section>
 
   <section id="workarounds" aria-label="Verified workarounds">
-    <h2>Workarounds — Try These Instead</h2>
+    <h2>Workarounds - Try These Instead</h2>
     {% if workarounds|default([]) %}
     {% for wa in workarounds|default([]) %}
     <div class="workaround">
@@ -286,7 +286,7 @@ STATS_API={{ base_url }}/api/v1/stats.json</pre>
   {% endif %}
 
   {% if faq_items|default([]) %}
-  <!-- Visible FAQ — must mirror the FAQPage JSON-LD (Google requires
+  <!-- Visible FAQ - must mirror the FAQPage JSON-LD (Google requires
        structured-data content to be visible on the page) -->
   <section id="faq" aria-label="Frequently asked questions">
     <h2>Frequently Asked Questions</h2>

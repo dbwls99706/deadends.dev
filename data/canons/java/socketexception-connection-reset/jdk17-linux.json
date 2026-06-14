@@ -36,7 +36,7 @@
     },
     {
       "action": "Increasing socket timeout values to prevent the connection from being reset",
-      "why_fails": "Connection reset is an active signal from the remote end — it is not a timeout. The RST packet arrives regardless of your timeout settings. Increasing timeouts helps with read timeouts (no response) but not with connection resets (explicit rejection).",
+      "why_fails": "Connection reset is an active signal from the remote end - it is not a timeout. The RST packet arrives regardless of your timeout settings. Increasing timeouts helps with read timeouts (no response) but not with connection resets (explicit rejection).",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.oracle.com/en/java/javase/21/docs/api/"

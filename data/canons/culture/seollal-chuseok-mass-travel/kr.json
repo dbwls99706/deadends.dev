@@ -25,12 +25,12 @@
     "fix_success_rate": 0.85,
     "confidence": 0.85,
     "last_updated": "2026-04-14",
-    "summary": "설날 (Seollal, Lunar New Year, Jan/Feb, 3-day national holiday) and 추석 (Chuseok, Korean autumn harvest festival, mid-Sep to early Oct, 3-day) trigger 민족 대이동 ('great mass migration') — 30+ million domestic trips. KTX/SRT booking opens ~30 days ahead and sells out in minutes; expressways turn into 4-8h delays; restaurants in Seoul largely close (everyone leaves to hometowns); palace entry is free with hanbok. Plan around or with these patterns deliberately."
+    "summary": "설날 (Seollal, Lunar New Year, Jan/Feb, 3-day national holiday) and 추석 (Chuseok, Korean autumn harvest festival, mid-Sep to early Oct, 3-day) trigger 민족 대이동 ('great mass migration') - 30+ million domestic trips. KTX/SRT booking opens ~30 days ahead and sells out in minutes; expressways turn into 4-8h delays; restaurants in Seoul largely close (everyone leaves to hometowns); palace entry is free with hanbok. Plan around or with these patterns deliberately."
   },
   "dead_ends": [
     {
       "action": "Try to book KTX from Seoul to Busan a week before Seollal/Chuseok",
-      "why_fails": "KTX/SRT holiday booking opens 30 days ahead at korail.com / sr.com and sells out within minutes — sometimes 30 seconds. Last-minute travelers find no seats; standing tickets sell out within 1-2 days. Express buses (고속버스) book up similarly. Driving: Seoul-Busan (normally 4h) becomes 8-12h.",
+      "why_fails": "KTX/SRT holiday booking opens 30 days ahead at korail.com / sr.com and sells out within minutes - sometimes 30 seconds. Last-minute travelers find no seats; standing tickets sell out within 1-2 days. Express buses (고속버스) book up similarly. Driving: Seoul-Busan (normally 4h) becomes 8-12h.",
       "fail_rate": 0.92,
       "sources": [
         "https://www.korail.com/",
@@ -79,7 +79,7 @@
       "condition": "Tourist alternative"
     },
     {
-      "action": "Check the lunar calendar — Seollal and Chuseok dates shift each year. Korean government publishes official holiday list at gov.kr/portal/holidays. Adjacent weekend dates can extend to 5-9 day breaks (replacement holidays).",
+      "action": "Check the lunar calendar - Seollal and Chuseok dates shift each year. Korean government publishes official holiday list at gov.kr/portal/holidays. Adjacent weekend dates can extend to 5-9 day breaks (replacement holidays).",
       "success_rate": 0.95,
       "sources": [
         "https://www.gov.kr/portal/holidays/holidayInfoView"

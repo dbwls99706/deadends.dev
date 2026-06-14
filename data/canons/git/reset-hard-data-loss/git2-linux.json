@@ -3,7 +3,7 @@
   "id": "git/reset-hard-data-loss/git2-linux",
   "url": "https://deadends.dev/git/reset-hard-data-loss/git2-linux",
   "error": {
-    "signature": "HEAD is now at <commit> — uncommitted changes permanently lost after git reset --hard",
+    "signature": "HEAD is now at <commit> - uncommitted changes permanently lost after git reset --hard",
     "regex": "(?:HEAD is now at [0-9a-f]+|git reset --hard.*(?:lost|gone|disappeared)|Cannot recover.*reset --hard)",
     "domain": "git",
     "category": "data_loss",

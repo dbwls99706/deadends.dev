@@ -25,7 +25,7 @@
     "fix_success_rate": 0.78,
     "confidence": 0.78,
     "last_updated": "2026-04-14",
-    "summary": "Korean speech levels are not stylistic preference — they encode social relationship. Using 반말 (banmal, plain form) with a superior, elder, or first-time contact is read as disrespect or aggression. Using overly stiff 하십시오체 with a close friend sounds cold. Email, customer service, and workplace messaging default to 해요체 or 합니다체; default 반말 output will be offensive."
+    "summary": "Korean speech levels are not stylistic preference - they encode social relationship. Using 반말 (banmal, plain form) with a superior, elder, or first-time contact is read as disrespect or aggression. Using overly stiff 하십시오체 with a close friend sounds cold. Email, customer service, and workplace messaging default to 해요체 or 합니다체; default 반말 output will be offensive."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Always apply 합니다체 to sound 'safe', even among close friends",
-      "why_fails": "Among close friends, family of similar age, or in casual messaging, 합니다체 feels bureaucratic and distant — may read as the speaker holding the listener at arm's length after establishing closeness. It's also strange in casual group chats.",
+      "why_fails": "Among close friends, family of similar age, or in casual messaging, 합니다체 feels bureaucratic and distant - may read as the speaker holding the listener at arm's length after establishing closeness. It's also strange in casual group chats.",
       "fail_rate": 0.55,
       "sources": [
         "https://www.korean.go.kr/front_eng/index.do"

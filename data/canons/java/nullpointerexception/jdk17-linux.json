@@ -57,7 +57,7 @@
     {
       "action": "Read the JDK 17+ helpful NullPointerException message to identify exactly which variable or method return was null, then trace back to where that value should have been initialized",
       "success_rate": 0.95,
-      "how": "1. Read the exception message carefully — JDK 17+ prints which exact expression was null (e.g., 'Cannot invoke method because \"this.service\" is null'). 2. Trace the variable to its initialization point. 3. Determine why initialization was skipped (missing constructor arg, failed dependency injection, conditional path). 4. Fix the root cause by ensuring the value is always properly initialized before use.",
+      "how": "1. Read the exception message carefully - JDK 17+ prints which exact expression was null (e.g., 'Cannot invoke method because \"this.service\" is null'). 2. Trace the variable to its initialization point. 3. Determine why initialization was skipped (missing constructor arg, failed dependency injection, conditional path). 4. Fix the root cause by ensuring the value is always properly initialized before use.",
       "sources": [],
       "condition": ""
     },

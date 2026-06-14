@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Calling cudaProfilerStart/Stop without launching the application through a profiler",
-      "why_fails": "cudaProfilerStart/Stop are designed to delimit profiling regions when the application is launched under a profiler (nsys, ncu). Without an attached profiler, these calls may return cudaErrorProfilerNotInitialized. They do not themselves enable profiling — they only control when an already-attached profiler collects data.",
+      "why_fails": "cudaProfilerStart/Stop are designed to delimit profiling regions when the application is launched under a profiler (nsys, ncu). Without an attached profiler, these calls may return cudaErrorProfilerNotInitialized. They do not themselves enable profiling - they only control when an already-attached profiler collects data.",
       "fail_rate": 0.85,
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-c-programming-guide/#execution-configuration"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Install from GitHub directly",
-      "why_fails": "GitHub is not a package registry — versions may not match PyPI",
+      "why_fails": "GitHub is not a package registry - versions may not match PyPI",
       "fail_rate": 0.65,
       "sources": [
         "https://pip.pypa.io/en/stable/cli/pip_install/"
@@ -64,7 +64,7 @@
       "how": "pip install -i https://pypi.tuna.tsinghua.edu.cn/simple"
     },
     {
-      "action": "Retry — PyPI may have temporary issues",
+      "action": "Retry - PyPI may have temporary issues",
       "success_rate": 0.8,
       "how": "pip install --retries 5 <package>",
       "sources": [

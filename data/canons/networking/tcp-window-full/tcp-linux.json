@@ -83,7 +83,7 @@
     "frequently_confused_with": [
       {
         "error_id": "networking/connection-timeout/tcp-linux",
-        "distinction": "TCP window full is flow control — the connection is alive but data transfer is paused; connection timeout means no response at all from the peer"
+        "distinction": "TCP window full is flow control - the connection is alive but data transfer is paused; connection timeout means no response at all from the peer"
       }
     ]
   },

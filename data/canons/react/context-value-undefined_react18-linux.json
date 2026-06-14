@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Provide a default value in createContext that mimics the real value",
-      "why_fails": "Default values mask the missing Provider — bugs appear silently",
+      "why_fails": "Default values mask the missing Provider - bugs appear silently",
       "fail_rate": 0.6,
       "sources": [
         "https://react.dev/reference/react/createContext"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use optional chaining on every context property",
-      "why_fails": "Verbose and hides the real issue — missing Provider",
+      "why_fails": "Verbose and hides the real issue - missing Provider",
       "fail_rate": 0.65,
       "sources": [
         "https://react.dev/reference/react/useContext"

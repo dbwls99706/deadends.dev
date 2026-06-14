@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>About deadends.dev — Methodology &amp; Data Sources</title>
+  <title>About deadends.dev - Methodology &amp; Data Sources</title>
   <meta name="description" content="How deadends.dev collects, verifies and scores {{ total_canons }} structured failure records: dead-end fail rates, workaround success rates, evidence counts and review status.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="{{ base_url }}/about/">
 
-  <meta property="og:title" content="About deadends.dev — Methodology &amp; Data Sources">
+  <meta property="og:title" content="About deadends.dev - Methodology &amp; Data Sources">
   <meta property="og:description" content="How dead-end fail rates and workaround success rates are derived, verified and kept fresh.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}/about/">
@@ -49,33 +49,33 @@
 
   <section id="what">
     <h2>What this site is</h2>
-    <p>deadends.dev is a structured database of <strong>what does NOT work</strong> — and what does — when fixing errors. Most documentation tells you the happy path; this site catalogs the {{ total_dead_ends }} dead ends people actually try first (and why they fail), next to {{ total_workarounds }} verified workarounds, as machine-readable ErrorCanon records. It covers {{ total_domains }} domains: classic software errors (Python, Docker, CUDA, Kubernetes, …) and country-specific real-world dead ends (visa, banking, legal, emergency procedures) where one-size-fits-all advice fails.</p>
+    <p>deadends.dev is a structured database of <strong>what does NOT work</strong> - and what does - when fixing errors. Most documentation tells you the happy path; this site catalogs the {{ total_dead_ends }} dead ends people actually try first (and why they fail), next to {{ total_workarounds }} verified workarounds, as machine-readable ErrorCanon records. It covers {{ total_domains }} domains: classic software errors (Python, Docker, CUDA, Kubernetes, …) and country-specific real-world dead ends (visa, banking, legal, emergency procedures) where one-size-fits-all advice fails.</p>
   </section>
 
   <section id="methodology">
-    <h2>Methodology — where the numbers come from</h2>
+    <h2>Methodology - where the numbers come from</h2>
     <p>Every error page is generated from a versioned JSON record (an <em>ErrorCanon</em>) kept in the open on <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a>. Each record carries:</p>
     <ul>
-      <li><strong>Dead ends</strong> — commonly attempted fixes with a <em>fail rate</em>, an explanation of why they fail, and the misconception behind them.</li>
-      <li><strong>Workarounds</strong> — fixes with a <em>success rate</em>, step-by-step commands, and tradeoffs.</li>
-      <li><strong>Evidence count</strong> — the number of independent sources (issue trackers, official docs, Q&amp;A threads, regulator or government pages for country entries) backing the record. Records with fewer than 3 sources are capped at low confidence by a validation rule enforced at build time.</li>
-      <li><strong>Verdict</strong> — whether the error is resolvable, with a confidence score; the resolvable/confidence/fix-rate combinations are constrained by automated business rules so the verdict can never overstate the evidence.</li>
-      <li><strong>Freshness dates</strong> — when the behavior was last confirmed; entries unverified for 180+ days are flagged stale and re-checked or demoted.</li>
+      <li><strong>Dead ends</strong> - commonly attempted fixes with a <em>fail rate</em>, an explanation of why they fail, and the misconception behind them.</li>
+      <li><strong>Workarounds</strong> - fixes with a <em>success rate</em>, step-by-step commands, and tradeoffs.</li>
+      <li><strong>Evidence count</strong> - the number of independent sources (issue trackers, official docs, Q&amp;A threads, regulator or government pages for country entries) backing the record. Records with fewer than 3 sources are capped at low confidence by a validation rule enforced at build time.</li>
+      <li><strong>Verdict</strong> - whether the error is resolvable, with a confidence score; the resolvable/confidence/fix-rate combinations are constrained by automated business rules so the verdict can never overstate the evidence.</li>
+      <li><strong>Freshness dates</strong> - when the behavior was last confirmed; entries unverified for 180+ days are flagged stale and re-checked or demoted.</li>
     </ul>
-    <p>Code-error records are bulk-drafted with LLM assistance against curated seed definitions, then validated by schema and business rules. Country-specific records are <strong>manually authored from primary sources</strong> (government, embassy, regulator pages) — {{ human_reviewed }} records are human-reviewed or community-verified. Success and fail rates are estimates aggregated from the cited evidence, not laboratory measurements; the per-page source links let you audit every claim.</p>
+    <p>Code-error records are bulk-drafted with LLM assistance against curated seed definitions, then validated by schema and business rules. Country-specific records are <strong>manually authored from primary sources</strong> (government, embassy, regulator pages) - {{ human_reviewed }} records are human-reviewed or community-verified. Success and fail rates are estimates aggregated from the cited evidence, not laboratory measurements; the per-page source links let you audit every claim.</p>
   </section>
 
   <section id="how-to-use">
     <h2>How to use it</h2>
     <ul>
-      <li><strong>Humans</strong> — search or browse to an error page; the verdict card tells you instantly whether to keep digging or change approach.</li>
-      <li><strong>AI agents</strong> — every page has a parseable <code>&lt;pre id="ai-summary"&gt;</code> block, JSON-LD, a mirror JSON API at <code>/api/v1/{domain}/{slug}/{env}.json</code>, plus <a href="{{ base_path }}/llms.txt">llms.txt</a> and an MCP server for direct integration.</li>
+      <li><strong>Humans</strong> - search or browse to an error page; the verdict card tells you instantly whether to keep digging or change approach.</li>
+      <li><strong>AI agents</strong> - every page has a parseable <code>&lt;pre id="ai-summary"&gt;</code> block, JSON-LD, a mirror JSON API at <code>/api/v1/{domain}/{slug}/{env}.json</code>, plus <a href="{{ base_path }}/llms.txt">llms.txt</a> and an MCP server for direct integration.</li>
     </ul>
   </section>
 
   <section id="licensing">
     <h2>Licensing &amp; contributions</h2>
-    <p>The data is published under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Found a wrong rate, a stale entry, or a missing dead end? <a href="https://github.com/dbwls99706/deadends.dev/issues/new">Open an issue</a> or submit a pull request — every record is a reviewable JSON file.</p>
+    <p>The data is published under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Found a wrong rate, a stale entry, or a missing dead end? <a href="https://github.com/dbwls99706/deadends.dev/issues/new">Open an issue</a> or submit a pull request - every record is a reviewable JSON file.</p>
   </section>
 
   </main>

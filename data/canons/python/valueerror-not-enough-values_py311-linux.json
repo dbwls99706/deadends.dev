@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Add * to catch remaining values",
-      "why_fails": "Masks the real issue — wrong data shape",
+      "why_fails": "Masks the real issue - wrong data shape",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences"
@@ -47,7 +47,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check if iterating dict — use .items() for key-value pairs",
+      "action": "Check if iterating dict - use .items() for key-value pairs",
       "success_rate": 0.95,
       "how": "for key, value in my_dict.items():  # not: for k, v in my_dict:",
       "sources": [

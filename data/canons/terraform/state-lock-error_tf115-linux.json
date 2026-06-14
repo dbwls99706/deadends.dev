@@ -48,7 +48,7 @@
     {
       "action": "Wait for the other process to finish, then retry",
       "success_rate": 0.85,
-      "how": "Check who holds the lock — the error message includes the lock ID and creator",
+      "how": "Check who holds the lock - the error message includes the lock ID and creator",
       "sources": [],
       "condition": ""
     },

@@ -25,7 +25,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.92,
     "last_updated": "2026-04-14",
-    "summary": "Yom Kippur (Day of Atonement, holiest day in Judaism, 25-hour fast from sunset) triggers Israel's most complete shutdown of the year. Ben Gurion Airport closes for ~25 hours (no commercial flights in/out). All TV/radio broadcasts (incl. army radio Galei Tzahal) silenced. No public transport, no taxis officially (some emergency taxis exist), no restaurants open, even Israeli Arabs largely close. Roads empty — children bicycle on highways. Synagogues and emergency services only."
+    "summary": "Yom Kippur (Day of Atonement, holiest day in Judaism, 25-hour fast from sunset) triggers Israel's most complete shutdown of the year. Ben Gurion Airport closes for ~25 hours (no commercial flights in/out). All TV/radio broadcasts (incl. army radio Galei Tzahal) silenced. No public transport, no taxis officially (some emergency taxis exist), no restaurants open, even Israeli Arabs largely close. Roads empty - children bicycle on highways. Synagogues and emergency services only."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Plan to drive on Israeli highways or take a taxi during Yom Kippur",
-      "why_fails": "Roads are open but virtually empty — most Israelis don't drive. Filling stations close. Driving feels socially transgressive (kids cycling on the empty streets is the iconic image). In Jerusalem and many neighborhoods, cars driving during Yom Kippur are stoned by ultra-orthodox residents.",
+      "why_fails": "Roads are open but virtually empty - most Israelis don't drive. Filling stations close. Driving feels socially transgressive (kids cycling on the empty streets is the iconic image). In Jerusalem and many neighborhoods, cars driving during Yom Kippur are stoned by ultra-orthodox residents.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.gov.il/en/departments/general/calendar-and-days-off",
@@ -50,7 +50,7 @@
     },
     {
       "action": "Schedule restaurant reservations or business meetings during Yom Kippur",
-      "why_fails": "Total restaurant closure. All government and most private businesses closed. The day before (Erev Yom Kippur) shuts down by mid-afternoon. Day after (often Shabbat-adjacent) may still be quiet. Not just orthodox observance — secular Israelis largely participate too.",
+      "why_fails": "Total restaurant closure. All government and most private businesses closed. The day before (Erev Yom Kippur) shuts down by mid-afternoon. Day after (often Shabbat-adjacent) may still be quiet. Not just orthodox observance - secular Israelis largely participate too.",
       "fail_rate": 0.92,
       "sources": [
         "https://www.gov.il/en/departments/general/calendar-and-days-off"

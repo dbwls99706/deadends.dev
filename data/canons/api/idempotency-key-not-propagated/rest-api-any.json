@@ -3,7 +3,7 @@
   "id": "api/idempotency-key-not-propagated/rest-api-any",
   "url": "https://deadends.dev/api/idempotency-key-not-propagated/rest-api-any",
   "error": {
-    "signature": "Duplicate resource created — idempotency key not forwarded through proxy",
+    "signature": "Duplicate resource created - idempotency key not forwarded through proxy",
     "regex": "[Dd]uplicate.*created|idempotency.*key.*missing",
     "domain": "api",
     "category": "idempotency",

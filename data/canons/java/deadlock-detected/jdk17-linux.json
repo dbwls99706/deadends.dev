@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increasing thread pool size to work around the deadlock",
-      "why_fails": "Adding more threads does not resolve a deadlock — the circular lock dependency remains. New threads may also deadlock on the same resources, making the situation worse.",
+      "why_fails": "Adding more threads does not resolve a deadlock - the circular lock dependency remains. New threads may also deadlock on the same resources, making the situation worse.",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.oracle.com/en/java/javase/21/docs/api/"

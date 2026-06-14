@@ -22,7 +22,7 @@
     "fix_success_rate": 0.8,
     "confidence": 0.85,
     "last_updated": "2026-02-12",
-    "summary": "A subprocess invoked by pip (typically setup.py or build backend) exited with a non-zero status. This is a wrapper error — the actual cause is in the subprocess output above this message. Common causes: missing build deps, syntax errors in setup.py, or incompatible build backend."
+    "summary": "A subprocess invoked by pip (typically setup.py or build backend) exited with a non-zero status. This is a wrapper error - the actual cause is in the subprocess output above this message. Common causes: missing build deps, syntax errors in setup.py, or incompatible build backend."
   },
   "dead_ends": [
     {
@@ -36,7 +36,7 @@
     },
     {
       "action": "Upgrade pip to fix subprocess handling",
-      "why_fails": "The error is not in pip's subprocess handling — it is in the package's build script that failed",
+      "why_fails": "The error is not in pip's subprocess handling - it is in the package's build script that failed",
       "fail_rate": 0.8,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/dependency-resolution/"

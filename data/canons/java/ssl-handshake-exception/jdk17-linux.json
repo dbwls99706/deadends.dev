@@ -55,7 +55,7 @@
     {
       "action": "Update the JDK's CA certificates and ensure the server certificate is valid and not expired",
       "success_rate": 0.85,
-      "how": "1. Check certificate validity: 'openssl s_client -connect host:443 | openssl x509 -noout -dates'. 2. Verify the certificate chain is complete — the server must send all intermediate certificates. 3. Update the JDK to the latest patch version, which includes updated CA certificates. 4. If the server certificate's CN or SAN does not match the hostname, fix the server configuration or use the correct hostname. 5. For TLS version issues: check which TLS versions the server supports with 'nmap --script ssl-enum-ciphers -p 443 host'.",
+      "how": "1. Check certificate validity: 'openssl s_client -connect host:443 | openssl x509 -noout -dates'. 2. Verify the certificate chain is complete - the server must send all intermediate certificates. 3. Update the JDK to the latest patch version, which includes updated CA certificates. 4. If the server certificate's CN or SAN does not match the hostname, fix the server configuration or use the correct hostname. 5. For TLS version issues: check which TLS versions the server supports with 'nmap --script ssl-enum-ciphers -p 443 host'.",
       "sources": [],
       "condition": "when the server uses a public CA certificate"
     }

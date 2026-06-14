@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set maxListeners to Infinity",
-      "why_fails": "Hides the memory leak — listeners accumulate without bound",
+      "why_fails": "Hides the memory leak - listeners accumulate without bound",
       "fail_rate": 0.8,
       "sources": [
         "https://nodejs.org/api/events.html#emittersetmaxlistenersn"

@@ -22,7 +22,7 @@
     "fix_success_rate": 0.93,
     "confidence": 0.95,
     "last_updated": "2026-02-11",
-    "summary": "Service has no matching pods — selector doesn't match any pod labels, or pods aren't ready."
+    "summary": "Service has no matching pods - selector doesn't match any pod labels, or pods aren't ready."
   },
   "dead_ends": [
     {
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check if pods are Ready: kubectl get pods -o wide — unready pods aren't added to endpoints",
+      "action": "Check if pods are Ready: kubectl get pods -o wide - unready pods aren't added to endpoints",
       "success_rate": 0.9,
       "how": "Pods must pass readiness probes to receive traffic",
       "sources": [],

@@ -22,7 +22,7 @@
     "fix_success_rate": 0.93,
     "confidence": 0.95,
     "last_updated": "2026-02-11",
-    "summary": "Static page generation failed during next build — usually a data fetching error or runtime error in the page component."
+    "summary": "Static page generation failed during next build - usually a data fetching error or runtime error in the page component."
   },
   "dead_ends": [
     {
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check the specific error in the build output — it shows the root cause above the prerender error",
+      "action": "Check the specific error in the build output - it shows the root cause above the prerender error",
       "success_rate": 0.95,
       "how": "Scroll up in the build log to find the actual error: API timeout, missing env var, etc.",
       "sources": [],

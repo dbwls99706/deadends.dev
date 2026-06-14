@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Mix bleach (sodium hypochlorite) with ammonia-based cleaners",
-      "why_fails": "This produces chloramine gas — causes respiratory damage, chest pain, shortness of breath, and death in enclosed spaces. Many bathroom and glass cleaners contain ammonia. Mixing them with bleach in a small bathroom is a leading cause of accidental poisoning deaths.",
+      "why_fails": "This produces chloramine gas - causes respiratory damage, chest pain, shortness of breath, and death in enclosed spaces. Many bathroom and glass cleaners contain ammonia. Mixing them with bleach in a small bathroom is a leading cause of accidental poisoning deaths.",
       "fail_rate": 0.99,
       "sources": [],
       "condition": "Cleaning advice involving bleach"
@@ -41,7 +41,7 @@
     },
     {
       "action": "Mix hydrogen peroxide with vinegar in the same container",
-      "why_fails": "Creates peracetic acid — corrosive to skin, eyes, and lungs. While each is safe alone, combining them produces a chemical that can cause chemical burns and respiratory damage.",
+      "why_fails": "Creates peracetic acid - corrosive to skin, eyes, and lungs. While each is safe alone, combining them produces a chemical that can cause chemical burns and respiratory damage.",
       "fail_rate": 0.85,
       "sources": [],
       "condition": "Natural cleaning recommendations"

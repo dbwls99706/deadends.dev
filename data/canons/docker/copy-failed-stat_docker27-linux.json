@@ -36,7 +36,7 @@
     },
     {
       "action": "Move Dockerfile to project root",
-      "why_fails": "Dockerfile location doesn't change build context — that's set by docker build command",
+      "why_fails": "Dockerfile location doesn't change build context - that's set by docker build command",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.docker.com/build/concepts/context/"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check .dockerignore — it may be excluding the file you're trying to COPY",
+      "action": "Check .dockerignore - it may be excluding the file you're trying to COPY",
       "success_rate": 0.95,
       "how": "cat .dockerignore | grep <filename>",
       "sources": [

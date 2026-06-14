@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Catch StopIteration inside the generator",
-      "why_fails": "PEP 479 converts this to RuntimeError — catching won't help",
+      "why_fails": "PEP 479 converts this to RuntimeError - catching won't help",
       "fail_rate": 0.75,
       "sources": [
         "https://peps.python.org/pep-0479/"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Reset the iterator by reassigning",
-      "why_fails": "Iterators can't be reset — need to create a new one",
+      "why_fails": "Iterators can't be reset - need to create a new one",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/library/functions.html#next"

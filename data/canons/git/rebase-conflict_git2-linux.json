@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use git rebase --skip on every conflict",
-      "why_fails": "Skips your commits — you'll lose changes",
+      "why_fails": "Skips your commits - you'll lose changes",
       "fail_rate": 0.85,
       "sources": [
         "https://git-scm.com/docs/git-rebase#_options"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Abort and merge instead every time",
-      "why_fails": "Merge creates noise in history — rebase conflicts are normal and resolvable",
+      "why_fails": "Merge creates noise in history - rebase conflicts are normal and resolvable",
       "fail_rate": 0.5,
       "sources": [
         "https://git-scm.com/docs/git-rebase"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete all NetworkPolicies in the namespace",
-      "why_fails": "Removes security controls — exposes all pods to unrestricted network access",
+      "why_fails": "Removes security controls - exposes all pods to unrestricted network access",
       "fail_rate": 0.70,
       "sources": [
         "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use hostNetwork: true to bypass NetworkPolicy",
-      "why_fails": "Bypasses all network isolation — major security risk and port conflicts",
+      "why_fails": "Bypasses all network isolation - major security risk and port conflicts",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/services-networking/network-policies/"

@@ -57,7 +57,7 @@
     {
       "action": "Admin-confirm the user: aws cognito-idp admin-confirm-sign-up --user-pool-id <id> --username <user>",
       "success_rate": 0.9,
-      "how": "Bypasses the confirmation flow — useful for testing or support",
+      "how": "Bypasses the confirmation flow - useful for testing or support",
       "sources": [],
       "condition": ""
     }

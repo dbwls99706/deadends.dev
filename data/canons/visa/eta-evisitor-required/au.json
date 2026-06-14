@@ -25,17 +25,17 @@
     "fix_success_rate": 0.9,
     "confidence": 0.85,
     "last_updated": "2026-06-14",
-    "summary": "Every non-citizen except New Zealand citizens needs a visa to enter Australia — there is no genuine visa-free entry and no visa on arrival. Visa-exempt passport holders must still apply ONLINE before travel: ETA (subclass 601, small service fee) for most, or eVisitor (subclass 651, free) for EU/EEA and UK passports. Airlines deny boarding without one."
+    "summary": "Every non-citizen except New Zealand citizens needs a visa to enter Australia - there is no genuine visa-free entry and no visa on arrival. Visa-exempt passport holders must still apply ONLINE before travel: ETA (subclass 601, small service fee) for most, or eVisitor (subclass 651, free) for EU/EEA and UK passports. Airlines deny boarding without one."
   },
   "dead_ends": [
     {
       "action": "Book a flight to Australia assuming your passport gives visa-free entry and you can sort entry on arrival",
-      "why_fails": "Australia has no visa-free or visa-on-arrival category for tourists. Visa-exempt nationals must hold an ETA or eVisitor granted BEFORE departure; the airline checks this at check-in and will deny boarding without it. Arriving without one is not an option — there is no airport visa counter for tourists.",
+      "why_fails": "Australia has no visa-free or visa-on-arrival category for tourists. Visa-exempt nationals must hold an ETA or eVisitor granted BEFORE departure; the airline checks this at check-in and will deny boarding without it. Arriving without one is not an option - there is no airport visa counter for tourists.",
       "fail_rate": 0.9,
       "sources": [
         "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/electronic-travel-authority-601"
       ],
-      "common_misconception": "People assume 'visa-exempt' means 'no application needed', but it only means no traditional visa label — an ETA/eVisitor is still mandatory."
+      "common_misconception": "People assume 'visa-exempt' means 'no application needed', but it only means no traditional visa label - an ETA/eVisitor is still mandatory."
     },
     {
       "action": "Apply for an ETA (601) on a UK or EU passport because it sounds like the default",

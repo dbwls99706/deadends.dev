@@ -3,7 +3,7 @@
   "id": "safety/choking-response-errors/ai-agent-any",
   "url": "https://deadends.dev/safety/choking-response-errors/ai-agent-any",
   "error": {
-    "signature": "AI gives wrong choking response — back slaps on infants face-up, blind finger sweeps, wrong Heimlich technique",
+    "signature": "AI gives wrong choking response - back slaps on infants face-up, blind finger sweeps, wrong Heimlich technique",
     "regex": "(choking.*response|Heimlich.*maneuver|abdominal.*thrust|choking.*baby|choking.*infant|기도.*폐쇄|하임리히|choking.*first.*aid)",
     "domain": "safety",
     "category": "life_threatening",
@@ -61,7 +61,7 @@
       "condition": "Infant choking response"
     },
     {
-      "action": "If the person can cough, speak, or breathe: encourage them to keep coughing. Do NOT intervene with thrusts — a strong cough generates more force than the Heimlich. Only intervene when coughing stops and the person cannot breathe.",
+      "action": "If the person can cough, speak, or breathe: encourage them to keep coughing. Do NOT intervene with thrusts - a strong cough generates more force than the Heimlich. Only intervene when coughing stops and the person cannot breathe.",
       "success_rate": 0.92,
       "sources": [],
       "condition": "Partial airway obstruction"
@@ -73,7 +73,7 @@
     "frequently_confused_with": [
       {
         "error_id": "safety/cpr-common-mistakes/ai-agent-any",
-        "distinction": "Choking response is for conscious airway obstruction; CPR is for unconscious cardiac/respiratory arrest — techniques are completely different"
+        "distinction": "Choking response is for conscious airway obstruction; CPR is for unconscious cardiac/respiratory arrest - techniques are completely different"
       }
     ]
   },

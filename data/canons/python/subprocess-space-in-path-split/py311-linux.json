@@ -3,7 +3,7 @@
   "id": "python/subprocess-space-in-path-split/py311-linux",
   "url": "https://deadends.dev/python/subprocess-space-in-path-split/py311-linux",
   "error": {
-    "signature": "FileNotFoundError: No such file or directory — subprocess fails on path with spaces",
+    "signature": "FileNotFoundError: No such file or directory - subprocess fails on path with spaces",
     "regex": "FileNotFoundError.*No such file|subprocess.*space|OSError.*Errno 2.*space",
     "domain": "python",
     "category": "path_handling",

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Double cast: x as unknown as Y",
-      "why_fails": "Bypasses all type safety — any bug will be a runtime error",
+      "why_fails": "Bypasses all type safety - any bug will be a runtime error",
       "fail_rate": 0.75,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use any as intermediate",
-      "why_fails": "Same as double cast — loses all type information",
+      "why_fails": "Same as double cast - loses all type information",
       "fail_rate": 0.8,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any"

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Ignore the warning",
-      "why_fails": "The build-arg is probably needed — something is misconfigured",
+      "why_fails": "The build-arg is probably needed - something is misconfigured",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.docker.com/reference/dockerfile/#arg"

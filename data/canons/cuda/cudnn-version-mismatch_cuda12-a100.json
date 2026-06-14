@@ -31,7 +31,7 @@
   "dead_ends": [
     {
       "action": "Install the latest cuDNN regardless of CUDA version",
-      "why_fails": "cuDNN versions are tied to CUDA versions — must match",
+      "why_fails": "cuDNN versions are tied to CUDA versions - must match",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html"
@@ -40,7 +40,7 @@
     },
     {
       "action": "Build cuDNN from source",
-      "why_fails": "cuDNN is proprietary — can't build from source",
+      "why_fails": "cuDNN is proprietary - can't build from source",
       "fail_rate": 0.95,
       "sources": [
         "https://developer.nvidia.com/cudnn"

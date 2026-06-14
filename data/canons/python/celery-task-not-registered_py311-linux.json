@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Use send_task() to bypass registration",
-      "why_fails": "send_task skips validation — typos won't be caught",
+      "why_fails": "send_task skips validation - typos won't be caught",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.celeryq.dev/en/stable/userguide/calling.html"
@@ -38,7 +38,7 @@
   ],
   "workarounds": [
     {
-      "action": "Restart the Celery worker after code changes — it caches task definitions",
+      "action": "Restart the Celery worker after code changes - it caches task definitions",
       "success_rate": 0.95,
       "sources": [
         "https://docs.celeryq.dev/en/stable/userguide/workers.html"

@@ -36,7 +36,7 @@
     },
     {
       "action": "Split into many small ConfigMaps manually",
-      "why_fails": "Hard to manage — consider using external configuration",
+      "why_fails": "Hard to manage - consider using external configuration",
       "fail_rate": 0.55,
       "sources": [
         "https://kubernetes.io/docs/concepts/configuration/configmap/"

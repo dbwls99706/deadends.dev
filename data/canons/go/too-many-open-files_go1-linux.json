@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase ulimit to a very large value",
-      "why_fails": "Just delays the problem — file descriptors are still leaking",
+      "why_fails": "Just delays the problem - file descriptors are still leaking",
       "fail_rate": 0.6,
       "sources": [
         "https://pkg.go.dev/net/http"

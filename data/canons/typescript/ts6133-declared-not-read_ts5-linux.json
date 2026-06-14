@@ -36,7 +36,7 @@
     },
     {
       "action": "Assign to void: void unusedVar",
-      "why_fails": "Obscure and confusing — just remove or prefix with underscore",
+      "why_fails": "Obscure and confusing - just remove or prefix with underscore",
       "fail_rate": 0.7,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"

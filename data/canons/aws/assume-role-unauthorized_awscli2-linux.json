@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable STS in the account",
-      "why_fails": "STS is required for role assumption — can't disable it",
+      "why_fails": "STS is required for role assumption - can't disable it",
       "fail_rate": 0.95,
       "sources": [
         "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html"

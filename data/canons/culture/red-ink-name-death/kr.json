@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.85,
     "last_updated": "2026-04-14",
-    "summary": "In Korean tradition, writing a living person's name in red ink is strongly taboo — red was historically used on memorial tablets (지방) and family registers to mark the deceased. While younger Koreans may not personally observe the taboo, older generations treat it as cursing the person; red-inked names on cards, contracts, or signatures trigger immediate discomfort."
+    "summary": "In Korean tradition, writing a living person's name in red ink is strongly taboo - red was historically used on memorial tablets (지방) and family registers to mark the deceased. While younger Koreans may not personally observe the taboo, older generations treat it as cursing the person; red-inked names on cards, contracts, or signatures trigger immediate discomfort."
   },
   "dead_ends": [
     {
       "action": "Write 'Happy Birthday, [Korean name]' on a card in red marker",
-      "why_fails": "The recipient — especially over 40 — reads the name-in-red as an unambiguous signal that the sender is wishing them dead. Even aware younger recipients often feel the card is tainted and cannot be displayed. The symbolism overrides the intent.",
+      "why_fails": "The recipient - especially over 40 - reads the name-in-red as an unambiguous signal that the sender is wishing them dead. Even aware younger recipients often feel the card is tainted and cannot be displayed. The symbolism overrides the intent.",
       "fail_rate": 0.8,
       "sources": [
         "https://www.korea.net/NewsFocus/Culture/view?articleId=187723",
@@ -50,7 +50,7 @@
   ],
   "workarounds": [
     {
-      "action": "Use black, dark blue, or the recipient's brand color for their name. Red is fine for decorative elements, slogans, or highlighting — just not on the person's name itself.",
+      "action": "Use black, dark blue, or the recipient's brand color for their name. Red is fine for decorative elements, slogans, or highlighting - just not on the person's name itself.",
       "success_rate": 0.95,
       "sources": [
         "https://www.korea.net/NewsFocus/Culture/view?articleId=187723"

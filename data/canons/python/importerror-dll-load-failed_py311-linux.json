@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Reinstall Python",
-      "why_fails": "Usually not a Python issue — it's a missing system library",
+      "why_fails": "Usually not a Python issue - it's a missing system library",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/library/importlib.html"

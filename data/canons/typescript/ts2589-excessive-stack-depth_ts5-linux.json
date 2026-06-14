@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase TypeScript recursion limit",
-      "why_fails": "No such config option — the limit is hardcoded for safety",
+      "why_fails": "No such config option - the limit is hardcoded for safety",
       "fail_rate": 0.9,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Use @ts-ignore on the line",
-      "why_fails": "Hides the type entirely — you lose all type checking",
+      "why_fails": "Hides the type entirely - you lose all type checking",
       "fail_rate": 0.65,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Simplify the recursive type — add a depth limit parameter",
+      "action": "Simplify the recursive type - add a depth limit parameter",
       "success_rate": 0.88,
       "how": "type DeepPartial<T, D extends number = 5> = ...",
       "sources": [

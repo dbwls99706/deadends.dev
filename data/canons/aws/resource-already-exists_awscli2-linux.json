@@ -46,13 +46,13 @@
   ],
   "workarounds": [
     {
-      "action": "Use the existing resource — describe/get it to verify it matches your needs",
+      "action": "Use the existing resource - describe/get it to verify it matches your needs",
       "success_rate": 0.92,
       "sources": [
         "https://docs.aws.amazon.com/general/latest/gr/error-responses.html"
       ],
       "condition": "",
-      "how": "Use the existing resource — describe/get it to verify it matches your needs"
+      "how": "Use the existing resource - describe/get it to verify it matches your needs"
     },
     {
       "action": "For IaC (Terraform/CloudFormation), import the existing resource into your state",

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase channel buffer size indefinitely",
-      "why_fails": "Buffered channels only delay the deadlock until the buffer fills — the fundamental send/receive imbalance remains",
+      "why_fails": "Buffered channels only delay the deadlock until the buffer fills - the fundamental send/receive imbalance remains",
       "fail_rate": 0.7,
       "sources": [
         "https://go.dev/ref/spec#Channel_types"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Add time.Sleep before channel operations",
-      "why_fails": "Sleep does not create a receiver — the goroutine still blocks after the sleep completes",
+      "why_fails": "Sleep does not create a receiver - the goroutine still blocks after the sleep completes",
       "fail_rate": 0.9,
       "sources": [
         "https://go.dev/doc/effective_go#goroutines"
@@ -82,7 +82,7 @@
     "frequently_confused_with": [
       {
         "error_id": "go/goroutine-leak/go1.22-linux",
-        "distinction": "Deadlock is detected by the runtime when ALL goroutines are blocked and the program crashes, while goroutine leaks are silent — some goroutines are blocked but others continue running."
+        "distinction": "Deadlock is detected by the runtime when ALL goroutines are blocked and the program crashes, while goroutine leaks are silent - some goroutines are blocked but others continue running."
       }
     ]
   },

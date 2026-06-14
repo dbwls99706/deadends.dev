@@ -55,7 +55,7 @@
     {
       "action": "Use Maven Enforcer Plugin or Gradle's failOnVersionConflict to detect version mismatches early",
       "success_rate": 0.85,
-      "how": "1. Add the Maven Enforcer Plugin with the 'dependencyConvergence' rule, or add resolutionStrategy.failOnVersionConflict() in Gradle. 2. Run the build — it will fail if transitive dependencies pull in conflicting versions. 3. Resolve each conflict by pinning the correct version. 4. This prevents AbstractMethodError from ever reaching runtime.",
+      "how": "1. Add the Maven Enforcer Plugin with the 'dependencyConvergence' rule, or add resolutionStrategy.failOnVersionConflict() in Gradle. 2. Run the build - it will fail if transitive dependencies pull in conflicting versions. 3. Resolve each conflict by pinning the correct version. 4. This prevents AbstractMethodError from ever reaching runtime.",
       "sources": [],
       "condition": ""
     }

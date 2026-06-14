@@ -57,7 +57,7 @@
     {
       "action": "Use a specific digest instead of a mutable tag",
       "success_rate": 0.85,
-      "how": "docker pull image@sha256:<digest> — ensures you get the exact image that was verified to exist",
+      "how": "docker pull image@sha256:<digest> - ensures you get the exact image that was verified to exist",
       "sources": [
         "https://docs.docker.com/engine/reference/commandline/pull/"
       ],

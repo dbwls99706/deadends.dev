@@ -3,7 +3,7 @@
   "id": "communication/hong-kong-mainland-distinction/hk",
   "url": "https://deadends.dev/communication/hong-kong-mainland-distinction/hk",
   "error": {
-    "signature": "AI conflates Hong Kong with mainland China in business, media, or interpersonal communication — e.g. default Mandarin, RMB pricing, mainland-only framing",
+    "signature": "AI conflates Hong Kong with mainland China in business, media, or interpersonal communication - e.g. default Mandarin, RMB pricing, mainland-only framing",
     "regex": "(hong kong.*china|hk.*mainland|cantonese.*mandarin.*hk|香港.*中国|hong kong.*rmb|hong kong.*mandarin|bnc.*hong kong)",
     "domain": "communication",
     "category": "cultural_sensitivity",
@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Default a Hong Kong product launch to Mandarin (普通话) marketing copy and RMB pricing",
-      "why_fails": "Hong Kong uses traditional Chinese characters (繁體字), not the simplified set (簡體字) used on the mainland. Native language is Cantonese; Mandarin is a second language for most. Currency is HKD, not RMB — displaying RMB confuses and signals mainland-first branding that locals react against.",
+      "why_fails": "Hong Kong uses traditional Chinese characters (繁體字), not the simplified set (簡體字) used on the mainland. Native language is Cantonese; Mandarin is a second language for most. Currency is HKD, not RMB - displaying RMB confuses and signals mainland-first branding that locals react against.",
       "fail_rate": 0.82,
       "sources": [
         "https://www.censtatd.gov.hk/en/",
@@ -78,7 +78,7 @@
       "condition": "Business communication"
     },
     {
-      "action": "Political topics: stay commercial in-country. If a counterpart opens political conversation, listen more than speak. Avoid memes or social-media posts from HK that reference 2019 protests or NSL — they can trigger account-level scrutiny.",
+      "action": "Political topics: stay commercial in-country. If a counterpart opens political conversation, listen more than speak. Avoid memes or social-media posts from HK that reference 2019 protests or NSL - they can trigger account-level scrutiny.",
       "success_rate": 0.7,
       "sources": [
         "https://www.elegislation.gov.hk/hk/A406"

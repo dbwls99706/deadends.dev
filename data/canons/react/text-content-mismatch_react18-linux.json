@@ -64,7 +64,7 @@
       "how": "Use suppressHydrationWarning only on the specific element with dynamic content"
     },
     {
-      "action": "Ensure server and client use the same data — pass SSR data via props, not new fetches",
+      "action": "Ensure server and client use the same data - pass SSR data via props, not new fetches",
       "success_rate": 0.88,
       "sources": [
         "https://react.dev/reference/react-dom/server"

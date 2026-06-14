@@ -35,7 +35,7 @@
       "sources": [
         "https://nodejs.org/api/errors.html#common-system-errors"
       ],
-      "common_misconception": "npm cache clean is often suggested as a catch-all fix for npm errors, but ENOENT specifically indicates a missing file path — cache is unrelated."
+      "common_misconception": "npm cache clean is often suggested as a catch-all fix for npm errors, but ENOENT specifically indicates a missing file path - cache is unrelated."
     },
     {
       "action": "Deleting node_modules and reinstalling",

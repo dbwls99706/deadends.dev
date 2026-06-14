@@ -25,12 +25,12 @@
     "fix_success_rate": 0.88,
     "confidence": 0.88,
     "last_updated": "2026-04-14",
-    "summary": "Japan has universal health coverage with two pillars: 社会保険 (Shakai Hoken / shaho) for regular employees at companies with 5+ staff (employer splits 50/50), and 国民健康保険 (Kokumin Kenko Hoken / kokuho) for self-employed, students, unemployed, and small-firm workers — paid entirely by the individual based on prior-year income. Enrollment is mandatory for residents staying 3+ months. Both cover 70% of medical costs at point of service."
+    "summary": "Japan has universal health coverage with two pillars: 社会保険 (Shakai Hoken / shaho) for regular employees at companies with 5+ staff (employer splits 50/50), and 国民健康保険 (Kokumin Kenko Hoken / kokuho) for self-employed, students, unemployed, and small-firm workers - paid entirely by the individual based on prior-year income. Enrollment is mandatory for residents staying 3+ months. Both cover 70% of medical costs at point of service."
   },
   "dead_ends": [
     {
       "action": "Advise a foreign worker to decline Japanese insurance because they have a multinational policy through home employer",
-      "why_fails": "Residents staying 3+ months must enroll by law (National Health Insurance Act). Municipalities back-bill unenrolled foreign residents; bills can be retroactive to arrival date plus penalties. Private international insurance does not substitute — it only adds on top.",
+      "why_fails": "Residents staying 3+ months must enroll by law (National Health Insurance Act). Municipalities back-bill unenrolled foreign residents; bills can be retroactive to arrival date plus penalties. Private international insurance does not substitute - it only adds on top.",
       "fail_rate": 0.88,
       "sources": [
         "https://www.mhlw.go.jp/english/policy/health/health/insurance/index.html",
@@ -76,7 +76,7 @@
       "condition": "At hospital / clinic"
     },
     {
-      "action": "For post-3-month-entry but pre-enrollment gap, or for short-term visitors: buy travel medical insurance covering Japan. Many Japanese hospitals refuse foreign insurance direct billing — pay upfront and reimburse.",
+      "action": "For post-3-month-entry but pre-enrollment gap, or for short-term visitors: buy travel medical insurance covering Japan. Many Japanese hospitals refuse foreign insurance direct billing - pay upfront and reimburse.",
       "success_rate": 0.75,
       "sources": [
         "https://www.jnto.go.jp/en/plan-your-trip/medical/"

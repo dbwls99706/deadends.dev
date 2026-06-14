@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set the namespace to privileged security level",
-      "why_fails": "Removes security controls — defeats the purpose of Pod Security Standards",
+      "why_fails": "Removes security controls - defeats the purpose of Pod Security Standards",
       "fail_rate": 0.70,
       "sources": [
         "https://kubernetes.io/docs/concepts/security/pod-security-standards/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable Pod Security Admission entirely",
-      "why_fails": "Cluster-wide security regression — not recommended for production",
+      "why_fails": "Cluster-wide security regression - not recommended for production",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/security/pod-security-admission/"

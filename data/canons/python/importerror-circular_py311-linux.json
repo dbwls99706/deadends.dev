@@ -22,7 +22,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.96,
     "last_updated": "2026-02-11",
-    "summary": "Circular import detected — module A imports from B which imports from A before A is fully loaded."
+    "summary": "Circular import detected - module A imports from B which imports from A before A is fully loaded."
   },
   "dead_ends": [
     {
@@ -48,7 +48,7 @@
     {
       "action": "Move the import inside the function that needs it (lazy import)",
       "success_rate": 0.93,
-      "how": "def func(): from module_b import X — defers import until runtime",
+      "how": "def func(): from module_b import X - defers import until runtime",
       "sources": [
         "https://docs.python.org/3/faq/programming.html#what-are-the-best-practices-for-using-import-in-a-package"
       ],

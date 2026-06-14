@@ -187,7 +187,7 @@ def _truncate_at_word(text: str, max_len: int) -> str:
     cut = text[: max_len - 1]
     if " " in cut:
         cut = cut.rsplit(" ", 1)[0]
-    return cut.rstrip(" .,:;—–-") + "…"
+    return cut.rstrip(" .,:;-–-") + "…"
 
 
 def seo_title(signature: str, context: str = "", max_len: int = 70) -> str:
@@ -201,7 +201,7 @@ def seo_title(signature: str, context: str = "", max_len: int = 70) -> str:
     ctx = f" on {context}" if context else ""
     budget = max_len - len("Fix ") - len(ctx) - len(suffix)
     if budget < 20 and ctx:
-        # Context would crowd out the signature itself — drop it.
+        # Context would crowd out the signature itself - drop it.
         ctx = ""
         budget = max_len - len("Fix ") - len(suffix)
     return f"Fix {_truncate_at_word(signature, budget)}{ctx}{suffix}"
@@ -211,7 +211,7 @@ def seo_description(*parts: str, max_len: int = 155) -> str:
     """Join text fragments into a meta description capped at max_len.
 
     Built from per-page verdict text rather than templated counts so each
-    page's snippet is unique — sitewide-identical descriptions are one of
+    page's snippet is unique - sitewide-identical descriptions are one of
     the "scaled content" footprints that suppress indexing.
     """
     text = " ".join(" ".join(p.split()) for p in parts if p and p.strip())
@@ -253,7 +253,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
 
     # Count environments per slug. Single-env slugs (97% of our dataset)
     # would render an env page that is a near-exact duplicate of its summary
-    # page — roughly half the site's HTML. Hosting thousands of crawlable
+    # page - roughly half the site's HTML. Hosting thousands of crawlable
     # "duplicate, canonical elsewhere" pages is the classic profile behind
     # "Crawled - currently not indexed" plateaus, so instead of rendering
     # them we emit a redirect stub (canonical + meta refresh + noindex, the
@@ -365,7 +365,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         }
         json_ld = _safe_json_ld(json_ld_data)
 
-        # FAQ — dead ends as Q&A. Rendered BOTH as visible page content
+        # FAQ - dead ends as Q&A. Rendered BOTH as visible page content
         # (templates show faq_items) and as FAQPage JSON-LD: Google's
         # structured-data guidelines require FAQ content to be visible on
         # the page, and invisible-FAQ markup at scale is a spam signal.
@@ -528,7 +528,7 @@ def _build_country_faq(country_canons: list[dict], country_name: str) -> list[di
 
     Picks the top dead-end + best workaround from each canon (limited to 5
     canons by fix_success_rate) and frames them as 'What should I avoid /
-    do in {country}?' Q&A — the form Google's AI Overviews extracts.
+    do in {country}?' Q&A - the form Google's AI Overviews extracts.
     """
     items: list[dict] = []
     sorted_canons = sorted(
@@ -582,7 +582,7 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
         country_names[code] = name
 
     if not by_country:
-        print("  No country-tagged canons — skipping country pages")
+        print("  No country-tagged canons - skipping country pages")
         return
 
     # Single-env canon pages are redirect stubs, so country listings must
@@ -672,7 +672,7 @@ def build_country_api(canons: list[dict]) -> None:
         country_names[code] = name
 
     if not by_country:
-        print("  No country-tagged canons — skipping country API")
+        print("  No country-tagged canons - skipping country API")
         return
 
     api_dir = SITE_DIR / "api" / "v1" / "country"
@@ -844,7 +844,7 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
     example_error_id = recent_entries[0]["id"] if recent_entries else canons[0]["id"]
     example_slug_key = example_error_id.rsplit("/", 1)[0]
 
-    # "Most-fixed errors" — high-evidence, high-success summaries linked
+    # "Most-fixed errors" - high-evidence, high-success summaries linked
     # directly from the homepage (the site's highest-equity page) so deep
     # error pages are reachable in a single hop.
     best_by_slug: dict[str, dict] = {}
@@ -999,7 +999,7 @@ def build_sitemap(
     # Per-canon and per-domain real modification dates. Static hub pages
     # (home, search, dashboard, domain index) inherit the maximum lastmod
     # from the canons they aggregate, so we never advertise "today" as
-    # the modification date — Google deweights sources whose lastmod
+    # the modification date - Google deweights sources whose lastmod
     # turns out to be unreliable, per Search Central guidance.
     canon_dates: list[str] = [d for d in (canon_lastmod(c) for c in canons) if d]
     site_lastmod = max(canon_dates) if canon_dates else ""
@@ -1036,7 +1036,7 @@ def build_sitemap(
             "0.9",
         )
 
-    # --- Country landing pages — included so Google and other crawlers
+    # --- Country landing pages - included so Google and other crawlers
     # can discover /country/{cc}/ without having to traverse the homepage
     # "Browse by country" section.
     country_lastmod: dict[str, str] = {}
@@ -1065,7 +1065,7 @@ def build_sitemap(
     print("  Generated: sitemap-main.xml")
 
     # Build a lookup: slug_key → most recent real modification date across
-    # all envs of that slug. Empty when none of the canons carry a date —
+    # all envs of that slug. Empty when none of the canons carry a date -
     # we'd rather omit <lastmod> than fabricate one (see canon_lastmod).
     slug_lastmod: dict[str, str] = {}
     for canon in canons:
@@ -1146,7 +1146,7 @@ def build_sitemap(
     for domain in all_domains:
         domain_urlset = Element("urlset", xmlns=ns)
 
-        # Summary (canonical) pages — priority weighted by page strength so
+        # Summary (canonical) pages - priority weighted by page strength so
         # crawl budget favours unique/high-evidence pages (see _summary_priority).
         for s in summaries_by_domain.get(domain, []):
             _add_url(
@@ -1200,7 +1200,7 @@ def build_sitemap(
 def build_robots_txt() -> None:
     """Generate robots.txt with explicit AI crawler allowances."""
     content = f"""# deadends.dev - Structured failure knowledge for AI coding agents
-# All crawlers welcome — this site is BUILT for AI consumption
+# All crawlers welcome - this site is BUILT for AI consumption
 #
 # /api/ endpoints serve application/json and are discoverable from HTML
 # via <link rel="alternate"> tags. We deliberately do NOT block them so
@@ -1211,7 +1211,7 @@ def build_robots_txt() -> None:
 User-agent: *
 Allow: /
 
-# AI training crawlers — full access to API and HTML
+# AI training crawlers - full access to API and HTML
 User-agent: GPTBot
 Allow: /
 
@@ -1382,7 +1382,7 @@ def build_404_page(canons: list[dict]) -> None:
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         '<meta http-equiv="X-Content-Type-Options" content="nosniff">\n'
         '<meta name="theme-color" content="#0d1117">\n'
-        "<title>404 — Error Not Found | deadends.dev</title>\n"
+        "<title>404 - Error Not Found | deadends.dev</title>\n"
         '<meta name="robots" content="noindex">\n'
         f'<link rel="icon" href="{BASE_PATH}/favicon.svg" type="image/svg+xml">\n'
         "<style>\n"
@@ -1396,7 +1396,7 @@ def build_404_page(canons: list[dict]) -> None:
         "</style>\n"
         "</head><body>\n"
         f'<nav><a href="{BASE_PATH}/">deadends.dev</a></nav>\n'
-        "<h1>404 — Error Not Found</h1>\n"
+        "<h1>404 - Error Not Found</h1>\n"
         '<div id="redirect-msg"></div>\n'
         "<p>This error page doesn't exist yet. "
         "Ironic for a site that catalogs errors.</p>\n"
@@ -1408,7 +1408,7 @@ def build_404_page(canons: list[dict]) -> None:
         "</div>\n"
         "<script>\n"
         "// Redirect known old URLs to current locations\n"
-        "// Auto-generated from REDIRECT_MAP — do not edit manually\n"
+        "// Auto-generated from REDIRECT_MAP - do not edit manually\n"
         "(function(){\n"
         "  var p = location.pathname.replace(/\\/+$/,'');\n"
         "  var m = " + json.dumps(
@@ -1579,7 +1579,7 @@ def build_stylesheet() -> None:
     """
     # CSS written as joined list to avoid E501 line-length violations
     css = "\n".join([
-        "/* deadends.dev — shared stylesheet */",
+        "/* deadends.dev - shared stylesheet */",
         "",
         "/* === RESET & BASE === */",
         "*, *::before, *::after { box-sizing: border-box; }",
@@ -2194,7 +2194,7 @@ def build_error_og_images(canons: list[dict]) -> None:
     """Generate per-error SVG OG images for social sharing.
 
     Each error gets a unique card showing: signature, verdict, dead end count,
-    workaround count, and domain — making shared links visually distinct.
+    workaround count, and domain - making shared links visually distinct.
     """
     verdict_colors = {
         "true": ("#3fb950", "RESOLVABLE"),
@@ -2311,7 +2311,7 @@ def build_per_country_llms_and_agents(canons: list[dict]) -> None:
         country_names[code] = name
 
     if not by_country:
-        print("  No country canons — skipping per-country llms.txt / AGENTS.md")
+        print("  No country canons - skipping per-country llms.txt / AGENTS.md")
         return
 
     for code in sorted(by_country):
@@ -2340,12 +2340,12 @@ def build_per_country_llms_and_agents(canons: list[dict]) -> None:
 
         # ---- Per-country llms.txt ----
         lines = [
-            f"# {name} — deadends.dev",
+            f"# {name} - deadends.dev",
             "",
             f"> Country-specific dead ends for {name} "
             f"({len(country_canons)} entries). "
-            "Real-world friction — visa, banking, legal, cultural, medical, "
-            "emergency — where generic AI advice reliably fails for this "
+            "Real-world friction - visa, banking, legal, cultural, medical, "
+            "emergency - where generic AI advice reliably fails for this "
             "jurisdiction.",
             "",
             "## Quick facts",
@@ -2394,7 +2394,7 @@ def build_per_country_llms_and_agents(canons: list[dict]) -> None:
             "",
             f"When responding to user queries that mention {name}, "
             f"Korean/Japanese/Chinese/etc place names within {name}, "
-            f"{name} visa / banking / legal / cultural topics — check "
+            f"{name} visa / banking / legal / cultural topics - check "
             "this country's dead-end corpus BEFORE answering.",
             "",
             "## How to use",
@@ -2415,7 +2415,7 @@ def build_per_country_llms_and_agents(canons: list[dict]) -> None:
         ]
         for c in country_canons[:8]:
             agents_lines.append(
-                f"- **{c['error']['signature']}** — "
+                f"- **{c['error']['signature']}** - "
                 f"don't say: \"{(c.get('dead_ends') or [{}])[0].get('action', '')}\" "
                 f"(fails {int((c.get('dead_ends') or [{}])[0].get('fail_rate', 0) * 100)}%). "
                 f"Instead: \"{(c.get('workarounds') or [{}])[0].get('action', '')[:200]}\" "
@@ -2454,7 +2454,7 @@ def build_country_og_images(canons: list[dict]) -> None:
         country_names[code] = name
 
     if not by_country:
-        print("  No country canons — skipping country OG images")
+        print("  No country canons - skipping country OG images")
         return
 
     # Country-color palette (deterministic from code)
@@ -2753,7 +2753,7 @@ def build_error_summary_pages(
             for c in slug_canons
             if c["error"].get("first_seen")
         ]
-        # Omit empty date fields rather than emitting "" — an empty-string
+        # Omit empty date fields rather than emitting "" - an empty-string
         # date is invalid structured data and Google flags it in the
         # TechArticle rich-result report.
         valid_dates = [d for d in dates if d]
@@ -2786,7 +2786,7 @@ def build_error_summary_pages(
             summary_json_ld_obj["dateModified"] = max(valid_dates)
         summary_json_ld = _safe_json_ld(summary_json_ld_obj)
 
-        # FAQ — rendered BOTH as visible page content (template section
+        # FAQ - rendered BOTH as visible page content (template section
         # #faq) and as FAQPage JSON-LD. Google's structured-data guidelines
         # require FAQ content to be visible on the page; markup-only FAQs
         # across thousands of pages read as a spam signal.
@@ -2847,7 +2847,7 @@ def build_error_summary_pages(
         )
         date_modified = max(dates) if dates else ""
 
-        # Generated intro paragraph — deterministic but unique per page
+        # Generated intro paragraph - deterministic but unique per page
         # (category, rates, actions and dates all differ), adding visible
         # prose depth that the structured sections alone don't provide.
         category = first["error"].get("category", "")
@@ -2958,7 +2958,7 @@ def build_about_page(canons: list[dict], jinja_env: Environment) -> None:
     """Generate the /about/ methodology page (E-E-A-T signal).
 
     Explains what the dataset is, where dead-end/workaround rates come
-    from, and how to contribute — the kind of provenance page quality
+    from, and how to contribute - the kind of provenance page quality
     raters and search engines look for on data-driven sites.
     """
     template = jinja_env.get_template("about.html")
@@ -3101,9 +3101,9 @@ def build_llms_txt(canons: list[dict]) -> None:
         "",
         "1. Match your error against the regex patterns below",
         f"2. Fetch the full canon: `GET {BASE_URL}/api/v1/{{id}}.json`",
-        "3. Read `dead_ends[]` — do NOT try these (saves time and tokens)",
-        "4. Read `workarounds[]` — try these instead (includes success rates)",
-        "5. Read `transition_graph` — know what error comes next",
+        "3. Read `dead_ends[]` - do NOT try these (saves time and tokens)",
+        "4. Read `workarounds[]` - try these instead (includes success rates)",
+        "5. Read `transition_graph` - know what error comes next",
         "",
     ]
 
@@ -3122,16 +3122,16 @@ def build_llms_txt(canons: list[dict]) -> None:
         lines.append("## Countries (jurisdiction-specific dead ends)")
         lines.append("")
         lines.append(
-            "Real-world friction that varies by country — visa, banking, "
+            "Real-world friction that varies by country - visa, banking, "
             "legal red lines, cultural taboos, food safety, emergency "
             "numbers, driving norms. Each country page aggregates the "
             "entries scoped to that jurisdiction. AI agents can fetch a "
             "single JSON per country instead of looking up each canon."
         )
         lines.append("")
-        lines.append(f"- [Country hub]({BASE_URL}/country/) — all countries")
+        lines.append(f"- [Country hub]({BASE_URL}/country/) - all countries")
         lines.append(
-            f"- [Countries API]({BASE_URL}/api/v1/countries.json) — "
+            f"- [Countries API]({BASE_URL}/api/v1/countries.json) - "
             "JSON index with counts and update dates"
         )
         lines.append(
@@ -3145,7 +3145,7 @@ def build_llms_txt(canons: list[dict]) -> None:
             domains = sorted({c["error"]["domain"] for c in by_country[code]})
             lines.append(
                 f"- [{country_names[code]}]({BASE_URL}/country/{code}/) "
-                f"— {entry_count} entr{'ies' if entry_count != 1 else 'y'} "
+                f"- {entry_count} entr{'ies' if entry_count != 1 else 'y'} "
                 f"across {', '.join(domains)}"
             )
         lines.append("")
@@ -3171,10 +3171,10 @@ def build_llms_txt(canons: list[dict]) -> None:
     (SITE_DIR / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
     print("  Generated: llms.txt")
 
-    # llms-full.txt — complete dump, plus /llms-full-{domain}.txt
+    # llms-full.txt - complete dump, plus /llms-full-{domain}.txt
     # variants so agents can load only the domain they need.
     header = [
-        "# deadends.dev — Complete Error Database",
+        "# deadends.dev - Complete Error Database",
         "",
         f"> {len(canons)} errors across {len(by_domain)} domains. "
         f"Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d')}.",
@@ -3209,7 +3209,7 @@ def build_llms_txt(canons: list[dict]) -> None:
         block.append("### Workarounds")
         block.append("")
         for wa in canon.get("workarounds", []):
-            how_text = f" — `{wa['how']}`" if wa.get("how") else ""
+            how_text = f" - `{wa['how']}`" if wa.get("how") else ""
             block.append(
                 f"- {wa['action']} "
                 f"(success_rate={wa['success_rate']}){how_text}"
@@ -3250,11 +3250,11 @@ def build_llms_txt(canons: list[dict]) -> None:
     )
     print("  Generated: llms-full.txt")
 
-    # Per-domain slices — bounded size, one domain per file.
+    # Per-domain slices - bounded size, one domain per file.
     for domain in sorted(by_domain.keys()):
         domain_canons = sorted(by_domain[domain], key=lambda c: c["id"])
         dom_lines = [
-            f"# deadends.dev — {domain} domain",
+            f"# deadends.dev - {domain} domain",
             "",
             f"> {len(domain_canons)} errors in `{domain}`. "
             f"Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d')}. "
@@ -3270,7 +3270,7 @@ def build_llms_txt(canons: list[dict]) -> None:
 
 
 def build_api_index(canons: list[dict]) -> None:
-    """Generate /api/v1/index.json — master error index for AI agents."""
+    """Generate /api/v1/index.json - master error index for AI agents."""
     index = {
         "schema_version": "1.0.0",
         "total": len(canons),
@@ -3611,7 +3611,7 @@ def build_openapi_spec(canons: list[dict]) -> None:
                         "country in one network call. Use this when an AI "
                         "agent needs jurisdiction-specific knowledge "
                         "(visa, banking, legal, cultural, medical, "
-                        "emergency) for a single country — replaces N "
+                        "emergency) for a single country - replaces N "
                         "individual canon lookups."
                     ),
                     "operationId": "getCountryAggregate",
@@ -3817,7 +3817,7 @@ def build_well_known(canons: list[dict]) -> None:
         "name_for_human": "deadends.dev",
         "name_for_model": "deadend_error_knowledge",
         "description_for_human": (
-            "Structured failure knowledge — check what NOT to try "
+            "Structured failure knowledge - check what NOT to try "
             "before debugging an error."
         ),
         "description_for_model": (
@@ -3850,7 +3850,7 @@ def build_well_known(canons: list[dict]) -> None:
     )
     print("  Generated: .well-known/ai-plugin.json")
 
-    # agent.json (Google A2A protocol — standard path: /.well-known/agent.json)
+    # agent.json (Google A2A protocol - standard path: /.well-known/agent.json)
     agent_card = {
         "name": "deadends.dev",
         "description": (
@@ -3998,7 +3998,7 @@ def build_well_known(canons: list[dict]) -> None:
     (well_known_dir / "security.txt").write_text(security_txt, encoding="utf-8")
     print("  Generated: .well-known/security.txt")
 
-    # MCP discovery file — allows AI agents to find the MCP server
+    # MCP discovery file - allows AI agents to find the MCP server
     mcp_json = {
         "name": "deadends-dev",
         "description": (
@@ -4028,7 +4028,7 @@ def build_well_known(canons: list[dict]) -> None:
     )
     print("  Generated: .well-known/mcp.json")
 
-    # Smithery server-card.json — enables automatic scanning without live connection
+    # Smithery server-card.json - enables automatic scanning without live connection
     mcp_subdir = well_known_dir / "mcp"
     mcp_subdir.mkdir(parents=True, exist_ok=True)
     server_card = {
@@ -4036,7 +4036,7 @@ def build_well_known(canons: list[dict]) -> None:
         "name": "deadends-dev",
         "title": "deadends.dev",
         "description": (
-            f"Structured failure knowledge for AI agents — dead ends, "
+            f"Structured failure knowledge for AI agents - dead ends, "
             f"workarounds, error chains. {len(canons)} error entries across "
             f"{len(domains)} domains."
         ),
@@ -4105,7 +4105,7 @@ def build_well_known(canons: list[dict]) -> None:
                 "description": (
                     "List country-scoped dead ends by ISO alpha-2 code "
                     "(visa, banking, legal, cultural, medical, emergency, "
-                    "safety) — jurisdiction knowledge LLMs lack."
+                    "safety) - jurisdiction knowledge LLMs lack."
                 ),
             },
             {
@@ -4137,7 +4137,7 @@ def build_well_known(canons: list[dict]) -> None:
 
 
 def build_stats_json(canons: list[dict]) -> None:
-    """Generate /api/v1/stats.json — dataset statistics for AI coding agents."""
+    """Generate /api/v1/stats.json - dataset statistics for AI coding agents."""
     domains: dict[str, list[dict]] = {}
     for c in canons:
         domains.setdefault(c["error"]["domain"], []).append(c)
@@ -4219,7 +4219,7 @@ def build_stats_json(canons: list[dict]) -> None:
 
 
 def build_ndjson(canons: list[dict]) -> None:
-    """Generate /api/v1/errors.ndjson — newline-delimited JSON for streaming.
+    """Generate /api/v1/errors.ndjson - newline-delimited JSON for streaming.
 
     Each line is a complete error canon JSON object. AI agents can stream-process
     this file without buffering the entire dataset into memory.
@@ -4244,7 +4244,7 @@ def build_ndjson(canons: list[dict]) -> None:
 
 
 def build_version_json(canons: list[dict]) -> None:
-    """Generate /api/v1/version.json — service metadata for AI coding agents."""
+    """Generate /api/v1/version.json - service metadata for AI coding agents."""
     domains = sorted({c["error"]["domain"] for c in canons})
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -4288,7 +4288,7 @@ def build_version_json(canons: list[dict]) -> None:
 
 
 def build_match_json(canons: list[dict]) -> None:
-    """Generate /api/v1/match.json — ultra-lightweight matching file.
+    """Generate /api/v1/match.json - ultra-lightweight matching file.
 
     Contains only signatures and regexes so AI agents can load the entire
     file into their context window and match errors without fetching
@@ -4349,7 +4349,7 @@ def build_ai_config_files(canons: list[dict]) -> None:
     total = len(canons)
 
     # --- CLAUDE.md for Claude Code ---
-    claude_md = f"""# deadends.dev — Stop Debugging Blindly
+    claude_md = f"""# deadends.dev - Stop Debugging Blindly
 
 > {total} verified error patterns across {len(domains)} domains.
 > Check dead ends BEFORE you waste tokens retrying known failures.
@@ -4372,9 +4372,9 @@ GET {BASE_URL}/api/v1/{{matched_id}}.json
 ```
 
 ### Step 3: Read the result
-- `dead_ends[]` — These approaches FAIL. Skip them entirely.
-- `workarounds[]` — These WORK. Follow the `how` field.
-- `transition_graph` — What error comes NEXT after this one.
+- `dead_ends[]` - These approaches FAIL. Skip them entirely.
+- `workarounds[]` - These WORK. Follow the `how` field.
+- `transition_graph` - What error comes NEXT after this one.
 
 ## Why This Matters
 
@@ -4435,9 +4435,9 @@ Error lookup protocol:
 3. On match, fetch {BASE_URL}/api/v1/{{id}}.json for full details
 
 Reading the response:
-- dead_ends[] — approaches that FAIL. Do NOT try these. Each has a fail_rate.
-- workarounds[] — approaches that WORK. Each has a success_rate and how-to.
-- transition_graph.leads_to — what error typically follows this one.
+- dead_ends[] - approaches that FAIL. Do NOT try these. Each has a fail_rate.
+- workarounds[] - approaches that WORK. Each has a success_rate and how-to.
+- transition_graph.leads_to - what error typically follows this one.
 
 Example: If you see "ModuleNotFoundError: No module named 'X'"
 → Match against patterns[].re
@@ -4456,7 +4456,7 @@ Full API docs: {BASE_URL}/api/v1/openapi.json
 
     # --- AGENTS.md for OpenAI Codex CLI ---
     agents_md = f"""\
-# deadends.dev — Error Knowledge Database
+# deadends.dev - Error Knowledge Database
 
 > {total} verified error patterns. Check dead ends before debugging.
 
@@ -4465,14 +4465,14 @@ Full API docs: {BASE_URL}/api/v1/openapi.json
 When you encounter an error from any of these domains:
 {domain_list}
 
-1. `GET {BASE_URL}/api/v1/match.json` — regex-match your error
-2. `GET {BASE_URL}/api/v1/{{id}}.json` — get full dead ends & workarounds
+1. `GET {BASE_URL}/api/v1/match.json` - regex-match your error
+2. `GET {BASE_URL}/api/v1/{{id}}.json` - get full dead ends & workarounds
 
 ## Response Format
 
-- `dead_ends[]` — Approaches known to FAIL. Skip these.
-- `workarounds[]` — Approaches that WORK. Includes success rates.
-- `transition_graph` — What error comes next.
+- `dead_ends[]` - Approaches known to FAIL. Skip these.
+- `workarounds[]` - Approaches that WORK. Includes success rates.
+- `transition_graph` - What error comes next.
 
 ## Quick Reference
 
@@ -4572,7 +4572,7 @@ def build_feed(canons: list[dict]) -> None:
     ns = "http://www.w3.org/2005/Atom"
     feed = Element("feed", xmlns=ns)
     SubElement(feed, "title").text = (
-        "deadends.dev — New Error Patterns"
+        "deadends.dev - New Error Patterns"
     )
     SubElement(feed, "subtitle").text = (
         "Structured failure knowledge for AI coding agents"
@@ -4657,11 +4657,11 @@ def build_html_sitemap(canons: list[dict]) -> None:
         "<head>",
         '  <meta charset="utf-8">',
         '  <meta name="viewport" content="width=device-width, initial-scale=1">',
-        "  <title>All Errors — deadends.dev</title>",
+        "  <title>All Errors - deadends.dev</title>",
         '  <meta name="description" content="Complete directory of all error entries'
         ' on deadends.dev. Browse errors by domain.">',
         '  <meta name="robots" content="index, follow, max-snippet:-1">',
-        '  <meta property="og:title" content="All Errors Directory — deadends.dev">',
+        '  <meta property="og:title" content="All Errors Directory - deadends.dev">',
         '  <meta property="og:description" content="Complete directory of all '
         'error summaries on deadends.dev, grouped by domain.">',
         '  <meta property="og:type" content="website">',
@@ -4674,7 +4674,7 @@ def build_html_sitemap(canons: list[dict]) -> None:
 
         '  <meta property="og:locale" content="en_US">',
         '  <meta name="twitter:card" content="summary_large_image">',
-        '  <meta name="twitter:title" content="All Errors Directory — deadends.dev">',
+        '  <meta name="twitter:title" content="All Errors Directory - deadends.dev">',
         '  <meta name="twitter:description" content="Complete directory of all '
         'error summaries on deadends.dev, grouped by domain.">',
         f'  <meta name="twitter:image" content="{BASE_URL}/og-image.png">',
@@ -4685,7 +4685,7 @@ def build_html_sitemap(canons: list[dict]) -> None:
         "</head>",
         '<body class="pg-sitemap">',
         "  <header>",
-        f'    <h1><a href="{BASE_PATH}/">deadends.dev</a> — All Errors</h1>',
+        f'    <h1><a href="{BASE_PATH}/">deadends.dev</a> - All Errors</h1>',
         "  </header>",
         "  <main>",
     ]
@@ -4714,7 +4714,7 @@ def build_html_sitemap(canons: list[dict]) -> None:
             name = country_names[code]
             lines.append(
                 f'      <li><a href="{BASE_PATH}/country/{code}/">{name}</a>'
-                f' — {count} entr{"ies" if count != 1 else "y"}'
+                f' - {count} entr{"ies" if count != 1 else "y"}'
                 f' (<a href="{BASE_PATH}/api/v1/country/{code}.json">JSON</a>)</li>'
             )
         lines.append("    </ul>")

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Run the program as root to bypass permission checks",
-      "why_fails": "Running as root is a security risk and masks the real issue — the program should handle permission errors gracefully",
+      "why_fails": "Running as root is a security risk and masks the real issue - the program should handle permission errors gracefully",
       "fail_rate": 0.7,
       "sources": [
         "https://go.dev/doc/articles/race_detector"

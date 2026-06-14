@@ -3,7 +3,7 @@
   "id": "llm/embedding-cosine-similarity-threshold-arbitrary/embedding-api-any",
   "url": "https://deadends.dev/llm/embedding-cosine-similarity-threshold-arbitrary/embedding-api-any",
   "error": {
-    "signature": "RAG retrieval misses relevant docs — cosine similarity threshold too high",
+    "signature": "RAG retrieval misses relevant docs - cosine similarity threshold too high",
     "regex": "cosine.*similarity.*threshold|no.*relevant.*documents|retrieval.*miss",
     "domain": "llm",
     "category": "retrieval",

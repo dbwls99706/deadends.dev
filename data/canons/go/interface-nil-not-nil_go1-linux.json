@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use recover() to catch the panic",
-      "why_fails": "Hides the bug — nil interface means logic error",
+      "why_fails": "Hides the bug - nil interface means logic error",
       "fail_rate": 0.75,
       "sources": [
         "https://go.dev/blog/defer-panic-and-recover"

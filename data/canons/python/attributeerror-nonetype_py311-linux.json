@@ -22,7 +22,7 @@
     "fix_success_rate": 0.97,
     "confidence": 0.98,
     "last_updated": "2026-02-11",
-    "summary": "Calling a method on None — usually from an unhandled function return value or missing dictionary key."
+    "summary": "Calling a method on None - usually from an unhandled function return value or missing dictionary key."
   },
   "dead_ends": [
     {
@@ -36,7 +36,7 @@
     },
     {
       "action": "Setting a default attribute on NoneType",
-      "why_fails": "Cannot modify built-in types — raises TypeError: can't set attributes of built-in/extension type 'NoneType'. NoneType is immutable and does not support attribute assignment.",
+      "why_fails": "Cannot modify built-in types - raises TypeError: can't set attributes of built-in/extension type 'NoneType'. NoneType is immutable and does not support attribute assignment.",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#AttributeError"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Trace where the None comes from — add assertions or type hints",
+      "action": "Trace where the None comes from - add assertions or type hints",
       "success_rate": 0.95,
       "how": "assert value is not None, 'Expected non-None from function X'",
       "sources": [],

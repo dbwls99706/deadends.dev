@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increasing GPU memory to allow more concurrent blocks",
-      "why_fails": "Cooperative launch occupancy is limited by SM count, registers per SM, and shared memory per SM — not global memory. Adding more VRAM does not increase the number of SMs or change per-SM resource limits.",
+      "why_fails": "Cooperative launch occupancy is limited by SM count, registers per SM, and shared memory per SM - not global memory. Adding more VRAM does not increase the number of SMs or change per-SM resource limits.",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-c-programming-guide/#execution-configuration"

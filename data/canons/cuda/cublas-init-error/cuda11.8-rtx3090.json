@@ -42,7 +42,7 @@
       "sources": [
         "https://github.com/pytorch/pytorch/issues/94292"
       ],
-      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository — if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
+      "common_misconception": "Users assume that 'reinstall' means 'repair'. Package managers reinstall the exact same version from the repository - if the repository version is itself mismatched with the rest of the toolkit, reinstalling changes nothing."
     },
     {
       "action": "Calling torch.cuda.init() before any CUDA operations",

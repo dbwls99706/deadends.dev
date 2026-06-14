@@ -22,7 +22,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.96,
     "last_updated": "2026-02-12",
-    "summary": "The 'incompatible types' compilation error occurs when the Java compiler detects a type mismatch — assigning a value of one type to a variable of an incompatible type without an explicit cast. The compiler message shows 'required: X, found: Y'."
+    "summary": "The 'incompatible types' compilation error occurs when the Java compiler detects a type mismatch - assigning a value of one type to a variable of an incompatible type without an explicit cast. The compiler message shows 'required: X, found: Y'."
   },
   "dead_ends": [
     {
@@ -55,7 +55,7 @@
     {
       "action": "Use proper type conversion methods or redesign the API to use the correct types",
       "success_rate": 0.9,
-      "how": "1. For String to numeric: Integer.parseInt(str), Double.parseDouble(str). 2. For numeric widening: int to long is automatic, but long to int requires (int) cast or Math.toIntExact(). 3. For collections: List<Integer> to List<Number> requires List.copyOf() or a new list — generics are invariant. 4. For Optional: use .map(), .flatMap(), .orElse() to transform types safely. 5. If the type mismatch reveals a design problem, refactor the interface to use the correct types rather than casting.",
+      "how": "1. For String to numeric: Integer.parseInt(str), Double.parseDouble(str). 2. For numeric widening: int to long is automatic, but long to int requires (int) cast or Math.toIntExact(). 3. For collections: List<Integer> to List<Number> requires List.copyOf() or a new list - generics are invariant. 4. For Optional: use .map(), .flatMap(), .orElse() to transform types safely. 5. If the type mismatch reveals a design problem, refactor the interface to use the correct types rather than casting.",
       "sources": [],
       "condition": ""
     }

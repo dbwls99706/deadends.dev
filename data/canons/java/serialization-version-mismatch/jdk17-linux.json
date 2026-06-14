@@ -55,7 +55,7 @@
     {
       "action": "Implement custom readObject/writeObject or migrate to a versioned format like JSON or Protobuf",
       "success_rate": 0.85,
-      "how": "1. For backward compatibility, implement readObject() with version detection: read a version field first, then deserialize accordingly. 2. For new systems, use Jackson JSON, Protobuf, or Avro instead of Java serialization — these formats have built-in schema evolution support. 3. For caches (Redis, Memcached), invalidate all cached data when the class changes. 4. For message queues, use a format with schema registry (Avro + Confluent Schema Registry).",
+      "how": "1. For backward compatibility, implement readObject() with version detection: read a version field first, then deserialize accordingly. 2. For new systems, use Jackson JSON, Protobuf, or Avro instead of Java serialization - these formats have built-in schema evolution support. 3. For caches (Redis, Memcached), invalidate all cached data when the class changes. 4. For message queues, use a format with schema registry (Avro + Confluent Schema Registry).",
       "sources": [],
       "condition": ""
     }

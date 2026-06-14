@@ -25,7 +25,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.95,
     "last_updated": "2026-04-15",
-    "summary": "Japan averages 1500+ earthquakes/year. Japan Meteorological Agency (JMA) and FDMA recommend 'Drop, Cover, Hold On' (落下物から身を守る, 揺れがおさまるまで動かない) — get under sturdy table, cover head, hold table leg. Running outside during shaking is dangerous (falling glass, signs, debris). Doorway-as-shelter is a US 1950s myth — modern Japanese construction makes doorways no safer than other interior space. Tsunami: if coastal and shaking lasts >20s, immediately move to high ground."
+    "summary": "Japan averages 1500+ earthquakes/year. Japan Meteorological Agency (JMA) and FDMA recommend 'Drop, Cover, Hold On' (落下物から身を守る, 揺れがおさまるまで動かない) - get under sturdy table, cover head, hold table leg. Running outside during shaking is dangerous (falling glass, signs, debris). Doorway-as-shelter is a US 1950s myth - modern Japanese construction makes doorways no safer than other interior space. Tsunami: if coastal and shaking lasts >20s, immediately move to high ground."
   },
   "dead_ends": [
     {
@@ -51,7 +51,7 @@
     },
     {
       "action": "Wait for an aftershock before evacuating coastal areas after a strong quake",
-      "why_fails": "Tsunami can arrive within 5-15 minutes of a coastal earthquake. JMA tsunami warnings are issued within 3 minutes; if coastal AND shaking >20s, do not wait — move to high ground or to upper floors of sturdy buildings (>3 stories) immediately. The 2011 Tohoku tsunami killed thousands who waited.",
+      "why_fails": "Tsunami can arrive within 5-15 minutes of a coastal earthquake. JMA tsunami warnings are issued within 3 minutes; if coastal AND shaking >20s, do not wait - move to high ground or to upper floors of sturdy buildings (>3 stories) immediately. The 2011 Tohoku tsunami killed thousands who waited.",
       "fail_rate": 0.92,
       "sources": [
         "https://www.jma.go.jp/jma/en/Activities/tsunami.html",
@@ -71,7 +71,7 @@
       "condition": "Indoor earthquake"
     },
     {
-      "action": "After shaking stops: check for fire/gas leaks, evacuate calmly via stairs (not elevators), gather at designated evacuation area (避難場所 — every Japanese neighborhood has one, marked on signs). Tune to NHK or J-Alert app for tsunami warning.",
+      "action": "After shaking stops: check for fire/gas leaks, evacuate calmly via stairs (not elevators), gather at designated evacuation area (避難場所 - every Japanese neighborhood has one, marked on signs). Tune to NHK or J-Alert app for tsunami warning.",
       "success_rate": 0.92,
       "sources": [
         "https://www.bousai.metro.tokyo.lg.jp/eng/",
@@ -80,7 +80,7 @@
       "condition": "Post-shaking response"
     },
     {
-      "action": "Coastal alert: if shaking is strong AND you're near the coast, head immediately to high ground (>10m elevation) or upper floors of robust buildings. Don't drive — roads jam. Walk fast/run inland and uphill. Use evacuation route signs (津波避難路).",
+      "action": "Coastal alert: if shaking is strong AND you're near the coast, head immediately to high ground (>10m elevation) or upper floors of robust buildings. Don't drive - roads jam. Walk fast/run inland and uphill. Use evacuation route signs (津波避難路).",
       "success_rate": 0.9,
       "sources": [
         "https://www.jma.go.jp/jma/en/Activities/tsunami.html"
@@ -88,7 +88,7 @@
       "condition": "Coastal earthquake"
     },
     {
-      "action": "Install J-Alert / 防災速報 app and Yurekuru Call before arrival. Both push earthquake early-warnings 5-30s before strong shaking arrives — short window but enough to drop and cover.",
+      "action": "Install J-Alert / 防災速報 app and Yurekuru Call before arrival. Both push earthquake early-warnings 5-30s before strong shaking arrives - short window but enough to drop and cover.",
       "success_rate": 0.92,
       "sources": [
         "https://www.fdma.go.jp/en/",

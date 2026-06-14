@@ -36,7 +36,7 @@
     },
     {
       "action": "Increasing timeout values without investigating the root cause",
-      "why_fails": "If the host is genuinely unreachable (wrong IP, firewall, SSH not running), no amount of timeout increase will succeed — it just delays the failure",
+      "why_fails": "If the host is genuinely unreachable (wrong IP, firewall, SSH not running), no amount of timeout increase will succeed - it just delays the failure",
       "fail_rate": 0.85,
       "sources": [
         "https://docs.ansible.com/ansible/latest/"

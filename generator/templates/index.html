@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>deadends.dev — Stop Trying What Doesn't Work</title>
+  <title>deadends.dev - Stop Trying What Doesn't Work</title>
   <meta name="description" content="Stop wasting time on dead-end fixes. See what NOT to try, what works, and what error comes next. {{ total_errors }} error entries across {{ domains | length }} domains.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
@@ -20,7 +20,7 @@
   <link rel="alternate" type="application/atom+xml" href="{{ base_path }}/feed.xml" title="New Error Patterns">
   <link rel="author" href="{{ base_path }}/CLAUDE.md" type="text/markdown" title="AI Agent Instructions">
 
-  <meta property="og:title" content="deadends.dev — Stop Trying What Doesn't Work">
+  <meta property="og:title" content="deadends.dev - Stop Trying What Doesn't Work">
   <meta property="og:description" content="Know which debugging paths are dead ends before wasting time. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}/">
@@ -28,13 +28,13 @@
   <meta property="og:image" content="{{ base_url }}/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="deadends.dev — stop trying what doesn't work">
+  <meta property="og:image:alt" content="deadends.dev - stop trying what doesn't work">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="deadends.dev — Stop Trying What Doesn't Work">
+  <meta name="twitter:title" content="deadends.dev - Stop Trying What Doesn't Work">
   <meta name="twitter:description" content="Know which debugging paths are dead ends before wasting time. {{ total_errors }} verified error entries across {{ domains | length }} domains.">
   <meta name="twitter:image" content="{{ base_url }}/og-image.png">
-  <meta name="twitter:image:alt" content="deadends.dev — stop trying what doesn't work">
+  <meta name="twitter:image:alt" content="deadends.dev - stop trying what doesn't work">
 
   <link rel="canonical" href="{{ base_url }}/">
 
@@ -45,7 +45,7 @@
     "@type": "WebSite",
     "name": "deadends.dev",
     "url": "{{ base_url }}",
-    "description": "Structured failure knowledge for AI coding agents — dead ends, workarounds, error chains. {{ total_errors }} errors across {{ domains | length }} domains.",
+    "description": "Structured failure knowledge for AI coding agents - dead ends, workarounds, error chains. {{ total_errors }} errors across {{ domains | length }} domains.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -73,7 +73,7 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "deadends.dev Error and Country Dead-End Knowledge Database",
-    "description": "Structured failure knowledge for AI agents — {{ total_errors }} entries across {{ domains | length }} domains and {{ country_stats | length }} countries. Each entry contains dead ends (what NOT to try), workarounds (what works with success rates), error transition graphs, and country-specific real-world dead ends (visa, banking, legal, cultural, medical, emergency).",
+    "description": "Structured failure knowledge for AI agents - {{ total_errors }} entries across {{ domains | length }} domains and {{ country_stats | length }} countries. Each entry contains dead ends (what NOT to try), workarounds (what works with success rates), error transition graphs, and country-specific real-world dead ends (visa, banking, legal, cultural, medical, emergency).",
     "url": "{{ base_url }}",
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": true,
@@ -255,7 +255,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
       <div class="step-card">
         <span class="step-num">2</span>
         <strong>See dead ends to avoid</strong>
-        <span class="meta">Skip fixes that waste time — we know they don't work</span>
+        <span class="meta">Skip fixes that waste time - we know they don't work</span>
       </div>
       <div class="step-card">
         <span class="step-num">3</span>
@@ -270,19 +270,19 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <div class="trust-grid">
       <div class="trust-item">
         <span class="trust-value verdict-true">{{ precision_at_1 }}</span>
-        <span class="trust-label">Precision@1 — top result matches the correct domain</span>
+        <span class="trust-label">Precision@1 - top result matches the correct domain</span>
       </div>
       <div class="trust-item">
         <span class="trust-value trust-value-blue">{{ mrr }}</span>
-        <span class="trust-label">MRR — correct results consistently rank first</span>
+        <span class="trust-label">MRR - correct results consistently rank first</span>
       </div>
       <div class="trust-item">
         <span class="trust-value verdict-true">{{ precision_at_3 }}</span>
-        <span class="trust-label">Precision@3 — correct answer in top 3 results</span>
+        <span class="trust-label">Precision@3 - correct answer in top 3 results</span>
       </div>
       <div class="trust-item">
         <span class="trust-value trust-value-amber">{{ total_edges }}</span>
-        <span class="trust-label">Error chain edges — predicting cascading failures</span>
+        <span class="trust-label">Error chain edges - predicting cascading failures</span>
       </div>
     </div>
     <p class="meta trust-footnote">Benchmarked against 20 representative error scenarios. <a href="{{ base_path }}/dashboard/">Full dashboard</a></p>
@@ -293,7 +293,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <ul class="domain-list">
       {% for domain in domain_stats %}
       <li>
-        <a href="{{ base_path }}/{{ domain.slug }}/">{{ domain.slug | display_name }} <span class="count">— {{ domain.count }} error{{ 's' if domain.count != 1 else '' }}</span></a>
+        <a href="{{ base_path }}/{{ domain.slug }}/">{{ domain.slug | display_name }} <span class="count">- {{ domain.count }} error{{ 's' if domain.count != 1 else '' }}</span></a>
       </li>
       {% endfor %}
     </ul>
@@ -302,11 +302,11 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
   {% if country_stats %}
   <section>
     <h2>Browse by country</h2>
-    <p class="meta">Real-world dead ends that vary by jurisdiction — visa, banking, legal, cultural, emergency pitfalls where one-size-fits-all advice fails.</p>
+    <p class="meta">Real-world dead ends that vary by jurisdiction - visa, banking, legal, cultural, emergency pitfalls where one-size-fits-all advice fails.</p>
     <ul class="domain-list">
       {% for country in country_stats %}
       <li>
-        <a href="{{ base_path }}/country/{{ country.slug }}/">{{ country.name }} <span class="count">— {{ country.count }} entr{{ 'ies' if country.count != 1 else 'y' }}</span></a>
+        <a href="{{ base_path }}/country/{{ country.slug }}/">{{ country.name }} <span class="count">- {{ country.count }} entr{{ 'ies' if country.count != 1 else 'y' }}</span></a>
       </li>
       {% endfor %}
     </ul>
@@ -318,19 +318,19 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
     <p>Every page includes machine-readable data in multiple formats:</p>
     <h3>Error Lookup API</h3>
     <ul>
-      <li><strong>JSON API</strong> — <code>GET <a href="{{ base_path }}/api/v1/{{ example_error_id }}.json">/api/v1/{domain}/{slug}/{env}.json</a></code></li>
-      <li><strong>Error index</strong> — <code>GET <a href="{{ base_path }}/api/v1/index.json">/api/v1/index.json</a></code> — all errors with regex patterns</li>
-      <li><strong>OpenAPI spec</strong> — <code>GET <a href="{{ base_path }}/api/v1/openapi.json">/api/v1/openapi.json</a></code></li>
+      <li><strong>JSON API</strong> - <code>GET <a href="{{ base_path }}/api/v1/{{ example_error_id }}.json">/api/v1/{domain}/{slug}/{env}.json</a></code></li>
+      <li><strong>Error index</strong> - <code>GET <a href="{{ base_path }}/api/v1/index.json">/api/v1/index.json</a></code> - all errors with regex patterns</li>
+      <li><strong>OpenAPI spec</strong> - <code>GET <a href="{{ base_path }}/api/v1/openapi.json">/api/v1/openapi.json</a></code></li>
     </ul>
     <h3>Structured Data &amp; Feeds</h3>
     <ul>
-      <li><strong>JSON-LD</strong> — Schema.org TechArticle + ErrorCanon in every page <code>&lt;head&gt;</code> — <a href="{{ base_path }}/{{ example_slug_key }}/">example</a></li>
-      <li><strong>ai-summary</strong> — parseable <code>&lt;pre id="ai-summary"&gt;</code> block in every page — <a href="{{ base_path }}/{{ example_slug_key }}/#ai-summary">example</a></li>
-      <li><strong>Stats</strong> — <code>GET <a href="{{ base_path }}/api/v1/stats.json">/api/v1/stats.json</a></code> — dataset quality metrics</li>
-      <li><strong>NDJSON</strong> — <code>GET <a href="{{ base_path }}/api/v1/errors.ndjson">/api/v1/errors.ndjson</a></code> — streaming format</li>
-      <li><strong>llms.txt</strong> — <code>GET <a href="{{ base_path }}/llms.txt">/llms.txt</a></code> — error listing for LLMs</li>
-      <li><strong>Full dump</strong> — <code>GET <a href="{{ base_path }}/llms-full.txt">/llms-full.txt</a></code> — complete database</li>
-      <li><strong>Atom feed</strong> — <code>GET <a href="{{ base_path }}/feed.xml">/feed.xml</a></code> — subscribe to new errors</li>
+      <li><strong>JSON-LD</strong> - Schema.org TechArticle + ErrorCanon in every page <code>&lt;head&gt;</code> - <a href="{{ base_path }}/{{ example_slug_key }}/">example</a></li>
+      <li><strong>ai-summary</strong> - parseable <code>&lt;pre id="ai-summary"&gt;</code> block in every page - <a href="{{ base_path }}/{{ example_slug_key }}/#ai-summary">example</a></li>
+      <li><strong>Stats</strong> - <code>GET <a href="{{ base_path }}/api/v1/stats.json">/api/v1/stats.json</a></code> - dataset quality metrics</li>
+      <li><strong>NDJSON</strong> - <code>GET <a href="{{ base_path }}/api/v1/errors.ndjson">/api/v1/errors.ndjson</a></code> - streaming format</li>
+      <li><strong>llms.txt</strong> - <code>GET <a href="{{ base_path }}/llms.txt">/llms.txt</a></code> - error listing for LLMs</li>
+      <li><strong>Full dump</strong> - <code>GET <a href="{{ base_path }}/llms-full.txt">/llms-full.txt</a></code> - complete database</li>
+      <li><strong>Atom feed</strong> - <code>GET <a href="{{ base_path }}/feed.xml">/feed.xml</a></code> - subscribe to new errors</li>
     </ul>
     <p>URL pattern: <code>{{ base_url }}/{domain}/{error-slug}/{env-hash}</code></p>
   </section>
@@ -343,7 +343,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
       {% for entry in top_fixed %}
       <li>
         <a href="{{ base_path }}/{{ entry.slug_key }}/">{{ entry.signature }}</a>
-        <span class="meta">— {{ entry.fix_rate }}% fix rate</span>
+        <span class="meta">- {{ entry.fix_rate }}% fix rate</span>
       </li>
       {% endfor %}
     </ul>
@@ -356,7 +356,7 @@ MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search
       {% for entry in recent_entries %}
       <li>
         <a href="{{ base_path }}/{{ entry.slug_key }}/">{{ entry.error.signature }}</a>
-        <span class="meta">— {{ entry.env_summary }}</span>
+        <span class="meta">- {{ entry.env_summary }}</span>
       </li>
       {% endfor %}
     </ul>

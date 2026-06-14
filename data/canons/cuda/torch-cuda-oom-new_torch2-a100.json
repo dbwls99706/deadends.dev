@@ -31,7 +31,7 @@
   "dead_ends": [
     {
       "action": "Add torch.cuda.empty_cache() in training loop",
-      "why_fails": "Only frees cached memory, not memory held by tensors — negligible effect",
+      "why_fails": "Only frees cached memory, not memory held by tensors - negligible effect",
       "fail_rate": 0.75,
       "sources": [
         "https://pytorch.org/docs/stable/generated/torch.cuda.empty_cache.html"
@@ -50,7 +50,7 @@
   ],
   "workarounds": [
     {
-      "action": "Reduce batch size — most direct fix for OOM",
+      "action": "Reduce batch size - most direct fix for OOM",
       "success_rate": 0.95,
       "sources": [
         "https://pytorch.org/docs/stable/notes/cuda.html"

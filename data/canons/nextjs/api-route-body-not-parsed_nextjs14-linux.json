@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Install body-parser middleware",
-      "why_fails": "Next.js has built-in body parsing — external middleware is unnecessary",
+      "why_fails": "Next.js has built-in body parsing - external middleware is unnecessary",
       "fail_rate": 0.75,
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/routing/route-handlers"

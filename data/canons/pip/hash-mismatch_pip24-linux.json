@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use --no-cache-dir and retry",
-      "why_fails": "Cache isn't the issue — the hash in requirements file is wrong",
+      "why_fails": "Cache isn't the issue - the hash in requirements file is wrong",
       "fail_rate": 0.6,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/caching/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Remove --require-hashes flag",
-      "why_fails": "Removes security protection — hashes prevent supply chain attacks",
+      "why_fails": "Removes security protection - hashes prevent supply chain attacks",
       "fail_rate": 0.7,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/secure-installs/"
@@ -64,7 +64,7 @@
       "how": "pip hash <package>.whl"
     },
     {
-      "action": "Check if the package was yanked/replaced on PyPI — this could be a security issue",
+      "action": "Check if the package was yanked/replaced on PyPI - this could be a security issue",
       "success_rate": 0.85,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/secure-installs/"

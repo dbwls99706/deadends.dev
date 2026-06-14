@@ -3,7 +3,7 @@
   "id": "cloud/azure-blob-lease-conflict/azure-storage-any",
   "url": "https://deadends.dev/cloud/azure-blob-lease-conflict/azure-storage-any",
   "error": {
-    "signature": "409 Conflict — There is currently a lease on the blob",
+    "signature": "409 Conflict - There is currently a lease on the blob",
     "regex": "409.*Conflict.*lease|LeaseIdMissing|There is currently a lease",
     "domain": "cloud",
     "category": "storage",

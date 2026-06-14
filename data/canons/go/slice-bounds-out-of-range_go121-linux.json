@@ -55,7 +55,7 @@
     {
       "action": "Use range-based for loop to avoid manual indexing",
       "success_rate": 0.93,
-      "how": "for i, v := range slice { ... } — cannot go out of bounds",
+      "how": "for i, v := range slice { ... } - cannot go out of bounds",
       "sources": [
         "https://go.dev/tour/moretypes/16"
       ],

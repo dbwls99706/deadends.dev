@@ -57,7 +57,7 @@
     {
       "action": "If subclassing, ensure super().__init__() is called with all required args",
       "success_rate": 0.93,
-      "how": "super().__init__(name=name) — pass through parent's required parameters",
+      "how": "super().__init__(name=name) - pass through parent's required parameters",
       "sources": [],
       "condition": ""
     }

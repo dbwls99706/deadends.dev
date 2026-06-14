@@ -24,7 +24,7 @@
   "dead_ends": [
     {
       "action": "Leave cooked rice at room temperature for hours and then reheat it",
-      "why_fails": "Bacillus cereus spores survive cooking and germinate at room temperature, producing cereulide toxin within 1-5 hours. This toxin is heat-stable — reheating, even boiling, does NOT destroy it. Cases of liver failure and death have been documented.",
+      "why_fails": "Bacillus cereus spores survive cooking and germinate at room temperature, producing cereulide toxin within 1-5 hours. This toxin is heat-stable - reheating, even boiling, does NOT destroy it. Cases of liver failure and death have been documented.",
       "fail_rate": 0.85,
       "sources": [],
       "condition": "Leftover rice handling"

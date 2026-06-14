@@ -55,7 +55,7 @@
       "how": "import boto3\nfrom botocore.config import Config\n\nconfig = Config(retries={'max_attempts': 10, 'mode': 'adaptive'})\ndynamodb = boto3.resource('dynamodb', config=config)\n\nAdaptive mode automatically adjusts retry delays based on throttling response headers."
     },
     {
-      "action": "Review partition key design — hot partitions cause throttling even with capacity",
+      "action": "Review partition key design - hot partitions cause throttling even with capacity",
       "success_rate": 0.85,
       "sources": [
         "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html"

@@ -3,7 +3,7 @@
   "id": "llm/token-limit-silent-input-truncation/llm-api-any",
   "url": "https://deadends.dev/llm/token-limit-silent-input-truncation/llm-api-any",
   "error": {
-    "signature": "Input silently truncated — total tokens exceed model context window",
+    "signature": "Input silently truncated - total tokens exceed model context window",
     "regex": "[Tt]runcate|[Mm]ax.*tokens.*exceeded|context.*length.*exceeded",
     "domain": "llm",
     "category": "context_management",

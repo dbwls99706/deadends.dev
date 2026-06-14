@@ -36,7 +36,7 @@
     },
     {
       "action": "Set unoptimized={true} on all images",
-      "why_fails": "Disables all optimization — defeats the purpose of next/image",
+      "why_fails": "Disables all optimization - defeats the purpose of next/image",
       "fail_rate": 0.65,
       "sources": [
         "https://nextjs.org/docs/app/api-reference/components/image#unoptimized"
@@ -66,7 +66,7 @@
     {
       "action": "Install sharp as a dependency for better image optimization",
       "success_rate": 0.88,
-      "how": "npm install sharp\n# sharp is auto-detected by Next.js for image optimization\n# Required in production/Docker — Next.js uses squoosh by default in dev\n# For Docker, add to Dockerfile:\n# RUN npm install sharp",
+      "how": "npm install sharp\n# sharp is auto-detected by Next.js for image optimization\n# Required in production/Docker - Next.js uses squoosh by default in dev\n# For Docker, add to Dockerfile:\n# RUN npm install sharp",
       "sources": [
         "https://nextjs.org/docs/app/building-your-application/optimizing/images#sharp"
       ],

@@ -46,13 +46,13 @@
   ],
   "workarounds": [
     {
-      "action": "Check the calling code — trace where wrong type originates",
+      "action": "Check the calling code - trace where wrong type originates",
       "success_rate": 0.92,
       "sources": [
         "https://nodejs.org/api/errors.html#err_invalid_arg_type"
       ],
       "condition": "",
-      "how": "Check the calling code — trace where wrong type originates"
+      "how": "Check the calling code - trace where wrong type originates"
     },
     {
       "action": "Add TypeScript or JSDoc types to catch at compile time",

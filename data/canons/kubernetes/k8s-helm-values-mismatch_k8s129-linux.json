@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use --force flag to push through the upgrade",
-      "why_fails": "--force deletes and recreates resources — causes downtime and data loss for StatefulSets",
+      "why_fails": "--force deletes and recreates resources - causes downtime and data loss for StatefulSets",
       "fail_rate": 0.75,
       "sources": [
         "https://helm.sh/docs/helm/helm_upgrade/"

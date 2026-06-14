@@ -37,7 +37,7 @@
     },
     {
       "action": "Upgrade pip to latest version",
-      "why_fails": "Rarely the issue — usually a platform or Python version mismatch",
+      "why_fails": "Rarely the issue - usually a platform or Python version mismatch",
       "fail_rate": 0.60,
       "sources": [
         "https://pip.pypa.io/en/stable/installation/"

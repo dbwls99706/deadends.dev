@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check the region — Parameter Store is regional; the parameter may exist in a different region",
+      "action": "Check the region - Parameter Store is regional; the parameter may exist in a different region",
       "success_rate": 0.9,
       "how": "Use --region flag or AWS_DEFAULT_REGION env var to specify",
       "sources": [],

@@ -46,7 +46,7 @@
         "https://www.mofa.gov.tw/en/default.html"
       ],
       "condition": "Content seen by both mainland and Taiwanese audiences",
-      "common_misconception": "'Chinese Taipei' is a safe generic term — it is specific to Olympic/WHO/APEC contexts and sounds bureaucratic elsewhere."
+      "common_misconception": "'Chinese Taipei' is a safe generic term - it is specific to Olympic/WHO/APEC contexts and sounds bureaucratic elsewhere."
     }
   ],
   "workarounds": [
@@ -59,7 +59,7 @@
       "condition": "Mainland China commercial distribution"
     },
     {
-      "action": "For Taiwan-facing content: use 'Taiwan' unqualified. For audiences spanning both (international airline, global app), segment the experience by region — show separate country listings in non-mainland builds, and 'Taiwan, China' only in the zh-CN build.",
+      "action": "For Taiwan-facing content: use 'Taiwan' unqualified. For audiences spanning both (international airline, global app), segment the experience by region - show separate country listings in non-mainland builds, and 'Taiwan, China' only in the zh-CN build.",
       "success_rate": 0.85,
       "sources": [
         "https://www.mofa.gov.tw/en/default.html"

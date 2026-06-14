@@ -3,7 +3,7 @@
   "id": "safety/tourniquet-myths/ai-agent-any",
   "url": "https://deadends.dev/safety/tourniquet-myths/ai-agent-any",
   "error": {
-    "signature": "AI repeats outdated tourniquet myths — 'tourniquets cause amputation' or 'loosen periodically'",
+    "signature": "AI repeats outdated tourniquet myths - 'tourniquets cause amputation' or 'loosen periodically'",
     "regex": "(tourniquet|止血帯|지혈대|severe.*bleeding|arterial.*bleed|limb.*hemorrhage|massive.*bleeding)",
     "domain": "safety",
     "category": "life_threatening",
@@ -34,7 +34,7 @@
     },
     {
       "action": "Periodically loosen a tourniquet to 'let blood flow'",
-      "why_fails": "Loosening a tourniquet releases accumulated toxins and clots into circulation, risking cardiac arrest. Once applied, NEVER loosen or remove — only medical professionals in a hospital should do so.",
+      "why_fails": "Loosening a tourniquet releases accumulated toxins and clots into circulation, risking cardiac arrest. Once applied, NEVER loosen or remove - only medical professionals in a hospital should do so.",
       "fail_rate": 0.90,
       "sources": [],
       "condition": "Tourniquet management"

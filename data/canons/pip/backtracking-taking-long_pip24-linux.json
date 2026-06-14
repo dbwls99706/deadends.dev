@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Cancel and use --no-deps",
-      "why_fails": "Skips dependency resolution — may install incompatible versions",
+      "why_fails": "Skips dependency resolution - may install incompatible versions",
       "fail_rate": 0.7,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/dependency-resolution/"
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Upgrade pip — newer versions have faster resolver: pip install --upgrade pip",
+      "action": "Upgrade pip - newer versions have faster resolver: pip install --upgrade pip",
       "success_rate": 0.82,
       "sources": [
         "https://pip.pypa.io/en/stable/installation/"

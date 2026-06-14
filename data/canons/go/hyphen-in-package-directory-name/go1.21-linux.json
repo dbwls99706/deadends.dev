@@ -3,7 +3,7 @@
   "id": "go/hyphen-in-package-directory-name/go1.21-linux",
   "url": "https://deadends.dev/go/hyphen-in-package-directory-name/go1.21-linux",
   "error": {
-    "signature": "could not import — Go package in directory with hyphen causes import path mismatch",
+    "signature": "could not import - Go package in directory with hyphen causes import path mismatch",
     "regex": "could not import|package.*not found.*-|import.*hyphen|invalid import path",
     "domain": "go",
     "category": "naming",

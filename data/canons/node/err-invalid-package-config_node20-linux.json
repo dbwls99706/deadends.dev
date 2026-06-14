@@ -22,7 +22,7 @@
     "fix_success_rate": 0.93,
     "confidence": 0.95,
     "last_updated": "2026-02-11",
-    "summary": "package.json is malformed — JSON syntax error or invalid field values."
+    "summary": "package.json is malformed - JSON syntax error or invalid field values."
   },
   "dead_ends": [
     {
@@ -53,7 +53,7 @@
       "condition": ""
     },
     {
-      "action": "Check the 'exports' field syntax — most common cause of invalid config in modern packages",
+      "action": "Check the 'exports' field syntax - most common cause of invalid config in modern packages",
       "success_rate": 0.88,
       "how": "Exports map must use proper path patterns: './': './index.js'",
       "sources": [

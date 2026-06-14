@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="theme-color" content="#0d1117">
-  <title>{{ country_name }} Dead Ends — Real-World Pitfalls AI Gets Wrong | deadends.dev</title>
-  <meta name="description" content="{{ total }} country-specific dead ends for {{ country_name }} — visa, banking, legal, cultural, and emergency pitfalls where one-size-fits-all AI advice fails.">
+  <title>{{ country_name }} Dead Ends - Real-World Pitfalls AI Gets Wrong | deadends.dev</title>
+  <meta name="description" content="{{ total }} country-specific dead ends for {{ country_name }} - visa, banking, legal, cultural, and emergency pitfalls where one-size-fits-all AI advice fails.">
   {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1">{% endif %}
   <link rel="icon" href="{{ base_path }}/favicon.svg" type="image/svg+xml">
   <meta name="keywords" content="{{ country_name }}, {{ country_name }} visa, {{ country_name }} banking, {{ country_name }} legal, {{ country_name }} culture, foreigner guide, expat pitfalls">
@@ -21,7 +21,7 @@
   <link rel="alternate" type="text/plain" href="{{ base_path }}/llms.txt" title="LLM-optimized error listing">
   <link rel="describedby" href="{{ base_path }}/api/v1/openapi.json" type="application/json">
 
-  <meta property="og:title" content="{{ country_name }} Dead Ends — Real-World Pitfalls AI Gets Wrong">
+  <meta property="og:title" content="{{ country_name }} Dead Ends - Real-World Pitfalls AI Gets Wrong">
   <meta property="og:description" content="{{ total }} {{ country_name }} dead ends with documented workarounds.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ base_url }}/country/{{ country_code }}/">
@@ -29,13 +29,13 @@
   <meta property="og:image" content="{{ base_url }}/country/{{ country_code }}/og.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds — deadends.dev">
+  <meta property="og:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds - deadends.dev">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ country_name }} Dead Ends — deadends.dev">
+  <meta name="twitter:title" content="{{ country_name }} Dead Ends - deadends.dev">
   <meta name="twitter:description" content="{{ total }} country-specific dead ends for {{ country_name }}.">
   <meta name="twitter:image" content="{{ base_url }}/country/{{ country_code }}/og.svg">
-  <meta name="twitter:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds — deadends.dev">
+  <meta name="twitter:image:alt" content="{{ country_name }}-specific dead ends and verified workarounds - deadends.dev">
 
   <link rel="canonical" href="{{ base_url }}/country/{{ country_code }}/">
   <link rel="alternate" hreflang="en" href="{{ base_url }}/country/{{ country_code }}/">
@@ -113,7 +113,7 @@ COUNTRY_API={{ base_url }}/api/v1/country/{{ country_code }}.json
   <nav><a href="{{ base_path }}/">deadends.dev</a> &rsaquo; <a href="{{ base_path }}/country/">Countries</a> &rsaquo; {{ country_name }}</nav>
 
   <main>
-  <h1>{{ country_name }} — real-world dead ends</h1>
+  <h1>{{ country_name }} - real-world dead ends</h1>
   <p class="meta">{{ total }} entr{{ 'ies' if total != 1 else 'y' }} · Country code: <code>{{ country_code }}</code> · <a href="{{ base_path }}/api/v1/country/{{ country_code }}.json">JSON aggregate</a></p>
 
   <section id="country-intro" class="card-section">
@@ -125,7 +125,7 @@ COUNTRY_API={{ base_url }}/api/v1/country/{{ country_code }}.json
     <h2>By category</h2>
     <ul class="domain-list">
       {% for d in domain_breakdown %}
-      <li><a href="{{ base_path }}/{{ d.slug }}/">{{ d.slug | display_name }}</a> <span class="count">— {{ d.count }}</span></li>
+      <li><a href="{{ base_path }}/{{ d.slug }}/">{{ d.slug | display_name }}</a> <span class="count">- {{ d.count }}</span></li>
       {% endfor %}
     </ul>
   </section>

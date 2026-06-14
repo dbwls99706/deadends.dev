@@ -3,7 +3,7 @@
   "id": "git/ssh-key-permission/git2-linux",
   "url": "https://deadends.dev/git/ssh-key-permission/git2-linux",
   "error": {
-    "signature": "Permissions 0644 for '/home/user/.ssh/id_rsa' are too open — SSH refuses key with wrong permissions",
+    "signature": "Permissions 0644 for '/home/user/.ssh/id_rsa' are too open - SSH refuses key with wrong permissions",
     "regex": "(?:[Pp]ermissions? (?:0[0-7]{3}|are too open)|(?:bad permissions|UNPROTECTED PRIVATE KEY FILE).*\\.ssh|It is required that your private key files are NOT accessible by others)",
     "domain": "git",
     "category": "authentication_error",

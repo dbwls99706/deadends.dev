@@ -36,7 +36,7 @@
   "dead_ends": [
     {
       "action": "Adding 'static lifetime bound to everything",
-      "why_fails": "'static means the value lives for the entire program. This is overly restrictive: it prevents borrowing local data, forces all data to be owned or leaked, and leads to excessive .clone() calls. Most async code does not need 'static — it needs clear ownership.",
+      "why_fails": "'static means the value lives for the entire program. This is overly restrictive: it prevents borrowing local data, forces all data to be owned or leaked, and leads to excessive .clone() calls. Most async code does not need 'static - it needs clear ownership.",
       "fail_rate": 0.7,
       "sources": [
         "https://doc.rust-lang.org/error_codes/"
@@ -54,7 +54,7 @@
     },
     {
       "action": "Wrapping everything in Arc<Mutex<T>>",
-      "why_fails": "Arc<Mutex<T>> adds unnecessary synchronization overhead and complexity. Often the issue is simply that the closure needs 'move' to take ownership, or the function needs a named lifetime — not interior mutability.",
+      "why_fails": "Arc<Mutex<T>> adds unnecessary synchronization overhead and complexity. Often the issue is simply that the closure needs 'move' to take ownership, or the function needs a named lifetime - not interior mutability.",
       "fail_rate": 0.6,
       "sources": [
         "https://doc.rust-lang.org/error_codes/"

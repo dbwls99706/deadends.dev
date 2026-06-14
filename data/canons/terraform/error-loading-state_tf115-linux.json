@@ -48,7 +48,7 @@
     {
       "action": "Upgrade Terraform to at least the version that created the state",
       "success_rate": 0.96,
-      "how": "tfenv install 1.6 && tfenv use 1.6 — or download from hashicorp.com",
+      "how": "tfenv install 1.6 && tfenv use 1.6 - or download from hashicorp.com",
       "sources": [
         "https://developer.hashicorp.com/terraform/downloads"
       ],

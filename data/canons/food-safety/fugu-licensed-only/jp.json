@@ -25,19 +25,19 @@
     "fix_success_rate": 0.95,
     "confidence": 0.95,
     "last_updated": "2026-04-14",
-    "summary": "Fugu (pufferfish) contains tetrodotoxin in liver, ovaries, intestines, and skin — >1000× more lethal than cyanide with no antidote. Japanese regulations require a prefecture-issued fugu license for chefs who prepare it for the public (2–3 year apprenticeship, written + practical exam). Home preparation by the untrained causes 2–5 deaths/year in Japan (MHLW statistics). Safe fugu is consumed at licensed fugu restaurants only."
+    "summary": "Fugu (pufferfish) contains tetrodotoxin in liver, ovaries, intestines, and skin - >1000× more lethal than cyanide with no antidote. Japanese regulations require a prefecture-issued fugu license for chefs who prepare it for the public (2–3 year apprenticeship, written + practical exam). Home preparation by the untrained causes 2–5 deaths/year in Japan (MHLW statistics). Safe fugu is consumed at licensed fugu restaurants only."
   },
   "dead_ends": [
     {
       "action": "Buy whole fugu at a fish market (Tsukiji's outer market, Toyosu auction) and prepare sashimi at home from a YouTube video",
-      "why_fails": "Prefectural regulations forbid unlicensed individuals from selling or preparing fugu for others. Even licensed home cooks risk death from the slightest error — the toxic organs are millimeters from the edible flesh. Multiple deaths annually involve amateur home preparation. The liver is most lethal; its consumption was fully banned in 1983.",
+      "why_fails": "Prefectural regulations forbid unlicensed individuals from selling or preparing fugu for others. Even licensed home cooks risk death from the slightest error - the toxic organs are millimeters from the edible flesh. Multiple deaths annually involve amateur home preparation. The liver is most lethal; its consumption was fully banned in 1983.",
       "fail_rate": 0.35,
       "sources": [
         "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html",
         "https://www.soumu.go.jp/"
       ],
       "condition": "Home preparation",
-      "common_misconception": "'Farmed fugu is toxin-free' — only some farmed varieties are certified low-toxin (hon-fugu 本ふぐ), and even these are prepared by licensed chefs."
+      "common_misconception": "'Farmed fugu is toxin-free' - only some farmed varieties are certified low-toxin (hon-fugu 本ふぐ), and even these are prepared by licensed chefs."
     },
     {
       "action": "Order fugu at any sushi restaurant assuming it's always safe in Japan",
@@ -50,7 +50,7 @@
     },
     {
       "action": "Eat fugu liver (fugu no kimo 河豚の肝) at an unlicensed restaurant on the claim 'we have a connection that makes it safe'",
-      "why_fails": "Fugu liver sale and service were nationally banned in 1983 after multiple deaths. No exceptions — even licensed chefs cannot serve it. A 2018 Gamagori case: 5 supermarket customers hospitalized after liver was mislabeled. Seller was criminally charged.",
+      "why_fails": "Fugu liver sale and service were nationally banned in 1983 after multiple deaths. No exceptions - even licensed chefs cannot serve it. A 2018 Gamagori case: 5 supermarket customers hospitalized after liver was mislabeled. Seller was criminally charged.",
       "fail_rate": 0.5,
       "sources": [
         "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html",
@@ -69,7 +69,7 @@
       "condition": "Safe consumption"
     },
     {
-      "action": "If symptoms (tingling lips, numbness, weakness, difficulty breathing) develop after eating fish — even mild — call 119 immediately, transport to hospital with the remaining food for identification. Tetrodotoxin has no antidote; treatment is respiratory support until toxin clears.",
+      "action": "If symptoms (tingling lips, numbness, weakness, difficulty breathing) develop after eating fish - even mild - call 119 immediately, transport to hospital with the remaining food for identification. Tetrodotoxin has no antidote; treatment is respiratory support until toxin clears.",
       "success_rate": 0.7,
       "sources": [
         "https://www.mhlw.go.jp/english/topics/foodsafety/seisakunitsuite/bunya/kenkou_iryou/shokuhin/syokuchu/fugu_en.html"

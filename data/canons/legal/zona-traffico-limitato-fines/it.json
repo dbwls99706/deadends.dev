@@ -25,7 +25,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.88,
     "last_updated": "2026-04-15",
-    "summary": "Most Italian historic city centers (Florence, Rome, Milan, Bologna, Pisa, Verona, Siena, Lucca, etc.) have ZTL (Zona a Traffico Limitato) zones with camera-enforced restrictions. Entry without permit triggers €80-220 fine per breach (multiple breaches per single visit possible). Foreign tourists receive fines 6-12 months later via rental car company + administrative fee. Hotels inside ZTL can register guest plates for entry — but only on actual stay dates. Park outside ZTL and walk/use transit."
+    "summary": "Most Italian historic city centers (Florence, Rome, Milan, Bologna, Pisa, Verona, Siena, Lucca, etc.) have ZTL (Zona a Traffico Limitato) zones with camera-enforced restrictions. Entry without permit triggers €80-220 fine per breach (multiple breaches per single visit possible). Foreign tourists receive fines 6-12 months later via rental car company + administrative fee. Hotels inside ZTL can register guest plates for entry - but only on actual stay dates. Park outside ZTL and walk/use transit."
   },
   "dead_ends": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "action": "Assume the hotel will register the rental car plate upon check-in arrival",
-      "why_fails": "Plate registration must be done by the hotel BEFORE camera capture, OR within 48h after — and only for guests' actual stay dates. If you arrive earlier or drive past the hotel without checking in first, the camera fines still trigger. Always call the hotel ahead with plate number.",
+      "why_fails": "Plate registration must be done by the hotel BEFORE camera capture, OR within 48h after - and only for guests' actual stay dates. If you arrive earlier or drive past the hotel without checking in first, the camera fines still trigger. Always call the hotel ahead with plate number.",
       "fail_rate": 0.65,
       "sources": [
         "https://servizi.comune.fi.it/mobilita/ztl/"

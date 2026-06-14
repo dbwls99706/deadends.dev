@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Increase buffer size",
-      "why_fails": "Buffer size doesn't matter — the reader has disconnected",
+      "why_fails": "Buffer size doesn't matter - the reader has disconnected",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/library/signal.html#note-on-sigpipe"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Wrap every print in try/except",
-      "why_fails": "Verbose and error-prone — use signal handling instead",
+      "why_fails": "Verbose and error-prone - use signal handling instead",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#BrokenPipeError"
@@ -56,7 +56,7 @@
       "condition": ""
     },
     {
-      "action": "For network code, handle the error gracefully — the client disconnected",
+      "action": "For network code, handle the error gracefully - the client disconnected",
       "success_rate": 0.85,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#BrokenPipeError"

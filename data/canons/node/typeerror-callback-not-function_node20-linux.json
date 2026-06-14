@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add a no-op callback: () => {}",
-      "why_fails": "Hides the real issue — the function signature changed",
+      "why_fails": "Hides the real issue - the function signature changed",
       "fail_rate": 0.65,
       "sources": [
         "https://nodejs.org/api/util.html#utilcallbackifyoriginal"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Wrap in try/catch",
-      "why_fails": "The error is thrown synchronously before the callback — catch won't help async flow",
+      "why_fails": "The error is thrown synchronously before the callback - catch won't help async flow",
       "fail_rate": 0.7,
       "sources": [
         "https://nodejs.org/api/errors.html#class-typeerror"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check if you're mixing callback and promise APIs — use await or .then() instead",
+      "action": "Check if you're mixing callback and promise APIs - use await or .then() instead",
       "success_rate": 0.95,
       "how": "// Old: fs.readFile(path, callback)\n// New: const data = await fs.promises.readFile(path)",
       "sources": [
@@ -55,13 +55,13 @@
       "condition": ""
     },
     {
-      "action": "Verify all required arguments are passed — the callback might be a missing middle argument",
+      "action": "Verify all required arguments are passed - the callback might be a missing middle argument",
       "success_rate": 0.88,
       "sources": [
         "https://nodejs.org/api/errors.html#class-typeerror"
       ],
       "condition": "",
-      "how": "Verify all required arguments are passed — the callback might be a missing middle argument"
+      "how": "Verify all required arguments are passed - the callback might be a missing middle argument"
     }
   ],
   "transition_graph": {

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use --force flag",
-      "why_fails": "Installs potentially broken dependencies — may cause runtime errors",
+      "why_fails": "Installs potentially broken dependencies - may cause runtime errors",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.npmjs.com/cli/v10/commands/npm-install#force"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Delete package-lock.json and reinstall",
-      "why_fails": "Lock file protects reproducibility — deleting it may introduce other issues",
+      "why_fails": "Lock file protects reproducibility - deleting it may introduce other issues",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json"

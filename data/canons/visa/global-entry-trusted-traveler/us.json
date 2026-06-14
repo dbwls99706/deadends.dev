@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Tell a foreign tourist they can use Global Entry kiosks at US airports",
-      "why_fails": "Global Entry is a Trusted Traveler Program — requires application, in-person interview, background check, and approval. Without enrollment + Known Traveler Number (KTN), foreign tourists must use the regular visitor lines and process I-94 at primary inspection. Rolling up to a Global Entry kiosk without enrollment causes denial.",
+      "why_fails": "Global Entry is a Trusted Traveler Program - requires application, in-person interview, background check, and approval. Without enrollment + Known Traveler Number (KTN), foreign tourists must use the regular visitor lines and process I-94 at primary inspection. Rolling up to a Global Entry kiosk without enrollment causes denial.",
       "fail_rate": 0.92,
       "sources": [
         "https://ttp.cbp.dhs.gov/",
@@ -68,7 +68,7 @@
       "condition": "Frequent US traveler"
     },
     {
-      "action": "Foreign nationals: check eligibility at cbp.gov/travel/trusted-traveler-programs/global-entry — requires bilateral agreement with home country. UK, DE, IN, KR, JP, AU, MX, AR, NL, CO, TW listed. Application via host-country agency first (e.g. UK uses gov.uk, Korea via KIS).",
+      "action": "Foreign nationals: check eligibility at cbp.gov/travel/trusted-traveler-programs/global-entry - requires bilateral agreement with home country. UK, DE, IN, KR, JP, AU, MX, AR, NL, CO, TW listed. Application via host-country agency first (e.g. UK uses gov.uk, Korea via KIS).",
       "success_rate": 0.85,
       "sources": [
         "https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/eligibility"
@@ -76,7 +76,7 @@
       "condition": "Foreign national application"
     },
     {
-      "action": "Use the CBP MPC (Mobile Passport Control) free app as a Global Entry alternative for US/Canadian citizens — submits arrival declaration in advance; faster than regular line, slower than GE. Available at major airports.",
+      "action": "Use the CBP MPC (Mobile Passport Control) free app as a Global Entry alternative for US/Canadian citizens - submits arrival declaration in advance; faster than regular line, slower than GE. Available at major airports.",
       "success_rate": 0.78,
       "sources": [
         "https://www.cbp.gov/travel/us-citizens/mobile-passport-control"

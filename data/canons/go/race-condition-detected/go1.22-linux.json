@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Disable the race detector with build tags to suppress warnings",
-      "why_fails": "The race still exists in production — disabling detection does not fix the bug, it just hides it",
+      "why_fails": "The race still exists in production - disabling detection does not fix the bug, it just hides it",
       "fail_rate": 0.95,
       "sources": [
         "https://go.dev/doc/articles/race_detector"

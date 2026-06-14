@@ -25,12 +25,12 @@
     "fix_success_rate": 0.95,
     "confidence": 0.85,
     "last_updated": "2026-04-15",
-    "summary": "Deutsche Bahn ICE long-distance trains have a designated 'Ruhebereich' (Quiet Zone) coach where phone calls and audible devices are prohibited. The non-quiet coaches still expect headphones for any audio + low-voice phone calls (use the vestibule for longer calls). Loud music or speakerphone calls draw direct rebuke from German passengers. S-Bahn / U-Bahn likewise — silent or low-voice."
+    "summary": "Deutsche Bahn ICE long-distance trains have a designated 'Ruhebereich' (Quiet Zone) coach where phone calls and audible devices are prohibited. The non-quiet coaches still expect headphones for any audio + low-voice phone calls (use the vestibule for longer calls). Loud music or speakerphone calls draw direct rebuke from German passengers. S-Bahn / U-Bahn likewise - silent or low-voice."
   },
   "dead_ends": [
     {
       "action": "Take a long phone call seated in a regular ICE coach with speakerphone or loud talking",
-      "why_fails": "German train passengers expect quiet — even non-Ruhebereich coaches operate at conversation volume. Loud calls trigger direct 'könnten Sie leiser?' (could you be quieter) requests. Speakerphone calls in confined coaches are universally rude.",
+      "why_fails": "German train passengers expect quiet - even non-Ruhebereich coaches operate at conversation volume. Loud calls trigger direct 'könnten Sie leiser?' (could you be quieter) requests. Speakerphone calls in confined coaches are universally rude.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Sit in the Ruhebereich coach and watch a video without headphones",
-      "why_fails": "Ruhebereich is explicitly silent — no phone calls, no audible devices, no loud conversation. Passengers (and DB conductors) actively police. Move to a regular coach if you need audio.",
+      "why_fails": "Ruhebereich is explicitly silent - no phone calls, no audible devices, no loud conversation. Passengers (and DB conductors) actively police. Move to a regular coach if you need audio.",
       "fail_rate": 0.85,
       "sources": [
         "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich"
@@ -59,7 +59,7 @@
   ],
   "workarounds": [
     {
-      "action": "Use headphones for any audio. Take phone calls in the vestibule (Vorraum) between cars. Match the surrounding volume — low conversation OK in regular coaches; silent in Ruhebereich.",
+      "action": "Use headphones for any audio. Take phone calls in the vestibule (Vorraum) between cars. Match the surrounding volume - low conversation OK in regular coaches; silent in Ruhebereich.",
       "success_rate": 0.95,
       "sources": [
         "https://www.bahn.de/service/individuelle-reise/auf-der-fahrt/ruhebereich"

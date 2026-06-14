@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Remove the dynamic route segment",
-      "why_fails": "You need the dynamic route — removing it changes the URL structure",
+      "why_fails": "You need the dynamic route - removing it changes the URL structure",
       "fail_rate": 0.8,
       "sources": [
         "https://nextjs.org/docs/app/api-reference/functions/generate-static-params"

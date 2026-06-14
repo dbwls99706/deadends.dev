@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Verify the bucket name: aws s3 ls — check for typos (names are case-sensitive, lowercase only)",
+      "action": "Verify the bucket name: aws s3 ls - check for typos (names are case-sensitive, lowercase only)",
       "success_rate": 0.96,
       "how": "S3 bucket names must be globally unique and DNS-compliant",
       "sources": [
@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Check the region — S3 bucket names are global but access may require the correct region endpoint",
+      "action": "Check the region - S3 bucket names are global but access may require the correct region endpoint",
       "success_rate": 0.9,
       "how": "Use --region flag: aws s3 ls s3://bucket --region us-west-2",
       "sources": [],

@@ -36,7 +36,7 @@
   "dead_ends": [
     {
       "action": "Changing the component's return type to JSX.Element",
-      "why_fails": "JSX.Element is overly restrictive — it breaks when the component returns null, a string, or a fragment. The real issue is usually a @types/react version mismatch between dependencies, not the return type annotation.",
+      "why_fails": "JSX.Element is overly restrictive - it breaks when the component returns null, a string, or a fragment. The real issue is usually a @types/react version mismatch between dependencies, not the return type annotation.",
       "fail_rate": 0.72,
       "sources": [
         "https://www.typescriptlang.org/tsconfig/#strict"

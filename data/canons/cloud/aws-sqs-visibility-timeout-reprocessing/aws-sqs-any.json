@@ -3,7 +3,7 @@
   "id": "cloud/aws-sqs-visibility-timeout-reprocessing/aws-sqs-any",
   "url": "https://deadends.dev/cloud/aws-sqs-visibility-timeout-reprocessing/aws-sqs-any",
   "error": {
-    "signature": "Message reprocessed — SQS visibility timeout too short for processing time",
+    "signature": "Message reprocessed - SQS visibility timeout too short for processing time",
     "regex": "visibility.*timeout|message.*reprocessed|duplicate.*processing",
     "domain": "cloud",
     "category": "messaging",

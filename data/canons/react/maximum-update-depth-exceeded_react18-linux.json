@@ -48,7 +48,7 @@
     {
       "action": "Add correct dependencies to the useEffect dependency array",
       "success_rate": 0.95,
-      "how": "Ensure deps don't change on every render — avoid object/array literals in deps",
+      "how": "Ensure deps don't change on every render - avoid object/array literals in deps",
       "sources": [
         "https://react.dev/reference/react/useEffect#removing-unnecessary-dependencies"
       ],

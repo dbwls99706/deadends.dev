@@ -25,12 +25,12 @@
     "fix_success_rate": 0.88,
     "confidence": 0.9,
     "last_updated": "2026-04-14",
-    "summary": "Japan bans several medications that are common elsewhere: amphetamines (Adderall, Vyvanse — banned outright for personal use), pseudoephedrine (Sudafed — >24mg/day disallowed, OTC forms from US/UK seized), codeine combinations in some forms, narcotic painkillers. Legal prescription imports require advance 薬監証明 (Yakkan Shoumei / import certificate) from the nearest regional health bureau. Violations have resulted in tourist arrests."
+    "summary": "Japan bans several medications that are common elsewhere: amphetamines (Adderall, Vyvanse - banned outright for personal use), pseudoephedrine (Sudafed - >24mg/day disallowed, OTC forms from US/UK seized), codeine combinations in some forms, narcotic painkillers. Legal prescription imports require advance 薬監証明 (Yakkan Shoumei / import certificate) from the nearest regional health bureau. Violations have resulted in tourist arrests."
   },
   "dead_ends": [
     {
       "action": "Pack a US/EU personal supply of Adderall or Vyvanse into a carry-on for a Japan trip 'because it's prescription'",
-      "why_fails": "Japan's Stimulants Control Act prohibits amphetamine-based medications, including ADHD stimulants that are legal and commonly prescribed in the US/EU. Customs at Narita/Haneda/Kansai searches for these; travelers have been arrested and detained. No Yakkan Shoumei can approve Adderall — it is outright banned.",
+      "why_fails": "Japan's Stimulants Control Act prohibits amphetamine-based medications, including ADHD stimulants that are legal and commonly prescribed in the US/EU. Customs at Narita/Haneda/Kansai searches for these; travelers have been arrested and detained. No Yakkan Shoumei can approve Adderall - it is outright banned.",
       "fail_rate": 0.95,
       "sources": [
         "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html",
@@ -49,7 +49,7 @@
     },
     {
       "action": "Bring a 3-month supply of ordinary prescription medication without any paperwork, assuming personal-use exemption",
-      "why_fails": "Personal-use exemption caps at ~1 month supply without paperwork. Over 1 month requires 薬監証明 (Yakkan Shoumei) — a free import certificate that takes 1–2 weeks to obtain from the regional Kanto-Shinetsu Regional Bureau of Health (or equivalent). Customs seizes over-limit quantities without the certificate.",
+      "why_fails": "Personal-use exemption caps at ~1 month supply without paperwork. Over 1 month requires 薬監証明 (Yakkan Shoumei) - a free import certificate that takes 1–2 weeks to obtain from the regional Kanto-Shinetsu Regional Bureau of Health (or equivalent). Customs seizes over-limit quantities without the certificate.",
       "fail_rate": 0.75,
       "sources": [
         "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"
@@ -67,7 +67,7 @@
       "condition": "Non-banned prescriptions, longer supply"
     },
     {
-      "action": "For banned medications (Adderall, Vyvanse): do not bring them. Instead, consult a Japanese psychiatrist in advance to transition to a Japan-legal alternative (Concerta / methylphenidate is prescribable; Strattera is available). Plan for a registration process — Concerta requires special pharmacy registration in Japan.",
+      "action": "For banned medications (Adderall, Vyvanse): do not bring them. Instead, consult a Japanese psychiatrist in advance to transition to a Japan-legal alternative (Concerta / methylphenidate is prescribable; Strattera is available). Plan for a registration process - Concerta requires special pharmacy registration in Japan.",
       "success_rate": 0.7,
       "sources": [
         "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html"

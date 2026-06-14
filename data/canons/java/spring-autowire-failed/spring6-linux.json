@@ -22,7 +22,7 @@
     "fix_success_rate": 0.88,
     "confidence": 0.9,
     "last_updated": "2026-02-12",
-    "summary": "UnsatisfiedDependencyException is thrown when Spring cannot resolve a dependency required by a bean — either because no matching bean exists, multiple matching beans create ambiguity, or the dependency's own creation fails."
+    "summary": "UnsatisfiedDependencyException is thrown when Spring cannot resolve a dependency required by a bean - either because no matching bean exists, multiple matching beans create ambiguity, or the dependency's own creation fails."
   },
   "dead_ends": [
     {
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Read the full exception chain to identify the root cause — the actual reason is usually nested several levels deep",
+      "action": "Read the full exception chain to identify the root cause - the actual reason is usually nested several levels deep",
       "success_rate": 0.9,
       "how": "1. Scroll to the bottom of the exception chain (Caused by:). The root cause reveals the actual problem. 2. Common root causes: NoSuchBeanDefinitionException (bean not registered), BeanCurrentlyInCreationException (circular dependency), ClassNotFoundException (missing JAR), or a constructor/factory method throwing an exception. 3. Fix the root cause directly rather than working around the UnsatisfiedDependencyException wrapper.",
       "sources": [],

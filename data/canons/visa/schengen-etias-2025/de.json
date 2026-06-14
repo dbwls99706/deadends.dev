@@ -25,7 +25,7 @@
     "fix_success_rate": 0.9,
     "confidence": 0.82,
     "last_updated": "2026-04-14",
-    "summary": "Two new EU systems affect visa-waiver travelers to Germany / all Schengen countries: (1) EES (Entry/Exit System) — launched phased rollout 12 Oct 2025 — biometric registration replacing passport stamps, with longer border queues during adjustment; (2) ETIAS (European Travel Information and Authorisation System) — scheduled launch late 2026 / early 2027 per Commission. When ETIAS is live, 60+ visa-waiver nationalities (US, UK, CA, AU, JP...) must apply online before travel, fee €7, valid 3 years."
+    "summary": "Two new EU systems affect visa-waiver travelers to Germany / all Schengen countries: (1) EES (Entry/Exit System) - launched phased rollout 12 Oct 2025 - biometric registration replacing passport stamps, with longer border queues during adjustment; (2) ETIAS (European Travel Information and Authorisation System) - scheduled launch late 2026 / early 2027 per Commission. When ETIAS is live, 60+ visa-waiver nationalities (US, UK, CA, AU, JP...) must apply online before travel, fee €7, valid 3 years."
   },
   "dead_ends": [
     {
@@ -76,7 +76,7 @@
       "condition": "First-time EES enrollment"
     },
     {
-      "action": "The 90/180 Schengen rule continues to apply under ETIAS/EES — these are pre-authorization systems, not permit extensions. Cumulative days in Schengen still capped at 90 in any rolling 180-day window.",
+      "action": "The 90/180 Schengen rule continues to apply under ETIAS/EES - these are pre-authorization systems, not permit extensions. Cumulative days in Schengen still capped at 90 in any rolling 180-day window.",
       "success_rate": 0.92,
       "sources": [
         "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area_en"

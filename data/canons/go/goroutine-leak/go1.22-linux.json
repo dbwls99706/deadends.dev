@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Call runtime.GC() to clean up leaked goroutines",
-      "why_fails": "GC does not terminate goroutines — goroutines are not garbage collected, they must exit their function",
+      "why_fails": "GC does not terminate goroutines - goroutines are not garbage collected, they must exit their function",
       "fail_rate": 0.95,
       "sources": [
         "https://go.dev/doc/effective_go#goroutines"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Increase GOMAXPROCS to handle more goroutines",
-      "why_fails": "Leaked goroutines still consume memory and stack space regardless of GOMAXPROCS — the leak is unbounded",
+      "why_fails": "Leaked goroutines still consume memory and stack space regardless of GOMAXPROCS - the leak is unbounded",
       "fail_rate": 0.85,
       "sources": [
         "https://go.dev/doc/effective_go#goroutines"

@@ -48,7 +48,7 @@
     {
       "action": "Examine the stack trace for repeating call patterns and fix the base case or cycle in the recursion",
       "success_rate": 0.92,
-      "how": "1. Look at the stack trace — you will see a repeating sequence of method calls. 2. Identify the entry point of the recursive cycle. 3. Common causes: missing base case in recursive algorithm, toString()/hashCode()/equals() calling themselves through circular object references, JPA/Hibernate bidirectional relationship toString(), Jackson serialization of circular references. 4. Fix by adding the proper base case, breaking the circular reference, or using @JsonIgnore/@ToString.Exclude on bidirectional fields.",
+      "how": "1. Look at the stack trace - you will see a repeating sequence of method calls. 2. Identify the entry point of the recursive cycle. 3. Common causes: missing base case in recursive algorithm, toString()/hashCode()/equals() calling themselves through circular object references, JPA/Hibernate bidirectional relationship toString(), Jackson serialization of circular references. 4. Fix by adding the proper base case, breaking the circular reference, or using @JsonIgnore/@ToString.Exclude on bidirectional fields.",
       "sources": [],
       "condition": ""
     },

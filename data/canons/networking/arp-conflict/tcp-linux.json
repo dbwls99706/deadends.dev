@@ -55,7 +55,7 @@
     {
       "action": "Enable DHCP snooping or Dynamic ARP Inspection on the switch to prevent future conflicts",
       "success_rate": 0.88,
-      "how": "1. On managed switches, enable DHCP snooping on the VLAN\n2. Enable Dynamic ARP Inspection (DAI) to validate ARP packets\n3. Ensure DHCP server is connected to a trusted port\n4. Test by attempting to manually assign a conflicting IP — the switch should block it",
+      "how": "1. On managed switches, enable DHCP snooping on the VLAN\n2. Enable Dynamic ARP Inspection (DAI) to validate ARP packets\n3. Ensure DHCP server is connected to a trusted port\n4. Test by attempting to manually assign a conflicting IP - the switch should block it",
       "sources": [],
       "condition": "Requires managed switch with DAI support"
     }

@@ -57,7 +57,7 @@
     {
       "action": "Use --openssl-legacy-provider as a temporary bridge while upgrading dependencies",
       "success_rate": 0.88,
-      "how": "NODE_OPTIONS=--openssl-legacy-provider node app.js — use only as a short-term workaround",
+      "how": "NODE_OPTIONS=--openssl-legacy-provider node app.js - use only as a short-term workaround",
       "sources": [
         "https://nodejs.org/api/cli.html#--openssl-legacy-provider"
       ],

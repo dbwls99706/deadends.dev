@@ -48,7 +48,7 @@
     {
       "action": "Implement the required trait: impl Send for MyType if the type is actually safe to send",
       "success_rate": 0.85,
-      "how": "Only if all fields are Send — verify before implementing",
+      "how": "Only if all fields are Send - verify before implementing",
       "sources": [],
       "condition": ""
     },

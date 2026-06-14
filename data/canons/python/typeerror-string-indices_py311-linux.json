@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Convert string to dict with dict()",
-      "why_fails": "dict() can't parse JSON strings — use json.loads()",
+      "why_fails": "dict() can't parse JSON strings - use json.loads()",
       "fail_rate": 0.85,
       "sources": [
         "https://docs.python.org/3/library/json.html#json.loads"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Use int() on the index",
-      "why_fails": "The index is correct type — the object is wrong type",
+      "why_fails": "The index is correct type - the object is wrong type",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/stdtypes.html#str"
@@ -56,7 +56,7 @@
       "how": "data = json.loads(text)"
     },
     {
-      "action": "If iterating a dict, use .items() — for k in dict gives keys (strings), not dicts",
+      "action": "If iterating a dict, use .items() - for k in dict gives keys (strings), not dicts",
       "success_rate": 0.9,
       "how": "for item in data:  # item is a string key, not a dict!\nfor key, value in data.items():  # correct",
       "sources": [

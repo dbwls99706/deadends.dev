@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Minify the JSON to reduce character count",
-      "why_fails": "Minor savings — the real issue is too many permissions",
+      "why_fails": "Minor savings - the real issue is too many permissions",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Create multiple IAM users with split permissions",
-      "why_fails": "Complicates management and audit — use policy splitting instead",
+      "why_fails": "Complicates management and audit - use policy splitting instead",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"

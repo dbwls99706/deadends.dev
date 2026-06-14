@@ -25,12 +25,12 @@
     "fix_success_rate": 0.95,
     "confidence": 0.92,
     "last_updated": "2026-04-15",
-    "summary": "Australian wildlife hazards: ~3000 snake bites/year (~2 deaths) — eastern brown, tiger, taipan; box jellyfish (Nov-May Tropical North, can kill in minutes); Irukandji jellyfish (tiny, severe systemic syndrome); Sydney funnel-web spider (lethal without antivenom); saltwater crocodiles (NT/Far North Queensland — 'Crocwise' campaign). National Antivenom and Vaccine Service available 24/7 via Poisons Hotline 13 11 26. Stinger nets at Tropical North beaches Nov-May."
+    "summary": "Australian wildlife hazards: ~3000 snake bites/year (~2 deaths) - eastern brown, tiger, taipan; box jellyfish (Nov-May Tropical North, can kill in minutes); Irukandji jellyfish (tiny, severe systemic syndrome); Sydney funnel-web spider (lethal without antivenom); saltwater crocodiles (NT/Far North Queensland - 'Crocwise' campaign). National Antivenom and Vaccine Service available 24/7 via Poisons Hotline 13 11 26. Stinger nets at Tropical North beaches Nov-May."
   },
   "dead_ends": [
     {
       "action": "Approach or photograph a snake in Australian bush",
-      "why_fails": "Snakes bite when surprised or threatened — Australia has the world's most venomous land snakes (taipan, eastern brown, tiger). Average bystander response (running, screaming) increases risk. Slow back away; call 000 if bitten. Pressure-immobilization bandage from leg → torso slows venom spread.",
+      "why_fails": "Snakes bite when surprised or threatened - Australia has the world's most venomous land snakes (taipan, eastern brown, tiger). Average bystander response (running, screaming) increases risk. Slow back away; call 000 if bitten. Pressure-immobilization bandage from leg → torso slows venom spread.",
       "fail_rate": 0.88,
       "sources": [
         "https://www.health.gov.au/topics/poisons/animal-bites-and-stings",
@@ -79,7 +79,7 @@
       "condition": "Snake bite response"
     },
     {
-      "action": "Tropical North swimming Nov-May: swim only inside stinger nets, wear stinger suit (rentable at beaches), check beach status (stingers logged daily). Vinegar (not freshwater) for box jellyfish stings — beaches stock it.",
+      "action": "Tropical North swimming Nov-May: swim only inside stinger nets, wear stinger suit (rentable at beaches), check beach status (stingers logged daily). Vinegar (not freshwater) for box jellyfish stings - beaches stock it.",
       "success_rate": 0.92,
       "sources": [
         "https://www.tropicalnorthqueensland.org.au/visitor-info/stinger-season/"
@@ -103,7 +103,7 @@
       "condition": "Spider exposure"
     },
     {
-      "action": "Poisons Hotline 13 11 26 — 24/7 nationwide, staffed by toxicologists. Call BEFORE going to ER for any bite/sting; they advise on whether to seek hospital, what to bring, what to expect.",
+      "action": "Poisons Hotline 13 11 26 - 24/7 nationwide, staffed by toxicologists. Call BEFORE going to ER for any bite/sting; they advise on whether to seek hospital, what to bring, what to expect.",
       "success_rate": 0.95,
       "sources": [
         "https://www.poisonsinfo.nsw.gov.au/"

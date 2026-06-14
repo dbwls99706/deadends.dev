@@ -3,7 +3,7 @@
   "id": "git/push-force-rejected/git2-linux",
   "url": "https://deadends.dev/git/push-force-rejected/git2-linux",
   "error": {
-    "signature": "remote rejected — force push denied by server-side hooks or branch protection",
+    "signature": "remote rejected - force push denied by server-side hooks or branch protection",
     "regex": "(?:remote rejected|\\[remote rejected\\]|denied by.*(?:hook|policy|protection)|force push.*(?:denied|rejected|not allowed)|protected branch.*reject)",
     "domain": "git",
     "category": "push_error",

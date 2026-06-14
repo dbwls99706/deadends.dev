@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Set GONOSUMCHECK to skip verification entirely",
-      "why_fails": "Disables supply chain security — allows tampered or malicious modules to be used without detection",
+      "why_fails": "Disables supply chain security - allows tampered or malicious modules to be used without detection",
       "fail_rate": 0.85,
       "sources": [
         "https://go.dev/ref/mod#checksums"

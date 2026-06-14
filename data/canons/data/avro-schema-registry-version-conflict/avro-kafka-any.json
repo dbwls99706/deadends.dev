@@ -3,7 +3,7 @@
   "id": "data/avro-schema-registry-version-conflict/avro-kafka-any",
   "url": "https://deadends.dev/data/avro-schema-registry-version-conflict/avro-kafka-any",
   "error": {
-    "signature": "Schema registry conflict — Avro schema evolution breaks compatibility",
+    "signature": "Schema registry conflict - Avro schema evolution breaks compatibility",
     "regex": "[Ss]chema.*registry.*conflict|[Ii]ncompatible.*schema.*change|409.*Conflict.*schema",
     "domain": "data",
     "category": "serialization",

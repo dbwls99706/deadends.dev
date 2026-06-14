@@ -27,14 +27,14 @@
   "dead_ends": [
     {
       "action": "Focus primarily on mouth-to-mouth rescue breathing for adult cardiac arrest",
-      "why_fails": "AHA/ERC guidelines since 2010 recommend hands-only CPR for untrained bystanders on adults. Stopping compressions for rescue breaths reduces blood flow to the brain. For the first minutes, oxygen in the blood is sufficient — compressions are what matters.",
+      "why_fails": "AHA/ERC guidelines since 2010 recommend hands-only CPR for untrained bystanders on adults. Stopping compressions for rescue breaths reduces blood flow to the brain. For the first minutes, oxygen in the blood is sufficient - compressions are what matters.",
       "fail_rate": 0.75,
       "sources": [],
       "condition": "Adult cardiac arrest bystander response"
     },
     {
       "action": "Compress too gently for fear of breaking ribs",
-      "why_fails": "Effective compressions require 5-6cm depth in adults (2 inches). Ribs MAY crack — this is expected and acceptable. Shallow compressions don't generate enough blood flow to sustain the brain. A cracked rib heals; brain death doesn't.",
+      "why_fails": "Effective compressions require 5-6cm depth in adults (2 inches). Ribs MAY crack - this is expected and acceptable. Shallow compressions don't generate enough blood flow to sustain the brain. A cracked rib heals; brain death doesn't.",
       "fail_rate": 0.80,
       "sources": [],
       "condition": "CPR compression depth"
@@ -49,13 +49,13 @@
   ],
   "workarounds": [
     {
-      "action": "For adult cardiac arrest (unresponsive, not breathing normally): 1) Call emergency services, 2) Start hands-only CPR — push hard and fast center of chest, 100-120/min, 5-6cm deep, 3) Send someone for AED, 4) Don't stop until help arrives.",
+      "action": "For adult cardiac arrest (unresponsive, not breathing normally): 1) Call emergency services, 2) Start hands-only CPR - push hard and fast center of chest, 100-120/min, 5-6cm deep, 3) Send someone for AED, 4) Don't stop until help arrives.",
       "success_rate": 0.90,
       "sources": [],
       "condition": "Bystander CPR on adults"
     },
     {
-      "action": "Use AED as soon as available. AEDs are designed for untrained users — they give voice instructions and won't shock unless needed. Early defibrillation dramatically improves survival. Every minute without defibrillation reduces survival by 7-10%.",
+      "action": "Use AED as soon as available. AEDs are designed for untrained users - they give voice instructions and won't shock unless needed. Early defibrillation dramatically improves survival. Every minute without defibrillation reduces survival by 7-10%.",
       "success_rate": 0.92,
       "sources": [],
       "condition": "AED availability during cardiac arrest"

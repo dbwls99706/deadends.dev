@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add return at the end with zero value",
-      "why_fails": "May silently return wrong result — ensure the logic is correct",
+      "why_fails": "May silently return wrong result - ensure the logic is correct",
       "fail_rate": 0.55,
       "sources": [
         "https://go.dev/ref/spec#Return_statements"

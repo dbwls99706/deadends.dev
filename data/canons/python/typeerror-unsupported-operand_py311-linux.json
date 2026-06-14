@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Convert everything to str",
-      "why_fails": "May hide a logic error — you might want numeric addition, not concatenation",
+      "why_fails": "May hide a logic error - you might want numeric addition, not concatenation",
       "fail_rate": 0.6,
       "sources": [
         "https://docs.python.org/3/library/functions.html#str"

@@ -55,7 +55,7 @@
     {
       "action": "Use Partial<T> only if the function truly accepts partial objects, and update consumers accordingly",
       "success_rate": 0.85,
-      "how": "Partial<T> makes all properties optional — only use when intentional",
+      "how": "Partial<T> makes all properties optional - only use when intentional",
       "sources": [],
       "condition": ""
     }

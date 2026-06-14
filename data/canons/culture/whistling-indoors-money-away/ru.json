@@ -3,7 +3,7 @@
   "id": "culture/whistling-indoors-money-away/ru",
   "url": "https://deadends.dev/culture/whistling-indoors-money-away/ru",
   "error": {
-    "signature": "AI treats Russian home customs as equivalent to Western — whistles indoors, shakes hands across a doorway, gifts an even-number flower bouquet",
+    "signature": "AI treats Russian home customs as equivalent to Western - whistles indoors, shakes hands across a doorway, gifts an even-number flower bouquet",
     "regex": "(russia.*whistling|russian.*indoor.*superstition|russian.*handshake threshold|russian.*flower.*even|russia.*etiquette|russian.*13|russia.*shoes indoors|tapochki)",
     "domain": "culture",
     "category": "etiquette_violation",
@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Whistle a tune while walking through a Russian friend's home or apartment",
-      "why_fails": "The saying 'не свисти — денег не будет' (don't whistle, there will be no money) is broadly observed; hosts — even young, urban — will ask you to stop. The superstition is treated half-seriously but the request is real.",
+      "why_fails": "The saying 'не свисти - денег не будет' (don't whistle, there will be no money) is broadly observed; hosts - even young, urban - will ask you to stop. The superstition is treated half-seriously but the request is real.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions",
@@ -49,7 +49,7 @@
     },
     {
       "action": "Bring a bouquet of 12, 8, or 10 flowers to a Russian host",
-      "why_fails": "Even-number bouquets (2, 4, 6, 8, 10, 12) are associated exclusively with funerals/mourning. Living people receive odd-number bouquets (3, 5, 7, 9, 11). Florists in Russia enforce the rule by default — buying 12 roses at a local Russian флорист produces an 11 or 13 stem count with explanation.",
+      "why_fails": "Even-number bouquets (2, 4, 6, 8, 10, 12) are associated exclusively with funerals/mourning. Living people receive odd-number bouquets (3, 5, 7, 9, 11). Florists in Russia enforce the rule by default - buying 12 roses at a local Russian флорист produces an 11 or 13 stem count with explanation.",
       "fail_rate": 0.85,
       "sources": [
         "https://www.rbth.com/lifestyle/333020-russian-folk-superstitions",

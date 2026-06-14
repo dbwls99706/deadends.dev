@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use unsafe to bypass the borrow checker",
-      "why_fails": "Never use unsafe to work around ownership — it will cause UB",
+      "why_fails": "Never use unsafe to work around ownership - it will cause UB",
       "fail_rate": 0.95,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0507.html"

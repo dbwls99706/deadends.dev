@@ -3,7 +3,7 @@
   "id": "python/unicode-path-encoding-error/py311-linux",
   "url": "https://deadends.dev/python/unicode-path-encoding-error/py311-linux",
   "error": {
-    "signature": "UnicodeEncodeError: 'ascii' codec can't encode characters — Korean folder in sys.path",
+    "signature": "UnicodeEncodeError: 'ascii' codec can't encode characters - Korean folder in sys.path",
     "regex": "UnicodeEncodeError.*ascii.*can't encode|codec can't encode character.*\\\\u[0-9a-fA-F]",
     "domain": "python",
     "category": "encoding",

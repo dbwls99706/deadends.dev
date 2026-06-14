@@ -25,7 +25,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.88,
     "last_updated": "2026-04-14",
-    "summary": "The Autobahn is NOT rule-free: ~30% of network has posted speed limits (120/130), ~30% variable (weather/traffic signs), and ~40% unrestricted with a recommended 'Richtgeschwindigkeit' of 130 km/h. Two strict rules: right-lane driving default (Rechtsfahrgebot), and overtaking ONLY on the left. Passing on the right is a fine-able offense even at low speed. The shoulder (Pannenstreifen) is for breakdowns only — stopping for coffee or rest gets towed and fined."
+    "summary": "The Autobahn is NOT rule-free: ~30% of network has posted speed limits (120/130), ~30% variable (weather/traffic signs), and ~40% unrestricted with a recommended 'Richtgeschwindigkeit' of 130 km/h. Two strict rules: right-lane driving default (Rechtsfahrgebot), and overtaking ONLY on the left. Passing on the right is a fine-able offense even at low speed. The shoulder (Pannenstreifen) is for breakdowns only - stopping for coffee or rest gets towed and fined."
   },
   "dead_ends": [
     {
@@ -70,7 +70,7 @@
   ],
   "workarounds": [
     {
-      "action": "Default to the right lane. Use the left lane ONLY to overtake. Check mirrors carefully — cars can close from 100m at closing speeds of 80+ km/h. After overtaking, return to the right lane promptly.",
+      "action": "Default to the right lane. Use the left lane ONLY to overtake. Check mirrors carefully - cars can close from 100m at closing speeds of 80+ km/h. After overtaking, return to the right lane promptly.",
       "success_rate": 0.95,
       "sources": [
         "https://www.gesetze-im-internet.de/stvo_2013/__2.html"

@@ -22,7 +22,7 @@
     "fix_success_rate": 0.95,
     "confidence": 0.96,
     "last_updated": "2026-02-11",
-    "summary": "Hooks called conditionally or in different order between renders — violates Rules of Hooks."
+    "summary": "Hooks called conditionally or in different order between renders - violates Rules of Hooks."
   },
   "dead_ends": [
     {
@@ -57,7 +57,7 @@
     {
       "action": "Use the eslint-plugin-react-hooks to catch violations at lint time",
       "success_rate": 0.93,
-      "how": "npm install -D eslint-plugin-react-hooks — catches hook order violations automatically",
+      "how": "npm install -D eslint-plugin-react-hooks - catches hook order violations automatically",
       "sources": [],
       "condition": ""
     }

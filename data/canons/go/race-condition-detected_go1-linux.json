@@ -36,7 +36,7 @@
     },
     {
       "action": "Add sleep() to avoid races",
-      "why_fails": "Sleep doesn't synchronize — just makes races less frequent",
+      "why_fails": "Sleep doesn't synchronize - just makes races less frequent",
       "fail_rate": 0.85,
       "sources": [
         "https://go.dev/doc/articles/race_detector"

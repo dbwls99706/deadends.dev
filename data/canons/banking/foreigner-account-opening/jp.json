@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Walk into any Japanese bank on day 1 with just a passport and try to open a regular account",
-      "why_fails": "Under Financial Services Agency anti-money-laundering guidance, most high-street banks refuse applicants who have been in Japan fewer than 6 months. A tourist visa passport alone is rejected at the counter — staff will ask for a residence card.",
+      "why_fails": "Under Financial Services Agency anti-money-laundering guidance, most high-street banks refuse applicants who have been in Japan fewer than 6 months. A tourist visa passport alone is rejected at the counter - staff will ask for a residence card.",
       "fail_rate": 0.9,
       "sources": [
         "https://www.fsa.go.jp/en/news/2018/20180717-1/01.pdf",
@@ -58,7 +58,7 @@
       "condition": "Have a residence card and a Japanese address"
     },
     {
-      "action": "If staying less than 6 months, consider a Shinsei Bank (SBI Shinsei) account — they advertise shorter-stay eligibility and have English online banking.",
+      "action": "If staying less than 6 months, consider a Shinsei Bank (SBI Shinsei) account - they advertise shorter-stay eligibility and have English online banking.",
       "success_rate": 0.7,
       "sources": [
         "https://www.sbishinseibank.co.jp/english/"

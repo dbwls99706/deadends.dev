@@ -55,7 +55,7 @@
       "how": "npm install punycode"
     },
     {
-      "action": "Update the dependency that uses punycode — check npm ls punycode",
+      "action": "Update the dependency that uses punycode - check npm ls punycode",
       "success_rate": 0.9,
       "how": "npm ls punycode  # find which dependency uses it\nnpm update <dep>",
       "sources": [
@@ -64,7 +64,7 @@
       "condition": ""
     },
     {
-      "action": "This is a warning, not an error — it still works, just update when possible",
+      "action": "This is a warning, not an error - it still works, just update when possible",
       "success_rate": 0.85,
       "sources": [
         "https://nodejs.org/api/deprecations.html#DEP0040"

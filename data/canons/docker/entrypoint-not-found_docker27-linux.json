@@ -55,7 +55,7 @@
       "condition": ""
     },
     {
-      "action": "Fix line endings — Windows CRLF breaks Linux scripts: dos2unix entrypoint.sh",
+      "action": "Fix line endings - Windows CRLF breaks Linux scripts: dos2unix entrypoint.sh",
       "success_rate": 0.9,
       "sources": [
         "https://docs.docker.com/reference/dockerfile/#entrypoint"

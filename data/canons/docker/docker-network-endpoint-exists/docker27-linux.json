@@ -57,7 +57,7 @@
     {
       "action": "Remove the dead container and restart with docker compose up",
       "success_rate": 0.88,
-      "how": "docker rm -f <container-name> && docker compose up -d — Compose will recreate the container with a fresh network endpoint",
+      "how": "docker rm -f <container-name> && docker compose up -d - Compose will recreate the container with a fresh network endpoint",
       "sources": [
         "https://docs.docker.com/compose/"
       ],

@@ -36,7 +36,7 @@
     },
     {
       "action": "Add babel transpilation",
-      "why_fails": "Overkill — Node natively supports ESM",
+      "why_fails": "Overkill - Node natively supports ESM",
       "fail_rate": 0.65,
       "sources": [
         "https://nodejs.org/api/esm.html#enabling"

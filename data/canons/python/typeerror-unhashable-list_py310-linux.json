@@ -36,7 +36,7 @@
     },
     {
       "action": "Using json.dumps() as hash key",
-      "why_fails": "Fragile — key ordering matters, wastes memory",
+      "why_fails": "Fragile - key ordering matters, wastes memory",
       "fail_rate": 0.55,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#TypeError"

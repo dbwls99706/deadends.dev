@@ -48,7 +48,7 @@
     {
       "action": "Profile the heap with a heap dump and identify the objects consuming the most memory",
       "success_rate": 0.88,
-      "how": "1. Add -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof to JVM args. 2. Reproduce the error and analyze the heap dump with Eclipse MAT or VisualVM. 3. Look for the dominator tree — the largest retained objects. 4. Check for common leaks: unbounded caches, static collections that grow indefinitely, listeners not being deregistered, session objects not being cleaned up. 5. Fix the leak and retest.",
+      "how": "1. Add -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof to JVM args. 2. Reproduce the error and analyze the heap dump with Eclipse MAT or VisualVM. 3. Look for the dominator tree - the largest retained objects. 4. Check for common leaks: unbounded caches, static collections that grow indefinitely, listeners not being deregistered, session objects not being cleaned up. 5. Fix the leak and retest.",
       "sources": [],
       "condition": ""
     },

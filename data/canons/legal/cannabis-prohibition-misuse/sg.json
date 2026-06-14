@@ -3,7 +3,7 @@
   "id": "legal/cannabis-prohibition-misuse/sg",
   "url": "https://deadends.dev/legal/cannabis-prohibition-misuse/sg",
   "error": {
-    "signature": "AI tells a tourist that small cannabis amounts in Singapore are like other Asian countries — fines or short sentence",
+    "signature": "AI tells a tourist that small cannabis amounts in Singapore are like other Asian countries - fines or short sentence",
     "regex": "(singapore.*cannabis|singapore.*marijuana|singapore.*drug.*sentence|sg.*death penalty.*drug|misuse of drugs act|cnb singapore|nagaenthran)",
     "domain": "legal",
     "category": "criminal_liability",
@@ -62,7 +62,7 @@
   ],
   "workarounds": [
     {
-      "action": "Do not consume cannabis in any form for at least 1 month before traveling to Singapore. Check medications for codeine / pseudoephedrine / amphetamines (all controlled) — bring original prescription if needed.",
+      "action": "Do not consume cannabis in any form for at least 1 month before traveling to Singapore. Check medications for codeine / pseudoephedrine / amphetamines (all controlled) - bring original prescription if needed.",
       "success_rate": 0.99,
       "sources": [
         "https://www.cnb.gov.sg/",
@@ -80,7 +80,7 @@
       "tradeoff": "Some Western medications are simply not allowed."
     },
     {
-      "action": "If a urine test is requested at Changi, comply — refusal triggers arrest. If you are confident you are clean, the test resolves quickly. If you have used cannabis recently abroad, you are at serious risk; legal counsel should be sought immediately.",
+      "action": "If a urine test is requested at Changi, comply - refusal triggers arrest. If you are confident you are clean, the test resolves quickly. If you have used cannabis recently abroad, you are at serious risk; legal counsel should be sought immediately.",
       "success_rate": 0.7,
       "sources": [
         "https://www.cnb.gov.sg/"

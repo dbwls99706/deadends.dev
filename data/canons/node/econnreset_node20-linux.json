@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable keep-alive",
-      "why_fails": "Keep-alive isn't the cause — the server actively reset the connection",
+      "why_fails": "Keep-alive isn't the cause - the server actively reset the connection",
       "fail_rate": 0.65,
       "sources": [
         "https://nodejs.org/api/http.html#httpagent"
@@ -55,13 +55,13 @@
       "how": "const axios = require('axios');\nconst axiosRetry = require('axios-retry');\n\naxiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });\nawait axios.get('https://api.example.com/data');"
     },
     {
-      "action": "Check server-side logs — the server is closing the connection",
+      "action": "Check server-side logs - the server is closing the connection",
       "success_rate": 0.88,
       "sources": [
         "https://nodejs.org/api/errors.html#common-system-errors"
       ],
       "condition": "",
-      "how": "Check server-side logs — the server is closing the connection"
+      "how": "Check server-side logs - the server is closing the connection"
     },
     {
       "action": "If behind a proxy/LB, check its timeout settings",

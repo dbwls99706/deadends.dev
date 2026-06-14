@@ -22,7 +22,7 @@
     "fix_success_rate": 0.96,
     "confidence": 0.97,
     "last_updated": "2026-02-11",
-    "summary": "Attempting to call something that isn't a function — usually a wrong import or undefined variable."
+    "summary": "Attempting to call something that isn't a function - usually a wrong import or undefined variable."
   },
   "dead_ends": [
     {
@@ -53,7 +53,7 @@
       "condition": ""
     },
     {
-      "action": "Verify the API — the method may have been renamed or removed in a newer version",
+      "action": "Verify the API - the method may have been renamed or removed in a newer version",
       "success_rate": 0.88,
       "how": "Check the package changelog and documentation",
       "sources": [

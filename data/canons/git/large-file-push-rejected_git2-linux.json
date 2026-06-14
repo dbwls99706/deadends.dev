@@ -22,12 +22,12 @@
     "fix_success_rate": 0.85,
     "confidence": 0.88,
     "last_updated": "2026-02-11",
-    "summary": "File exceeds GitHub's 100MB limit. Can't push even after removing — it's in git history."
+    "summary": "File exceeds GitHub's 100MB limit. Can't push even after removing - it's in git history."
   },
   "dead_ends": [
     {
       "action": "Just delete the large file and push again",
-      "why_fails": "File is still in git history — push will still fail",
+      "why_fails": "File is still in git history - push will still fail",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.github.com/en/repositories/working-with-files/managing-large-files"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Increase the file size limit",
-      "why_fails": "GitHub's limit is fixed at 100MB — can't be changed",
+      "why_fails": "GitHub's limit is fixed at 100MB - can't be changed",
       "fail_rate": 0.95,
       "sources": [
         "https://docs.github.com/en/repositories/working-with-files/managing-large-files"

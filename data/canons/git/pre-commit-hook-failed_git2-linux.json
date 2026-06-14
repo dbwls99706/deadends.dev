@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Always use --no-verify to bypass",
-      "why_fails": "Skips all quality checks — defeats the purpose of hooks",
+      "why_fails": "Skips all quality checks - defeats the purpose of hooks",
       "fail_rate": 0.75,
       "sources": [
         "https://git-scm.com/docs/git-commit#Documentation/git-commit.txt---no-verify"
@@ -37,13 +37,13 @@
   ],
   "workarounds": [
     {
-      "action": "Fix the issues the hook reported — run the linter/formatter manually",
+      "action": "Fix the issues the hook reported - run the linter/formatter manually",
       "success_rate": 0.95,
       "sources": [
         "https://git-scm.com/docs/githooks#_pre_commit"
       ],
       "condition": "",
-      "how": "Fix the issues the hook reported — run the linter/formatter manually"
+      "how": "Fix the issues the hook reported - run the linter/formatter manually"
     },
     {
       "action": "Run the hook manually to see detailed output: .git/hooks/pre-commit",

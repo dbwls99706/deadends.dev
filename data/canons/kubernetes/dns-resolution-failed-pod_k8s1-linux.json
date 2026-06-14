@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Hardcode IP addresses in the application",
-      "why_fails": "IPs change — services are designed to be accessed by name",
+      "why_fails": "IPs change - services are designed to be accessed by name",
       "fail_rate": 0.8,
       "sources": [
         "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"

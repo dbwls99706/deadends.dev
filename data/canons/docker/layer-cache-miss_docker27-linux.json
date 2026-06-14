@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use --no-cache to fix cache issues",
-      "why_fails": "Rebuilds everything — the opposite of what you want",
+      "why_fails": "Rebuilds everything - the opposite of what you want",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.docker.com/build/cache/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Put all COPY commands at the beginning",
-      "why_fails": "Invalidates all layers on any file change — worst ordering",
+      "why_fails": "Invalidates all layers on any file change - worst ordering",
       "fail_rate": 0.85,
       "sources": [
         "https://docs.docker.com/build/cache/"

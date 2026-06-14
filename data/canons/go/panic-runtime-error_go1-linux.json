@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use recover() to catch all panics",
-      "why_fails": "Silences the bug — index out of range means logic error",
+      "why_fails": "Silences the bug - index out of range means logic error",
       "fail_rate": 0.8,
       "sources": [
         "https://go.dev/blog/defer-panic-and-recover"

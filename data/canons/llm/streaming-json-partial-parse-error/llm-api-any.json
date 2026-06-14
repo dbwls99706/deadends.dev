@@ -3,7 +3,7 @@
   "id": "llm/streaming-json-partial-parse-error/llm-api-any",
   "url": "https://deadends.dev/llm/streaming-json-partial-parse-error/llm-api-any",
   "error": {
-    "signature": "JSON parse error during streaming — incomplete JSON in stream chunk",
+    "signature": "JSON parse error during streaming - incomplete JSON in stream chunk",
     "regex": "JSON.*parse.*error.*stream|Unexpected.*end.*JSON|partial.*JSON",
     "domain": "llm",
     "category": "streaming",

@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check .dockerignore — the file may exist but be ignored during context transfer",
+      "action": "Check .dockerignore - the file may exist but be ignored during context transfer",
       "success_rate": 0.93,
       "how": "Remove the file pattern from .dockerignore",
       "sources": [
@@ -57,7 +57,7 @@
     {
       "action": "Verify the file path is relative to the build context (the directory passed to docker build)",
       "success_rate": 0.95,
-      "how": "docker build -f Dockerfile . — the '.' is the build context root",
+      "how": "docker build -f Dockerfile . - the '.' is the build context root",
       "sources": [],
       "condition": ""
     }

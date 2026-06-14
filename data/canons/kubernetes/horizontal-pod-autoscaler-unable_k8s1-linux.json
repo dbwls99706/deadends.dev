@@ -37,7 +37,7 @@
   ],
   "workarounds": [
     {
-      "action": "Add resource requests to pod spec — HPA needs them to calculate utilization",
+      "action": "Add resource requests to pod spec - HPA needs them to calculate utilization",
       "success_rate": 0.95,
       "how": "resources:\n  requests:\n    cpu: 200m\n    memory: 256Mi",
       "sources": [

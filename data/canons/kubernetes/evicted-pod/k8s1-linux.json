@@ -3,7 +3,7 @@
   "id": "kubernetes/evicted-pod/k8s1-linux",
   "url": "https://deadends.dev/kubernetes/evicted-pod/k8s1-linux",
   "error": {
-    "signature": "Pod status: Evicted — The node was low on resource: ephemeral-storage",
+    "signature": "Pod status: Evicted - The node was low on resource: ephemeral-storage",
     "regex": "Evicted|DiskPressure|ephemeral-storage",
     "domain": "kubernetes",
     "category": "resource_error",

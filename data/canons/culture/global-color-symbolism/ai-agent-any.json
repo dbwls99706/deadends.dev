@@ -34,7 +34,7 @@
     },
     {
       "action": "Use red as a warning/danger color in Chinese UI or products",
-      "why_fails": "Red (红) is the luckiest color in China — wealth, prosperity, happiness. Using it for errors or warnings contradicts deeply ingrained positive associations. Chinese stock markets use red for UP, green for DOWN.",
+      "why_fails": "Red (红) is the luckiest color in China - wealth, prosperity, happiness. Using it for errors or warnings contradicts deeply ingrained positive associations. Chinese stock markets use red for UP, green for DOWN.",
       "fail_rate": 0.82,
       "sources": [],
       "condition": "UI/UX design for Chinese market"
@@ -55,7 +55,7 @@
       "condition": "Color selection for international audiences"
     },
     {
-      "action": "For global UIs: use blue (almost universally positive — trust, calm, technology) as safe default. Combine colors with icons and text labels rather than relying on color alone for meaning.",
+      "action": "For global UIs: use blue (almost universally positive - trust, calm, technology) as safe default. Combine colors with icons and text labels rather than relying on color alone for meaning.",
       "success_rate": 0.88,
       "sources": [],
       "condition": "International UI/UX design"
@@ -73,7 +73,7 @@
     "frequently_confused_with": [
       {
         "error_id": "culture/chinese-number-superstition/ai-agent-any",
-        "distinction": "Number symbolism and color symbolism are different systems but both critical for Chinese market design — they often need to be considered together"
+        "distinction": "Number symbolism and color symbolism are different systems but both critical for Chinese market design - they often need to be considered together"
       }
     ]
   },

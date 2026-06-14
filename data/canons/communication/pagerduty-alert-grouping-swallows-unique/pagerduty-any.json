@@ -3,7 +3,7 @@
   "id": "communication/pagerduty-alert-grouping-swallows-unique/pagerduty-any",
   "url": "https://deadends.dev/communication/pagerduty-alert-grouping-swallows-unique/pagerduty-any",
   "error": {
-    "signature": "Unique alerts grouped into existing incident — PagerDuty grouping too aggressive",
+    "signature": "Unique alerts grouped into existing incident - PagerDuty grouping too aggressive",
     "regex": "[Aa]lert.*grouped|[Pp]agerduty.*grouping|incident.*merge|swallow.*alert",
     "domain": "communication",
     "category": "alerting",

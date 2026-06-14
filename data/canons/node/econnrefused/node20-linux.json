@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Increase connection timeout",
-      "why_fails": "Server isn't running — waiting longer won't help",
+      "why_fails": "Server isn't running - waiting longer won't help",
       "fail_rate": 0.8,
       "sources": [
         "https://nodejs.org/api/errors.html#common-system-errors"

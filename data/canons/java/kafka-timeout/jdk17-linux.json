@@ -48,7 +48,7 @@
     {
       "action": "Verify bootstrap.servers configuration points to reachable broker addresses and test connectivity",
       "success_rate": 0.88,
-      "how": "1. Check bootstrap.servers in your Kafka client config — ensure it contains the correct broker host:port. 2. Test TCP connectivity: 'nc -zv broker-host 9092' or 'telnet broker-host 9092'. 3. If using Docker/Kubernetes, ensure the advertised.listeners on the broker matches what clients use. 4. Check for DNS resolution issues: 'nslookup broker-host'. 5. Verify no firewall or security group blocks port 9092.",
+      "how": "1. Check bootstrap.servers in your Kafka client config - ensure it contains the correct broker host:port. 2. Test TCP connectivity: 'nc -zv broker-host 9092' or 'telnet broker-host 9092'. 3. If using Docker/Kubernetes, ensure the advertised.listeners on the broker matches what clients use. 4. Check for DNS resolution issues: 'nslookup broker-host'. 5. Verify no firewall or security group blocks port 9092.",
       "sources": [],
       "condition": ""
     },

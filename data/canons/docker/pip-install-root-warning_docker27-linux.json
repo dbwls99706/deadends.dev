@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Create a virtualenv inside Docker",
-      "why_fails": "Unnecessary complexity — container IS the isolation",
+      "why_fails": "Unnecessary complexity - container IS the isolation",
       "fail_rate": 0.6,
       "sources": [
         "https://pip.pypa.io/en/stable/user_guide/"

@@ -43,14 +43,14 @@
     },
     {
       "action": "Assume you must learn separate national numbers before you can call for help",
-      "why_fails": "112 works as a single number across the entire EU with multilingual support, so you do not need the national numbers to get help — though they remain valid.",
+      "why_fails": "112 works as a single number across the entire EU with multilingual support, so you do not need the national numbers to get help - though they remain valid.",
       "fail_rate": 0.35,
       "condition": "Caller does not know the national numbers"
     }
   ],
   "workarounds": [
     {
-      "action": "Dial 112 for any emergency — it works across the EU with operators who often speak English.",
+      "action": "Dial 112 for any emergency - it works across the EU with operators who often speak English.",
       "success_rate": 0.97,
       "how": "Call 112, state your location first, then the emergency. In Portugal 112 is the primary number for all emergencies.",
       "sources": [

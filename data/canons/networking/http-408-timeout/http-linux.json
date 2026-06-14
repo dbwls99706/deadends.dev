@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Retry the exact same request immediately without checking client-side issues",
-      "why_fails": "If the client is genuinely slow (poor network, large payload), immediate retry will hit the same timeout. The underlying cause — slow upload speed, network congestion, or oversized request — must be addressed.",
+      "why_fails": "If the client is genuinely slow (poor network, large payload), immediate retry will hit the same timeout. The underlying cause - slow upload speed, network congestion, or oversized request - must be addressed.",
       "fail_rate": 0.7,
       "sources": [
         "https://man7.org/linux/man-pages/"

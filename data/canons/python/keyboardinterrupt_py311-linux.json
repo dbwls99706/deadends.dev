@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Catch and ignore KeyboardInterrupt",
-      "why_fails": "User can't stop the program — bad UX",
+      "why_fails": "User can't stop the program - bad UX",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt"

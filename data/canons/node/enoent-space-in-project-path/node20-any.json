@@ -3,7 +3,7 @@
   "id": "node/enoent-space-in-project-path/node20-any",
   "url": "https://deadends.dev/node/enoent-space-in-project-path/node20-any",
   "error": {
-    "signature": "Error: ENOENT: no such file or directory — Node.js path resolution fails with spaces",
+    "signature": "Error: ENOENT: no such file or directory - Node.js path resolution fails with spaces",
     "regex": "ENOENT.*no such file.*space|Cannot find module.*space|ENOENT.*\\\\s",
     "domain": "node",
     "category": "path_handling",

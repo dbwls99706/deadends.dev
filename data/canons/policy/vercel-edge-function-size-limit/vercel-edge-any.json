@@ -3,7 +3,7 @@
   "id": "policy/vercel-edge-function-size-limit/vercel-edge-any",
   "url": "https://deadends.dev/policy/vercel-edge-function-size-limit/vercel-edge-any",
   "error": {
-    "signature": "Edge Function exceeds 1MB limit — deployment fails",
+    "signature": "Edge Function exceeds 1MB limit - deployment fails",
     "regex": "[Ee]dge.*[Ff]unction.*size|1\\s*MB.*limit|EDGE_FUNCTION_SIZE",
     "domain": "policy",
     "category": "service_limits",

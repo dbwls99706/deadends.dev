@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap the assertion in a recover() without fixing the root cause",
-      "why_fails": "Masking panics hides the nil interface bug — the code path that should set the value is still broken",
+      "why_fails": "Masking panics hides the nil interface bug - the code path that should set the value is still broken",
       "fail_rate": 0.80,
       "sources": [
         "https://go.dev/ref/spec#Type_assertions"

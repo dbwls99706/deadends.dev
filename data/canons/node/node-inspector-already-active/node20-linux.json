@@ -48,7 +48,7 @@
     {
       "action": "Use a different inspector port: --inspect=9230",
       "success_rate": 0.95,
-      "how": "node --inspect=127.0.0.1:9230 app.js — each debug session should use a unique port",
+      "how": "node --inspect=127.0.0.1:9230 app.js - each debug session should use a unique port",
       "sources": [
         "https://nodejs.org/en/docs/guides/debugging-getting-started"
       ],

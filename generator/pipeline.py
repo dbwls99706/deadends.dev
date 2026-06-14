@@ -53,7 +53,7 @@ STEPS = {
 def run_step(name: str, step: dict) -> bool:
     """Run a pipeline step and return True if successful."""
     print(f"\n{'='*60}")
-    print(f"  STEP: {name} — {step['desc']}")
+    print(f"  STEP: {name} - {step['desc']}")
     print(f"{'='*60}\n")
 
     start = time.time()
@@ -75,7 +75,7 @@ def main():
     args = parser.parse_args()
 
     print("=" * 60)
-    print("  deadends.dev — Full Pipeline")
+    print("  deadends.dev - Full Pipeline")
     print("=" * 60)
 
     if args.gen:

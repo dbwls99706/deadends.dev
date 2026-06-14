@@ -3,7 +3,7 @@
   "id": "security/httponly-cookie-missing-xss-token-theft/browser-security-any",
   "url": "https://deadends.dev/security/httponly-cookie-missing-xss-token-theft/browser-security-any",
   "error": {
-    "signature": "Session token stolen via XSS — cookie missing HttpOnly flag",
+    "signature": "Session token stolen via XSS - cookie missing HttpOnly flag",
     "regex": "[Hh]ttp[Oo]nly|document\\.cookie|session.*stolen|XSS.*cookie",
     "domain": "security",
     "category": "session_security",

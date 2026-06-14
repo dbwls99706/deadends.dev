@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Make the bucket public",
-      "why_fails": "Security risk — opens all objects to the internet",
+      "why_fails": "Security risk - opens all objects to the internet",
       "fail_rate": 0.9,
       "sources": [
         "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html"

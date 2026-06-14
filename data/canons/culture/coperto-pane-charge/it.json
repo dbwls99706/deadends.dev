@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.88,
     "last_updated": "2026-04-14",
-    "summary": "Italian restaurants typically charge a 'coperto' (cover charge, €1-5/person) covering bread + table service, listed on the menu. Some add 'servizio' (service charge, 10-12%). Tipping on top is not expected — locals leave 0-2 euros for excellent service. Tap water is rarely served — bottled water (still or sparkling) is ordered and charged. The €4 bottled water is universal."
+    "summary": "Italian restaurants typically charge a 'coperto' (cover charge, €1-5/person) covering bread + table service, listed on the menu. Some add 'servizio' (service charge, 10-12%). Tipping on top is not expected - locals leave 0-2 euros for excellent service. Tap water is rarely served - bottled water (still or sparkling) is ordered and charged. The €4 bottled water is universal."
   },
   "dead_ends": [
     {
       "action": "Tip 20% on top of an Italian restaurant bill",
-      "why_fails": "Italian restaurant bill includes coperto (€1-5/person) and often servizio (10-12%). Adding 20% gratuity = paying 25-35% over food cost. Italians don't tip in this proportion — €1-2 left on table for good service is generous; large American-style tips actively confuse waitstaff.",
+      "why_fails": "Italian restaurant bill includes coperto (€1-5/person) and often servizio (10-12%). Adding 20% gratuity = paying 25-35% over food cost. Italians don't tip in this proportion - €1-2 left on table for good service is generous; large American-style tips actively confuse waitstaff.",
       "fail_rate": 0.65,
       "sources": [
         "https://www.italia.it/en",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Eat the bread placed on the table at a sit-down restaurant assuming it's free, then complain when charged",
-      "why_fails": "Bread (pane) is part of the coperto charge — even untouched bread is charged. Coperto is legally required to be displayed on the menu (Codice del Consumo). Refusing the bread doesn't remove the coperto charge; the seat itself triggers it.",
+      "why_fails": "Bread (pane) is part of the coperto charge - even untouched bread is charged. Coperto is legally required to be displayed on the menu (Codice del Consumo). Refusing the bread doesn't remove the coperto charge; the seat itself triggers it.",
       "fail_rate": 0.6,
       "sources": [
         "https://www.beniculturali.it/",
@@ -69,7 +69,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check the menu for 'coperto' (cover charge) and 'servizio' (service) — both should be listed. Pay the bill including these. Round up or leave 1-2 euros for good service. Cash tip directly to server.",
+      "action": "Check the menu for 'coperto' (cover charge) and 'servizio' (service) - both should be listed. Pay the bill including these. Round up or leave 1-2 euros for good service. Cash tip directly to server.",
       "success_rate": 0.95,
       "sources": [
         "https://www.italia.it/en"
@@ -85,7 +85,7 @@
       "condition": "Pre-meal bread"
     },
     {
-      "action": "Order water clearly: 'una bottiglia di acqua frizzante / naturale, per favore' (sparkling/still). Some places offer 'caraffa di acqua' (jug of water) — increasingly available in Milan, Rome bistros.",
+      "action": "Order water clearly: 'una bottiglia di acqua frizzante / naturale, per favore' (sparkling/still). Some places offer 'caraffa di acqua' (jug of water) - increasingly available in Milan, Rome bistros.",
       "success_rate": 0.92,
       "sources": [
         "https://www.italia.it/en"

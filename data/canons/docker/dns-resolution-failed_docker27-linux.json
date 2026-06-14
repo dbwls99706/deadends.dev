@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Hardcode IP addresses",
-      "why_fails": "IPs change — this is fragile and breaks when servers move",
+      "why_fails": "IPs change - this is fragile and breaks when servers move",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.docker.com/engine/daemon/networking/"

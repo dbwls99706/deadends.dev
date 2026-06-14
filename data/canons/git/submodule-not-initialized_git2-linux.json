@@ -36,7 +36,7 @@
     },
     {
       "action": "Copy the submodule code directly into the repo",
-      "why_fails": "Defeats the purpose of submodules — lose upstream updates",
+      "why_fails": "Defeats the purpose of submodules - lose upstream updates",
       "fail_rate": 0.7,
       "sources": [
         "https://git-scm.com/docs/git-submodule"
@@ -79,7 +79,7 @@
     "frequently_confused_with": [
       {
         "error_id": "git/submodule-update-failed/git2-linux",
-        "distinction": "'fatal' is a submodule_error error while 'Failed to recurse into submodule path — submodule ' has a different failure mode despite similar symptoms. Check error message details to differentiate."
+        "distinction": "'fatal' is a submodule_error error while 'Failed to recurse into submodule path - submodule ' has a different failure mode despite similar symptoms. Check error message details to differentiate."
       }
     ]
   },

@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Change the apiVersion to a core API group",
-      "why_fails": "The resource IS a custom resource — it needs its own API",
+      "why_fails": "The resource IS a custom resource - it needs its own API",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Upgrade kubectl version",
-      "why_fails": "Usually not a kubectl issue — the CRD isn't installed on the cluster",
+      "why_fails": "Usually not a kubectl issue - the CRD isn't installed on the cluster",
       "fail_rate": 0.7,
       "sources": [
         "https://kubernetes.io/docs/reference/kubectl/"

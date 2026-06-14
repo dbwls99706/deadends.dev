@@ -36,7 +36,7 @@
     },
     {
       "action": "Add swap space",
-      "why_fails": "Swap is extremely slow — fix the memory usage instead",
+      "why_fails": "Swap is extremely slow - fix the memory usage instead",
       "fail_rate": 0.6,
       "sources": [
         "https://nodejs.org/api/os.html#osfreemem"

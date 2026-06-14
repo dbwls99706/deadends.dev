@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Wrap ListenAndServe in a retry loop",
-      "why_fails": "After Shutdown/Close, the server cannot be restarted — retrying ListenAndServe on a closed server will fail immediately again",
+      "why_fails": "After Shutdown/Close, the server cannot be restarted - retrying ListenAndServe on a closed server will fail immediately again",
       "fail_rate": 0.85,
       "sources": [
         "https://pkg.go.dev/net/http#Server.Shutdown"

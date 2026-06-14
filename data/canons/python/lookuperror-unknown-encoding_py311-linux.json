@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Install a codec package",
-      "why_fails": "Standard encodings are built into Python — no package needed",
+      "why_fails": "Standard encodings are built into Python - no package needed",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/codecs.html#standard-encodings"

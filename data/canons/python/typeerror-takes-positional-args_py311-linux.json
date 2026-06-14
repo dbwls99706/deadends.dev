@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Add *args to accept anything",
-      "why_fails": "Hides the real issue — wrong number of args means a bug",
+      "why_fails": "Hides the real issue - wrong number of args means a bug",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists"

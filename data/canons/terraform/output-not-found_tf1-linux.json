@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Comment out the output instead of removing",
-      "why_fails": "Commented code is dead code — remove it properly",
+      "why_fails": "Commented code is dead code - remove it properly",
       "fail_rate": 0.65,
       "sources": [
         "https://developer.hashicorp.com/terraform/language/values/outputs"

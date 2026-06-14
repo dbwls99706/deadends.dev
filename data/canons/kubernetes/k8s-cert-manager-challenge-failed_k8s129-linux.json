@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Manually create the TLS secret instead of using cert-manager",
-      "why_fails": "Certificate won't auto-renew — will expire and cause outages",
+      "why_fails": "Certificate won't auto-renew - will expire and cause outages",
       "fail_rate": 0.70,
       "sources": [
         "https://cert-manager.io/docs/troubleshooting/acme/"

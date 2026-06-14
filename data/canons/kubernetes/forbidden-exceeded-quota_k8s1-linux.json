@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Delete the ResourceQuota object",
-      "why_fails": "Quota exists for a reason — may be enforced by platform team",
+      "why_fails": "Quota exists for a reason - may be enforced by platform team",
       "fail_rate": 0.8,
       "sources": [
         "https://kubernetes.io/docs/concepts/policy/resource-quotas/"

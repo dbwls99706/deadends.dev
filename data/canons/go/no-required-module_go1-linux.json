@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Manually edit go.mod to add the dependency",
-      "why_fails": "go.sum won't be updated — use go get instead",
+      "why_fails": "go.sum won't be updated - use go get instead",
       "fail_rate": 0.7,
       "sources": [
         "https://go.dev/ref/mod#go-get"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Disable Go modules with GO111MODULE=off",
-      "why_fails": "Go modules are the standard — GOPATH mode is deprecated",
+      "why_fails": "Go modules are the standard - GOPATH mode is deprecated",
       "fail_rate": 0.85,
       "sources": [
         "https://go.dev/ref/mod"

@@ -3,7 +3,7 @@
   "id": "policy/stripe-api-version-pinning-silent-break/stripe-api-any",
   "url": "https://deadends.dev/policy/stripe-api-version-pinning-silent-break/stripe-api-any",
   "error": {
-    "signature": "Stripe webhook payload format changed — API version not pinned",
+    "signature": "Stripe webhook payload format changed - API version not pinned",
     "regex": "[Ss]tripe.*API.*version|webhook.*format.*changed|api_version.*mismatch",
     "domain": "policy",
     "category": "api_versioning",

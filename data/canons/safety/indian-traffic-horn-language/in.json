@@ -25,12 +25,12 @@
     "fix_success_rate": 0.7,
     "confidence": 0.75,
     "last_updated": "2026-04-14",
-    "summary": "Indian traffic operates on left-side drive + horn-based communication + fluid lane use. The horn is not aggressive — 'Horn OK Please' signs on trucks invite honking to signal presence. Lane markings are treated as suggestions. Motor Vehicles Act (amended 2019) dramatically increased fines. Ministry of Road Transport reports India as having the world's highest traffic fatality count (~150,000 deaths/year). Self-driving by unfamiliar foreigners is strongly discouraged."
+    "summary": "Indian traffic operates on left-side drive + horn-based communication + fluid lane use. The horn is not aggressive - 'Horn OK Please' signs on trucks invite honking to signal presence. Lane markings are treated as suggestions. Motor Vehicles Act (amended 2019) dramatically increased fines. Ministry of Road Transport reports India as having the world's highest traffic fatality count (~150,000 deaths/year). Self-driving by unfamiliar foreigners is strongly discouraged."
   },
   "dead_ends": [
     {
       "action": "Rent a self-drive car and navigate Mumbai / Delhi / Bangalore traffic as a first-time visitor",
-      "why_fails": "Indian urban traffic has informal rules foreigners can't decode quickly: horn protocols, right-of-way by vehicle size/speed, lane discipline overridden by space availability, two-wheelers filtering from both sides, cows/rickshaws/pedestrians mixing freely. Accidents involving foreigners are legally complicated — foreign driver often presumed at fault. Insurance usually voids for non-commercial licenses.",
+      "why_fails": "Indian urban traffic has informal rules foreigners can't decode quickly: horn protocols, right-of-way by vehicle size/speed, lane discipline overridden by space availability, two-wheelers filtering from both sides, cows/rickshaws/pedestrians mixing freely. Accidents involving foreigners are legally complicated - foreign driver often presumed at fault. Insurance usually voids for non-commercial licenses.",
       "fail_rate": 0.8,
       "sources": [
         "https://morth.nic.in/",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Refuse to use the horn because it 'feels rude'",
-      "why_fails": "In Indian urban traffic, the horn functions as 'I am here / I am passing / watch out'. Not using it is genuinely unsafe — other drivers expect the audio signal to locate lane-changers and motorcyclists. Silent driving increases accident probability; cars and scooters assume empty space if they don't hear you.",
+      "why_fails": "In Indian urban traffic, the horn functions as 'I am here / I am passing / watch out'. Not using it is genuinely unsafe - other drivers expect the audio signal to locate lane-changers and motorcyclists. Silent driving increases accident probability; cars and scooters assume empty space if they don't hear you.",
       "fail_rate": 0.65,
       "sources": [
         "https://morth.nic.in/"
@@ -49,7 +49,7 @@
     },
     {
       "action": "Drive at European highway speeds on an NH (National Highway) assuming limited access",
-      "why_fails": "Indian National Highways are rarely fully access-controlled. Pedestrians, cattle, rickshaws, and two-wheelers routinely cross or drive against traffic. Night driving on NHs is especially dangerous — many vehicles drive without lights, trucks stop on the carriageway. Recommended max speed at night: 60 km/h even where signs say 100.",
+      "why_fails": "Indian National Highways are rarely fully access-controlled. Pedestrians, cattle, rickshaws, and two-wheelers routinely cross or drive against traffic. Night driving on NHs is especially dangerous - many vehicles drive without lights, trucks stop on the carriageway. Recommended max speed at night: 60 km/h even where signs say 100.",
       "fail_rate": 0.75,
       "sources": [
         "https://morth.nic.in/"

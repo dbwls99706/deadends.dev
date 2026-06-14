@@ -25,12 +25,12 @@
     "fix_success_rate": 0.78,
     "confidence": 0.82,
     "last_updated": "2026-04-14",
-    "summary": "Korea has three main rental structures: 전세 (jeonse, large refundable lump-sum deposit ~50–80% of property value, no monthly rent, returned at lease end); 월세 (wolse, small deposit + monthly rent, closer to Western norm); 반전세 (banjeonse, middle: medium deposit + medium rent). The 2022–2024 전세사기 (jeonse fraud) wave wiped out billions of KRW from tenants — landlords over-leveraged properties and couldn't return deposits. Foreigners are especially vulnerable."
+    "summary": "Korea has three main rental structures: 전세 (jeonse, large refundable lump-sum deposit ~50–80% of property value, no monthly rent, returned at lease end); 월세 (wolse, small deposit + monthly rent, closer to Western norm); 반전세 (banjeonse, middle: medium deposit + medium rent). The 2022–2024 전세사기 (jeonse fraud) wave wiped out billions of KRW from tenants - landlords over-leveraged properties and couldn't return deposits. Foreigners are especially vulnerable."
   },
   "dead_ends": [
     {
       "action": "Sign a 전세 contract for 300M KRW with a landlord without checking the property's existing mortgage (근저당)",
-      "why_fails": "If the property has higher-priority mortgage liens than the jeonse tenant's 'jeonse rights' (전세권/확정일자), a bank foreclosure pays mortgage first. The tenant loses their deposit. The 2022-2024 jeonse scam wave exploited this — landlords borrowed aggressively right after signing, then declared bankruptcy. Over 10,000 victims per Ministry of Land.",
+      "why_fails": "If the property has higher-priority mortgage liens than the jeonse tenant's 'jeonse rights' (전세권/확정일자), a bank foreclosure pays mortgage first. The tenant loses their deposit. The 2022-2024 jeonse scam wave exploited this - landlords borrowed aggressively right after signing, then declared bankruptcy. Over 10,000 victims per Ministry of Land.",
       "fail_rate": 0.65,
       "sources": [
         "https://www.molit.go.kr/USR/NEWS/m_72/dtl.jsp?id=95088770",
@@ -40,7 +40,7 @@
     },
     {
       "action": "Rely on a brokerage (부동산) verbal assurance without getting the 등기부등본 (property registry certificate) directly",
-      "why_fails": "Property registry can change weekly. Broker statements are not legally binding. Pull the registry yourself from iros.go.kr (내 집 등기부등본) for 1,000 KRW right before signing and at move-in day. Check for '근저당권' (mortgage liens) — total lien + jeonse should be ≤70% of property value.",
+      "why_fails": "Property registry can change weekly. Broker statements are not legally binding. Pull the registry yourself from iros.go.kr (내 집 등기부등본) for 1,000 KRW right before signing and at move-in day. Check for '근저당권' (mortgage liens) - total lien + jeonse should be ≤70% of property value.",
       "fail_rate": 0.6,
       "sources": [
         "https://www.iros.go.kr/",
@@ -79,7 +79,7 @@
       "condition": "Day of move-in"
     },
     {
-      "action": "For foreigners and risk-averse renters: prefer 월세 (monthly) over 전세 for first year — smaller deposit exposure (~10-50M KRW), easier to verify landlord solvency over time. Major foreigner-friendly platforms: Seoul Housing & Communities, Zigbang (직방).",
+      "action": "For foreigners and risk-averse renters: prefer 월세 (monthly) over 전세 for first year - smaller deposit exposure (~10-50M KRW), easier to verify landlord solvency over time. Major foreigner-friendly platforms: Seoul Housing & Communities, Zigbang (직방).",
       "success_rate": 0.82,
       "sources": [
         "https://www.i-sh.co.kr/"

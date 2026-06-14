@@ -48,7 +48,7 @@
     {
       "action": "Check available tags: docker manifest inspect <image> or visit the registry's web UI",
       "success_rate": 0.93,
-      "how": "Verify the exact tag name — tags are case-sensitive",
+      "how": "Verify the exact tag name - tags are case-sensitive",
       "sources": [],
       "condition": ""
     },

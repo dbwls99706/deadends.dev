@@ -30,7 +30,7 @@
   "dead_ends": [
     {
       "action": "Reinstall CUDA toolkit",
-      "why_fails": "CUDA toolkit is fine — the GPU driver needs updating",
+      "why_fails": "CUDA toolkit is fine - the GPU driver needs updating",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html"

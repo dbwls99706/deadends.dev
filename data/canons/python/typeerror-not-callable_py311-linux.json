@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Rename the function",
-      "why_fails": "The function is a builtin — you shadowed it with a variable",
+      "why_fails": "The function is a builtin - you shadowed it with a variable",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.python.org/3/library/functions.html"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Cast the object to callable type",
-      "why_fails": "The object is genuinely not callable — casting won't help",
+      "why_fails": "The object is genuinely not callable - casting won't help",
       "fail_rate": 0.75,
       "sources": [
         "https://docs.python.org/3/library/functions.html#callable"

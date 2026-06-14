@@ -3,7 +3,7 @@
   "id": "llm/tool-calling-parallel-race-condition/llm-api-any",
   "url": "https://deadends.dev/llm/tool-calling-parallel-race-condition/llm-api-any",
   "error": {
-    "signature": "Tool results conflict — parallel tool calls create race condition",
+    "signature": "Tool results conflict - parallel tool calls create race condition",
     "regex": "[Pp]arallel.*tool.*call|race.*condition|conflicting.*tool.*results",
     "domain": "llm",
     "category": "function_calling",

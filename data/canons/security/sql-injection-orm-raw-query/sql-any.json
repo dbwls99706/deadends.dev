@@ -3,7 +3,7 @@
   "id": "security/sql-injection-orm-raw-query/sql-any",
   "url": "https://deadends.dev/security/sql-injection-orm-raw-query/sql-any",
   "error": {
-    "signature": "SQL injection via ORM raw query — parameterization bypassed",
+    "signature": "SQL injection via ORM raw query - parameterization bypassed",
     "regex": "SQL.*injection|raw.*query.*unsaniti|parameteriz.*bypass",
     "domain": "security",
     "category": "injection",

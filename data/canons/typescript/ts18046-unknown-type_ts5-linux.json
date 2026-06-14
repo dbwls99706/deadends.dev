@@ -36,7 +36,7 @@
     },
     {
       "action": "Cast error to any",
-      "why_fails": "Loses type safety — use proper narrowing instead",
+      "why_fails": "Loses type safety - use proper narrowing instead",
       "fail_rate": 0.65,
       "sources": [
         "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"

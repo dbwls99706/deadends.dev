@@ -22,7 +22,7 @@
     "fix_success_rate": 0.9,
     "confidence": 0.92,
     "last_updated": "2026-02-11",
-    "summary": "Calling headers()/cookies() outside of a request context — usually in a cached or generated page."
+    "summary": "Calling headers()/cookies() outside of a request context - usually in a cached or generated page."
   },
   "dead_ends": [
     {
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Ensure the function is called within a request context — mark the page as dynamic",
+      "action": "Ensure the function is called within a request context - mark the page as dynamic",
       "success_rate": 0.93,
       "how": "export const dynamic = 'force-dynamic'",
       "sources": [

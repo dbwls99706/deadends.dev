@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Call super() to use parent implementation",
-      "why_fails": "Parent raises NotImplementedError — there is no implementation to call",
+      "why_fails": "Parent raises NotImplementedError - there is no implementation to call",
       "fail_rate": 0.85,
       "sources": [
         "https://docs.python.org/3/library/exceptions.html#NotImplementedError"

@@ -22,7 +22,7 @@
     "fix_success_rate": 0.92,
     "confidence": 0.94,
     "last_updated": "2026-02-11",
-    "summary": "Go packages have a circular dependency — package A imports B and B imports A."
+    "summary": "Go packages have a circular dependency - package A imports B and B imports A."
   },
   "dead_ends": [
     {

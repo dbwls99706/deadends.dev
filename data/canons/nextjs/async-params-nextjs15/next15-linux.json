@@ -41,7 +41,7 @@
       "sources": [
         "https://nextjs.org/docs/app/api-reference/file-conventions/page"
       ],
-      "common_misconception": "The Next.js 14 pattern of synchronous params destructuring still works in Next.js 15. It does not — params is now async."
+      "common_misconception": "The Next.js 14 pattern of synchronous params destructuring still works in Next.js 15. It does not - params is now async."
     },
     {
       "action": "Using React.use(params) in a server component",

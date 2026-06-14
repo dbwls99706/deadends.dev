@@ -25,12 +25,12 @@
     "fix_success_rate": 0.92,
     "confidence": 0.92,
     "last_updated": "2026-04-14",
-    "summary": "US restaurant servers can be paid as low as $2.13/hour federal tipped minimum (FLSA Section 3(m)) — tips are not gratuity but the actual wage. Failing to tip 18-22% at sit-down restaurants effectively underpays the server. Some states (CA, NV, WA, OR) require full minimum wage regardless of tips; even there, tipping norms remain. Counter service (Starbucks-style) is more flexible. Hotels, taxis, hairdressers, food delivery all expect tips. Post-COVID 'tipflation' has pushed prompts to many new contexts."
+    "summary": "US restaurant servers can be paid as low as $2.13/hour federal tipped minimum (FLSA Section 3(m)) - tips are not gratuity but the actual wage. Failing to tip 18-22% at sit-down restaurants effectively underpays the server. Some states (CA, NV, WA, OR) require full minimum wage regardless of tips; even there, tipping norms remain. Counter service (Starbucks-style) is more flexible. Hotels, taxis, hairdressers, food delivery all expect tips. Post-COVID 'tipflation' has pushed prompts to many new contexts."
   },
   "dead_ends": [
     {
       "action": "Tip 10% at a US sit-down restaurant for adequate service",
-      "why_fails": "Server takes home roughly half of the tip after splitting with bussers/runners/bartenders. 10% on a $50 meal = $5, of which the server keeps maybe $2.50 — which combined with $2.13/hour tipped minimum (in tipped-wage states) is below subsistence. Servers and managers may visibly react. In CA/NV (full minimum wage states) the moral pressure is lower but social norm still ~18%.",
+      "why_fails": "Server takes home roughly half of the tip after splitting with bussers/runners/bartenders. 10% on a $50 meal = $5, of which the server keeps maybe $2.50 - which combined with $2.13/hour tipped minimum (in tipped-wage states) is below subsistence. Servers and managers may visibly react. In CA/NV (full minimum wage states) the moral pressure is lower but social norm still ~18%.",
       "fail_rate": 0.6,
       "sources": [
         "https://www.dol.gov/agencies/whd/state/minimum-wage/tipped",

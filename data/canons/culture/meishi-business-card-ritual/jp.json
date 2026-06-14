@@ -3,7 +3,7 @@
   "id": "culture/meishi-business-card-ritual/jp",
   "url": "https://deadends.dev/culture/meishi-business-card-ritual/jp",
   "error": {
-    "signature": "AI advises handling business cards in Japan the way they would be in New York — one-handed, pocketed immediately, written on during the meeting",
+    "signature": "AI advises handling business cards in Japan the way they would be in New York - one-handed, pocketed immediately, written on during the meeting",
     "regex": "(japan.*business card|meishi|名刺|名刺交換|japanese.*meeting.*card|business card.*etiquette japan)",
     "domain": "culture",
     "category": "etiquette_violation",
@@ -48,7 +48,7 @@
     },
     {
       "action": "Shove the card into a wallet's back pocket or a trouser pocket immediately after receiving",
-      "why_fails": "Back-pocket storage means the card is sat upon — a graphic insult. The expected practice is to place the card on the table in front of you, oriented toward the seating plan, for the duration of the meeting.",
+      "why_fails": "Back-pocket storage means the card is sat upon - a graphic insult. The expected practice is to place the card on the table in front of you, oriented toward the seating plan, for the duration of the meeting.",
       "fail_rate": 0.78,
       "sources": [
         "https://www.jetro.go.jp/en/invest/setting_up/section4/page2.html"
@@ -74,7 +74,7 @@
       "condition": "During and after the meeting"
     },
     {
-      "action": "Bring dual-sided cards (Japanese on one side, English on the other) — present with the Japanese side facing the recipient by default, switch to English side only if they are non-Japanese.",
+      "action": "Bring dual-sided cards (Japanese on one side, English on the other) - present with the Japanese side facing the recipient by default, switch to English side only if they are non-Japanese.",
       "success_rate": 0.88,
       "sources": [
         "https://www.jetro.go.jp/en/invest/setting_up/"

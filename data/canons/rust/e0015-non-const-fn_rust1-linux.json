@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Make every function const",
-      "why_fails": "Most functions can't be const — they allocate, do IO, or have side effects",
+      "why_fails": "Most functions can't be const - they allocate, do IO, or have side effects",
       "fail_rate": 0.8,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0015.html"

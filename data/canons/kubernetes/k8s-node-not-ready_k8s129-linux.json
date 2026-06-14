@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Force-delete all pods on the node",
-      "why_fails": "Pods are a symptom — the node itself is unhealthy and new pods will also fail",
+      "why_fails": "Pods are a symptom - the node itself is unhealthy and new pods will also fail",
       "fail_rate": 0.78,
       "sources": [
         "https://kubernetes.io/docs/concepts/architecture/nodes/#condition"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Just wait for auto-recovery without investigation",
-      "why_fails": "Some causes (disk full, OOM) won't self-heal — need manual intervention",
+      "why_fails": "Some causes (disk full, OOM) won't self-heal - need manual intervention",
       "fail_rate": 0.65,
       "sources": [
         "https://kubernetes.io/docs/concepts/architecture/nodes/#condition"

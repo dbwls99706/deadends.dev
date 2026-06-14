@@ -36,7 +36,7 @@
     },
     {
       "action": "Delete all images with docker image prune -a",
-      "why_fails": "Deletes ALL unused images — may remove images you still want",
+      "why_fails": "Deletes ALL unused images - may remove images you still want",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.docker.com/reference/cli/docker/image/prune/"

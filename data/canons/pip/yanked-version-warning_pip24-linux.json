@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Pin to the yanked version to suppress the warning",
-      "why_fails": "The version was yanked for a reason — likely has a serious issue",
+      "why_fails": "The version was yanked for a reason - likely has a serious issue",
       "fail_rate": 0.8,
       "sources": [
         "https://pip.pypa.io/en/stable/topics/yanked/"

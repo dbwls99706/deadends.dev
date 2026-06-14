@@ -3,7 +3,7 @@
   "id": "kubernetes/k8s-init-container-failed/k8s129-linux",
   "url": "https://deadends.dev/kubernetes/k8s-init-container-failed/k8s129-linux",
   "error": {
-    "signature": "Init:Error or Init:CrashLoopBackOff — init container failed to complete",
+    "signature": "Init:Error or Init:CrashLoopBackOff - init container failed to complete",
     "regex": "Init:Error|Init:CrashLoopBackOff|init container.*failed|init container.*error",
     "domain": "kubernetes",
     "category": "pod_error",
@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Skip the init container by moving its logic to the main container",
-      "why_fails": "Init containers exist for a reason — race conditions and dependency ordering break without them",
+      "why_fails": "Init containers exist for a reason - race conditions and dependency ordering break without them",
       "fail_rate": 0.65,
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/init-containers/"
@@ -36,7 +36,7 @@
     },
     {
       "action": "Delete and recreate the pod repeatedly",
-      "why_fails": "Init container will fail again with the same config — underlying issue isn't resolved",
+      "why_fails": "Init container will fail again with the same config - underlying issue isn't resolved",
       "fail_rate": 0.85,
       "sources": [
         "https://kubernetes.io/docs/concepts/workloads/pods/init-containers/"
@@ -69,7 +69,7 @@
       {
         "error_id": "kubernetes/crashloopbackoff/k8s1-linux",
         "probability": 0.22,
-        "condition": "when init container loops — pod shows Init:CrashLoopBackOff"
+        "condition": "when init container loops - pod shows Init:CrashLoopBackOff"
       }
     ],
     "preceded_by": [

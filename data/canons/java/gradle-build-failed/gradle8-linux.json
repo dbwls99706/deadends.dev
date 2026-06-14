@@ -36,7 +36,7 @@
     },
     {
       "action": "Deleting the .gradle directory and Gradle caches without reading the error message",
-      "why_fails": "Deleting Gradle caches forces re-download of all dependencies and re-computation of all task outputs. This is slow and rarely fixes the underlying issue. Build failures are caused by code errors, misconfiguration, or incompatible dependencies — not by cache corruption.",
+      "why_fails": "Deleting Gradle caches forces re-download of all dependencies and re-computation of all task outputs. This is slow and rarely fixes the underlying issue. Build failures are caused by code errors, misconfiguration, or incompatible dependencies - not by cache corruption.",
       "fail_rate": 0.8,
       "sources": [
         "https://docs.gradle.org/current/userguide/userguide.html"
@@ -48,7 +48,7 @@
     {
       "action": "Run with --stacktrace or --info to get the full error details, then fix the specific reported issue",
       "success_rate": 0.9,
-      "how": "1. Run './gradlew build --stacktrace' to see the full exception trace. 2. Run './gradlew build --info' for verbose output showing each task's execution. 3. Look for the 'What went wrong' section in the output — it describes the failing task. 4. For compilation errors: fix the source code at the reported file:line. 5. For plugin errors: check plugin version compatibility with your Gradle version.",
+      "how": "1. Run './gradlew build --stacktrace' to see the full exception trace. 2. Run './gradlew build --info' for verbose output showing each task's execution. 3. Look for the 'What went wrong' section in the output - it describes the failing task. 4. For compilation errors: fix the source code at the reported file:line. 5. For plugin errors: check plugin version compatibility with your Gradle version.",
       "sources": [],
       "condition": ""
     },

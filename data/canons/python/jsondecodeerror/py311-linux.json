@@ -37,7 +37,7 @@
     },
     {
       "action": "Use eval() instead of json.loads()",
-      "why_fails": "Massive security vulnerability — never eval untrusted data",
+      "why_fails": "Massive security vulnerability - never eval untrusted data",
       "fail_rate": 0.95,
       "sources": [
         "https://docs.python.org/3/library/functions.html#eval"

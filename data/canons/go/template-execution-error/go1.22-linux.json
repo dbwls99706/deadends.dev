@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Use text/template instead of html/template to avoid escaping issues",
-      "why_fails": "text/template has the same evaluation rules — switching template packages does not fix data/field mismatches, and removes XSS protection",
+      "why_fails": "text/template has the same evaluation rules - switching template packages does not fix data/field mismatches, and removes XSS protection",
       "fail_rate": 0.85,
       "sources": [
         "https://pkg.go.dev/html/template"

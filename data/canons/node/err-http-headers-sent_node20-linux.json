@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add res.headersSent check before every response",
-      "why_fails": "Doesn't fix the control flow bug — just hides it",
+      "why_fails": "Doesn't fix the control flow bug - just hides it",
       "fail_rate": 0.75,
       "sources": [
         "https://nodejs.org/api/http.html#responseheaderssent"

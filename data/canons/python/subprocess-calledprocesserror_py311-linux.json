@@ -37,7 +37,7 @@
     },
     {
       "action": "Remove check=True to ignore errors",
-      "why_fails": "Silently ignores failures — downstream code may get wrong results",
+      "why_fails": "Silently ignores failures - downstream code may get wrong results",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.python.org/3/library/subprocess.html#subprocess.run"

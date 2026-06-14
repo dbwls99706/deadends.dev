@@ -3,7 +3,7 @@
   "id": "git/stash-no-local-changes/git2-linux",
   "url": "https://deadends.dev/git/stash-no-local-changes/git2-linux",
   "error": {
-    "signature": "No local changes to save — git stash fails when only untracked files exist",
+    "signature": "No local changes to save - git stash fails when only untracked files exist",
     "regex": "(?:No local changes to save|No stash entries found|Cannot (?:apply|pop).*stash|stash.*(?:error|failed|conflict))",
     "domain": "git",
     "category": "workflow_error",

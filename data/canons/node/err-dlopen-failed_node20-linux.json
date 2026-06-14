@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Copy node_modules from another machine",
-      "why_fails": "Native addons are platform-specific — compiled binaries aren't portable",
+      "why_fails": "Native addons are platform-specific - compiled binaries aren't portable",
       "fail_rate": 0.85,
       "sources": [
         "https://nodejs.org/api/addons.html"

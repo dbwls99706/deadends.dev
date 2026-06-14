@@ -3,7 +3,7 @@
   "id": "policy/cloudflare-free-plan-no-custom-rules-order/cloudflare-any",
   "url": "https://deadends.dev/policy/cloudflare-free-plan-no-custom-rules-order/cloudflare-any",
   "error": {
-    "signature": "Cloudflare rules fire in wrong order — free plan has no rule ordering control",
+    "signature": "Cloudflare rules fire in wrong order - free plan has no rule ordering control",
     "regex": "[Cc]loudflare.*rule.*order|[Pp]age [Rr]ule.*priority|free.*plan.*rules",
     "domain": "policy",
     "category": "service_limits",

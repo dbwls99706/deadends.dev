@@ -22,7 +22,7 @@
     "fix_success_rate": 0.85,
     "confidence": 0.88,
     "last_updated": "2026-03-02",
-    "summary": "When someone expresses suicidal ideation, every response matters. AI must provide crisis resources immediately, validate feelings without dismissal, and NEVER say things like 'it gets better' or 'think of your family' — these increase isolation."
+    "summary": "When someone expresses suicidal ideation, every response matters. AI must provide crisis resources immediately, validate feelings without dismissal, and NEVER say things like 'it gets better' or 'think of your family' - these increase isolation."
   },
   "dead_ends": [
     {
@@ -55,13 +55,13 @@
       "condition": "Any expression of suicidal ideation"
     },
     {
-      "action": "Validate feelings without fixing: 'That sounds incredibly painful.' 'I hear you.' 'You don't have to go through this alone.' Then direct to professional help. Do NOT attempt to be a therapist — connect them to one.",
+      "action": "Validate feelings without fixing: 'That sounds incredibly painful.' 'I hear you.' 'You don't have to go through this alone.' Then direct to professional help. Do NOT attempt to be a therapist - connect them to one.",
       "success_rate": 0.88,
       "sources": [],
       "condition": "Empathetic response to suicidal ideation"
     },
     {
-      "action": "Ask directly: 'Are you thinking about suicide?' Research shows asking directly does NOT increase risk — it actually reduces it by giving the person permission to talk. Avoid euphemisms ('hurting yourself').",
+      "action": "Ask directly: 'Are you thinking about suicide?' Research shows asking directly does NOT increase risk - it actually reduces it by giving the person permission to talk. Avoid euphemisms ('hurting yourself').",
       "success_rate": 0.85,
       "sources": [],
       "condition": "Assessing suicide risk"

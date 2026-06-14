@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Add default parameter values",
-      "why_fails": "Rust doesn't have default parameters — use Option or builder pattern",
+      "why_fails": "Rust doesn't have default parameters - use Option or builder pattern",
       "fail_rate": 0.85,
       "sources": [
         "https://doc.rust-lang.org/error_codes/E0061.html"

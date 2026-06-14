@@ -28,7 +28,7 @@
   "dead_ends": [
     {
       "action": "Use try/except and return 0",
-      "why_fails": "Returns wrong result — NaN or special handling is more appropriate",
+      "why_fails": "Returns wrong result - NaN or special handling is more appropriate",
       "fail_rate": 0.65,
       "sources": [
         "https://docs.python.org/3/library/math.html"
@@ -37,7 +37,7 @@
     },
     {
       "action": "Use abs() on all inputs",
-      "why_fails": "Changes the mathematical meaning — log(abs(x)) != log(x)",
+      "why_fails": "Changes the mathematical meaning - log(abs(x)) != log(x)",
       "fail_rate": 0.7,
       "sources": [
         "https://docs.python.org/3/library/math.html"

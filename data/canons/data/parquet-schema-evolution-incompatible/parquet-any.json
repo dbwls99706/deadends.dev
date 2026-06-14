@@ -3,7 +3,7 @@
   "id": "data/parquet-schema-evolution-incompatible/parquet-any",
   "url": "https://deadends.dev/data/parquet-schema-evolution-incompatible/parquet-any",
   "error": {
-    "signature": "ArrowInvalid: Schema mismatch — Parquet files have incompatible schemas",
+    "signature": "ArrowInvalid: Schema mismatch - Parquet files have incompatible schemas",
     "regex": "ArrowInvalid.*[Ss]chema|[Ss]chema.*mismatch.*[Pp]arquet|incompatible.*column",
     "domain": "data",
     "category": "serialization",

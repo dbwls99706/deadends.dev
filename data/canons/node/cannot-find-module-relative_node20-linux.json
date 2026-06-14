@@ -27,7 +27,7 @@
   "dead_ends": [
     {
       "action": "Install it as an npm package",
-      "why_fails": "It's a local file (./), not a package — it won't be on npm",
+      "why_fails": "It's a local file (./), not a package - it won't be on npm",
       "fail_rate": 0.9,
       "sources": [
         "https://nodejs.org/api/modules.html#file-modules"
@@ -46,7 +46,7 @@
   ],
   "workarounds": [
     {
-      "action": "Check the file path — case-sensitive on Linux: ./Utils.js != ./utils.js",
+      "action": "Check the file path - case-sensitive on Linux: ./Utils.js != ./utils.js",
       "success_rate": 0.95,
       "sources": [
         "https://nodejs.org/api/modules.html#file-modules"
