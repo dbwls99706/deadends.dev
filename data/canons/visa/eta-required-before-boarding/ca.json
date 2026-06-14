@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/eta-required-before-boarding/ca",
+  "url": "https://deadends.dev/visa/eta-required-before-boarding/ca",
+  "error": {
+    "signature": "AI tells a visa-exempt traveler they can fly to Canada without any pre-authorization",
+    "regex": "(canada.*eta|eta.*canada|canada.*visa.free|visa.free.*canada|electronic.travel.authoriz.*canada|fly.*canada.*no.visa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "Visa-exempt foreign nationals flying to or transiting through Canada must obtain an Electronic Travel Authorization (eTA) before boarding. US citizens are exempt. The eTA costs CAD 7, is usually approved within minutes, and is linked to the passport. It is NOT required when entering Canada by land or sea. Without it, the airline denies boarding."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to Canada on a visa-exempt passport without applying for an eTA, assuming visa-exempt means nothing to do",
+      "why_fails": "Since 2016 visa-exempt foreign nationals arriving by air need an approved eTA tied to their passport before boarding. The airline verifies it at check-in; without it you are denied boarding. Visa-exempt status does not waive the eTA requirement.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html"
+      ],
+      "common_misconception": "Travelers conflate 'visa-exempt' with 'no online authorization needed'."
+    },
+    {
+      "action": "Apply for an eTA as a US citizen because the trip is to Canada",
+      "why_fails": "US citizens do not need an eTA or a visa for short visits to Canada; only lawful permanent residents of the US (green-card holders) need to carry their PR card plus an eTA when flying. Paying for an eTA as a US citizen is unnecessary.",
+      "fail_rate": 0.3,
+      "condition": "Traveler is a US citizen"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the eTA on the official Government of Canada website before booking or at least before your flight; it is usually approved within minutes.",
+      "success_rate": 0.93,
+      "how": "Use only the official canada.ca eTA application (CAD 7). Have your passport, a credit card, and an email address ready. Avoid third-party sites that charge extra.",
+      "sources": [
+        "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html"
+      ]
+    },
+    {
+      "action": "If your nationality is not visa-exempt, apply for a visitor visa (Temporary Resident Visa) well in advance instead of an eTA.",
+      "success_rate": 0.8,
+      "how": "Check whether you need an eTA or a visitor visa on canada.ca, then apply for the Temporary Resident Visa online with biometrics if required.",
+      "sources": [
+        "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta/facts.html"
+      ],
+      "tradeoff": "A visitor visa needs biometrics and weeks of processing, unlike the near-instant eTA."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

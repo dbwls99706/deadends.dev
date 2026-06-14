@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/cash-still-king/de",
+  "url": "https://deadends.dev/banking/cash-still-king/de",
+  "error": {
+    "signature": "AI tells a traveler they can rely on credit cards everywhere in Germany like in the US",
+    "regex": "(germany.*credit.card|germany.*card.payment|germany.*cash|cash.only.*germany|girocard|ec.?karte|nur.bargeld)",
+    "domain": "banking",
+    "category": "cultural_practice",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "Germany remains comparatively cash-heavy. Many bakeries, cafés, kiosks, smaller restaurants, and some shops are cash-only or impose card minimums, and the domestic Girocard (formerly EC-Karte) is more widely accepted than international Visa/Mastercard credit cards. Per the Bundesbank, cash is still a leading point-of-sale payment method. Always carry euro cash."
+  },
+  "dead_ends": [
+    {
+      "action": "Travel through Germany carrying only a credit card and no cash, expecting to tap everywhere",
+      "why_fails": "A large share of smaller German merchants accept cash or Girocard only, or set a minimum spend for cards. International credit cards (especially Amex) are refused in many bakeries, Imbiss stalls, and cafés. Relying on credit alone leaves you unable to pay in common situations.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.bundesbank.de/en/tasks/payment-systems/payment-behaviour"
+      ],
+      "common_misconception": "Visitors assume EU = universal card acceptance; Germany is a notable cash-preference outlier."
+    },
+    {
+      "action": "Assume a foreign credit card and a German Girocard are interchangeable at the terminal",
+      "why_fails": "Many terminals are set up for Girocard (domestic debit) and may decline foreign-issued credit cards even when a card logo is displayed. Contactless on a foreign credit card is not guaranteed at small merchants.",
+      "fail_rate": 0.4,
+      "condition": "Paying at small or independent merchants"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry enough euro cash for daily small purchases and use cards mainly at hotels, supermarkets, and chains. Withdraw from bank-operated ATMs to limit fees.",
+      "success_rate": 0.9,
+      "how": "Keep €50–100 in small notes for bakeries, cafés, markets, and transport. Use Sparkasse/Volksbank or major-bank ATMs (avoid standalone 'Euronet' machines with poor rates).",
+      "sources": [
+        "https://www.bundesbank.de/en/tasks/payment-systems/payment-behaviour"
+      ]
+    },
+    {
+      "action": "Ask 'Kann ich mit Karte zahlen?' (can I pay by card?) before ordering, and check for a card/min-spend sign at the entrance.",
+      "success_rate": 0.8,
+      "how": "Confirm card acceptance before sitting down or ordering; look for 'nur Bargeld' (cash only) or minimum-amount notices near the till.",
+      "sources": [
+        "https://www.germany.travel/en/index.html"
+      ],
+      "tradeoff": "Relies on basic German phrasing; staff usually understand the card question regardless."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/112-erss-not-911/in",
+  "url": "https://deadends.dev/emergency/112-erss-not-911/in",
+  "error": {
+    "signature": "AI tells someone in India to call 911 in an emergency",
+    "regex": "(911.*india|india.*emergency.*number|emergency.*call.*india|112.*india|india.*100.*police|erss)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.93,
+    "confidence": 0.85,
+    "last_updated": "2026-06-14",
+    "summary": "India does not use 911. The unified emergency number is 112 (the Emergency Response Support System, ERSS), which connects police, fire, and ambulance. The legacy numbers still work: 100 (police), 101 (fire), 102 (ambulance), and 1098 (child helpline). 112 can also be triggered on many phones by pressing the power button three times."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 in India and wait for a dispatcher",
+      "why_fails": "911 is not assigned in India. The national emergency number is 112 (ERSS); 100/101/102 also reach police/fire/ambulance. A 911 call does not connect to Indian emergency services.",
+      "fail_rate": 0.93,
+      "sources": [
+        "https://112.gov.in/"
+      ],
+      "common_misconception": "Travelers assume the US 911 number is universal."
+    },
+    {
+      "action": "Assume there is no single number and you must know separate numbers for each service",
+      "why_fails": "Since 2019 the 112 ERSS unifies police, fire, and ambulance into one number nationwide, so dialing service-specific numbers is no longer necessary (though 100/101/102 still work). Not knowing 112 wastes time looking up the 'right' number.",
+      "fail_rate": 0.4,
+      "condition": "Caller unaware of the unified 112 number"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 112 for any emergency (police, fire, ambulance) anywhere in India. It is free from any phone, including locked phones in many cases.",
+      "success_rate": 0.93,
+      "how": "Call 112. On many smartphones you can also press the power/lock button three times to trigger a 112 panic call. State your location first.",
+      "sources": [
+        "https://112.gov.in/"
+      ]
+    },
+    {
+      "action": "If 112 does not connect on an older handset, use the legacy numbers: 100 police, 101 fire, 102 ambulance, 1098 child helpline.",
+      "success_rate": 0.85,
+      "how": "Dial 100 for police, 101 for fire, 102 for ambulance, or 1098 for child protection. These remain active alongside 112.",
+      "sources": [
+        "https://www.mha.gov.in/en/page/women-safety-division"
+      ],
+      "tradeoff": "Legacy numbers are service-specific, so you must pick the right one."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
