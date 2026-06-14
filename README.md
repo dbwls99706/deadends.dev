@@ -4,14 +4,14 @@
 
 [![Precision@1](https://img.shields.io/badge/Precision%401-90%25-brightgreen)](https://deadends.dev/dashboard/)
 [![MRR](https://img.shields.io/badge/MRR-0.935-brightgreen)](https://deadends.dev/dashboard/)
-[![Entries](https://img.shields.io/badge/entries-2204-blue)](https://deadends.dev)
+[![Entries](https://img.shields.io/badge/entries-2339-blue)](https://deadends.dev)
 [![Domains](https://img.shields.io/badge/domains-54-green)](https://deadends.dev)
-[![Countries](https://img.shields.io/badge/countries-39%2B-orange)](https://deadends.dev/country/)
+[![Countries](https://img.shields.io/badge/countries-52-orange)](https://deadends.dev/country/)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-11-purple)](https://smithery.ai/server/deadend/deadends-dev)
 [![PyPI](https://img.shields.io/pypi/v/deadends-dev)](https://pypi.org/project/deadends-dev/)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey)](LICENSE)
 
-**Stop AI agents from repeating known failures — in code AND in the real world.**
+**Stop AI agents from repeating known failures - in code AND in the real world.**
 
 AI assistants reliably fumble two kinds of problems: known-failed code fixes, and
 country-specific real-world rules they've never been exposed to in training.
@@ -19,15 +19,17 @@ deadends.dev now covers both:
 
 - **Code errors** (2,089 entries, 51 domains): what NOT to try when an agent
   hits `ModuleNotFoundError`, `CUDA OOM`, `CrashLoopBackOff`, etc.
-- **Country-scoped dead ends** (56+ entries across 20+ countries): visa rules,
-  banking requirements, legal red lines (lèse-majesté, §86a, Article 301),
-  cultural taboos (chopsticks in rice, clock gifts in China, red-ink names in
-  Korea), food safety, emergency numbers, driving norms, housing contracts —
-  all the friction where a plausible-sounding global answer is wrong locally.
+- **Country-scoped dead ends** (250+ entries across 52 countries): visa rules
+  (ETA/eVisitor, NZeTA, e-visas, arrival cards), banking requirements, legal red
+  lines (lèse-majesté, §86a, Article 301), cultural taboos (chopsticks in rice,
+  clock gifts in China, red-ink names in Korea), food safety (tap-water safety by
+  country), emergency numbers, driving norms (left-hand traffic), housing
+  contracts - all the friction where a plausible-sounding global answer is wrong
+  locally.
 
 > **Why the expansion?** Coding dead ends are largely solved by a good LLM.
-> Country-specific friction — Japanese hanko requirements, Schengen 90/180
-> math, Ramadan business hours, Saudi alcohol ban, Indian beef taboos — is
+> Country-specific friction - Japanese hanko requirements, Schengen 90/180
+> math, Ramadan business hours, Saudi alcohol ban, Indian beef taboos - is
 > where generic AI advice breaks hardest. The codebase and schema are
 > identical; the env segment just carries a country code.
 
@@ -40,7 +42,7 @@ deadends.dev now covers both:
 
 | Without deadends.dev | With deadends.dev |
 |---------------------|-------------------|
-| Agent tries `sudo pip install` → breaks system Python → wastes 3 retries | Agent sees "dead end: sudo pip — fails 70%" → skips it immediately |
+| Agent tries `sudo pip install` → breaks system Python → wastes 3 retries | Agent sees "dead end: sudo pip - fails 70%" → skips it immediately |
 | Agent tells user to tip 15% at a Tokyo restaurant | Agent knows tipping is refused in Japan (`culture/tipping-refused/jp`) |
 | Agent drafts a Thai social post referencing King Rama X | Agent stops: Article 112 lèse-majesté risk (`legal/lese-majeste-article-112/th`) |
 | Agent fixes error A, gets confused by error B | Agent knows "A leads to B 78% of the time" → handles both |
@@ -48,7 +50,7 @@ deadends.dev now covers both:
 
 **What makes this different from asking an LLM?**
 - **Deterministic**: Same query → same answer, every time. No hallucination.
-- **Country-scoped**: ID format `{domain}/{slug}/{env}` — env holds the country
+- **Country-scoped**: ID format `{domain}/{slug}/{env}` - env holds the country
   code (`kr`, `jp`, `us`, `de`...) so the same taboo can be answered
   differently for different jurisdictions.
 - **Primary-sourced**: Every country canon cites government sites, embassies,
@@ -129,7 +131,7 @@ open -a Claude
 
 ### Antigravity (Google AI IDE)
 
-Add as a remote MCP server — no authentication required:
+Add as a remote MCP server - no authentication required:
 
 ```json
 {
@@ -154,11 +156,11 @@ result = lookup("ModuleNotFoundError: No module named 'torch'")
 
 # What NOT to try (saves tokens and time)
 for d in result["dead_ends"]:
-    print(f"AVOID: {d['action']} — fails {int(d['fail_rate']*100)}%")
+    print(f"AVOID: {d['action']} - fails {int(d['fail_rate']*100)}%")
 
 # What actually works
 for w in result["workarounds"]:
-    print(f"TRY: {w['action']} — works {int(w['success_rate']*100)}%")
+    print(f"TRY: {w['action']} - works {int(w['success_rate']*100)}%")
 
 # Batch lookup (multiple errors at once)
 results = batch_lookup(["error1", "error2", "error3"])
@@ -256,12 +258,13 @@ All metrics are publicly available on the [Data Quality Dashboard](https://deade
 - **Country canons**: every entry cites primary gov/embassy/regulator sources,
   reviewed by humans (`review_status: human_reviewed`), no LLM bulk generation
 
-### Country coverage (39 countries as of v0.9)
+### Country coverage (52 countries as of v0.10)
 
-`kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `es` · `cn` · `hk` · `tw` ·
-`th` · `in` · `vn` · `id` · `sg` · `ph` · `my` · `pk` · `sa` · `ae` · `tr` ·
-`il` · `ru` · `br` · `mx` · `ar` · `co` · `pe` · `au` · `nz` · `eg` · `ma` ·
-`et` · `ng` · `ke` · `ca` · `pl` · `at`
+`kr` · `jp` · `us` · `de` · `uk` · `fr` · `it` · `es` · `nl` · `ch` · `pt` ·
+`ie` · `at` · `be` · `se` · `no` · `dk` · `fi` · `pl` · `gr` · `cn` · `hk` ·
+`tw` · `th` · `in` · `vn` · `id` · `sg` · `ph` · `my` · `pk` · `bd` · `sa` ·
+`ae` · `tr` · `il` · `ru` · `br` · `mx` · `ar` · `cl` · `co` · `pe` · `au` ·
+`nz` · `eg` · `ma` · `et` · `ng` · `ke` · `za` · `ca`
 
 See [/country/](https://deadends.dev/country/) hub or
 [/api/v1/countries.json](https://deadends.dev/api/v1/countries.json) for the
@@ -337,9 +340,22 @@ python -m http.server -d public 8080
 
 ## Changelog
 
-### v0.9.0 — Country pivot
+### v0.10.0 - Country coverage expansion
+- **250+ country canons across 52 countries** (up from 56 across 20): emergency
+  numbers for nearly every supported country, modern visa gateways (ETA/eVisitor,
+  NZeTA, e-visas, digital arrival cards), medication-import rules, tap-water
+  safety, left-hand-traffic safety, and banking access - all primary-sourced and
+  human-reviewed
+- **By-destination cross-linking**: country summary pages now link to other dead
+  ends for the same country across domains (a "More dead ends in {country}"
+  section), strengthening topical internal linking
+- **SEO**: sitemap `<priority>` weighted by page strength (country/high-evidence
+  pages ranked higher); JSON-LD omits empty dates
+- **Style**: em-dash removed site-wide in favor of the hyphen
+
+### v0.9.0 - Country pivot
 - **New axis**: country-scoped real-world dead ends alongside code errors
-- **56+ country canons** across 20+ countries — visa, banking, legal red
+- **56+ country canons** across 20+ countries - visa, banking, legal red
   lines, cultural taboos, food safety, emergency numbers, driving norms
 - **3 new domains**: `visa`, `banking`, `emergency` (plus extended use of
   existing `legal`, `culture`, `medical`, `communication`, `food-safety`,
@@ -355,7 +371,7 @@ python -m http.server -d public 8080
 
 ### v0.8.0
 - **Benchmark suite**: 20 error scenarios, Precision@1=90%, MRR=0.935
-- **Data quality dashboard** at `/dashboard/` — transparent metrics
+- **Data quality dashboard** at `/dashboard/` - transparent metrics
 - **Outcome feedback loop**: `report_outcome` → aggregated stats → fix_success_rate updates
 - **Usage analytics**: anonymous tool usage tracking (domain/match only, no PII)
 - **Community contribution**: GitHub Issue templates for new errors and workaround reports

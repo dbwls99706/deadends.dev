@@ -1,7 +1,7 @@
 # Country-Canon Authoring Guide
 
 deadends.dev started as a code-error database, but its real long-term value is
-**structured knowledge of real-world dead ends that vary by country** — visa
+**structured knowledge of real-world dead ends that vary by country** - visa
 rules, banking requirements, legal procedures, cultural norms, emergency
 numbers. These change across jurisdictions, they are not well-represented in
 LLM training data, and generic "best-effort" AI answers routinely go wrong.
@@ -15,13 +15,13 @@ Every canon has an ID of the form `{domain}/{slug}/{env}`.
 
 For country-scoped canons:
 
-- **domain** — one of `visa`, `banking`, `emergency`, `legal`, `culture`,
+- **domain** - one of `visa`, `banking`, `emergency`, `legal`, `culture`,
   `communication`, `medical`, `mental-health`, `food-safety`, `safety`,
   `policy`, `disaster`.
-- **slug** — topic-oriented, lowercase, hyphens (e.g. `foreigner-account-opening`,
+- **slug** - topic-oriented, lowercase, hyphens (e.g. `foreigner-account-opening`,
   `esta-90-day-no-extension`, `hanko-seal-required`). Avoid country names
-  inside the slug — the country lives in the env segment.
-- **env** — ISO 3166-1 alpha-2 country code, lowercase (`kr`, `jp`, `us`,
+  inside the slug - the country lives in the env segment.
+- **env** - ISO 3166-1 alpha-2 country code, lowercase (`kr`, `jp`, `us`,
   `de`, `uk`, `fr`, `cn`, `tw`, `sg`, `ca`, `au`, `in`, `th`, `vn`, `mx`,
   `br`, `it`, `es`, `nl`, `ch`). Add sub-region as `kr-seoul` only if
   necessary.
@@ -47,10 +47,10 @@ Place the JSON file as either:
 }
 ```
 
-- `country` — ISO code (matches env).
-- `country_name` — human display name.
-- `jurisdiction_level` — one of `national | regional | city`.
-- `audience` — one of `traveler | foreigner-resident | citizen | business`.
+- `country` - ISO code (matches env).
+- `country_name` - human display name.
+- `jurisdiction_level` - one of `national | regional | city`.
+- `audience` - one of `traveler | foreigner-resident | citizen | business`.
 
 The `build_env_summary` helper renders country + audience on the page; the
 country landing pages at `/country/{cc}/` use these fields to group entries.
@@ -60,19 +60,19 @@ country landing pages at `/country/{cc}/` use these fields to group entries.
 Each `dead_ends[]` and `workarounds[]` entry should carry a `sources` array.
 Quality order:
 
-1. **Primary government & regulator** — official agency sites in the country
+1. **Primary government & regulator** - official agency sites in the country
    (Ministry of Justice, immigration authority, financial supervisor, health
    authority, police). These are the source of truth.
-2. **Embassies & consular bulletins** — particularly for visa and emergency
+2. **Embassies & consular bulletins** - particularly for visa and emergency
    content.
-3. **Treaty / directive text** — EUR-Lex, WIPO, Schengen Regulations, etc.
-4. **Reputable media & NGOs** — only for color / qualitative claims, not for
+3. **Treaty / directive text** - EUR-Lex, WIPO, Schengen Regulations, etc.
+4. **Reputable media & NGOs** - only for color / qualitative claims, not for
    the legal rule itself.
-5. **Reddit, personal blogs, forums** — never as sole source; may be cited
+5. **Reddit, personal blogs, forums** - never as sole source; may be cited
    inside `condition` or `common_misconception` to document a widespread
    wrong belief but never as authority for the canonical claim.
 
-Avoid non-https URLs, localhost, private IPs, and cloud metadata endpoints —
+Avoid non-https URLs, localhost, private IPs, and cloud metadata endpoints -
 the site builder rejects those.
 
 ## Confidence & success-rate calibration
@@ -106,8 +106,8 @@ workaround avoid the dead end**. If even the best workaround still fails
 
 - The regex is used by `/api/v1/match.json` and the MCP `lookup_error` tool
   to match user-supplied error text. Include both English and local-language
-  terms when plausible — e.g. `(korea.*overstay|한국.*불법체류|south korea.*visa.*expire)`.
-- Avoid nested quantifiers like `(a+)+` or quantified alternation `(a|b)+` —
+  terms when plausible - e.g. `(korea.*overstay|한국.*불법체류|south korea.*visa.*expire)`.
+- Avoid nested quantifiers like `(a+)+` or quantified alternation `(a|b)+` -
   the validator warns on obvious ReDoS patterns but cannot catch all cases.
 - Keep the regex short; every canon's regex is scanned against every query.
 
@@ -148,12 +148,12 @@ python -m generator.validate --data-only
 
 Good country-canon dead ends have three properties:
 
-1. **Plausible to generalize** — the generic advice is what a naive assistant
+1. **Plausible to generalize** - the generic advice is what a naive assistant
    would say ("call 911", "tip 15%", "open a bank account with just a
    passport"). This is the trap.
-2. **Wrong locally, with real cost** — not a stylistic nit. Missing the
+2. **Wrong locally, with real cost** - not a stylistic nit. Missing the
    actual rule loses money, time, legal standing, or safety.
-3. **Fixable with specific alternative steps** — you can write workarounds
+3. **Fixable with specific alternative steps** - you can write workarounds
    that are concrete, verifiable, and materially different from the dead
    end.
 

@@ -1,7 +1,7 @@
 # deadends.dev
 
-Structured failure knowledge database for AI agents — covering both code
-errors AND country-specific real-world dead ends. **2,145+ ErrorCanon JSON
+Structured failure knowledge database for AI agents - covering both code
+errors AND country-specific real-world dead ends. **2,339+ ErrorCanon JSON
 entries across 54 domains**:
 
 - **51 code-error domains** (2,089 entries): python, node, docker, cuda,
@@ -17,7 +17,7 @@ entries across 54 domains**:
   format `{domain}/{slug}/{country}` where country is an ISO 3166-1
   alpha-2 code (`kr`, `jp`, `us`, `de`, `uk`, `fr`, `cn`, `hk`, `tw`,
   `th`, `in`, `vn`, `id`, `sg`, `ph`, `sa`, `ae`, `tr`, `il`, `ru`, `br`,
-  `mx`, ...). **20+ countries, 56+ country-scoped entries** as of v0.9.
+  `mx`, ...). **52 countries, 250+ country-scoped entries** as of v0.10.
 
 **Country-canon rationale**: coding dead ends are largely solved by modern
 LLMs. Country-specific rules (visa caveats, jurisdictional laws, cultural
@@ -29,7 +29,7 @@ primary-source-cited structured entries.
 
 ```
 data/
-  canons/              # ErrorCanon JSON files (source of truth, 2145+ files)
+  canons/              # ErrorCanon JSON files (source of truth, 2339+ files)
     {domain}/          # One directory per domain (54 domains)
       {slug}_{env}.json          # Flat-file format (code: env = runtime-os)
       {slug}/{env}.json          # Directory-style format
@@ -62,7 +62,7 @@ generator/
   validate.py          # Validation: schema, business rules, HTML, cross-refs, staleness
 
 mcp/
-  server.py            # MCP server (JSON-RPC over stdio) — 8 tools for AI agents
+  server.py            # MCP server (JSON-RPC over stdio) - 8 tools for AI agents
 
 api/
   mcp.py               # Vercel serverless MCP endpoint
@@ -83,7 +83,7 @@ python -m generator.build_site
 # Generate canon JSON from seeds (requires anthropic API key)
 python -m generator.bulk_generate
 
-# Validate data only (fast — use after editing canon JSON)
+# Validate data only (fast - use after editing canon JSON)
 python -m generator.validate --data-only
 
 # Validate generated HTML only
@@ -126,16 +126,16 @@ Requires Python >= 3.10. Core dependency: jinja2 >= 3.1.
 
 Each canon JSON file has these top-level required fields:
 
-- `schema_version` — Semver string (e.g., "1.0.0")
-- `id` — Pattern: `{domain}/{slug}/{env}` (e.g., `python/modulenotfounderror/py311-linux`)
-- `url` — Must equal `https://deadends.dev/{id}`
-- `error` — `signature` (string), `regex` (valid regex), `domain` (enum of 51 domains + 3 reserved), `category`, optional `first_seen`/`last_confirmed` dates
-- `environment` — `runtime` (name + version_range), `os`, optional `hardware`/`python`/`additional`
-- `verdict` — `resolvable` ("true"|"partial"|"false"), `fix_success_rate` (0.0–1.0), `confidence` (0.0–1.0), `last_updated`, `summary`
-- `dead_ends[]` — At least 1 item. Each: `action`, `why_fails`, `fail_rate`, optional `condition`/`common_misconception`/`sources`
-- `workarounds[]` — Each: `action`, `success_rate`, optional `how`/`tradeoff`/`condition`/`sources`
-- `transition_graph` — `leads_to[]`, `preceded_by[]`, `frequently_confused_with[]` (references to other canon IDs)
-- `metadata` — `generated_by`, `generation_date`, `review_status` (auto_generated|human_reviewed|community_verified), `evidence_count`, optional `page_views`/`ai_agent_hits`/`human_hits`
+- `schema_version` - Semver string (e.g., "1.0.0")
+- `id` - Pattern: `{domain}/{slug}/{env}` (e.g., `python/modulenotfounderror/py311-linux`)
+- `url` - Must equal `https://deadends.dev/{id}`
+- `error` - `signature` (string), `regex` (valid regex), `domain` (enum of 51 domains + 3 reserved), `category`, optional `first_seen`/`last_confirmed` dates
+- `environment` - `runtime` (name + version_range), `os`, optional `hardware`/`python`/`additional`
+- `verdict` - `resolvable` ("true"|"partial"|"false"), `fix_success_rate` (0.0–1.0), `confidence` (0.0–1.0), `last_updated`, `summary`
+- `dead_ends[]` - At least 1 item. Each: `action`, `why_fails`, `fail_rate`, optional `condition`/`common_misconception`/`sources`
+- `workarounds[]` - Each: `action`, `success_rate`, optional `how`/`tradeoff`/`condition`/`sources`
+- `transition_graph` - `leads_to[]`, `preceded_by[]`, `frequently_confused_with[]` (references to other canon IDs)
+- `metadata` - `generated_by`, `generation_date`, `review_status` (auto_generated|human_reviewed|community_verified), `evidence_count`, optional `page_views`/`ai_agent_hits`/`human_hits`
 
 ### Business Rules (enforced by validator)
 
@@ -148,12 +148,12 @@ Each canon JSON file has these top-level required fields:
 
 ## Conventions
 
-- Canon IDs: `{domain}/{slug}/{env}` — all lowercase, hyphens for slugs.
+- Canon IDs: `{domain}/{slug}/{env}` - all lowercase, hyphens for slugs.
   - Code canons: env = `{runtime}-{os}` (e.g., `python/modulenotfounderror/py311-linux`)
   - Country canons: env = ISO 3166-1 alpha-2 country code (e.g., `legal/hanko-seal-required/jp`, `visa/esta-90-day-no-extension/us`). Sub-region allowed as `kr-seoul`.
 - Always validate after data changes: `python -m generator.validate --data-only`
 - Bulk-generated (LLM) code canons go in `generator/bulk_generate.py`
-- Country canons are **manually authored** from primary sources — use
+- Country canons are **manually authored** from primary sources - use
   `generator.country_canon_template.make_country_canon()` for the scaffold
 - Templates use Jinja2 with autoescape enabled
 - All HTML pages include machine-readable `<pre id="ai-summary">` blocks and JSON-LD structured data
@@ -161,7 +161,7 @@ Each canon JSON file has these top-level required fields:
 - Per-country landing pages render at `/country/{cc}/` (template: `generator/templates/country.html`)
 - Lint with ruff: `ruff check .` (line-length 100, target py310, selects E/F/W/I)
 - Ruff excludes `generator/bulk_generate*.py` and `api/` from linting
-- The `site/` directory is generated output — never edit manually
+- The `site/` directory is generated output - never edit manually
 
 ## Authoring Country Canons
 
@@ -176,17 +176,17 @@ sourcing standards and confidence calibration. Quick reference:
 - Respect business rules: `resolvable="true"` → `fix_success_rate >= 0.7` and
   `confidence >= 0.6`; `evidence_count < 3` → `confidence <= 0.3`.
 - `SUPPORTED_COUNTRIES` list in
-  `generator/country_canon_template.py` gates new country codes — add there
+  `generator/country_canon_template.py` gates new country codes - add there
   first before writing canons for a new country.
 
 ## Security
 
 When editing canon JSON files or templates, follow these rules:
 
-- **Regex safety**: Avoid nested quantifiers like `(a+)+` or quantified alternation `(a|b)+` — these are vulnerable to ReDoS. The validator warns on common patterns but cannot catch all cases.
+- **Regex safety**: Avoid nested quantifiers like `(a+)+` or quantified alternation `(a|b)+` - these are vulnerable to ReDoS. The validator warns on common patterns but cannot catch all cases.
 - **Source URLs**: Only use `https://` URLs from reputable sources. The build rejects `javascript:`, `data:`, `file:`, localhost, private IPs (10.x, 172.x, 192.168.x), and cloud metadata endpoints (169.254.x).
-- **Error IDs**: Must match `{domain}/{slug}/{env}` — all lowercase, alphanumeric + hyphens. IDs containing `..` are rejected at build time.
-- **Template escaping**: Inside `<script type="application/ld+json">` blocks, always use `{{ value | json_escape }}` for user-derived data — never rely on Jinja2 auto-escaping (which produces HTML entities, not valid JSON).
+- **Error IDs**: Must match `{domain}/{slug}/{env}` - all lowercase, alphanumeric + hyphens. IDs containing `..` are rejected at build time.
+- **Template escaping**: Inside `<script type="application/ld+json">` blocks, always use `{{ value | json_escape }}` for user-derived data - never rely on Jinja2 auto-escaping (which produces HTML entities, not valid JSON).
 - **Secrets**: Verification codes and API keys should be set via environment variables (`GOOGLE_VERIFICATION`, `BING_VERIFICATION`, `INDEXNOW_KEY`), not hardcoded.
 - **CI/CD**: GitHub Actions are pinned by SHA hash in `.github/workflows/build.yml`. When updating, always pin by full SHA and add a version comment.
 
@@ -203,27 +203,27 @@ When editing canon JSON files or templates, follow these rules:
 
 Optional overrides for `generator/build_site.py` (defaults work out of the box):
 
-- `GOOGLE_VERIFICATION` — Google Search Console verification code
-- `BING_VERIFICATION` — Bing Webmaster verification code
-- `INDEXNOW_KEY` — IndexNow API key for instant indexing
+- `GOOGLE_VERIFICATION` - Google Search Console verification code
+- `BING_VERIFICATION` - Bing Webmaster verification code
+- `INDEXNOW_KEY` - IndexNow API key for instant indexing
 
 ## MCP Server
 
 The MCP server exposes 8 read-only tools over stdio (JSON-RPC):
 
-1. `lookup_error` — Match error message against regex patterns
-2. `get_error_detail` — Full canon by ID
-3. `list_error_domains` — All domains with counts
-4. `search_errors` — Fuzzy keyword search
-5. `list_errors_by_domain` — All errors in a domain
-6. `batch_lookup` — Look up multiple errors at once (max 10)
-7. `get_domain_stats` — Domain statistics and confidence levels
-8. `get_error_chain` — Traverse error transition graph
+1. `lookup_error` - Match error message against regex patterns
+2. `get_error_detail` - Full canon by ID
+3. `list_error_domains` - All domains with counts
+4. `search_errors` - Fuzzy keyword search
+5. `list_errors_by_domain` - All errors in a domain
+6. `batch_lookup` - Look up multiple errors at once (max 10)
+7. `get_domain_stats` - Domain statistics and confidence levels
+8. `get_error_chain` - Traverse error transition graph
 
 Configuration via environment variables:
-- `DEADENDS_PREFERRED_DOMAINS` — Comma-separated domain boost list
-- `DEADENDS_MAX_RESULTS` — Max results (1–20, default 10)
-- `DEADENDS_VERBOSE` — Show detailed workarounds (default true)
+- `DEADENDS_PREFERRED_DOMAINS` - Comma-separated domain boost list
+- `DEADENDS_MAX_RESULTS` - Max results (1–20, default 10)
+- `DEADENDS_VERBOSE` - Show detailed workarounds (default true)
 
 ## Error Lookup SDK (for AI agents working in this repo)
 
@@ -232,7 +232,7 @@ lookup SDK:
 ```python
 from generator.lookup import lookup, lookup_all, search, batch_lookup
 
-# Single best match — works for both code and country queries
+# Single best match - works for both code and country queries
 result = lookup("your error message")
 # result["dead_ends"] = what NOT to try
 # result["workarounds"] = what works
@@ -241,7 +241,7 @@ result = lookup("your error message")
 results = lookup_all("CUDA error: out of memory")
 results = lookup_all("Japanese bank account as tourist")
 
-# Keyword search (fuzzy) — filter by domain
+# Keyword search (fuzzy) - filter by domain
 results = search("memory limit", domain="docker", limit=5)
 results = search("lese majeste", domain="legal", limit=5)
 
@@ -252,10 +252,10 @@ results = batch_lookup(["error1", "error2", "error3"])
 ## Testing
 
 Tests are in `tests/` using pytest. Key test files:
-- `test_schema.py` — Schema validation tests
-- `test_validate.py` — Business rule and validation tests
-- `test_build.py` — Site builder unit tests
-- `test_build_integration.py` — Integration tests for full site build
-- `test_pipeline.py` — Pipeline tests
+- `test_schema.py` - Schema validation tests
+- `test_validate.py` - Business rule and validation tests
+- `test_build.py` - Site builder unit tests
+- `test_build_integration.py` - Integration tests for full site build
+- `test_pipeline.py` - Pipeline tests
 
 Shared fixtures in `conftest.py`: `valid_canon` (deep copy of a valid canon) and `make_canon` (factory with overrides).
