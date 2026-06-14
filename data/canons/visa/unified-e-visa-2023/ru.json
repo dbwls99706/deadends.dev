@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/unified-e-visa-2023/ru",
+  "url": "https://deadends.dev/visa/unified-e-visa-2023/ru",
+  "error": {
+    "signature": "AI tells a traveler that Russia only issues visas through a slow embassy invitation process",
+    "regex": "(russia.*visa|visa.*russia|russia.*e.?visa|russian.*evisa|russia.*electronic.visa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-06-14",
+    "summary": "Since August 2023 Russia issues a unified electronic visa (e-visa) to citizens of around 55 countries for short tourism, business, or visits - applied for online a few days ahead, valid 60 days with a stay of up to 16 days. Other nationalities still need a consular visa with an invitation. Check current eligibility and travel advisories."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume every traveler to Russia needs a consular visa with an invitation letter",
+      "why_fails": "Russia launched a unified e-visa in 2023 for around 55 eligible nationalities; for them the slow invitation-based consular process is no longer required for short stays.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://electronic-visa.kdmid.ru/",
+        "https://www.mid.ru/"
+      ],
+      "common_misconception": "The 2023 unified e-visa replaced the invitation process for eligible short-stay visitors."
+    },
+    {
+      "action": "Overstay the 16-day e-visa limit or use it for work/long stays",
+      "why_fails": "The e-visa permits a stay of up to 16 days for tourism/business/visit only; working or overstaying breaches it and risks penalties.",
+      "fail_rate": 0.5,
+      "condition": "Work or stay beyond 16 days"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If eligible, apply for the unified e-visa online a few days before travel via the official MID portal.",
+      "success_rate": 0.85,
+      "how": "Use only the official electronic-visa.kdmid.ru site; apply at least 4 days ahead and carry the approved e-visa.",
+      "sources": [
+        "https://electronic-visa.kdmid.ru/"
+      ]
+    },
+    {
+      "action": "If your nationality is not e-visa eligible, apply for a consular visa with the required invitation in advance.",
+      "success_rate": 0.78,
+      "how": "Arrange a consular visa and invitation if you are not on the e-visa list.",
+      "tradeoff": "Consular visas take longer and need an invitation."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
