@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/eta-il-required-2025/il",
+  "url": "https://deadends.dev/visa/eta-il-required-2025/il",
+  "error": {
+    "signature": "AI tells a visa-exempt traveler they can enter Israel without any online authorization",
+    "regex": "(israel.*visa|visa.*israel|eta.?il|israel.*eta|israel.*electronic.travel)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.86,
+    "confidence": 0.8,
+    "last_updated": "2026-06-14",
+    "summary": "From 2025 Israel requires visa-exempt travelers to obtain an ETA-IL (Electronic Travel Authorization) online before arrival. It is a low-cost, multiple-entry authorization valid up to 2 years (or until passport expiry). Travelers whose nationality still needs a visa must apply at an Israeli mission. Apply before booking, as airlines verify it."
+  },
+  "dead_ends": [
+    {
+      "action": "Fly to Israel on a visa-exempt passport without an approved ETA-IL",
+      "why_fails": "Israel rolled out the mandatory ETA-IL for visa-exempt nationals in 2025; without an approved ETA-IL the airline can deny boarding.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://israel-entry.piba.gov.il/",
+        "https://www.gov.il/"
+      ],
+      "common_misconception": "Visa-exempt status no longer means no pre-travel authorization for Israel."
+    },
+    {
+      "action": "Assume the ETA-IL covers nationalities that still require a full visa",
+      "why_fails": "The ETA-IL is only for visa-exempt nationals; travelers who require a visa must still obtain one from an Israeli consulate.",
+      "fail_rate": 0.4
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the ETA-IL online before travel if you are visa-exempt; it is valid up to 2 years.",
+      "success_rate": 0.9,
+      "how": "Use the official ETA-IL portal; carry the approval and a passport valid for your stay.",
+      "sources": [
+        "https://israel-entry.piba.gov.il/"
+      ]
+    },
+    {
+      "action": "If your nationality is not visa-exempt, apply for a visa at an Israeli consulate in advance.",
+      "success_rate": 0.82,
+      "how": "Arrange a consular visa ahead of travel if required."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

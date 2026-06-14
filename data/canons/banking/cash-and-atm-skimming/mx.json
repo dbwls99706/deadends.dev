@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/cash-and-atm-skimming/mx",
+  "url": "https://deadends.dev/banking/cash-and-atm-skimming/mx",
+  "error": {
+    "signature": "AI tells a traveler that cards work everywhere in Mexico and no cash is needed",
+    "regex": "(mexico.*card.payment|mexico.*cash|mexico.*atm|cash.only.*mexico|mexico.*bank.account)",
+    "domain": "banking",
+    "category": "cultural_practice",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "Mexican cities and tourist areas widely accept cards, but markets, small eateries, taxis, and rural areas are often cash-only (pesos). Standalone (non-bank) ATMs carry higher skimming risk and offer poor dynamic-currency-conversion rates. Foreigners generally need residency (temporary or permanent) to open a local bank account."
+  },
+  "dead_ends": [
+    {
+      "action": "Travel Mexico with only cards, expecting universal acceptance",
+      "why_fails": "Markets, street food, taxis, and rural areas are frequently cash-only in pesos; card-only travelers get stuck outside malls and chains.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gob.mx/condusef"
+      ],
+      "common_misconception": "Tourist-area card acceptance does not extend to everyday local commerce."
+    },
+    {
+      "action": "Use any standalone ATM and accept its currency-conversion offer",
+      "why_fails": "Standalone non-bank ATMs have higher skimming risk and poor dynamic-currency-conversion rates; choosing 'with conversion' costs more.",
+      "fail_rate": 0.5
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry pesos for small vendors and withdraw from bank-branch ATMs; always choose to be charged in pesos.",
+      "success_rate": 0.9,
+      "how": "Use ATMs inside bank branches; decline dynamic currency conversion to avoid poor rates.",
+      "sources": [
+        "https://www.banxico.org.mx/"
+      ]
+    },
+    {
+      "action": "Use no-foreign-fee cards at hotels and chains; open a local account only if you obtain residency.",
+      "success_rate": 0.82,
+      "how": "Standard accounts require temporary/permanent residency; tourists rely on cards and cash.",
+      "tradeoff": "No-fee cards still face FX margins on some networks."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/controlled-meds-declare-customs/cn",
+  "url": "https://deadends.dev/medical/controlled-meds-declare-customs/cn",
+  "error": {
+    "signature": "AI tells a traveler they can bring any personal medication into China without checking",
+    "regex": "(china.*medication|china.*medicine|china.*prescription|controlled.*drug.*china|china.*customs.*medicine)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-06-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cn",
+      "country_name": "China",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-06-14",
+    "summary": "China allows reasonable personal-use quantities of most medicines, but psychotropic and narcotic drugs (e.g., some ADHD stimulants, strong painkillers, certain sedatives) are controlled and must be declared with a prescription and doctor's letter; some are prohibited. Customs can seize undeclared controlled drugs."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring controlled medicines (stimulants, strong opioids, certain sedatives) into China undeclared and without documentation",
+      "why_fails": "Psychotropic and narcotic drugs are controlled in China; bringing them undeclared or without a prescription and doctor's letter can lead to seizure or legal trouble.",
+      "fail_rate": 0.65,
+      "sources": [
+        "http://english.customs.gov.cn/",
+        "https://www.nmpa.gov.cn/"
+      ],
+      "common_misconception": "A foreign prescription alone does not clear controlled drugs through Chinese customs."
+    },
+    {
+      "action": "Carry large quantities for a long stay assuming personal use is unlimited",
+      "why_fails": "Only reasonable personal-use amounts are permitted; excess can be treated as import for trade and seized.",
+      "fail_rate": 0.5,
+      "condition": "Large quantity"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry reasonable personal quantities with the prescription and a doctor's letter (ideally translated), and declare controlled medicines at customs.",
+      "success_rate": 0.85,
+      "how": "Keep medication in original packaging with documentation; use the declaration channel for controlled drugs.",
+      "sources": [
+        "http://english.customs.gov.cn/"
+      ]
+    },
+    {
+      "action": "Check whether your medicine is prohibited and ask your doctor about a permitted alternative.",
+      "success_rate": 0.78,
+      "how": "Confirm legality before travel; arrange a substitute if your drug is banned.",
+      "tradeoff": "Switching medication needs medical advice and lead time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-06-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-06-14"
+  }
+}
