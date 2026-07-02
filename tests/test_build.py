@@ -460,3 +460,21 @@ class TestGenerateVariations:
     def test_valid_signature_returns_list(self):
         result = _generate_variations("ModuleNotFoundError", "Module.*", "python")
         assert isinstance(result, list)
+
+
+class TestMcpToolNames:
+    """MCP_TOOL_NAMES is the single source of truth for every AI
+    discovery surface (llms.txt, ai-plugin.json, agent.json, mcp.json,
+    server-card.json, CLAUDE.md, .cursorrules, homepage ai-summary).
+    It must never drift from the actual server tool registry."""
+
+    def test_mcp_tool_names_match_server(self):
+        from generator.build_site import MCP_TOOL_NAMES
+        from mcp.server import TOOLS
+
+        server_tools = [t["name"] for t in TOOLS]
+        assert MCP_TOOL_NAMES == server_tools, (
+            "generator/build_site.py MCP_TOOL_NAMES is out of sync with "
+            "mcp/server.py TOOLS - update MCP_TOOL_NAMES so AI discovery "
+            "files advertise the real tool set."
+        )

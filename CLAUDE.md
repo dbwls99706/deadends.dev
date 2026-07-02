@@ -62,7 +62,7 @@ generator/
   validate.py          # Validation: schema, business rules, HTML, cross-refs, staleness
 
 mcp/
-  server.py            # MCP server (JSON-RPC over stdio) - 8 tools for AI agents
+  server.py            # MCP server (JSON-RPC over stdio) - 11 tools for AI agents
 
 api/
   mcp.py               # Vercel serverless MCP endpoint
@@ -209,7 +209,8 @@ Optional overrides for `generator/build_site.py` (defaults work out of the box):
 
 ## MCP Server
 
-The MCP server exposes 8 read-only tools over stdio (JSON-RPC):
+The MCP server exposes 11 tools over stdio (JSON-RPC). All are read-only
+except `report_outcome`, which appends feedback to `data/outcomes/`:
 
 1. `lookup_error` - Match error message against regex patterns
 2. `get_error_detail` - Full canon by ID
@@ -219,6 +220,9 @@ The MCP server exposes 8 read-only tools over stdio (JSON-RPC):
 6. `batch_lookup` - Look up multiple errors at once (max 10)
 7. `get_domain_stats` - Domain statistics and confidence levels
 8. `get_error_chain` - Traverse error transition graph
+9. `list_errors_by_country` - Country-scoped dead ends (ISO alpha-2 code)
+10. `get_country_summary` - Country-level coverage summary
+11. `report_outcome` - Record whether a workaround worked (write)
 
 Configuration via environment variables:
 - `DEADENDS_PREFERRED_DOMAINS` - Comma-separated domain boost list

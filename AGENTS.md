@@ -41,7 +41,8 @@ https://deadends.dev/country/{cc}/ for each country's entries.
 
 MCP tools: lookup_error, get_error_detail, search_errors, batch_lookup,
 get_error_chain, list_error_domains, list_errors_by_domain,
-get_domain_stats, report_outcome.
+get_domain_stats, list_errors_by_country, get_country_summary,
+report_outcome.
 
 MCP config:
 ```json

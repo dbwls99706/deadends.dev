@@ -39,6 +39,25 @@ INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "deadend-dev-indexnow-key")
 # Previously, non-tech domains were noindexed to preserve crawl budget.
 # Removed: all domains are now indexed to maximise Google coverage.
 
+# Canonical MCP tool list - the single source of truth for every AI
+# discovery surface this builder emits (llms.txt, ai-plugin.json,
+# agent.json, mcp.json, server-card.json, CLAUDE.md, .cursorrules,
+# homepage ai-summary). Must match mcp/server.py TOOLS; enforced by
+# tests/test_build.py::test_mcp_tool_names_match_server.
+MCP_TOOL_NAMES = [
+    "lookup_error",
+    "get_error_detail",
+    "list_error_domains",
+    "search_errors",
+    "list_errors_by_domain",
+    "batch_lookup",
+    "get_domain_stats",
+    "list_errors_by_country",
+    "get_country_summary",
+    "get_error_chain",
+    "report_outcome",
+]
+
 
 def load_canons(data_dir: Path) -> list[dict]:
     """Load all ErrorCanon JSON files from the data directory."""
@@ -970,6 +989,7 @@ def build_index_page(canons: list[dict], jinja_env: Environment) -> None:
         mrr=mrr,
         precision_at_3=precision_at_3,
         demo_errors=demo_errors,
+        mcp_tools=MCP_TOOL_NAMES,
         google_verification=GOOGLE_VERIFICATION,
         bing_verification=BING_VERIFICATION,
     )
@@ -3119,10 +3139,8 @@ def build_llms_txt(canons: list[dict]) -> None:
         "python -m mcp.server  # stdio mode",
         "```",
         "",
-        "Tools: `lookup_error`, `get_error_detail`, `search_errors`, "
-        "`batch_lookup`, `get_error_chain`, `list_error_domains`, "
-        "`list_errors_by_domain`, `get_domain_stats`, "
-        "`list_errors_by_country`, `get_country_summary`",
+        f"Tools ({len(MCP_TOOL_NAMES)}): "
+        + ", ".join(f"`{t}`" for t in MCP_TOOL_NAMES),
         "",
         "### Option 2: REST API",
         "",
@@ -3139,6 +3157,9 @@ def build_llms_txt(canons: list[dict]) -> None:
         "",
         f"- [Complete Database]({BASE_URL}/llms-full.txt): "
         "All errors in plaintext (load into context window)",
+        f"- Per-domain slices: `{BASE_URL}/llms-full-{{domain}}.txt` "
+        "(bounded size - load only the domain you need, "
+        "e.g. `llms-full-python.txt`, `llms-full-docker.txt`)",
         "",
         "## How to Use",
         "",
@@ -3876,7 +3897,8 @@ def build_well_known(canons: list[dict]) -> None:
             "(leads_to, preceded_by, frequently_confused_with). "
             "Alt: GET /llms.txt for text summary, "
             "GET /api/v1/errors.ndjson for streaming, "
-            "or use MCP server (8 tools). No auth required."
+            f"or use MCP server ({len(MCP_TOOL_NAMES)} tools). "
+            "No auth required."
         ),
         "auth": {"type": "none"},
         "api": {
@@ -4019,6 +4041,43 @@ def build_well_known(canons: list[dict]) -> None:
                 "inputModes": ["text"],
                 "outputModes": ["text"],
             },
+            {
+                "id": "list-errors-by-country",
+                "name": "List Errors By Country",
+                "description": (
+                    "List country-scoped dead ends by ISO alpha-2 code: "
+                    "visa, banking, legal, cultural, medical, food-safety, "
+                    "emergency - jurisdiction knowledge generic LLM "
+                    "training data gets wrong."
+                ),
+                "tags": ["country", "visa", "legal", "travel", "jurisdiction"],
+                "examples": ["kr", "jp", "us", "de", "th"],
+                "inputModes": ["text"],
+                "outputModes": ["text"],
+            },
+            {
+                "id": "get-country-summary",
+                "name": "Country Coverage Summary",
+                "description": (
+                    "Country-level summary: total entries, domain "
+                    "breakdown, average fix rate, latest update. Use to "
+                    "assess coverage before relying on country data."
+                ),
+                "tags": ["country", "stats", "coverage"],
+                "inputModes": ["text"],
+                "outputModes": ["text"],
+            },
+            {
+                "id": "report-outcome",
+                "name": "Report Workaround Outcome",
+                "description": (
+                    "Report whether a workaround worked or failed. "
+                    "Feedback improves fix_success_rate for future agents."
+                ),
+                "tags": ["feedback", "outcomes", "write"],
+                "inputModes": ["text"],
+                "outputModes": ["text"],
+            },
         ],
         "authentication": {"schemes": ["none"]},
         "documentationUrl": f"{BASE_URL}/api/v1/openapi.json",
@@ -4056,12 +4115,7 @@ def build_well_known(canons: list[dict]) -> None:
             "args": ["-m", "mcp.server"],
             "transport": "stdio",
         },
-        "tools": [
-            "lookup_error", "get_error_detail", "search_errors",
-            "batch_lookup", "get_error_chain", "list_error_domains",
-            "list_errors_by_domain", "get_domain_stats",
-            "list_errors_by_country", "get_country_summary",
-        ],
+        "tools": list(MCP_TOOL_NAMES),
         "domains": domains,
         "homepage": BASE_URL,
         "repository": "https://github.com/dbwls99706/deadends.dev",
@@ -4083,7 +4137,7 @@ def build_well_known(canons: list[dict]) -> None:
             f"workarounds, error chains. {len(canons)} error entries across "
             f"{len(domains)} domains."
         ),
-        "version": "1.5.0",
+        "version": "1.6.0",
         "homepage": BASE_URL,
         "repository": "https://github.com/dbwls99706/deadends.dev",
         "license": "MIT",
@@ -4156,6 +4210,13 @@ def build_well_known(canons: list[dict]) -> None:
                 "description": (
                     "Country-level summary: total entries, domain breakdown, "
                     "average fix rate, latest update."
+                ),
+            },
+            {
+                "name": "report_outcome",
+                "description": (
+                    "Report whether a workaround worked or failed - feedback "
+                    "improves fix_success_rate for future agents."
                 ),
             },
         ],
@@ -4441,10 +4502,13 @@ With deadends.dev:
 | `/api/v1/index.json` | Complete error index |
 | `/api/v1/stats.json` | Dataset quality metrics |
 | `/api/v1/errors.ndjson` | Streaming format |
+| `/api/v1/countries.json` | Country index (country-scoped dead ends) |
+| `/api/v1/country/{{cc}}.json` | Per-country aggregate (ISO alpha-2) |
 | `/llms.txt` | LLM-optimized summary |
 | `/llms-full.txt` | Complete plaintext dump |
+| `/llms-full-{{domain}}.txt` | Per-domain plaintext slice |
 
-## MCP Server (8 tools)
+## MCP Server ({len(MCP_TOOL_NAMES)} tools)
 
 ```json
 {{
@@ -4458,9 +4522,7 @@ With deadends.dev:
 }}
 ```
 
-Tools: `lookup_error`, `get_error_detail`, `search_errors`,
-`batch_lookup`, `get_error_chain`, `list_error_domains`,
-`list_errors_by_domain`, `get_domain_stats`
+Tools: {", ".join(f"`{t}`" for t in MCP_TOOL_NAMES)}
 """
     (SITE_DIR / "CLAUDE.md").write_text(claude_md, encoding="utf-8")
 
@@ -4488,9 +4550,11 @@ Example: If you see "ModuleNotFoundError: No module named 'X'"
 → dead_ends: "pip install X" fails 85% when the issue is a venv mismatch
 → workaround: "python -m pip install X" in the correct venv works 90%
 
-MCP server available with 8 tools: lookup_error, get_error_detail,
-search_errors, batch_lookup, get_error_chain, list_error_domains,
-list_errors_by_domain, get_domain_stats
+Country-specific dead ends (visa, banking, legal, cultural, medical,
+emergency) are also covered: {BASE_URL}/api/v1/country/{{cc}}.json
+(ISO alpha-2 code, e.g. kr, jp, us).
+
+MCP server available with {len(MCP_TOOL_NAMES)} tools: {", ".join(MCP_TOOL_NAMES)}
 
 Full API docs: {BASE_URL}/api/v1/openapi.json
 """
@@ -4525,9 +4589,18 @@ When you encounter an error from any of these domains:
 | Full error data | `/api/v1/{{id}}.json` |
 | All errors | `/api/v1/index.json` |
 | By domain | `/api/v1/stats.json` |
+| By country (visa/legal/etc.) | `/api/v1/country/{{cc}}.json` |
 | Stream all | `/api/v1/errors.ndjson` |
 | LLM summary | `/llms.txt` |
 | Full dump | `/llms-full.txt` |
+| Per-domain dump | `/llms-full-{{domain}}.txt` |
+
+## MCP Server ({len(MCP_TOOL_NAMES)} tools)
+
+`python -m mcp.server` (stdio) or HTTPS endpoint at
+https://deadends-dev.vercel.app/api/mcp
+
+Tools: {", ".join(f"`{t}`" for t in MCP_TOOL_NAMES)}
 """
     (SITE_DIR / "AGENTS.md").write_text(agents_md, encoding="utf-8")
 
