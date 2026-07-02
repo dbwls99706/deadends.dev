@@ -29,28 +29,34 @@
       "action": "Give gifts in sets of 4 or 9",
       "why_fails": "4 (四/shi) sounds like death (死/shi) and 9 (九/ku) sounds like suffering (苦/ku). Tea sets of 4, gift boxes of 9 items - these numbers are avoided in all Japanese gift contexts.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Gift quantity for Japanese recipients"
     },
     {
       "action": "Open a gift immediately in front of the giver",
       "why_fails": "In Japan, gifts are not opened in front of the giver (unlike Western custom). Opening immediately can appear greedy. Accept with both hands, express gratitude, and open later in private.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Receiving gifts in Japanese context"
     },
     {
       "action": "Wrap gifts casually or use dark-colored wrapping",
       "why_fails": "Japanese gift wrapping (包装) is an art. Wrapping direction matters: right over left for celebrations (慶事), left over right for funerals (弔事). Getting this backwards invokes death.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Gift wrapping for Japanese recipients"
     }
   ],
   "workarounds": [
     {
       "action": "Give in sets of 3, 5, or 7 (lucky odd numbers in Japan). Wrap in light, seasonal colors. Use noshi (熨斗) paper for formal gifts with appropriate mizuhiki (水引) knot style.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Japanese gift presentation"
     },

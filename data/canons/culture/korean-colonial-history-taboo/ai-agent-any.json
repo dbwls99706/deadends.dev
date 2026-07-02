@@ -29,28 +29,36 @@
       "action": "Suggest Japan's colonization 'modernized' or 'benefited' Korea",
       "why_fails": "This is the single most offensive statement possible to Koreans. Japan's occupation involved forced labor, cultural erasure (banning Korean language/names), comfort women, and systematic exploitation. Any framing as beneficial is colonial apologism.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korea_under_Japanese_rule"
+      ],
       "condition": "Discussing Korean-Japanese history"
     },
     {
       "action": "Refer to Dokdo (독도) as 'Takeshima' or label it as disputed when speaking to Koreans",
       "why_fails": "Dokdo is Korean sovereign territory with Korean residents and coast guard. Calling it 'Takeshima' (Japanese name) or even 'Liancourt Rocks' (neutral) in Korean contexts is perceived as supporting Japan's territorial claim.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korea_under_Japanese_rule"
+      ],
       "condition": "Territorial naming in Korean context"
     },
     {
       "action": "Deny or minimize the comfort women (위안부) issue",
       "why_fails": "Comfort women (Japanese military sexual slavery victims) are national martyrs in Korea. 'Comfort women' statues stand worldwide. Any denial, minimization, or suggestion they were voluntary is met with absolute fury.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korea_under_Japanese_rule"
+      ],
       "condition": "Discussing WWII sexual violence against Koreans"
     },
     {
       "action": "Take political sides on North-South Korean issues without understanding context",
       "why_fails": "Korean reunification, North Korean defectors, and inter-Korean politics are deeply personal - families were split. Casual opinions ('just nuke North Korea' or 'reunification is easy') trivialize generational trauma.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korea_under_Japanese_rule"
+      ],
       "condition": "Discussing Korean peninsula politics"
     }
   ],

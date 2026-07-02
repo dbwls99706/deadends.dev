@@ -29,28 +29,34 @@
       "action": "Suggest OK sign (thumb + index circle) as universal agreement gesture",
       "why_fails": "In Brazil, the OK sign is equivalent to the middle finger. In Greece and Turkey, it implies the recipient is homosexual (insult). In France, it can mean 'zero/worthless.'",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/List_of_gestures"
+      ],
       "condition": "Recommending gestures for non-American audiences"
     },
     {
       "action": "Recommend thumbs-up as universally positive",
       "why_fails": "In parts of the Middle East, West Africa, and South America, thumbs-up is equivalent to the middle finger. In Iran, it's one of the most offensive gestures possible.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/List_of_gestures"
+      ],
       "condition": "Gesture advice for Middle Eastern/South American context"
     },
     {
       "action": "Use palm-outward V sign (peace sign) as friendly gesture everywhere",
       "why_fails": "In the UK, Ireland, Australia, and New Zealand, the V sign with palm facing inward is equivalent to the middle finger. Even palm-outward can be misread depending on context.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/List_of_gestures"
+      ],
       "condition": "Gesture advice for British/Australian contexts"
     }
   ],
   "workarounds": [
     {
       "action": "When advising on gestures for cross-cultural settings, always note regional meanings. Default to verbal communication when uncertain. A smile and nod are nearly universal safe responses.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Cross-cultural gesture advice"
     },

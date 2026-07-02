@@ -29,28 +29,34 @@
       "action": "Use 'Gypsy' as a general label for Romani people",
       "why_fails": "'Gypsy' is considered a racial slur by most Romani advocacy organizations. It originates from the false belief that Roma came from Egypt. The proper terms are 'Romani,' 'Roma,' or 'Roma people.' Some Romani individuals reclaim 'Gypsy' but outsiders should not use it.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Romani_people"
+      ],
       "condition": "Referring to Romani people"
     },
     {
       "action": "Use the word 'gypped' (meaning cheated or swindled)",
       "why_fails": "'Gypped' derives from 'Gypsy' and encodes the racist stereotype that Romani people are thieves. Many English speakers don't realize the etymology, but it is a racial slur. Use 'cheated,' 'swindled,' or 'ripped off' instead.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Romani_people"
+      ],
       "condition": "English language vocabulary"
     },
     {
       "action": "Perpetuate stereotypes about Roma being thieves, beggars, or kidnappers",
       "why_fails": "These stereotypes have been used to justify centuries of persecution including the Romani Holocaust (Porajmos) where 500,000+ Roma were murdered by Nazis. Anti-Roma racism remains Europe's most socially acceptable prejudice.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Romani_people"
+      ],
       "condition": "Discussing Romani communities"
     }
   ],
   "workarounds": [
     {
       "action": "Use 'Romani,' 'Roma,' or 'Roma people' (never 'Gypsies'). Note: Roma and Romanian are NOT the same - Romani people are a distinct ethnic group found across Europe, not specifically from Romania.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Referring to Romani people"
     },

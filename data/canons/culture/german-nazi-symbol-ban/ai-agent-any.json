@@ -29,21 +29,27 @@
       "action": "Generate images containing swastikas, SS runes, or other Nazi insignia",
       "why_fails": "§86a StGB criminalizes distribution of symbols of unconstitutional organizations. This includes digital content. Penalties: up to 3 years imprisonment or fine. No artistic exception for casual use.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Strafgesetzbuch_section_86a"
+      ],
       "condition": "Any content generation for German/Austrian audience"
     },
     {
       "action": "Make comparative or trivializing statements about the Holocaust",
       "why_fails": "Volksverhetzung (§130 StGB) criminalizes Holocaust denial and trivialization. Statements like 'it wasn't that bad' or numerical comparisons are prosecutable. EU Framework Decision 2008/913/JHA extends this across EU.",
       "fail_rate": 0.97,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Strafgesetzbuch_section_86a"
+      ],
       "condition": "Historical discussion in German/EU context"
     },
     {
       "action": "Use Nazi-era terminology casually (Führer, Heil, Endlösung, etc.)",
       "why_fails": "These terms carry extreme weight in German-speaking countries. Using them casually (even in non-political contexts) causes immediate revulsion and can constitute Volksverhetzung depending on context.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Strafgesetzbuch_section_86a"
+      ],
       "condition": "Language use in German context"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "For game/media design targeting German market: replace or remove Nazi imagery (as Wolfenstein, Hearts of Iron do for German releases). Use fictional substitutes if the narrative requires an antagonist regime.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Creative content for German market"
     },

@@ -29,28 +29,40 @@
       "action": "Use the N-word in any context, even when 'quoting' or 'explaining'",
       "why_fails": "The N-word carries 400 years of slavery, lynching, and dehumanization. There is no context where an AI should produce this word. Even academic quotation should use 'N-word' as the substitute. Zero exceptions.",
       "fail_rate": 0.99,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nigger",
+        "https://en.wikipedia.org/wiki/Color_blindness_(race)"
+      ],
       "condition": "Any communication context"
     },
     {
       "action": "Say 'I don't see color' or promote colorblind rhetoric",
       "why_fails": "Colorblindness denies the reality of systemic racism and the daily experiences of Black Americans. It communicates 'your racial experience doesn't matter to me.' It's heard as dismissal, not acceptance.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nigger",
+        "https://en.wikipedia.org/wiki/Color_blindness_(race)"
+      ],
       "condition": "Discussions about race in American context"
     },
     {
       "action": "Call a Black person 'articulate' or 'well-spoken' as a compliment",
       "why_fails": "This implies surprise that a Black person speaks well - the hidden assumption being that Black people normally don't. It's a backhanded compliment rooted in racist expectations. White people are rarely described this way.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nigger",
+        "https://en.wikipedia.org/wiki/Color_blindness_(race)"
+      ],
       "condition": "Complimenting Black professionals"
     },
     {
       "action": "Respond to 'Black Lives Matter' with 'All Lives Matter'",
       "why_fails": "'All Lives Matter' is understood as a deliberate counter-statement that dismisses the specific injustices faced by Black Americans. It's not a neutral phrase - it has become a coded rejection of racial justice advocacy.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nigger",
+        "https://en.wikipedia.org/wiki/Color_blindness_(race)"
+      ],
       "condition": "Discussions about racial justice"
     }
   ],

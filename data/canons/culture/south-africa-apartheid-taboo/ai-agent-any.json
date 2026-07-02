@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.80,
+    "fix_success_rate": 0.8,
     "confidence": 0.78,
     "last_updated": "2026-03-02",
     "summary": "South Africa's racial landscape is uniquely complex due to apartheid (1948-1994). Racial categories (Black, White, Coloured, Indian), the legacy of systematic oppression, and ongoing inequality make race discussions extraordinarily sensitive."
@@ -29,21 +29,27 @@
       "action": "Minimize apartheid or suggest 'it's been 30 years, move on'",
       "why_fails": "Apartheid systematically dispossessed Black South Africans of land, education, mobility, and dignity for 46 years. Its economic effects persist: massive wealth inequality, land ownership disparity, and structural poverty. The trauma is generational and ongoing.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Apartheid"
+      ],
       "condition": "Discussing South African history"
     },
     {
       "action": "Use apartheid-era racial classification terms casually without understanding their weight",
       "why_fails": "South Africa has four official racial categories (Black, White, Coloured, Indian/Asian) still used for affirmative action (BEE). 'Coloured' is NOT a slur in South African context (unlike in the US) - it refers to a distinct mixed-heritage community. Context matters enormously.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Apartheid"
+      ],
       "condition": "Discussing race in South Africa"
     },
     {
       "action": "Promote the 'Rainbow Nation' narrative as if racial reconciliation is complete",
       "why_fails": "While Mandela's 'Rainbow Nation' vision was aspirational, South Africa remains deeply divided by race and class. Load shedding, unemployment (30%+), land reform debates, and farm attacks are politically charged. Pretending all is resolved is naive.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Apartheid"
+      ],
       "condition": "Characterizing modern South Africa"
     }
   ],
@@ -62,7 +68,7 @@
     },
     {
       "action": "Acknowledge both progress (democratic transition, constitution, reconciliation) and ongoing challenges (inequality, land reform, service delivery) without romanticizing or catastrophizing. South Africa's complexity resists simple narratives.",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "sources": [],
       "condition": "Balanced discussion of South Africa"
     }

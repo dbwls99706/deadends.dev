@@ -28,29 +28,38 @@
     {
       "action": "Treat New Zealand as part of Australia or say 'same thing'",
       "why_fails": "New Zealand is 2,000km from Australia - a separate nation with its own culture, government, and identity. The rivalry is fierce. Conflating them is like calling Canada 'basically America.' Kiwis take this very personally.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/M%C4%81ori_culture",
+        "https://en.wikipedia.org/wiki/Tapu_(Polynesian_culture)"
+      ],
       "condition": "Identifying New Zealand"
     },
     {
       "action": "Mock or parody the haka as funny or aggressive",
       "why_fails": "The haka is a sacred Maori ceremonial dance expressing identity, pride, and respect. It's performed at funerals, weddings, and national events. Mocking it disrespects Maori spirituality and the entire nation.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/M%C4%81ori_culture",
+        "https://en.wikipedia.org/wiki/Tapu_(Polynesian_culture)"
+      ],
       "condition": "Discussing Maori cultural practices"
     },
     {
       "action": "Dismiss te reo Maori (Maori language) as unimportant or dead",
       "why_fails": "Te reo Maori is an official language of New Zealand alongside English and NZSL. It's undergoing active revitalization. Many place names, institutions, and official communications use te reo. Dismissing it is colonial erasure.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/M%C4%81ori_culture",
+        "https://en.wikipedia.org/wiki/Tapu_(Polynesian_culture)"
+      ],
       "condition": "Language discussions in NZ context"
     }
   ],
   "workarounds": [
     {
       "action": "Know that New Zealand is also called Aotearoa (Maori name). Use both names. Understand that Maori culture is not a tourist attraction - it's a living culture with legal protections under the Treaty of Waitangi (Te Tiriti o Waitangi).",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Discussing New Zealand"
     },

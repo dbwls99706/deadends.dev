@@ -29,28 +29,34 @@
       "action": "Make jokes or casual references to atomic bombings of Hiroshima/Nagasaki",
       "why_fails": "Over 200,000 people died. Hibakusha (survivors) and their descendants face ongoing health issues and discrimination. Nuclear jokes are the most offensive thing you can say to a Japanese person. Zero tolerance.",
       "fail_rate": 0.99,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki"
+      ],
       "condition": "Any communication involving Japanese people"
     },
     {
       "action": "Bring up Japanese wartime atrocities (Nanjing, comfort women, Unit 731) casually in Japanese social settings",
       "why_fails": "While historically documented, these topics cause deep shame and defensiveness in Japan. Many Japanese people have limited education on these events. Bringing them up socially is seen as an attack on national identity.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki"
+      ],
       "condition": "Social conversations with Japanese people"
     },
     {
       "action": "Express opinions on Yasukuni Shrine visits without understanding the context",
       "why_fails": "Yasukuni enshrines 2.5M war dead including 14 Class-A war criminals. Visits by politicians infuriate China and Korea. Domestically, it's a complex mix of mourning, nationalism, and religious freedom. No simple position works.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki"
+      ],
       "condition": "Japanese political discourse"
     }
   ],
   "workarounds": [
     {
       "action": "Treat Hiroshima and Nagasaki with the same gravity as Holocaust memorials. If the topic arises, focus on peace and nuclear disarmament (Japan's official stance). Hiroshima Peace Memorial is about preventing future use, not relitigating the past.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Discussing nuclear history with Japanese audiences"
     },

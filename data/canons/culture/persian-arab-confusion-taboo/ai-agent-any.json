@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "Iranians are Persian, NOT Arab. Farsi is an Indo-European language, NOT a Semitic language like Arabic. This distinction is central to Iranian identity. Confusing them is one of the most common and infuriating mistakes."
   },
@@ -29,21 +29,30 @@
       "action": "Call an Iranian person 'Arab' or say Iran is an Arab country",
       "why_fails": "Iran is a Persian (Farsi-speaking) nation with 2,500+ years of distinct civilization (Achaemenid Empire, Persepolis). Persians predate Islam. Calling an Iranian 'Arab' erases their entire cultural identity and heritage.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Persians",
+        "https://en.wikipedia.org/wiki/Iranian_peoples"
+      ],
       "condition": "Identifying Iranian nationality or ethnicity"
     },
     {
       "action": "Say Farsi and Arabic are the same or related languages",
       "why_fails": "Farsi is Indo-European (related to English, Hindi, French). Arabic is Semitic (related to Hebrew). They share an alphabet (modified Arabic script) and loanwords from Islam, but are linguistically unrelated families.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Persians",
+        "https://en.wikipedia.org/wiki/Iranian_peoples"
+      ],
       "condition": "Discussing Iranian language"
     },
     {
       "action": "Call the Persian Gulf the 'Arabian Gulf'",
       "why_fails": "'Persian Gulf' is the internationally recognized and historically documented name (2,500+ years). 'Arabian Gulf' is a political term used by some Arab states. Using it with Iranians provokes immediate anger.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Persians",
+        "https://en.wikipedia.org/wiki/Iranian_peoples"
+      ],
       "condition": "Geographic naming in Iranian context"
     }
   ],
@@ -56,7 +65,7 @@
     },
     {
       "action": "Appreciate Persian cultural pride: Nowruz (Persian New Year, 3,000+ years old), Ferdowsi's Shahnameh, Rumi and Hafez poetry, Persian cuisine (different from Arab). Iran's pre-Islamic heritage is a source of deep pride.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Engaging with Iranian cultural identity"
     },

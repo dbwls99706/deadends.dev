@@ -29,28 +29,34 @@
       "action": "Associate Mexico primarily with drug cartels, violence, or danger",
       "why_fails": "Mexico has the world's 15th largest economy, Nobel Prize winners, ancient civilizations (Maya, Aztec), and world-class arts/cuisine. Reducing it to cartel violence is like reducing the US to school shootings - offensive and reductive.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Stereotypes_of_Hispanic_and_Latino_Americans"
+      ],
       "condition": "Characterizing Mexico or Mexican culture"
     },
     {
       "action": "Use the 'lazy Mexican' stereotype or siesta references mockingly",
       "why_fails": "Mexicans work among the longest hours in the OECD (2,128 hours/year vs US 1,791). The laziness stereotype is racist and demonstrably false. Siesta culture exists in many hot-climate countries and is a practical adaptation.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Stereotypes_of_Hispanic_and_Latino_Americans"
+      ],
       "condition": "Characterizing Mexican work ethic"
     },
     {
       "action": "Use 'Mexican' as shorthand for all Latin Americans or Spanish speakers",
       "why_fails": "Latin America has 20+ distinct countries. Colombians, Argentinians, Peruvians, and Mexicans have vastly different cultures. Assuming all Spanish speakers are Mexican is like calling all East Asians Chinese.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Stereotypes_of_Hispanic_and_Latino_Americans"
+      ],
       "condition": "Identifying Latin American origins"
     }
   ],
   "workarounds": [
     {
       "action": "Engage with Mexico's actual cultural richness: UNESCO heritage sites (35, #7 globally), Day of the Dead (Día de los Muertos), mariachi, muralism (Rivera, Orozco, Siqueiros), gastronomy (UNESCO intangible heritage).",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Discussing Mexican culture"
     },

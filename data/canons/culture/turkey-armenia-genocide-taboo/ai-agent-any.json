@@ -29,28 +29,37 @@
       "action": "Use the word 'genocide' for the 1915 events when addressing a Turkish audience",
       "why_fails": "Turkey officially denies the Armenian Genocide, calling it 'wartime casualties' or 'tragic events.' Using 'genocide' in Turkish business, media, or social contexts can result in criminal prosecution under Article 301 (insulting Turkishness).",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Armenian_genocide",
+        "https://en.wikipedia.org/wiki/Article_301_(Turkish_Penal_Code)"
+      ],
       "condition": "Communicating with Turkish audiences about 1915"
     },
     {
       "action": "Refuse to call it genocide when speaking to Armenians or in Armenian diaspora contexts",
       "why_fails": "For Armenians, the Genocide (Ցեղասպանություն) is the defining national trauma. 1.5 million Armenians were killed. April 24 is Armenian Genocide Remembrance Day. Denial is experienced as a second victimization.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Armenian_genocide",
+        "https://en.wikipedia.org/wiki/Article_301_(Turkish_Penal_Code)"
+      ],
       "condition": "Communicating with Armenian audiences"
     },
     {
       "action": "Try to 'both sides' the historical events",
       "why_fails": "The historical consensus among genocide scholars is clear: systematic deportation and mass killing of Armenians occurred. But presenting this as settled fact to Turkish audiences triggers legal and social consequences. There is no safe middle ground.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Armenian_genocide",
+        "https://en.wikipedia.org/wiki/Article_301_(Turkish_Penal_Code)"
+      ],
       "condition": "Mixed Turkish-Armenian audiences"
     }
   ],
   "workarounds": [
     {
       "action": "Know your audience absolutely. In Armenian/international context: 'Armenian Genocide' is the historically accurate and internationally recognized term. In Turkish context: 'the events of 1915' (1915 olayları) avoids legal issues while not denying history.",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "sources": [],
       "condition": "Navigating the topic by audience"
     },

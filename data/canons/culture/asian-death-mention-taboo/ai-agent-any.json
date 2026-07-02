@@ -29,21 +29,30 @@
       "action": "Casually use death metaphors or morbid humor in East Asian business contexts",
       "why_fails": "Phrases like 'killing it,' 'dead on arrival,' 'dying to try this' are deeply uncomfortable in Chinese/Japanese/Korean contexts. Death references are actively avoided, especially around elders or celebrations.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Death_and_culture",
+        "https://en.wikipedia.org/wiki/Tetraphobia"
+      ],
       "condition": "Communication for East Asian audiences"
     },
     {
       "action": "Give gifts or decorations associated with death symbolism",
       "why_fails": "White chrysanthemums (funeral flowers in Asia), clocks (送钟=送终 in Chinese), handkerchiefs (涙 associations in Japan), writing in red ink (death names in Korea) - all invoke death.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Death_and_culture",
+        "https://en.wikipedia.org/wiki/Tetraphobia"
+      ],
       "condition": "Gift or decoration recommendations for Asian contexts"
     },
     {
       "action": "Write someone's name in red ink in Korean context",
       "why_fails": "In Korea, writing a living person's name in red ink (빨간펜) signifies death or that the person is dead. It was traditionally used only for deceased names on ancestral registers. This is taken very seriously.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Death_and_culture",
+        "https://en.wikipedia.org/wiki/Tetraphobia"
+      ],
       "condition": "Writing or document formatting for Korean audiences"
     }
   ],
@@ -62,7 +71,7 @@
     },
     {
       "action": "During Asian holidays (Chinese New Year, Lunar New Year, Obon, Chuseok), only use positive, auspicious language. No mention of death, illness, or bad luck. Use phrases like 福 (fortune), 壽 (longevity), 吉祥 (auspicious).",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Asian holiday communication"
     }

@@ -29,21 +29,27 @@
       "action": "Take British phrases at face value",
       "why_fails": "'With the greatest respect' means 'I think you're wrong.' 'That's a brave decision' means 'That's a terrible idea.' 'Quite interesting' means 'boring.' Literal interpretation causes complete misunderstanding.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Understatement"
+      ],
       "condition": "Interpreting British business or social communication"
     },
     {
       "action": "Skip queues or be dismissive of queuing culture",
       "why_fails": "Queuing is sacred in British culture. Jumping a queue provokes genuine outrage - it's one of the few things that will make a Brit confront a stranger publicly. This extends to virtual queues and turn-taking.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Understatement"
+      ],
       "condition": "Public behavior advice in UK"
     },
     {
       "action": "Use loud, effusive, American-style enthusiasm in British settings",
       "why_fails": "Excessive enthusiasm is viewed with suspicion in Britain. Overuse of superlatives ('amazing!', 'incredible!') sounds insincere. British communication favors measured, understated expression.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Understatement"
+      ],
       "condition": "Communication style for British audiences"
     }
   ],

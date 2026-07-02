@@ -29,28 +29,34 @@
       "action": "Skip greetings and get straight to business in African meetings",
       "why_fails": "In most sub-Saharan cultures, extended greetings are mandatory. You ask about health, family, the journey. Skipping this signals arrogance and disrespect. Greetings can take 5-10 minutes and are non-negotiable.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Ubuntu_philosophy"
+      ],
       "condition": "Business or social meetings in sub-Saharan Africa"
     },
     {
       "action": "Address African cultures as a monolith",
       "why_fails": "Africa has 54 countries and 2,000+ languages. Nigerian Yoruba customs differ vastly from Kenyan Kikuyu or South African Zulu. Generalizing 'African culture' is reductive and often wrong.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Ubuntu_philosophy"
+      ],
       "condition": "Giving advice about African cultural contexts"
     },
     {
       "action": "Apply Western individualist problem-solving frameworks without considering communal dynamics",
       "why_fails": "Ubuntu (umuntu ngumuntu ngabantu - 'I am because we are') means decisions involve extended family and community. Individual-focused advice ignores that many life decisions are communal in African contexts.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Ubuntu_philosophy"
+      ],
       "condition": "Life advice or business recommendations in African contexts"
     }
   ],
   "workarounds": [
     {
       "action": "Begin every interaction with thorough greetings. Ask about family, health, and wellbeing before any business. In many West African cultures, greeting an elder first and by title is mandatory.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Initial interactions in African contexts"
     },

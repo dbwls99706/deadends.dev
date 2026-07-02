@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/ehic-non-eu-ineligible/es",
+  "url": "https://deadends.dev/medical/ehic-non-eu-ineligible/es",
+  "error": {
+    "signature": "AI tells a non-EU visitor that an EHIC/GHIC card covers their medical treatment in Spain",
+    "regex": "(ehic.{0,30}spain|european health insurance.{0,30}spain|spain.{0,40}(tourist|visitor).{0,30}(health insurance|medical cost))",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "The EHIC (European Health Insurance Card) entitles EU/EEA/Swiss residents to medically necessary state-provided treatment during temporary stays in Spain. It is not travel insurance and gives non-EU tourists (US, Asia, etc.) no entitlement: they are billed privately and need their own travel medical insurance."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any foreign visitor can use an EHIC (or a relative's card) in Spain",
+      "why_fails": "EHIC eligibility follows insurance residence in an EU/EEA country or Switzerland; cards are personal and checked against the issuing insurer, so non-EU tourists and borrowed cards are billed privately - fraudulent use is an offence.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://ec.europa.eu/social/main.jsp?catId=559"
+      ],
+      "condition": "Non-EU resident or borrowed card"
+    },
+    {
+      "action": "Treat the EHIC as full travel insurance covering repatriation and private clinics",
+      "why_fails": "The EHIC covers only medically necessary care in the public system under local patient rules (co-payments included); it never covers repatriation, rescue, or private treatment.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://ec.europa.eu/social/main.jsp?catId=559"
+      ],
+      "condition": "Relying on EHIC alone"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "EU/EEA/Swiss residents: order the free EHIC from your insurer before travel; everyone: carry real travel medical insurance",
+      "success_rate": 0.85,
+      "how": "The card is free from your national health insurer - refuse paid 'EHIC application' websites. Non-EU visitors must buy private travel medical insurance (often a Schengen visa requirement, min. 30,000 EUR coverage).",
+      "sources": [
+        "https://ec.europa.eu/social/main.jsp?catId=559"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/ehic-non-eu-ineligible/de",
+        "distinction": "Same EU-wide card rules seen from Spain; the German canon adds Germany-specific billing and enforcement detail."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

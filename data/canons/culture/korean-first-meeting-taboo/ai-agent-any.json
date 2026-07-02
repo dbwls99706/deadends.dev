@@ -29,28 +29,37 @@
       "action": "Bring up politics (정치), especially progressive vs conservative divide, in Korean first meetings",
       "why_fails": "Korean politics is deeply polarized (진보 vs 보수). Political discussion with strangers can instantly create enemies. Even among friends, it's a minefield. Avoid entirely at first meetings.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_South_Korea",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "First meeting conversation in Korean context"
     },
     {
       "action": "Ask about salary, rent, or specific financial details",
       "why_fails": "Despite Korea's culture of comparison (비교문화), asking salary directly at first meeting is invasive. It triggers anxiety about social ranking. General job/company questions are fine; specific numbers are not.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_South_Korea",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Small talk in Korean social settings"
     },
     {
       "action": "Assume Koreans are uncomfortable being asked their age",
       "why_fails": "Unlike Western culture where age is private, Koreans frequently ask age at first meeting (몇 살이에요?/몇 년생이에요?) because it determines the entire speech level and social dynamic. Not asking can be awkward.",
-      "fail_rate": 0.70,
-      "sources": [],
+      "fail_rate": 0.7,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_South_Korea",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Understanding Korean vs Western norms about age"
     }
   ],
   "workarounds": [
     {
       "action": "Safe Korean first meeting topics: where you went to school (학교), what you do for work (직업), military service for men (군대 - bonding topic), hobbies, food preferences, K-drama/K-pop",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Korean social first meetings"
     },

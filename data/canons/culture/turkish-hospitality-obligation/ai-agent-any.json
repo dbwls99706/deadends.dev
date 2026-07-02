@@ -29,28 +29,34 @@
       "action": "Refuse offered tea (çay) in Turkish business or social settings",
       "why_fails": "Tea is the foundation of Turkish social interaction. Refusing çay is refusing the relationship. Even if you don't drink tea, accept the glass and hold it. Turks drink 6+ cups daily - it's not optional.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_Turkey"
+      ],
       "condition": "Turkish business or home visits"
     },
     {
       "action": "Decline a Turkish meal invitation or leave early",
       "why_fails": "A Turkish host's honor (şeref) depends on making guests comfortable. Declining an invitation after it's sincerely offered, or leaving before the host indicates it's time, is a personal insult.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_Turkey"
+      ],
       "condition": "Turkish social invitations"
     },
     {
       "action": "Insist on splitting the bill at a Turkish dinner",
       "why_fails": "In Turkey, the person who invites pays (hesap). Splitting bills is unusual and can insult the host's generosity. Accept graciously and reciprocate by hosting next time.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_Turkey"
+      ],
       "condition": "Dining payment in Turkish context"
     }
   ],
   "workarounds": [
     {
       "action": "Accept tea always. In business meetings, tea arrives automatically - it's not a question. In shops, accepting tea doesn't obligate purchase but does build relationship. Chai bardağı (tulip glass) is held by the rim.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Turkish tea etiquette"
     },

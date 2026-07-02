@@ -28,36 +28,44 @@
     {
       "action": "Use 'spirit animal' as a casual phrase (e.g., 'coffee is my spirit animal')",
       "why_fails": "Spirit animals are sacred concepts in many Indigenous spiritual traditions with deep ceremonial significance. Using it as internet slang trivializes religious practices of peoples who were legally banned from practicing their religions until 1978 (American Indian Religious Freedom Act).",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cultural_appropriation"
+      ],
       "condition": "Casual English communication"
     },
     {
       "action": "Use 'Indian' to refer to Native Americans, or use tribal imagery as costumes",
       "why_fails": "'Indian' is a colonial misnomer (Columbus thought he reached India). War bonnets/headdresses are sacred items earned through acts of bravery - wearing them as Halloween costumes is equivalent to wearing a Purple Heart you didn't earn. 'Redskin' is a racial slur.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cultural_appropriation"
+      ],
       "condition": "Referring to Indigenous Americans"
     },
     {
       "action": "Use 'pow wow' to mean a business meeting or casual gathering",
       "why_fails": "A powwow is a sacred Indigenous gathering with deep spiritual, cultural, and community significance. Using it as slang for a team meeting trivializes a living cultural practice and reduces Indigenous traditions to corporate jargon.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cultural_appropriation"
+      ],
       "condition": "Business or casual English vocabulary"
     },
     {
       "action": "Promote the Thanksgiving myth of peaceful Pilgrims-and-Indians dinner",
       "why_fails": "The sanitized Thanksgiving narrative erases the genocide, forced removals, and broken treaties that followed contact. Many Native Americans observe Thanksgiving as a National Day of Mourning. The 'friendly Indian' trope is deeply harmful.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cultural_appropriation"
+      ],
       "condition": "Discussing American holidays"
     }
   ],
   "workarounds": [
     {
       "action": "Use 'Native American,' 'Indigenous,' 'American Indian' (still used in legal contexts and by some tribal members), or ideally the specific nation name: Navajo (Dine), Cherokee, Lakota, Ojibwe, etc. Ask the individual their preference.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Referring to Indigenous Americans"
     },

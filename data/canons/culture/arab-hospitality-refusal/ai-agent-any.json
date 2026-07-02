@@ -29,21 +29,30 @@
       "action": "Accept food or drink on the first offer in Arab culture",
       "why_fails": "The three-offer ritual (taarof in Persian, similar in Arab culture): the host offers, the guest politely declines, the host insists, the guest declines again, the host insists a third time, and then the guest accepts. Accepting immediately seems greedy.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Arab_culture",
+        "https://en.wikipedia.org/wiki/Etiquette_in_the_Middle_East"
+      ],
       "condition": "Hospitality interactions in Arab/Persian culture"
     },
     {
       "action": "Refuse all food when visiting an Arab home",
       "why_fails": "After the polite refusal ritual, you must eventually accept. Refusing everything entirely insults the host's honor and generosity. At minimum, accept tea/coffee and a small portion of food.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Arab_culture",
+        "https://en.wikipedia.org/wiki/Etiquette_in_the_Middle_East"
+      ],
       "condition": "Arab home visits"
     },
     {
       "action": "Pour your own Arabic coffee (gahwa) or refuse the first cup",
       "why_fails": "Arabic coffee is served by the host or a designated server. You never pour your own. The first cup is obligatory. To signal 'no more,' gently shake/tilt the cup side to side when returning it.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Arab_culture",
+        "https://en.wikipedia.org/wiki/Etiquette_in_the_Middle_East"
+      ],
       "condition": "Arabic coffee ceremony"
     }
   ],

@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.88,
     "last_updated": "2026-03-02",
     "summary": "Ukraine is a sovereign nation at war with Russia since 2022. Calling Ukraine part of Russia, calling Ukrainian a Russian dialect, or using Soviet-era framing is not just offensive - it echoes the aggressor's justification for invasion."
@@ -29,28 +29,36 @@
       "action": "Say 'Ukraine and Russia are the same' or 'Ukrainians are basically Russian'",
       "why_fails": "This is the exact rhetorical basis Russia used to justify the 2022 invasion. Ukraine has its own language, history, culture, and national identity dating back centuries. Denying this to a Ukrainian is echoing the invader's propaganda.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russo-Ukrainian_War"
+      ],
       "condition": "Any communication with Ukrainian people"
     },
     {
       "action": "Call Ukrainian a 'dialect of Russian'",
       "why_fails": "Ukrainian is a distinct East Slavic language with its own grammar, vocabulary, and literary tradition. Calling it a dialect repeats centuries of Russian imperial suppression (Ems Decree 1876 banned Ukrainian). This is a deeply personal insult.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russo-Ukrainian_War"
+      ],
       "condition": "Discussing Ukrainian language"
     },
     {
       "action": "Say 'Kyiv' using the Russian spelling 'Kiev'",
       "why_fails": "After 2022, 'Kiev' (Russian transliteration) became a political statement. International media switched to 'Kyiv' (Ukrainian). Using 'Kiev' signals alignment with Russia. Similarly: Kharkiv not Kharkov, Odesa not Odessa.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russo-Ukrainian_War"
+      ],
       "condition": "Spelling Ukrainian place names"
     },
     {
       "action": "Call Crimea 'Russian' or say 'both sides have a point' about the war",
       "why_fails": "Russia's annexation of Crimea (2014) and full-scale invasion (2022) are internationally condemned. 'Both sides' framing equates invader with invaded. Ukrainians experiencing missile strikes daily find this morally obscene.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russo-Ukrainian_War"
+      ],
       "condition": "Discussing the Russia-Ukraine war"
     }
   ],
@@ -63,7 +71,7 @@
     },
     {
       "action": "Recognize Ukraine as a fully sovereign nation with its own distinct language, culture, and history. Ukrainian literature (Shevchenko), music (bandura), cuisine (borscht is Ukrainian, not Russian) are sources of deep pride.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Discussing Ukrainian culture"
     },

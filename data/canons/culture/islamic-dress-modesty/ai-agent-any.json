@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.87,
     "last_updated": "2026-03-02",
     "summary": "Many cultures and religions have specific dress code requirements, especially regarding modesty. AI must account for these when giving fashion, travel, or business advice for conservative regions."
@@ -29,21 +29,30 @@
       "action": "Suggest revealing clothing for business or travel in Gulf states",
       "why_fails": "In Saudi Arabia, UAE, Qatar, and similar countries, exposed shoulders, knees, and cleavage are inappropriate for both men and women in public. Legal consequences possible in Saudi Arabia.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hijab",
+        "https://en.wikipedia.org/wiki/Islamic_clothing"
+      ],
       "condition": "Fashion or travel advice for Gulf states"
     },
     {
       "action": "Recommend removing hijab for professional photos or events",
       "why_fails": "Hijab is a religious obligation for many Muslim women, not a fashion accessory. Suggesting its removal for aesthetic reasons is deeply disrespectful to their faith and identity.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hijab",
+        "https://en.wikipedia.org/wiki/Islamic_clothing"
+      ],
       "condition": "Styling or image advice for hijab-wearing women"
     },
     {
       "action": "Assume all Muslim-majority countries have the same dress code",
       "why_fails": "Turkey, Indonesia, and Lebanon have relatively relaxed dress codes. Saudi Arabia and Iran enforce conservative dress legally. Malaysia and Jordan are moderate. Generalizing erases major differences.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hijab",
+        "https://en.wikipedia.org/wiki/Islamic_clothing"
+      ],
       "condition": "Dress advice for Muslim-majority countries"
     }
   ],
@@ -62,7 +71,7 @@
     },
     {
       "action": "When visiting religious sites globally: Catholic churches (cover shoulders/knees), Hindu temples (remove shoes, cover body), Buddhist temples (cover shoulders/knees), Sikh gurdwaras (cover head). Always check specific site rules.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Dress code for religious site visits worldwide"
     }

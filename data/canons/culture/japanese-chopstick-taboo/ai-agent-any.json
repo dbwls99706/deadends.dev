@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-28",
     "summary": "Japanese dining has strict chopstick taboos rooted in funeral rituals. Several common chopstick actions are deeply offensive because they mirror Buddhist death ceremonies."
   },
@@ -29,21 +29,30 @@
       "action": "Stick chopsticks vertically into rice (立て箸/tate-bashi)",
       "why_fails": "Vertical chopsticks in rice is a funeral offering ritual (仏壇のお供え). Doing this at a meal symbolizes death and is one of the most serious dining taboos in Japan.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Chopsticks",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Japanese dining etiquette advice"
     },
     {
       "action": "Pass food from chopstick to chopstick (箸渡し/hashi-watashi)",
       "why_fails": "This mirrors the funeral ritual of passing cremated bones between chopsticks (骨上げ). Even accidentally doing this horrifies Japanese diners.",
       "fail_rate": 0.93,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Chopsticks",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Sharing food at Japanese meals"
     },
     {
       "action": "Point at people or wave chopsticks in the air while talking",
       "why_fails": "Pointing with chopsticks (指し箸/sashi-bashi) is extremely rude. Waving them (振り箸/furi-bashi) shows lack of upbringing. Chopsticks are tools, not gestures.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Chopsticks",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Table manners in Japanese context"
     }
   ],
@@ -56,7 +65,7 @@
     },
     {
       "action": "To share food, use the reverse end of chopsticks (取り箸) or communal serving chopsticks. Never pass food directly between personal chopsticks.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Sharing food at Japanese meals"
     },

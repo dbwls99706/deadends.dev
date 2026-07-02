@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "The phrase 'Polish death camps' (instead of 'Nazi German death camps in occupied Poland') is considered a grave insult to Poland. Poland passed a law in 2018 making such attributions punishable. The camps were Nazi German, built on occupied Polish soil."
   },
@@ -29,21 +29,27 @@
       "action": "Use the phrase 'Polish death camps' or 'Polish concentration camps'",
       "why_fails": "Auschwitz, Treblinka, Sobibor were NAZI GERMAN camps built on OCCUPIED Polish territory. 'Polish death camps' implies Poland built or operated them. Poland lost 6 million citizens (3M Jews, 3M non-Jewish Poles). This phrasing is a 2018 criminal offense in Poland.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/%22Polish_death_camp%22_controversy"
+      ],
       "condition": "Referring to WWII death camps"
     },
     {
       "action": "Suggest Poland was complicit in or responsible for the Holocaust",
       "why_fails": "Poland was occupied by Nazi Germany. There was no collaborationist Polish government (unlike Vichy France). While individual collaborators existed (as in every occupied country), attributing collective responsibility to Poland is historically wrong and legally actionable.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/%22Polish_death_camp%22_controversy"
+      ],
       "condition": "Discussing Holocaust responsibility"
     },
     {
       "action": "Ignore Poland's own victimhood in WWII",
       "why_fails": "Poland lost 17% of its population in WWII - the highest proportion of any country. Warsaw was 85% destroyed. Poles were also murdered in the camps. Framing Poland only as bystanders erases enormous suffering.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/%22Polish_death_camp%22_controversy"
+      ],
       "condition": "WWII narratives involving Poland"
     }
   ],

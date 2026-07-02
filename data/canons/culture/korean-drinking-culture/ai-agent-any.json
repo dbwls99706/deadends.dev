@@ -29,21 +29,30 @@
       "action": "Pour your own drink in a Korean group setting",
       "why_fails": "In Korea, you never pour your own drink (자기 따르기 금지). Others pour for you, and you pour for them. Pouring for yourself signals loneliness, greed, or that others are neglecting you.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Drinking_culture",
+        "https://en.wikipedia.org/wiki/Soju"
+      ],
       "condition": "Korean group drinking situations"
     },
     {
       "action": "Pour or receive a drink with one hand from/to an elder or superior",
       "why_fails": "Two-handed pour (or right hand pour with left hand supporting the arm/bottle) is mandatory when serving elders or superiors. One-handed pour to a senior is extremely disrespectful.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Drinking_culture",
+        "https://en.wikipedia.org/wiki/Soju"
+      ],
       "condition": "Drinking with Korean seniors/superiors"
     },
     {
       "action": "Drink facing an elder directly without turning away",
       "why_fails": "When drinking with someone senior, you should turn your head/body slightly away and shield the glass with your hand. Drinking while facing the elder directly is brazen and disrespectful.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Drinking_culture",
+        "https://en.wikipedia.org/wiki/Soju"
+      ],
       "condition": "Drinking in presence of Korean elders"
     }
   ],

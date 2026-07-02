@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.88,
     "last_updated": "2026-03-02",
     "summary": "Scotland and Wales are distinct nations within the United Kingdom, NOT regions of England. Calling a Scot or Welsh person 'English' is a serious insult. Each has its own language, parliament, culture, and national identity."
@@ -29,21 +29,27 @@
       "action": "Call a Scottish person 'English' or say Scotland is part of England",
       "why_fails": "Scotland is a nation with its own parliament, legal system, education system, and 1,000+ years of distinct history. The independence movement nearly succeeded in 2014 (45% voted yes). Calling Scots 'English' dismisses all of this.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Countries_of_the_United_Kingdom"
+      ],
       "condition": "Identifying Scottish people"
     },
     {
       "action": "Call a Welsh person 'English' or treat Wales as an English county",
       "why_fails": "Wales (Cymru) has its own language (Cymraeg - actively spoken by 30% of population), its own parliament (Senedd), and a fierce national identity. Welsh is one of Europe's oldest living languages. Erasing it is colonial.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Countries_of_the_United_Kingdom"
+      ],
       "condition": "Identifying Welsh people"
     },
     {
       "action": "Use 'England' when you mean 'United Kingdom' or 'Great Britain'",
       "why_fails": "England, Scotland, Wales, and Northern Ireland are four nations in the UK. Using 'England' for all four erases three nations. This is the most common and most resented mistake by international speakers.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Countries_of_the_United_Kingdom"
+      ],
       "condition": "Referring to the UK collectively"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "When unsure of someone's national identity within the UK, say 'British' (safe umbrella term) or ask. Many Scots identify as Scottish first, British second (or not at all). Same for many Welsh people.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Addressing UK citizens"
     },

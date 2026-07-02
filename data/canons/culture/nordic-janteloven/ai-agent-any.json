@@ -29,28 +29,34 @@
       "action": "Draft self-promotional or boastful content for Nordic audiences",
       "why_fails": "Janteloven's core: 'Du skal ikke tro du er noget' (Don't think you're special). Self-promotion that works in American culture causes active dislike in Scandinavia. Humility is the only acceptable mode.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Law_of_Jante"
+      ],
       "condition": "Marketing or personal branding for Nordic audiences"
     },
     {
       "action": "Interpret Nordic quietness or minimal response as disinterest",
       "why_fails": "Finns and Swedes value silence and brevity. A short 'ja' (yes) may signal strong agreement. Verbose responses feel performative. Silence is comfortable, not awkward, in Nordic culture.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Law_of_Jante"
+      ],
       "condition": "Interpreting Nordic communication style"
     },
     {
       "action": "Suggest loud, attention-grabbing behavior in Nordic social settings",
       "why_fails": "Speaking loudly in public, bragging about achievements, or displaying wealth (flashy cars, designer logos) violates lagom. 'Just enough' is the Nordic ideal - excess in any direction is judged.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Law_of_Jante"
+      ],
       "condition": "Social behavior advice for Nordic contexts"
     }
   ],
   "workarounds": [
     {
       "action": "For Nordic business: let achievements speak for themselves. Use data and results instead of superlatives. 'Our product improved metrics by 40%' beats 'We have the best product in the world.'",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Business communication for Nordic audiences"
     },

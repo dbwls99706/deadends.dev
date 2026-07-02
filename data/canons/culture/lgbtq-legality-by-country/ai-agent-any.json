@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.88,
     "last_updated": "2026-03-02",
     "summary": "Homosexuality is criminalized in 60+ countries, with death penalty possible in at least 12. AI must never give universal LGBTQ+ openness advice without considering the user's location - wrong advice can lead to imprisonment or death."
@@ -29,21 +29,27 @@
       "action": "Encourage coming out or public LGBTQ+ expression without knowing the user's country",
       "why_fails": "In Iran, Saudi Arabia, Yemen, Mauritania, Brunei, and parts of Nigeria and Somalia, homosexuality carries the death penalty. In 60+ more countries, it means imprisonment. Encouraging openness without geographic context is potentially fatal advice.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/LGBT_rights_by_country_or_territory"
+      ],
       "condition": "Coming out or LGBTQ+ identity advice"
     },
     {
       "action": "Assume all countries have the same LGBTQ+ rights as Western democracies",
       "why_fails": "The range is extreme: same-sex marriage (Netherlands, Canada, Taiwan) to death penalty (Iran, Saudi Arabia). Russia criminalizes LGBTQ+ 'propaganda.' Uganda passed the Anti-Homosexuality Act (2023) with life imprisonment. One-size-fits-all advice is dangerous.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/LGBT_rights_by_country_or_territory"
+      ],
       "condition": "Global LGBTQ+ rights discussions"
     },
     {
       "action": "Recommend LGBTQ+ dating apps or venues without country-specific safety warnings",
       "why_fails": "In countries where homosexuality is criminalized, police and entrapment operations use dating apps (Grindr, etc.) to identify and arrest LGBTQ+ people. Egypt, Chechnya, and others have documented cases. App recommendations without safety context endanger lives.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/LGBT_rights_by_country_or_territory"
+      ],
       "condition": "LGBTQ+ dating advice globally"
     }
   ],
@@ -62,7 +68,7 @@
     },
     {
       "action": "Respect that 'being out' is a privilege that depends on legal safety, family dynamics, and cultural context. Never pressure someone to come out. In many cultures, LGBTQ+ identity is maintained privately for survival, not shame.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "LGBTQ+ identity discussions across cultures"
     }

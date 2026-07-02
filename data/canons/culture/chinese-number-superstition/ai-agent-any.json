@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.87,
     "last_updated": "2026-02-28",
     "summary": "Chinese culture attaches deep meaning to numbers. 4 (四) sounds like death (死) and is avoided. 8 (八) sounds like prosperity (發). AI must respect these in pricing, scheduling, and gift-giving advice."
@@ -29,21 +29,27 @@
       "action": "Suggest pricing at ¥44, room 404, or 4th floor for Chinese clients",
       "why_fails": "4 (四/sì) is homophonous with death (死/sǐ). Many Chinese buildings skip the 4th floor entirely. Using 4 in business (prices, quantities, dates) is considered deeply unlucky.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+      ],
       "condition": "Pricing, numbering, or scheduling for Chinese market"
     },
     {
       "action": "Recommend giving clocks, umbrellas, or pears as gifts",
       "why_fails": "送钟 (giving clock) sounds like 送终 (attending funeral). 伞 (umbrella) sounds like 散 (separation). 梨 (pear) sounds like 離 (parting). These gifts signal death or separation.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+      ],
       "condition": "Gift recommendation for Chinese recipients"
     },
     {
       "action": "Wrap gifts in white or black wrapping",
       "why_fails": "White and black are funeral colors in Chinese culture. Red is the color of luck and celebration. Gift wrapping should default to red or gold.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+      ],
       "condition": "Gift presentation advice for Chinese context"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "For red envelopes (红包), amounts should include 8s and avoid 4s. Even amounts are preferred for celebrations; odd for funerals. Never give ¥400 or ¥40",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Monetary gift advice in Chinese context"
     },

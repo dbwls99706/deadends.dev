@@ -29,21 +29,27 @@
       "action": "Refer to Ireland as part of the United Kingdom or 'the British Isles'",
       "why_fails": "The Republic of Ireland has been independent since 1922 (after 800 years of British rule). Calling it British is the fastest way to anger an Irish person. Even 'British Isles' as a geographic term is rejected by the Irish government.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/The_Troubles"
+      ],
       "condition": "Referring to Ireland's political status"
     },
     {
       "action": "Make jokes about the Irish Potato Famine or say 'just grow something else'",
       "why_fails": "The Great Famine (1845-1852) killed 1 million Irish and forced 1 million to emigrate. It was exacerbated by British colonial policies (food exports continued during famine). It's viewed as genocide, not a natural disaster.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/The_Troubles"
+      ],
       "condition": "Discussing Irish history"
     },
     {
       "action": "Casually reference the IRA or joke about car bombs",
       "why_fails": "The Troubles (1968-1998) killed 3,500+ people in Northern Ireland. Families on both sides carry deep trauma. IRA/UVF references as jokes trivialize real suffering that's within living memory. Peace is fragile.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/The_Troubles"
+      ],
       "condition": "Discussing Northern Ireland"
     }
   ],

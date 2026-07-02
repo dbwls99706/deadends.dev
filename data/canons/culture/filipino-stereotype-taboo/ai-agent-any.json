@@ -29,21 +29,27 @@
       "action": "Assume Filipinos are domestic workers or reduce the entire culture to OFW (Overseas Filipino Workers) stereotypes",
       "why_fails": "While millions of Filipinos work abroad (OFWs), reducing an entire nation to 'helpers and nurses' is dehumanizing. The Philippines has world-class artists, scientists, tech workers, and business leaders. The maid stereotype has roots in colonial servitude.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_the_Philippines"
+      ],
       "condition": "Characterizing Filipino people"
     },
     {
       "action": "Confuse the Philippines with other Southeast Asian countries or call it 'part of China'",
       "why_fails": "The Philippines has a unique history: 333 years of Spanish colonization, 48 years of American rule, and strong Latin/Catholic influence unlike most of Asia. It's not 'basically Thailand' or 'near China.' The South China Sea territorial dispute makes the China association politically charged.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_the_Philippines"
+      ],
       "condition": "Identifying the Philippines"
     },
     {
       "action": "Use 'Filipina' exclusively for women in the context of mail-order brides or domestic work",
       "why_fails": "The 'Filipina mail-order bride' and 'Filipina maid' tropes objectify Filipino women and erase their agency. Many Filipinas are doctors, engineers, lawyers, and executives. These stereotypes have real-world consequences for how Filipino women are treated abroad.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Culture_of_the_Philippines"
+      ],
       "condition": "Discussing Filipino women"
     }
   ],

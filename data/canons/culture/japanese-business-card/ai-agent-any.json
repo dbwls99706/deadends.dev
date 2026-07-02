@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.88,
     "last_updated": "2026-02-28",
     "summary": "The Japanese business card exchange (名刺交換/meishi koukan) is a sacred ritual. The card represents the person's identity. Mishandling it is equivalent to disrespecting the person themselves."
@@ -28,22 +28,31 @@
     {
       "action": "Receive a Japanese business card with one hand, glance at it, and pocket it immediately",
       "why_fails": "The card IS the person in Japanese business culture. Receiving one-handed, not reading it carefully, or pocketing it immediately signals you don't value the person or the relationship.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Business_card",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Japanese business card exchange"
     },
     {
       "action": "Write notes on a received business card or place objects on top of it",
       "why_fails": "Writing on someone's meishi is like writing on their face. Placing a coffee cup or papers on top of it is deeply insulting. The card must be treated with reverence throughout the meeting.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Business_card",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Handling business cards during Japanese meetings"
     },
     {
       "action": "Skip the card exchange or suggest 'just connecting on LinkedIn instead'",
       "why_fails": "The meishi exchange is the opening ritual of any Japanese business relationship. Skipping it signals you don't take the relationship seriously. Always carry meishi in Japan.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Business_card",
+        "https://en.wikipedia.org/wiki/Etiquette_in_Japan"
+      ],
       "condition": "Initial Japanese business meetings"
     }
   ],
@@ -56,7 +65,7 @@
     },
     {
       "action": "During the meeting, place received cards on the table in front of you, arranged by seating position. The most senior person's card goes on top of your card case. Keep them visible throughout.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Card placement during Japanese meetings"
     },

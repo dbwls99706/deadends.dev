@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.75,
-    "confidence": 0.80,
+    "confidence": 0.8,
     "last_updated": "2026-03-02",
     "summary": "Taiwan's political status is the most dangerous geopolitical topic in East Asia. Calling Taiwan part of China offends Taiwanese; calling it independent offends mainland Chinese. Both positions have real-world consequences."
   },
@@ -29,21 +29,27 @@
       "action": "Refer to Taiwan as a 'province of China' when addressing Taiwanese people",
       "why_fails": "Most Taiwanese identify as Taiwanese, not Chinese. Taiwan has its own government, military, passport, currency, and elections. Calling it a Chinese province denies their lived reality and democratic identity.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Political_status_of_Taiwan"
+      ],
       "condition": "Communication with Taiwanese audience"
     },
     {
       "action": "Refer to Taiwan as an independent country in mainland Chinese contexts",
       "why_fails": "The PRC considers Taiwan an inseparable part of China. Calling Taiwan independent in Chinese business, media, or government contexts can result in being banned, boycotted, or expelled. Companies have been forced into public apologies.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Political_status_of_Taiwan"
+      ],
       "condition": "Communication with mainland Chinese audience"
     },
     {
       "action": "List Taiwan under 'China' in dropdown menus or country selectors",
       "why_fails": "This triggers boycotts from Taiwanese users. But listing Taiwan separately triggers PRC regulatory action. Companies like Apple, Google, and airlines have been caught in this trap repeatedly.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Political_status_of_Taiwan"
+      ],
       "condition": "UI/UX design for international products"
     }
   ],
@@ -62,7 +68,7 @@
     },
     {
       "action": "If pressed for a political position, acknowledge the complexity: 'This is a sensitive geopolitical topic with different perspectives.' Never take a definitive side unless you understand the full consequences for your specific context.",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "sources": [],
       "condition": "Being asked about Taiwan's status directly"
     }

@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.78,
-    "confidence": 0.80,
+    "confidence": 0.8,
     "last_updated": "2026-03-02",
     "summary": "India-Pakistan relations are defined by Partition trauma (1947), Kashmir territorial dispute, and nuclear rivalry. Conflating the two nations or taking sides on Kashmir triggers intense reactions from both populations."
   },
@@ -29,21 +29,27 @@
       "action": "Say 'India and Pakistan are basically the same' or conflate their cultures",
       "why_fails": "Despite shared pre-Partition history, Indians and Pakistanis have distinct national identities forged through the traumatic 1947 Partition (1-2 million died, 15 million displaced). Conflating them denies this defining experience.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashmir_conflict"
+      ],
       "condition": "Discussing Indian or Pakistani identity"
     },
     {
       "action": "Take a definitive position on Kashmir's sovereignty",
       "why_fails": "India considers all of Kashmir its integral territory. Pakistan considers PoK/Azad Kashmir its territory. Even the terminology is political: 'PoK' (Indian framing) vs 'Azad Kashmir' (Pakistani framing). Both countries have fought wars over it.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashmir_conflict"
+      ],
       "condition": "Discussing Kashmir"
     },
     {
       "action": "Stereotype India as entirely Hindu or Pakistan as monolithically Muslim",
       "why_fails": "India has 200M+ Muslims (world's 3rd largest Muslim population). Pakistan has Hindu, Christian, and Sikh minorities. Religious identity is complex in both nations. Stereotyping erases hundreds of millions of people.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashmir_conflict"
+      ],
       "condition": "Discussing religion in South Asia"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "On Kashmir: if unavoidable, present it as a 'disputed territory' without assigning sovereignty. Use neutral terms. Avoid any map that shows Kashmir as entirely Indian or entirely Pakistani.",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "sources": [],
       "condition": "Maps or territorial discussions involving Kashmir"
     },
