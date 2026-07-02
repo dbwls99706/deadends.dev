@@ -30,6 +30,12 @@ DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
 
 _CANONS_CACHE: list[dict] | None = None
 
+# Compiled regex cache, index-aligned with the canons list it was built from.
+# The stdlib re module caches at most 512 patterns internally, so with 2000+
+# canons every lookup would otherwise recompile the full pattern set.
+_REGEX_CACHE: list["re.Pattern | None"] = []
+_REGEX_CACHE_SOURCE: list[dict] | None = None
+
 
 def _load_canons() -> list[dict]:
     """Load all canon data (cached after first call)."""
@@ -43,6 +49,32 @@ def _load_canons() -> list[dict]:
             canons.append(json.load(fh))
     _CANONS_CACHE = canons
     return canons
+
+
+def _get_compiled_regexes(canons: list[dict]) -> list["re.Pattern | None"]:
+    """Compile each canon's regex once, invalidating if the canon list changes.
+
+    Entries are None for canons with missing or invalid regexes (warned once
+    at compile time instead of on every lookup).
+    """
+    global _REGEX_CACHE, _REGEX_CACHE_SOURCE
+    if _REGEX_CACHE_SOURCE is canons:
+        return _REGEX_CACHE
+
+    compiled: list[re.Pattern | None] = []
+    for canon in canons:
+        try:
+            compiled.append(re.compile(canon["error"]["regex"], re.IGNORECASE))
+        except (re.error, KeyError, TypeError) as e:
+            print(
+                f"[lookup] skipping invalid regex in canon "
+                f"{canon.get('id', '?')}: {e}",
+                file=sys.stderr,
+            )
+            compiled.append(None)
+    _REGEX_CACHE = compiled
+    _REGEX_CACHE_SOURCE = canons
+    return compiled
 
 
 def _compute_freshness(canon: dict) -> str:
@@ -143,13 +175,11 @@ def lookup_all(error_message: str) -> list[dict]:
     extracted = _extract_error_lines(error_message)
 
     canons = _load_canons()
+    patterns = _get_compiled_regexes(canons)
     matches = []
 
-    for canon in canons:
-        try:
-            pattern = re.compile(canon["error"]["regex"], re.IGNORECASE)
-        except re.error as e:
-            print(f"[lookup] skipping canon with invalid regex: {e}", file=sys.stderr)
+    for canon, pattern in zip(canons, patterns):
+        if pattern is None:
             continue
 
         try:

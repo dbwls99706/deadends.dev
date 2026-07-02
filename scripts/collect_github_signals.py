@@ -65,7 +65,7 @@ def score_item(item: dict, labels: list[str]) -> tuple[int, list[str]]:
     if (item.get("comments") or 0) >= 2:
         score += 1
         reasons.append("has_multiple_comments")
-    lower_labels = [l.lower() for l in labels if l]
+    lower_labels = [label.lower() for label in labels if label]
     if any(k in lower_labels for k in ["bug", "fix", "regression", "confirmed"]):
         score += 1
         reasons.append("quality_labels")
