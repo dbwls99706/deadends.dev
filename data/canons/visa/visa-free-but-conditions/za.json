@@ -44,7 +44,11 @@
     {
       "action": "Travel with a passport that has fewer than 2 blank pages",
       "why_fails": "South Africa requires sufficient passport validity and at least 2 blank visa pages; insufficient pages can lead to refused entry.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.dha.gov.za/",
+        "https://www.ehome.dha.gov.za/"
+      ]
     }
   ],
   "workarounds": [

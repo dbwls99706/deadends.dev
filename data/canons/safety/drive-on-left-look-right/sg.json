@@ -45,7 +45,11 @@
       "action": "Rent and drive without adjusting to left-hand traffic or carrying the right permit",
       "why_fails": "Driving on the unfamiliar side without a valid licence/International Driving Permit risks accidents and can void insurance.",
       "fail_rate": 0.5,
-      "condition": "Driving or riding"
+      "condition": "Driving or riding",
+      "sources": [
+        "https://onemotoring.lta.gov.sg/",
+        "https://www.police.gov.sg/"
+      ]
     }
   ],
   "workarounds": [

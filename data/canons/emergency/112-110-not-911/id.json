@@ -45,7 +45,11 @@
       "action": "Assume 112 works identically everywhere in Indonesia",
       "why_fails": "112 coverage is strong in major cities but can be inconsistent in remote areas. Where 112 does not connect, fall back to 110/113/118.",
       "fail_rate": 0.4,
-      "condition": "Remote or rural area"
+      "condition": "Remote or rural area",
+      "sources": [
+        "https://www.indonesia.travel/",
+        "https://www.imigrasi.go.id/"
+      ]
     }
   ],
   "workarounds": [

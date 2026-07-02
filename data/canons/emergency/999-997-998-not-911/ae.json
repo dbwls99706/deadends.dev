@@ -45,7 +45,11 @@
       "action": "Dial 999 for an ambulance",
       "why_fails": "999 is police; ambulances are dispatched on 998. While services coordinate, dialing 998 directly for medical emergencies is faster.",
       "fail_rate": 0.4,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://u.ae/en/information-and-services/justice-safety-and-the-law/emergencies-and-accidents",
+        "https://u.ae/"
+      ]
     }
   ],
   "workarounds": [

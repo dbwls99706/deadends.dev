@@ -44,7 +44,10 @@
       "action": "Overstay the 30-day VOA assuming a small fine at the airport",
       "why_fails": "Overstaying incurs a daily fine (around IDR 1,000,000/day) and longer overstays can mean detention and deportation. Extend before expiry instead.",
       "fail_rate": 0.7,
-      "condition": "Overstaying the 30-day VOA"
+      "condition": "Overstaying the 30-day VOA",
+      "sources": [
+        "https://www.imigrasi.go.id/"
+      ]
     }
   ],
   "workarounds": [

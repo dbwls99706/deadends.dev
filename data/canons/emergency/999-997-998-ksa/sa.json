@@ -44,7 +44,11 @@
     {
       "action": "Assume 911 works everywhere in Saudi Arabia",
       "why_fails": "911 has been introduced as a unified number in some regions (Makkah, Riyadh) but is not yet nationwide; 999/997/998 remain the reliable service numbers.",
-      "fail_rate": 0.4
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.moi.gov.sa/",
+        "https://www.my.gov.sa/"
+      ]
     }
   ],
   "workarounds": [

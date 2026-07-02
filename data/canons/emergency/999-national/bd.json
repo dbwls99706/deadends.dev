@@ -44,7 +44,11 @@
     {
       "action": "Dial 911 because Bangladesh is a large country",
       "why_fails": "Bangladesh's national emergency number is 999, not 911; a 911 call does not connect.",
-      "fail_rate": 0.6
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.999.gov.bd/",
+        "https://www.police.gov.bd/"
+      ]
     }
   ],
   "workarounds": [

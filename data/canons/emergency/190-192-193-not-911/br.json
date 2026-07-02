@@ -45,7 +45,11 @@
       "action": "Call 190 (police) for a medical emergency",
       "why_fails": "190 reaches the military police; medical emergencies go to SAMU on 192. Calling 190 for a health crisis delays the ambulance.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.gov.br/mj/pt-br",
+        "https://www.gov.br/"
+      ]
     }
   ],
   "workarounds": [

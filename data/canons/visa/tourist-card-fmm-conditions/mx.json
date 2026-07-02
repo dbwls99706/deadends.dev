@@ -44,7 +44,11 @@
     {
       "action": "Lose or discard your entry stamp or FMM",
       "why_fails": "You must present the entry record on departure; losing it leads to fees and delays at the airport.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gob.mx/inm",
+        "https://www.inm.gob.mx/"
+      ]
     }
   ],
   "workarounds": [

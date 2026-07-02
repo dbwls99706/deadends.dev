@@ -43,7 +43,11 @@
     {
       "action": "Use a friend's address or a hotel as 'proof of address'",
       "why_fails": "Banks verify address documents against your name; mismatched or temporary addresses (hotels) are rejected and can flag the application.",
-      "fail_rate": 0.55
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/",
+        "https://www.fca.org.uk/"
+      ]
     }
   ],
   "workarounds": [

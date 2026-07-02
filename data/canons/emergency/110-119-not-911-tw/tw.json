@@ -45,7 +45,11 @@
       "action": "Call 110 (police) for a medical emergency or fire",
       "why_fails": "110 is police; fire and ambulance are both on 119. Using 110 for a medical case or fire forces a transfer.",
       "fail_rate": 0.5,
-      "condition": "Fire or medical emergency"
+      "condition": "Fire or medical emergency",
+      "sources": [
+        "https://eng.taiwan.net.tw/",
+        "https://www.npa.gov.tw/"
+      ]
     }
   ],
   "workarounds": [

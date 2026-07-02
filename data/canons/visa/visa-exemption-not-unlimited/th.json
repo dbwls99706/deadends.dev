@@ -45,7 +45,11 @@
       "action": "Plan to 'fix' an overstay quietly at the airport on departure",
       "why_fails": "Overstays are recorded; you pay 500 THB/day (max 20,000) at departure and longer overstays lead to automatic re-entry bans of 1–10 years. It is not waved through.",
       "fail_rate": 0.7,
-      "condition": "Overstaying the permitted period"
+      "condition": "Overstaying the permitted period",
+      "sources": [
+        "https://www.mfa.go.th/en/",
+        "https://www.immigration.go.th/"
+      ]
     }
   ],
   "workarounds": [

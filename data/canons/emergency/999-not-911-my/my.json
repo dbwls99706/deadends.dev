@@ -45,7 +45,11 @@
       "action": "Dial 911 expecting it to work in Malaysia",
       "why_fails": "Malaysia's emergency number is 999, not 911. While 112 from a mobile routes to 999, 911 is not the assigned number.",
       "fail_rate": 0.6,
-      "condition": "Assuming US conventions apply"
+      "condition": "Assuming US conventions apply",
+      "sources": [
+        "https://www.malaysia.gov.my/",
+        "https://www.rmp.gov.my/"
+      ]
     }
   ],
   "workarounds": [

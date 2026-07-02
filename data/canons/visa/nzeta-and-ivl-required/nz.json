@@ -44,7 +44,11 @@
     {
       "action": "Assume the NZeTA is free and instant",
       "why_fails": "The NZeTA has a processing fee plus the IVL levy and can take up to 72 hours to approve, so last-minute requests can miss a flight.",
-      "fail_rate": 0.4
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.immigration.govt.nz/",
+        "https://nzeta.immigration.govt.nz/"
+      ]
     }
   ],
   "workarounds": [

@@ -43,7 +43,11 @@
     {
       "action": "Use any standalone ATM and accept its currency-conversion offer",
       "why_fails": "Standalone non-bank ATMs have higher skimming risk and poor dynamic-currency-conversion rates; choosing 'with conversion' costs more.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gob.mx/condusef",
+        "https://www.banxico.org.mx/"
+      ]
     }
   ],
   "workarounds": [

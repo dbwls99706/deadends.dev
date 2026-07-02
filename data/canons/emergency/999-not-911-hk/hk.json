@@ -45,7 +45,11 @@
       "action": "Dial 911 because it is a major international city",
       "why_fails": "Hong Kong uses 999 (a legacy of British administration), not 911. 999 reaches a single operator who routes police, fire, or ambulance.",
       "fail_rate": 0.6,
-      "condition": "Assuming US conventions apply"
+      "condition": "Assuming US conventions apply",
+      "sources": [
+        "https://www.gov.hk/en/residents/communication/emergency/emergencyservices.htm",
+        "https://www.police.gov.hk/"
+      ]
     }
   ],
   "workarounds": [

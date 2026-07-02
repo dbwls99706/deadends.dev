@@ -45,7 +45,11 @@
       "action": "Assume 112 is for medical emergencies as in the EU single-number model",
       "why_fails": "In Norway 112 is the police number; medical emergencies go to 113 and fire to 110. Calling 112 for a medical case delays the ambulance.",
       "fail_rate": 0.45,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.helsenorge.no/en/",
+        "https://www.politiet.no/"
+      ]
     }
   ],
   "workarounds": [

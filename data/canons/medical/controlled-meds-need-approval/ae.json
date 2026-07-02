@@ -43,7 +43,11 @@
     {
       "action": "Assume small personal quantities are ignored at customs",
       "why_fails": "UAE customs screen for controlled substances regardless of quantity; even trace amounts have led to arrests.",
-      "fail_rate": 0.6
+      "fail_rate": 0.6,
+      "sources": [
+        "https://mohap.gov.ae/en/services/registration-of-import-of-personal-medicines",
+        "https://u.ae/"
+      ]
     }
   ],
   "workarounds": [

@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "sg",
@@ -42,7 +45,11 @@
       "action": "Call 995 for a minor ailment or non-urgent transport to hospital",
       "why_fails": "995 dispatches emergency ambulances for life-threatening cases. Using it for non-emergencies can delay help for someone in critical condition and may incur charges. SCDF asks the public to use 1777 (non-emergency ambulance) or private transport instead.",
       "fail_rate": 0.5,
-      "condition": "Non-life-threatening medical situation"
+      "condition": "Non-life-threatening medical situation",
+      "sources": [
+        "https://www.police.gov.sg/",
+        "https://www.scdf.gov.sg/"
+      ]
     }
   ],
   "workarounds": [

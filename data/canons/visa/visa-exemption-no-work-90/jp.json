@@ -44,7 +44,10 @@
       "action": "Plan to extend the 90-day visa-free stay to keep living in Japan",
       "why_fails": "The visa-exemption period generally cannot be extended; you must leave and the rule is not a renewable residence permit. Repeated back-to-back entries can also be refused.",
       "fail_rate": 0.7,
-      "condition": "Trying to extend beyond the granted short-stay period"
+      "condition": "Trying to extend beyond the granted short-stay period",
+      "sources": [
+        "https://www.mofa.go.jp/j_info/visit/visa/short/novisa.html"
+      ]
     }
   ],
   "workarounds": [

@@ -45,7 +45,11 @@
       "action": "Call 122 (police) for a medical emergency",
       "why_fails": "122 is police; ambulances come via 123. Calling the wrong line delays medical response.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://egypt.travel/",
+        "https://www.sis.gov.eg/"
+      ]
     }
   ],
   "workarounds": [

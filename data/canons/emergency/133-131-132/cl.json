@@ -45,7 +45,11 @@
       "action": "Call 133 (police) for a medical emergency",
       "why_fails": "133 reaches Carabineros (police); ambulances come via 131 (SAMU). Calling the wrong line delays medical help.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.gob.cl/",
+        "https://www.carabineros.cl/"
+      ]
     }
   ],
   "workarounds": [

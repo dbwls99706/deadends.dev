@@ -44,7 +44,11 @@
     {
       "action": "Brush teeth or rinse raw salad with tap water",
       "why_fails": "Even small amounts of contaminated water - brushing teeth, rinsing produce, melting ice - can cause illness.",
-      "fail_rate": 0.45
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.who.int/health-topics/water-sanitation-and-hygiene-wash",
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/morocco"
+      ]
     }
   ],
   "workarounds": [

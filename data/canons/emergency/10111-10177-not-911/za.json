@@ -45,7 +45,11 @@
       "action": "Assume there is one national fire number like ambulance",
       "why_fails": "Fire services in South Africa are run by local municipalities, so the fire number varies by city. Use 112 from a mobile, which routes to the nearest service.",
       "fail_rate": 0.45,
-      "condition": "Reporting a fire"
+      "condition": "Reporting a fire",
+      "sources": [
+        "https://www.saps.gov.za/",
+        "https://www.gov.za/"
+      ]
     }
   ],
   "workarounds": [

@@ -44,7 +44,10 @@
       "action": "Assume a foreigner/wealth account works like a basic local account",
       "why_fails": "Foreigner or priority accounts often require high minimum balances (and fees if not met) and are not designed for everyday low-balance use.",
       "fail_rate": 0.5,
-      "condition": "Using a wealth account for everyday banking"
+      "condition": "Using a wealth account for everyday banking",
+      "sources": [
+        "https://www.mas.gov.sg/"
+      ]
     }
   ],
   "workarounds": [

@@ -44,7 +44,11 @@
       "action": "Open an Indonesian bank account as a tourist to handle payments",
       "why_fails": "Banks generally require a KITAS/KITAP stay permit and a local tax ID; tourists are usually declined. Local e-wallets (GoPay, OVO) also need an Indonesian number and account.",
       "fail_rate": 0.7,
-      "condition": "Tourist without a stay permit"
+      "condition": "Tourist without a stay permit",
+      "sources": [
+        "https://www.indonesia.travel/",
+        "https://www.bi.go.id/"
+      ]
     }
   ],
   "workarounds": [

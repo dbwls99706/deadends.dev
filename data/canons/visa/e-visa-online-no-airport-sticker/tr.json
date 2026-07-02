@@ -43,7 +43,11 @@
     {
       "action": "Apply through a third-party 'Turkey visa' website",
       "why_fails": "Unofficial sites overcharge and may issue invalid documents; only the government portal issues the genuine e-Visa.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.evisa.gov.tr/",
+        "https://www.mfa.gov.tr/"
+      ]
     }
   ],
   "workarounds": [

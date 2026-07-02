@@ -45,7 +45,11 @@
       "action": "Drink from any tap, including those marked non-potable",
       "why_fails": "A few taps (industrial, some train/station taps) are labeled non-potable; heed signage that says it is not for drinking.",
       "fail_rate": 0.3,
-      "condition": "Tap marked non-potable"
+      "condition": "Tap marked non-potable",
+      "sources": [
+        "https://www.waterworks.metro.tokyo.lg.jp/eng/",
+        "https://www.japan.travel/en/"
+      ]
     }
   ],
   "workarounds": [

@@ -45,7 +45,11 @@
       "action": "Bring more than one month's supply of prescription medicine without a Yakkan Shoumei",
       "why_fails": "Importing over roughly one month's supply, or controlled/injectable items beyond limits, requires a Yakkan Shoumei certificate obtained in advance; without it customs can confiscate or detain.",
       "fail_rate": 0.6,
-      "condition": "Over ~1 month supply or controlled item"
+      "condition": "Over ~1 month supply or controlled item",
+      "sources": [
+        "https://jp.usembassy.gov/services/importing-medication/",
+        "https://www.mhlw.go.jp/english/"
+      ]
     }
   ],
   "workarounds": [

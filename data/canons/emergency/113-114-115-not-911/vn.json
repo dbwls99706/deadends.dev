@@ -45,7 +45,11 @@
       "action": "Expect fluent English on the emergency line",
       "why_fails": "Operators on 113/114/115 often have limited English. Without a clear Vietnamese address or landmark, dispatch is slow. Have your location written in Vietnamese or share GPS.",
       "fail_rate": 0.45,
-      "condition": "Non-Vietnamese-speaking caller"
+      "condition": "Non-Vietnamese-speaking caller",
+      "sources": [
+        "https://vietnam.travel/",
+        "https://evisa.gov.vn/"
+      ]
     }
   ],
   "workarounds": [

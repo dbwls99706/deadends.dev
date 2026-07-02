@@ -44,7 +44,10 @@
       "action": "Apply for the e-visa through a random third-party site at the last minute",
       "why_fails": "Unofficial sites overcharge and may submit incorrectly; processing also takes about 3 working days, so last-minute applications can miss the flight.",
       "fail_rate": 0.5,
-      "condition": "Using non-official sites or applying too late"
+      "condition": "Using non-official sites or applying too late",
+      "sources": [
+        "https://evisa.gov.vn/"
+      ]
     }
   ],
   "workarounds": [

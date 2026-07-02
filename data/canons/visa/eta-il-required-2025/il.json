@@ -44,7 +44,11 @@
     {
       "action": "Assume the ETA-IL covers nationalities that still require a full visa",
       "why_fails": "The ETA-IL is only for visa-exempt nationals; travelers who require a visa must still obtain one from an Israeli consulate.",
-      "fail_rate": 0.4
+      "fail_rate": 0.4,
+      "sources": [
+        "https://israel-entry.piba.gov.il/",
+        "https://www.gov.il/"
+      ]
     }
   ],
   "workarounds": [

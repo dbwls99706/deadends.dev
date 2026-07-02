@@ -44,7 +44,11 @@
       "action": "Dial 911 for an ambulance expecting medical dispatch",
       "why_fails": "911 is police-focused in most provinces; for a medical emergency call 107 (SAME) directly to avoid a transfer.",
       "fail_rate": 0.45,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.argentina.gob.ar/",
+        "https://www.buenosaires.gob.ar/"
+      ]
     }
   ],
   "workarounds": [

@@ -45,7 +45,11 @@
       "action": "Overstay the 16-day e-visa limit or use it for work/long stays",
       "why_fails": "The e-visa permits a stay of up to 16 days for tourism/business/visit only; working or overstaying breaches it and risks penalties.",
       "fail_rate": 0.5,
-      "condition": "Work or stay beyond 16 days"
+      "condition": "Work or stay beyond 16 days",
+      "sources": [
+        "https://electronic-visa.kdmid.ru/",
+        "https://www.mid.ru/"
+      ]
     }
   ],
   "workarounds": [

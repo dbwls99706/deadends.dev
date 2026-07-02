@@ -45,7 +45,11 @@
       "action": "Dial 19 (urban police) when you are outside a city",
       "why_fails": "Outside urban areas the Gendarmerie Royale (177) has jurisdiction, not the 19 police line; dialing 19 in the countryside reaches the wrong service.",
       "fail_rate": 0.45,
-      "condition": "Rural area"
+      "condition": "Rural area",
+      "sources": [
+        "https://www.dgsn.gov.ma/",
+        "https://www.gendarmerie.ma/"
+      ]
     }
   ],
   "workarounds": [
