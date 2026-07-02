@@ -29,14 +29,18 @@
       "action": "Set num_workers=0",
       "why_fails": "Single-threaded, very slow data loading",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     },
     {
       "action": "Increase swap space",
       "why_fails": "Extremely slow when swapping",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     }
   ],

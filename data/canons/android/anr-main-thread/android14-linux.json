@@ -29,14 +29,18 @@
       "action": "Increase ANR timeout",
       "why_fails": "Not configurable by app",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/topic/performance/vitals/anr"
+      ],
       "condition": ""
     },
     {
       "action": "Use StrictMode.permitAll()",
       "why_fails": "Hides real threading issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/topic/performance/vitals/anr"
+      ],
       "condition": ""
     }
   ],

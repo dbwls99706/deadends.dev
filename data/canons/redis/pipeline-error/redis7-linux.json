@@ -29,14 +29,18 @@
       "action": "Execute commands individually",
       "why_fails": "Much slower without pipelining",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry entire pipeline on any failure",
       "why_fails": "May duplicate side effects",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

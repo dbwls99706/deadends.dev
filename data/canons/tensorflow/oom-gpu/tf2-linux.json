@@ -29,14 +29,18 @@
       "action": "Set allow_growth=False with pre-allocated 100%",
       "why_fails": "Other processes cant use GPU",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     },
     {
       "action": "Move to CPU entirely",
       "why_fails": "Orders of magnitude slower",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     }
   ],

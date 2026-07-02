@@ -29,14 +29,18 @@
       "action": "Disable freshness checks",
       "why_fails": "Silent stale data in reports",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://airflow.apache.org/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Re-run full pipeline on every check",
       "why_fails": "Very expensive and slow",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://airflow.apache.org/docs/"
+      ],
       "condition": ""
     }
   ],

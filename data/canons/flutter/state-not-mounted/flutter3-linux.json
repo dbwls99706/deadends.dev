@@ -29,14 +29,18 @@
       "action": "Ignore the error",
       "why_fails": "May cause inconsistent UI state",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all async operations",
       "why_fails": "Breaks app functionality",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     }
   ],

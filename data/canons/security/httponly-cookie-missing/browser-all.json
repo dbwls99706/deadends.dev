@@ -29,14 +29,18 @@
       "action": "Set cookie via JavaScript document.cookie",
       "why_fails": "JS-set cookies cannot have HttpOnly flag - must be set server-side.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Rely on SameSite alone for protection",
       "why_fails": "SameSite prevents CSRF but not XSS-based cookie theft.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

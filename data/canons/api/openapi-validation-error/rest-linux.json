@@ -29,14 +29,18 @@
       "action": "Disable server-side validation",
       "why_fails": "Invalid data in system",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://spec.openapis.org/oas/latest.html"
+      ],
       "condition": ""
     },
     {
       "action": "Send minimal payload",
       "why_fails": "May miss required fields",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://spec.openapis.org/oas/latest.html"
+      ],
       "condition": ""
     }
   ],

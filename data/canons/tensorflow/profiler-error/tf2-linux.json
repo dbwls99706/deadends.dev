@@ -29,14 +29,18 @@
       "action": "Disable all profiling",
       "why_fails": "No performance visibility",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Run multiple profilers simultaneously",
       "why_fails": "Resource conflict",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

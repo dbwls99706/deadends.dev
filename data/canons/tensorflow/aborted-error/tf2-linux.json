@@ -29,14 +29,18 @@
       "action": "Restart failed worker without syncing",
       "why_fails": "Gradient staleness and divergence",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Remove fault tolerance and retry logic",
       "why_fails": "Training crashes completely on any failure",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

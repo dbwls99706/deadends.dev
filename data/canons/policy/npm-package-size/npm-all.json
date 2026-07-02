@@ -29,14 +29,18 @@
       "action": "Split into multiple packages over 200MB each",
       "why_fails": "Each package has the same limit.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.npmjs.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Compress assets within the package",
       "why_fails": "npm publishes the tarball; internal compression does not help.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.npmjs.com/"
+      ],
       "condition": ""
     }
   ],

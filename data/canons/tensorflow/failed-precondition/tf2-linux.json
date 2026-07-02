@@ -29,14 +29,18 @@
       "action": "Add tf.compat.v1.global_variables_initializer() everywhere",
       "why_fails": "Band-aid for TF1 code, not idiomatic TF2",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Disable eager execution globally",
       "why_fails": "Breaks TF2 APIs and Keras",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

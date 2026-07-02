@@ -29,14 +29,18 @@
       "action": "Target API < 26 to skip channels",
       "why_fails": "Store rejection, missing features",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Create channel on every notification",
       "why_fails": "Wasteful but works",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

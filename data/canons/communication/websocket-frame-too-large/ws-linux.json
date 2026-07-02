@@ -29,14 +29,18 @@
       "action": "Set max frame size to unlimited",
       "why_fails": "Memory abuse vector",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://man7.org/linux/man-pages/man7/tcp.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Fragment messages at random points",
       "why_fails": "Breaks message semantics",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://man7.org/linux/man-pages/man7/tcp.7.html"
+      ],
       "condition": ""
     }
   ],

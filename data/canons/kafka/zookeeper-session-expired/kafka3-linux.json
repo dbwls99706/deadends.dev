@@ -29,14 +29,18 @@
       "action": "Increase session timeout to hours",
       "why_fails": "Slow failure detection",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove ZooKeeper quorum check",
       "why_fails": "Split-brain risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

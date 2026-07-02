@@ -29,14 +29,18 @@
       "action": "Use OpenCV DNN for all models",
       "why_fails": "Not all frameworks supported",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore inference errors",
       "why_fails": "No detection output",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

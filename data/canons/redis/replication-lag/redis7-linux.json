@@ -29,14 +29,18 @@
       "action": "Force full resync constantly",
       "why_fails": "Huge network and CPU cost",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable replication",
       "why_fails": "No redundancy",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
+      ],
       "condition": ""
     }
   ],

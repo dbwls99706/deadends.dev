@@ -29,14 +29,18 @@
       "action": "Clone all shared parameters",
       "why_fails": "Doubles memory, breaks weight tying",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore gradient warnings",
       "why_fails": "Incorrect gradient updates",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

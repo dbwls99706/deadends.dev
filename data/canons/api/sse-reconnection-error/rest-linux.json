@@ -29,14 +29,18 @@
       "action": "Create new EventSource on every reconnect",
       "why_fails": "Loses Last-Event-ID context",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events"
+      ],
       "condition": ""
     },
     {
       "action": "Fall back to polling immediately",
       "why_fails": "Higher load, no streaming benefits",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events"
+      ],
       "condition": ""
     }
   ],

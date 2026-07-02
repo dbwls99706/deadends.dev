@@ -29,14 +29,18 @@
       "action": "Disable all initialization code",
       "why_fails": "Peripherals not configured",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Boot from RAM",
       "why_fails": "Volatile, lost on power cycle",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

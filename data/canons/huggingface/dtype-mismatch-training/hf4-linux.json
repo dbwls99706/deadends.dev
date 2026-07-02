@@ -29,14 +29,18 @@
       "action": "Cast all parameters to float32",
       "why_fails": "Doubles memory usage",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     },
     {
       "action": "Disable mixed precision",
       "why_fails": "Slower training",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     }
   ],

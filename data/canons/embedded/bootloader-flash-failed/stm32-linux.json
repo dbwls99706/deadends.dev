@@ -29,14 +29,18 @@
       "action": "Force erase entire flash",
       "why_fails": "Wipes bootloader if present",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Increase flash voltage blindly",
       "why_fails": "Can damage chip",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

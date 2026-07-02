@@ -29,14 +29,18 @@
       "action": "Remove all keys",
       "why_fails": "Loses state preservation and finder capability",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Generate random key on each build",
       "why_fails": "Key changes every rebuild",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

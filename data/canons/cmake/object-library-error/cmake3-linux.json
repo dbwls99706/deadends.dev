@@ -29,14 +29,18 @@
       "action": "Convert to STATIC library",
       "why_fails": "Changes library semantics",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use $<TARGET_OBJECTS:obj> everywhere",
       "why_fails": "Verbose, bypasses modern CMake",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

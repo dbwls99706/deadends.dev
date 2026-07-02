@@ -29,14 +29,18 @@
       "action": "Edit cmake_minimum_required to match old version",
       "why_fails": "May use features unavailable in old version",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Downgrade project code to old CMake syntax",
       "why_fails": "Maintenance burden",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

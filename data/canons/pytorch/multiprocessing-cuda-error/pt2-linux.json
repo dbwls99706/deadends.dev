@@ -29,14 +29,18 @@
       "action": "Initialize CUDA before fork",
       "why_fails": "Makes it worse, all children inherit context",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/cuda.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use threading instead of multiprocessing",
       "why_fails": "GIL limits parallelism",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/cuda.html"
+      ],
       "condition": ""
     }
   ],

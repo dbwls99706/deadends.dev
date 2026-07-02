@@ -29,14 +29,18 @@
       "action": "Manually fix each resource",
       "why_fails": "Error-prone, doesnt prevent recurrence",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore drift until next audit",
       "why_fails": "Accumulating risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/voip-calls-blocked-licensed-apps/ae",
+  "url": "https://deadends.dev/communication/voip-calls-blocked-licensed-apps/ae",
+  "error": {
+    "signature": "AI assumes WhatsApp/FaceTime voice or video calls work normally in the UAE",
+    "regex": "(uae|dubai|abu dhabi|emirates).{0,50}(whatsapp call|facetime|voip|video call|voice call|internet call)",
+    "domain": "communication",
+    "category": "telecom_restriction",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Unlicensed VoIP is a regulated (blocked) service in the UAE under the TDRA's VoIP policy: WhatsApp/FaceTime/Viber voice and video calls do not connect on UAE networks. Messaging works; calls require TDRA-licensed apps (e.g. Botim) or business tools like Teams and Zoom."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan to call family via WhatsApp or FaceTime from the UAE",
+      "why_fails": "Licensed operators are required to block unlicensed VoIP traffic under TDRA regulation; voice/video calls in WhatsApp, FaceTime and Viber fail on both mobile data and most Wi-Fi networks, while text messaging works.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://tdra.gov.ae/en/FAQs",
+        "https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/policies/cyber-activities/internet-access-management-regulatory-policy"
+      ]
+    },
+    {
+      "action": "Use a VPN specifically to place blocked VoIP calls",
+      "why_fails": "Using a VPN to commit an act prohibited by UAE law is itself an offence under cybercrime provisions, with heavy fines; reliability is also poor as VPN endpoints are actively blocked.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/policies/cyber-activities/internet-access-management-regulatory-policy"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use TDRA-licensed calling apps (Botim, C'ME, Voico) or business tools (Teams, Zoom)",
+      "success_rate": 0.85,
+      "how": "Install a licensed VoIP app after arrival (often bundled with local SIM/eSIM plans from e& or du), or schedule calls through enterprise platforms such as Microsoft Teams and Zoom, which are permitted.",
+      "sources": [
+        "https://tdra.gov.ae/en/FAQs"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

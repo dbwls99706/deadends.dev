@@ -29,14 +29,18 @@
       "action": "Disable xpack.security.enabled",
       "why_fails": "No authentication or encryption",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use elastic superuser for all applications",
       "why_fails": "Excessive privilege",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

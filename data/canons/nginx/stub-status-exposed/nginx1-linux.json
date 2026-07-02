@@ -29,14 +29,18 @@
       "action": "Remove stub_status entirely",
       "why_fails": "No monitoring visibility",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_stub_status_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Add basic auth only",
       "why_fails": "Credentials can be brute-forced",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_stub_status_module.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Process on CPU instead",
       "why_fails": "Orders of magnitude slower",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Allocate maximum GPU memory upfront",
       "why_fails": "Other processes cant use GPU",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

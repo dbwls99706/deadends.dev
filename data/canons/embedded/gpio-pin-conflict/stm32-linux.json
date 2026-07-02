@@ -29,14 +29,18 @@
       "action": "Force reconfigure pin without checking",
       "why_fails": "Breaks other peripheral silently",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Disable conflicting peripheral entirely",
       "why_fails": "Loses needed functionality",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

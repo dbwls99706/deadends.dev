@@ -29,14 +29,18 @@
       "action": "Kill and restart NameNode without safe mode",
       "why_fails": "Potential metadata corruption",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://hadoop.apache.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to secondary NameNode as primary",
       "why_fails": "SecondaryNN is for checkpointing not failover",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://hadoop.apache.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

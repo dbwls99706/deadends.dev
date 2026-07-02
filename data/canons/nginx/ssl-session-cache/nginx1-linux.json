@@ -29,14 +29,18 @@
       "action": "Disable SSL session cache",
       "why_fails": "Full handshake every connection",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_ssl_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set session timeout to days",
       "why_fails": "Stale session security risk",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_ssl_module.html"
+      ],
       "condition": ""
     }
   ],

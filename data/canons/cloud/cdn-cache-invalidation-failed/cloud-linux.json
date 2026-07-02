@@ -29,14 +29,18 @@
       "action": "Wait for TTL expiry",
       "why_fails": "Stale content served until TTL",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html"
+      ],
       "condition": ""
     },
     {
       "action": "Delete CDN distribution",
       "why_fails": "Service outage",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html"
+      ],
       "condition": ""
     }
   ],

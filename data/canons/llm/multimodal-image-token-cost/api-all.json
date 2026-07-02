@@ -29,14 +29,18 @@
       "action": "Send full-resolution images assuming tokens are cheap",
       "why_fails": "A single 4K image can use 10K+ tokens at high detail.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     },
     {
       "action": "Convert images to base64 to reduce token count",
       "why_fails": "Base64 encoding does not affect token count; it is how images are transmitted.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Increase temperature for more creative responses",
       "why_fails": "Worsens hallucination",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     },
     {
       "action": "Use longer prompts to force accuracy",
       "why_fails": "More context doesnt prevent hallucination",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     }
   ],

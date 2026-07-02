@@ -29,14 +29,18 @@
       "action": "Ignore framing errors",
       "why_fails": "Corrupted data processed",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Auto-detect baud rate",
       "why_fails": "Complex and unreliable",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

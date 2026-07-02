@@ -29,14 +29,18 @@
       "action": "Ignore redirects",
       "why_fails": "Commands fail silently",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     },
     {
       "action": "Follow redirects without updating slot map",
       "why_fails": "Constant redirects, slow",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     }
   ],

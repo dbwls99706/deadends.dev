@@ -29,14 +29,18 @@
       "action": "Increase CUDA memory fraction to 1.0",
       "why_fails": "No headroom for PyTorch cache, fragmentation crash",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/perf_train_gpu_one"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to CPU only",
       "why_fails": "Extremely slow for large models",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/perf_train_gpu_one"
+      ],
       "condition": ""
     }
   ],

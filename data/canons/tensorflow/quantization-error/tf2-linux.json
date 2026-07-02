@@ -29,14 +29,18 @@
       "action": "Skip layers that fail quantization",
       "why_fails": "Inconsistent precision in model",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Use dynamic range quantization only",
       "why_fails": "Lower accuracy than full integer",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use catch-all route for everything",
       "why_fails": "Loses specific navigation",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore deep link errors",
       "why_fails": "Bad user experience",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

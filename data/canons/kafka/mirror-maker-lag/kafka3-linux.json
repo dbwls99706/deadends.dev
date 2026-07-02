@@ -29,14 +29,18 @@
       "action": "Increase MirrorMaker tasks without checking resources",
       "why_fails": "OOM on worker",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Skip messages to catch up",
       "why_fails": "Data loss in target cluster",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Create new HttpClient per request",
       "why_fails": "Root cause of port exhaustion",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase ephemeral port range only",
       "why_fails": "Delays problem, doesnt fix root cause",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

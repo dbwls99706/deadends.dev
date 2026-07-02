@@ -29,14 +29,18 @@
       "action": "Pad or truncate embeddings to match",
       "why_fails": "Destroys semantic meaning",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/embeddings"
+      ],
       "condition": ""
     },
     {
       "action": "Use random projection to resize",
       "why_fails": "Loses information, poor similarity results",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/embeddings"
+      ],
       "condition": ""
     }
   ],

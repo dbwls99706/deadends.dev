@@ -29,14 +29,18 @@
       "action": "Pin protobuf to old version",
       "why_fails": "Misses security fixes",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     },
     {
       "action": "Regenerate proto files without matching library",
       "why_fails": "Same error with different versions",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     }
   ],

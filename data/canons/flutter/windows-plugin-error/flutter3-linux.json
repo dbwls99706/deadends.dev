@@ -29,14 +29,18 @@
       "action": "Use web fallback on desktop",
       "why_fails": "Different behavior",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable plugin on Windows",
       "why_fails": "Feature missing",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

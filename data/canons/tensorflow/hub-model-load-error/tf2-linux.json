@@ -29,14 +29,18 @@
       "action": "Download model binary manually",
       "why_fails": "Wrong format or version",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Use random Hub URL",
       "why_fails": "Wrong model for task",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

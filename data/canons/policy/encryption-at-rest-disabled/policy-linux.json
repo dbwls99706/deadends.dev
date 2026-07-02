@@ -29,14 +29,18 @@
       "action": "Enable encryption without key management plan",
       "why_fails": "Key loss means data loss",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Encrypt at application layer only",
       "why_fails": "Doesnt satisfy infrastructure compliance",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

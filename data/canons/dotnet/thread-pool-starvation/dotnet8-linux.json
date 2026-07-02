@@ -29,14 +29,18 @@
       "action": "Set minimum threads to very high number",
       "why_fails": "Excessive memory usage",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/standard/threading/the-managed-thread-pool"
+      ],
       "condition": ""
     },
     {
       "action": "Use Thread.Sleep in async methods",
       "why_fails": "Blocks thread pool threads",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/standard/threading/the-managed-thread-pool"
+      ],
       "condition": ""
     }
   ],

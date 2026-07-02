@@ -29,14 +29,18 @@
       "action": "Disable AOF persistence",
       "why_fails": "Data loss on crash",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+      ],
       "condition": ""
     },
     {
       "action": "Kill AOF rewrite process",
       "why_fails": "May corrupt AOF file",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+      ],
       "condition": ""
     }
   ],

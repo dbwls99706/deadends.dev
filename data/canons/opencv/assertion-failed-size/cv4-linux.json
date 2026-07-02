@@ -29,14 +29,18 @@
       "action": "Set default size when assertion fails",
       "why_fails": "Produces garbage image",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Catch exception and continue",
       "why_fails": "Downstream operations fail silently",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

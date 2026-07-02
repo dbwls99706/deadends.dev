@@ -29,14 +29,18 @@
       "action": "Set client_header_timeout very high",
       "why_fails": "Slowloris attack vector",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable timeout entirely",
       "why_fails": "DoS vulnerability",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     }
   ],

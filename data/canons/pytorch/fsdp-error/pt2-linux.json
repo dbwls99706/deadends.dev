@@ -29,14 +29,18 @@
       "action": "Use DDP instead of FSDP",
       "why_fails": "Requires more memory per GPU",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/ddp.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable sharding",
       "why_fails": "Same as DDP, defeats purpose",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/ddp.html"
+      ],
       "condition": ""
     }
   ],

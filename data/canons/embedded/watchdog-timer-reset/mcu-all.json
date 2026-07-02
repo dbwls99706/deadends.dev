@@ -29,14 +29,18 @@
       "action": "Disable watchdog timer entirely",
       "why_fails": "Removes the safety mechanism that recovers from lockups.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Set watchdog timeout to maximum value",
       "why_fails": "Masks timing issues that will resurface under load.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

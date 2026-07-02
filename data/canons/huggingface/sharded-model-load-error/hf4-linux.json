@@ -29,14 +29,18 @@
       "action": "Download only first shard",
       "why_fails": "Incomplete model, missing weights",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/safetensors/index"
+      ],
       "condition": ""
     },
     {
       "action": "Merge shards manually with cat",
       "why_fails": "Wrong format, fails to load",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/safetensors/index"
+      ],
       "condition": ""
     }
   ],

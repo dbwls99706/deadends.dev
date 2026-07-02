@@ -11,7 +11,10 @@
     "last_confirmed": "2026-03-02"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any"
   },
   "verdict": {
@@ -26,21 +29,25 @@
       "action": "Give universal self-defense legal advice without specifying jurisdiction",
       "why_fails": "Stand Your Ground (Florida, Texas): no duty to retreat anywhere. Duty to Retreat (most of Europe, Japan, some US states): must flee if safely possible. UK: 'reasonable force' (subjective). Japan: extremely strict proportional force requirement. Wrong advice = prison.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.law.cornell.edu/wex/self-defense"
+      ],
       "condition": "Self-defense legal questions"
     },
     {
       "action": "Assume Castle Doctrine applies universally",
       "why_fails": "Castle Doctrine (right to use force in your home) varies dramatically. US (most states): broad protection. UK: 'disproportionate force' test. Germany: must attempt retreat even at home in some cases. Some countries require you to flee your own home.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.law.cornell.edu/wex/self-defense"
+      ],
       "condition": "Home invasion legal advice"
     }
   ],
   "workarounds": [
     {
       "action": "ALWAYS state: 'Self-defense laws vary significantly by jurisdiction. This is general information, not legal advice. Consult a local attorney for your specific situation.' Then provide jurisdiction-specific information if the user's location is known.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Any self-defense legal question"
     },
@@ -51,7 +58,11 @@
       "condition": "Self-defense legal education"
     }
   ],
-  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
   "metadata": {
     "generated_by": "manual",
     "generation_date": "2026-03-02",

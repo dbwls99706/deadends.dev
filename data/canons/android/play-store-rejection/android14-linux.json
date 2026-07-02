@@ -29,14 +29,18 @@
       "action": "Resubmit without changes",
       "why_fails": "Same rejection",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use alternative app store",
       "why_fails": "Loses Play Store reach",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

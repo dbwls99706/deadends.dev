@@ -29,14 +29,18 @@
       "action": "Increase lock timeout to minutes",
       "why_fails": "Blocks other operations",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/transactions/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all transactions",
       "why_fails": "Loses atomicity guarantees",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/transactions/"
+      ],
       "condition": ""
     }
   ],

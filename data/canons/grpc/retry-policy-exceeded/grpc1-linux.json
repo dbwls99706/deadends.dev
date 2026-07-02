@@ -29,14 +29,18 @@
       "action": "Set unlimited retries",
       "why_fails": "Can loop forever on permanent errors",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/retry/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove retry policy",
       "why_fails": "No fault tolerance",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/retry/"
+      ],
       "condition": ""
     }
   ],

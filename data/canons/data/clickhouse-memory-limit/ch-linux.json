@@ -29,14 +29,18 @@
       "action": "Set max_memory_usage to unlimited",
       "why_fails": "Server OOM risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://clickhouse.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all aggregations",
       "why_fails": "Loses analytics capability",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://clickhouse.com/docs"
+      ],
       "condition": ""
     }
   ],

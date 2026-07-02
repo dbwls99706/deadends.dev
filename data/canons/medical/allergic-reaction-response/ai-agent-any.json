@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.92,
     "last_updated": "2026-03-02",
     "summary": "Anaphylaxis can kill in minutes. Antihistamines (Benadryl) are NOT sufficient - epinephrine (EpiPen) is the ONLY first-line treatment. Delays in epinephrine administration are the #1 cause of anaphylaxis death."
@@ -29,14 +29,18 @@
       "action": "Suggest taking antihistamines (Benadryl/diphenhydramine) for anaphylaxis instead of epinephrine",
       "why_fails": "Antihistamines are too slow (30-60 min onset) and too weak for anaphylaxis. Epinephrine is the ONLY first-line treatment - it works in minutes. Every anaphylaxis death study shows delayed epinephrine as the primary cause of fatality.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://medlineplus.gov/ency/article/000844.htm"
+      ],
       "condition": "Severe allergic reaction response"
     },
     {
       "action": "Tell a person in anaphylaxis to sit or stand up",
       "why_fails": "Anaphylaxis causes blood pressure to drop drastically. Sitting or standing up can cause 'empty ventricle syndrome' (sudden cardiac death). The person should lie flat with legs elevated UNLESS they are having trouble breathing (then sitting up is okay).",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://medlineplus.gov/ency/article/000844.htm"
+      ],
       "condition": "Anaphylaxis positioning"
     }
   ],

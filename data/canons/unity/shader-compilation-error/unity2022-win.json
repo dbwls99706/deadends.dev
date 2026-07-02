@@ -29,14 +29,18 @@
       "action": "Disable shader compilation warnings",
       "why_fails": "Hides real errors",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Shaders.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use unlit shader for everything",
       "why_fails": "Loses all visual quality",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Shaders.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set noCursorTimeout on all cursors",
       "why_fails": "Memory leak if cursors not explicitly closed",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase cursor timeout to hours",
       "why_fails": "Server memory pressure",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

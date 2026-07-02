@@ -29,14 +29,18 @@
       "action": "Skip all bad messages",
       "why_fails": "Data loss without visibility",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Decode as string and parse manually",
       "why_fails": "Fragile parsing logic",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

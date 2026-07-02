@@ -29,14 +29,18 @@
       "action": "Remove read_only_allow_delete block without freeing space",
       "why_fails": "Block returns immediately",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards"
+      ],
       "condition": ""
     },
     {
       "action": "Disable disk watermarks",
       "why_fails": "Node fills disk and crashes",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Increase max message size to unlimited",
       "why_fails": "OOM risk on large payloads",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all rate limits",
       "why_fails": "Server overload and crash",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

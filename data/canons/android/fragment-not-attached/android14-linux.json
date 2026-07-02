@@ -29,14 +29,18 @@
       "action": "Cache getActivity() in field",
       "why_fails": "Leaks Activity reference, same crash",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Suppress the exception",
       "why_fails": "Corrupt UI state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

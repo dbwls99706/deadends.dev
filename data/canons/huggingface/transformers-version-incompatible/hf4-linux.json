@@ -29,14 +29,18 @@
       "action": "Pin old transformers version",
       "why_fails": "Cannot use newer models",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Downgrade model to match library",
       "why_fails": "May not have older version",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

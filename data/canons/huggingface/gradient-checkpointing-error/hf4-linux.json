@@ -29,14 +29,18 @@
       "action": "Disable gradient checkpointing entirely",
       "why_fails": "OOM on large models",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/perf_train_gpu_one"
+      ],
       "condition": ""
     },
     {
       "action": "Patch model forward pass manually",
       "why_fails": "Breaks on model updates",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/perf_train_gpu_one"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable response buffering",
       "why_fails": "Memory spikes on large responses",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Add fixed Content-Length header",
       "why_fails": "Wrong if body size varies",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],

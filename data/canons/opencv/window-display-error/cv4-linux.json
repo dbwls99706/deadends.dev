@@ -29,14 +29,18 @@
       "action": "Install full desktop environment",
       "why_fails": "Overkill for headless server",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Force X11 forwarding without checking",
       "why_fails": "May not have X server",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

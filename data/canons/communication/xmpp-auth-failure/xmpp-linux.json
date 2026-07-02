@@ -29,14 +29,18 @@
       "action": "Disable SASL authentication",
       "why_fails": "Plaintext credentials on wire",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6120"
+      ],
       "condition": ""
     },
     {
       "action": "Use PLAIN mechanism over unencrypted",
       "why_fails": "Password exposed in transit",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6120"
+      ],
       "condition": ""
     }
   ],

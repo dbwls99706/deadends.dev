@@ -29,14 +29,18 @@
       "action": "Bypass load balancer and hardcode one server",
       "why_fails": "No redundancy",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove health checking",
       "why_fails": "Routes to dead backends",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

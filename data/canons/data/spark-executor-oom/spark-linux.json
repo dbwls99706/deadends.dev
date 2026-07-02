@@ -29,14 +29,18 @@
       "action": "Set executor memory to cluster maximum",
       "why_fails": "Reduces parallelism drastically",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://spark.apache.org/docs/latest/tuning.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable memory overhead checking",
       "why_fails": "Container killed by YARN",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://spark.apache.org/docs/latest/tuning.html"
+      ],
       "condition": ""
     }
   ],

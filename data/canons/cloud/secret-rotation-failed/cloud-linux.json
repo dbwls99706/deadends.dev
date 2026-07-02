@@ -29,14 +29,18 @@
       "action": "Disable rotation",
       "why_fails": "Stale secrets, compliance violation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html"
+      ],
       "condition": ""
     },
     {
       "action": "Manually update secret",
       "why_fails": "Not sustainable long-term",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html"
+      ],
       "condition": ""
     }
   ],

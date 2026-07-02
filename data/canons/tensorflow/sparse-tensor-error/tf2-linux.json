@@ -29,14 +29,18 @@
       "action": "Convert all sparse to dense globally",
       "why_fails": "Memory explosion on large sparse data",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/sparse_tensor"
+      ],
       "condition": ""
     },
     {
       "action": "Remove sparse features",
       "why_fails": "Loses feature information",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/sparse_tensor"
+      ],
       "condition": ""
     }
   ],

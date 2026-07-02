@@ -29,14 +29,18 @@
       "action": "Use shader_feature for everything",
       "why_fails": "Missing variants at runtime",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Shaders.html"
+      ],
       "condition": ""
     },
     {
       "action": "Strip all shader variants",
       "why_fails": "Visual artifacts",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Shaders.html"
+      ],
       "condition": ""
     }
   ],

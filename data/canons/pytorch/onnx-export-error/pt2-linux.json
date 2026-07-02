@@ -29,14 +29,18 @@
       "action": "Use pickle instead of ONNX",
       "why_fails": "Not cross-framework compatible",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/onnx.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove unsupported ops entirely",
       "why_fails": "Changes model behavior",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/onnx.html"
+      ],
       "condition": ""
     }
   ],

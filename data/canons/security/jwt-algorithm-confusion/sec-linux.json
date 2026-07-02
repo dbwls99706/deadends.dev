@@ -29,14 +29,18 @@
       "action": "Accept any algorithm in JWT header",
       "why_fails": "Algorithm confusion attack vector",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc8725"
+      ],
       "condition": ""
     },
     {
       "action": "Use symmetric key same as public key",
       "why_fails": "Key confusion vulnerability",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc8725"
+      ],
       "condition": ""
     }
   ],

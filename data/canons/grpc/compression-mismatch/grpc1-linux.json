@@ -29,14 +29,18 @@
       "action": "Disable all compression",
       "why_fails": "Higher bandwidth usage",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/compression/"
+      ],
       "condition": ""
     },
     {
       "action": "Force specific codec without negotiation",
       "why_fails": "Breaks with other servers",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/compression/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable optimistic concurrency",
       "why_fails": "Silent data corruption",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.delta.io/latest/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Retry without delay",
       "why_fails": "Same conflict repeatedly",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.delta.io/latest/index.html"
+      ],
       "condition": ""
     }
   ],

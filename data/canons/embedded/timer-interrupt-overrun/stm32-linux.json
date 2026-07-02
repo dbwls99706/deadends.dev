@@ -29,14 +29,18 @@
       "action": "Increase timer period",
       "why_fails": "Reduces control loop frequency",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all code from ISR",
       "why_fails": "No interrupt functionality",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

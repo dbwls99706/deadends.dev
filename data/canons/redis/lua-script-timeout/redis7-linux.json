@@ -29,14 +29,18 @@
       "action": "Use SCRIPT KILL without checking if script has writes",
       "why_fails": "If script did writes, KILL fails",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Set lua-time-limit to 0",
       "why_fails": "Scripts can block Redis forever",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

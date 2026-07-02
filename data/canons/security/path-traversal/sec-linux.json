@@ -29,14 +29,18 @@
       "action": "Filter ../ only",
       "why_fails": "Bypassed with URL encoding or double encoding",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
       "condition": ""
     },
     {
       "action": "Use blocklist of sensitive files",
       "why_fails": "Attacker targets unlisted files",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
       "condition": ""
     }
   ],

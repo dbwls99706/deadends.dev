@@ -29,14 +29,18 @@
       "action": "Return false from shouldRepaint always",
       "why_fails": "Canvas never updates",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Rebuild entire widget tree on paint",
       "why_fails": "Performance worse",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

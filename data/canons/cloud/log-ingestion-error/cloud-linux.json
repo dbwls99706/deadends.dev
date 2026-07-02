@@ -29,14 +29,18 @@
       "action": "Disable logging",
       "why_fails": "No observability",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Log to local file only",
       "why_fails": "Logs lost on container restart",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

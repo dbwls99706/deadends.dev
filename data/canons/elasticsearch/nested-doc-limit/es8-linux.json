@@ -29,14 +29,18 @@
       "action": "Increase nested limit to millions",
       "why_fails": "Massive memory usage per document",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Flatten all nested objects",
       "why_fails": "Loses nested query capability",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

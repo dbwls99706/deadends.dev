@@ -29,14 +29,18 @@
       "action": "Add unsafe-inline to CSP header",
       "why_fails": "Defeats the purpose of CSP - allows XSS attacks through inline injection.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable CSP entirely during development and forget to re-enable",
       "why_fails": "Leaves production vulnerable to XSS.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

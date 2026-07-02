@@ -29,14 +29,18 @@
       "action": "Fall back to polling for subscriptions",
       "why_fails": "Higher latency, more load",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://graphql.org/learn/"
+      ],
       "condition": ""
     },
     {
       "action": "Reconnect without resubscribing",
       "why_fails": "Misses events during gap",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://graphql.org/learn/"
+      ],
       "condition": ""
     }
   ],

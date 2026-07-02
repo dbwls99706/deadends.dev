@@ -29,14 +29,18 @@
       "action": "Regenerate only client stubs without server",
       "why_fails": "Widens proto version gap",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore and call different method",
       "why_fails": "Semantic mismatch",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

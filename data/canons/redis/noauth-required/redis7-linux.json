@@ -29,14 +29,18 @@
       "action": "Remove requirepass from redis.conf",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode password in application code",
       "why_fails": "Security risk if code exposed",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     }
   ],

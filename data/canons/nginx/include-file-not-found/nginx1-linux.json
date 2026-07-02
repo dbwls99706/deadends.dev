@@ -29,14 +29,18 @@
       "action": "Comment out include directive",
       "why_fails": "Loses all included config",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Create empty file",
       "why_fails": "Missing configuration directives",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],

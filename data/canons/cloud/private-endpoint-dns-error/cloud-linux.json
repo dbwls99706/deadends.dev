@@ -29,14 +29,18 @@
       "action": "Use public endpoint instead",
       "why_fails": "Bypasses private connectivity, security risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     },
     {
       "action": "Add /etc/hosts entry",
       "why_fails": "Not scalable, breaks on IP change",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Enable autoindex globally",
       "why_fails": "Exposes directory contents, security risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set chmod 777 on directory",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     }
   ],

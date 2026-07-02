@@ -29,14 +29,18 @@
       "action": "Mix proto2 and proto3 in same package",
       "why_fails": "Confusing behavior with defaults",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     },
     {
       "action": "Convert all to proto2",
       "why_fails": "Loses proto3 improvements",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     }
   ],

@@ -11,7 +11,10 @@
     "last_confirmed": "2026-03-02"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any"
   },
   "verdict": {
@@ -26,21 +29,30 @@
       "action": "Stand in a doorframe during an earthquake",
       "why_fails": "Modern doorframes are no stronger than surrounding walls. Standing in a doorway exposes you to swinging doors and falling debris. The doorframe myth originated from old adobe homes where the frame was the only reinforced structure. It does not apply to modern buildings.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.ready.gov/earthquakes",
+        "https://www.earthquakecountry.org/step5/"
+      ],
       "condition": "Earthquake response"
     },
     {
       "action": "Run outside during an earthquake",
       "why_fails": "Most earthquake injuries happen when people try to move during shaking. Falling debris, broken glass, and power lines outside are more dangerous than staying inside. You're most likely to be injured while moving, not while sheltering.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.ready.gov/earthquakes",
+        "https://www.earthquakecountry.org/step5/"
+      ],
       "condition": "Earthquake response"
     },
     {
       "action": "Use the 'Triangle of Life' method (lying next to large objects)",
       "why_fails": "The 'Triangle of Life' theory has been debunked by FEMA, USGS, and the Red Cross. It assumes pancake collapse (rare in developed countries). In most earthquakes, injuries come from falling objects, not building collapse. Drop, Cover, Hold On is evidence-based.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.ready.gov/earthquakes",
+        "https://www.earthquakecountry.org/step5/"
+      ],
       "condition": "Earthquake survival theories"
     }
   ],
@@ -53,12 +65,16 @@
     },
     {
       "action": "If outdoors: move to an open area away from buildings, trees, streetlights, and power lines. Drop and cover. If driving: pull over, stop, stay in car. Avoid overpasses, bridges, and power lines.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Outdoor/driving earthquake response"
     }
   ],
-  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
   "metadata": {
     "generated_by": "manual",
     "generation_date": "2026-03-02",

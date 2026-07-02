@@ -29,14 +29,18 @@
       "action": "Delete all editor scripts",
       "why_fails": "Loses custom tooling",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Move to separate assembly and ignore errors",
       "why_fails": "Still blocks build",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

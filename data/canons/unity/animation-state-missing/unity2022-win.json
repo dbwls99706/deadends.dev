@@ -29,14 +29,18 @@
       "action": "Create states at runtime programmatically",
       "why_fails": "Complex and fragile",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore animation errors",
       "why_fails": "Visual glitches",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

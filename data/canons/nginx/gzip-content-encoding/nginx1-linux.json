@@ -29,14 +29,18 @@
       "action": "Set gzip_comp_level to 9",
       "why_fails": "Excessive CPU usage for marginal size reduction",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_gzip_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Gzip all content types",
       "why_fails": "Binary files already compressed, wastes CPU",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_gzip_module.html"
+      ],
       "condition": ""
     }
   ],

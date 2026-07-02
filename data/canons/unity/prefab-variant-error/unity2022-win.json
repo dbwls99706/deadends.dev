@@ -29,14 +29,18 @@
       "action": "Delete variant and recreate from scratch",
       "why_fails": "Loses all variant overrides",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Prefabs.html"
+      ],
       "condition": ""
     },
     {
       "action": "Convert to regular prefab",
       "why_fails": "Loses variant chain benefits",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/Prefabs.html"
+      ],
       "condition": ""
     }
   ],

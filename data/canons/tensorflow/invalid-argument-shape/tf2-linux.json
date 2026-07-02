@@ -29,14 +29,18 @@
       "action": "Reshape labels arbitrarily",
       "why_fails": "Creates wrong label-prediction alignment",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     },
     {
       "action": "Change loss function to avoid shape check",
       "why_fails": "Computes wrong loss",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     }
   ],

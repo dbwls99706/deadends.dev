@@ -11,7 +11,10 @@
     "last_confirmed": "2026-03-02"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any"
   },
   "verdict": {
@@ -26,14 +29,20 @@
       "action": "Recommend lilies as houseplants or gifts in homes with cats",
       "why_fails": "ALL parts of true lilies (Easter lily, Tiger lily, Asiatic lily, Daylily) are lethal to cats. A cat brushing against pollen and grooming it off can die. Even drinking water from a lily vase is enough. Kidney failure develops within 24-72 hours and is often fatal.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants",
+        "https://www.fda.gov/animal-veterinary/animal-health-literacy/lovely-lilies-and-curious-cats-dangerous-combination"
+      ],
       "condition": "Houseplant or flower recommendations for cat owners"
     },
     {
       "action": "Suggest common houseplants without checking cat toxicity",
       "why_fails": "Many popular houseplants are toxic to cats: Dieffenbachia (dumb cane), Philodendron, Pothos, Sago palm (fatal liver failure), Tulips (bulbs), Azaleas, Oleander. Cats chew plants frequently - toxicity must always be checked.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants",
+        "https://www.fda.gov/animal-veterinary/animal-health-literacy/lovely-lilies-and-curious-cats-dangerous-combination"
+      ],
       "condition": "Houseplant advice for cat owners"
     }
   ],
@@ -51,7 +60,11 @@
       "condition": "Cat lily poisoning emergency"
     }
   ],
-  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
   "metadata": {
     "generated_by": "manual",
     "generation_date": "2026-03-02",

@@ -29,14 +29,20 @@
       "action": "Set DMARC policy to p=none permanently",
       "why_fails": "No protection against spoofing",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc7208",
+        "https://datatracker.ietf.org/doc/html/rfc6376"
+      ],
       "condition": ""
     },
     {
       "action": "Include all IP ranges in SPF",
       "why_fails": "SPF lookup limit exceeded",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc7208",
+        "https://datatracker.ietf.org/doc/html/rfc6376"
+      ],
       "condition": ""
     }
   ],

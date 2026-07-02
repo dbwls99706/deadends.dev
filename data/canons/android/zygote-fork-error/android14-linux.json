@@ -29,14 +29,18 @@
       "action": "Increase swap space",
       "why_fails": "Android doesnt use traditional swap",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Force stop all other apps",
       "why_fails": "Bad user experience",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

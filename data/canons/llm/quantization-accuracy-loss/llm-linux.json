@@ -29,14 +29,18 @@
       "action": "Use 2-bit quantization for everything",
       "why_fails": "Severe quality degradation",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/index"
+      ],
       "condition": ""
     },
     {
       "action": "Skip calibration data during quantization",
       "why_fails": "Poor quantization accuracy",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/index"
+      ],
       "condition": ""
     }
   ],

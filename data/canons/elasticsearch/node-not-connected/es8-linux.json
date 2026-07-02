@@ -29,14 +29,18 @@
       "action": "Remove node from cluster immediately",
       "why_fails": "Triggers unnecessary shard reallocation",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     },
     {
       "action": "Disable discovery",
       "why_fails": "Breaks cluster formation",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     }
   ],

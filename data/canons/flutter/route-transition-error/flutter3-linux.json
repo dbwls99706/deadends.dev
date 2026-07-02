@@ -29,14 +29,18 @@
       "action": "Disable all page transitions",
       "why_fails": "Jarring navigation experience",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Use MaterialPageRoute for everything",
       "why_fails": "Loses custom transitions",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

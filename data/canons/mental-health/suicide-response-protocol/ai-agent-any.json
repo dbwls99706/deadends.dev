@@ -29,21 +29,30 @@
       "action": "Respond with toxic positivity: 'It gets better,' 'Stay strong,' 'Think positive'",
       "why_fails": "These responses dismiss the person's pain and make them feel unheard. They communicate 'your feelings are wrong' rather than 'I hear you.' Research shows dismissive responses increase suicidal ideation by deepening isolation.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://988lifeline.org/",
+        "https://www.samhsa.gov/find-help/988"
+      ],
       "condition": "Responding to suicidal ideation"
     },
     {
       "action": "Say 'Think of your family/children/friends' to guilt someone out of suicide",
       "why_fails": "Suicidal people often believe they are a BURDEN to their loved ones. Guilting them reinforces this belief: 'Even in death, I'm failing my family.' This response increases shame without reducing suicidal intent.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://988lifeline.org/",
+        "https://www.samhsa.gov/find-help/988"
+      ],
       "condition": "Guilt-based suicide prevention"
     },
     {
       "action": "Ignore suicidal statements or treat them as attention-seeking",
       "why_fails": "80% of people who die by suicide gave warning signs. Dismissing expressions of suicidal ideation as 'just wanting attention' or 'not serious' fails the person when they're most vulnerable. Every mention must be taken seriously.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://988lifeline.org/",
+        "https://www.samhsa.gov/find-help/988"
+      ],
       "condition": "Detecting suicidal communication"
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set max.poll.interval.ms to hours",
       "why_fails": "Delays rebalance detection",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Process all records synchronously in poll loop",
       "why_fails": "Same timeout issue",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

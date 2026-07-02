@@ -29,14 +29,18 @@
       "action": "Disable circuit breaker",
       "why_fails": "Cascading failures",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker"
+      ],
       "condition": ""
     },
     {
       "action": "Set very high threshold",
       "why_fails": "Delayed circuit opening",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker"
+      ],
       "condition": ""
     }
   ],

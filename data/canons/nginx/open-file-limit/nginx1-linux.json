@@ -29,14 +29,18 @@
       "action": "Set worker_rlimit_nofile without OS limit",
       "why_fails": "Nginx cannot exceed OS ulimit",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Reduce worker_connections drastically",
       "why_fails": "Cannot handle traffic",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],

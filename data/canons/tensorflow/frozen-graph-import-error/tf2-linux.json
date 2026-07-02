@@ -29,14 +29,18 @@
       "action": "Disable TF2 behavior globally",
       "why_fails": "Breaks TF2 APIs",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     },
     {
       "action": "Re-train model from scratch",
       "why_fails": "Loses training investment",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     }
   ],

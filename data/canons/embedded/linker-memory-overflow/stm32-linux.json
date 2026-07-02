@@ -29,14 +29,18 @@
       "action": "Increase stack/heap size",
       "why_fails": "Worsens the overflow",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Move everything to flash",
       "why_fails": "Only const data can go to flash",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use publishable key for server-side calls",
       "why_fails": "Publishable keys are for client-side only. Server operations need secret keys.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://docs.stripe.com/api/versioning"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode the API version in every request",
       "why_fails": "Version should be pinned globally in the SDK initialization.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://docs.stripe.com/api/versioning"
+      ],
       "condition": ""
     }
   ],

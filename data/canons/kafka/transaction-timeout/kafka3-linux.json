@@ -29,14 +29,18 @@
       "action": "Set transaction.timeout.ms very high",
       "why_fails": "Blocks partition for duration",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#producerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Disable transactions",
       "why_fails": "Loses exactly-once semantics",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#producerconfigs"
+      ],
       "condition": ""
     }
   ],

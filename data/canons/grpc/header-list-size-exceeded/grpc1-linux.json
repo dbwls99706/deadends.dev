@@ -29,14 +29,18 @@
       "action": "Set unlimited header size",
       "why_fails": "Memory abuse vector",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Compress headers",
       "why_fails": "Breaks metadata expectations",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

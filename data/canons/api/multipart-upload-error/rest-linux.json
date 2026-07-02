@@ -29,14 +29,18 @@
       "action": "Manually set Content-Type boundary",
       "why_fails": "Easy to mismatch",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413"
+      ],
       "condition": ""
     },
     {
       "action": "Send as base64 in JSON",
       "why_fails": "Large payload, slow",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413"
+      ],
       "condition": ""
     }
   ],

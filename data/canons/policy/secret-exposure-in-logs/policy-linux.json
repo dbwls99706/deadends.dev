@@ -29,14 +29,18 @@
       "action": "Delete log files only",
       "why_fails": "Secret may be in log aggregation, backups",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Encrypt log files",
       "why_fails": "Secret still visible to log readers",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

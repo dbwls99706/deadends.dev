@@ -29,14 +29,18 @@
       "action": "Increase write queue_size to huge values",
       "why_fails": "Delays backpressure, causes OOM",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Retry entire batch ignoring errors",
       "why_fails": "Duplicates already-indexed docs",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Download entire dataset instead",
       "why_fails": "May not fit in disk/memory",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/datasets/index"
+      ],
       "condition": ""
     },
     {
       "action": "Retry from beginning on connection error",
       "why_fails": "Loses progress",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/datasets/index"
+      ],
       "condition": ""
     }
   ],

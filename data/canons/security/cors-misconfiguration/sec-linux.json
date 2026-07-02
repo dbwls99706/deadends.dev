@@ -29,14 +29,18 @@
       "action": "Set Access-Control-Allow-Origin: * for all endpoints",
       "why_fails": "Allows any site to make authenticated requests",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+      ],
       "condition": ""
     },
     {
       "action": "Reflect Origin header without validation",
       "why_fails": "Origin spoofing vulnerability",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+      ],
       "condition": ""
     }
   ],

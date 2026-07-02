@@ -29,14 +29,18 @@
       "action": "Use jumbo mode only",
       "why_fails": "Deprecated and doesn't fix root cause",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/multidex"
+      ],
       "condition": ""
     },
     {
       "action": "Remove random dependencies",
       "why_fails": "May break features",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/build/multidex"
+      ],
       "condition": ""
     }
   ],

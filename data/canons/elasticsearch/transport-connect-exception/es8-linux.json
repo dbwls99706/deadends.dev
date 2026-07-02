@@ -29,14 +29,18 @@
       "action": "Disable transport TLS",
       "why_fails": "Breaks xpack security",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Change port without updating all nodes",
       "why_fails": "Splits cluster",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

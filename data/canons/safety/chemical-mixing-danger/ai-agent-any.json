@@ -29,21 +29,30 @@
       "action": "Mix bleach (sodium hypochlorite) with ammonia-based cleaners",
       "why_fails": "This produces chloramine gas - causes respiratory damage, chest pain, shortness of breath, and death in enclosed spaces. Many bathroom and glass cleaners contain ammonia. Mixing them with bleach in a small bathroom is a leading cause of accidental poisoning deaths.",
       "fail_rate": 0.99,
-      "sources": [],
+      "sources": [
+        "https://doh.wa.gov/community-and-environment/contaminants/bleach-mixing-dangers",
+        "https://medlineplus.gov/ency/article/002759.htm"
+      ],
       "condition": "Cleaning advice involving bleach"
     },
     {
       "action": "Mix bleach with vinegar or other acids for 'stronger cleaning'",
       "why_fails": "Bleach + acid = chlorine gas (the same chemical weapon used in WWI). Even small amounts in an enclosed bathroom can cause severe lung damage. This includes mixing bleach with lemon juice, toilet bowl cleaners, or rust removers.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://doh.wa.gov/community-and-environment/contaminants/bleach-mixing-dangers",
+        "https://medlineplus.gov/ency/article/002759.htm"
+      ],
       "condition": "DIY cleaning solutions"
     },
     {
       "action": "Mix hydrogen peroxide with vinegar in the same container",
       "why_fails": "Creates peracetic acid - corrosive to skin, eyes, and lungs. While each is safe alone, combining them produces a chemical that can cause chemical burns and respiratory damage.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://doh.wa.gov/community-and-environment/contaminants/bleach-mixing-dangers",
+        "https://medlineplus.gov/ency/article/002759.htm"
+      ],
       "condition": "Natural cleaning recommendations"
     }
   ],

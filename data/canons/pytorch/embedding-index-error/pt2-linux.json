@@ -29,14 +29,18 @@
       "action": "Increase embedding size blindly",
       "why_fails": "Wastes memory for sparse IDs",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Clip all IDs to max",
       "why_fails": "Wrong embeddings for OOV tokens",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

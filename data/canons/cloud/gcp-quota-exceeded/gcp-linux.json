@@ -29,14 +29,18 @@
       "action": "Request maximum quota increase",
       "why_fails": "Unnecessary cost exposure",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/docs/quotas"
+      ],
       "condition": ""
     },
     {
       "action": "Delete resources randomly to free quota",
       "why_fails": "May delete needed resources",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/docs/quotas"
+      ],
       "condition": ""
     }
   ],

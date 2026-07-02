@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/rip-currents-swim-between-flags/au",
+  "url": "https://deadends.dev/safety/rip-currents-swim-between-flags/au",
+  "error": {
+    "signature": "AI recommends swimming at unpatrolled Australian beaches or fighting a rip current",
+    "regex": "(australia|australian|sydney|gold coast|bondi).{0,50}(beach|swim|rip current|surf|ocean)",
+    "domain": "safety",
+    "category": "water_safety",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Rip currents are the top hazard on Australian beaches (~17,000 rips on any day). Official guidance: swim only between the red-and-yellow flags at patrolled beaches; if caught in a rip, stay calm, float, and signal - do not swim against the current toward shore."
+  },
+  "dead_ends": [
+    {
+      "action": "Swim at an unpatrolled beach or outside the red-and-yellow flags",
+      "why_fails": "The flagged zone is the lifesaver-supervised area chosen to avoid rips; most drownings occur outside patrol areas where rips are unmarked and help is distant.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://beachsafe.org.au/surf-safety/flags-and-signs",
+        "https://www.healthdirect.gov.au/beach-safety"
+      ]
+    },
+    {
+      "action": "Swim hard against a rip current straight back to shore",
+      "why_fails": "Rips flow seaward faster than most people swim; fighting them causes exhaustion, the main precursor to drowning. Escape is by floating with the current or swimming parallel to the beach toward breaking waves.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.healthdirect.gov.au/beach-safety"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check Beachsafe for a patrolled beach, swim between the flags, and float-and-signal if caught in a rip",
+      "success_rate": 0.9,
+      "how": "Use beachsafe.org.au or the Beachsafe app to find patrol times. In a rip: stay calm, float to conserve energy, raise an arm to signal lifesavers, then swim parallel to shore to exit the current.",
+      "sources": [
+        "https://beachsafe.org.au/surf-safety/flags-and-signs",
+        "https://www.healthdirect.gov.au/beach-safety"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

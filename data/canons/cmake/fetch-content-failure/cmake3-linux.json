@@ -29,14 +29,18 @@
       "action": "Vendor all dependencies in tree",
       "why_fails": "Large repo, hard to update",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/module/FetchContent.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use system packages only",
       "why_fails": "May not have right version",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/module/FetchContent.html"
+      ],
       "condition": ""
     }
   ],

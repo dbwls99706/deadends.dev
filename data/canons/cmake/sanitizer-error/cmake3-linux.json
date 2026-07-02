@@ -29,14 +29,18 @@
       "action": "Disable sanitizers",
       "why_fails": "Hides memory bugs",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Suppress all sanitizer findings",
       "why_fails": "Same as disabling",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

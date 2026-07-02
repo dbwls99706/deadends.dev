@@ -29,14 +29,18 @@
       "action": "Hardcode key in source code",
       "why_fails": "Security risk if code exposed",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Retry same key repeatedly",
       "why_fails": "Same rejection, may trigger rate limit",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

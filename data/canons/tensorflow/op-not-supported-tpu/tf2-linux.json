@@ -29,14 +29,18 @@
       "action": "Move single op to CPU",
       "why_fails": "Transfers kill TPU performance",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the operation",
       "why_fails": "Changes model behavior",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

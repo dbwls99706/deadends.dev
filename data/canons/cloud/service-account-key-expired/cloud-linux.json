@@ -29,14 +29,18 @@
       "action": "Create keys with no expiry",
       "why_fails": "Security risk, violates best practices",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
       "condition": ""
     },
     {
       "action": "Share keys across teams",
       "why_fails": "Blast radius on compromise",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+      ],
       "condition": ""
     }
   ],

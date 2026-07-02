@@ -29,14 +29,18 @@
       "action": "Kill other processes blindly",
       "why_fails": "May kill critical services",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Swap to disk as overflow",
       "why_fails": "Extremely slow training",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

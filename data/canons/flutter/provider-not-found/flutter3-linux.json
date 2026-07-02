@@ -29,14 +29,18 @@
       "action": "Make all providers global",
       "why_fails": "Defeats scoping purpose",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     },
     {
       "action": "Wrap every widget with its own Provider",
       "why_fails": "Excessive nesting",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     }
   ],

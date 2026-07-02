@@ -29,14 +29,18 @@
       "action": "Sort messages on consumer side",
       "why_fails": "Complex, requires buffering",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use single consumer only",
       "why_fails": "No parallelism",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     }
   ],

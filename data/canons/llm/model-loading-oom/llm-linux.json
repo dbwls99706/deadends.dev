@@ -29,14 +29,18 @@
       "action": "Use swap space for model loading",
       "why_fails": "Extremely slow inference",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/index"
+      ],
       "condition": ""
     },
     {
       "action": "Load model partially and ignore missing weights",
       "why_fails": "Broken model, garbage output",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/index"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Retry immediately in tight loop",
       "why_fails": "Overwhelms recovering server",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to HTTP fallback without TLS",
       "why_fails": "Security downgrade",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

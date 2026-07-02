@@ -29,14 +29,18 @@
       "action": "Use inline styles for everything",
       "why_fails": "Not maintainable, defeats USS purpose",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Add \\!important to all rules",
       "why_fails": "Defeats specificity system",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

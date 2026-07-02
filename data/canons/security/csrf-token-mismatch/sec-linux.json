@@ -29,14 +29,18 @@
       "action": "Disable CSRF protection",
       "why_fails": "Cross-site request forgery vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set SameSite=None without Secure flag",
       "why_fails": "Cookie sent over HTTP, session hijack risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove broker from cluster config immediately",
       "why_fails": "Triggers partition reassignment storm",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Restart all brokers at once",
       "why_fails": "Potential data loss during leader election",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

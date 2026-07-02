@@ -29,14 +29,18 @@
       "action": "Increase lag threshold to silence alerts",
       "why_fails": "Masks real problems",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Reset offsets to latest",
       "why_fails": "Skips unprocessed messages",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

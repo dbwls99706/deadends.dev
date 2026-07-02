@@ -29,14 +29,18 @@
       "action": "Add more NAT gateways without planning",
       "why_fails": "Increases cost without fixing root cause",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove NAT and use public IPs",
       "why_fails": "Security risk, IP management complex",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     }
   ],

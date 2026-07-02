@@ -29,14 +29,18 @@
       "action": "Use DataParallel instead of DDP",
       "why_fails": "Slower, GIL-bound",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/ddp.html"
+      ],
       "condition": ""
     },
     {
       "action": "Run on single GPU",
       "why_fails": "Loses multi-GPU speedup",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/ddp.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Force cast all columns",
       "why_fails": "Data loss on incompatible types",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://arrow.apache.org/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore schema differences",
       "why_fails": "Crashes on column access",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://arrow.apache.org/docs/"
+      ],
       "condition": ""
     }
   ],

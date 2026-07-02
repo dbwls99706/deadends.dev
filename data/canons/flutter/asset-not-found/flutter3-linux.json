@@ -29,14 +29,18 @@
       "action": "Use hardcoded file paths",
       "why_fails": "Not portable across platforms",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/ui/assets/assets-and-images"
+      ],
       "condition": ""
     },
     {
       "action": "Load from network instead",
       "why_fails": "Requires connectivity",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/ui/assets/assets-and-images"
+      ],
       "condition": ""
     }
   ],

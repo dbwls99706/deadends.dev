@@ -29,14 +29,18 @@
       "action": "Increase learning rate to converge faster",
       "why_fails": "Worsens divergence",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/fine-tuning"
+      ],
       "condition": ""
     },
     {
       "action": "Train for more epochs without investigation",
       "why_fails": "Wastes compute, same divergence",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/fine-tuning"
+      ],
       "condition": ""
     }
   ],

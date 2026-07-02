@@ -29,14 +29,18 @@
       "action": "Change upstream to random port",
       "why_fails": "Will never connect",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the upstream block and use direct proxy_pass",
       "why_fails": "Loses load balancing",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

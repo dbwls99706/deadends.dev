@@ -29,14 +29,18 @@
       "action": "Hardcode values instead of using resources",
       "why_fails": "Breaks localization and theming",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Create placeholder resource",
       "why_fails": "Wrong value at runtime",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

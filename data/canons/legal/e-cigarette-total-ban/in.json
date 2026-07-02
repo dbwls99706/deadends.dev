@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/e-cigarette-total-ban/in",
+  "url": "https://deadends.dev/legal/e-cigarette-total-ban/in",
+  "error": {
+    "signature": "AI treats vaping in India as legal or merely age-restricted",
+    "regex": "(india|indian).{0,40}(vap(e|ing)|e-?cigarette|juul|elf ?bar|nicotine pod)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "in",
+      "country_name": "India",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "The Prohibition of Electronic Cigarettes Act, 2019 bans production, import, transport, sale, storage and advertisement of all e-cigarettes in India - including nicotine-free devices. Travellers' devices can be seized at customs and violations carry up to 1 year imprisonment for a first offence."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack a vape or nicotine pods for a trip to India assuming personal use is tolerated",
+      "why_fails": "Import and even storage are offences under the 2019 Act regardless of nicotine content; customs can seize devices and first-offence penalties reach 1 year imprisonment and/or a 100,000 INR fine.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.indiacode.nic.in/handle/123456789/13078",
+        "https://ntcp.mohfw.gov.in/assets/document/The-Prohibition-of-Electronic-Cigarettes-Production-Manufacture-Import-Export-Transport-Sale-Distribution-Storage-and-Advertisement)-Act-2019.pdf"
+      ]
+    },
+    {
+      "action": "Assume nicotine-free or 'herbal' devices are exempt",
+      "why_fails": "The Act defines electronic cigarettes by the device and aerosol mechanism, not nicotine content, so zero-nicotine devices are equally banned.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.indiacode.nic.in/handle/123456789/13078"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Leave all vaping devices at home; conventional cigarettes remain legal for adults",
+      "success_rate": 0.9,
+      "how": "Do not carry devices, pods, or e-liquid into India at all. Adult tobacco smoking is regulated (public smoking bans, 18+) but legal, and nicotine gum/patches are available in pharmacies as cessation aids.",
+      "sources": [
+        "https://ntcp.mohfw.gov.in/assets/document/The-Prohibition-of-Electronic-Cigarettes-Production-Manufacture-Import-Export-Transport-Sale-Distribution-Storage-and-Advertisement)-Act-2019.pdf"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

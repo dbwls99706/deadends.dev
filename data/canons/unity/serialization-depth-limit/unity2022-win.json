@@ -29,14 +29,18 @@
       "action": "Increase depth limit",
       "why_fails": "Not configurable in Unity, also masks design issue",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Mark all fields as NonSerialized",
       "why_fails": "Loses data between sessions",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

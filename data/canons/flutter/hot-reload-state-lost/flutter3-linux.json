@@ -29,14 +29,18 @@
       "action": "Use hot restart instead always",
       "why_fails": "Defeats purpose of hot reload",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/tools/hot-reload"
+      ],
       "condition": ""
     },
     {
       "action": "Store all state in global variables",
       "why_fails": "Spaghetti state management",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/tools/hot-reload"
+      ],
       "condition": ""
     }
   ],

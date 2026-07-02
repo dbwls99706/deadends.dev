@@ -29,14 +29,18 @@
       "action": "Create new channel per request",
       "why_fails": "Connection overhead, port exhaustion",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/grpc/performance"
+      ],
       "condition": ""
     },
     {
       "action": "Disable TLS for gRPC",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/grpc/performance"
+      ],
       "condition": ""
     }
   ],

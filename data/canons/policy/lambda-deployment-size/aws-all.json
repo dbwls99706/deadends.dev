@@ -29,14 +29,18 @@
       "action": "Compress the deployment package more aggressively",
       "why_fails": "The 250MB limit applies to unzipped size, not zip size.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+      ],
       "condition": ""
     },
     {
       "action": "Split into multiple Lambda functions with shared code",
       "why_fails": "Each function still needs its own dependencies bundled.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+      ],
       "condition": ""
     }
   ],

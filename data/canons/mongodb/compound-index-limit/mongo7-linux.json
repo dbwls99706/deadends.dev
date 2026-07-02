@@ -29,14 +29,18 @@
       "action": "Create separate single-field indexes",
       "why_fails": "Cant cover compound queries efficiently",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     },
     {
       "action": "Use wildcard index for everything",
       "why_fails": "Poor query planning",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     }
   ],

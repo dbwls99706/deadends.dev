@@ -29,14 +29,18 @@
       "action": "Disable account lockout",
       "why_fails": "Brute force vulnerability",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://pages.nist.gov/800-63-3/sp800-63b.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set lockout threshold very high (100+ attempts)",
       "why_fails": "Reduces protection significantly",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pages.nist.gov/800-63-3/sp800-63b.html"
+      ],
       "condition": ""
     }
   ],

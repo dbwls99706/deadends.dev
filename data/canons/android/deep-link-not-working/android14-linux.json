@@ -29,14 +29,18 @@
       "action": "Handle all intents in MainActivity",
       "why_fails": "Breaks deep link routing",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use custom URL scheme for everything",
       "why_fails": "Not verified, any app can intercept",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

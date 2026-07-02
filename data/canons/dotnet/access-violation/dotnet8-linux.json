@@ -29,14 +29,18 @@
       "action": "Catch AccessViolationException",
       "why_fails": "Cannot reliably catch in .NET Core",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable memory protection",
       "why_fails": "Not possible in managed runtime",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Increase internalQueryMaxBlockingSortMemoryUsageBytes to GB",
       "why_fails": "Server OOM risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove sort from query",
       "why_fails": "Wrong result ordering",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

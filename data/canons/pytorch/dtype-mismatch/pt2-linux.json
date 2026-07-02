@@ -29,14 +29,18 @@
       "action": "Cast everything to float64",
       "why_fails": "Doubles memory usage, slows training",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable autocast globally",
       "why_fails": "Loses mixed precision benefits",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

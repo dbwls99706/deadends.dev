@@ -29,14 +29,18 @@
       "action": "Delete Podfile.lock and Pods without cleaning",
       "why_fails": "May get incompatible versions",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Use pod install --repo-update every time",
       "why_fails": "Very slow, may not fix version conflicts",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

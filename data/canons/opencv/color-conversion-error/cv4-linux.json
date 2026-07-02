@@ -29,14 +29,18 @@
       "action": "Chain multiple conversions",
       "why_fails": "Loses color information at each step",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Skip color conversion",
       "why_fails": "Wrong color space for algorithm",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

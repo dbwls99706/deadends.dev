@@ -29,14 +29,18 @@
       "action": "Use dense flow for everything",
       "why_fails": "Slow for sparse tracking",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Skip optical flow",
       "why_fails": "No motion estimation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

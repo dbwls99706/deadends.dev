@@ -29,14 +29,18 @@
       "action": "Set MaxConcurrentConnections to unlimited",
       "why_fails": "Memory exhaustion under load",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel"
+      ],
       "condition": ""
     },
     {
       "action": "Restart Kestrel on connection errors",
       "why_fails": "Drops all existing connections",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel"
+      ],
       "condition": ""
     }
   ],

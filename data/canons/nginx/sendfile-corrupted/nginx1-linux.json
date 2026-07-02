@@ -29,14 +29,18 @@
       "action": "Disable sendfile globally",
       "why_fails": "Performance degradation on static files",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase sendfile_max_chunk",
       "why_fails": "Doesnt fix root cause",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],

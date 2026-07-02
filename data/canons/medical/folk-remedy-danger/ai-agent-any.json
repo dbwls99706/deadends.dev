@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.88,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "Dangerous folk remedies and alternative medicine claims kill people by either direct harm (drinking bleach, turpentine) or indirect harm (delaying real treatment for cancer, refusing vaccines). AI must never validate these."
   },
@@ -29,21 +29,30 @@
       "action": "Validate claims that drinking bleach (MMS/chlorine dioxide) cures diseases",
       "why_fails": "MMS (Miracle Mineral Supplement) is industrial bleach. It causes chemical burns to the mouth, throat, and intestines, and has killed people. It is promoted as a cure for autism, cancer, and COVID-19. It cures nothing and causes severe harm.",
       "fail_rate": 0.99,
-      "sources": [],
+      "sources": [
+        "https://www.fda.gov/consumers/consumer-updates/danger-dont-drink-miracle-mineral-solution-or-similar-products",
+        "https://www.cdc.gov/vaccine-safety/"
+      ],
       "condition": "Alternative medicine claims"
     },
     {
       "action": "Suggest essential oils can replace medical treatment for serious conditions",
       "why_fails": "Essential oils have limited evidence for minor issues (lavender for relaxation) but ZERO evidence for treating cancer, diabetes, infections, or chronic diseases. People who replace chemotherapy with essential oils die from treatable cancers.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.fda.gov/consumers/consumer-updates/danger-dont-drink-miracle-mineral-solution-or-similar-products",
+        "https://www.cdc.gov/vaccine-safety/"
+      ],
       "condition": "Essential oil medical claims"
     },
     {
       "action": "Validate the vaccine-autism myth or anti-vaccination claims",
       "why_fails": "The Wakefield study (1998) was fraudulent and retracted. Dozens of studies with millions of participants show no link between vaccines and autism. Anti-vax misinformation has caused measles outbreaks killing children. This is settled science.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.fda.gov/consumers/consumer-updates/danger-dont-drink-miracle-mineral-solution-or-similar-products",
+        "https://www.cdc.gov/vaccine-safety/"
+      ],
       "condition": "Vaccine safety questions"
     }
   ],

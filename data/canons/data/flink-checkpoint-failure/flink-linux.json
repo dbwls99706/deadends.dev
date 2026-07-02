@@ -29,14 +29,18 @@
       "action": "Disable checkpointing",
       "why_fails": "No fault tolerance, data loss on failure",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nightlies.apache.org/flink/flink-docs-stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase checkpoint timeout to hours",
       "why_fails": "Huge recovery time on failure",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nightlies.apache.org/flink/flink-docs-stable/"
+      ],
       "condition": ""
     }
   ],

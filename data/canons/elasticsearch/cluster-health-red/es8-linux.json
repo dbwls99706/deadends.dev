@@ -29,14 +29,18 @@
       "action": "Force allocate unassigned shards blindly",
       "why_fails": "Assigns shards with stale data causing corruption",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     },
     {
       "action": "Restart all nodes simultaneously",
       "why_fails": "Split-brain and data loss in multi-node",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     }
   ],

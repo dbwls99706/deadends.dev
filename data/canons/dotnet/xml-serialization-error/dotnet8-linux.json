@@ -29,14 +29,18 @@
       "action": "Mark all properties as XmlIgnore",
       "why_fails": "Empty serialized output",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Use BinaryFormatter instead",
       "why_fails": "Security vulnerability, deprecated",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Delete corrupted file and hope for backup",
       "why_fails": "Data loss if no backup",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/gridfs/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore missing chunks",
       "why_fails": "Corrupted file returned to application",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/gridfs/"
+      ],
       "condition": ""
     }
   ],

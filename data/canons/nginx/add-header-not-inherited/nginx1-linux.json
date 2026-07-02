@@ -29,14 +29,18 @@
       "action": "Duplicate all headers in every location block",
       "why_fails": "Maintenance nightmare",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_headers_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use server-wide headers only",
       "why_fails": "Loses per-location customization",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_headers_module.html"
+      ],
       "condition": ""
     }
   ],

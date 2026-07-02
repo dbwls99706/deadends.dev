@@ -29,14 +29,18 @@
       "action": "Increase proxy_read_timeout to hours",
       "why_fails": "Clients wait indefinitely",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove upstream health checks",
       "why_fails": "Routes traffic to dead backends",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

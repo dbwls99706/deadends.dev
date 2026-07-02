@@ -29,14 +29,18 @@
       "action": "Use real-time lighting for everything",
       "why_fails": "Performance hit at runtime",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Reduce lightmap resolution globally to minimum",
       "why_fails": "Poor visual quality",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

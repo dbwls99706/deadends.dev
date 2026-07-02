@@ -29,14 +29,18 @@
       "action": "Delete VFX Graph and use particle system",
       "why_fails": "Loses GPU-driven particles",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/ParticleSystems.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable VFX Graph compilation warnings",
       "why_fails": "Hides real errors",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/ParticleSystems.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Avoid low-power modes",
       "why_fails": "High power consumption",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Save all register values before sleep",
       "why_fails": "Complex and memory-intensive",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Ignore drift",
       "why_fails": "Increasing time error",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Use HSE as RTC source",
       "why_fails": "Higher power consumption",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

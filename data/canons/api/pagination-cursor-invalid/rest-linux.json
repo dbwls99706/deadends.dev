@@ -29,14 +29,18 @@
       "action": "Parse and modify cursor manually",
       "why_fails": "Opaque cursor format, breaks on server changes",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link"
+      ],
       "condition": ""
     },
     {
       "action": "Start from page 1 on cursor error",
       "why_fails": "Duplicates or misses data",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link"
+      ],
       "condition": ""
     }
   ],

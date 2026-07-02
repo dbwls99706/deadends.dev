@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/google-maps-navigation-limited/kr",
+  "url": "https://deadends.dev/communication/google-maps-navigation-limited/kr",
+  "error": {
+    "signature": "AI recommends Google Maps for driving or walking navigation in South Korea",
+    "regex": "(korea|korean|seoul|busan).{0,50}(google maps|navigation app|driving directions|walking directions|map app)",
+    "domain": "communication",
+    "category": "navigation",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "High-precision map data export is restricted in South Korea, so Google Maps cannot provide reliable driving/walking navigation there. Koreans use Naver Map and Kakao Map (both with English interfaces). A conditional export approval in early 2026 has not yet restored full Google navigation."
+  },
+  "dead_ends": [
+    {
+      "action": "Rely on Google Maps for turn-by-turn driving or walking routes in Korea",
+      "why_fails": "Korea's official tourism guidance states Google Maps GPS navigation cannot be used in Korea: security-driven restrictions on exporting 1:5,000 map data leave Google without routable local data, so driving, walking and many transit results are missing or wrong.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140664",
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=230965"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install Naver Map or Kakao Map before the trip and switch the interface to English",
+      "success_rate": 0.9,
+      "how": "Naver Map supports English, Chinese and Japanese; Kakao Map supports English. Both provide accurate driving, transit and walking navigation plus real-time traffic; Kakao T or Uber handle taxi hailing.",
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=230965",
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140664"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

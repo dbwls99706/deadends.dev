@@ -29,14 +29,18 @@
       "action": "Return 0 for all NaN cases",
       "why_fails": "Incorrect ranking results",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Remove function_score",
       "why_fails": "Loses custom relevance tuning",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

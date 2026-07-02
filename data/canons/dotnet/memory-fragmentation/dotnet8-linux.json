@@ -29,14 +29,18 @@
       "action": "Force GC.Collect() frequently",
       "why_fails": "Degrades performance, doesnt fix fragmentation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase process memory limit",
       "why_fails": "Fragmentation still occurs",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

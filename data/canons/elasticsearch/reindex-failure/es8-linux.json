@@ -29,14 +29,18 @@
       "action": "Increase reindex timeout to hours",
       "why_fails": "Ties up cluster resources",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Delete source index and try again",
       "why_fails": "Data loss if reindex target incomplete",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

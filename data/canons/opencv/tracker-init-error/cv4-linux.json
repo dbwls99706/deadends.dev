@@ -29,14 +29,18 @@
       "action": "Use detection every frame instead",
       "why_fails": "Much slower than tracking",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Initialize with full image as bbox",
       "why_fails": "Tracks nothing useful",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

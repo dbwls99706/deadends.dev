@@ -29,14 +29,18 @@
       "action": "Drop and recreate collection",
       "why_fails": "Loses all time series data",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/timeseries-collections/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore granularity mismatch",
       "why_fails": "Suboptimal bucket packing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/timeseries-collections/"
+      ],
       "condition": ""
     }
   ],

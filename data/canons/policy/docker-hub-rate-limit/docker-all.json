@@ -29,14 +29,18 @@
       "action": "Add retry loops with no backoff",
       "why_fails": "Rate limits are time-based quotas - retries within the window consume more quota.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.docker.com/docker-hub/"
+      ],
       "condition": ""
     },
     {
       "action": "Create multiple anonymous accounts to rotate",
       "why_fails": "Violates Docker Hub ToS and IPs may get blocked.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.docker.com/docker-hub/"
+      ],
       "condition": ""
     }
   ],

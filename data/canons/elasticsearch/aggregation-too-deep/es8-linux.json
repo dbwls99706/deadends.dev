@@ -29,14 +29,18 @@
       "action": "Set search.max_buckets to unlimited",
       "why_fails": "OOM on large cardinality fields",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all aggregation limits",
       "why_fails": "Same OOM risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

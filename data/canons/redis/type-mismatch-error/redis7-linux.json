@@ -29,14 +29,18 @@
       "action": "Delete and recreate key with correct type",
       "why_fails": "Loses existing data",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use TYPE command before every operation",
       "why_fails": "Overhead on every call",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

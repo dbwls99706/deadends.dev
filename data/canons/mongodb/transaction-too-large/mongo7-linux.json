@@ -29,14 +29,18 @@
       "action": "Increase transactionLifetimeLimitSeconds to hours",
       "why_fails": "Long-running transactions block others",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/transactions/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable transaction retry",
       "why_fails": "Fails permanently on transient errors",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/transactions/"
+      ],
       "condition": ""
     }
   ],

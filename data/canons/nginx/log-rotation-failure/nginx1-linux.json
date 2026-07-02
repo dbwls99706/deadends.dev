@@ -29,14 +29,18 @@
       "action": "Delete log files while nginx running",
       "why_fails": "nginx still writes to deleted fd",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/control.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable logging entirely",
       "why_fails": "No visibility into traffic",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/control.html"
+      ],
       "condition": ""
     }
   ],

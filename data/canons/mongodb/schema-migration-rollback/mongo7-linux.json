@@ -29,14 +29,18 @@
       "action": "Force apply forward migration",
       "why_fails": "May corrupt data with partial state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Drop collection and recreate",
       "why_fails": "Data loss",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

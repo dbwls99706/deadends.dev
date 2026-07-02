@@ -29,14 +29,18 @@
       "action": "Use global state to break cycle",
       "why_fails": "Loses reactive updates",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     },
     {
       "action": "Lazy-initialize all providers",
       "why_fails": "May cause runtime null errors",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     }
   ],

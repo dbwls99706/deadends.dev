@@ -29,14 +29,18 @@
       "action": "Override authority header arbitrarily",
       "why_fails": "Breaks TLS verification",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable hostname verification",
       "why_fails": "MITM vulnerability",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     }
   ],

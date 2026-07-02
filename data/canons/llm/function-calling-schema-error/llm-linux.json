@@ -29,14 +29,18 @@
       "action": "Remove schema validation and send raw JSON",
       "why_fails": "API rejects invalid schema",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
       "condition": ""
     },
     {
       "action": "Use overly complex nested schemas",
       "why_fails": "Model struggles with deep nesting",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
       "condition": ""
     }
   ],

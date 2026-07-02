@@ -29,14 +29,18 @@
       "action": "Extend rotation period indefinitely",
       "why_fails": "Compliance violation",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Create new key without revoking old",
       "why_fails": "Old key still valid, attack surface",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set all generation parameters",
       "why_fails": "Conflicting settings override each other",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      ],
       "condition": ""
     },
     {
       "action": "Use default generation config only",
       "why_fails": "May not match use case",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      ],
       "condition": ""
     }
   ],

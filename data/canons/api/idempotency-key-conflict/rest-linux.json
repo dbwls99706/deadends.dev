@@ -29,14 +29,18 @@
       "action": "Remove idempotency keys",
       "why_fails": "Duplicate charges/operations on retry",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent"
+      ],
       "condition": ""
     },
     {
       "action": "Use same key for all requests",
       "why_fails": "All retries return first response",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent"
+      ],
       "condition": ""
     }
   ],

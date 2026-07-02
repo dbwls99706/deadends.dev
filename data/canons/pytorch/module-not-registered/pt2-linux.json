@@ -29,14 +29,18 @@
       "action": "Register all modules in __init__ manually",
       "why_fails": "Error-prone, misses dynamic modules",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Use self.__dict__ directly",
       "why_fails": "Bypasses nn.Module parameter tracking",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

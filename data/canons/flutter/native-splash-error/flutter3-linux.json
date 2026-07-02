@@ -29,14 +29,18 @@
       "action": "Remove native splash screen",
       "why_fails": "Blank screen on startup",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Use static image without configuration",
       "why_fails": "Stretching and scaling issues",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

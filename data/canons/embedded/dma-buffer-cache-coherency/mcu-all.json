@@ -29,14 +29,18 @@
       "action": "Disable all caching",
       "why_fails": "Destroys performance; D-cache provides 2-10x speedup.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Use volatile keyword on DMA buffers",
       "why_fails": "volatile only prevents compiler optimization, not hardware cache.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

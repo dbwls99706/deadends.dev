@@ -29,14 +29,18 @@
       "action": "Disable partitioning entirely",
       "why_fails": "Full table scans, high cost",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/athena/latest/ug/partitions.html"
+      ],
       "condition": ""
     },
     {
       "action": "Add missing partition column with null",
       "why_fails": "Wrong partition routing",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/athena/latest/ug/partitions.html"
+      ],
       "condition": ""
     }
   ],

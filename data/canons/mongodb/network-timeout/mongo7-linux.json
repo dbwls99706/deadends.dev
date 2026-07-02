@@ -29,14 +29,18 @@
       "action": "Set socketTimeoutMS to 0 (infinite)",
       "why_fails": "Hangs forever on dead connections",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry immediately in loop",
       "why_fails": "Overwhelms recovering server",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

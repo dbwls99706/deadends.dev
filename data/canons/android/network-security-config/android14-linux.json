@@ -29,14 +29,18 @@
       "action": "Set usesCleartextTraffic=true globally",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/articles/security-config"
+      ],
       "condition": ""
     },
     {
       "action": "Downgrade targetSdkVersion",
       "why_fails": "Loses new API features",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/articles/security-config"
+      ],
       "condition": ""
     }
   ],

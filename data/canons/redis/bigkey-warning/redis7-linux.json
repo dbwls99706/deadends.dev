@@ -29,14 +29,18 @@
       "action": "Increase maxmemory to accommodate",
       "why_fails": "Delays problem",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Delete big key directly",
       "why_fails": "Blocks Redis during delete",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

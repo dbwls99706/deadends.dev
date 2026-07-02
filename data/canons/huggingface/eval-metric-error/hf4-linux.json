@@ -29,14 +29,18 @@
       "action": "Remove all evaluation metrics",
       "why_fails": "No training quality feedback",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     },
     {
       "action": "Use accuracy for all tasks",
       "why_fails": "Wrong metric for generation/regression",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     }
   ],

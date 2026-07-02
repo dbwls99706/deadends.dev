@@ -29,14 +29,18 @@
       "action": "Switch to Groovy/JavaScript scripting",
       "why_fails": "Deprecated and security risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Disable scripting entirely",
       "why_fails": "Loses advanced query/agg capabilities",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

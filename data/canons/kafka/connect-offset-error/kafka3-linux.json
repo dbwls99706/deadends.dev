@@ -29,14 +29,18 @@
       "action": "Delete offset topic",
       "why_fails": "Reprocesses all data from start",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Reset offsets to latest",
       "why_fails": "Skips unprocessed records",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

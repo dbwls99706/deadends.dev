@@ -29,14 +29,18 @@
       "action": "Set client_max_body_size to 0 (unlimited)",
       "why_fails": "DoS vector with huge uploads",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Increase only in http block",
       "why_fails": "Applies to all locations unnecessarily",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     }
   ],

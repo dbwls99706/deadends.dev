@@ -29,14 +29,18 @@
       "action": "Convert to numpy between every transform",
       "why_fails": "Slow, loses GPU tensors",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all transforms",
       "why_fails": "No data augmentation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

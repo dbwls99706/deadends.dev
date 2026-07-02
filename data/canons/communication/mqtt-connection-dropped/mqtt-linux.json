@@ -29,14 +29,18 @@
       "action": "Set keep-alive to 0 (disabled)",
       "why_fails": "Broken connections never detected",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://mqtt.org/mqtt-specification/"
+      ],
       "condition": ""
     },
     {
       "action": "Reconnect without backoff",
       "why_fails": "Server overwhelmed by reconnection storm",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://mqtt.org/mqtt-specification/"
+      ],
       "condition": ""
     }
   ],

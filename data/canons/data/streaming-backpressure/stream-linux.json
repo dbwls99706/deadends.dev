@@ -29,14 +29,18 @@
       "action": "Increase buffer to unlimited",
       "why_fails": "OOM when consumer cant catch up",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nightlies.apache.org/flink/flink-docs-stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Drop messages on backpressure",
       "why_fails": "Data loss",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://nightlies.apache.org/flink/flink-docs-stable/"
+      ],
       "condition": ""
     }
   ],

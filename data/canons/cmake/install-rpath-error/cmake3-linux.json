@@ -29,14 +29,18 @@
       "action": "Set LD_LIBRARY_PATH globally",
       "why_fails": "Not portable, fragile",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_RPATH.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use -Wl,-rpath with absolute paths",
       "why_fails": "Breaks on different install prefix",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_RPATH.html"
+      ],
       "condition": ""
     }
   ],

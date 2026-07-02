@@ -29,14 +29,18 @@
       "action": "Disable webhook retries",
       "why_fails": "Miss critical events",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries"
+      ],
       "condition": ""
     },
     {
       "action": "Process webhook synchronously with heavy computation",
       "why_fails": "Timeout on next delivery",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries"
+      ],
       "condition": ""
     }
   ],

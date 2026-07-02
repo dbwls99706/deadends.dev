@@ -29,14 +29,18 @@
       "action": "Disable geo validation",
       "why_fails": "Stores invalid geometries, query failures",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Convert all shapes to points",
       "why_fails": "Loses polygon/line information",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

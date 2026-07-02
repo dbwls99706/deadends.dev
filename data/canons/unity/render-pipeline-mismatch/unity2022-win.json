@@ -29,14 +29,18 @@
       "action": "Use Standard shader for everything",
       "why_fails": "Not compatible with SRP",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Install all render pipelines",
       "why_fails": "Conflicts and confusion",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove Content-Type header entirely",
       "why_fails": "Server uses wrong default parser",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"
+      ],
       "condition": ""
     },
     {
       "action": "Send as form-encoded when JSON expected",
       "why_fails": "Parse error on server",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Add all DLLs to Plugins folder blindly",
       "why_fails": "Version conflicts and bloat",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Copy code from missing assembly inline",
       "why_fails": "Maintenance nightmare",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

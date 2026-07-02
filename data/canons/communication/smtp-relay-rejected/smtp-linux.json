@@ -29,14 +29,18 @@
       "action": "Open relay for all senders",
       "why_fails": "Spam relay abuse",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc5321"
+      ],
       "condition": ""
     },
     {
       "action": "Send from localhost without auth",
       "why_fails": "Only works for local delivery",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc5321"
+      ],
       "condition": ""
     }
   ],

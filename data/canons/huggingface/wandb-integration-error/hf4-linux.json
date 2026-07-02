@@ -29,14 +29,18 @@
       "action": "Set WANDB_DISABLED=true globally",
       "why_fails": "No experiment tracking",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Catch all wandb errors silently",
       "why_fails": "Misses logging issues",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

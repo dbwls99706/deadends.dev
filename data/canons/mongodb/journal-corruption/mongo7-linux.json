@@ -29,14 +29,18 @@
       "action": "Delete journal files manually",
       "why_fails": "Potential data loss",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Start mongod without journaling",
       "why_fails": "No crash recovery",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Flatten everything to 1D",
       "why_fails": "Loses spatial/structural information",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore shape checking with allow_growth",
       "why_fails": "Not related to shapes",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     }
   ],

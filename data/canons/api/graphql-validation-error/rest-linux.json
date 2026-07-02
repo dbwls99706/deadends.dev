@@ -29,14 +29,18 @@
       "action": "Disable query validation on server",
       "why_fails": "Allows arbitrary queries, security risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://graphql.org/learn/"
+      ],
       "condition": ""
     },
     {
       "action": "Add all fields to schema blindly",
       "why_fails": "Exposes unintended data",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://graphql.org/learn/"
+      ],
       "condition": ""
     }
   ],

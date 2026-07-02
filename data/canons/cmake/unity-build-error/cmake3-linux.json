@@ -29,14 +29,18 @@
       "action": "Disable unity build globally",
       "why_fails": "Slower compilation",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Merge all sources into one file",
       "why_fails": "Manual and unmaintainable",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

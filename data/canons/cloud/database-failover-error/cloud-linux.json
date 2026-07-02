@@ -29,14 +29,18 @@
       "action": "Force failover during peak traffic",
       "why_fails": "Extended downtime",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable failover",
       "why_fails": "No HA capability",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

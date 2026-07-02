@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/idp-geneva-only-gaimen-kirikae/jp",
+  "url": "https://deadends.dev/legal/idp-geneva-only-gaimen-kirikae/jp",
+  "error": {
+    "signature": "AI says any International Driving Permit or home license lets you drive in Japan",
+    "regex": "(japan|japanese).{0,50}(international driving permit|idp|drive with.{0,20}licen[cs]e|licen[cs]e conversion|gaimen)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Japan only recognises IDPs issued under the 1949 Geneva Convention; permits under the 1968 Vienna Convention are invalid. Long-term residents must convert via gaimen kirikae at a prefectural licence centre, with proof of 3+ months' stay in the issuing country after the licence was obtained."
+  },
+  "dead_ends": [
+    {
+      "action": "Drive on a 1968 Vienna Convention IDP (e.g. issued in Germany, China mainland, or Vietnam)",
+      "why_fails": "Japan is party only to the 1949 Geneva Convention; Vienna-Convention IDPs confer no driving privilege, and driving on one is unlicensed driving. A small set of countries (e.g. Germany, France, Switzerland, Taiwan) instead use a special regime: home licence plus official Japanese translation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://english.jaf.or.jp/driving-in-japan/drive-in-japan/switch-to-japanese-license",
+        "https://www.npa.go.jp/english/index.html"
+      ]
+    },
+    {
+      "action": "Rely on a Geneva IDP indefinitely as a resident",
+      "why_fails": "An IDP is valid at most one year from landing, and residents cannot renew it by briefly leaving and re-entering; long-term residents must convert to a Japanese licence (gaimen kirikae), which requires documents proving 3+ months of stay in the issuing country after obtaining the licence.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://english.jaf.or.jp/driving-in-japan/drive-in-japan/switch-to-japanese-license"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check your issuing country's regime first, then convert early via gaimen kirikae",
+      "success_rate": 0.85,
+      "how": "Geneva-Convention countries: use the IDP for up to 1 year. Special-regime countries: carry the home licence plus a JAF/embassy translation. Residents: book the prefectural licence centre conversion early - knowledge and practical tests apply to most nationalities, and rules tightened in October 2025.",
+      "sources": [
+        "https://english.jaf.or.jp/driving-in-japan/drive-in-japan/switch-to-japanese-license",
+        "https://www.npa.go.jp/english/index.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/drive-on-left-look-right/jp",
+        "distinction": "This canon is about licence validity; the other is about the physical hazard of left-hand traffic once you are legally driving."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

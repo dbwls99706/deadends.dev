@@ -29,14 +29,18 @@
       "action": "Retry immediately without backoff",
       "why_fails": "Hammering the API worsens rate limiting and may cause IP blocks.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/rate-limits"
+      ],
       "condition": ""
     },
     {
       "action": "Switch API keys rapidly to bypass limits",
       "why_fails": "Most providers rate-limit per organization, not per key.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/rate-limits"
+      ],
       "condition": ""
     }
   ],

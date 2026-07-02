@@ -29,14 +29,18 @@
       "action": "Force read with ignoreCorruptFiles",
       "why_fails": "Silently drops data",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://parquet.apache.org/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Rewrite all parquet files to new schema",
       "why_fails": "Very expensive for large datasets",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://parquet.apache.org/docs/"
+      ],
       "condition": ""
     }
   ],

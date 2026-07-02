@@ -29,14 +29,18 @@
       "action": "Delete conflicting migration and re-run",
       "why_fails": "May lose schema changes",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://flywaydb.org/"
+      ],
       "condition": ""
     },
     {
       "action": "Force migration version number",
       "why_fails": "Breaks migration ordering",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://flywaydb.org/"
+      ],
       "condition": ""
     }
   ],

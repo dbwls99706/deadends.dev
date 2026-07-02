@@ -29,14 +29,18 @@
       "action": "Rebuild all bundles on every launch",
       "why_fails": "Extremely slow, defeats caching purpose",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/AssetBundlesIntro.html"
+      ],
       "condition": ""
     },
     {
       "action": "Skip bundle version check",
       "why_fails": "Load errors or corrupted assets",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/AssetBundlesIntro.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Trust X-Forwarded-For header directly",
       "why_fails": "Trivially spoofable by client",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Rate limit by user-agent only",
       "why_fails": "Easily changed by attacker",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

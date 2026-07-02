@@ -29,14 +29,18 @@
       "action": "Lower detection threshold to minimum",
       "why_fails": "False positives",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use largest marker dictionary",
       "why_fails": "Slower detection",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

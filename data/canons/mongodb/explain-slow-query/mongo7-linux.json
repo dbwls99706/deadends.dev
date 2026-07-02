@@ -29,14 +29,18 @@
       "action": "Create index on every queried field",
       "why_fails": "Index overhead on writes, storage bloat",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Cache all query results",
       "why_fails": "Stale data, memory issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

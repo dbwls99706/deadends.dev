@@ -29,14 +29,18 @@
       "action": "Ignore wear level warnings",
       "why_fails": "Flash sector failure",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Increase erase block size",
       "why_fails": "Same writes concentrated on fewer sectors",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

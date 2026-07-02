@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.92,
     "last_updated": "2026-03-02",
     "summary": "Modern trauma medicine has reversed old tourniquet advice. Tourniquets SAVE LIVES and rarely cause limb loss when applied correctly. The old 'tourniquets = amputation' myth causes preventable deaths from hemorrhage."
@@ -29,14 +29,18 @@
       "action": "Avoid using a tourniquet because 'they cause amputation'",
       "why_fails": "This outdated myth kills people. Military data shows tourniquets can be safely applied for 2+ hours with minimal complication risk. A person can bleed to death from a severed artery in 3-5 minutes. Hemorrhage is the #1 cause of preventable trauma death.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.stopthebleed.org/"
+      ],
       "condition": "Severe limb hemorrhage"
     },
     {
       "action": "Periodically loosen a tourniquet to 'let blood flow'",
       "why_fails": "Loosening a tourniquet releases accumulated toxins and clots into circulation, risking cardiac arrest. Once applied, NEVER loosen or remove - only medical professionals in a hospital should do so.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.stopthebleed.org/"
+      ],
       "condition": "Tourniquet management"
     }
   ],

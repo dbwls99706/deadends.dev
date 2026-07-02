@@ -29,14 +29,18 @@
       "action": "Change mapping on existing index",
       "why_fails": "Cannot change existing field mappings",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     },
     {
       "action": "Disable strict mapping",
       "why_fails": "Mapping explosion risk",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     }
   ],

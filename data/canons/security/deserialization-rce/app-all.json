@@ -29,14 +29,18 @@
       "action": "Add a class whitelist to ObjectInputStream",
       "why_fails": "Whitelist can be bypassed through gadget chains in allowed classes.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Validate serialized data before deserializing",
       "why_fails": "Validation requires deserialization first, creating a chicken-and-egg problem.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

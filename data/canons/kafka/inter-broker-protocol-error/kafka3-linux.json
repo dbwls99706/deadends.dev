@@ -29,14 +29,18 @@
       "action": "Skip version compatibility check",
       "why_fails": "Data corruption risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Upgrade all brokers simultaneously",
       "why_fails": "Cluster outage",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

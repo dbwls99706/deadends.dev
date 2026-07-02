@@ -29,14 +29,18 @@
       "action": "Retry immediately in tight loop",
       "why_fails": "Rate limited by API",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to different model randomly",
       "why_fails": "May not fit use case",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

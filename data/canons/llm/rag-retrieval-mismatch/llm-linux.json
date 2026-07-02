@@ -29,14 +29,18 @@
       "action": "Increase top-k to retrieve more documents",
       "why_fails": "More noise, longer context, slower",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     },
     {
       "action": "Use keyword search only",
       "why_fails": "Misses semantic similarity",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     }
   ],

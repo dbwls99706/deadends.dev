@@ -29,14 +29,18 @@
       "action": "Remove all hooks",
       "why_fails": "Loses gradient monitoring/modification",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Catch all exceptions in hooks",
       "why_fails": "May hide real issues",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

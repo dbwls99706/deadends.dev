@@ -29,14 +29,18 @@
       "action": "Bind all tracks at startup programmatically",
       "why_fails": "Fragile if timeline changes",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore binding errors",
       "why_fails": "Tracks dont play",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

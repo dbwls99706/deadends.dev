@@ -29,14 +29,18 @@
       "action": "Downgrade PEFT to very old version",
       "why_fails": "Misses bug fixes",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/peft/index"
+      ],
       "condition": ""
     },
     {
       "action": "Re-train adapter from scratch",
       "why_fails": "Loses training time and data",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/peft/index"
+      ],
       "condition": ""
     }
   ],

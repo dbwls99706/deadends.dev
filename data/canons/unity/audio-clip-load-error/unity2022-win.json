@@ -29,14 +29,18 @@
       "action": "Convert all audio to uncompressed WAV",
       "why_fails": "Huge build size",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore audio load failures",
       "why_fails": "Silent game experience",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

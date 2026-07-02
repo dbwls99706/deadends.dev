@@ -29,14 +29,18 @@
       "action": "Restart Redis to defragment",
       "why_fails": "Service disruption",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase maxmemory to cover fragmentation",
       "why_fails": "Wastes RAM",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

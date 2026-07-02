@@ -29,14 +29,18 @@
       "action": "Set session.timeout.ms very high",
       "why_fails": "Delays detection of dead consumers",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Disable auto-commit and never commit",
       "why_fails": "Reprocesses all messages on restart",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Manually create dataset files from scratch",
       "why_fails": "Misses preprocessing and splits",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/datasets/index"
+      ],
       "condition": ""
     },
     {
       "action": "Use random dataset as placeholder",
       "why_fails": "Wrong data distribution",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/datasets/index"
+      ],
       "condition": ""
     }
   ],

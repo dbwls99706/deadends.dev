@@ -29,14 +29,18 @@
       "action": "Block only localhost and 127.0.0.1",
       "why_fails": "Misses 0.0.0.0, IPv6 ::1, 169.254.x.x metadata, DNS rebinding, and decimal IP notation.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Validate URL scheme is HTTPS only",
       "why_fails": "Does not prevent requests to internal HTTPS services.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

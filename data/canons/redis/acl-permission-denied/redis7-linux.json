@@ -29,14 +29,18 @@
       "action": "Grant all permissions to user",
       "why_fails": "Defeats ACL purpose",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     },
     {
       "action": "Use default user for everything",
       "why_fails": "No access control",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     }
   ],

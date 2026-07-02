@@ -29,14 +29,18 @@
       "action": "Increase BSON limit",
       "why_fails": "Not configurable in MongoDB",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Compress document contents",
       "why_fails": "Still exceeds limit after decompression for queries",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

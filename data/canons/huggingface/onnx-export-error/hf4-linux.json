@@ -29,14 +29,18 @@
       "action": "Use pickle export instead",
       "why_fails": "No cross-platform compatibility",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/optimum/index"
+      ],
       "condition": ""
     },
     {
       "action": "Skip dynamic axes",
       "why_fails": "Fixed batch size only",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/optimum/index"
+      ],
       "condition": ""
     }
   ],

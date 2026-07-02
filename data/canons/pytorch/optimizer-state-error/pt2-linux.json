@@ -29,14 +29,18 @@
       "action": "Reset optimizer state",
       "why_fails": "Loses momentum and learning rate schedule",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/optim.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore state dict errors",
       "why_fails": "Corrupted optimizer state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/optim.html"
+      ],
       "condition": ""
     }
   ],

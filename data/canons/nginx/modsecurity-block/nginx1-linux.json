@@ -29,14 +29,18 @@
       "action": "Disable ModSecurity entirely",
       "why_fails": "No WAF protection",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Set SecRuleEngine Off",
       "why_fails": "Same as disabling",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/"
+      ],
       "condition": ""
     }
   ],

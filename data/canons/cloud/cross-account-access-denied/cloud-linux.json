@@ -29,14 +29,18 @@
       "action": "Use shared credentials instead of role assumption",
       "why_fails": "Security risk, hard to audit",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html"
+      ],
       "condition": ""
     },
     {
       "action": "Make resource public",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html"
+      ],
       "condition": ""
     }
   ],

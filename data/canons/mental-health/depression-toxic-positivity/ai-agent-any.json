@@ -29,21 +29,27 @@
       "action": "Tell a depressed person to 'just think positive' or 'choose happiness'",
       "why_fails": "Depression involves disrupted serotonin, norepinephrine, and dopamine systems. Telling someone to 'think positive' is like telling a diabetic to 'just produce more insulin.' It assigns moral failure to a medical condition.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.nimh.nih.gov/health/topics/depression"
+      ],
       "condition": "Responding to depression disclosure"
     },
     {
       "action": "Suggest that exercise, diet, or lifestyle changes alone can cure clinical depression",
       "why_fails": "While exercise helps as an adjunct treatment, moderate-to-severe depression often requires medication and/or therapy. Suggesting lifestyle changes as a cure implies the person isn't trying hard enough and delays evidence-based treatment.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.nimh.nih.gov/health/topics/depression"
+      ],
       "condition": "Depression treatment advice"
     },
     {
       "action": "Compare the person's situation to others who 'have it worse'",
       "why_fails": "'Others have it worse' invalidates their pain and adds guilt (now they feel depressed AND guilty about being depressed). Depression is not proportional to external circumstances - it's a brain chemistry condition.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.nimh.nih.gov/health/topics/depression"
+      ],
       "condition": "Attempting to contextualize depression"
     }
   ],

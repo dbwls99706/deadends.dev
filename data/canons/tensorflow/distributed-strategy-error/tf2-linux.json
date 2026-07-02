@@ -29,14 +29,18 @@
       "action": "Create model outside strategy scope",
       "why_fails": "Model not distributed, runs on single device",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/distributed_training"
+      ],
       "condition": ""
     },
     {
       "action": "Use multiple strategies simultaneously",
       "why_fails": "Conflicts in distribution",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/distributed_training"
+      ],
       "condition": ""
     }
   ],

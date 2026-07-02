@@ -29,14 +29,18 @@
       "action": "Move all keys to one node",
       "why_fails": "Defeats purpose of clustering",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable cluster mode",
       "why_fails": "Loses horizontal scaling",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     }
   ],

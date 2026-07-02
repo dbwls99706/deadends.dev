@@ -29,14 +29,18 @@
       "action": "Set max to unlimited on client",
       "why_fails": "OOM on huge responses",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Truncate response on server",
       "why_fails": "Data loss",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

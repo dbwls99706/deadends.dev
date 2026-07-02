@@ -29,14 +29,18 @@
       "action": "Filter script tags only",
       "why_fails": "Bypassed with event handlers, SVG, etc.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use regex to remove HTML",
       "why_fails": "Regex cant reliably parse HTML",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

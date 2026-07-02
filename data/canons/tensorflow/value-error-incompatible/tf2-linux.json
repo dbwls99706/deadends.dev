@@ -29,14 +29,18 @@
       "action": "Add Flatten layer before every layer",
       "why_fails": "Destroys feature structure",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Disable input shape checking",
       "why_fails": "Crashes later with confusing error",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Generate synthetic log entries to fill gap",
       "why_fails": "Falsifying audit records, legal risk",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore gap and mark as reviewed",
       "why_fails": "Compliance finding on next audit",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

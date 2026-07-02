@@ -29,14 +29,18 @@
       "action": "Write individual bytes to flash",
       "why_fails": "Most flash controllers require 32-bit or 64-bit aligned writes.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Cast any pointer to flash write address",
       "why_fails": "Misaligned address causes HardFault on Cortex-M.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

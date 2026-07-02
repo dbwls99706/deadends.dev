@@ -29,14 +29,18 @@
       "action": "Train new LoRA from scratch",
       "why_fails": "Loses existing fine-tuning",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/peft/index"
+      ],
       "condition": ""
     },
     {
       "action": "Force merge with type mismatch",
       "why_fails": "Corrupted weights",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/peft/index"
+      ],
       "condition": ""
     }
   ],

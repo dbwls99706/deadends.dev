@@ -29,14 +29,18 @@
       "action": "Add -L to random library paths",
       "why_fails": "May find wrong library version",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_link_libraries.html"
+      ],
       "condition": ""
     },
     {
       "action": "Copy .so file manually to /usr/lib",
       "why_fails": "Breaks package management",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_link_libraries.html"
+      ],
       "condition": ""
     }
   ],

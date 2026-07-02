@@ -29,14 +29,18 @@
       "action": "Block literal ../ string only",
       "why_fails": "Attackers use URL encoding (%2e%2e%2f), double encoding, or OS-specific separators.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
       "condition": ""
     },
     {
       "action": "Use regex blacklist for dangerous paths",
       "why_fails": "Blacklists are always incomplete - new bypass techniques emerge regularly.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Path_Traversal"
+      ],
       "condition": ""
     }
   ],

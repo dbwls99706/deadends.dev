@@ -29,14 +29,18 @@
       "action": "Just increase max_tokens parameter",
       "why_fails": "max_tokens controls output length, not input window size.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     },
     {
       "action": "Compress text by removing whitespace",
       "why_fails": "Tokens are not bytes - whitespace removal saves minimal tokens.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     }
   ],

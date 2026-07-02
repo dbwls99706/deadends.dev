@@ -29,14 +29,18 @@
       "action": "Remove arrayFilters and update all elements",
       "why_fails": "Updates wrong elements",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Use positional $ operator for everything",
       "why_fails": "Only matches first element",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

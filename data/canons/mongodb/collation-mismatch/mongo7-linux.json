@@ -29,14 +29,18 @@
       "action": "Remove all collations",
       "why_fails": "Loses locale-aware sorting",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Create duplicate indexes with different collations",
       "why_fails": "Index bloat",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

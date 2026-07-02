@@ -29,14 +29,18 @@
       "action": "Set HttpClient.Timeout to Infinite",
       "why_fails": "Requests hang forever on unresponsive server",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"
+      ],
       "condition": ""
     },
     {
       "action": "Catch and retry without backoff",
       "why_fails": "Same timeout, resource waste",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove certificate pinning entirely",
       "why_fails": "Vulnerable to MITM",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Pinning_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Pin to root CA only",
       "why_fails": "Too broad, any cert from CA accepted",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Pinning_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

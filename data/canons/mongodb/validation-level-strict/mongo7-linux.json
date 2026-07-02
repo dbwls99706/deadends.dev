@@ -29,14 +29,18 @@
       "action": "Set validationLevel to off",
       "why_fails": "No validation at all",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/schema-validation/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore validation errors",
       "why_fails": "Data quality degrades",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/schema-validation/"
+      ],
       "condition": ""
     }
   ],

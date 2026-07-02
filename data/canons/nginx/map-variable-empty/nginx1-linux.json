@@ -29,14 +29,18 @@
       "action": "Set default to wildcard match",
       "why_fails": "Catches everything, defeats purpose",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_map_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove map and hardcode values",
       "why_fails": "Loses dynamic routing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_map_module.html"
+      ],
       "condition": ""
     }
   ],

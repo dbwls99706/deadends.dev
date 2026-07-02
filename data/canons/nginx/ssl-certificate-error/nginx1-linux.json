@@ -29,14 +29,18 @@
       "action": "Disable SSL verification",
       "why_fails": "Man-in-the-middle vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_ssl_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use self-signed cert in production",
       "why_fails": "Browser warnings, no trust",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_ssl_module.html"
+      ],
       "condition": ""
     }
   ],

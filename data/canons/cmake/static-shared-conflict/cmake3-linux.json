@@ -29,14 +29,18 @@
       "action": "Make everything STATIC",
       "why_fails": "Large binary, no shared benefits",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Make everything SHARED",
       "why_fails": "Deployment complexity",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

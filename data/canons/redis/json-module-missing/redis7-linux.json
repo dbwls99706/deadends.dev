@@ -29,14 +29,18 @@
       "action": "Use string SET/GET and parse JSON in application",
       "why_fails": "Loses atomic JSON path operations and increases network overhead.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Install redis-json via apt/yum package manager",
       "why_fails": "RedisJSON is not in default OS repos; needs Redis Stack or manual module install.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

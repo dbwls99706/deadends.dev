@@ -29,14 +29,20 @@
       "action": "Retry immediately ignoring Retry-After",
       "why_fails": "May get rate limited or banned",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+        "https://datatracker.ietf.org/doc/html/rfc6585"
+      ],
       "condition": ""
     },
     {
       "action": "Give up after first 503",
       "why_fails": "Misses transient availability issues",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+        "https://datatracker.ietf.org/doc/html/rfc6585"
+      ],
       "condition": ""
     }
   ],

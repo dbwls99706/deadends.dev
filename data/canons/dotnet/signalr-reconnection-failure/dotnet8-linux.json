@@ -29,14 +29,18 @@
       "action": "Disable automatic reconnection",
       "why_fails": "Client stays disconnected permanently",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction"
+      ],
       "condition": ""
     },
     {
       "action": "Reconnect immediately without backoff",
       "why_fails": "Server overwhelmed by reconnection storm",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction"
+      ],
       "condition": ""
     }
   ],

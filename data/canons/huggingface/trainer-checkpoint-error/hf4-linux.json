@@ -29,14 +29,18 @@
       "action": "Delete all checkpoints and restart",
       "why_fails": "Loses all training progress",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     },
     {
       "action": "Disable checkpointing",
       "why_fails": "No crash recovery",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/trainer"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable TensorRT entirely",
       "why_fails": "Loses inference optimization",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     },
     {
       "action": "Force all ops through TensorRT",
       "why_fails": "Some ops not supported, crashes",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/tensor"
+      ],
       "condition": ""
     }
   ],

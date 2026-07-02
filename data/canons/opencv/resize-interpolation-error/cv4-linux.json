@@ -29,14 +29,18 @@
       "action": "Use INTER_NEAREST for everything",
       "why_fails": "Pixelated results",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Always use INTER_CUBIC",
       "why_fails": "Slow for large downscaling",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

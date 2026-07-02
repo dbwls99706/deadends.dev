@@ -29,14 +29,18 @@
       "action": "Ignore mismatch and train anyway",
       "why_fails": "Crashes on out-of-range token IDs",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/tokenizer"
+      ],
       "condition": ""
     },
     {
       "action": "Truncate embeddings to match",
       "why_fails": "Loses token representations",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/tokenizer"
+      ],
       "condition": ""
     }
   ],

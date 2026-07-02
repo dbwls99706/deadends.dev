@@ -29,14 +29,18 @@
       "action": "Delete all old data immediately without backup",
       "why_fails": "May need for legal holds or disputes",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+      ],
       "condition": ""
     },
     {
       "action": "Extend retention period to avoid violations",
       "why_fails": "May violate GDPR right to erasure",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+      ],
       "condition": ""
     }
   ],

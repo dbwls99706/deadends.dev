@@ -29,14 +29,18 @@
       "action": "Delete ILM policy and manage manually",
       "why_fails": "Loses automated lifecycle",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Force rollover all indices",
       "why_fails": "Creates many small indices",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

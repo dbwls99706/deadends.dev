@@ -29,14 +29,18 @@
       "action": "Set CMAKE_PREFIX_PATH to random dirs",
       "why_fails": "Finds wrong or incompatible version",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
       "condition": ""
     },
     {
       "action": "Skip find_package with FORCE",
       "why_fails": "Build fails later at link time",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/find_package.html"
+      ],
       "condition": ""
     }
   ],

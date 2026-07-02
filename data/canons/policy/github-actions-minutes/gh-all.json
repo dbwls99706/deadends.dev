@@ -29,14 +29,18 @@
       "action": "Create workflows that cancel themselves to save minutes",
       "why_fails": "Cancelled jobs still consume minutes for the time they ran.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/billing"
+      ],
       "condition": ""
     },
     {
       "action": "Move all CI to self-hosted immediately without planning",
       "why_fails": "Self-hosted runners require infrastructure management and security hardening.",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/billing"
+      ],
       "condition": ""
     }
   ],

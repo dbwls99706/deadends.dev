@@ -29,14 +29,18 @@
       "action": "Always use primaryPreferred",
       "why_fails": "Stale reads without awareness",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/read-preference/"
+      ],
       "condition": ""
     },
     {
       "action": "Use nearest without maxStalenessSeconds",
       "why_fails": "Potentially very stale data",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/read-preference/"
+      ],
       "condition": ""
     }
   ],

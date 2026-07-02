@@ -29,14 +29,18 @@
       "action": "Force resize all to same size",
       "why_fails": "Distorts aspect ratios",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Pad with zeros to max size",
       "why_fails": "Visual artifacts at borders",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

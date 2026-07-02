@@ -29,14 +29,18 @@
       "action": "Use regular CMake variables inside generator expressions",
       "why_fails": "Generator expressions are evaluated at generate time, not configure time; regular variables may not exist yet.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Quote generator expressions in target_link_libraries",
       "why_fails": "Quoting can break nested expressions in some contexts.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html"
+      ],
       "condition": ""
     }
   ],

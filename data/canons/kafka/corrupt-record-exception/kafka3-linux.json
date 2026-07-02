@@ -29,14 +29,18 @@
       "action": "Disable CRC checks",
       "why_fails": "Accept corrupted data silently",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Delete topic data",
       "why_fails": "Loses all messages",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Create more page rules anyway",
       "why_fails": "Free plan hard limit of 3 page rules cannot be exceeded.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://developers.cloudflare.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Use Workers to replicate all page rule behavior",
       "why_fails": "Workers have their own limits (100K req/day free) and different semantics.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://developers.cloudflare.com/"
+      ],
       "condition": ""
     }
   ],

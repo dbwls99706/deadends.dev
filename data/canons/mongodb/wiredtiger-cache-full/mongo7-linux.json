@@ -29,14 +29,18 @@
       "action": "Set cacheSizeGB to all available RAM",
       "why_fails": "OS and other processes starved",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/wiredtiger/"
+      ],
       "condition": ""
     },
     {
       "action": "Restart mongod on high cache usage",
       "why_fails": "Temporary fix, same problem returns",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/wiredtiger/"
+      ],
       "condition": ""
     }
   ],
