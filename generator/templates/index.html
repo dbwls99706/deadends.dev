@@ -137,7 +137,9 @@ LLMS_FULL={{ base_url }}/llms-full.txt
 NDJSON_STREAM={{ base_url }}/api/v1/errors.ndjson
 STATS_API={{ base_url }}/api/v1/stats.json
 FEED={{ base_url }}/feed.xml
-MCP_SERVER=python -m mcp.server (8 tools: lookup_error, get_error_detail, search_errors, batch_lookup, get_error_chain, list_error_domains, list_errors_by_domain, get_domain_stats)</pre>
+COUNTRY_INDEX={{ base_url }}/api/v1/countries.json
+COUNTRY_PATTERN={{ base_url }}/api/v1/country/{cc}.json
+MCP_SERVER=python -m mcp.server ({{ mcp_tools|length }} tools: {{ mcp_tools | join(', ') }})</pre>
 
   <header>
     <h1>deadends.dev</h1>
