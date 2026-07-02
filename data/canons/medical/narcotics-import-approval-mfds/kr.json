@@ -43,7 +43,10 @@
     {
       "action": "Assume small personal amounts of controlled medicine are ignored",
       "why_fails": "Korean customs screen for narcotics/psychotropics regardless of quantity; undeclared controlled drugs risk seizure and legal action.",
-      "fail_rate": 0.55
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.mfds.go.kr/eng/"
+      ]
     }
   ],
   "workarounds": [

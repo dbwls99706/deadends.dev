@@ -45,7 +45,11 @@
       "action": "Rent and drive a car without adjusting to left-hand traffic or carrying the right permit",
       "why_fails": "Driving on the unfamiliar side without a valid licence/International Driving Permit risks accidents and can void insurance or break the law.",
       "fail_rate": 0.5,
-      "condition": "Driving or riding"
+      "condition": "Driving or riding",
+      "sources": [
+        "https://www.gov.uk/highway-code",
+        "https://www.gov.uk/"
+      ]
     }
   ],
   "workarounds": [

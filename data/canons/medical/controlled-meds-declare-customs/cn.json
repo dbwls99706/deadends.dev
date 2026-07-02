@@ -45,7 +45,11 @@
       "action": "Carry large quantities for a long stay assuming personal use is unlimited",
       "why_fails": "Only reasonable personal-use amounts are permitted; excess can be treated as import for trade and seized.",
       "fail_rate": 0.5,
-      "condition": "Large quantity"
+      "condition": "Large quantity",
+      "sources": [
+        "http://english.customs.gov.cn/",
+        "https://www.nmpa.gov.cn/"
+      ]
     }
   ],
   "workarounds": [

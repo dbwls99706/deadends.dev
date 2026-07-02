@@ -44,7 +44,10 @@
       "action": "Carry more than the personal limit without a prescription",
       "why_fails": "Personal supply is generally capped (about 3 months) and must be supported by a prescription; excess or undocumented quantities are stopped at customs.",
       "fail_rate": 0.55,
-      "condition": "Over personal limit or no prescription"
+      "condition": "Over personal limit or no prescription",
+      "sources": [
+        "https://www.hsa.gov.sg/personal-medication"
+      ]
     }
   ],
   "workarounds": [

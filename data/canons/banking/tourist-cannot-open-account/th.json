@@ -44,7 +44,10 @@
       "action": "Rely on a tourist-visa account opened via an agent for long-term legitimate use",
       "why_fails": "Accounts opened through informal agents or with minimal documents can be frozen during periodic KYC reviews, leaving funds inaccessible.",
       "fail_rate": 0.6,
-      "condition": "Account opened without proper visa documentation"
+      "condition": "Account opened without proper visa documentation",
+      "sources": [
+        "https://www.bot.or.th/"
+      ]
     }
   ],
   "workarounds": [

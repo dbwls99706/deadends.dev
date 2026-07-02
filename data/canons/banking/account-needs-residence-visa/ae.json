@@ -44,7 +44,10 @@
       "action": "Assume a non-resident account works like a local current account",
       "why_fails": "Non-resident accounts often have high minimum balances, no chequebook, and limited features - not suitable for receiving a local salary or daily use.",
       "fail_rate": 0.5,
-      "condition": "Using a non-resident account for salary/daily banking"
+      "condition": "Using a non-resident account for salary/daily banking",
+      "sources": [
+        "https://u.ae/en/information-and-services/finance-and-investment/banking"
+      ]
     }
   ],
   "workarounds": [

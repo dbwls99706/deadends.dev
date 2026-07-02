@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "kr",
@@ -42,7 +45,11 @@
       "action": "Assume English-only is fine without giving your location in Korean or via app",
       "why_fails": "Operators offer interpretation but locating a non-Korean-speaking caller is slow. Korea's 119 and 112 support location sharing; failing to share GPS or a Korean landmark delays dispatch.",
       "fail_rate": 0.4,
-      "condition": "Caller cannot describe location in Korean"
+      "condition": "Caller cannot describe location in Korean",
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=351",
+        "https://www.police.go.kr/eng/"
+      ]
     }
   ],
   "workarounds": [

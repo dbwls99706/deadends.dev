@@ -44,7 +44,11 @@
       "action": "Rely on the South Sinai free entry permit for a Nile or Cairo trip",
       "why_fails": "The visa-free Sinai-only permit (about 15 days) is limited to South Sinai resort areas and does NOT allow travel to Cairo, Luxor, or diving outside the zone - you need a full visa for those.",
       "fail_rate": 0.55,
-      "condition": "Traveling beyond South Sinai"
+      "condition": "Traveling beyond South Sinai",
+      "sources": [
+        "https://visa2egypt.gov.eg/",
+        "https://egypt.travel/"
+      ]
     }
   ],
   "workarounds": [

@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "fr",
@@ -41,7 +44,11 @@
       "action": "Call 18 (pompiers) for a medical emergency expecting the fastest ambulance",
       "why_fails": "18 reaches the fire brigade; medical emergencies are routed through 15 (SAMU). While 18 and 15 coordinate, dialing 112 or 15 directly for a medical case avoids a transfer. Use the right line to save time.",
       "fail_rate": 0.35,
-      "condition": "Purely medical emergency with no fire"
+      "condition": "Purely medical emergency with no fire",
+      "sources": [
+        "https://www.service-public.fr/particuliers/vosdroits/F33414",
+        "https://www.info.urgence114.fr/"
+      ]
     }
   ],
   "workarounds": [

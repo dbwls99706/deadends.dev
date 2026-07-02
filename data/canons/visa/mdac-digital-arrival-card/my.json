@@ -44,7 +44,11 @@
     {
       "action": "Complete the MDAC on an unofficial third-party site",
       "why_fails": "Only the official immigration MDAC portal is valid and free; third-party sites may charge fees or phish for data.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://imigresen-online.imi.gov.my/mdac/main",
+        "https://www.imi.gov.my/"
+      ]
     }
   ],
   "workarounds": [

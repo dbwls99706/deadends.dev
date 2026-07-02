@@ -45,7 +45,11 @@
       "action": "Rely only on older regional service numbers",
       "why_fails": "Legacy local numbers were consolidated under 911; using outdated numbers can route to a line no longer staffed for emergencies.",
       "fail_rate": 0.4,
-      "condition": "Using pre-consolidation numbers"
+      "condition": "Using pre-consolidation numbers",
+      "sources": [
+        "https://www.gob.mx/sspc",
+        "https://www.gob.mx/"
+      ]
     }
   ],
   "workarounds": [

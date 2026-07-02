@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "in",
@@ -41,7 +44,11 @@
       "action": "Assume international UPI for tourists works the same everywhere and needs no setup",
       "why_fails": "The inbound-traveler UPI option (UPI One World / prepaid wallet) is available only to nationals of specific countries and must be issued by an authorized partner against your passport and visa, with a prepaid balance. It is not an automatic feature of your existing app.",
       "fail_rate": 0.6,
-      "condition": "Relying on tourist UPI without enrolling through an authorized issuer"
+      "condition": "Relying on tourist UPI without enrolling through an authorized issuer",
+      "sources": [
+        "https://www.npci.org.in/what-we-do/upi/product-overview",
+        "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=82"
+      ]
     }
   ],
   "workarounds": [

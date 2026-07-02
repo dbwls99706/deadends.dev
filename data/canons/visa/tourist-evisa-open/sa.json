@@ -45,7 +45,11 @@
       "action": "Use a tourist visa for Hajj or Umrah pilgrimage outside its rules",
       "why_fails": "Pilgrimage uses dedicated permits and seasons (e.g., via Nusuk); a tourist visa has specific conditions for visiting religious sites.",
       "fail_rate": 0.45,
-      "condition": "Pilgrimage travel"
+      "condition": "Pilgrimage travel",
+      "sources": [
+        "https://www.visitsaudi.com/",
+        "https://visa.visitsaudi.com/"
+      ]
     }
   ],
   "workarounds": [

@@ -44,7 +44,11 @@
     {
       "action": "Assume uniform, fast emergency response across all states",
       "why_fails": "Emergency response capacity in Nigeria varies by state; Lagos has a developed 112/767 centre, but elsewhere you may need state-specific numbers or the nearest police station.",
-      "fail_rate": 0.45
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.npf.gov.ng/",
+        "https://nema.gov.ng/"
+      ]
     }
   ],
   "workarounds": [

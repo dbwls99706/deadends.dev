@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "ca",
@@ -41,7 +44,11 @@
       "action": "Apply for an eTA as a US citizen because the trip is to Canada",
       "why_fails": "US citizens do not need an eTA or a visa for short visits to Canada; only lawful permanent residents of the US (green-card holders) need to carry their PR card plus an eTA when flying. Paying for an eTA as a US citizen is unnecessary.",
       "fail_rate": 0.3,
-      "condition": "Traveler is a US citizen"
+      "condition": "Traveler is a US citizen",
+      "sources": [
+        "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta/facts.html",
+        "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html"
+      ]
     }
   ],
   "workarounds": [

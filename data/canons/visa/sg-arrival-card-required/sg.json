@@ -44,7 +44,11 @@
     {
       "action": "Assume every nationality is visa-free for Singapore",
       "why_fails": "Most are visa-free, but some nationalities require an e-Visa arranged in advance through an authorized agent - check ICA.",
-      "fail_rate": 0.45
+      "fail_rate": 0.45,
+      "sources": [
+        "https://eservices.ica.gov.sg/sgarrivalcard/",
+        "https://www.ica.gov.sg/"
+      ]
     }
   ],
   "workarounds": [

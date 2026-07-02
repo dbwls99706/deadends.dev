@@ -45,7 +45,11 @@
       "action": "Rely on visa-free transit while leaving the permitted area or exceeding the time limit",
       "why_fails": "Visa-free transit (e.g., 240 hours) is limited to specific ports/regions and requires an onward ticket to a third country or region; overstaying or leaving the permitted zone breaches it.",
       "fail_rate": 0.5,
-      "condition": "Using transit visa-free incorrectly"
+      "condition": "Using transit visa-free incorrectly",
+      "sources": [
+        "https://www.nia.gov.cn/",
+        "https://www.gov.cn/"
+      ]
     }
   ],
   "workarounds": [

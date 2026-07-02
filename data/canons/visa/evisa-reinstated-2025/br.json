@@ -44,7 +44,11 @@
     {
       "action": "Apply through an unofficial 'Brazil visa' website",
       "why_fails": "Only the official e-visa portal issues a valid visa; third-party sites overcharge and may submit incorrectly.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gov.br/mre/",
+        "https://brazil.vfsevisa.com/"
+      ]
     }
   ],
   "workarounds": [

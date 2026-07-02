@@ -44,7 +44,11 @@
     {
       "action": "Rely on a single fast government ambulance number nationwide",
       "why_fails": "Ambulance response in Kenya often comes from private or NGO services (St John, Red Cross); 999/112 routes police and coordinates, but having a local ambulance number is safer.",
-      "fail_rate": 0.45
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.dci.go.ke/",
+        "https://www.kenya.go.ke/"
+      ]
     }
   ],
   "workarounds": [

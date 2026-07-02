@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "de",
@@ -41,7 +44,11 @@
       "action": "Assume a foreign credit card and a German Girocard are interchangeable at the terminal",
       "why_fails": "Many terminals are set up for Girocard (domestic debit) and may decline foreign-issued credit cards even when a card logo is displayed. Contactless on a foreign credit card is not guaranteed at small merchants.",
       "fail_rate": 0.4,
-      "condition": "Paying at small or independent merchants"
+      "condition": "Paying at small or independent merchants",
+      "sources": [
+        "https://www.bundesbank.de/en/tasks/payment-systems/payment-behaviour",
+        "https://www.germany.travel/en/index.html"
+      ]
     }
   ],
   "workarounds": [

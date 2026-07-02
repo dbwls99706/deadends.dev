@@ -45,7 +45,11 @@
       "action": "Expect English-speaking operators everywhere",
       "why_fails": "English support is limited outside major cities; prepare your location in Russian or have a local relay it.",
       "fail_rate": 0.45,
-      "condition": "Non-Russian-speaking caller"
+      "condition": "Non-Russian-speaking caller",
+      "sources": [
+        "https://en.mchs.gov.ru/",
+        "https://мвд.рф/"
+      ]
     }
   ],
   "workarounds": [

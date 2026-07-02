@@ -44,7 +44,11 @@
     {
       "action": "Assume 1122 (Rescue) covers the whole country uniformly",
       "why_fails": "1122 coverage is strongest in Punjab and several provinces but is still expanding; in some areas use 15 (police) or the nearest hospital directly.",
-      "fail_rate": 0.45
+      "fail_rate": 0.45,
+      "sources": [
+        "https://1122.gov.pk/",
+        "https://www.punjabpolice.gov.pk/"
+      ]
     }
   ],
   "workarounds": [

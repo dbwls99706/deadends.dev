@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "nz",
@@ -41,7 +44,11 @@
       "action": "Expect to text 111 from any phone without prior setup",
       "why_fails": "The 111 txt service exists but requires you to register your mobile number with the service in advance. An unregistered phone cannot reach emergency services by text; you must call 111 by voice.",
       "fail_rate": 0.7,
-      "condition": "Trying to text emergency services without prior registration"
+      "condition": "Trying to text emergency services without prior registration",
+      "sources": [
+        "https://www.police.govt.nz/contact-us/emergencies",
+        "https://www.111.govt.nz/"
+      ]
     }
   ],
   "workarounds": [

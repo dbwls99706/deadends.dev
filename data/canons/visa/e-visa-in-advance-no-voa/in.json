@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "in",
@@ -41,7 +44,11 @@
       "action": "Apply for the e-Visa the day before flying",
       "why_fails": "The Indian e-Visa application must be submitted at least 4 days before arrival (and can be filed up to 30 days in advance). Same-day or next-day applications are rejected by the system, leaving travelers stranded.",
       "fail_rate": 0.7,
-      "condition": "Applying within 4 days of travel"
+      "condition": "Applying within 4 days of travel",
+      "sources": [
+        "https://www.mha.gov.in/en/page/visa-and-immigration-services",
+        "https://indianvisaonline.gov.in/evisa/tvoa.html"
+      ]
     }
   ],
   "workarounds": [

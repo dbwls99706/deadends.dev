@@ -45,7 +45,11 @@
       "action": "Call 191 (police) for a medical emergency expecting an ambulance",
       "why_fails": "191 reaches police; ambulances are dispatched via 1669 (the Narenthorn EMS line). Calling the wrong line delays medical help.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency rather than a crime"
+      "condition": "Medical emergency rather than a crime",
+      "sources": [
+        "https://www.mfa.go.th/en/",
+        "https://www.tourismthailand.org/"
+      ]
     }
   ],
   "workarounds": [

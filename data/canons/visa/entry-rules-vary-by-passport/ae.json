@@ -44,7 +44,10 @@
       "action": "Travel with a passport valid for under 6 months",
       "why_fails": "The UAE generally requires at least 6 months' passport validity on entry; a shorter validity can result in refused boarding regardless of visa status.",
       "fail_rate": 0.5,
-      "condition": "Passport with under 6 months validity"
+      "condition": "Passport with under 6 months validity",
+      "sources": [
+        "https://u.ae/en/information-and-services/visa-and-emirates-id"
+      ]
     }
   ],
   "workarounds": [

@@ -44,7 +44,10 @@
       "action": "Open a Vietnamese bank account as a tourist to handle local payments",
       "why_fails": "Banks generally require a residence card or work documentation to open an account; tourists are usually declined. Local digital wallets (e.g., MoMo) also require a Vietnamese bank account.",
       "fail_rate": 0.7,
-      "condition": "Tourist without residence/work documents"
+      "condition": "Tourist without residence/work documents",
+      "sources": [
+        "https://vietnam.travel/"
+      ]
     }
   ],
   "workarounds": [

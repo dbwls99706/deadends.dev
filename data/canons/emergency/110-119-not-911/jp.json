@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "jp",
@@ -42,7 +45,11 @@
       "action": "Call 119 for police matters such as theft or assault",
       "why_fails": "119 in Japan dispatches fire engines and ambulances only. Crimes, accidents, and lost-person reports go to 110 (police). Calling the wrong line forces a transfer and delays response.",
       "fail_rate": 0.6,
-      "condition": "Reporting a crime rather than a fire or medical emergency"
+      "condition": "Reporting a crime rather than a fire or medical emergency",
+      "sources": [
+        "https://www.npa.go.jp/english/index.html",
+        "https://www.japan.travel/en/plan/hotline/"
+      ]
     }
   ],
   "workarounds": [

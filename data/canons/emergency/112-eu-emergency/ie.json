@@ -45,7 +45,11 @@
       "action": "Assume you must learn the national numbers before you can get help",
       "why_fails": "112 works as a single number across the entire EU with multilingual support, so you do not need the national numbers - though they remain valid.",
       "fail_rate": 0.35,
-      "condition": "Caller does not know the national numbers"
+      "condition": "Caller does not know the national numbers",
+      "sources": [
+        "https://digital-strategy.ec.europa.eu/en/policies/112",
+        "https://www.garda.ie/"
+      ]
     }
   ],
   "workarounds": [

@@ -44,7 +44,10 @@
       "action": "Bring more than a 30-day supply or carry medicines without a prescription/doctor's letter",
       "why_fails": "Personal medication is generally limited to about 30 days and should be documented; excess or undocumented quantities can be questioned at customs.",
       "fail_rate": 0.5,
-      "condition": "Over ~30 days or undocumented"
+      "condition": "Over ~30 days or undocumented",
+      "sources": [
+        "https://www.fda.moph.go.th/"
+      ]
     }
   ],
   "workarounds": [

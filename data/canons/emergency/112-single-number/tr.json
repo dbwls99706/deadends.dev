@@ -44,7 +44,11 @@
     {
       "action": "Dial older numbers like 155 or 110 assuming they are still primary",
       "why_fails": "Turkey consolidated emergency services under 112 in 2021; legacy numbers now route through 112, so 112 is the number to know.",
-      "fail_rate": 0.4
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.icisleri.gov.tr/",
+        "https://www.turkiye.gov.tr/"
+      ]
     }
   ],
   "workarounds": [

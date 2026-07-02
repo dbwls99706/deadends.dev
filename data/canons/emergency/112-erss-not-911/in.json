@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "in",
@@ -41,7 +44,11 @@
       "action": "Assume there is no single number and you must know separate numbers for each service",
       "why_fails": "Since 2019 the 112 ERSS unifies police, fire, and ambulance into one number nationwide, so dialing service-specific numbers is no longer necessary (though 100/101/102 still work). Not knowing 112 wastes time looking up the 'right' number.",
       "fail_rate": 0.4,
-      "condition": "Caller unaware of the unified 112 number"
+      "condition": "Caller unaware of the unified 112 number",
+      "sources": [
+        "https://www.mha.gov.in/en/page/women-safety-division",
+        "https://112.gov.in/"
+      ]
     }
   ],
   "workarounds": [

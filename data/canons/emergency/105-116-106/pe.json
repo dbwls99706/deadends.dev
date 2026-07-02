@@ -45,7 +45,11 @@
       "action": "Call 105 (police) for a medical emergency",
       "why_fails": "105 is the national police line; ambulances are dispatched via 106 (SAMU). Use the right number to avoid delay.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.gob.pe/",
+        "https://www.policia.gob.pe/"
+      ]
     }
   ],
   "workarounds": [

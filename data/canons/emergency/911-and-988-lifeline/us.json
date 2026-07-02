@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "us",
@@ -42,7 +45,11 @@
       "action": "Assume 988 replaces 911 for all emergencies",
       "why_fails": "988 is specifically for suicide and mental-health/substance-use crises. For fires, crimes in progress, or medical emergencies with immediate danger to life, 911 remains the correct number. Calling 988 for a heart attack or fire delays the right response.",
       "fail_rate": 0.4,
-      "condition": "Immediate danger to life, fire, or crime in progress"
+      "condition": "Immediate danger to life, fire, or crime in progress",
+      "sources": [
+        "https://www.fcc.gov/988-suicide-and-crisis-lifeline",
+        "https://www.samhsa.gov/find-help/988"
+      ]
     }
   ],
   "workarounds": [

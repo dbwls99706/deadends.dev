@@ -44,7 +44,11 @@
     {
       "action": "Apply through a third-party 'Kenya visa/eTA' website",
       "why_fails": "Only the official eTA portal issues a valid authorisation; copycat sites overcharge and may submit incorrectly.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.etakenya.go.ke/",
+        "https://immigration.go.ke/"
+      ]
     }
   ],
   "workarounds": [

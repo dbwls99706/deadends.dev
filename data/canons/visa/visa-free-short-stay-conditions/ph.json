@@ -44,7 +44,11 @@
       "action": "Arrive without proof of onward or return travel",
       "why_fails": "Airlines and immigration require an onward or return ticket for visa-free entry; without it you can be denied boarding even if visa-free.",
       "fail_rate": 0.55,
-      "condition": "No onward ticket"
+      "condition": "No onward ticket",
+      "sources": [
+        "https://immigration.gov.ph/",
+        "https://www.gov.ph/"
+      ]
     }
   ],
   "workarounds": [

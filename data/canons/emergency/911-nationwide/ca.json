@@ -44,7 +44,10 @@
       "action": "Expect text-to-911 to work everywhere without registration",
       "why_fails": "Text-to-911 in Canada is available mainly for registered deaf/hard-of-hearing users and only in supported areas; most people must call 911 by voice.",
       "fail_rate": 0.4,
-      "condition": "Trying to text 911 without registration/support"
+      "condition": "Trying to text 911 without registration/support",
+      "sources": [
+        "https://www.canada.ca/en/services/policing/police/community-safety-policing/911.html"
+      ]
     }
   ],
   "workarounds": [

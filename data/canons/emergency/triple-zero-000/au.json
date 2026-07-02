@@ -11,7 +11,10 @@
     "last_confirmed": "2026-06-14"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "au",
@@ -41,7 +44,11 @@
       "action": "Assume 112 is the main number to memorise in Australia",
       "why_fails": "112 works from mobile phones as an international GSM fallback that routes to 000, but it does NOT work from landlines and offers no advantage over 000. The official, universal number to use and teach is Triple Zero (000).",
       "fail_rate": 0.4,
-      "condition": "Calling from a landline or VoIP phone"
+      "condition": "Calling from a landline or VoIP phone",
+      "sources": [
+        "https://www.healthdirect.gov.au/emergency-and-crisis-situations",
+        "https://www.triplezero.gov.au/"
+      ]
     }
   ],
   "workarounds": [

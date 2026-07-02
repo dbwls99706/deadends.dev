@@ -45,7 +45,11 @@
       "action": "Call 119 (fire) for a medical emergency",
       "why_fails": "119 dispatches fire services; ambulances come via 120. Calling 119 for a medical case forces a transfer and delays care.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.gov.cn/",
+        "https://www.mps.gov.cn/"
+      ]
     }
   ],
   "workarounds": [

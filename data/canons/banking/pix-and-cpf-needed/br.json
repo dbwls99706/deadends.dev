@@ -43,7 +43,10 @@
     {
       "action": "Travel with only cards assuming universal acceptance",
       "why_fails": "Cities accept cards widely, but small vendors, markets, and rural areas can be cash-only in reais; relying solely on cards leaves gaps.",
-      "fail_rate": 0.5
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.bcb.gov.br/en/financialstability/pix_en"
+      ]
     }
   ],
   "workarounds": [

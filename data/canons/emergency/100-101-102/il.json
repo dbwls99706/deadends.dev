@@ -45,7 +45,11 @@
       "action": "Dial 100 (police) for a medical emergency",
       "why_fails": "101 (Magen David Adom) dispatches ambulances; 100 is police. Calling the wrong line delays medical help.",
       "fail_rate": 0.5,
-      "condition": "Medical emergency"
+      "condition": "Medical emergency",
+      "sources": [
+        "https://www.mdais.org/en",
+        "https://www.gov.il/"
+      ]
     }
   ],
   "workarounds": [

@@ -45,7 +45,11 @@
       "action": "Use 112 for a mountain or alpine rescue and wait",
       "why_fails": "For mountain and air rescue, REGA's 1414 (or 1415 in Valais) dispatches rescue helicopters faster than the general line.",
       "fail_rate": 0.4,
-      "condition": "Mountain/alpine emergency"
+      "condition": "Mountain/alpine emergency",
+      "sources": [
+        "https://www.ch.ch/en/emergencies-and-emergency-numbers/",
+        "https://www.rega.ch/en"
+      ]
     }
   ],
   "workarounds": [
