@@ -29,14 +29,18 @@
       "action": "Disable schema validation",
       "why_fails": "Bad data enters pipeline",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://json-schema.org/"
+      ],
       "condition": ""
     },
     {
       "action": "Auto-fix data to match schema",
       "why_fails": "May create semantically wrong data",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://json-schema.org/"
+      ],
       "condition": ""
     }
   ],

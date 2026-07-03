@@ -29,14 +29,18 @@
       "action": "Ignore license warnings",
       "why_fails": "Legal liability",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://opensource.org/licenses"
+      ],
       "condition": ""
     },
     {
       "action": "Relicense your code to match",
       "why_fails": "May not be possible with multiple contributors",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://opensource.org/licenses"
+      ],
       "condition": ""
     }
   ],

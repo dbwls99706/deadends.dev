@@ -29,14 +29,18 @@
       "action": "Convert to CPU Mat for every operation",
       "why_fails": "Defeats GPU acceleration purpose",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Change Mat type blindly",
       "why_fails": "Data corruption or wrong results",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

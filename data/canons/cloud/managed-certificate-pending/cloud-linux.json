@@ -29,14 +29,18 @@
       "action": "Delete and recreate certificate repeatedly",
       "why_fails": "Same DNS issue causes same failure",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Use self-signed cert in production",
       "why_fails": "Browser warnings, no trust",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

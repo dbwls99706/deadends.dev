@@ -29,14 +29,18 @@
       "action": "Keep retrying the push",
       "why_fails": "Bandwidth is a monthly quota - retrying consumes more bandwidth.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/repositories/working-with-files/managing-large-files"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to different GitHub account",
       "why_fails": "LFS objects are tied to the repo, not the account.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.github.com/en/repositories/working-with-files/managing-large-files"
+      ],
       "condition": ""
     }
   ],

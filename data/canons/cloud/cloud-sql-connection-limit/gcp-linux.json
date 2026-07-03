@@ -29,14 +29,18 @@
       "action": "Increase max_connections beyond tier limit",
       "why_fails": "Database instability",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Create new connection per request",
       "why_fails": "Exhausts connections faster",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

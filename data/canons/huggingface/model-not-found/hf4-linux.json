@@ -29,14 +29,18 @@
       "action": "Hardcode random model name",
       "why_fails": "Will never resolve",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     },
     {
       "action": "Clone repo manually without LFS",
       "why_fails": "Missing model weights",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     }
   ],

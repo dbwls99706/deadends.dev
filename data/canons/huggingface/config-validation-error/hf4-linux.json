@@ -29,14 +29,18 @@
       "action": "Manually edit config.json in cache",
       "why_fails": "Overwritten on next download",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use default config ignoring model specifics",
       "why_fails": "Wrong architecture loaded",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

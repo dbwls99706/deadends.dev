@@ -29,14 +29,18 @@
       "action": "Convert all images to CV_8UC3",
       "why_fails": "Loses depth information for float/16bit images",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore type and cast pointer",
       "why_fails": "Undefined behavior, segfault risk",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

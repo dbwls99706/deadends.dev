@@ -29,14 +29,18 @@
       "action": "Use native gRPC from browser",
       "why_fails": "Browsers dont support HTTP/2 gRPC",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/platforms/web/basics/"
+      ],
       "condition": ""
     },
     {
       "action": "Fall back to REST",
       "why_fails": "Loses gRPC benefits",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/platforms/web/basics/"
+      ],
       "condition": ""
     }
   ],

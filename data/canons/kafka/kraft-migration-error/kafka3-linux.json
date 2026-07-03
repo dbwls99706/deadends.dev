@@ -29,14 +29,18 @@
       "action": "Force complete migration without verification",
       "why_fails": "Metadata corruption risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Revert to ZooKeeper without backup",
       "why_fails": "May lose KRaft-only changes",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

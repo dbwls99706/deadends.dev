@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/vape-import-possession-ban/th",
+  "url": "https://deadends.dev/legal/vape-import-possession-ban/th",
+  "error": {
+    "signature": "AI suggests bringing a vape to Thailand or treats vaping there as tolerated",
+    "regex": "(thailand|thai|bangkok|phuket).{0,40}(vap(e|ing)|e-?cigarette|e-?baraku|nicotine pod)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "th",
+      "country_name": "Thailand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Thailand has banned the import and sale of e-cigarettes and e-liquids since 2014, and possession/use can be prosecuted. Tourists are fined or arrested at airports and in tourist areas; enforcement intensified sharply in 2025."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring a vape 'for personal use' through a Thai airport",
+      "why_fails": "Import of e-cigarettes and e-baraku has been prohibited since 2014; the Royal Thai Embassy explicitly warns travellers not to bring devices or liquids, and airport checks lead to confiscation, on-the-spot fines, or arrest - import charges can carry up to 10 years imprisonment.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://thaiembdc.org/2017/09/26/electronic-cigarettes-are-illegal-in-thailand/",
+        "https://www.mfa.go.th/en/"
+      ]
+    },
+    {
+      "action": "Buy a vape from a street stall in Thailand assuming visible sale means legality",
+      "why_fails": "Sale is illegal despite visible black-market availability; buyers can still be fined for possession, and police target tourist areas.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://thaiembdc.org/2017/09/26/electronic-cigarettes-are-illegal-in-thailand/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Travel without vaping devices; use nicotine gum/patches or licensed cigarettes instead",
+      "success_rate": 0.9,
+      "how": "Leave devices and e-liquids at home entirely. Nicotine replacement products are available in Thai pharmacies, and conventional cigarettes are legal for adults (public smoking restrictions apply, including many beaches).",
+      "sources": [
+        "https://thaiembdc.org/2017/09/26/electronic-cigarettes-are-illegal-in-thailand/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/e-cigarette-total-ban/in",
+        "distinction": "Both ban vapes, but India's ban is statute-wide including storage; Thailand's centres on import/sale with possession prosecuted under customs and consumer law."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

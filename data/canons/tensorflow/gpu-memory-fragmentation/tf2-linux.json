@@ -29,14 +29,18 @@
       "action": "Set memory growth to False and pre-allocate all",
       "why_fails": "Other apps cant use GPU",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     },
     {
       "action": "Restart Python process frequently",
       "why_fails": "Loses model state",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     }
   ],

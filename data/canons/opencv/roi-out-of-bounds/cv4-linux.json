@@ -29,14 +29,18 @@
       "action": "Clip ROI silently",
       "why_fails": "May return empty or wrong region",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Pad image to fit ROI",
       "why_fails": "Changes image content",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

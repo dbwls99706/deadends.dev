@@ -29,14 +29,18 @@
       "action": "Increase metadata limit to unlimited",
       "why_fails": "Memory abuse vector",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/metadata/"
+      ],
       "condition": ""
     },
     {
       "action": "Compress metadata values",
       "why_fails": "May break encoding expectations",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/metadata/"
+      ],
       "condition": ""
     }
   ],

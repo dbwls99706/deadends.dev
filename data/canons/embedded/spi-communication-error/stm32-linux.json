@@ -29,14 +29,18 @@
       "action": "Increase SPI clock to maximum",
       "why_fails": "Signal integrity issues",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore SPI errors and retry",
       "why_fails": "Corrupted data accepted",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

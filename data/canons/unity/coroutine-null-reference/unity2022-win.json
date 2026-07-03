@@ -29,14 +29,18 @@
       "action": "Wrap entire coroutine in try-catch",
       "why_fails": "Silences error but coroutine state is broken",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Never destroy objects that have coroutines",
       "why_fails": "Memory leaks",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

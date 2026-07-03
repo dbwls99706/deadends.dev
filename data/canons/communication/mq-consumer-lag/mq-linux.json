@@ -29,14 +29,18 @@
       "action": "Increase queue size limit indefinitely",
       "why_fails": "Masks problem, eventually OOM",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Drop old messages automatically",
       "why_fails": "Data loss",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     }
   ],

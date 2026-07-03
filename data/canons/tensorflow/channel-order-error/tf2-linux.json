@@ -29,14 +29,18 @@
       "action": "Transpose all inputs blindly",
       "why_fails": "Wrong axis for non-image data",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Set global data_format without checking model",
       "why_fails": "Breaks pretrained weights",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable torch.compile entirely",
       "why_fails": "Loses 2x speedup",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/torch.compiler.html"
+      ],
       "condition": ""
     },
     {
       "action": "Force fullgraph=True",
       "why_fails": "Fails on more models",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/torch.compiler.html"
+      ],
       "condition": ""
     }
   ],

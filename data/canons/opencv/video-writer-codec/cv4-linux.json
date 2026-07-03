@@ -29,14 +29,18 @@
       "action": "Use uncompressed AVI",
       "why_fails": "Huge file size",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Try random codecs",
       "why_fails": "May not be installed",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Retry same zone repeatedly",
       "why_fails": "Zone may be down for hours",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Move all resources to single zone",
       "why_fails": "No fault tolerance",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

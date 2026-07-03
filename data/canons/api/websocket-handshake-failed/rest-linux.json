@@ -29,14 +29,18 @@
       "action": "Fall back to HTTP long-polling permanently",
       "why_fails": "Higher latency and server load",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6455"
+      ],
       "condition": ""
     },
     {
       "action": "Disable proxy WebSocket checks",
       "why_fails": "May break other traffic",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6455"
+      ],
       "condition": ""
     }
   ],

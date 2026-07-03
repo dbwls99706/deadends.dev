@@ -29,14 +29,18 @@
       "action": "Skip image build and use latest",
       "why_fails": "Deploys untested code",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Build locally and push manually",
       "why_fails": "Not reproducible in CI",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

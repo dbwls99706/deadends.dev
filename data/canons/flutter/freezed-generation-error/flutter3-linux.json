@@ -29,14 +29,18 @@
       "action": "Write data classes manually",
       "why_fails": "Verbose, misses equality/copyWith",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Use json_serializable only",
       "why_fails": "Loses union types and freezed features",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

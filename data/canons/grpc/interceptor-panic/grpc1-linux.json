@@ -29,14 +29,18 @@
       "action": "Remove all interceptors",
       "why_fails": "Loses logging, auth, metrics",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore panics and continue",
       "why_fails": "Undefined state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

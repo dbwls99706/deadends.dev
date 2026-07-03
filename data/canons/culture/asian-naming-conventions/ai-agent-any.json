@@ -29,28 +29,37 @@
       "action": "Assume all names follow Western given-name + family-name order",
       "why_fails": "Chinese, Japanese, Korean, Hungarian, and Vietnamese names put surname first. 김철수 is Kim (surname) Cheolsu (given name). Treating 철수 as surname leads to misidentification in databases, emails, and forms.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Personal_name",
+        "https://en.wikipedia.org/wiki/Chinese_name"
+      ],
       "condition": "Name parsing or form design"
     },
     {
       "action": "Split names into exactly 'first name' and 'last name' fields",
       "why_fails": "Icelandic patronymics (Jónsdóttir = daughter of Jón) aren't surnames. Many Indonesians have single names (Suharto, Sukarno). Burmese names have no surnames. Spanish names have two family names (paternal + maternal).",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Personal_name",
+        "https://en.wikipedia.org/wiki/Chinese_name"
+      ],
       "condition": "Form design for international users"
     },
     {
       "action": "Shorten Asian names to initials following Western conventions",
       "why_fails": "In China, the surname is one character and the given name is often two: 毛泽东 → Mao (surname) Zedong (given). Initializing as 'M. Zedong' is wrong; it should be 'Zedong Mao' or 'Mao Zedong' depending on context.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Personal_name",
+        "https://en.wikipedia.org/wiki/Chinese_name"
+      ],
       "condition": "Name formatting in international systems"
     }
   ],
   "workarounds": [
     {
       "action": "Use a single 'Full Name' field instead of forced first/last split. If split is needed, label them 'Given name(s)' and 'Family name(s)' - never 'First' and 'Last' (misleading for surname-first cultures).",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "International form design"
     },

@@ -29,14 +29,18 @@
       "action": "Lower distance threshold to accept more matches",
       "why_fails": "Many false matches",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use brute force matcher for everything",
       "why_fails": "Slow on large descriptors",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

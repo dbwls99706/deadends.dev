@@ -29,14 +29,18 @@
       "action": "Set trust_remote_code=True for all models globally",
       "why_fails": "Security risk from untrusted code",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     },
     {
       "action": "Download and patch model code manually",
       "why_fails": "Breaks on model updates",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Add -I/usr/include to fix globally",
       "why_fails": "Doesnt fix missing package headers",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy header files into project",
       "why_fails": "Version management nightmare",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

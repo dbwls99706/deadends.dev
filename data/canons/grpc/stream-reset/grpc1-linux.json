@@ -29,14 +29,18 @@
       "action": "Disable HTTP/2 flow control",
       "why_fails": "Protocol violation, connection drops",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry all streams immediately",
       "why_fails": "Triggers ENHANCE_YOUR_CALM",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

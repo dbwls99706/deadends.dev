@@ -29,14 +29,18 @@
       "action": "Set very large global deadlines",
       "why_fails": "Clients hang indefinitely on failures",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/deadlines/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove deadlines entirely",
       "why_fails": "No timeout protection, resource leaks",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/deadlines/"
+      ],
       "condition": ""
     }
   ],

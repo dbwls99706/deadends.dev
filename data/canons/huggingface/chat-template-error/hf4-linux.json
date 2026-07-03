@@ -29,14 +29,18 @@
       "action": "Use raw string concatenation instead of template",
       "why_fails": "Misses special tokens",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      ],
       "condition": ""
     },
     {
       "action": "Copy template from different model",
       "why_fails": "Wrong format for this model",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      ],
       "condition": ""
     }
   ],

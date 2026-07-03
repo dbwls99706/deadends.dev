@@ -29,14 +29,18 @@
       "action": "Disable CAN error handling",
       "why_fails": "Bus stays in error state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Reset CAN peripheral on every error",
       "why_fails": "Constant resets disrupt communication",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set overflow: TextOverflow.clip on everything",
       "why_fails": "Content silently cut off",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/common-errors"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode fixed sizes",
       "why_fails": "Breaks on different screen sizes",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/common-errors"
+      ],
       "condition": ""
     }
   ],

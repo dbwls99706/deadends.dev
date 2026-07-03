@@ -4,7 +4,7 @@
 
 [![Precision@1](https://img.shields.io/badge/Precision%401-90%25-brightgreen)](https://deadends.dev/dashboard/)
 [![MRR](https://img.shields.io/badge/MRR-0.935-brightgreen)](https://deadends.dev/dashboard/)
-[![Entries](https://img.shields.io/badge/entries-2339-blue)](https://deadends.dev)
+[![Entries](https://img.shields.io/badge/entries-2393-blue)](https://deadends.dev)
 [![Domains](https://img.shields.io/badge/domains-54-green)](https://deadends.dev)
 [![Countries](https://img.shields.io/badge/countries-52-orange)](https://deadends.dev/country/)
 [![MCP Tools](https://img.shields.io/badge/MCP_tools-11-purple)](https://smithery.ai/server/deadend/deadends-dev)

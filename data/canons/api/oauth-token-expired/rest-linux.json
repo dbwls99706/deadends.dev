@@ -29,14 +29,18 @@
       "action": "Set extremely long token expiry",
       "why_fails": "Security risk with long-lived tokens",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6749"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode refresh token",
       "why_fails": "Refresh tokens also expire",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc6749"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Hardcode IP address",
       "why_fails": "Breaks on IP change",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use /etc/hosts for service discovery",
       "why_fails": "Not scalable",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

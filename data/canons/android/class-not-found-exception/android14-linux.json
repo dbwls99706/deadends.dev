@@ -29,14 +29,18 @@
       "action": "Disable minification entirely",
       "why_fails": "Large APK, no obfuscation",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Add -keep rules for all classes",
       "why_fails": "Defeats purpose of shrinking",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

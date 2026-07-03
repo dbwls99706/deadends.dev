@@ -29,14 +29,18 @@
       "action": "Reshape one tensor arbitrarily",
       "why_fails": "Wrong semantics, silent data corruption",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Use expand on both tensors to max size",
       "why_fails": "Memory waste, same error if dims wrong",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

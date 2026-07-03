@@ -29,14 +29,18 @@
       "action": "Ignore fault pin and continue driving",
       "why_fails": "Hardware damage risk",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Immediately reverse motor direction",
       "why_fails": "Causes worse current spike",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove all permissions and add back one by one",
       "why_fails": "Service disruption during process",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+      ],
       "condition": ""
     },
     {
       "action": "Keep broad permissions to avoid breakage",
       "why_fails": "Security risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+      ],
       "condition": ""
     }
   ],

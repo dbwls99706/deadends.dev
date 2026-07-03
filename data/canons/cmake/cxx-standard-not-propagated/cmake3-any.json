@@ -29,14 +29,18 @@
       "action": "Set CMAKE_CXX_FLAGS directly with -std=c++17",
       "why_fails": "Does not propagate to dependent targets and overrides other flags.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Set CXX_STANDARD on the library but not the executable",
       "why_fails": "Consumers need the standard requirement propagated via INTERFACE.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

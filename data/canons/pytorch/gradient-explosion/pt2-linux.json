@@ -29,14 +29,18 @@
       "action": "Set learning rate to near zero",
       "why_fails": "Training never converges",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/autograd.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore NaN batches and continue",
       "why_fails": "Model weights already corrupted",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/autograd.html"
+      ],
       "condition": ""
     }
   ],

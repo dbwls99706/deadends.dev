@@ -29,14 +29,18 @@
       "action": "Switch consumer group name",
       "why_fails": "Loses committed offsets",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable group management",
       "why_fails": "Loses auto-rebalancing",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

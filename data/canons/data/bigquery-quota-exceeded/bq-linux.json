@@ -29,14 +29,18 @@
       "action": "Create multiple projects to bypass quota",
       "why_fails": "Cost management nightmare",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/bigquery/docs/quotas"
+      ],
       "condition": ""
     },
     {
       "action": "Run all queries in sequence",
       "why_fails": "Very slow for parallel workloads",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/bigquery/docs/quotas"
+      ],
       "condition": ""
     }
   ],

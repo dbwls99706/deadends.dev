@@ -29,28 +29,34 @@
       "action": "Advise maintaining Northern European distance (arm's length) in Latin American meetings",
       "why_fails": "Latin American cultures have closer personal space. Maintaining large distance signals coldness or distrust. Conversations happen at closer range than Anglo-Saxon norms.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Proxemics"
+      ],
       "condition": "Advising on Latin American social interactions"
     },
     {
       "action": "Suggest getting straight to business without personal conversation first",
       "why_fails": "Latin American business is relationship-driven. Jumping to business without personal rapport (family, weekend, local events) is seen as rude and transactional.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Proxemics"
+      ],
       "condition": "Latin American business meeting advice"
     },
     {
       "action": "Expect strict adherence to scheduled meeting times",
       "why_fails": "Many Latin American countries have flexible time culture. 15-30 minutes after scheduled time is normal for social events. Showing frustration about timing damages relationships.",
-      "fail_rate": 0.70,
-      "sources": [],
+      "fail_rate": 0.7,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Proxemics"
+      ],
       "condition": "Scheduling expectations in Latin American context"
     }
   ],
   "workarounds": [
     {
       "action": "Begin business meetings with personal conversation (10-15 min): ask about family, recent holidays, local sports. Build personal connection before business agenda",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Latin American business meetings"
     },

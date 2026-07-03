@@ -29,14 +29,18 @@
       "action": "Increase TCP keepalive to hours",
       "why_fails": "Doesnt prevent active resets",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://man7.org/linux/man-pages/man7/tcp.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore reset errors and reuse socket",
       "why_fails": "Socket is dead, sends fail",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://man7.org/linux/man-pages/man7/tcp.7.html"
+      ],
       "condition": ""
     }
   ],

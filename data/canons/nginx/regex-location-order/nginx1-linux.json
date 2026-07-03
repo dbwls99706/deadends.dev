@@ -29,14 +29,18 @@
       "action": "Use regex for all locations",
       "why_fails": "Performance impact, hard to debug",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Add if statements inside locations",
       "why_fails": "nginx if is evil in location context",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_core_module.html"
+      ],
       "condition": ""
     }
   ],

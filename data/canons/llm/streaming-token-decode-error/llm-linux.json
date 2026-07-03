@@ -29,14 +29,18 @@
       "action": "Decode each chunk independently",
       "why_fails": "Split multi-byte chars produce errors",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
       "condition": ""
     },
     {
       "action": "Use ascii encoding only",
       "why_fails": "Loses non-ASCII content",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
       "condition": ""
     }
   ],

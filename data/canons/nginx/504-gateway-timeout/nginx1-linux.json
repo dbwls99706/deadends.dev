@@ -29,14 +29,18 @@
       "action": "Set proxy_read_timeout extremely high globally",
       "why_fails": "Ties up worker connections",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable proxy buffering for all locations",
       "why_fails": "Memory spike on large responses",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

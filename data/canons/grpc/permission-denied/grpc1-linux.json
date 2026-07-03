@@ -29,14 +29,18 @@
       "action": "Disable auth interceptors for debugging",
       "why_fails": "Security hole if left in production",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     },
     {
       "action": "Grant wildcard permissions",
       "why_fails": "Violates least privilege principle",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     }
   ],

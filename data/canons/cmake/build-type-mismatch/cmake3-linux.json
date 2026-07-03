@@ -29,14 +29,18 @@
       "action": "Force all to Release",
       "why_fails": "Debug symbols lost for debugging",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore build type mismatch",
       "why_fails": "Runtime crashes from ABI mismatch",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

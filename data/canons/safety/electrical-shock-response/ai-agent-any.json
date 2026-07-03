@@ -29,21 +29,25 @@
       "action": "Touch or grab a person who is being electrocuted",
       "why_fails": "The human body conducts electricity. Touching the victim while they're still connected to the power source makes you a second victim. Rescuers die this way regularly. ALWAYS disconnect power first.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://www.osha.gov/electrical"
+      ],
       "condition": "Electrocution rescue"
     },
     {
       "action": "Approach a downed power line or a person near one",
       "why_fails": "Downed power lines can electrify the ground in a radius around them (step potential). Walking near one creates a voltage difference between your feet that can kill. Stay at least 10 meters (35 feet) away.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.osha.gov/electrical"
+      ],
       "condition": "Downed power line emergencies"
     }
   ],
   "workarounds": [
     {
       "action": "1) Disconnect power at the breaker/fuse box or unplug the device. 2) If you can't disconnect power, use a DRY non-conductive object (wooden broom handle, rubber mat) to push the victim away from the source. NEVER use metal or wet materials.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Indoor electrocution rescue"
     },

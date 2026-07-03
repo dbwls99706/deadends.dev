@@ -29,14 +29,18 @@
       "action": "Disable rate limiting",
       "why_fails": "No protection against abuse",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_limit_req_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set zone to huge size",
       "why_fails": "Wasted shared memory",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_limit_req_module.html"
+      ],
       "condition": ""
     }
   ],

@@ -28,29 +28,38 @@
     {
       "action": "Make jokes about or disparage cows in Indian/Hindu contexts",
       "why_fails": "Cows are sacred in Hinduism (गो माता/Go Mata = Mother Cow). Beef is banned in most Indian states. Even casual jokes about eating beef can cause deep offense and legal issues in India.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hinduism",
+        "https://en.wikipedia.org/wiki/Cattle_in_religion_and_mythology"
+      ],
       "condition": "Content involving cows in Hindu context"
     },
     {
       "action": "Enter Hindu temples wearing shoes or leather items",
       "why_fails": "Shoes must be removed before entering temples, homes, and many businesses in India. Leather (from dead animals) is considered impure in sacred spaces. This applies to belts and bags too.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hinduism",
+        "https://en.wikipedia.org/wiki/Cattle_in_religion_and_mythology"
+      ],
       "condition": "Temple visit advice in Hindu context"
     },
     {
       "action": "Touch religious items, food offerings, or people with the left hand",
       "why_fails": "The left hand is considered unclean in Hindu culture (used for personal hygiene). Giving/receiving objects, eating, and touching sacred items must be done with the right hand.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hinduism",
+        "https://en.wikipedia.org/wiki/Cattle_in_religion_and_mythology"
+      ],
       "condition": "Physical interaction in Hindu settings"
     }
   ],
   "workarounds": [
     {
       "action": "Default to vegetarian options for Hindu guests. Many Hindus are strict vegetarians; some also avoid onion and garlic (Jain influence). Ask about dietary restrictions - the spectrum ranges widely.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Dining advice for Hindu guests"
     },

@@ -29,14 +29,18 @@
       "action": "Use StringConverter for everything",
       "why_fails": "Loses schema information",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#connect"
+      ],
       "condition": ""
     },
     {
       "action": "Skip bad records entirely",
       "why_fails": "Data loss",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#connect"
+      ],
       "condition": ""
     }
   ],

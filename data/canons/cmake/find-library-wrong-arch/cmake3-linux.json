@@ -29,14 +29,18 @@
       "action": "Force link with -L and ignore arch",
       "why_fails": "Linker error or crash",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use file from wrong sysroot",
       "why_fails": "ABI mismatch",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

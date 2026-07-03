@@ -29,14 +29,18 @@
       "action": "Pickle the model",
       "why_fails": "Security risk, not portable",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     },
     {
       "action": "Save weights only without architecture",
       "why_fails": "Cannot recreate model without code",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     }
   ],

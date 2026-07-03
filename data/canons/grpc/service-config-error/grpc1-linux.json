@@ -29,14 +29,18 @@
       "action": "Remove all service config",
       "why_fails": "Loses retry, timeout, LB policies",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Use default config for all services",
       "why_fails": "May not fit service needs",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use default Unity font",
       "why_fails": "No TMP features, limited styling",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Include all Unicode ranges",
       "why_fails": "Huge font atlas texture",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

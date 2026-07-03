@@ -29,14 +29,18 @@
       "action": "Add BindingRedirect for all packages",
       "why_fails": "Hides incompatibilities",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/nuget/concepts/dependency-resolution"
+      ],
       "condition": ""
     },
     {
       "action": "Force latest version of everything",
       "why_fails": "May break dependent packages",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/nuget/concepts/dependency-resolution"
+      ],
       "condition": ""
     }
   ],

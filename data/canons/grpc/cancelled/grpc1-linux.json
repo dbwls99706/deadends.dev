@@ -29,14 +29,18 @@
       "action": "Never cancel RPCs",
       "why_fails": "Resource waste on abandoned requests",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry cancelled RPCs immediately",
       "why_fails": "May duplicate side effects",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

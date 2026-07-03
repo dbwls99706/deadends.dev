@@ -29,14 +29,18 @@
       "action": "Try all HTTP methods until one works",
       "why_fails": "Triggers unintended side effects (DELETE)",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405"
+      ],
       "condition": ""
     },
     {
       "action": "Use POST for everything",
       "why_fails": "Wrong semantics, caching broken",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405"
+      ],
       "condition": ""
     }
   ],

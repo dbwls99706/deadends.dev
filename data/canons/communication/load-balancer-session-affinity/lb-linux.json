@@ -29,14 +29,18 @@
       "action": "Use IP-based affinity",
       "why_fails": "Fails behind NAT/proxy, same IP for many users",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/sticky-sessions.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable load balancing",
       "why_fails": "No redundancy",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/sticky-sessions.html"
+      ],
       "condition": ""
     }
   ],

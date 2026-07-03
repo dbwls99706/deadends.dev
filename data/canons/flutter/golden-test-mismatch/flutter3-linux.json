@@ -29,14 +29,18 @@
       "action": "Update all goldens without reviewing",
       "why_fails": "Accepts broken UI as correct",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/overview"
+      ],
       "condition": ""
     },
     {
       "action": "Delete all golden files",
       "why_fails": "No visual regression testing",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/overview"
+      ],
       "condition": ""
     }
   ],

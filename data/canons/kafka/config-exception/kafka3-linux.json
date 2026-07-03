@@ -29,14 +29,18 @@
       "action": "Remove all custom config and use defaults",
       "why_fails": "May not match requirements",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Copy config from production without review",
       "why_fails": "Environment mismatch",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set CMAKE_CXX_COMPILER to wrong path",
       "why_fails": "Build fails with different error",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Install random compiler version",
       "why_fails": "ABI incompatibility with dependencies",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Request all permissions at app startup",
       "why_fails": "Bad UX, users deny everything",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Access camera without checking permission",
       "why_fails": "Crash on denied",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

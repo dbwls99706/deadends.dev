@@ -29,14 +29,18 @@
       "action": "Strip all namespaces",
       "why_fails": "Loses element disambiguation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.w3.org/TR/xml-names/"
+      ],
       "condition": ""
     },
     {
       "action": "Rename prefixes globally",
       "why_fails": "Breaks XPath and XSLT references",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.w3.org/TR/xml-names/"
+      ],
       "condition": ""
     }
   ],

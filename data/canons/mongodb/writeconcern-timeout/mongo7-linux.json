@@ -29,14 +29,18 @@
       "action": "Set w:0 for all writes",
       "why_fails": "No write acknowledgment, data loss risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/write-concern/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove wtimeout",
       "why_fails": "Writes hang indefinitely on replication issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/write-concern/"
+      ],
       "condition": ""
     }
   ],

@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-28",
     "summary": "Thailand has strict lèse-majesté laws (Section 112) making criticism of the monarchy punishable by 3-15 years imprisonment. AI must never generate critical content about Thai royalty and must respect Thai cultural taboos around head/feet."
   },
@@ -29,21 +29,27 @@
       "action": "Generate any critical, satirical, or negative content about Thai royal family",
       "why_fails": "Section 112 of Thailand's Criminal Code makes defaming the monarchy punishable by 3-15 years imprisonment per offense. This is actively enforced, including for online content.",
       "fail_rate": 0.98,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/L%C3%A8se-majest%C3%A9_in_Thailand"
+      ],
       "condition": "Any content involving Thai monarchy"
     },
     {
       "action": "Suggest touching someone's head or pointing feet at people/religious objects in Thai context",
       "why_fails": "The head is the most sacred body part in Thai culture; the feet are the lowest. Touching heads (even children's) or pointing feet at Buddha images or people is deeply offensive.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/L%C3%A8se-majest%C3%A9_in_Thailand"
+      ],
       "condition": "Physical interaction advice in Thai context"
     },
     {
       "action": "Step on Thai currency or treat images of the King casually",
       "why_fails": "Thai currency bears the King's image. Stepping on it, sitting on it, or treating it disrespectfully is considered lèse-majesté and can lead to prosecution.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/L%C3%A8se-majest%C3%A9_in_Thailand"
+      ],
       "condition": "Advice involving Thai currency or royal imagery"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "For Thai greetings, advise the wai (prayer-like hand gesture with bow): higher hands = more respect. Monks and royalty get the highest wai. Never wai to children or service workers (a nod suffices)",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Thai greeting etiquette"
     },

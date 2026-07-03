@@ -29,14 +29,18 @@
       "action": "Delete old schema versions",
       "why_fails": "Breaks existing consumers",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.confluent.io/platform/current/schema-registry/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable compatibility checks",
       "why_fails": "Schema drift risk",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.confluent.io/platform/current/schema-registry/index.html"
+      ],
       "condition": ""
     }
   ],

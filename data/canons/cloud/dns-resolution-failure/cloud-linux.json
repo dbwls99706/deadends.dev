@@ -29,14 +29,18 @@
       "action": "Hardcode IP addresses",
       "why_fails": "IPs change in cloud, breaks silently",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Use public DNS for private endpoints",
       "why_fails": "Cannot resolve private DNS names",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

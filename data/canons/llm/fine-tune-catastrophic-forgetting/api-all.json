@@ -29,14 +29,18 @@
       "action": "Fine-tune for more epochs to reinforce new knowledge",
       "why_fails": "More epochs on narrow data worsens catastrophic forgetting.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/fine-tuning"
+      ],
       "condition": ""
     },
     {
       "action": "Use very high learning rate to learn new task quickly",
       "why_fails": "High LR destroys pre-trained weights faster.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/fine-tuning"
+      ],
       "condition": ""
     }
   ],

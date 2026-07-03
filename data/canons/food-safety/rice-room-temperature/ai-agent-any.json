@@ -11,13 +11,16 @@
     "last_confirmed": "2026-03-02"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any"
   },
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "Cooked rice left at room temperature grows Bacillus cereus, producing heat-resistant toxins that cause 'fried rice syndrome.' Reheating does NOT destroy these toxins. Rice must be refrigerated within 1 hour. This has caused deaths."
   },
@@ -26,7 +29,9 @@
       "action": "Leave cooked rice at room temperature for hours and then reheat it",
       "why_fails": "Bacillus cereus spores survive cooking and germinate at room temperature, producing cereulide toxin within 1-5 hours. This toxin is heat-stable - reheating, even boiling, does NOT destroy it. Cases of liver failure and death have been documented.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.nhs.uk/common-health-questions/food-and-diet/can-reheating-rice-cause-food-poisoning/"
+      ],
       "condition": "Leftover rice handling"
     }
   ],
@@ -38,7 +43,11 @@
       "condition": "Safe rice storage"
     }
   ],
-  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
   "metadata": {
     "generated_by": "manual",
     "generation_date": "2026-03-02",

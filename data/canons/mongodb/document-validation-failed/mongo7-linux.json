@@ -29,14 +29,18 @@
       "action": "Set validationAction to warn and ignore",
       "why_fails": "Silent data corruption over time",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/schema-validation/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all validators",
       "why_fails": "Loses data integrity guarantees",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/schema-validation/"
+      ],
       "condition": ""
     }
   ],

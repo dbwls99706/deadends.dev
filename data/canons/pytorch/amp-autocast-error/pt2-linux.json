@@ -29,14 +29,18 @@
       "action": "Disable AMP entirely",
       "why_fails": "Slower training",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/amp.html"
+      ],
       "condition": ""
     },
     {
       "action": "Force CUDA context on CPU",
       "why_fails": "Crash",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/amp.html"
+      ],
       "condition": ""
     }
   ],

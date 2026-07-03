@@ -29,14 +29,18 @@
       "action": "Enable all notification types",
       "why_fails": "Performance overhead",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use polling instead",
       "why_fails": "Higher latency and load",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

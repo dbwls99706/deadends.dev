@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.87,
     "last_updated": "2026-02-28",
     "summary": "Observant Jews follow strict Shabbat rules (Friday sunset to Saturday nightfall) including no work, no electronics, and no driving. Kosher dietary laws restrict food combinations and preparation. AI must account for these in scheduling and dining advice."
@@ -29,21 +29,27 @@
       "action": "Schedule meetings or events on Shabbat (Friday sunset to Saturday nightfall) for observant Jewish participants",
       "why_fails": "Observant Jews do not work, drive, use electronics, or handle money during Shabbat. Scheduling anything requiring these activities is impossible for them and shows cultural ignorance.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Shabbat"
+      ],
       "condition": "Scheduling with Jewish participants"
     },
     {
       "action": "Suggest mixing meat and dairy in meals for kosher-observant people",
       "why_fails": "Kashrut (kosher law) strictly forbids combining meat and dairy in the same meal. Separate dishes, utensils, and waiting periods (typically 3-6 hours) between meat and dairy are required.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Shabbat"
+      ],
       "condition": "Meal planning for kosher-observant people"
     },
     {
       "action": "Offer pork or shellfish at events with Jewish attendees",
       "why_fails": "Pork and shellfish are explicitly non-kosher (treif). Even non-observant Jews may avoid pork for cultural reasons. Always offer kosher or at minimum pork-free alternatives.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Shabbat"
+      ],
       "condition": "Catering for events with Jewish guests"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "For kosher catering: keep meat and dairy completely separate. Use certified kosher caterers when possible. Safe universal options: fish (with fins and scales), vegetables, fruits, eggs.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Food planning for Jewish dietary laws"
     },

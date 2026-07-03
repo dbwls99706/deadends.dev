@@ -29,14 +29,18 @@
       "action": "Disable watchdog timer",
       "why_fails": "No hang detection in production",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Feed watchdog in timer interrupt",
       "why_fails": "Masks software hangs",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

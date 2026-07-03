@@ -29,14 +29,18 @@
       "action": "Set output buffer limits to unlimited",
       "why_fails": "Slow clients can cause Redis to use unbounded memory and OOM.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase server RAM without fixing slow client",
       "why_fails": "Slow client will eventually fill any amount of RAM.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

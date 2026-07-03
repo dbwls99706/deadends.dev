@@ -28,22 +28,28 @@
     {
       "action": "Schedule major changes or bad-news announcements during Tet (Tết Nguyên Đán)",
       "why_fails": "Tet is the most sacred Vietnamese holiday. The first visitor of the year (xông đất) determines the year's luck. Bad news, arguments, or negative actions during Tet are believed to curse the entire year.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Veneration_of_the_dead"
+      ],
       "condition": "Scheduling around Vietnamese Lunar New Year"
     },
     {
       "action": "Disrespect or ignore ancestor altars in Vietnamese homes or businesses",
       "why_fails": "Most Vietnamese homes and many businesses have ancestor altars (bàn thờ). These are sacred. Never place objects on them, point at them, or treat them casually. They represent the family's spiritual connection.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Veneration_of_the_dead"
+      ],
       "condition": "Visiting Vietnamese homes or businesses"
     },
     {
       "action": "Address Vietnamese elders without proper kinship terms",
       "why_fails": "Vietnamese has complex kinship terms (anh/chị/em/bác/cô/chú) based on age and relation. Using the wrong term or skipping them entirely is disrespectful. Age hierarchy is as important as in Korean culture.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Veneration_of_the_dead"
+      ],
       "condition": "Addressing Vietnamese people"
     }
   ],

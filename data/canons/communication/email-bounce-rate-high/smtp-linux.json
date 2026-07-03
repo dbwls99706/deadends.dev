@@ -29,14 +29,18 @@
       "action": "Retry bounced addresses repeatedly",
       "why_fails": "Further damages sender reputation",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc5321"
+      ],
       "condition": ""
     },
     {
       "action": "Remove all email validation",
       "why_fails": "Increases bounce rate",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc5321"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Materialize view as collection manually",
       "why_fails": "Stale data, sync complexity",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the view and inline queries",
       "why_fails": "Code duplication",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

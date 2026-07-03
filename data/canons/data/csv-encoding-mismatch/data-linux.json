@@ -29,14 +29,18 @@
       "action": "Force ASCII encoding",
       "why_fails": "Loses non-ASCII characters",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc4180"
+      ],
       "condition": ""
     },
     {
       "action": "Replace all errors with ?",
       "why_fails": "Data corruption",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc4180"
+      ],
       "condition": ""
     }
   ],

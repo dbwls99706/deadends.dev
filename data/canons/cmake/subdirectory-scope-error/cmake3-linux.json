@@ -29,14 +29,18 @@
       "action": "Set all variables as CACHE",
       "why_fails": "Pollutes cache, hard to override",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use PARENT_SCOPE everywhere",
       "why_fails": "Confusing variable flow",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

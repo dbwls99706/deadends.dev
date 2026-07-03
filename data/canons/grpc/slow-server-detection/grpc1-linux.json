@@ -29,14 +29,18 @@
       "action": "Increase all deadlines to compensate",
       "why_fails": "Masks server issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Add more client retries",
       "why_fails": "Increases server load",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

@@ -28,22 +28,28 @@
     {
       "action": "Maintain strict physical distance or refuse cheek kisses (beijinho) with Brazilians",
       "why_fails": "Brazilians greet with cheek kisses (1 in São Paulo, 2 in Rio, 3 in some regions). Pulling away or offering only a handshake to someone of familiar acquaintance signals coldness and rejection.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Jeitinho"
+      ],
       "condition": "Social greetings in Brazilian context"
     },
     {
       "action": "Apply rigid, rule-bound approaches and expect strict deadline adherence",
       "why_fails": "Jeitinho brasileiro (the Brazilian way) values creative, flexible solutions over rigid processes. 'Dar um jeito' means finding a way around obstacles. Strict rigidity is seen as lacking creativity.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Jeitinho"
+      ],
       "condition": "Business process design for Brazilian teams"
     },
     {
       "action": "Make the 'OK' hand gesture (thumb and index finger circle) in Brazil",
       "why_fails": "In Brazil, the OK sign is equivalent to the middle finger - one of the most offensive gestures possible. This catches many visitors off guard. Use thumbs up (positive in Brazil) instead.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Jeitinho"
+      ],
       "condition": "Gesture advice for Brazil"
     }
   ],

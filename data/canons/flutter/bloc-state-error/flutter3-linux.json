@@ -29,14 +29,18 @@
       "action": "Never close blocs",
       "why_fails": "Memory leak",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     },
     {
       "action": "Wrap all emit calls in try-catch",
       "why_fails": "Hides lifecycle issues",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/data-and-backend/state-mgmt/intro"
+      ],
       "condition": ""
     }
   ],

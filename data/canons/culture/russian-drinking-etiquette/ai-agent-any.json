@@ -28,22 +28,28 @@
     {
       "action": "Leave an empty bottle on the table",
       "why_fails": "In Russia, empty bottles must immediately be placed on the floor. An empty bottle on the table is considered very bad luck, believed to bring poverty. This superstition is taken seriously.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Alcohol_consumption_in_Russia"
+      ],
       "condition": "Russian dining/drinking advice"
     },
     {
       "action": "Sip vodka slowly or mix it with other drinks",
       "why_fails": "Russians drink vodka in one shot (залпом), never sipped. Mixing vodka with soft drinks is seen as wasteful and weak. Each shot is preceded by a toast and followed by a zakuska (snack).",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Alcohol_consumption_in_Russia"
+      ],
       "condition": "Vodka drinking etiquette in Russia"
     },
     {
       "action": "Refuse to drink during a toast without a strong reason",
       "why_fails": "Refusing a toast is a social insult in Russia. If you truly cannot drink alcohol, explain medical reasons clearly. Simply saying 'I don't want to' is perceived as rejection of the group.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Alcohol_consumption_in_Russia"
+      ],
       "condition": "Russian toasting situations"
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Delete and recreate resource",
       "why_fails": "Data loss",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore error without checking state",
       "why_fails": "May proceed with wrong resource",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

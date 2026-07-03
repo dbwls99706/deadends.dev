@@ -29,14 +29,18 @@
       "action": "Remove all constraints",
       "why_fails": "Work runs at wrong time, battery drain",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/topic/libraries/architecture/workmanager"
+      ],
       "condition": ""
     },
     {
       "action": "Use AlarmManager instead",
       "why_fails": "Less reliable for background work",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/topic/libraries/architecture/workmanager"
+      ],
       "condition": ""
     }
   ],

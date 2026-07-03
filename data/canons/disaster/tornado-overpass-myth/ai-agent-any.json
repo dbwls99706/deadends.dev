@@ -11,12 +11,15 @@
     "last_confirmed": "2026-03-02"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any"
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.92,
     "last_updated": "2026-03-02",
     "summary": "Hiding under a highway overpass during a tornado creates a wind tunnel effect that INCREASES wind speed. People sheltering under overpasses are sucked out and killed by accelerated debris. This myth has caused multiple deaths."
@@ -26,7 +29,10 @@
       "action": "Shelter under a highway overpass during a tornado",
       "why_fails": "The overpass acts as a wind tunnel, accelerating wind speeds by 30-50%. Flying debris is channeled directly at people huddling underneath. Multiple people have died from this myth, including documented cases in the 1999 Oklahoma tornado outbreak.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.weather.gov/safety/tornado",
+        "https://www.ready.gov/tornadoes"
+      ],
       "condition": "Tornado while driving"
     }
   ],
@@ -44,7 +50,11 @@
       "condition": "Tornado shelter options"
     }
   ],
-  "transition_graph": { "leads_to": [], "preceded_by": [], "frequently_confused_with": [] },
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
   "metadata": {
     "generated_by": "manual",
     "generation_date": "2026-03-02",

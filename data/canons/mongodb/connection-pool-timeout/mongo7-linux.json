@@ -29,14 +29,18 @@
       "action": "Set maxPoolSize to extremely high value",
       "why_fails": "File descriptor exhaustion on server",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/connection-string/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove connection pooling",
       "why_fails": "Creates new connection per operation, very slow",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/connection-string/"
+      ],
       "condition": ""
     }
   ],

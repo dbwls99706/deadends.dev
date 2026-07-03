@@ -29,14 +29,18 @@
       "action": "Increase all task stack sizes",
       "why_fails": "Wastes limited SRAM",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.freertos.org/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable stack overflow checking",
       "why_fails": "Silent corruption",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.freertos.org/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set replica-read-only no on all replicas",
       "why_fails": "Replication conflicts, data divergence",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
+      ],
       "condition": ""
     },
     {
       "action": "Promote replica to master",
       "why_fails": "Breaks replication topology",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
+      ],
       "condition": ""
     }
   ],

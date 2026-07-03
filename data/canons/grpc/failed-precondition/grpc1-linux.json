@@ -29,14 +29,18 @@
       "action": "Force state change to satisfy precondition",
       "why_fails": "May corrupt system state",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry immediately without state check",
       "why_fails": "Same precondition failure",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

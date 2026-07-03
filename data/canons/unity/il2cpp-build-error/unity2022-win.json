@@ -29,14 +29,18 @@
       "action": "Switch to Mono backend",
       "why_fails": "Not available on all platforms (iOS)",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/IL2CPP.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable managed stripping entirely",
       "why_fails": "Large binary size",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/IL2CPP.html"
+      ],
       "condition": ""
     }
   ],

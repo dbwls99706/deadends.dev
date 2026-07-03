@@ -29,14 +29,18 @@
       "action": "Filter DOCTYPE declarations with regex",
       "why_fails": "Easily bypassed with encoding",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Validate XML against schema only",
       "why_fails": "Schema validation doesnt prevent XXE",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

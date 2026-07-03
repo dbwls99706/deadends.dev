@@ -29,14 +29,18 @@
       "action": "Mock all method channels in production",
       "why_fails": "Masks broken native integration",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/platform-channels"
+      ],
       "condition": ""
     },
     {
       "action": "Remove native dependency",
       "why_fails": "Loses platform functionality",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/platform-channels"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use JSON transcoding for everything",
       "why_fails": "Performance penalty, loses proto benefits",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore unknown fields globally",
       "why_fails": "May miss important data",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     }
   ],

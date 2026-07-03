@@ -29,21 +29,27 @@
       "action": "Use direct 'No' or blunt negative feedback in East Asian business contexts",
       "why_fails": "In Japan, Korea, China, and Southeast Asia, direct refusal causes loss of face (面子/체면/メンツ). The relationship may be permanently damaged. Indirect signals are the norm for disagreement.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Drafting responses for East Asian or Southeast Asian recipients"
     },
     {
       "action": "Assume silence means agreement in high-context cultures",
       "why_fails": "In Japan, silence (沈黙) often indicates disagreement or need for more time. In Western culture, silence after a proposal may mean agreement. This mismatch causes failed deals.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Interpreting responses across cultures"
     },
     {
       "action": "Give public critical feedback in collectivist cultures",
       "why_fails": "In East Asian, Middle Eastern, and Latin American cultures, public criticism destroys face and hierarchy. Feedback must be given privately, often through intermediaries.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Advising on feedback delivery across cultures"
     }
   ],

@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "Religious dietary laws (halal, kosher, Hindu vegetarianism, Jain diet) are non-negotiable religious obligations - not lifestyle choices or preferences. Treating them casually, hiding ingredients, or suggesting 'just try it' is deeply disrespectful."
   },
@@ -29,21 +29,30 @@
       "action": "Suggest a Muslim person 'just try' pork or alcohol, or hide haram ingredients",
       "why_fails": "Halal/haram dietary laws are Quranic commandments, not preferences. Pork and alcohol are absolutely forbidden (haram). Hiding pork in food or suggesting 'a little won't hurt' is a profound violation of religious trust. Some Muslims consider even cross-contamination unacceptable.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashrut",
+        "https://en.wikipedia.org/wiki/Halal"
+      ],
       "condition": "Food recommendations for Muslim users"
     },
     {
       "action": "Recommend beef dishes to Hindu users or treat cow-related products casually",
       "why_fails": "Cows are sacred in Hinduism. Beef consumption is not just avoided - it's deeply offensive to most Hindus. In several Indian states, cow slaughter is illegal. Even suggesting beef shows ignorance of Hindu values.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashrut",
+        "https://en.wikipedia.org/wiki/Halal"
+      ],
       "condition": "Food recommendations for Hindu users"
     },
     {
       "action": "Assume kosher means 'no pork' - it's far more complex",
       "why_fails": "Kashrut (Jewish dietary law) includes: no mixing meat and dairy (separate dishes, separate meals), only animals with split hooves that chew cud, only fish with fins and scales, specific slaughter methods (shechita), and rabbinical supervision. 'No pork' barely scratches the surface.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kashrut",
+        "https://en.wikipedia.org/wiki/Halal"
+      ],
       "condition": "Understanding kosher dietary laws"
     }
   ],
@@ -56,7 +65,7 @@
     },
     {
       "action": "Always ask about dietary restrictions proactively when planning meals for diverse groups. Never assume someone will 'make an exception' - religious dietary laws don't have exceptions. Provide clearly labeled alternatives.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Event planning or group dining"
     },

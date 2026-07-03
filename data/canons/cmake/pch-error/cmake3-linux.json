@@ -29,14 +29,18 @@
       "action": "Disable PCH globally",
       "why_fails": "Slower compilation",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_precompile_headers.html"
+      ],
       "condition": ""
     },
     {
       "action": "Include everything in PCH",
       "why_fails": "Huge PCH, slow regeneration",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_precompile_headers.html"
+      ],
       "condition": ""
     }
   ],

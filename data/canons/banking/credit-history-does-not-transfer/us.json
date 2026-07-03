@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/credit-history-does-not-transfer/us",
+  "url": "https://deadends.dev/banking/credit-history-does-not-transfer/us",
+  "error": {
+    "signature": "AI assumes a newcomer's foreign credit history counts toward a US credit score",
+    "regex": "(us|usa|united states|america).{0,50}(credit (score|history|record)).{0,40}(immigrant|newcomer|foreign|moving|arriv)",
+    "domain": "banking",
+    "category": "financial_system",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "US credit scores are built only from US bureau records (Equifax, Experian, TransUnion); credit history from other countries does not transfer. Newcomers start 'credit invisible', which blocks apartments, car loans and some phone plans until a US file is established."
+  },
+  "dead_ends": [
+    {
+      "action": "Apply for mainstream US credit cards or leases citing an excellent foreign credit record",
+      "why_fails": "US lenders score from domestic bureau files; with no US history you are credit invisible and mainstream applications are declined regardless of your record abroad, and each hard inquiry can further delay approval.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.consumerfinance.gov/about-us/blog/protecting-immigrant-access-to-fair-credit-opportunities/"
+      ]
+    },
+    {
+      "action": "Avoid all credit products to 'stay safe' during the first years",
+      "why_fails": "A thin or empty file keeps you invisible: without tradelines reporting to the bureaus, no score forms, so future rentals, loans and even utility deposits stay expensive.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.consumerfinance.gov/about-us/blog/protecting-immigrant-access-to-fair-credit-opportunities/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Build a US file deliberately: secured card or credit-builder loan, then 6+ months of on-time payments",
+      "success_rate": 0.85,
+      "how": "Open a bank account, get an SSN or ITIN where eligible, start with a secured credit card, credit-builder loan, or authorized-user status, and keep utilization low. Lenders may not reject you solely for immigration status under ECOA; complaints go to the CFPB (180+ languages).",
+      "sources": [
+        "https://www.consumerfinance.gov/about-us/newsroom/cfpb-and-justice-department-issue-joint-statement-cautioning-that-financial-institutions-may-not-use-immigration-status-to-illegally-discriminate-against-credit-applicants/",
+        "https://www.consumerfinance.gov/about-us/blog/protecting-immigrant-access-to-fair-credit-opportunities/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

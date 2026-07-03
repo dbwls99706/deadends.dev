@@ -29,14 +29,18 @@
       "action": "Skip all compiler checks",
       "why_fails": "May use unsupported features",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/try_compile.html"
+      ],
       "condition": ""
     },
     {
       "action": "Force feature flags without testing",
       "why_fails": "Compile errors later",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/try_compile.html"
+      ],
       "condition": ""
     }
   ],

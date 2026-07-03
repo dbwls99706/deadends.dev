@@ -29,14 +29,18 @@
       "action": "Fall back to old Input Manager",
       "why_fails": "Two input systems, confusing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode input bindings",
       "why_fails": "Loses rebinding capability",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

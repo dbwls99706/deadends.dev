@@ -29,14 +29,18 @@
       "action": "Kill running snapshot",
       "why_fails": "May leave repository in inconsistent state",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Run all snapshots in parallel",
       "why_fails": "Cluster overload",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

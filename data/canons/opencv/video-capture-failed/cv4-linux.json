@@ -29,14 +29,18 @@
       "action": "Try all camera indices 0-10",
       "why_fails": "Slow and unreliable",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use raw V4L2 instead",
       "why_fails": "Complex and non-portable",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html"
+      ],
       "condition": ""
     }
   ],

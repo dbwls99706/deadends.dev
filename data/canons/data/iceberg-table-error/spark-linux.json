@@ -29,14 +29,18 @@
       "action": "Delete metadata and recreate table",
       "why_fails": "Loses table history and snapshots",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://iceberg.apache.org/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Force read old snapshot",
       "why_fails": "May have stale data",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://iceberg.apache.org/docs/latest/"
+      ],
       "condition": ""
     }
   ],

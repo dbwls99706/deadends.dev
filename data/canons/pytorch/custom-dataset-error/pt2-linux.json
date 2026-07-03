@@ -29,14 +29,18 @@
       "action": "Return Python list instead of tensor",
       "why_fails": "Slow collation",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     },
     {
       "action": "Skip type checking in DataLoader",
       "why_fails": "Error during training instead",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     }
   ],

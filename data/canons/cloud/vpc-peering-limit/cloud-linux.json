@@ -29,14 +29,18 @@
       "action": "Delete existing peerings randomly",
       "why_fails": "Breaks cross-VPC connectivity",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     },
     {
       "action": "Create transitive peering chain",
       "why_fails": "Peering is non-transitive",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/vpc/latest/userguide/"
+      ],
       "condition": ""
     }
   ],

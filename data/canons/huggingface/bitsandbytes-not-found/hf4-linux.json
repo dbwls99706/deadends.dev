@@ -29,14 +29,18 @@
       "action": "Install bitsandbytes without CUDA",
       "why_fails": "CPU quantization very limited",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Skip quantization",
       "why_fails": "Model too large for GPU",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

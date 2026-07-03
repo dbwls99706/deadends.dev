@@ -29,14 +29,18 @@
       "action": "Cache everything including authenticated responses",
       "why_fails": "Serves wrong user data",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set extremely long cache time",
       "why_fails": "Stale content served",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

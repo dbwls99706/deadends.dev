@@ -29,14 +29,18 @@
       "action": "Convert to pickle format",
       "why_fails": "Security risk with pickle deserialization",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/safetensors/index"
+      ],
       "condition": ""
     },
     {
       "action": "Delete and re-download without verifying",
       "why_fails": "Same corruption may recur",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/safetensors/index"
+      ],
       "condition": ""
     }
   ],

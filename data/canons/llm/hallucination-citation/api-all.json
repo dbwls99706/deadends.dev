@@ -29,14 +29,18 @@
       "action": "Ask the LLM to only cite real sources",
       "why_fails": "LLMs cannot reliably distinguish real from fabricated sources.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     },
     {
       "action": "Verify URLs by checking HTTP status only",
       "why_fails": "404s catch some fakes but plausible-looking URLs may resolve to wrong content.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/prompt-engineering"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Add null checks in Cinemachine source code",
       "why_fails": "Overwritten on updates",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable Cinemachine on target loss",
       "why_fails": "Camera freezes",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use torch.jit.trace instead",
       "why_fails": "Only captures one execution path",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/jit.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove TorchScript entirely",
       "why_fails": "Loses deployment optimization",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/jit.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Filter specific known injection phrases",
       "why_fails": "Easily bypassed with paraphrasing",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      ],
       "condition": ""
     },
     {
       "action": "Trust LLM to self-police injection",
       "why_fails": "Model can be manipulated",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable idempotence",
       "why_fails": "Duplicate messages possible",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#producerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Restart producer on every error",
       "why_fails": "Loses in-flight messages",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#producerconfigs"
+      ],
       "condition": ""
     }
   ],

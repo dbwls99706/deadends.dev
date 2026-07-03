@@ -29,14 +29,18 @@
       "action": "Change shard key on existing collection",
       "why_fails": "Requires resharding, very expensive",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/sharding/"
+      ],
       "condition": ""
     },
     {
       "action": "Insert null shard key values",
       "why_fails": "All null docs route to one shard, hotspot",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/sharding/"
+      ],
       "condition": ""
     }
   ],

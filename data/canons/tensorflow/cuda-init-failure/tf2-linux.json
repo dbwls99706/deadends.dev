@@ -29,14 +29,18 @@
       "action": "Install latest CUDA regardless of TF version",
       "why_fails": "TF requires specific CUDA version",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     },
     {
       "action": "Set CUDA_VISIBLE_DEVICES without checking driver",
       "why_fails": "Same error if driver wrong",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/gpu"
+      ],
       "condition": ""
     }
   ],

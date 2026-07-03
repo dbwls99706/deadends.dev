@@ -29,14 +29,18 @@
       "action": "Use heap_1 (no free)",
       "why_fails": "Cannot reuse memory",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Increase heap size beyond available RAM",
       "why_fails": "Not possible on embedded",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

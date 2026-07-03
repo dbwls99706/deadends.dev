@@ -29,14 +29,18 @@
       "action": "Use strict=False for everything",
       "why_fails": "Silently missing weights",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Save and load entire model with pickle",
       "why_fails": "Version-sensitive, security risk",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Force kill the migrating node",
       "why_fails": "Leaves slots in inconsistent state requiring manual fix.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     },
     {
       "action": "Cancel migration and restart cluster",
       "why_fails": "Partially migrated slots cause data loss.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     }
   ],

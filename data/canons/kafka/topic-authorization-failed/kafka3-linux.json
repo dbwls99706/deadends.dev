@@ -29,14 +29,18 @@
       "action": "Disable ACLs entirely",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     },
     {
       "action": "Set allow.everyone.if.no.acl.found=true",
       "why_fails": "Bypasses all authorization",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     }
   ],

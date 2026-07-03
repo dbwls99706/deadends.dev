@@ -29,14 +29,18 @@
       "action": "Disable chunked encoding globally",
       "why_fails": "Cant stream large responses",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding"
+      ],
       "condition": ""
     },
     {
       "action": "Buffer entire response",
       "why_fails": "Defeats streaming purpose",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding"
+      ],
       "condition": ""
     }
   ],

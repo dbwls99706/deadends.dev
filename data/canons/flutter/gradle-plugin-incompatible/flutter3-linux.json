@@ -29,14 +29,18 @@
       "action": "Downgrade all versions to oldest",
       "why_fails": "Misses security fixes and features",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Force latest versions of everything",
       "why_fails": "May break build chain",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

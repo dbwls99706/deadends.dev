@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/999-101-111-triage/uk",
+  "url": "https://deadends.dev/emergency/999-101-111-triage/uk",
+  "error": {
+    "signature": "AI tells a UK caller to dial 999 for non-emergency police or health matters",
+    "regex": "(uk|united kingdom|britain|england|scotland|wales).{0,40}(emergency number|call 999|police number|nhs number|non-emergency)",
+    "domain": "emergency",
+    "category": "emergency_numbers",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "The UK splits emergency triage across three numbers: 999 (or 112) for life-threatening emergencies, 101 for non-emergency police reports, and NHS 111 for urgent-but-not-life-threatening medical advice. Using 999 for everything ties up emergency lines and can be treated as misuse."
+  },
+  "dead_ends": [
+    {
+      "action": "Call 999 for a non-urgent crime report or minor medical worry",
+      "why_fails": "999 call handlers prioritise life-threatening incidents; non-emergencies are redirected to 101 (police) or NHS 111 (health), and persistent misuse of 999 can be penalised. You wait longer and delay real emergencies.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.uk/contact-police",
+        "https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/"
+      ]
+    },
+    {
+      "action": "Assume the US 911 number works in the UK",
+      "why_fails": "911 is not a UK emergency number. 999 and the EU-wide 112 are the valid emergency numbers; some mobile networks may redirect 911, but this is not guaranteed and must not be relied on.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/contact-police"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Triage first: 999/112 = life-threatening; 101 = non-emergency police; NHS 111 = urgent health advice",
+      "success_rate": 0.95,
+      "how": "999 or 112 when life or property is at immediate risk. 101 to report crimes that already happened (theft, damage). NHS 111 (phone or 111.nhs.uk online) when you need medical help fast but it is not an emergency.",
+      "sources": [
+        "https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/",
+        "https://www.gov.uk/contact-police"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/dial-111/nz",
+        "distinction": "In New Zealand 111 IS the all-services emergency number; in the UK 111 is the non-emergency NHS health line."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-07-02"
+  }
+}

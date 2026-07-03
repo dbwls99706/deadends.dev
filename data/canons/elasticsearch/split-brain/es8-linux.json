@@ -29,14 +29,18 @@
       "action": "Kill all master-eligible nodes",
       "why_fails": "Complete cluster outage",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     },
     {
       "action": "Remove minimum_master_nodes setting",
       "why_fails": "Increases split-brain risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes-shards"
+      ],
       "condition": ""
     }
   ],

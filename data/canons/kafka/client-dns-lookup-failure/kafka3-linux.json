@@ -29,14 +29,18 @@
       "action": "Use /etc/hosts for all brokers",
       "why_fails": "Not scalable",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     },
     {
       "action": "Hardcode IP in bootstrap.servers",
       "why_fails": "Breaks on IP change",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/"
+      ],
       "condition": ""
     }
   ],

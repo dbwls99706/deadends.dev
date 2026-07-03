@@ -29,14 +29,18 @@
       "action": "Request MANAGE_EXTERNAL_STORAGE for all apps",
       "why_fails": "Play Store rejects most apps",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/data-storage"
+      ],
       "condition": ""
     },
     {
       "action": "Target API < 29 to bypass",
       "why_fails": "Store rejection eventually",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/data-storage"
+      ],
       "condition": ""
     }
   ],

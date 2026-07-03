@@ -29,14 +29,18 @@
       "action": "Dispute all findings without remediation",
       "why_fails": "Fails next scan too",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.pcisecuritystandards.org/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove cardholder data environment from scope",
       "why_fails": "May not be possible for payment processing",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.pcisecuritystandards.org/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set proxy_buffer_size extremely large",
       "why_fails": "Memory waste per connection",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable proxy buffering entirely",
       "why_fails": "Memory spike on large responses",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

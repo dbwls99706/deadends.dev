@@ -29,14 +29,18 @@
       "action": "Try different imread flags blindly",
       "why_fails": "Still fails on corrupted data",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use PIL as universal fallback",
       "why_fails": "Different behavior and color space",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

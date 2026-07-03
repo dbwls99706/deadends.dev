@@ -29,14 +29,18 @@
       "action": "URL-encode the JSON string",
       "why_fails": "Double-encoding, parse still fails",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"
+      ],
       "condition": ""
     },
     {
       "action": "Send raw string without JSON serialization",
       "why_fails": "Not valid JSON",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Parse with eval() instead of json.loads",
       "why_fails": "eval is a security risk and still fails on malformed output.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
       "condition": ""
     },
     {
       "action": "Retry with same prompt hoping for valid JSON",
       "why_fails": "Without guidance, LLM may produce same malformed output.",
       "fail_rate": 0.6,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/guides/function-calling"
+      ],
       "condition": ""
     }
   ],

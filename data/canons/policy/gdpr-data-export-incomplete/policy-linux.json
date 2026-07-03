@@ -29,14 +29,18 @@
       "action": "Export only from main database",
       "why_fails": "Misses data in logs, backups, third parties",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+      ],
       "condition": ""
     },
     {
       "action": "Deny request citing complexity",
       "why_fails": "GDPR violation, fines risk",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+      ],
       "condition": ""
     }
   ],

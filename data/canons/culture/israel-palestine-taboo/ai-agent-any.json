@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.70,
+    "fix_success_rate": 0.7,
     "confidence": 0.75,
     "last_updated": "2026-03-02",
     "summary": "The Israeli-Palestinian conflict is the most polarized geopolitical topic globally. Every word choice signals a side. AI must be aware that even terminology (terrorist vs freedom fighter, wall vs barrier) is politically loaded."
@@ -29,21 +29,27 @@
       "action": "Use the word 'terrorist' or 'freedom fighter' without understanding which audience is reading",
       "why_fails": "Each side has completely opposing framing. What one side calls terrorism, the other calls resistance. Using either term uncritically immediately alienates half the audience and destroys credibility.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Israeli%E2%80%93Palestinian_conflict"
+      ],
       "condition": "Discussing the Israeli-Palestinian conflict"
     },
     {
       "action": "Present the conflict as simple or one-sided",
       "why_fails": "Both sides have legitimate grievances spanning 75+ years. Presenting either narrative as the complete truth ignores the other's suffering. This is perhaps the world's most complex geopolitical situation.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Israeli%E2%80%93Palestinian_conflict"
+      ],
       "condition": "Summarizing the conflict"
     },
     {
       "action": "Casually compare the conflict to other historical events (Holocaust, apartheid, colonialism)",
       "why_fails": "Comparisons to the Holocaust offend Israelis and Jewish people deeply. Comparisons to apartheid offend Israelis. Denying any comparison offends Palestinians. Every analogy is a political statement.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Israeli%E2%80%93Palestinian_conflict"
+      ],
       "condition": "Historical comparisons involving Israel-Palestine"
     }
   ],

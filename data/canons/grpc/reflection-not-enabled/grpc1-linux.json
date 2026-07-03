@@ -29,14 +29,18 @@
       "action": "Enable reflection in production",
       "why_fails": "Exposes service API surface",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/reflection/"
+      ],
       "condition": ""
     },
     {
       "action": "Generate proto descriptors from source only",
       "why_fails": "May be outdated",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/reflection/"
+      ],
       "condition": ""
     }
   ],

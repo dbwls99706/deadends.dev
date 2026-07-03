@@ -29,14 +29,18 @@
       "action": "Kill all processes accessing the file",
       "why_fails": "May kill critical services",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Use File.Copy as workaround",
       "why_fails": "Still fails if source locked for read",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

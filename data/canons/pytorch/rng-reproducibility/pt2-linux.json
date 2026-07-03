@@ -29,14 +29,18 @@
       "action": "Use deterministic mode for everything",
       "why_fails": "Performance degradation on some ops",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/randomness.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore reproducibility",
       "why_fails": "Cant debug or verify results",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/randomness.html"
+      ],
       "condition": ""
     }
   ],

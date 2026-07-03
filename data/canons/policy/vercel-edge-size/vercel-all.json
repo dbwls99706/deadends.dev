@@ -29,14 +29,18 @@
       "action": "Use dynamic imports for code splitting",
       "why_fails": "Edge functions are bundled as single files - dynamic imports are resolved at build time.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://vercel.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Increase the limit in vercel.json",
       "why_fails": "Edge function size limit is a platform constraint and cannot be configured.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://vercel.com/docs"
+      ],
       "condition": ""
     }
   ],

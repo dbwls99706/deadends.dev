@@ -29,14 +29,18 @@
       "action": "Remove version from requests",
       "why_fails": "Uses deprecated default version",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
+      ],
       "condition": ""
     },
     {
       "action": "Pin to oldest version",
       "why_fails": "Missing new features",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
+      ],
       "condition": ""
     }
   ],

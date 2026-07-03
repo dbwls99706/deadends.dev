@@ -29,14 +29,18 @@
       "action": "Use no-cors mode",
       "why_fails": "Cant read response body",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/web"
+      ],
       "condition": ""
     },
     {
       "action": "Disable CORS in browser for testing",
       "why_fails": "Not applicable to users",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/web"
+      ],
       "condition": ""
     }
   ],

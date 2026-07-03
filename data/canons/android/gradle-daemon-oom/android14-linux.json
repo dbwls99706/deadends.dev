@@ -29,14 +29,18 @@
       "action": "Kill daemon and retry without fixing heap",
       "why_fails": "Same OOM on next build",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Set org.gradle.jvmargs=-Xmx100g",
       "why_fails": "Wasteful, may exceed physical RAM",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

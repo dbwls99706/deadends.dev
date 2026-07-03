@@ -29,14 +29,18 @@
       "action": "Use manual dependency injection",
       "why_fails": "Loses Hilt DI benefits",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Add @HiltAndroidApp to all classes",
       "why_fails": "Only Application class needs it",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

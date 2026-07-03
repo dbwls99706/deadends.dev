@@ -29,14 +29,18 @@
       "action": "Download cascade from random internet source",
       "why_fails": "Untrusted, may be corrupted",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use empty classifier",
       "why_fails": "No detections",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

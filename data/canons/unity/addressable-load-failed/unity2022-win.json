@@ -29,14 +29,18 @@
       "action": "Use Resources.Load as fallback for everything",
       "why_fails": "Builds all assets into binary",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/AssetBundlesIntro.html"
+      ],
       "condition": ""
     },
     {
       "action": "Pre-download all addressables on startup",
       "why_fails": "Long startup time",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/AssetBundlesIntro.html"
+      ],
       "condition": ""
     }
   ],

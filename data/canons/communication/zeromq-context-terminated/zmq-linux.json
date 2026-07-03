@@ -29,14 +29,18 @@
       "action": "Ignore termination error and continue",
       "why_fails": "Undefined behavior on terminated context",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://zguide.zeromq.org/"
+      ],
       "condition": ""
     },
     {
       "action": "Create new context per operation",
       "why_fails": "Excessive resource usage",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://zguide.zeromq.org/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable brown-out detection fuses",
       "why_fails": "System runs at unstable voltage, causing random data corruption.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Lower BOD threshold below safe operating voltage",
       "why_fails": "Flash writes and EEPROM operations require minimum voltage.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

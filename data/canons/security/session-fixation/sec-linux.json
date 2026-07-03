@@ -29,14 +29,18 @@
       "action": "Destroy session on every page load",
       "why_fails": "Terrible UX, loses all session data",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Session_fixation"
+      ],
       "condition": ""
     },
     {
       "action": "Use long session IDs to prevent guessing",
       "why_fails": "Doesnt prevent fixation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://owasp.org/www-community/attacks/Session_fixation"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Serve stale features without warning",
       "why_fails": "Model predictions degraded",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://airflow.apache.org/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Block requests until features fresh",
       "why_fails": "Service unavailability",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://airflow.apache.org/docs/"
+      ],
       "condition": ""
     }
   ],

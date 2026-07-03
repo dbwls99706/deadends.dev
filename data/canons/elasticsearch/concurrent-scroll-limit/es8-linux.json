@@ -29,14 +29,18 @@
       "action": "Increase max_open_scroll_context to very high",
       "why_fails": "Memory exhaustion",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Never clear scroll contexts",
       "why_fails": "Memory leak",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

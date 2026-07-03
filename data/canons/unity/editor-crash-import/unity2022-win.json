@@ -29,14 +29,18 @@
       "action": "Force reimport all assets",
       "why_fails": "Very slow, may crash again",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Delete Library folder during import",
       "why_fails": "Loses all cached data, full reimport",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

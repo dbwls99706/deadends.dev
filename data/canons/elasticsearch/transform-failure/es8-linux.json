@@ -29,14 +29,18 @@
       "action": "Delete and recreate transform",
       "why_fails": "Loses accumulated transform data",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore checkpoint errors",
       "why_fails": "Data gaps in transform output",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Use affine transform as fallback",
       "why_fails": "Only 3-point mapping",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Add random jitter to points",
       "why_fails": "Inaccurate transform",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

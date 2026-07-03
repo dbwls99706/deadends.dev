@@ -29,14 +29,18 @@
       "action": "Compress payload without server support",
       "why_fails": "Server cant decompress, rejects",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413"
+      ],
       "condition": ""
     },
     {
       "action": "Split request randomly",
       "why_fails": "May break data integrity",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413"
+      ],
       "condition": ""
     }
   ],

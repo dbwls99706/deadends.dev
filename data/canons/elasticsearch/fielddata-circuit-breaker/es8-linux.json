@@ -29,14 +29,18 @@
       "action": "Enable fielddata on text fields",
       "why_fails": "Massive heap usage, OOM",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Increase breaker to 90% heap",
       "why_fails": "Delays OOM",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

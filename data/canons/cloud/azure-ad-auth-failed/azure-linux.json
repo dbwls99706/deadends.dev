@@ -29,14 +29,18 @@
       "action": "Create new app registration for every request",
       "why_fails": "App sprawl, management nightmare",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/entra/identity-platform/"
+      ],
       "condition": ""
     },
     {
       "action": "Use personal Microsoft account for service auth",
       "why_fails": "Wrong tenant, security risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/entra/identity-platform/"
+      ],
       "condition": ""
     }
   ],

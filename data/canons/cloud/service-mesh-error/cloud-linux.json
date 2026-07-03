@@ -29,14 +29,18 @@
       "action": "Disable service mesh",
       "why_fails": "Loses observability and mTLS",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     },
     {
       "action": "Inject proxy manually",
       "why_fails": "Inconsistent with mesh config",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.aws.amazon.com/"
+      ],
       "condition": ""
     }
   ],

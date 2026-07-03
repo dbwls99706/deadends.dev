@@ -29,14 +29,18 @@
       "action": "Try all fourcc codes randomly",
       "why_fails": "Most will also fail",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Rebuild OpenCV with all codecs",
       "why_fails": "Very time consuming",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

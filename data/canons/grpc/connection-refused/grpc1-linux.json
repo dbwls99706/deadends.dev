@@ -29,14 +29,18 @@
       "action": "Change client to random port",
       "why_fails": "Will never connect",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable firewall entirely",
       "why_fails": "Security risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/"
+      ],
       "condition": ""
     }
   ],

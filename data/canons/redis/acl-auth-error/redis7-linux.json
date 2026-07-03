@@ -29,14 +29,18 @@
       "action": "Run FLUSHALL to reset ACLs",
       "why_fails": "FLUSHALL clears data not ACLs; also destructive.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     },
     {
       "action": "Use default user for everything",
       "why_fails": "Default user with full permissions defeats ACL purpose.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Create backdated evidence",
       "why_fails": "Audit fraud, legal liability",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Claim control not applicable without justification",
       "why_fails": "Auditor will reject",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

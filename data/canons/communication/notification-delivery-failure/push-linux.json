@@ -29,14 +29,18 @@
       "action": "Retry to unregistered tokens forever",
       "why_fails": "Wastes resources, may get blocked",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://firebase.google.com/docs/cloud-messaging"
+      ],
       "condition": ""
     },
     {
       "action": "Send to all tokens without filtering",
       "why_fails": "Includes invalid tokens, increases error rate",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://firebase.google.com/docs/cloud-messaging"
+      ],
       "condition": ""
     }
   ],

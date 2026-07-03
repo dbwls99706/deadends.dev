@@ -29,14 +29,18 @@
       "action": "Hardcode all URLs client-side",
       "why_fails": "Loses hypermedia-driven navigation",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore broken links",
       "why_fails": "Broken client workflows",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
+      ],
       "condition": ""
     }
   ],

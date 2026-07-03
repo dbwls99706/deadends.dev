@@ -29,28 +29,34 @@
       "action": "Use white as the default celebratory/wedding color in East Asian UI or marketing",
       "why_fails": "White (白) is the color of death and mourning in China, Japan, and Korea. White funeral clothing, white wreaths. Using white for wedding invitations or celebrations can be deeply offensive.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_symbolism"
+      ],
       "condition": "Design or marketing for East Asian audiences"
     },
     {
       "action": "Use red as a warning/danger color in Chinese UI or products",
       "why_fails": "Red (红) is the luckiest color in China - wealth, prosperity, happiness. Using it for errors or warnings contradicts deeply ingrained positive associations. Chinese stock markets use red for UP, green for DOWN.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_symbolism"
+      ],
       "condition": "UI/UX design for Chinese market"
     },
     {
       "action": "Use yellow freely in French or Latin American contexts",
       "why_fails": "Yellow signifies jealousy and betrayal in France. Yellow flowers mean separation in Russia. In Thailand, yellow is the royal color (King's birthday). Context determines whether yellow is positive or negative.",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_symbolism"
+      ],
       "condition": "Color selection for international contexts"
     }
   ],
   "workarounds": [
     {
       "action": "White: purity/peace (West), death/mourning (East Asia/India). Red: danger/stop (West), luck/prosperity (China), mourning (South Africa). Black: mourning (West), power/formality (universal). Green: nature/go (global), Islam/sacred (Muslim countries).",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Color selection for international audiences"
     },

@@ -29,28 +29,37 @@
       "action": "Place bread on the plate instead of directly on the table/tablecloth",
       "why_fails": "In France, bread goes directly on the tablecloth to the left of the plate, never on the plate itself. Placing it on the plate is a faux pas that marks foreign ignorance.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Table_manners",
+        "https://en.wikipedia.org/wiki/French_cuisine"
+      ],
       "condition": "French dining etiquette advice"
     },
     {
       "action": "Pour your own wine before others or fill glasses to the top",
       "why_fails": "In France, you pour for others first, never yourself first. Glasses are filled only one-third full to allow swirling and aroma. A full glass signals a cheap establishment or ignorance.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Table_manners",
+        "https://en.wikipedia.org/wiki/French_cuisine"
+      ],
       "condition": "Wine service in French context"
     },
     {
       "action": "Ask for ketchup, extra sauce, or substitutions at a French restaurant",
       "why_fails": "Requesting condiments or modifications implies the chef's preparation is inadequate. This is deeply insulting in French culinary culture where the chef's vision is paramount.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Table_manners",
+        "https://en.wikipedia.org/wiki/French_cuisine"
+      ],
       "condition": "Ordering at French restaurants"
     }
   ],
   "workarounds": [
     {
       "action": "Follow French meal structure: apéritif → entrée (starter) → plat principal → fromage → dessert → café → digestif. Never rush. A proper French dinner takes 2-3 hours minimum.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "French meal planning"
     },

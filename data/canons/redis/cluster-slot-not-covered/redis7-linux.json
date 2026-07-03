@@ -29,14 +29,18 @@
       "action": "Set cluster-require-full-coverage no",
       "why_fails": "Partial data availability, inconsistent reads",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     },
     {
       "action": "Reset cluster and recreate",
       "why_fails": "Loses all data",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/"
+      ],
       "condition": ""
     }
   ],

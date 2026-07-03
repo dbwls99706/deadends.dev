@@ -29,14 +29,18 @@
       "action": "Replace genex with hardcoded values",
       "why_fails": "Loses multi-config support",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Nest too many generator expressions",
       "why_fails": "Unreadable and fragile",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html"
+      ],
       "condition": ""
     }
   ],

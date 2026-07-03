@@ -29,14 +29,18 @@
       "action": "Use local-only rate limiter",
       "why_fails": "Per-node limits, aggregate exceeded",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern"
+      ],
       "condition": ""
     },
     {
       "action": "Disable rate limiting on some nodes",
       "why_fails": "Inconsistent protection",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern"
+      ],
       "condition": ""
     }
   ],

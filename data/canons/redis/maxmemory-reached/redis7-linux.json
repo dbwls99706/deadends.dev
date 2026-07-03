@@ -29,14 +29,18 @@
       "action": "Remove maxmemory limit entirely",
       "why_fails": "OOM killer may kill Redis process",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Set maxmemory-policy noeviction",
       "why_fails": "Writes fail, app breaks",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove all network policies",
       "why_fails": "No network segmentation",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+      ],
       "condition": ""
     },
     {
       "action": "Allow all ingress/egress in default policy",
       "why_fails": "Defeats purpose of network policies",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+      ],
       "condition": ""
     }
   ],

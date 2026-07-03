@@ -29,14 +29,18 @@
       "action": "Set noeviction policy globally",
       "why_fails": "Writes fail when memory full",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Give all keys same TTL",
       "why_fails": "Uniform expiry, not useful",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.87,
     "last_updated": "2026-03-02",
     "summary": "Many cultures, religions, and legal systems restrict photography of people, sacred sites, military installations, and government buildings. AI must warn about these when giving travel or content advice."
@@ -28,22 +28,28 @@
     {
       "action": "Photograph indigenous peoples without explicit consent",
       "why_fails": "Many indigenous cultures (Aboriginal Australian, Native American, Amazonian tribes) believe photography captures the soul or violates spiritual identity. In Australia, photographing Aboriginal sacred sites is illegal.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Photography_and_the_law"
+      ],
       "condition": "Photography advice involving indigenous communities"
     },
     {
       "action": "Photograph inside mosques, temples, or churches without checking rules",
       "why_fails": "Many mosques forbid photography entirely. Buddhist temples often prohibit photographing with back to Buddha. Some churches (e.g., Sistine Chapel) strictly ban photos. Violators face confiscation or expulsion.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Photography_and_the_law"
+      ],
       "condition": "Religious site photography advice"
     },
     {
       "action": "Photograph military installations, government buildings, or airports in security-sensitive countries",
       "why_fails": "In Egypt, Turkey, UAE, China, and North Korea (among others), photographing military/government facilities can lead to detention. Even bridges and power stations may be restricted in some countries.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Photography_and_the_law"
+      ],
       "condition": "Photography near sensitive facilities abroad"
     }
   ],

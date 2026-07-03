@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.83,
-    "confidence": 0.80,
+    "confidence": 0.8,
     "last_updated": "2026-03-02",
     "summary": "Silence carries dramatically different meanings across cultures. In Finland it signals comfort and trust. In Japan it often indicates disagreement. In America it signals awkwardness. AI must interpret silence through cultural context."
   },
@@ -29,21 +29,27 @@
       "action": "Interpret silence after a proposal as agreement in Japanese business",
       "why_fails": "Japanese silence (沈黙/chinmoku) after a business proposal usually signals discomfort, disagreement, or the need for internal consensus (根回し/nemawashi). Treating it as approval leads to failed expectations.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Japanese business negotiations"
     },
     {
       "action": "Fill every pause in conversation when speaking with Finns or Japanese",
       "why_fails": "Finnish culture values silence as a sign of trust and thoughtfulness. Japanese culture uses ma (間/space between) as a communication tool. Compulsively filling silence signals nervousness and superficiality.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Conversations with Finnish or Japanese people"
     },
     {
       "action": "Assume silence means the same thing in all cultures",
       "why_fails": "American silence = awkward/hostile. Finnish silence = comfortable/trusting. Japanese silence = careful consideration or disagreement. Arab silence = disapproval. Each requires different response.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/High-context_and_low-context_cultures"
+      ],
       "condition": "Cross-cultural communication interpretation"
     }
   ],
@@ -62,7 +68,7 @@
     },
     {
       "action": "When coaching cross-cultural communication: teach that silence duration comfort varies. Americans are uncomfortable after 4 seconds, Japanese are comfortable with 8+ seconds. Adjust expectations per culture.",
-      "success_rate": 0.80,
+      "success_rate": 0.8,
       "sources": [],
       "condition": "Cross-cultural communication training"
     }

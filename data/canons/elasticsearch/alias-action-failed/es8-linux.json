@@ -29,14 +29,18 @@
       "action": "Delete all aliases and recreate",
       "why_fails": "Breaks running applications",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use index name directly",
       "why_fails": "Loses alias routing benefits",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

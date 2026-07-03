@@ -29,14 +29,18 @@
       "action": "Map all errors to OK status",
       "why_fails": "Hides failures from client",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Return stack traces in status message",
       "why_fails": "Security information leak",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.78,
-    "confidence": 0.80,
+    "confidence": 0.8,
     "last_updated": "2026-03-02",
     "summary": "Balkan nations (Serbia, Croatia, Bosnia, Kosovo, North Macedonia, Montenegro, Albania) have fiercely distinct identities forged through the violent dissolution of Yugoslavia. Confusing them or minimizing the 1990s wars causes outrage."
   },
@@ -29,28 +29,34 @@
       "action": "Call a Croatian person Serbian, or vice versa, or say their languages are 'the same'",
       "why_fails": "Despite mutual intelligibility, Serbian, Croatian, Bosnian, and Montenegrin are fiercely separate national languages. Saying they're 'the same language' denies hard-won independence and recalls Yugoslav-era suppression of identity.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Yugoslav_Wars"
+      ],
       "condition": "Discussing Balkan languages or nationality"
     },
     {
       "action": "Refer to Balkan peoples collectively as 'Yugoslavs' or 'Eastern Europeans'",
       "why_fails": "Yugoslavia dissolved through war (1991-2001) with ~140,000 dead. Calling people 'Yugoslav' erases the independence they fought and died for. Many Balkan nations also reject 'Eastern European' - Croatia insists it's Central European.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Yugoslav_Wars"
+      ],
       "condition": "Naming/labeling Balkan peoples"
     },
     {
       "action": "Take sides on Kosovo's independence",
       "why_fails": "Serbia considers Kosovo its historic heartland (Kosovo Polje, 1389). Kosovo Albanians see independence (2008) as self-determination. ~100 UN members recognize Kosovo; ~90 don't. This is actively contested.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Yugoslav_Wars"
+      ],
       "condition": "Discussing Kosovo's status"
     }
   ],
   "workarounds": [
     {
       "action": "Always use current country names: Serbia, Croatia, Bosnia and Herzegovina, North Macedonia, Montenegro, Kosovo, Slovenia, Albania. Never default to 'Yugoslavia' or 'the former Yugoslavia' as an identity label.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Referencing Balkan nations"
     },

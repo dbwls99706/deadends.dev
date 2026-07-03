@@ -29,14 +29,18 @@
       "action": "Split the wheel into multiple files",
       "why_fails": "pip expects one wheel file per distribution.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://pypi.org/help/"
+      ],
       "condition": ""
     },
     {
       "action": "Compress the wheel with higher compression",
       "why_fails": "Wheels are already zip files; recompression has minimal effect.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pypi.org/help/"
+      ],
       "condition": ""
     }
   ],

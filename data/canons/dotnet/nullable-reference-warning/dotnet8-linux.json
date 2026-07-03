@@ -29,14 +29,18 @@
       "action": "Suppress all nullable warnings with #nullable disable",
       "why_fails": "Loses null safety",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     },
     {
       "action": "Add \\! operator on everything",
       "why_fails": "Runtime NullReferenceException",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Run everything on main isolate",
       "why_fails": "Blocks UI thread",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Spawn unlimited isolates",
       "why_fails": "System resource exhaustion",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

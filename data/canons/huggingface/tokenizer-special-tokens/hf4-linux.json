@@ -29,14 +29,18 @@
       "action": "Set pad_token to random string",
       "why_fails": "Wrong token ID, garbage padding",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/tokenizer"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore padding entirely",
       "why_fails": "Variable length batches fail",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/tokenizer"
+      ],
       "condition": ""
     }
   ],

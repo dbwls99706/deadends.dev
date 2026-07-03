@@ -29,14 +29,18 @@
       "action": "Increase slowlog threshold to hide warnings",
       "why_fails": "Masks performance issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable slow log",
       "why_fails": "No performance visibility",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

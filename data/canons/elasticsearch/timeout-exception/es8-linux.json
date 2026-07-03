@@ -29,14 +29,18 @@
       "action": "Set extremely high global timeout",
       "why_fails": "Masks perf problems, clients hang",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Disable request circuit breaker",
       "why_fails": "OOM crash risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Drop the unique index",
       "why_fails": "Allows duplicate data, breaks application logic",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Catch and silently ignore all E11000",
       "why_fails": "May hide real data issues",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

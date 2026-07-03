@@ -29,14 +29,18 @@
       "action": "Reduce terrain resolution to minimum",
       "why_fails": "Ugly terrain",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable terrain entirely",
       "why_fails": "No landscape",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

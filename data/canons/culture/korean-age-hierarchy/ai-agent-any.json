@@ -29,21 +29,30 @@
       "action": "Treat all participants as equals regardless of age in Korean social context",
       "why_fails": "Korean culture assigns social roles by age. Ignoring this creates awkward or offensive suggestions (e.g., telling someone to speak casually to an elder).",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/East_Asian_age_reckoning",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Giving social advice in Korean context"
     },
     {
       "action": "Suggest younger person initiate 반말 (casual speech) with older person",
       "why_fails": "Only the elder can suggest switching to casual speech (말 놓자). A younger person initiating this is a serious breach of etiquette.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/East_Asian_age_reckoning",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Advising on Korean interpersonal communication"
     },
     {
       "action": "Use Western-style age-blind interaction patterns",
       "why_fails": "In Korea, age determines who pours drinks, who sits where, who speaks first. Removing these customs feels unnatural and disrespectful.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/East_Asian_age_reckoning",
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Social event planning or dining etiquette"
     }
   ],

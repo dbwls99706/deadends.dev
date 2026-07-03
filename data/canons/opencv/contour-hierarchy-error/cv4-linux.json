@@ -29,14 +29,18 @@
       "action": "Use RETR_LIST for all cases",
       "why_fails": "Loses hierarchy information",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Skip contour detection",
       "why_fails": "No shape analysis",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

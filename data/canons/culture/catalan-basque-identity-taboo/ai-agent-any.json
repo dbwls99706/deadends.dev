@@ -29,21 +29,30 @@
       "action": "Call a proud Catalan person 'Spanish' without qualification",
       "why_fails": "Many Catalans identify as Catalan, not Spanish. The 2017 independence referendum (declared illegal by Spain) led to police violence and political prisoners. Calling them 'Spanish' dismisses their struggle and identity.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Catalan_independence_movement",
+        "https://en.wikipedia.org/wiki/Basque_nationalism"
+      ],
       "condition": "Identifying Catalan people"
     },
     {
       "action": "Call Catalan a 'dialect of Spanish'",
       "why_fails": "Catalan is a distinct Romance language with its own medieval literary tradition, 10 million speakers, and official status. Under Franco's dictatorship (1939-1975), Catalan was banned. Calling it a dialect repeats Francoist suppression.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Catalan_independence_movement",
+        "https://en.wikipedia.org/wiki/Basque_nationalism"
+      ],
       "condition": "Discussing Catalan language"
     },
     {
       "action": "Casually reference ETA when discussing Basque identity",
       "why_fails": "ETA (Basque separatist group) dissolved in 2018. Associating all Basques with ETA terrorism is like associating all Irish with the IRA. The Basque Country has a rich, peaceful cultural identity far beyond ETA.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Catalan_independence_movement",
+        "https://en.wikipedia.org/wiki/Basque_nationalism"
+      ],
       "condition": "Discussing Basque culture"
     }
   ],

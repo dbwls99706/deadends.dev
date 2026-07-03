@@ -29,14 +29,18 @@
       "action": "Remove toolchain file and use host compiler",
       "why_fails": "Not cross-compiling, wrong target",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html"
+      ],
       "condition": ""
     },
     {
       "action": "Copy toolchain from different project",
       "why_fails": "May not match your setup",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html"
+      ],
       "condition": ""
     }
   ],

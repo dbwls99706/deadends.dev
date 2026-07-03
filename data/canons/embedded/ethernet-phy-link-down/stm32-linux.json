@@ -29,14 +29,18 @@
       "action": "Force link speed and duplex",
       "why_fails": "Mismatched settings, packet loss",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Bypass PHY initialization",
       "why_fails": "No link establishment",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

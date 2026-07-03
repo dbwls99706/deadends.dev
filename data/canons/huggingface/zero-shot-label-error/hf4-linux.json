@@ -29,14 +29,18 @@
       "action": "Use empty labels list",
       "why_fails": "No classification possible",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use numeric IDs as labels",
       "why_fails": "Model expects natural language",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

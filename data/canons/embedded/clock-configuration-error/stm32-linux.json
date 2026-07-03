@@ -29,14 +29,18 @@
       "action": "Switch to maximum PLL frequency immediately",
       "why_fails": "Exceeds chip spec, unreliable operation",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore clock failure and continue",
       "why_fails": "Undefined behavior, wrong timings",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

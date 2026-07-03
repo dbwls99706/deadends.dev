@@ -29,14 +29,18 @@
       "action": "Remove dropout and batchnorm layers",
       "why_fails": "Loses regularization and normalization",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     },
     {
       "action": "Set training=False on individual layers",
       "why_fails": "Error-prone and incomplete",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/"
+      ],
       "condition": ""
     }
   ],

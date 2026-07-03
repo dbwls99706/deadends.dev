@@ -29,14 +29,18 @@
       "action": "Dispose HttpClient after every use",
       "why_fails": "Creates new connections each time",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory"
+      ],
       "condition": ""
     },
     {
       "action": "Use static HttpClient with infinite lifetime",
       "why_fails": "DNS changes never picked up",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory"
+      ],
       "condition": ""
     }
   ],

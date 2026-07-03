@@ -29,14 +29,18 @@
       "action": "Keep requesting permission in loop",
       "why_fails": "Ignored by OS, bad UX",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Crash app if permission denied",
       "why_fails": "Terrible UX",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

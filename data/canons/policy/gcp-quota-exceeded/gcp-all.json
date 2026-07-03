@@ -29,14 +29,18 @@
       "action": "Retry immediately in a tight loop",
       "why_fails": "Quota resets on a time window; tight retries waste compute without helping.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/docs/quotas"
+      ],
       "condition": ""
     },
     {
       "action": "Create new GCP projects to get fresh quotas",
       "why_fails": "Quotas are often org-level and new projects inherit the same limits.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cloud.google.com/docs/quotas"
+      ],
       "condition": ""
     }
   ],

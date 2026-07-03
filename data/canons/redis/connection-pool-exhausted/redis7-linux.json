@@ -29,14 +29,18 @@
       "action": "Set maxclients to unlimited",
       "why_fails": "File descriptor and memory exhaustion",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Create new connection per operation",
       "why_fails": "Connection overhead kills performance",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

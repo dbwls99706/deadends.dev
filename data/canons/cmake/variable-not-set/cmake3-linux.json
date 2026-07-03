@@ -29,14 +29,18 @@
       "action": "Set all variables as CACHE FORCE",
       "why_fails": "Overrides intentional project defaults",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore all CMake warnings",
       "why_fails": "Misses real issues",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

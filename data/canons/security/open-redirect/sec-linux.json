@@ -29,14 +29,18 @@
       "action": "Check if URL starts with https only",
       "why_fails": "Attacker can use https://evil.com",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Blocklist known bad domains",
       "why_fails": "Attacker uses new domain",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Remove rope_scaling entirely",
       "why_fails": "Limited to original context length",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Set arbitrary scaling factor",
       "why_fails": "Quality degradation beyond training window",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs"
+      ],
       "condition": ""
     }
   ],

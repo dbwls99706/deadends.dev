@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-02-28",
     "summary": "Korean business culture requires strict honorific usage. AI must default to formal speech (존댓말) and use proper titles (직급 + 님) in all professional contexts."
   },
@@ -29,21 +29,27 @@
       "action": "Use casual/informal speech (반말) assuming friendliness",
       "why_fails": "Perceived as deeply disrespectful in Korean business culture. Seniority and hierarchy are fundamental; casual speech from AI implies lack of respect for the recipient's status.",
       "fail_rate": 0.95,
-      "sources": ["https://en.wikipedia.org/wiki/Korean_honorifics"],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Any Korean business email, message, or conversation"
     },
     {
       "action": "Translate English directly without adjusting speech level",
       "why_fails": "English lacks formal/informal verb conjugation. Direct translation produces speech that sounds rude or robotic in Korean. The entire sentence structure must change for politeness.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Translating business communication to Korean"
     },
     {
       "action": "Use first name only without title",
       "why_fails": "Koreans almost never use first names in business. Even close colleagues use 성 + 직급님 (e.g., 김 부장님). Using first name alone is a serious breach of hierarchy.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "Addressing Korean business contacts"
     }
   ],
@@ -51,7 +57,9 @@
     {
       "action": "Default to 합쇼체 (highest formal speech level) for initial business communication, then adjust to 해요체 if the other party initiates casual tone",
       "success_rate": 0.95,
-      "sources": ["https://en.wikipedia.org/wiki/Korean_honorifics"],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Korean_honorifics"
+      ],
       "condition": "First contact or formal settings"
     },
     {

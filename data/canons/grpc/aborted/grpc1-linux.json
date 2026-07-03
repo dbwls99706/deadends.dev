@@ -29,14 +29,18 @@
       "action": "Disable optimistic concurrency",
       "why_fails": "Stale data overwrites",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Retry without backoff",
       "why_fails": "Increases contention",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

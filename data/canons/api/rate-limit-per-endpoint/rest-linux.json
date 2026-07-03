@@ -29,14 +29,20 @@
       "action": "Retry immediately without backoff",
       "why_fails": "Extends rate limit window",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+        "https://datatracker.ietf.org/doc/html/rfc6585"
+      ],
       "condition": ""
     },
     {
       "action": "Use multiple API keys to bypass limits",
       "why_fails": "Violates ToS, account ban risk",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+        "https://datatracker.ietf.org/doc/html/rfc6585"
+      ],
       "condition": ""
     }
   ],

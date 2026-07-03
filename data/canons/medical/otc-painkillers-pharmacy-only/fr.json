@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/otc-painkillers-pharmacy-only/fr",
+  "url": "https://deadends.dev/medical/otc-painkillers-pharmacy-only/fr",
+  "error": {
+    "signature": "AI tells someone in France to grab paracetamol or ibuprofen at a supermarket",
+    "regex": "(france|french|paris).{0,50}(paracetamol|ibuprofen|aspirin|painkiller|tylenol|advil)",
+    "domain": "medical",
+    "category": "medication_access",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "In France, medicines - including paracetamol, ibuprofen and aspirin - are sold only in pharmacies, and since 15 January 2020 these painkillers must be kept behind the pharmacist's counter (no self-service), per ANSM decision. Supermarkets and convenience stores cannot sell them."
+  },
+  "dead_ends": [
+    {
+      "action": "Look for Tylenol/Advil in a French supermarket or convenience store",
+      "why_fails": "The pharmacy monopoly means no French supermarket carries medicines; since January 2020 paracetamol and NSAIDs are additionally behind the pharmacy counter, so you must ask the pharmacist (brand names also differ: Doliprane/Dafalgan for paracetamol).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.service-public.fr/particuliers/actualites/A13630",
+        "https://ansm.sante.fr/actualites/bon-usage-du-paracetamol-et-des-anti-inflammatoires-non-steroidiens-ains-ces-medicaments-ne-pourront-plus-etre-presentes-en-libre-acces"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Go to a pharmacy (green cross sign) and ask the pharmacist; use the duty pharmacy at night",
+      "success_rate": 0.95,
+      "how": "Ask for 'du paracétamol' or 'de l'ibuprofène' at the counter - no prescription needed for standard doses. Outside opening hours, every area lists a pharmacie de garde (duty pharmacy); hotels and the 3237 service can locate one.",
+      "sources": [
+        "https://www.service-public.fr/particuliers/actualites/A13630"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

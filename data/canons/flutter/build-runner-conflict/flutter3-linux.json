@@ -29,14 +29,18 @@
       "action": "Delete all generated files and regenerate",
       "why_fails": "May lose manual edits in generated files",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Pin all codegen packages to old versions",
       "why_fails": "Misses fixes",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Force kill mongod during index build",
       "why_fails": "Leaves index in inconsistent state",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     },
     {
       "action": "Build index on primary during peak hours",
       "why_fails": "Blocks replication and queries",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     }
   ],

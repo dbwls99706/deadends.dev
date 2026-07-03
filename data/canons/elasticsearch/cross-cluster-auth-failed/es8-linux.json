@@ -29,14 +29,18 @@
       "action": "Disable security on remote cluster",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use same credentials for all clusters",
       "why_fails": "Violates least privilege",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

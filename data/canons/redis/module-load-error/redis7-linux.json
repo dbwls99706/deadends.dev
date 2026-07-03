@@ -29,14 +29,18 @@
       "action": "Compile module from source without matching Redis version",
       "why_fails": "ABI mismatch",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Load module in production without testing",
       "why_fails": "May crash Redis",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

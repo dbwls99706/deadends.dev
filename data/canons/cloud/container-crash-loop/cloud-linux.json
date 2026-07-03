@@ -29,14 +29,18 @@
       "action": "Increase restart delay to hours",
       "why_fails": "Slow recovery on real fixes",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable health checks",
       "why_fails": "Routes traffic to broken container",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+      ],
       "condition": ""
     }
   ],

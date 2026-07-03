@@ -29,14 +29,18 @@
       "action": "Set all interrupts to same priority",
       "why_fails": "No preemption, high-priority tasks blocked",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Disable all interrupts during critical sections",
       "why_fails": "Misses time-critical events",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

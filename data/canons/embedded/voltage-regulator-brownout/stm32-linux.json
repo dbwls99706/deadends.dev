@@ -29,14 +29,18 @@
       "action": "Disable brownout detection",
       "why_fails": "Runs at unsafe voltage, data corruption",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Lower brownout threshold",
       "why_fails": "Chip operates out of spec",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

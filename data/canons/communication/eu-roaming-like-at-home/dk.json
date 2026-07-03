@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/eu-roaming-like-at-home/dk",
+  "url": "https://deadends.dev/communication/eu-roaming-like-at-home/dk",
+  "error": {
+    "signature": "AI warns an EU/EEA-SIM traveler about roaming charges in Denmark or tells them to buy a new local SIM in every country",
+    "regex": "(denmark.{0,40}(roaming|local sim|sim card|mobile data)|roam.{0,20}charges.{0,30}denmark)",
+    "domain": "communication",
+    "category": "telecom_cost",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "dk",
+      "country_name": "Denmark",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Under the EU 'roam like at home' rules, SIMs issued in any EU/EEA country work in Denmark at domestic prices - calls, SMS and data incur no roaming surcharge (fair-use caps can apply to data on unlimited plans). Buying a new SIM per country is unnecessary for EU/EEA SIM holders; non-EU visitors need only one EU/EEA SIM or eSIM for the whole bloc."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy a separate local SIM for Denmark while already holding an EU/EEA SIM",
+      "why_fails": "Roam-like-at-home has applied across the EU/EEA since 2017 (extended to 2032): domestic-rate calls, SMS and data follow your SIM across the bloc, so the extra SIM costs money and a new number for nothing.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://europa.eu/youreurope/citizens/consumers/internet-telecoms/mobile-roaming-costs/index_en.htm",
+        "https://digital-strategy.ec.europa.eu/en/policies/roaming"
+      ],
+      "condition": "Traveler already holds an EU/EEA SIM"
+    },
+    {
+      "action": "Assume unlimited home data roams without limits, or that the rule covers non-EEA SIMs",
+      "why_fails": "Operators may apply fair-use data caps abroad on unlimited/cheap plans (with small surcharges beyond the cap), and the regulation only binds EU/EEA-issued SIMs - US/Asian SIMs get no protection. Switzerland and the UK are outside the scheme.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://europa.eu/youreurope/citizens/consumers/internet-telecoms/mobile-roaming-costs/index_en.htm"
+      ],
+      "condition": "Unlimited plans or non-EEA SIMs"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "EU/EEA SIM holders: just enable roaming and check your plan's fair-use data allowance; non-EU visitors: buy ONE EU/EEA SIM or eSIM for the whole trip",
+      "success_rate": 0.9,
+      "how": "Check the operator's roaming fair-use terms before departure. A single EU/EEA prepaid SIM or travel eSIM covers all EU/EEA countries at domestic rates - no per-country SIM churn.",
+      "sources": [
+        "https://europa.eu/youreurope/citizens/consumers/internet-telecoms/mobile-roaming-costs/index_en.htm",
+        "https://digital-strategy.ec.europa.eu/en/policies/roaming"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

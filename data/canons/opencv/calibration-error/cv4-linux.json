@@ -29,14 +29,18 @@
       "action": "Use default camera matrix",
       "why_fails": "Wrong distortion correction",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Accept high reprojection error",
       "why_fails": "Inaccurate measurements",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

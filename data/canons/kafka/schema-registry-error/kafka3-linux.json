@@ -29,14 +29,18 @@
       "action": "Disable schema validation",
       "why_fails": "Schema evolution breaks silently",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.confluent.io/platform/current/schema-registry/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Embed schema in every message",
       "why_fails": "Massive overhead",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.confluent.io/platform/current/schema-registry/index.html"
+      ],
       "condition": ""
     }
   ],

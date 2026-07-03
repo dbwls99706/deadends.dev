@@ -29,14 +29,18 @@
       "action": "Remove all quotas",
       "why_fails": "Uncontrolled resource usage",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Set quota to maximum for all clients",
       "why_fails": "Defeats purpose of quotas",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

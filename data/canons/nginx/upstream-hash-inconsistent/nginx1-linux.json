@@ -29,14 +29,18 @@
       "action": "Use round-robin instead",
       "why_fails": "Loses session affinity",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     },
     {
       "action": "Add more upstream servers without rehashing",
       "why_fails": "Redistributes existing sessions",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+      ],
       "condition": ""
     }
   ],

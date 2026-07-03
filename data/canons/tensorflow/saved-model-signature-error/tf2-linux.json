@@ -29,14 +29,18 @@
       "action": "Load without specifying signature",
       "why_fails": "Uses wrong function",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     },
     {
       "action": "Re-save with default signature only",
       "why_fails": "Loses multi-function model",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/saved_model"
+      ],
       "condition": ""
     }
   ],

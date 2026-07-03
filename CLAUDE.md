@@ -1,7 +1,7 @@
 # deadends.dev
 
 Structured failure knowledge database for AI agents - covering both code
-errors AND country-specific real-world dead ends. **2,339+ ErrorCanon JSON
+errors AND country-specific real-world dead ends. **2,393+ ErrorCanon JSON
 entries across 54 domains**:
 
 - **51 code-error domains** (2,089 entries): python, node, docker, cuda,
@@ -17,7 +17,7 @@ entries across 54 domains**:
   format `{domain}/{slug}/{country}` where country is an ISO 3166-1
   alpha-2 code (`kr`, `jp`, `us`, `de`, `uk`, `fr`, `cn`, `hk`, `tw`,
   `th`, `in`, `vn`, `id`, `sg`, `ph`, `sa`, `ae`, `tr`, `il`, `ru`, `br`,
-  `mx`, ...). **52 countries, 250+ country-scoped entries** as of v0.10.
+  `mx`, ...). **52 countries, 300+ country-scoped entries** as of v0.10.
 
 **Country-canon rationale**: coding dead ends are largely solved by modern
 LLMs. Country-specific rules (visa caveats, jurisdictional laws, cultural
@@ -29,7 +29,7 @@ primary-source-cited structured entries.
 
 ```
 data/
-  canons/              # ErrorCanon JSON files (source of truth, 2339+ files)
+  canons/              # ErrorCanon JSON files (source of truth, 2393+ files)
     {domain}/          # One directory per domain (54 domains)
       {slug}_{env}.json          # Flat-file format (code: env = runtime-os)
       {slug}/{env}.json          # Directory-style format

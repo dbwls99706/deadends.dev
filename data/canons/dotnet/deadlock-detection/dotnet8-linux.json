@@ -29,14 +29,18 @@
       "action": "Use .Result or .Wait() on async code",
       "why_fails": "Root cause of async deadlocks",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"
+      ],
       "condition": ""
     },
     {
       "action": "Use ConfigureAwait(false) everywhere blindly",
       "why_fails": "May miss context in UI apps",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"
+      ],
       "condition": ""
     }
   ],

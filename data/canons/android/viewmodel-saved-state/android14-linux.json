@@ -29,14 +29,18 @@
       "action": "Dont use SavedStateHandle",
       "why_fails": "State lost on process death",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Save everything in onSaveInstanceState manually",
       "why_fails": "Verbose, error-prone",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

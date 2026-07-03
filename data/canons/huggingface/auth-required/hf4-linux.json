@@ -29,14 +29,18 @@
       "action": "Try to download from mirror sites",
       "why_fails": "May get tampered weights",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     },
     {
       "action": "Use older ungated version",
       "why_fails": "Missing improvements and fixes",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/hub/index"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Hardcode strings instead of localizing",
       "why_fails": "No internationalization",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     },
     {
       "action": "Write localization delegate manually",
       "why_fails": "Verbose, error-prone",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/"
+      ],
       "condition": ""
     }
   ],

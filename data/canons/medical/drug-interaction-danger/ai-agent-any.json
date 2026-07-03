@@ -29,21 +29,27 @@
       "action": "Recommend combining pain medications without checking interactions",
       "why_fails": "Ibuprofen blocks aspirin's cardioprotective effect. Acetaminophen (Tylenol) + alcohol = liver failure. Multiple NSAIDs = stomach bleeding. Opioids + benzodiazepines = respiratory depression and death. These are common OTC drugs people combine daily.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.fda.gov/drugs/resources-you-drugs/drug-interactions-what-you-should-know"
+      ],
       "condition": "Pain medication recommendations"
     },
     {
       "action": "Fail to warn about serotonin syndrome risk with antidepressant combinations",
       "why_fails": "MAOIs + SSRIs = serotonin syndrome (potentially fatal). Even OTC supplements (St. John's Wort) combined with SSRIs can trigger it. Symptoms: agitation, high fever, seizures, death. This kills people who self-medicate.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.fda.gov/drugs/resources-you-drugs/drug-interactions-what-you-should-know"
+      ],
       "condition": "Antidepressant or supplement recommendations"
     },
     {
       "action": "Ignore grapefruit-medication interactions",
       "why_fails": "Grapefruit inhibits CYP3A4 enzyme, causing 85+ medications to reach toxic levels. Statins + grapefruit = rhabdomyolysis. Some blood pressure and anti-rejection drugs become lethally concentrated. One glass of grapefruit juice can be enough.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.fda.gov/drugs/resources-you-drugs/drug-interactions-what-you-should-know"
+      ],
       "condition": "Diet and medication interactions"
     }
   ],
@@ -56,7 +62,7 @@
     },
     {
       "action": "Flag known deadly combinations explicitly: acetaminophen + alcohol, NSAIDs + blood thinners, MAOIs + SSRIs/tyramine foods, opioids + benzodiazepines/alcohol, warfarin + aspirin/NSAIDs, grapefruit + statins/calcium channel blockers.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Drug combination questions"
     },

@@ -29,14 +29,18 @@
       "action": "Drop failed records",
       "why_fails": "Data loss",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#connect"
+      ],
       "condition": ""
     },
     {
       "action": "Increase retries to unlimited",
       "why_fails": "Blocks pipeline indefinitely",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#connect"
+      ],
       "condition": ""
     }
   ],

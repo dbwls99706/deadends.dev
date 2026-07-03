@@ -29,14 +29,18 @@
       "action": "Set WITH_CUDA=OFF to skip",
       "why_fails": "Loses GPU acceleration",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Install latest CUDA regardless of GPU",
       "why_fails": "Driver/toolkit mismatch",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

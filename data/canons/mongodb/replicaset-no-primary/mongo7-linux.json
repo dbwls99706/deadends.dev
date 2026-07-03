@@ -29,14 +29,18 @@
       "action": "Force step-down on all members",
       "why_fails": "Worsens election, no primary",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/replication/"
+      ],
       "condition": ""
     },
     {
       "action": "Convert to standalone",
       "why_fails": "Loses replication benefits",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/replication/"
+      ],
       "condition": ""
     }
   ],

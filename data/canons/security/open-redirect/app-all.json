@@ -29,14 +29,18 @@
       "action": "Check if URL starts with / (relative path)",
       "why_fails": "//evil.com is a protocol-relative URL that starts with / but redirects externally.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Block known malicious domains",
       "why_fails": "Blacklist approach cannot keep up with new malicious domains.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

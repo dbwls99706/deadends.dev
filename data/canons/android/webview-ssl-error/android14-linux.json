@@ -29,14 +29,18 @@
       "action": "Call handler.proceed() on all SSL errors",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Disable SSL in WebView settings",
       "why_fails": "No encryption",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

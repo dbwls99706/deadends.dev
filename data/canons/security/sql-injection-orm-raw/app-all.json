@@ -29,14 +29,18 @@
       "action": "Escape user input manually with string replacement",
       "why_fails": "Manual escaping is error-prone and misses edge cases.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Validate input is alphanumeric only",
       "why_fails": "Overly restrictive and still misses injection vectors in numeric fields.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

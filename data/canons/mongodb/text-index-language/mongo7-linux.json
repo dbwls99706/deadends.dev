@@ -29,14 +29,18 @@
       "action": "Use \"none\" language for all text indexes",
       "why_fails": "No stemming or stop words",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     },
     {
       "action": "Create separate indexes per language",
       "why_fails": "Index overhead",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     }
   ],

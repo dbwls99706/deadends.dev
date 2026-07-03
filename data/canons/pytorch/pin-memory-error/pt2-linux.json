@@ -29,14 +29,18 @@
       "action": "Ignore error and continue without pinning",
       "why_fails": "Slower data transfer when GPU available",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     },
     {
       "action": "Force CUDA initialization",
       "why_fails": "Fails without GPU hardware",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/data.html"
+      ],
       "condition": ""
     }
   ],

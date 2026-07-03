@@ -29,21 +29,27 @@
       "action": "Pour water on a grease or oil fire",
       "why_fails": "Water sinks below the burning oil, instantly boils into steam (expands 1,700x), and violently ejects flaming oil into a fireball that can reach the ceiling and spread fire to the entire kitchen. This causes severe burns and house fires.",
       "fail_rate": 0.99,
-      "sources": [],
+      "sources": [
+        "https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/cooking/"
+      ],
       "condition": "Grease/oil fire in kitchen"
     },
     {
       "action": "Try to carry a burning pan outside",
       "why_fails": "Moving a pan of burning oil risks splashing flaming oil on yourself, your clothes, and your surroundings. The pan handle may be superheated. Tripping while carrying burning oil causes catastrophic burns.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/cooking/"
+      ],
       "condition": "Grease fire in a pan"
     },
     {
       "action": "Use flour on a grease fire (flour is flammable)",
       "why_fails": "Flour is combustible powder. Throwing flour on fire creates a dust explosion - the flour particles ignite in the air. This is a common fatal mistake. Only baking soda (not baking powder, not flour) can be used.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/cooking/"
+      ],
       "condition": "Attempting to smother a grease fire"
     }
   ],

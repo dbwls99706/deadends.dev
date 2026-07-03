@@ -29,14 +29,18 @@
       "action": "Reduce replication factor to match current ISR",
       "why_fails": "Lower fault tolerance",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Force unclean leader election",
       "why_fails": "Potential data loss",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

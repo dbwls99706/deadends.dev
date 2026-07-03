@@ -29,14 +29,18 @@
       "action": "Reject messages with unknown fields",
       "why_fails": "Breaks forward compatibility",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     },
     {
       "action": "Strip unknown fields silently",
       "why_fails": "May lose important data",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://protobuf.dev/programming-guides/proto3/"
+      ],
       "condition": ""
     }
   ],

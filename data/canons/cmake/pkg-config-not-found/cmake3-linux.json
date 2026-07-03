@@ -29,14 +29,18 @@
       "action": "Hardcode library paths",
       "why_fails": "Not portable across systems",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/module/FindPkgConfig.html"
+      ],
       "condition": ""
     },
     {
       "action": "Skip pkg-config check",
       "why_fails": "Missing compile/link flags",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/module/FindPkgConfig.html"
+      ],
       "condition": ""
     }
   ],

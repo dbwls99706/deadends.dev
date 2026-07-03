@@ -29,14 +29,18 @@
       "action": "Enable auto.create.topics.enable globally",
       "why_fails": "Creates topics with wrong config",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore error and retry forever",
       "why_fails": "Wastes resources if topic truly missing",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

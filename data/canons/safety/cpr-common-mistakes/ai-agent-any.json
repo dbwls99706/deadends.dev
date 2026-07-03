@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.92,
     "last_updated": "2026-03-02",
     "summary": "Modern CPR guidelines prioritize continuous chest compressions (hands-only CPR for bystanders) over mouth-to-mouth. Compressions too slow, too shallow, or with too many interruptions are the most common fatal CPR errors."
@@ -29,28 +29,34 @@
       "action": "Focus primarily on mouth-to-mouth rescue breathing for adult cardiac arrest",
       "why_fails": "AHA/ERC guidelines since 2010 recommend hands-only CPR for untrained bystanders on adults. Stopping compressions for rescue breaths reduces blood flow to the brain. For the first minutes, oxygen in the blood is sufficient - compressions are what matters.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cpr.heart.org/"
+      ],
       "condition": "Adult cardiac arrest bystander response"
     },
     {
       "action": "Compress too gently for fear of breaking ribs",
       "why_fails": "Effective compressions require 5-6cm depth in adults (2 inches). Ribs MAY crack - this is expected and acceptable. Shallow compressions don't generate enough blood flow to sustain the brain. A cracked rib heals; brain death doesn't.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://cpr.heart.org/"
+      ],
       "condition": "CPR compression depth"
     },
     {
       "action": "Compress too slowly or take long pauses between compressions",
       "why_fails": "Rate should be 100-120 compressions per minute (tempo of 'Stayin' Alive' by Bee Gees). Too slow = insufficient blood flow. Pauses > 10 seconds lose the blood pressure built up. Minimize ALL interruptions.",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cpr.heart.org/"
+      ],
       "condition": "CPR compression rate"
     }
   ],
   "workarounds": [
     {
       "action": "For adult cardiac arrest (unresponsive, not breathing normally): 1) Call emergency services, 2) Start hands-only CPR - push hard and fast center of chest, 100-120/min, 5-6cm deep, 3) Send someone for AED, 4) Don't stop until help arrives.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Bystander CPR on adults"
     },

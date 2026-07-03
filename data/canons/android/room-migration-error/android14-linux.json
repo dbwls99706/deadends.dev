@@ -29,14 +29,18 @@
       "action": "Use fallbackToDestructiveMigration() always",
       "why_fails": "Loses user data on every schema change",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/data-storage/room/migrating-db-versions"
+      ],
       "condition": ""
     },
     {
       "action": "Keep database version at 1 forever",
       "why_fails": "Cannot change schema",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/training/data-storage/room/migrating-db-versions"
+      ],
       "condition": ""
     }
   ],

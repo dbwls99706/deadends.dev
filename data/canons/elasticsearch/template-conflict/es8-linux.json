@@ -29,14 +29,18 @@
       "action": "Delete all templates and recreate",
       "why_fails": "Breaks existing index creation",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Use high priority to override all",
       "why_fails": "Unpredictable template resolution",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.elastic.co/docs"
+      ],
       "condition": ""
     }
   ],

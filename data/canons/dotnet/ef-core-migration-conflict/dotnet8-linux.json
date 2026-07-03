@@ -29,14 +29,18 @@
       "action": "Delete all migrations and recreate",
       "why_fails": "Loses migration history",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/"
+      ],
       "condition": ""
     },
     {
       "action": "Force apply migration ignoring conflicts",
       "why_fails": "Data corruption risk",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/"
+      ],
       "condition": ""
     }
   ],

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/90-180-schengen-rule/be",
+  "url": "https://deadends.dev/visa/90-180-schengen-rule/be",
+  "error": {
+    "signature": "AI misreads the Schengen 90/180 rule as 90 days per country, or as resettable by briefly leaving Belgium",
+    "regex": "(schengen.{0,30}90.{0,10}180|belgium.{0,40}schengen.{0,30}(visa|days|stay)|90.{0,10}180.{0,20}schengen)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2026-07-02",
+    "last_confirmed": "2026-07-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.7,
+    "last_updated": "2026-07-02",
+    "summary": "Schengen's 90/180 rule caps short-stay entrants at 90 days within any rolling 180-day window across the ENTIRE Schengen area, not per country: days spent in Belgium accumulate with days spent in every other Schengen state. Exiting briefly to a non-Schengen country pauses the clock but never resets the accumulated days."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler they get a fresh 90 days by moving from another Schengen country to Belgium",
+      "why_fails": "Schengen is one jurisdiction for short stays (Regulation (EU) 2016/399 Art. 6): days accumulate across every member state entered, and border systems compute the rolling 90/180 window on exit - overstays are detected and can trigger Schengen-wide entry bans.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0399",
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area_en"
+      ],
+      "condition": "Treating Schengen countries as separate quotas"
+    },
+    {
+      "action": "Exit Schengen for a couple of days to 'reset' the 90/180 counter",
+      "why_fails": "Time outside Schengen pauses but does not reset the rolling counter; the calculator looks at any 180-day window, so re-entry is refused until enough earlier days have aged off.",
+      "fail_rate": 0.92,
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area/short-stay-visa-calculator_en"
+      ],
+      "condition": "Short trip outside Schengen"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the official EU short-stay calculator and plan cumulative Schengen days <= 90 per rolling 180-day window",
+      "success_rate": 0.9,
+      "how": "Run every planned itinerary through the European Commission's short-stay calculator before booking; recheck after any date change.",
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area/short-stay-visa-calculator_en"
+      ]
+    },
+    {
+      "action": "For stays over 90 days, apply for Belgium's national long-stay visa or permit from abroad",
+      "success_rate": 0.7,
+      "how": "National long-stay (type D) visas are outside the 90/180 short-stay regime; apply at the consulate before travel - processing typically takes weeks to months.",
+      "sources": [
+        "https://ec.europa.eu/home-affairs/policies/schengen-borders-and-visa/schengen-area_en"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/90-180-schengen-rule/de",
+        "distinction": "Same EU-wide rule seen from Belgium; the German canon adds Germany-specific extension and D-visa details."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-02"
+  }
+}

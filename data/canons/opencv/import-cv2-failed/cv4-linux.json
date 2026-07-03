@@ -29,14 +29,18 @@
       "action": "Install full OpenCV from source",
       "why_fails": "Overkill for missing system lib",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Symlink random .so files",
       "why_fails": "Wrong library version",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

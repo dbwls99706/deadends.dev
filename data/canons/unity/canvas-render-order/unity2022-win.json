@@ -29,14 +29,18 @@
       "action": "Set all canvases to same sorting order",
       "why_fails": "Everything overlaps unpredictably",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use Screen Space Overlay for everything",
       "why_fails": "Breaks world-space UI",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

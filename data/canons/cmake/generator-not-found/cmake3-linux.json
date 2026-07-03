@@ -29,14 +29,18 @@
       "action": "Use Makefiles as fallback for everything",
       "why_fails": "Slow builds, misses generator features",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Install random generator version",
       "why_fails": "Version incompatibility",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/"
+      ],
       "condition": ""
     }
   ],

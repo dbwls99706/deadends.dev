@@ -19,7 +19,7 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.90,
+    "fix_success_rate": 0.9,
     "confidence": 0.88,
     "last_updated": "2026-02-28",
     "summary": "Russian gift culture has strict superstitions: even-numbered flowers are for funerals, yellow flowers mean separation, knives and empty wallets bring bad luck. AI must respect these in gift recommendations."
@@ -29,21 +29,27 @@
       "action": "Recommend an even number of flowers as a gift in Russia",
       "why_fails": "Even numbers of flowers (2, 4, 6...) are strictly for funerals in Russia. Giving someone 12 roses signals death/mourning. Always give odd numbers (1, 3, 5, 7...) for celebrations.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russian_traditions_and_superstitions"
+      ],
       "condition": "Flower gift recommendations for Russian recipients"
     },
     {
       "action": "Suggest yellow flowers for a Russian celebration",
       "why_fails": "Yellow flowers in Russian culture symbolize separation, infidelity, or betrayal. Giving yellow roses to a partner implies you want to break up. Red = love, white = purity, pink = admiration.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russian_traditions_and_superstitions"
+      ],
       "condition": "Flower color selection for Russian context"
     },
     {
       "action": "Give knives, scissors, or sharp objects as gifts",
       "why_fails": "Sharp objects as gifts symbolize cutting the relationship in Russian superstition. If unavoidable, the recipient must give a symbolic coin in return to 'purchase' the item.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Russian_traditions_and_superstitions"
+      ],
       "condition": "Gift suggestions for Russian recipients"
     }
   ],
@@ -62,7 +68,7 @@
     },
     {
       "action": "When invited to a Russian home, always bring a gift (arriving empty-handed is rude). Flowers for the hostess, alcohol or sweets for the host. Remove wrapping before presenting flowers.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Russian home visit etiquette"
     }

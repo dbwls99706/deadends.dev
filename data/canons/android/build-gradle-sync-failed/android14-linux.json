@@ -29,14 +29,18 @@
       "action": "Use force resolution on all dependencies",
       "why_fails": "Hides incompatibilities causing runtime crashes",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Delete .gradle cache and redownload everything",
       "why_fails": "Very slow, may not fix root cause",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/docs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Kill and restart Redis",
       "why_fails": "Same loading delay on restart",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Disable persistence entirely",
       "why_fails": "Data loss on restart",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

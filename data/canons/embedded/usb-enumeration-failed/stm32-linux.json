@@ -29,14 +29,18 @@
       "action": "Force USB speed to full-speed only",
       "why_fails": "Loses high-speed capability",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore enumeration failure",
       "why_fails": "Device not functional",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

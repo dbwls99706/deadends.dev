@@ -29,14 +29,18 @@
       "action": "Use MSE for all classification tasks",
       "why_fails": "Wrong loss for classification",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Add sigmoid then use binary_crossentropy",
       "why_fails": "Double sigmoid problem",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Set maxParticles to unlimited",
       "why_fails": "Memory and CPU spike",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/ParticleSystems.html"
+      ],
       "condition": ""
     },
     {
       "action": "Disable all particle systems",
       "why_fails": "Loses visual effects",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/ParticleSystems.html"
+      ],
       "condition": ""
     }
   ],

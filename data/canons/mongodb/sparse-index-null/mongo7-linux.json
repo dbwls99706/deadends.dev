@@ -29,14 +29,18 @@
       "action": "Convert sparse to non-sparse index",
       "why_fails": "Much larger index for sparse fields",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove sparse index",
       "why_fails": "Loses index for existing values",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/core/indexes/"
+      ],
       "condition": ""
     }
   ],

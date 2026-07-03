@@ -29,14 +29,18 @@
       "action": "Add ! operator to suppress all nullable warnings",
       "why_fails": "Runtime crashes instead of compile errors",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/common-errors"
+      ],
       "condition": ""
     },
     {
       "action": "Make all types non-nullable",
       "why_fails": "Forces unnecessary defaults",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/testing/common-errors"
+      ],
       "condition": ""
     }
   ],

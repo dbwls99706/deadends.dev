@@ -29,14 +29,18 @@
       "action": "Disable TLS verification entirely",
       "why_fails": "Man-in-the-middle vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     },
     {
       "action": "Use self-signed certs in production without pinning",
       "why_fails": "No trust chain validation",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/auth/"
+      ],
       "condition": ""
     }
   ],

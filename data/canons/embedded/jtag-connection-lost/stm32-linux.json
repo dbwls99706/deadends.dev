@@ -29,14 +29,18 @@
       "action": "Force JTAG reset continuously",
       "why_fails": "May prevent firmware from running",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     },
     {
       "action": "Increase JTAG clock to maximum",
       "why_fails": "Signal integrity issues",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://developer.arm.com/documentation"
+      ],
       "condition": ""
     }
   ],

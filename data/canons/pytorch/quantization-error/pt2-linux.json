@@ -29,14 +29,18 @@
       "action": "Skip quantization for problem layers",
       "why_fails": "Inconsistent precision",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/quantization.html"
+      ],
       "condition": ""
     },
     {
       "action": "Use dynamic quantization for everything",
       "why_fails": "Lower accuracy for some ops",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/quantization.html"
+      ],
       "condition": ""
     }
   ],

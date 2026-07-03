@@ -29,14 +29,18 @@
       "action": "Retry same operation hoping for different result",
       "why_fails": "Data already corrupted",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore data loss error",
       "why_fails": "Propagates bad data downstream",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

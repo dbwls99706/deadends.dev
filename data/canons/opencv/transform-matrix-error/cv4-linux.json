@@ -29,14 +29,18 @@
       "action": "Pad matrix to 3x3",
       "why_fails": "Wrong transformation type",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Use identity matrix as fallback",
       "why_fails": "No transformation applied",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

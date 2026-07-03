@@ -29,14 +29,18 @@
       "action": "Restart change stream without resume token",
       "why_fails": "Misses events during gap",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/changeStreams/"
+      ],
       "condition": ""
     },
     {
       "action": "Set very large oplog size",
       "why_fails": "Expensive storage",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/changeStreams/"
+      ],
       "condition": ""
     }
   ],

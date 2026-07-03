@@ -29,14 +29,18 @@
       "action": "Detach tensor before in-place op",
       "why_fails": "Breaks gradient flow",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/autograd.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set requires_grad=False",
       "why_fails": "No gradients for that parameter",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://pytorch.org/docs/stable/notes/autograd.html"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Create dummy target as placeholder",
       "why_fails": "Wrong build artifacts",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_link_libraries.html"
+      ],
       "condition": ""
     },
     {
       "action": "Remove the dependency reference",
       "why_fails": "Missing link at build time",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/command/target_link_libraries.html"
+      ],
       "condition": ""
     }
   ],

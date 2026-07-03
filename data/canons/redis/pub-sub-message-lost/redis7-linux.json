@@ -29,14 +29,18 @@
       "action": "Use large buffer to store messages",
       "why_fails": "Memory exhaustion",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Send messages multiple times",
       "why_fails": "Duplicates for connected subscribers",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

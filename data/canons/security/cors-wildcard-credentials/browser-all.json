@@ -29,14 +29,18 @@
       "action": "Set Access-Control-Allow-Origin to * with credentials",
       "why_fails": "Browsers explicitly block this combination per spec.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+      ],
       "condition": ""
     },
     {
       "action": "Remove credentials mode to use wildcard",
       "why_fails": "Breaks authentication - cookies and auth headers will not be sent.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+      ],
       "condition": ""
     }
   ],

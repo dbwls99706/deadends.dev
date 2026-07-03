@@ -29,14 +29,18 @@
       "action": "Disable TLS for Redis",
       "why_fails": "Unencrypted data in transit",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Use stunnel instead of native TLS",
       "why_fails": "Additional component to maintain",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

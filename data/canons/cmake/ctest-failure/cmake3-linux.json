@@ -29,14 +29,18 @@
       "action": "Skip failing tests with CTEST_EXCLUDE_REGEX",
       "why_fails": "Hides real failures",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/ctest.1.html"
+      ],
       "condition": ""
     },
     {
       "action": "Set CTEST_OUTPUT_ON_FAILURE off",
       "why_fails": "No diagnostic output",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://cmake.org/cmake/help/latest/manual/ctest.1.html"
+      ],
       "condition": ""
     }
   ],

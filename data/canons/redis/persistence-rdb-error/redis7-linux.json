@@ -29,14 +29,18 @@
       "action": "Disable RDB persistence",
       "why_fails": "No point-in-time recovery",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+      ],
       "condition": ""
     },
     {
       "action": "Set stop-writes-on-bgsave-error no",
       "why_fails": "Writes continue but no backup",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+      ],
       "condition": ""
     }
   ],

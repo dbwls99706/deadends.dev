@@ -29,14 +29,18 @@
       "action": "Use regular calibration for fisheye",
       "why_fails": "Wrong distortion model",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     },
     {
       "action": "Skip calibration",
       "why_fails": "Distorted images",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.opencv.org/4.x/"
+      ],
       "condition": ""
     }
   ],

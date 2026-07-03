@@ -29,14 +29,18 @@
       "action": "Delete secondary data and resync",
       "why_fails": "Very slow for large databases",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/replication/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase oplog to fill entire disk",
       "why_fails": "Disk space for data reduced",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/replication/"
+      ],
       "condition": ""
     }
   ],

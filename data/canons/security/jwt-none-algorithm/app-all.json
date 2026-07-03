@@ -29,14 +29,18 @@
       "action": "Accept any algorithm the token specifies",
       "why_fails": "Allows attacker to switch from RS256 to HS256 using public key as secret.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc8725"
+      ],
       "condition": ""
     },
     {
       "action": "Only check token expiry without verifying signature",
       "why_fails": "Unsigned tokens can be forged with any claims.",
       "fail_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://datatracker.ietf.org/doc/html/rfc8725"
+      ],
       "condition": ""
     }
   ],

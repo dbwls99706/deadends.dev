@@ -29,14 +29,18 @@
       "action": "Create placeholder resource automatically",
       "why_fails": "May not have correct state/data",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Cache old responses and serve stale data",
       "why_fails": "Data consistency issues",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Wrap everything in Sequential",
       "why_fails": "Loses multi-input/output capability",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/keras"
+      ],
       "condition": ""
     },
     {
       "action": "Convert all to Subclassing",
       "why_fails": "Loses model serialization benefits",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide/keras"
+      ],
       "condition": ""
     }
   ],

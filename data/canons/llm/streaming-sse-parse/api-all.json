@@ -29,14 +29,18 @@
       "action": "Buffer entire stream before parsing",
       "why_fails": "Defeats the purpose of streaming and may OOM on large responses.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
       "condition": ""
     },
     {
       "action": "Use WebSocket instead of SSE",
       "why_fails": "Most LLM APIs only support SSE for streaming.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/api-reference/streaming"
+      ],
       "condition": ""
     }
   ],

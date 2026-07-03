@@ -29,14 +29,18 @@
       "action": "Move individual tensors one by one",
       "why_fails": "Misses some tensors, same error",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/pipelines"
+      ],
       "condition": ""
     },
     {
       "action": "Force everything to CPU",
       "why_fails": "Loses GPU acceleration",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://huggingface.co/docs/transformers/main_classes/pipelines"
+      ],
       "condition": ""
     }
   ],

@@ -20,7 +20,7 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.92,
-    "confidence": 0.90,
+    "confidence": 0.9,
     "last_updated": "2026-03-02",
     "summary": "Sikhism is a distinct religion (30 million followers) completely separate from Islam. Post-9/11 hate crimes disproportionately target Sikhs due to turban-wearing being falsely associated with terrorism. This confusion has caused deaths."
   },
@@ -29,21 +29,30 @@
       "action": "Assume a turban-wearing person is Muslim or associate turbans with terrorism",
       "why_fails": "Sikh men wear turbans (dastar/pagri) as a religious article of faith, not a cultural accessory. Post-9/11, Sikhs became targets of hate crimes (2012 Wisconsin gurdwara massacre: 6 Sikhs killed). This confusion literally kills people.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sikhism",
+        "https://en.wikipedia.org/wiki/Dastar"
+      ],
       "condition": "Identifying religion by appearance"
     },
     {
       "action": "Call a gurdwara a mosque, or describe Sikh practices using Islamic terminology",
       "why_fails": "Sikhism (founded by Guru Nanak, 1469) is a distinct monotheistic religion - not a sect of Islam or Hinduism. Gurdwaras are not mosques. The Guru Granth Sahib is not the Quran. The Khalsa is not jihad. Every comparison is wrong.",
-      "fail_rate": 0.90,
-      "sources": [],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sikhism",
+        "https://en.wikipedia.org/wiki/Dastar"
+      ],
       "condition": "Describing Sikh religious practices"
     },
     {
       "action": "Ask a Sikh person to remove their turban for security, photos, or dress code compliance",
       "why_fails": "The turban is a mandatory article of faith for Khalsa Sikhs, not a hat. Asking for removal is equivalent to asking someone to remove their cross or Star of David - but more extreme, as the turban is worn at all times. Many countries have legal exemptions.",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sikhism",
+        "https://en.wikipedia.org/wiki/Dastar"
+      ],
       "condition": "Dress code or security discussions involving Sikhs"
     }
   ],
@@ -56,7 +65,7 @@
     },
     {
       "action": "The 5 Ks of Khalsa Sikhs: Kesh (uncut hair), Kara (steel bracelet), Kanga (wooden comb), Kachera (cotton undergarments), Kirpan (ceremonial dagger). These are religious obligations, not fashion choices or weapons.",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "sources": [],
       "condition": "Understanding Sikh articles of faith"
     },

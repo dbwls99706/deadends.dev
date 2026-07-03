@@ -29,14 +29,18 @@
       "action": "Create unlimited channels",
       "why_fails": "File descriptor exhaustion",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     },
     {
       "action": "Create channel per RPC",
       "why_fails": "Overhead of HTTP/2 connection setup",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/status-codes/"
+      ],
       "condition": ""
     }
   ],

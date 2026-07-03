@@ -29,14 +29,18 @@
       "action": "Always use HTML renderer",
       "why_fails": "Loses CanvasKit fidelity",
       "fail_rate": 0.68,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/web"
+      ],
       "condition": ""
     },
     {
       "action": "Always use CanvasKit",
       "why_fails": "Large download size, slow first load",
       "fail_rate": 0.65,
-      "sources": [],
+      "sources": [
+        "https://docs.flutter.dev/platform-integration/web"
+      ],
       "condition": ""
     }
   ],

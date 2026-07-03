@@ -28,30 +28,38 @@
     {
       "action": "Use 尊敬語 (sonkeigo/respectful) when referring to own actions",
       "why_fails": "尊敬語 elevates the subject. Using it for yourself (e.g., おっしゃる instead of 申す) sounds arrogant. Self-reference requires 謙譲語 (kenjougo/humble).",
-      "fail_rate": 0.90,
-      "sources": ["https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"],
+      "fail_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"
+      ],
       "condition": "AI speaking about its own actions in Japanese"
     },
     {
       "action": "Default to casual form (タメ口) for efficiency",
       "why_fails": "Casual speech in business context is a career-ending mistake in Japan. Even between same-age colleagues, business settings require です/ます form at minimum.",
       "fail_rate": 0.93,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"
+      ],
       "condition": "Any Japanese business communication"
     },
     {
       "action": "Apply double-keigo (二重敬語) thinking more polite is better",
       "why_fails": "Stacking honorifics (e.g., お読みになられる) is grammatically incorrect and sounds uneducated. One honorific form per verb is the rule.",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"
+      ],
       "condition": "Trying to be extra polite in Japanese"
     }
   ],
   "workarounds": [
     {
       "action": "Use 丁寧語 (desu/masu) as safe default for general communication. Upgrade to 尊敬語 for clients/superiors, and 謙譲語 for own actions",
-      "success_rate": 0.90,
-      "sources": ["https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"],
+      "success_rate": 0.9,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Honorific_speech_in_Japanese"
+      ],
       "condition": "General Japanese communication"
     },
     {

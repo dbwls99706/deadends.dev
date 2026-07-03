@@ -29,14 +29,18 @@
       "action": "Set max_tokens to model limit ignoring input",
       "why_fails": "Input takes from same budget",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     },
     {
       "action": "Remove system prompt to save tokens",
       "why_fails": "Loses instruction context",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     }
   ],

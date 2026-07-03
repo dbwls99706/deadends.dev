@@ -29,14 +29,18 @@
       "action": "Disable ACL authorizer",
       "why_fails": "No access control",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     },
     {
       "action": "Add allow-all ACL",
       "why_fails": "Bypasses authorization",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     }
   ],

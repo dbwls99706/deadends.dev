@@ -29,14 +29,18 @@
       "action": "Force failover to any replica regardless of state",
       "why_fails": "Data loss from stale replica",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     },
     {
       "action": "Remove Sentinel and manage manually",
       "why_fails": "No automatic failover",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://redis.io/docs/latest/"
+      ],
       "condition": ""
     }
   ],

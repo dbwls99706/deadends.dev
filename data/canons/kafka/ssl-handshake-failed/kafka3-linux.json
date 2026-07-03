@@ -29,14 +29,18 @@
       "action": "Disable SSL entirely",
       "why_fails": "No encryption in transit",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     },
     {
       "action": "Trust all certificates",
       "why_fails": "MITM vulnerability",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#security"
+      ],
       "condition": ""
     }
   ],

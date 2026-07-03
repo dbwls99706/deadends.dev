@@ -29,14 +29,18 @@
       "action": "Sanitize with regex replace of script tags",
       "why_fails": "XSS payloads use img onerror, svg onload, and many other vectors beyond script tags.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     },
     {
       "action": "Encode only < and > characters",
       "why_fails": "Misses attribute-context XSS, javascript: URLs, and event handlers.",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ],
       "condition": ""
     }
   ],

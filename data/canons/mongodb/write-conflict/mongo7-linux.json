@@ -29,14 +29,18 @@
       "action": "Add global lock around all writes",
       "why_fails": "Destroys concurrency, massive perf hit",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/write-concern/"
+      ],
       "condition": ""
     },
     {
       "action": "Increase WiredTiger cache to all RAM",
       "why_fails": "OS starvation, OOM killer",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/write-concern/"
+      ],
       "condition": ""
     }
   ],

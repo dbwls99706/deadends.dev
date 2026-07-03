@@ -29,14 +29,18 @@
       "action": "Set certificate validity to 10 years",
       "why_fails": "Violates industry standards, CA may reject",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://letsencrypt.org/docs/"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore certificate errors in clients",
       "why_fails": "Man-in-the-middle vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://letsencrypt.org/docs/"
+      ],
       "condition": ""
     }
   ],

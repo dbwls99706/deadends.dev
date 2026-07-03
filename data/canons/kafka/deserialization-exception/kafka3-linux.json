@@ -29,14 +29,18 @@
       "action": "Skip all deserialization errors silently",
       "why_fails": "Loses messages without visibility",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     },
     {
       "action": "Change deserializer without migrating data",
       "why_fails": "Breaks on old messages",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#consumerconfigs"
+      ],
       "condition": ""
     }
   ],

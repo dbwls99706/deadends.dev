@@ -29,14 +29,18 @@
       "action": "Disable keepalive entirely",
       "why_fails": "Dead connections never detected",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/keepalive/"
+      ],
       "condition": ""
     },
     {
       "action": "Set keepalive interval to 1 second",
       "why_fails": "Server rejects too frequent pings",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://grpc.io/docs/guides/keepalive/"
+      ],
       "condition": ""
     }
   ],

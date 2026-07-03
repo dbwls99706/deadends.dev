@@ -29,14 +29,18 @@
       "action": "Truncate from the end",
       "why_fails": "Loses most recent/relevant context",
       "fail_rate": 0.78,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to model with larger context without testing",
       "why_fails": "Different model behavior and quality",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     }
   ],

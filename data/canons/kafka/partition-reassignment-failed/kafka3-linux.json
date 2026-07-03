@@ -29,14 +29,18 @@
       "action": "Force reassignment ignoring ISR",
       "why_fails": "Data loss if replicas are stale",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     },
     {
       "action": "Cancel and retry same plan",
       "why_fails": "Same failure if underlying issue persists",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://kafka.apache.org/documentation/#design"
+      ],
       "condition": ""
     }
   ],

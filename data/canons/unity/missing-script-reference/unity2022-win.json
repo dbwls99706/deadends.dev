@@ -29,14 +29,18 @@
       "action": "Delete and recreate the GameObject",
       "why_fails": "Loses all other components and children",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     },
     {
       "action": "Ignore missing script warnings",
       "why_fails": "Broken behavior at runtime",
       "fail_rate": 0.75,
-      "sources": [],
+      "sources": [
+        "https://docs.unity3d.com/Manual/index.html"
+      ],
       "condition": ""
     }
   ],

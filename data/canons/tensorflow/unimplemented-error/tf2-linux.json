@@ -29,14 +29,18 @@
       "action": "Cast everything to string first",
       "why_fails": "Numeric operations fail",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     },
     {
       "action": "Switch to eager mode for that one op",
       "why_fails": "Performance regression",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.tensorflow.org/guide"
+      ],
       "condition": ""
     }
   ],

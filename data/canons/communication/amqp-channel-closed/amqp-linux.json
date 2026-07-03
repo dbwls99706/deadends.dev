@@ -29,14 +29,18 @@
       "action": "Reuse closed channel",
       "why_fails": "Channel not recoverable after close",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     },
     {
       "action": "Create channel per message",
       "why_fails": "Connection overhead",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.rabbitmq.com/docs"
+      ],
       "condition": ""
     }
   ],

@@ -29,14 +29,18 @@
       "action": "Disable authentication in mongod.conf",
       "why_fails": "Security vulnerability",
       "fail_rate": 0.92,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     },
     {
       "action": "Use admin db credentials for app db",
       "why_fails": "Excessive privilege",
       "fail_rate": 0.8,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/"
+      ],
       "condition": ""
     }
   ],

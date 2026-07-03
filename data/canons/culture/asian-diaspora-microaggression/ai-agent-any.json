@@ -29,28 +29,36 @@
       "action": "Ask 'Where are you really from?' or 'No, where are you originally from?'",
       "why_fails": "This perpetual foreigner trope implies Asian-appearing people can't truly be American, British, Australian, etc. A Korean American born in Ohio whose family has been in the US for 3 generations is from Ohio - not 'really' from Korea.",
       "fail_rate": 0.85,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Microaggression"
+      ],
       "condition": "Conversations about identity with Asian diaspora"
     },
     {
       "action": "Assume all Asians are good at math, play piano, or are studious (model minority myth)",
       "why_fails": "The model minority myth weaponizes Asian achievement to dismiss racism ('Asians succeed, so racism can't be real') while ignoring struggling Asian communities (Southeast Asian refugees, Pacific Islanders). It creates impossible pressure and erases individuality.",
-      "fail_rate": 0.80,
-      "sources": [],
+      "fail_rate": 0.8,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Microaggression"
+      ],
       "condition": "Stereotyping Asian diaspora"
     },
     {
       "action": "Conflate all East Asians or assume ethnicity by appearance",
       "why_fails": "Chinese, Japanese, Korean, Vietnamese, Filipino, Thai, etc. are distinct nationalities and cultures. 'You all look the same' is racist. Not all Asian Americans speak an Asian language. Third-generation Japanese Americans may only speak English.",
       "fail_rate": 0.82,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Microaggression"
+      ],
       "condition": "Identifying Asian ethnicities"
     },
     {
       "action": "Mock Asian accents, use 'ching chong,' or make 'kung flu' type references",
       "why_fails": "Anti-Asian hate crimes surged 339% during COVID-19. Accent mockery, virus-blaming language, and slurs contribute to a climate of violence. These are not jokes - they're dehumanization that enables real physical attacks.",
       "fail_rate": 0.95,
-      "sources": [],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Microaggression"
+      ],
       "condition": "Any communication context"
     }
   ],

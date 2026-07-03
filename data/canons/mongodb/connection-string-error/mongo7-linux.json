@@ -29,14 +29,18 @@
       "action": "Hardcode connection parameters separately",
       "why_fails": "Misses options and auth source",
       "fail_rate": 0.72,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/connection-string/"
+      ],
       "condition": ""
     },
     {
       "action": "Use IP instead of hostname",
       "why_fails": "Breaks on IP change",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://www.mongodb.com/docs/manual/reference/connection-string/"
+      ],
       "condition": ""
     }
   ],

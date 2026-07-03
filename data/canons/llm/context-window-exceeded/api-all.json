@@ -29,14 +29,18 @@
       "action": "Set max_tokens to a very large number",
       "why_fails": "max_tokens + prompt_tokens must fit in context window.",
       "fail_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     },
     {
       "action": "Remove system prompt to save tokens",
       "why_fails": "System prompt is often critical for correct behavior.",
       "fail_rate": 0.7,
-      "sources": [],
+      "sources": [
+        "https://platform.openai.com/docs/models"
+      ],
       "condition": ""
     }
   ],
