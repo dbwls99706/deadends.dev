@@ -326,17 +326,37 @@ def test_robots_allows_country_paths(tmp_path, monkeypatch):
     monkeypatch.setattr(bs, "SITE_DIR", tmp_path)
     bs.build_robots_txt()
     robots = (tmp_path / "robots.txt").read_text(encoding="utf-8")
-    # Country paths must remain crawlable. The file now uses a blanket
-    # `Allow: /` for every user-agent (including Googlebot/Bingbot) instead
-    # of per-section exception blocks, so assert the absence of any
-    # Disallow directive that would block /country/ or /api/v1/country/.
+    # HTML paths must remain crawlable for every user-agent. Web-search
+    # crawlers (Googlebot/GoogleOther/Bingbot) are blocked from /api/v1/
+    # (JSON is never indexable as a web page and only burns crawl budget),
+    # but no Disallow may ever cover /country/ pages or the "api" error
+    # domain's HTML pages at /api/{slug}/.
     assert "Allow: /" in robots
     for line in robots.splitlines():
         if line.startswith("Disallow:"):
             path = line.split(":", 1)[1].strip()
-            assert not path or not (
-                "/country" in path or "/api" in path
-            ), f"unexpected Disallow that blocks country paths: {line!r}"
+            assert not path or "/country" not in path, (
+                f"unexpected Disallow that blocks country paths: {line!r}"
+            )
+            assert not path or path == "/api/v1/", (
+                f"unexpected Disallow beyond /api/v1/: {line!r}"
+            )
+
+    # The /api/v1/ block applies to web-search crawler groups only - the
+    # generic group and AI crawler groups keep full access.
+    def _group(agent: str) -> str:
+        start = robots.index(f"User-agent: {agent}\n")
+        end = robots.index("\n\n", start)
+        return robots[start:end]
+
+    for agent in ("Googlebot", "GoogleOther", "Bingbot"):
+        assert "Disallow: /api/v1/" in _group(agent), (
+            f"{agent} must not crawl /api/v1/"
+        )
+    for agent in ("GPTBot", "ClaudeBot", "PerplexityBot"):
+        assert "Disallow" not in _group(agent), (
+            f"{agent} must keep /api/v1/ access"
+        )
 
 
 def test_api_mcp_mirror_has_country_tools():
