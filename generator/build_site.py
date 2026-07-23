@@ -837,8 +837,13 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
             "answer": (
                 f"{top_country['name']} currently has the most entries "
                 f"({top_country['count']}, spanning {top_country['domains']} "
-                f"domains), followed by "
-                f"{', '.join(c['name'] for c in countries[1:4])}."
+                f"domain{'s' if top_country['domains'] != 1 else ''})"
+                + (
+                    f", followed by "
+                    f"{', '.join(c['name'] for c in countries[1:4])}."
+                    if len(countries) > 1
+                    else "."
+                )
             ),
         },
         {
