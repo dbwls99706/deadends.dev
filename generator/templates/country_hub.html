@@ -67,6 +67,13 @@
   }
   </script>
 
+  <!-- FAQPage JSON-LD (mirrors the visible FAQ below) -->
+  {% if faq_json_ld %}
+  <script type="application/ld+json">
+{{ faq_json_ld | safe }}
+  </script>
+  {% endif %}
+
   <link rel="preload" href="{{ base_path }}/style.css" as="style">
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
@@ -94,11 +101,24 @@ COUNTRIES_API={{ base_url }}/api/v1/countries.json
       {% for c in countries %}
       <li>
         <a href="{{ base_path }}/country/{{ c.slug }}/"><strong>{{ c.name }}</strong></a>
-        <span class="count">- {{ c.count }} entr{{ 'ies' if c.count != 1 else 'y' }}</span>
+        <span class="count">- {{ c.count }} entr{{ 'ies' if c.count != 1 else 'y' }} across {{ c.domains }} domain{{ 's' if c.domains != 1 else '' }}</span>
+        {% if c.top_signature %}<br><span class="meta">e.g. <a href="{{ base_path }}/{{ c.top_url_path }}/">{{ c.top_signature }}</a></span>{% endif %}
       </li>
       {% endfor %}
     </ul>
   </section>
+
+  {% if faq_items %}
+  <section id="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    {% for item in faq_items %}
+    <details class="faq-item">
+      <summary>{{ item.question }}</summary>
+      <p>{{ item.answer }}</p>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
 
   <section id="discovery" class="card-section">
     <h2>For AI agents</h2>

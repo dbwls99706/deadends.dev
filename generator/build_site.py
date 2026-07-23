@@ -209,15 +209,34 @@ def _truncate_at_word(text: str, max_len: int) -> str:
     return cut.rstrip(" .,:;-–-") + "…"
 
 
-def seo_title(signature: str, context: str = "", max_len: int = 70) -> str:
+def seo_title(
+    signature: str,
+    context: str = "",
+    max_len: int = 70,
+    counts: tuple[int, int] | None = None,
+) -> str:
     """Build a SERP-safe <title>: "Fix {signature}[ on {context}] | deadends.dev".
 
     Google truncates titles around 60–70 characters and rewrites sitewide
     boilerplate-heavy ones, so we keep the keyword-bearing signature first
     and word-boundary-truncate it to fit within max_len overall.
+
+    When `counts` (dead_ends, workarounds) is given and the signature is
+    short enough that the whole thing still fits, append the counts - they
+    vary per page, so short titles gain uniqueness and CTR without pushing
+    the keyword out of the visible window on long ones.
     """
     suffix = " | deadends.dev"
     ctx = f" on {context}" if context else ""
+    if counts is not None and not ctx:
+        n_de, n_wa = counts
+        if n_de > 0 and n_wa > 0:
+            counted = (
+                f"Fix {signature} - {n_de} Dead End{'s' if n_de != 1 else ''} & "
+                f"{n_wa} Workaround{'s' if n_wa != 1 else ''}{suffix}"
+            )
+            if len(counted) <= max_len:
+                return counted
     budget = max_len - len("Fix ") - len(ctx) - len(suffix)
     if budget < 20 and ctx:
         # Context would crowd out the signature itself - drop it.
@@ -777,17 +796,78 @@ def build_country_pages(canons: list[dict], jinja_env: Environment) -> None:
 
     # --- Country hub /country/ ---
     hub_template = jinja_env.get_template("country_hub.html")
-    countries = sorted(
-        [
-            {"slug": code, "name": country_names[code], "count": len(cs)}
-            for code, cs in by_country.items()
-        ],
-        key=lambda c: (-c["count"], c["name"]),
-    )
+    countries = []
+    for code, cs in by_country.items():
+        # Surface each country's most confidently-documented entry so the
+        # hub list carries real anchor text per country instead of a bare
+        # name+count row (the thin-list profile that stalls indexing).
+        top = max(cs, key=lambda c: c["verdict"]["confidence"])
+        top_slug = top["id"].rsplit("/", 1)[0]
+        countries.append({
+            "slug": code,
+            "name": country_names[code],
+            "count": len(cs),
+            "domains": len({c["error"]["domain"] for c in cs}),
+            "top_signature": top["error"]["signature"],
+            "top_url_path": (
+                top_slug
+                if env_count_by_slug.get(top_slug, 1) <= 1
+                else top["id"]
+            ),
+        })
+    countries.sort(key=lambda c: (-c["count"], c["name"]))
     total_entries = sum(c["count"] for c in countries)
+
+    # Data-derived FAQ for the hub (mirrored as FAQPage JSON-LD).
+    all_country_domains = sorted({
+        c["error"]["domain"] for cs in by_country.values() for c in cs
+    })
+    top_country = countries[0]
+    hub_faq = [
+        {
+            "question": "How many countries does deadends.dev cover?",
+            "answer": (
+                f"{len(countries)} countries with {total_entries} country-scoped "
+                f"entries. Every entry cites primary sources - government, embassy, "
+                f"or regulator material - rather than travel blogs."
+            ),
+        },
+        {
+            "question": "Which country has the deepest coverage?",
+            "answer": (
+                f"{top_country['name']} currently has the most entries "
+                f"({top_country['count']}, spanning {top_country['domains']} "
+                f"domains), followed by "
+                f"{', '.join(c['name'] for c in countries[1:4])}."
+            ),
+        },
+        {
+            "question": "What kinds of country-specific dead ends are documented?",
+            "answer": (
+                "Categories include "
+                + ", ".join(
+                    domain_display_name(d).lower() for d in all_country_domains
+                )
+                + " - the areas where generic AI advice most often fails "
+                "because rules change at the border."
+            ),
+        },
+        {
+            "question": "How is this different from a travel guide?",
+            "answer": (
+                "Each entry is a structured failure record: the confident "
+                "assumption that fails, why it fails in that jurisdiction, how "
+                "often, and the workaround that holds - with primary-source "
+                "citations and machine-readable JSON for AI agents."
+            ),
+        },
+    ]
+
     hub_html = hub_template.render(
         countries=countries,
         total_entries=total_entries,
+        faq_items=hub_faq,
+        faq_json_ld=_faq_json_ld(hub_faq),
     )
     hub_dir = SITE_DIR / "country"
     hub_dir.mkdir(parents=True, exist_ok=True)
@@ -3100,7 +3180,10 @@ def build_error_summary_pages(
             summary_json_ld=summary_json_ld,
             faq_json_ld=faq_json_ld,
             faq_items=faq_items,
-            page_title=seo_title(signature),
+            page_title=seo_title(
+                signature,
+                counts=(len(common_dead_ends), len(common_workarounds)),
+            ),
             meta_description=seo_description(
                 verdict_summary,
                 f"{len(common_workarounds)} verified fixes, "
