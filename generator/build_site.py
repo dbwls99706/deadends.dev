@@ -1341,11 +1341,15 @@ def build_robots_txt() -> None:
     content = f"""# deadends.dev - Structured failure knowledge for AI coding agents
 # All crawlers welcome - this site is BUILT for AI consumption
 #
-# /api/ endpoints serve application/json and are discoverable from HTML
-# via <link rel="alternate"> tags. We deliberately do NOT block them so
-# search engines don't report "blocked by robots.txt" conflicts for URLs
-# that HTML pages reference. JSON responses are not indexed in web search
-# by default (wrong Content-Type) but remain reachable to every crawler.
+# /api/v1/ endpoints serve application/json. Web-search crawlers
+# (Googlebot, GoogleOther, Bingbot) are blocked from /api/v1/ because JSON
+# responses can never be indexed as web pages: letting them crawl 2,400+
+# JSON files only wastes crawl budget and floods Search Console with
+# "Crawled - currently not indexed" noise. "Blocked by robots.txt" for
+# these URLs is expected and intentional. The path must stay /api/v1/
+# (NOT /api/) - /api/<slug>/ hosts the HTML pages of the "api" error
+# domain, which must remain crawlable. Every AI crawler below keeps full
+# /api/v1/ access.
 
 User-agent: *
 Allow: /
@@ -1377,12 +1381,15 @@ Allow: /
 
 User-agent: Googlebot
 Allow: /
+Disallow: /api/v1/
 
 User-agent: GoogleOther
 Allow: /
+Disallow: /api/v1/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/v1/
 
 User-agent: PerplexityBot
 Allow: /
@@ -4784,7 +4791,6 @@ def build_indexnow(canons: list[dict]) -> None:
                 urls.append(f"{BASE_URL}/{canon['id']}/")
 
     urls.append(f"{BASE_URL}/sitemap/")
-    urls.append(f"{BASE_URL}/api/v1/index.json")
     urls.append(f"{BASE_URL}/llms.txt")
 
     (SITE_DIR / "indexnow-urls.txt").write_text(
