@@ -67,6 +67,13 @@
   }
   </script>
 
+  <!-- FAQPage JSON-LD (mirrors the visible FAQ below) -->
+  {% if faq_json_ld %}
+  <script type="application/ld+json">
+{{ faq_json_ld | safe }}
+  </script>
+  {% endif %}
+
   <link rel="preload" href="{{ base_path }}/style.css" as="style">
   <link rel="stylesheet" href="{{ base_path }}/style.css">
 </head>
@@ -83,6 +90,8 @@ MATCH_API={{ base_url }}/api/v1/match.json
   <h1>{{ domain | display_name }} errors</h1>
   <p class="meta">{{ total }} error entr{{ 'ies' if total != 1 else 'y' }} · Average fix rate: {{ avg_fix_rate }}% · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds</p>
 
+  {% if intro_text %}<p class="intro">{{ intro_text }}</p>{% endif %}
+
   <section id="domain-stats" class="card-section">
     <strong>Overview:</strong>
     <span class="verdict-true">{{ resolvable_counts.true }} fixable</span> ·
@@ -90,12 +99,39 @@ MATCH_API={{ base_url }}/api/v1/match.json
     <span class="verdict-false">{{ resolvable_counts.false }} not fixable</span>
   </section>
 
+  {% if top_dead_ends %}
+  <section id="top-dead-ends">
+    <h2>Most common {{ domain | display_name }} dead ends</h2>
+    <p class="meta">The approaches that fail most reliably across {{ domain | display_name }} - do not reach for these first.</p>
+    {% for de in top_dead_ends %}
+    <div class="dead-end">
+      <strong>{{ de.action }}</strong> <span class="fail-rate">({{ (de.fail_rate * 100)|int }}% fail rate)</span>
+      <p>{{ de.why_fails }}</p>
+      <p class="meta">Seen in <a href="{{ base_path }}/{{ de.slug_key }}/"><code>{{ de.signature }}</code></a></p>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <h2 id="all-errors">All {{ domain | display_name }} errors</h2>
   {% for e in entries %}
   <div class="entry">
     <a href="{{ base_path }}/{{ e.slug_key }}/"><code>{{ e.signature }}</code></a>
     <span class="meta">{{ e.env_count }} env{{ 's' if e.env_count != 1 else '' }} · Best fix rate: {{ (e.fix_success_rate * 100)|int }}% · {{ e.dead_end_count }} dead ends · {{ e.workaround_count }} workarounds</span>
   </div>
   {% endfor %}
+
+  {% if faq_items %}
+  <section id="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    {% for item in faq_items %}
+    <details class="faq-item">
+      <summary>{{ item.question }}</summary>
+      <p>{{ item.answer }}</p>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
 
   </main>
 

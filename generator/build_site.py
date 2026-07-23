@@ -12,7 +12,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
 
-from generator.domains import domain_display_name
+from generator.domains import domain_display_name, domain_intro
 from generator.validate import is_safe_url as _is_safe_url
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -458,6 +458,114 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         print(f"  Generated: {error_id}")
 
 
+def _faq_json_ld(faq_items: list[dict]) -> str:
+    """Serialize FAQ Q&A items to FAQPage JSON-LD (empty string if none)."""
+    if not faq_items:
+        return ""
+    return _safe_json_ld({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": item["question"],
+                "acceptedAnswer": {"@type": "Answer", "text": item["answer"]},
+            }
+            for item in faq_items
+        ],
+    })
+
+
+def _domain_top_dead_ends(domain_canons: list[dict], limit: int = 6) -> list[dict]:
+    """Highest-fail-rate dead ends across a domain, deduplicated by action.
+
+    Surfaces the domain's most reliably-wrong approaches as real editorial
+    content on the hub page, rather than leaving it a bare list of links.
+    """
+    best: dict[str, dict] = {}
+    for c in domain_canons:
+        sig = c["error"]["signature"]
+        slug_key = c["id"].rsplit("/", 1)[0]
+        for de in c.get("dead_ends", []):
+            action = de.get("action", "").strip()
+            why = de.get("why_fails", "").strip()
+            if not action or not why:
+                continue
+            rate = de.get("fail_rate", 0)
+            key = action.lower()
+            if key not in best or rate > best[key]["fail_rate"]:
+                best[key] = {
+                    "action": action,
+                    "why_fails": why,
+                    "fail_rate": rate,
+                    "signature": sig,
+                    "slug_key": slug_key,
+                }
+    ranked = sorted(best.values(), key=lambda d: d["fail_rate"], reverse=True)
+    return ranked[:limit]
+
+
+def _build_domain_faq(
+    domain: str,
+    entries: list[dict],
+    total: int,
+    total_de: int,
+    total_wa: int,
+    avg_fix_rate: int,
+    resolvable_counts: dict,
+    top_dead_ends: list[dict],
+) -> list[dict]:
+    """Build data-derived FAQ Q&A for a domain hub.
+
+    Every answer is grounded in that domain's real numbers and entries, so
+    the Q&A is genuinely unique per domain rather than templated filler.
+    """
+    name = domain_display_name(domain)
+    faq: list[dict] = [
+        {
+            "question": f"How many {name} errors does deadends.dev document?",
+            "answer": (
+                f"{total} {name} error pattern{'s' if total != 1 else ''}, with "
+                f"{total_de} documented dead ends to avoid and {total_wa} verified "
+                f"workarounds. Every entry records what fails and what actually works."
+            ),
+        },
+        {
+            "question": f"Are {name} errors usually fixable?",
+            "answer": (
+                f"{resolvable_counts.get('true', 0)} are reliably fixable, "
+                f"{resolvable_counts.get('partial', 0)} are partially resolvable, and "
+                f"{resolvable_counts.get('false', 0)} are effectively dead ends. The "
+                f"average documented fix rate across {name} is {avg_fix_rate}%."
+            ),
+        },
+    ]
+    if top_dead_ends:
+        de = top_dead_ends[0]
+        faq.append({
+            "question": f"What is a common dead end when fixing {name} errors?",
+            "answer": (
+                f"A frequent one is \"{de['action']}\": {de['why_fails']} "
+                f"It fails about {int(de['fail_rate'] * 100)}% of the time."
+            ),
+        })
+    hardest = min(
+        entries,
+        key=lambda e: e["fix_success_rate"],
+        default=None,
+    )
+    if hardest is not None:
+        faq.append({
+            "question": f"Which {name} error is hardest to resolve?",
+            "answer": (
+                f"\"{hardest['signature']}\" has the lowest documented fix rate in "
+                f"this domain at {int(hardest['fix_success_rate'] * 100)}% - see its "
+                f"page for the dead ends to skip and the workarounds that hold."
+            ),
+        })
+    return faq
+
+
 def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
     """Generate domain listing pages (e.g., /python/, /node/)."""
     template = jinja_env.get_template("domain.html")
@@ -501,15 +609,26 @@ def build_domain_pages(canons: list[dict], jinja_env: Environment) -> None:
             resolvable_counts[r] = resolvable_counts.get(r, 0) + 1
         total_de = sum(len(c["dead_ends"]) for c in domain_canons)
         total_wa = sum(len(c.get("workarounds", [])) for c in domain_canons)
+        avg_fix_rate = int(sum(rates) / len(rates) * 100) if rates else 0
+
+        top_dead_ends = _domain_top_dead_ends(domain_canons)
+        faq_items = _build_domain_faq(
+            domain, entries, len(entries), total_de, total_wa,
+            avg_fix_rate, resolvable_counts, top_dead_ends,
+        )
 
         html = template.render(
             domain=domain,
             entries=entries,
             total=len(entries),
-            avg_fix_rate=int(sum(rates) / len(rates) * 100) if rates else 0,
+            avg_fix_rate=avg_fix_rate,
             resolvable_counts=resolvable_counts,
             total_dead_ends=total_de,
             total_workarounds=total_wa,
+            intro_text=domain_intro(domain),
+            top_dead_ends=top_dead_ends,
+            faq_items=faq_items,
+            faq_json_ld=_faq_json_ld(faq_items),
             noindex=False,
         )
 
