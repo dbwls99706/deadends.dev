@@ -1,10 +1,14 @@
 """Tests for the site build process."""
 
+import json
 from pathlib import Path
 
 from generator.build_site import (
     ENV_REDIRECTS,
     REDIRECT_MAP,
+    _build_domain_faq,
+    _domain_top_dead_ends,
+    _faq_json_ld,
     _generate_variations,
     _is_safe_url,
     _safe_json_ld,
@@ -16,6 +20,7 @@ from generator.build_site import (
     seo_description,
     seo_title,
 )
+from generator.domains import DOMAIN_INTROS, domain_intro
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
 
@@ -54,6 +59,155 @@ class TestSeoTitle:
     def test_suffix_always_present(self):
         for sig in ("x", "y" * 200):
             assert seo_title(sig).endswith(" | deadends.dev")
+
+    def test_counts_appended_when_short_signature_fits(self):
+        title = seo_title("AssertionError", counts=(2, 3))
+        assert title == "Fix AssertionError - 2 Dead Ends & 3 Workarounds | deadends.dev"
+        assert len(title) <= 70
+
+    def test_counts_singular_forms(self):
+        title = seo_title("ENOSPC", counts=(1, 1))
+        assert "1 Dead End &" in title
+        assert "1 Workaround |" in title
+
+    def test_counts_skipped_when_title_would_exceed_budget(self):
+        sig = "AttributeError: 'NoneType' object has no attribute 'foo'"
+        title = seo_title(sig, counts=(2, 3))
+        assert "Dead End" not in title
+        assert len(title) <= 70
+
+    def test_counts_skipped_when_zero(self):
+        assert "Dead End" not in seo_title("ENOSPC", counts=(0, 3))
+        assert "Workaround" not in seo_title("ENOSPC", counts=(2, 0))
+
+    def test_counts_ignored_when_context_given(self):
+        title = seo_title("ENOSPC", context="node20-linux", counts=(2, 3))
+        assert title == "Fix ENOSPC on node20-linux | deadends.dev"
+
+
+def _mini_canon(slug_key, sig, dead_ends, fix_rate=0.8, resolvable="true"):
+    return {
+        "id": f"{slug_key}/env1",
+        "error": {"signature": sig, "domain": slug_key.split("/")[0]},
+        "verdict": {"fix_success_rate": fix_rate, "resolvable": resolvable},
+        "dead_ends": dead_ends,
+        "workarounds": [],
+    }
+
+
+class TestDomainTopDeadEnds:
+    def test_ranks_by_fail_rate_and_links_source_entry(self):
+        canons = [
+            _mini_canon("git/a", "sig-a", [
+                {"action": "Low", "why_fails": "w", "fail_rate": 0.3},
+            ]),
+            _mini_canon("git/b", "sig-b", [
+                {"action": "High", "why_fails": "w", "fail_rate": 0.95},
+            ]),
+        ]
+        top = _domain_top_dead_ends(canons)
+        assert top[0]["action"] == "High"
+        assert top[0]["slug_key"] == "git/b"
+        assert top[0]["signature"] == "sig-b"
+
+    def test_dedupes_same_action_keeping_highest_rate(self):
+        canons = [
+            _mini_canon("git/a", "sig-a", [
+                {"action": "Retry it", "why_fails": "w", "fail_rate": 0.5},
+            ]),
+            _mini_canon("git/b", "sig-b", [
+                {"action": "retry it", "why_fails": "w", "fail_rate": 0.9},
+            ]),
+        ]
+        top = _domain_top_dead_ends(canons)
+        assert len(top) == 1
+        assert top[0]["fail_rate"] == 0.9
+
+    def test_skips_entries_missing_action_or_why(self):
+        canons = [
+            _mini_canon("git/a", "sig-a", [
+                {"action": "", "why_fails": "w", "fail_rate": 0.9},
+                {"action": "ok", "why_fails": "", "fail_rate": 0.9},
+                {"action": "kept", "why_fails": "reason", "fail_rate": 0.4},
+            ]),
+        ]
+        top = _domain_top_dead_ends(canons)
+        assert [d["action"] for d in top] == ["kept"]
+
+    def test_respects_limit(self):
+        canons = [
+            _mini_canon(f"git/{i}", f"sig-{i}", [
+                {"action": f"act-{i}", "why_fails": "w", "fail_rate": 0.5},
+            ])
+            for i in range(10)
+        ]
+        assert len(_domain_top_dead_ends(canons, limit=6)) == 6
+
+
+class TestBuildDomainFaq:
+    def _faq(self):
+        entries = [
+            {"slug_key": "git/easy", "signature": "easy-sig",
+             "fix_success_rate": 0.9},
+            {"slug_key": "git/hard", "signature": "hard-sig",
+             "fix_success_rate": 0.1},
+        ]
+        top_de = [{"action": "Force push", "why_fails": "Rewrites history.",
+                   "fail_rate": 0.85, "signature": "s", "slug_key": "git/x"}]
+        return _build_domain_faq(
+            "git", entries, total=2, total_de=5, total_wa=4,
+            avg_fix_rate=72, resolvable_counts={"true": 1, "partial": 1, "false": 0},
+            top_dead_ends=top_de,
+        )
+
+    def test_grounded_in_domain_numbers(self):
+        faq = self._faq()
+        answers = " ".join(item["answer"] for item in faq)
+        assert "2 " in answers and "5 " in answers and "72%" in answers
+
+    def test_names_hardest_entry(self):
+        faq = self._faq()
+        assert any("hard-sig" in item["answer"] for item in faq)
+
+    def test_includes_top_dead_end(self):
+        faq = self._faq()
+        assert any("Force push" in item["answer"] for item in faq)
+
+    def test_every_item_has_question_and_answer(self):
+        for item in self._faq():
+            assert item["question"].strip()
+            assert item["answer"].strip()
+
+
+class TestFaqJsonLd:
+    def test_empty_items_give_empty_string(self):
+        assert _faq_json_ld([]) == ""
+
+    def test_serializes_valid_faqpage(self):
+        raw = _faq_json_ld([
+            {"question": "Q1?", "answer": 'Answer with "quotes" & <tags>.'},
+        ])
+        data = json.loads(raw)
+        assert data["@type"] == "FAQPage"
+        assert data["mainEntity"][0]["name"] == "Q1?"
+        assert "</" not in raw  # script-breakout guard from _safe_json_ld
+
+
+class TestDomainIntros:
+    def test_intro_returned_for_known_domain(self):
+        assert domain_intro("git")
+        assert domain_intro("nonexistent-domain") == ""
+
+    def test_all_data_domains_have_intros(self):
+        data_domains = {c["error"]["domain"] for c in load_canons(DATA_DIR)}
+        missing = data_domains - set(DOMAIN_INTROS)
+        assert not missing, f"domains without hub intro: {sorted(missing)}"
+
+    def test_intros_are_substantial_and_unique(self):
+        texts = list(DOMAIN_INTROS.values())
+        assert len(set(texts)) == len(texts)  # no copy-paste duplicates
+        for text in texts:
+            assert len(text.split()) >= 20  # real prose, not a stub
 
 
 class TestSeoDescription:
