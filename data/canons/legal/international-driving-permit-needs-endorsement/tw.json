@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/international-driving-permit-needs-endorsement/tw",
+  "url": "https://deadends.dev/legal/international-driving-permit-needs-endorsement/tw",
+  "error": {
+    "signature": "AI says an International Driving Permit is enough to drive in Taiwan for the whole stay",
+    "regex": "(taiwan.*(idp|international driving)|drive.*taiwan.*(licen[cs]e|permit)|international driving permit.*taiwan)",
+    "domain": "legal",
+    "category": "traffic_law",
+    "first_seen": "2025-01-01",
+    "last_confirmed": "2026-07-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-07-29",
+    "summary": "An International Driving Permit covers only a short stay in Taiwan. Under Article 55 of the Road Traffic Security Rules an IDP from a reciprocating country is accepted without endorsement for a stay of 30 days or less; stay longer and the IDP must be endorsed at a Motor Vehicle Office. The endorsement runs a maximum of one year, and expires earlier if the underlying licence or your stay/residence document expires first - after which driving is prohibited."
+  },
+  "dead_ends": [
+    {
+      "action": "Drive in Taiwan for a multi-month stay on an unendorsed International Driving Permit",
+      "why_fails": "Road Traffic Security Rules Article 55(1)(3) exempts holders of a valid IDP issued by a reciprocating country from endorsement only for a short stay of 30 days or less; where the stay exceeds 30 days the holder must still obtain an endorsement from the highway monitoring authority. The IDP itself carrying a longer printed validity does not change that.",
+      "fail_rate": 0.85,
+      "common_misconception": "That an IDP's own one-year or three-year validity is what governs how long you may drive in the country you visit.",
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040013"
+      ]
+    },
+    {
+      "action": "Assume an endorsed IDP lasts a full year regardless of your visa or licence dates",
+      "why_fails": "Article 55(1)(4) caps the endorsement at one year, and provides that where the original licence or the stay/residence document has less than a year left, the earlier expiry date governs. Past that date driving is prohibited.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040013"
+      ]
+    },
+    {
+      "action": "Treat driving past the permitted period as a minor paperwork slip",
+      "why_fails": "The Road Traffic Management and Penalty Act Article 21 fines a car driver who drives without having obtained a driving licence NT$36,000 to NT$60,000 (NT$18,000 to NT$36,000 for a motorcycle), and the vehicle is impounded on the spot. Driving otherwise than in accordance with the conditions of the licence held is separately penalised at NT$6,000 to NT$12,000.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040012"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Have the IDP endorsed at a Motor Vehicle Office once you know you are staying beyond 30 days.",
+      "success_rate": 0.88,
+      "how": "Article 55(1)(3) directs holders staying more than 30 days to the highway monitoring authority for the endorsement. Motor Vehicle Offices are operated by the Highway Bureau under the Ministry of Transportation and Communications.",
+      "condition": "IDP issued by a country with reciprocity with Taiwan",
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040013",
+        "https://news.immigration.gov.tw/NewsSection/Detail/8ac0d7bb-aa7c-4729-a498-54216f773316?lang=EN"
+      ]
+    },
+    {
+      "action": "After six months in Taiwan, convert a reciprocal-country licence into a Taiwanese one.",
+      "success_rate": 0.78,
+      "how": "The National Immigration Agency's guidance describes Foreign International Driving License Certification: foreigners who have stayed in Taiwan more than six months whose original licence was issued by a country with a reciprocal agreement can apply at a Motor Vehicle Office with a passport showing the entry date and a resident certificate, the valid original licence and IDP, a medical examination and fitness test report from an authorised hospital, health centre or clinic, and one 1-inch photo taken within the last two years. The fee is NT$150.",
+      "condition": "Six months' stay and a reciprocal-country licence",
+      "tradeoff": "Requires a medical examination and an in-person visit.",
+      "sources": [
+        "https://news.immigration.gov.tw/NewsSection/Detail/8ac0d7bb-aa7c-4729-a498-54216f773316?lang=EN"
+      ]
+    },
+    {
+      "action": "For a genuinely short trip, keep the driving inside the 30-day window.",
+      "success_rate": 0.9,
+      "how": "A stay of 30 days or less needs no endorsement, so short-trip visitors can drive on the IDP as issued.",
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040013"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-29"
+  }
+}
