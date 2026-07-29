@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/health-insurance-six-month-clock/tw",
+  "url": "https://deadends.dev/medical/health-insurance-six-month-clock/tw",
+  "error": {
+    "signature": "AI says a new ARC holder in Taiwan can enrol in National Health Insurance straight away",
+    "regex": "(taiwan.*(nhi|national health insurance).*(enrol|enroll|join|eligib|six month|6 month)|health insurance.*taiwan.*(arc|foreigner|resident)|taiwan.*health.?care.*waiting period)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2025-01-01",
+    "last_confirmed": "2026-07-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.85,
+    "last_updated": "2026-07-29",
+    "summary": "Taiwan's National Health Insurance is not automatic on arrival. A foreigner holding a residence certificate enrols from day one only if they have a regular employer; otherwise they must first complete six months of stay. The six-month clock tolerates exactly one trip abroad of fewer than 30 days, and the days spent outside Taiwan are deducted - so it is six months of presence, not six months on the calendar."
+  },
+  "dead_ends": [
+    {
+      "action": "Arrive in Taiwan, collect the ARC, and expect to buy into NHI the same week",
+      "why_fails": "National Health Insurance Act Article 9 lets an alien resident certificate holder become a beneficiary only if they have established a registered domicile in Taiwan for at least six months, have a regular employer, or are a newborn in the Taiwan area. An unemployed new arrival meets none of these.",
+      "fail_rate": 0.85,
+      "common_misconception": "That Taiwan's famously universal system covers anyone holding a residence card from the moment it is issued.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060001",
+        "https://news.immigration.gov.tw/NewsSection/Detail/c8ec6ec9-c183-44f7-970c-38693a64f216?category=0&lang=EN"
+      ]
+    },
+    {
+      "action": "Fly home for a five-week visit during the qualifying period and assume the six-month clock kept running",
+      "why_fails": "Enforcement Rules of the NHI Act Article 8 defines the six full months as staying in Taiwan for six consecutive months, or exiting Taiwan once for fewer than 30 days with the actual period of stay still amounting to six months after the days away are deducted. A single absence of 30 days or more - or a second trip - does not fit that definition.",
+      "fail_rate": 0.8,
+      "condition": "Unemployed applicants relying on the six-month route",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060002",
+        "https://news.immigration.gov.tw/NewsSection/Detail/c8ec6ec9-c183-44f7-970c-38693a64f216?category=0&lang=EN"
+      ]
+    },
+    {
+      "action": "Travel without medical cover for the first half-year because NHI is 'coming anyway'",
+      "why_fails": "Until the Article 9 condition is met there is no NHI entitlement at all, so the entire waiting period is uninsured unless private cover is arranged.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060001"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you are employed, enrol through the employer from your first day of work.",
+      "success_rate": 0.92,
+      "how": "Article 9(2) makes 'those with a regular employer' eligible without any waiting period. The National Immigration Agency's guidance puts it bluntly: anyone employed in Taiwan with a valid residency certificate must enrol from their first day of work, with no exceptions.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060001",
+        "https://news.immigration.gov.tw/NewsSection/Detail/c8ec6ec9-c183-44f7-970c-38693a64f216?category=0&lang=EN"
+      ]
+    },
+    {
+      "action": "Foreign professionals and their families: enrol from the date the residency certificate is issued.",
+      "success_rate": 0.85,
+      "how": "Under the Act for the Recruitment and Employment of Foreign Professionals, in force since 8 February 2018, foreign professionals employed in Taiwan enrol along with spouses, minor children and adult children with disabilities who cannot live independently, from the date they receive their residency certificate. A 25 October 2021 amendment extended this to foreign special and senior professionals who are employers or self-employed.",
+      "condition": "Foreign professionals under the Foreign Professionals Act",
+      "sources": [
+        "https://news.immigration.gov.tw/NewsSection/Detail/c8ec6ec9-c183-44f7-970c-38693a64f216?category=0&lang=EN"
+      ]
+    },
+    {
+      "action": "Carry private or travel medical insurance covering the whole qualifying period.",
+      "success_rate": 0.8,
+      "how": "Buy cover that runs from arrival until NHI actually starts, rather than a fixed six months from the arrival date.",
+      "tradeoff": "An extra cost on top of NHI premiums once enrolled.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060001"
+      ]
+    },
+    {
+      "action": "If you must leave during the qualifying period, keep it to a single trip under 30 days.",
+      "success_rate": 0.75,
+      "how": "Enforcement Rules Article 8 permits one exit of fewer than 30 days; count on the days abroad being deducted, so budget for the enrolment date to slip by that many days.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=L0060002"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "legal/resident-certificate-not-work-authorization/tw",
+        "probability": 0.45
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-29"
+  }
+}

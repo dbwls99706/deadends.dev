@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/resident-certificate-not-work-authorization/tw",
+  "url": "https://deadends.dev/legal/resident-certificate-not-work-authorization/tw",
+  "error": {
+    "signature": "AI treats a Taiwan ARC as permission to work, freelance or take a second job",
+    "regex": "(taiwan.*arc.*(work|job|freelance|employ)|arc.*taiwan.*(work permit|work right)|taiwan.*work.*without.*permit)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2025-01-01",
+    "last_confirmed": "2026-07-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-07-29",
+    "summary": "An Alien Resident Certificate is a residence document, not work authorisation. Under the Employment Service Act a foreigner needs an employment permit, the employer normally applies for it, and it is tied to that employer: transferring to a new employer or working for additional employers requires the new employer to apply. Working outside the permit gets it annulled, and a foreign worker who works without a permit is ordered to leave and barred from further work in Taiwan."
+  },
+  "dead_ends": [
+    {
+      "action": "Take freelance clients or a side job in Taiwan on the strength of holding a valid ARC",
+      "why_fails": "Employment Service Act Article 53(1) requires that where an employed foreign worker transfers to a new employer or works for multiple employers within the permit duration, the new employer(s) must apply for the relevant permit. Article 73 provides that the employment permit shall be annulled where the worker has worked for an employer not identified in the permit, or has engaged on their own initiative in work outside the permit's scope.",
+      "fail_rate": 0.85,
+      "common_misconception": "That an ARC is Taiwan's equivalent of an open work visa, so any paid work is fine once you hold one.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001",
+        "https://ezworktaiwan.wda.gov.tw/en/News_Content.aspx?n=35C4C6202979ECD0&sms=2D58889BB41F75D7&s=9EB73E61D38E7FDE"
+      ]
+    },
+    {
+      "action": "Start work on the agreed first day while the employer's permit application is still being processed",
+      "why_fails": "The Workforce Development Agency states that the foreigner may work in Taiwan only after the employer has applied for and obtained the permit from the Ministry. WDA also warns about the processing window - 7 business days for online applications and 12 for in-person ones - which is exactly the gap employers underestimate when someone changes jobs.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://ezworktaiwan.wda.gov.tw/en/News_Content.aspx?n=35C4C6202979ECD0&sms=2D58889BB41F75D7&s=72CF28DDBB8CBAC7",
+        "https://ezworktaiwan.wda.gov.tw/en/News_Content.aspx?n=35C4C6202979ECD0&sms=2D58889BB41F75D7&s=9EB73E61D38E7FDE"
+      ]
+    },
+    {
+      "action": "Work without a permit and treat the risk as a fine at worst",
+      "why_fails": "Article 68(3) of the Employment Service Act provides that a foreign worker who violates Article 43 shall be immediately ordered to depart from the Republic of China and banned from further engaging in work in the territory. The exposure is removal and a work ban, not a payable penalty.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001"
+      ]
+    },
+    {
+      "action": "Assume permanent residency (APRC) removes the permit requirement entirely",
+      "why_fails": "Article 51 lists people permitted to stay permanently among those exempted from various employer-side requirements, and Article 51(2) lets them apply to the Central Competent Authority for a work permit themselves, without an employer initiating it. The permit requirement does not disappear - what changes is who applies for it.",
+      "fail_rate": 0.6,
+      "condition": "APRC holders and others listed in Article 51(1)(1), (3), (4)",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Have the employer obtain the employment permit from the Ministry of Labor before any work starts.",
+      "success_rate": 0.88,
+      "how": "Article 48(1) requires employers to apply to the Central Competent Authority for an employment permit before employing a foreign worker. Sign the contract, let the employer file, and start only once the permit is issued.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001",
+        "https://ezworktaiwan.wda.gov.tw/en/News_Content.aspx?n=35C4C6202979ECD0&sms=2D58889BB41F75D7&s=72CF28DDBB8CBAC7"
+      ]
+    },
+    {
+      "action": "When changing jobs, have the incoming employer file and mind the gap between the two permits.",
+      "success_rate": 0.8,
+      "how": "Per Article 53 the new employer applies, submitting documents certifying termination of the previous employment. WDA puts review at 7 business days online, 12 in person.",
+      "tradeoff": "There is a window between leaving one job and the new permit issuing during which you may not work.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001",
+        "https://ezworktaiwan.wda.gov.tw/en/News_Content.aspx?n=35C4C6202979ECD0&sms=2D58889BB41F75D7&s=9EB73E61D38E7FDE"
+      ]
+    },
+    {
+      "action": "If you fall under an Article 51 category, apply for the work permit in your own name.",
+      "success_rate": 0.75,
+      "how": "Article 51(2) allows refugees permitted to stay, people permitted to live with lineal relatives holding household registration, and permanent residents to apply to the Central Competent Authority for a work permit without their employer initiating the application.",
+      "condition": "Article 51(1)(1), (3) or (4) categories",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001"
+      ]
+    },
+    {
+      "action": "Check whether your role is one of the narrow permit exemptions before assuming you need one.",
+      "success_rate": 0.7,
+      "how": "Article 48(1) exempts consultants or researchers employed by the government or its subordinate academic research institutes, people married to ROC nationals with registered residence in the country and permitted to stay, and foreigners lecturing or doing academic research at public or registered private colleges and universities with Ministry of Education approval.",
+      "tradeoff": "The list is exhaustive; most private-sector roles are not on it.",
+      "sources": [
+        "https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=N0090001"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "medical/health-insurance-six-month-clock/tw",
+        "probability": 0.45,
+        "condition": "Worker then needs health cover"
+      }
+    ],
+    "preceded_by": [
+      {
+        "error_id": "visa/visa-free-entry-no-status-change/tw",
+        "probability": 0.4
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-29"
+  }
+}

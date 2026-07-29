@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-free-extension-only-via-mofa/tw",
+  "url": "https://deadends.dev/visa/visa-free-extension-only-via-mofa/tw",
+  "error": {
+    "signature": "AI tells a visa-free visitor to Taiwan to extend the 90-day stay at an immigration office",
+    "regex": "(taiwan.*(extend|extension).*(90|ninety|visa.?free|visa.?exempt)|extend.*stay.*taiwan|taiwan.*180.*day.*(stay|extension))",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2025-01-01",
+    "last_confirmed": "2026-07-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.85,
+    "last_updated": "2026-07-29",
+    "summary": "Taiwan's visa-exempt stay is not extendable, and the National Immigration Agency explicitly refuses extension applications from visa-exempt entrants. British and Canadian passport holders are the single exception: a one-off 90-day extension to 180 days total, granted by the Ministry of Foreign Affairs as a visitor visa - not by NIA - applied for within 30 days before the 90-day stay expires, free of charge. No second extension and no change of purpose."
+  },
+  "dead_ends": [
+    {
+      "action": "Queue at a National Immigration Agency service centre to extend a visa-exempt stay in Taiwan",
+      "why_fails": "NIA's published application instructions for visitor visa extension state that foreign nationals may not apply to extend their stay if they were admitted under a landing visa, a visa-exempt entry, or a visa remarked 'no extension will be granted'. Even the British/Canadian extension is not an NIA product - it is issued by the Ministry of Foreign Affairs.",
+      "fail_rate": 0.92,
+      "common_misconception": "That immigration authorities always own extensions of stay, as they do in many other jurisdictions.",
+      "sources": [
+        "https://www.immigration.gov.tw/media/103227/application-instructions-for-visitor-visa-extension.pdf",
+        "https://www.boca.gov.tw/dl-1941-10818f41fd244cbbbb5de39737fc963a.html"
+      ]
+    },
+    {
+      "action": "Assume any 90-day visa-free nationality can stretch the stay to 180 days the way UK and Canadian passport holders can",
+      "why_fails": "BOCA states the duration of stay 'is not extendable' as the general rule, and names only Canadian and UK passport holders as eligible for the 90-day stay extendable up to 180 days. The arrangement does not generalise to other visa-exempt nationalities.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html",
+        "https://www.boca.gov.tw/dl-1941-10818f41fd244cbbbb5de39737fc963a.html"
+      ]
+    },
+    {
+      "action": "Plan on a second extension, or on switching purpose mid-stay, to remain in Taiwan past 180 days",
+      "why_fails": "MOFA's notice is explicit: 'A second extension or a change in purpose of stay shall not be approved.' Applicants who intend to stay longer than six months are listed as ineligible for the extension in the first place, as are people studying at an institution not permitted by the Ministry of Education to admit overseas students, or interning/volunteering somewhere without the relevant agency's permission.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.boca.gov.tw/dl-1941-10818f41fd244cbbbb5de39737fc963a.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "British and Canadian passport holders: apply to a MOFA office for the extension before the 90 days run out.",
+      "success_rate": 0.85,
+      "how": "Apply at the Bureau of Consular Affairs in Taipei or a MOFA regional office (Taichung, Chiayi, Kaohsiung, Hualien). MOFA's notice says applicants must apply within 30 days prior to the expiration of the current 90-day visa-free entry. No fee is assessed. Bring the application form, two 2x2 inch photos, a passport valid at least three months, and a statement of the extension purpose; bank statements and supporting documents may also be requested. The result is a visitor visa giving 180 days total from the day following arrival.",
+      "condition": "British or Canadian passport, non-employment/non-residency purpose",
+      "tradeoff": "MOFA may still refuse or grant less than 180 days if funds are insufficient or the purpose of stay is unclear - for example if you already stayed more than six months in Taiwan in the past year.",
+      "sources": [
+        "https://www.boca.gov.tw/dl-1941-10818f41fd244cbbbb5de39737fc963a.html"
+      ]
+    },
+    {
+      "action": "Every other nationality: obtain a visitor visa in advance instead of relying on visa-free entry.",
+      "success_rate": 0.85,
+      "how": "A visitor visa of 60 days or more without a 'no extension' remark can be extended by NIA, unlike a visa-exempt entry.",
+      "sources": [
+        "https://www.immigration.gov.tw/media/103227/application-instructions-for-visitor-visa-extension.pdf",
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/visa-free-entry-no-status-change/tw",
+        "probability": 0.6,
+        "distinction": "That canon is about converting a visa-free entry into residency; this one is about extending the stay itself."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-29"
+  }
+}

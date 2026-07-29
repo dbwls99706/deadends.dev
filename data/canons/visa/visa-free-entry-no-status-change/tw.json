@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-free-entry-no-status-change/tw",
+  "url": "https://deadends.dev/visa/visa-free-entry-no-status-change/tw",
+  "error": {
+    "signature": "AI advises entering Taiwan visa-free and switching to a resident visa or ARC after arrival",
+    "regex": "(taiwan.*visa.?free.*(convert|change|switch|resident|arc)|taiwan.*visa.?exempt.*(convert|resident|arc)|convert.*visa.?exempt.*taiwan)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2025-01-01",
+    "last_confirmed": "2026-07-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.85,
+    "last_updated": "2026-07-29",
+    "summary": "Taiwan's visa-exempt entry (90 days for most European, US, Japanese and Korean passports) is a stay, not a status you can upgrade in place. The Bureau of Consular Affairs states that visa-exempt entry cannot be converted to a visa-based stay except in narrow listed cases. The National Immigration Agency will issue an ARC to a visa-exempt entrant only where a work permit or professional-work permission has already been granted - and charges visa-exempt and visitor-visa entrants an extra NTD 2,200 on top of the NTD 1,000 per year ARC fee."
+  },
+  "dead_ends": [
+    {
+      "action": "Enter Taiwan visa-free, then walk into an NIA service centre to 'convert' the visa-exempt stay into a resident visa or ARC",
+      "why_fails": "BOCA states plainly that 'Visa-exempt entry cannot be converted to visa-based stay' outside a short list of exceptions. NIA's own residency guidelines admit visa-exempt entrants only under specific headings - essentially those already permitted to do professional or other Article 46 work - so an applicant with no work permit and no family tie has no in-country route at all.",
+      "fail_rate": 0.9,
+      "common_misconception": "That a 90-day stamp behaves like a 90-day visa that immigration can simply upgrade once you find a job or an apartment.",
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html",
+        "https://www.immigration.gov.tw/media/118461/0915-guidelines-for-residency-applications-for-foreign-nationals-holding-a-visitor-visa-or-entering-the-republic-of-china-through-visa-exemption.pdf"
+      ]
+    },
+    {
+      "action": "Accept a full-time job offer while in Taiwan visa-free and assume the employer can sort the paperwork without you leaving",
+      "why_fails": "The work permit has to exist first. BOCA's carve-out for applying for a work visa in country is limited to white-collar professionals holding a work permit granted for under six months within the permitted stay, or a contract-purpose work permit issued before or within 30 days of entry, and those applications must be submitted within 8 working days before the permitted duration of stay expires. Brunei, North Macedonia, Philippines and Thailand nationals are excluded from that carve-out entirely.",
+      "fail_rate": 0.75,
+      "condition": "Employment intended to last longer than six months",
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html",
+        "https://www.immigration.gov.tw/media/118461/0915-guidelines-for-residency-applications-for-foreign-nationals-holding-a-visitor-visa-or-entering-the-republic-of-china-through-visa-exemption.pdf"
+      ]
+    },
+    {
+      "action": "Apply for the ARC directly at NIA after a visa-free entry without budgeting for the surcharge or the filing window",
+      "why_fails": "NIA charges the ARC at NTD 1,000 per year of validity, but adds NTD 2,200 for applicants who entered visa-exempt or on a visitor visa. The guidelines also set filing windows measured backwards from the expiry of the permitted stay, so a late walk-in leaves no room to rectify missing documents - and NIA gives only 15 days to rectify a deficient application.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.immigration.gov.tw/media/118461/0915-guidelines-for-residency-applications-for-foreign-nationals-holding-a-visitor-visa-or-entering-the-republic-of-china-through-visa-exemption.pdf"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get the correct visa from an ROC overseas mission before you fly, rather than entering visa-free and improvising.",
+      "success_rate": 0.9,
+      "how": "Apply for a visitor or resident visa at a Taiwan embassy, representative office or consulate in your country of residence. A resident visa is what NIA converts into an ARC.",
+      "tradeoff": "Slower up front, and requires documents gathered at home.",
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
+      ]
+    },
+    {
+      "action": "If a work permit has already been issued, apply to NIA for residency without leaving Taiwan.",
+      "success_rate": 0.75,
+      "how": "NIA's guidelines cover foreign nationals who entered without a visa and are permitted to work under Article 46(1)(1-7) or (11) of the Employment Service Act, are exempt under Article 48(1)(1) or (3), or hold professional-work permission under the Act for the Recruitment and Employment of Foreign Professionals. Spouses and minor children of those applicants are covered too.",
+      "condition": "A work permit or professional-work permission already granted",
+      "tradeoff": "Adds the NTD 2,200 visa-exempt/visitor-visa surcharge.",
+      "sources": [
+        "https://www.immigration.gov.tw/media/118461/0915-guidelines-for-residency-applications-for-foreign-nationals-holding-a-visitor-visa-or-entering-the-republic-of-china-through-visa-exemption.pdf"
+      ]
+    },
+    {
+      "action": "For contracting work expected to run past six months, file the visitor and resident visa applications with BOCA together.",
+      "success_rate": 0.6,
+      "how": "BOCA notes that foreigners coming to do contracting work for more than six months who entered visa-exempt and intend to apply for an ARC must submit visitor and resident visa applications simultaneously to the Bureau or its regional offices.",
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
+      ]
+    },
+    {
+      "action": "Otherwise, leave Taiwan before the stay expires and apply for the proper visa abroad.",
+      "success_rate": 0.88,
+      "how": "Departing on time keeps your record clean; overstaying is penalised separately and damages later applications.",
+      "tradeoff": "Costs a flight and a gap in your stay.",
+      "sources": [
+        "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "legal/resident-certificate-not-work-authorization/tw",
+        "probability": 0.5,
+        "condition": "Applicant intends to work in Taiwan"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/visa-free-extension-only-via-mofa/tw",
+        "probability": 0.6,
+        "distinction": "That canon is about how long you may stay; this one is about changing what status you hold."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-07-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-07-29"
+  }
+}
