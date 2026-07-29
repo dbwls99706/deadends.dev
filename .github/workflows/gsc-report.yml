@@ -1,0 +1,114 @@
+name: Weekly Search Console Report
+
+# Runs before the Monday SEO routine so that routine reads a fresh report.
+# Authentication is keyless: GitHub's OIDC token is exchanged for short-lived
+# Google credentials via Workload Identity Federation. No service-account key
+# exists, which is also why this works under the
+# iam.disableServiceAccountKeyCreation org policy.
+on:
+  schedule:
+    - cron: "0 22 * * 0" # Sunday 22:00 UTC = Monday 07:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Check configuration
+        id: config
+        env:
+          WIF_AUDIENCE: ${{ secrets.GCP_WIF_AUDIENCE }}
+          SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+        run: |
+          if [ -z "$WIF_AUDIENCE" ] || [ -z "$SA_EMAIL" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GCP_WIF_AUDIENCE / GCP_SA_EMAIL not set - skipping." \
+                 "See docs/gsc-setup.md for the one-time setup."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies
+        if: steps.config.outputs.configured == 'true'
+        run: pip install -e ".[seo]"
+
+      - name: Build site
+        if: steps.config.outputs.configured == 'true'
+        run: python -m generator.build_site
+
+      # Written at runtime from the OIDC request URL and token that GitHub
+      # injects for this job. google-auth resolves it as an external account:
+      # it fetches the OIDC token, trades it at STS, then impersonates the
+      # service account. Everything here is short-lived.
+      - name: Configure keyless Google credentials
+        if: steps.config.outputs.configured == 'true'
+        env:
+          WIF_AUDIENCE: ${{ secrets.GCP_WIF_AUDIENCE }}
+          SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.parse
+
+          audience = os.environ["WIF_AUDIENCE"]
+          sa_email = os.environ["SA_EMAIL"]
+          token_url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
+          token = os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
+          source_url = f"{token_url}&audience={urllib.parse.quote(audience, safe='')}"
+
+          config = {
+              "type": "external_account",
+              "audience": audience,
+              "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+              "token_url": "https://sts.googleapis.com/v1/token",
+              "service_account_impersonation_url": (
+                  "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/"
+                  f"{sa_email}:generateAccessToken"
+              ),
+              "credential_source": {
+                  "url": source_url,
+                  "headers": {"Authorization": f"Bearer {token}"},
+                  "format": {"type": "json", "subject_token_field_name": "value"},
+              },
+          }
+          with open(os.environ["RUNNER_TEMP"] + "/gcp-wif.json", "w") as fh:
+              json.dump(config, fh)
+          PY
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gcp-wif.json" >> "$GITHUB_ENV"
+
+      - name: Run indexing report
+        if: steps.config.outputs.configured == 'true'
+        env:
+          GSC_PROPERTY: ${{ vars.GSC_PROPERTY || 'https://deadends.dev/' }}
+        run: |
+          python -m generator.gsc_report --submit-sitemap | tee report.txt
+          {
+            echo "## Search Console indexing report"
+            echo ""
+            echo '```'
+            cat report.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit report
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          if git diff --quiet -- data/seo/; then
+            echo "No change in data/seo/ - nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seo/
+          git commit -m "seo: weekly Search Console indexing report"
+          git push

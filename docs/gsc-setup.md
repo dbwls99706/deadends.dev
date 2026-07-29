@@ -1,95 +1,102 @@
 # Google Search Console API 연동 (1회 설정)
 
 `generator/gsc_report.py`가 색인 상태를 조회하고 사이트맵을 재제출하려면
-서비스 계정이 필요하다. 아래는 한 번만 하면 되는 설정이다.
+Google 인증이 필요하다.
 
-전체 10분.
+**키는 만들지 않는다.** 이 조직에는 `iam.disableServiceAccountKeyCreation`
+정책이 걸려 있어 서비스 계정 키를 생성할 수 없고, 애초에 그게 더 안전하다.
+대신 Workload Identity Federation(WIF)으로 GitHub Actions의 OIDC 토큰을
+단기 Google 자격증명으로 교환한다. 유출될 장기 비밀이 존재하지 않는다.
 
-## 0. 프로젝트 선택
+전체 15분. 아래 명령은 브라우저에서 바로 열리는
+[Cloud Shell](https://shell.cloud.google.com)에 붙여넣으면 된다 (로컬 gcloud
+설치 불필요).
 
-서비스 계정은 **프로젝트에 귀속되는 리소스**다. 조직(`yujinhong-org`,
-ID `56145778260`)에는 직접 만들 수 없고, 조직 아래 프로젝트가 하나 필요하다.
+## 1. GCP 설정 (Cloud Shell)
 
-`yujinhong-org` 아래에서 쓸 프로젝트를 정하거나 새로 만든 뒤, 아래 단계의
-`<PROJECT_ID>`를 그 프로젝트 ID로 바꿔서 진행한다.
+`PROJECT_ID`만 본인 프로젝트로 바꾸고 통째로 실행한다. 기존 프로젝트에 얹어도
+된다 — 이 서비스 계정에는 GCP IAM 역할을 부여하지 않으므로 그 프로젝트의
+리소스에는 접근하지 못한다.
 
-- 프로젝트 목록: https://console.cloud.google.com/cloud-resource-manager?organizationId=56145778260
-- 새로 만들 때 **위치(조직)** 를 `yujinhong-org`로 지정할 것
+```bash
+PROJECT_ID=sortzen-500101
+REPO=dbwls99706/deadends.dev
+SA=gsc-reporter
 
-**기존 프로젝트(예: `sortzen`)에 얹어도 된다.** 이 서비스 계정에는 GCP IAM
-역할을 하나도 부여하지 않기 때문에, 같은 프로젝트에 있어도 그 프로젝트의
-리소스에는 접근할 수 없다. 권한은 전적으로 Search Console 쪽에서 나온다.
-전용 프로젝트를 따로 파면 정리·감사가 깔끔해지는 정도의 이점이 있을 뿐이다.
+gcloud config set project "$PROJECT_ID"
+PROJECT_NUMBER=$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')
 
-단, 얹는 경우 아래 두 가지는 지킬 것:
+gcloud services enable \
+  searchconsole.googleapis.com \
+  iamcredentials.googleapis.com \
+  sts.googleapis.com
 
-- 서비스 계정 생성 시 **역할을 절대 부여하지 말 것.** 습관적으로 `편집자`나
-  `소유자`를 고르면 그 순간 프로젝트 전체 접근 권한이 생긴다.
-- 프로젝트를 삭제하면 서비스 계정도 같이 사라져 이 리포트가 멈춘다.
+gcloud iam service-accounts create "$SA" \
+  --display-name="Search Console reporter"
+SA_EMAIL="$SA@$PROJECT_ID.iam.gserviceaccount.com"
 
-## 1. Search Console API 활성화
+gcloud iam workload-identity-pools create github \
+  --location=global --display-name="GitHub Actions"
 
-1. `https://console.cloud.google.com/apis/library?project=<PROJECT_ID>`
-2. **Google Search Console API** 검색 → **사용 설정**
+gcloud iam workload-identity-pools providers create-oidc github \
+  --location=global \
+  --workload-identity-pool=github \
+  --display-name="GitHub OIDC" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
+  --attribute-condition="assertion.repository=='$REPO'"
 
-> Indexing API는 활성화하지 않아도 된다. 그쪽은 JobPosting / BroadcastEvent
-> 전용이라 이 사이트에는 쓸 수 없다.
+gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
+  --role=roles/iam.workloadIdentityUser \
+  --member="principalSet://iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github/attributes.repository/$REPO"
 
-## 2. 서비스 계정 생성
+echo
+echo "GCP_SA_EMAIL      = $SA_EMAIL"
+echo "GCP_WIF_AUDIENCE  = //iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github/providers/github"
+```
 
-1. `https://console.cloud.google.com/iam-admin/serviceaccounts?project=<PROJECT_ID>`
-2. **서비스 계정 만들기**
-   - 이름: `gsc-reporter`
-   - 역할: **없음** (GCP IAM 역할은 필요 없다. 권한은 Search Console 쪽에서 준다)
-3. 생성된 계정 클릭 → **키** 탭 → **키 추가 → 새 키 만들기 → JSON** → 다운로드
-4. 계정 이메일을 복사해 둔다. 형태:
-   `gsc-reporter@<PROJECT_ID>.iam.gserviceaccount.com`
+마지막 두 줄 출력을 복사해 둔다.
 
-## 3. Search Console에 서비스 계정 추가
+> `--attribute-condition`이 이 리포지토리에서 온 요청만 받도록 제한한다.
+> 이게 없으면 GitHub의 **아무** 리포지토리나 이 서비스 계정을 가장할 수 있다.
+> 절대 빼지 말 것.
+
+## 2. Search Console에 권한 부여
 
 1. https://search.google.com/search-console → 속성 `deadends.dev` 선택
 2. **설정 → 사용자 및 권한 → 사용자 추가**
-3. 위에서 복사한 서비스 계정 이메일 붙여넣기
+3. 위 `GCP_SA_EMAIL` 값 붙여넣기
 4. 권한: **전체** (사이트맵 제출에 필요. 조회만 할 거면 `제한됨`도 가능)
 
-## 4. 키를 환경변수로 등록
+GCP IAM이 아니라 여기서 권한이 나온다. 그래서 서비스 계정을 다른 프로젝트에
+얹어도 안전하다.
 
-Claude Code 웹 → 환경 편집 다이얼로그 → 환경변수에 추가:
+## 3. GitHub 시크릿 등록
 
-| 변수 | 값 |
+리포지토리 → **Settings → Secrets and variables → Actions → New repository secret**
+
+| 이름 | 값 |
 | --- | --- |
-| `GSC_SA_KEY` | 다운로드한 JSON 파일 **전체 내용**을 그대로 붙여넣기 |
-| `GSC_PROPERTY` | `https://deadends.dev/` (기본값과 같으면 생략 가능) |
+| `GCP_SA_EMAIL` | 1단계 출력의 `GCP_SA_EMAIL` |
+| `GCP_WIF_AUDIENCE` | 1단계 출력의 `GCP_WIF_AUDIENCE` |
 
-로컬에서 돌릴 때는 파일 경로만 줘도 된다:
+둘 다 없으면 워크플로가 조용히 건너뛴다(실패하지 않는다).
 
-```bash
-export GSC_SA_KEY_FILE=~/keys/gsc-reporter.json
-```
+## 4. 동작 확인
 
-> JSON 키는 비밀값이다. 리포지토리에 커밋하지 말 것. `.gitignore`에 이미
-> `*.json` 예외가 없으므로 키 파일은 리포 바깥에 두는 것을 권장한다.
+리포지토리 → **Actions → Weekly Search Console Report → Run workflow**
 
-## 5. 동작 확인
-
-```bash
-pip install -e ".[seo]"
-python -m generator.build_site          # 사이트맵이 있어야 URL 목록을 뽑는다
-python -m generator.gsc_report --dry-run --limit 12   # 자격증명 없이 계획만 확인
-python -m generator.gsc_report --limit 20            # 실제 조회
-```
-
-정상이면 이런 출력이 나온다:
+성공하면 잡 요약(Job Summary)에 이런 출력이 붙는다:
 
 ```
-  Inspected: 20
+  Inspected: 120
   Indexed:   3
-  Not yet:   17
+  Not yet:   117
   Change since last run: +2
 
   Not-indexed breakdown:
-     14  Crawled - currently not indexed
-      3  Discovered - currently not indexed
+     94  Crawled - currently not indexed
+     23  Discovered - currently not indexed
 
   Request indexing by hand in Search Console (URL Inspection),
   highest value first - Google caps this at ~10/day:
@@ -99,6 +106,28 @@ python -m generator.gsc_report --limit 20            # 실제 조회
      ...
 ```
 
+## 실행 주기
+
+| 무엇 | 언제 | 하는 일 |
+| --- | --- | --- |
+| `gsc-report.yml` (GitHub Actions) | 일요일 22:00 UTC = **월요일 07:00 KST** | 사이트맵 재제출, 색인 상태 조회, `data/seo/gsc_report.json` 커밋 |
+| 주간 SEO Routine (Claude) | **월요일 09:00 KST** | 위 리포트를 읽고 출처 검증 + 백링크 PR |
+
+Actions가 먼저 돌아야 Routine이 최신 데이터를 읽는다.
+
+## 로컬에서 돌릴 때
+
+키를 만들 수 없으므로 로컬 실행은 기본적으로 지원하지 않는다. 자격증명 없이
+URL 선정 로직만 확인하려면:
+
+```bash
+pip install -e ".[seo]"
+python -m generator.build_site
+python -m generator.gsc_report --dry-run --limit 12
+```
+
+정책 예외로 키를 발급받은 경우에만 `GSC_SA_KEY_FILE`로 실제 조회가 가능하다.
+
 ## 자동화 범위
 
 | 작업 | 자동 | 비고 |
@@ -106,15 +135,16 @@ python -m generator.gsc_report --limit 20            # 실제 조회
 | 사이트맵 재제출 | O | `--submit-sitemap` |
 | URL별 색인 상태 조회 | O | URL Inspection API, 일 2,000건 / 분 600건 |
 | IndexNow (Bing·Yandex) | O | 배포 워크플로에 이미 포함 |
-| **색인 생성 요청** | **X** | Indexing API가 JobPosting / BroadcastEvent 전용이라 불가. 스크립트가 뽑아주는 10개 목록을 GSC UI에서 직접 클릭해야 한다 |
+| **색인 생성 요청** | **X** | Indexing API가 JobPosting / BroadcastEvent 전용이라 불가. 리포트가 뽑아주는 10개 목록을 GSC UI에서 직접 클릭해야 한다 |
 | **유효성 검사 시작** | **X** | API 없음, UI 전용 |
 
-색인 요청은 Google이 하루 10건 정도로 제한한다. 스크립트가 허브 페이지를
+색인 요청은 Google이 하루 10건 정도로 제한한다. 리포트가 허브 페이지를
 우선으로 정렬해 주는 이유가 이것이다 — 허브가 먼저 색인되어야 크롤 에퀴티가
-상세 페이지로 내려간다. 자세한 배경은
-[`SEO_OPERATIONS_GUIDE.md`](SEO_OPERATIONS_GUIDE.md) 5절 참고.
+상세 페이지로 내려간다. 다만 이건 2순위 조치이고,
+[`SEO_OPERATIONS_GUIDE.md`](SEO_OPERATIONS_GUIDE.md) 5절은 **백링크**를
+색인 결정의 지배적 요인으로 지목한다. 그쪽은 자동화되어 있다.
 
 ## 결과 파일
 
-`data/seo/gsc_report.json`에 매 실행 결과가 저장된다. 다음 실행 때
-`Change since last run` 계산에 쓰이므로 커밋해 두면 주간 추이가 남는다.
+`data/seo/gsc_report.json`에 매 실행 결과가 저장되고, 다음 실행 때
+`Change since last run` 계산에 쓰인다. Actions가 자동 커밋한다.
