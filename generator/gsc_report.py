@@ -19,7 +19,9 @@ Usage:
     python -m generator.gsc_report --submit-sitemap   # resubmit sitemap too
     python -m generator.gsc_report --dry-run          # show the URL plan, no API calls
 
-Credentials (service account with the Search Console property added as a user):
+Credentials (a service account that is added as a Search Console property user):
+    In CI, none - Workload Identity Federation supplies Application Default
+    Credentials, so there is no key to leak. Locally, either:
     GSC_SA_KEY        raw service-account JSON, or
     GSC_SA_KEY_FILE   path to the service-account JSON file
     GSC_PROPERTY      property URL, default https://deadends.dev/
@@ -54,32 +56,52 @@ SCOPES = ["https://www.googleapis.com/auth/webmasters"]
 
 
 def load_credentials():
-    """Build service-account credentials from env, or exit with guidance."""
+    """Resolve credentials, or exit with guidance.
+
+    Order: explicit key material first, then Application Default Credentials.
+    ADC is how the keyless path works - in CI, GOOGLE_APPLICATION_CREDENTIALS
+    points at a Workload Identity Federation config rather than a key file, so
+    no long-lived secret exists anywhere. Service-account keys are supported
+    only as a local convenience; organizations often disable creating them
+    (iam.disableServiceAccountKeyCreation), which is why ADC is the default.
+    """
     raw = os.environ.get("GSC_SA_KEY")
     key_file = os.environ.get("GSC_SA_KEY_FILE")
 
-    if not raw and not key_file:
-        sys.exit(
-            "ERROR: no credentials. Set GSC_SA_KEY (raw JSON) or GSC_SA_KEY_FILE (path).\n"
-            "See docs/gsc-setup.md for the one-time setup."
-        )
-
-    try:
-        from google.oauth2 import service_account
-    except ImportError:
-        sys.exit('ERROR: missing dependency. Run: pip install -e ".[seo]"')
-
     if raw:
+        try:
+            from google.oauth2 import service_account
+        except ImportError:
+            sys.exit('ERROR: missing dependency. Run: pip install -e ".[seo]"')
         try:
             info = json.loads(raw)
         except json.JSONDecodeError as e:
             sys.exit(f"ERROR: GSC_SA_KEY is not valid JSON: {e}")
         return service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
 
-    path = Path(key_file)
-    if not path.exists():
-        sys.exit(f"ERROR: GSC_SA_KEY_FILE not found: {path}")
-    return service_account.Credentials.from_service_account_file(str(path), scopes=SCOPES)
+    if key_file:
+        try:
+            from google.oauth2 import service_account
+        except ImportError:
+            sys.exit('ERROR: missing dependency. Run: pip install -e ".[seo]"')
+        path = Path(key_file)
+        if not path.exists():
+            sys.exit(f"ERROR: GSC_SA_KEY_FILE not found: {path}")
+        return service_account.Credentials.from_service_account_file(str(path), scopes=SCOPES)
+
+    try:
+        import google.auth
+    except ImportError:
+        sys.exit('ERROR: missing dependency. Run: pip install -e ".[seo]"')
+    try:
+        credentials, _ = google.auth.default(scopes=SCOPES)
+    except Exception as e:  # noqa: BLE001 - surface the setup step, not a stack trace
+        sys.exit(
+            f"ERROR: no usable credentials ({str(e)[:160]}).\n"
+            "In CI this comes from Workload Identity Federation; locally set "
+            "GSC_SA_KEY_FILE. See docs/gsc-setup.md."
+        )
+    return credentials
 
 
 def build_service(credentials):
