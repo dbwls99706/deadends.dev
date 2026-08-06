@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/escribano-required-for-property-purchase/ar",
+  "url": "https://deadends.dev/legal/escribano-required-for-property-purchase/ar",
+  "error": {
+    "signature": "AI tells a foreigner buying property in Argentina that a lawyer (abogado) can draft and close the sale like in a common-law jurisdiction",
+    "regex": "(argentina.*(buy|purchase|close).*(property|real estate|house|apartment)|argentina.*notary|escribano.*argentina|argentina.*lawyer.*deed)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2015-08-01",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.95,
+    "confidence": 0.85,
+    "last_updated": "2026-08-06",
+    "summary": "Under Argentina's Código Civil y Comercial (art. 1017), any contract that transfers, creates, or extinguishes real rights over real estate must be executed by escritura pública — a public deed that only a matriculated escribano público (notary), not an abogado (lawyer) acting alone, is authorized to draft and register. A law degree does not confer this authority; the escribano must also be enrolled with the relevant provincial or city Colegio de Escribanos."
+  },
+  "dead_ends": [
+    {
+      "action": "Have a bilingual abogado (lawyer) draft the purchase contract and 'close' the property transfer directly",
+      "why_fails": "Article 1017 of the Código Civil y Comercial de la Nación requires an escritura pública for any contract that acquires, modifies, or extinguishes real rights over real estate. Only an escribano público matriculated with a Colegio de Escribanos may issue and register that deed — a licensed abogado who is not also a matriculated escribano cannot substitute, no matter how the private contract is worded.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.argentina.gob.ar/normativa/nacional/ley-26994-235975/actualizacion",
+        "https://www.rpba.gov.ar/files/Normas/Leyes/CCCN1017.pdf"
+      ],
+      "common_misconception": "In common-law countries a real-estate attorney typically handles closing directly, so foreign buyers assume the same professional can do it in Argentina."
+    },
+    {
+      "action": "Treat a private signed 'boleto de compraventa' (preliminary sale agreement) as equivalent to owning the property",
+      "why_fails": "A boleto is a valid preliminary contract but does not by itself transfer registrable title; only the escritura pública executed by the escribano, followed by registration at the Registro de la Propiedad Inmueble, perfects the transfer against third parties.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.colegio-escribanos.org.ar/2020/04/24/compraventa/"
+      ],
+      "condition": "Relying solely on the boleto without following through to escritura"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Engage a matriculated escribano público (via the relevant Colegio de Escribanos) to draft, execute, and register the escritura pública",
+      "success_rate": 0.95,
+      "how": "The escribano acts impartially between buyer and seller, verifies title and liens, collects applicable taxes, and registers the deed. A separate abogado can advise a buyer on strategy but does not replace the escribano for the deed itself.",
+      "sources": [
+        "https://www.colegio-escribanos.org.ar/2020/04/24/compraventa/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}
