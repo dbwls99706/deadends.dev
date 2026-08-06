@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreign-currency-carry-limits/et",
+  "url": "https://deadends.dev/banking/foreign-currency-carry-limits/et",
+  "error": {
+    "signature": "AI tells travelers Ethiopia still requires a customs cash-declaration form for foreign currency on arrival, or that Ethiopian birr can be carried in/out without limit",
+    "regex": "(ethiopia.*(currency|forex|birr|cash).*(declar|limit|carry|export)|declar.*(cash|currency).*ethiopia)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-07-29",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.65,
+    "last_updated": "2026-08-06",
+    "summary": "Ethiopia's foreign-exchange rules changed twice in 18 months. Since the National Bank of Ethiopia's July 2024 reform (Directive FXD/01/2024) and its February 2026 amendment (FXD/04/2026), travelers arriving with foreign cash no longer file a customs declaration and can convert freely at licensed Forex Bureaus, but outbound cash without prior NBE authorization is still capped (around US$5,000 for most travelers), and Ethiopian birr may not be carried across the border above the NBE-set limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Fill out (or tell a traveler to fill out) a customs currency declaration form for foreign cash on arrival in Ethiopia because older guides describe a declaration threshold",
+      "why_fails": "The National Bank of Ethiopia's February 2026 public notice (amending Directive FXD/01/2024 via FXD/04/2026) removed the arrival customs-declaration step: a person entering Ethiopia carrying foreign currency can convert it directly at an authorized Forex Bureau. Sources dated 2024, which describe a US$10,000 declaration threshold under the original FXD/01/2024, are describing a rule that has since been relaxed further.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://nbe.gov.et/nbe_news/public-notice-notice-on-relaxation-of-foreign-exchange-directives-fxd-01-2024/"
+      ],
+      "common_misconception": "Many 2024-era guides (written right after the first reform) still describe a US$10,000 arrival-declaration threshold that the 2026 amendment removed for arriving travelers."
+    },
+    {
+      "action": "Assume there is no cap on carrying foreign cash out of Ethiopia once you've converted or withdrawn it locally",
+      "why_fails": "Under NBE Directive FXD/01/2024 (effective 29 July 2024), a standard traveler may carry at most US$5,000 (or equivalent) in cash notes out of Ethiopia without prior NBE authorization; foreign-currency-account holders get a higher allowance (up to US$10,000 plus 10% of their account balance). Carrying more without authorization risks confiscation at departure.",
+      "fail_rate": 0.45,
+      "condition": "Departing Ethiopia with cash obtained locally",
+      "sources": [
+        "https://www.ey.com/en_gl/technical/tax-alerts/ethiopia-makes-major-changes-to-foreign-exchange-regime"
+      ]
+    },
+    {
+      "action": "Pack a large amount of Ethiopian birr to carry across the border",
+      "why_fails": "Ethiopian regulations prohibit entering or leaving Ethiopia with birr in excess of the amount fixed by the National Bank of Ethiopia; birr is not freely exportable the way it can be spent domestically.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.2merkato.com/articles/industry/871-foreign-exchange-regulations-and-directives-in-ethiopia"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Convert foreign cash at any NBE-licensed Forex Bureau after arrival instead of pre-declaring it",
+      "success_rate": 0.9,
+      "how": "Present your passport and entry stamp at a licensed bureau; as of the February 2026 NBE notice no customs declaration form is required to do this.",
+      "sources": [
+        "https://nbe.gov.et/nbe_news/public-notice-notice-on-relaxation-of-foreign-exchange-directives-fxd-01-2024/"
+      ]
+    },
+    {
+      "action": "Keep outbound cash you plan to carry under US$5,000, or get NBE authorization in advance if you need to carry more",
+      "success_rate": 0.85,
+      "how": "Foreign-currency-account holders can carry more (up to US$10,000 plus 10% of balance) by presenting account documentation at departure.",
+      "tradeoff": "Getting NBE authorization for amounts above the standard cap takes advance planning and is not something you can arrange at the airport.",
+      "sources": [
+        "https://www.ey.com/en_gl/technical/tax-alerts/ethiopia-makes-major-changes-to-foreign-exchange-regime"
+      ]
+    },
+    {
+      "action": "Check the current NBE directive before travel rather than relying on older blog posts",
+      "success_rate": 0.8,
+      "how": "NBE publishes directive amendments and public notices at nbe.gov.et; rules have changed twice since mid-2024.",
+      "sources": [
+        "https://www.2merkato.com/articles/industry/871-foreign-exchange-regulations-and-directives-in-ethiopia"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}

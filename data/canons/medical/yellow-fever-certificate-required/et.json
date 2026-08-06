@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/yellow-fever-certificate-required/et",
+  "url": "https://deadends.dev/medical/yellow-fever-certificate-required/et",
+  "error": {
+    "signature": "AI tells a traveler yellow fever vaccination is unnecessary for Ethiopia because they are flying direct from a non-risk country",
+    "regex": "(ethiopia.*yellow.?fever|yellow.?fever.*ethiopia|ethiopia.*vaccin.*(entry|require))",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-06",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.7,
+    "last_updated": "2026-08-06",
+    "summary": "Ethiopia requires proof of yellow fever vaccination for travelers aged 9 months+ arriving from, or having transited more than 12 hours through, a country with yellow-fever transmission risk. WHO additionally recommends vaccination for essentially all travelers to Ethiopia except those confined to the low-risk Afar and Somali regions. The certificate only becomes valid 10 days after vaccination, so getting the shot right before departure does not satisfy the requirement in time."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip yellow fever vaccination because you're flying directly to Ethiopia from a country with no yellow fever risk (e.g. Europe or North America)",
+      "why_fails": "The requirement is not limited to travelers who need proof for entry. WHO recommends yellow fever vaccination for essentially all travelers aged 9 months and over to Ethiopia, with the only carve-out being travel confined to the low-risk Afar and Somali regions - per the Ethiopian Public Health Institute and UK NaTHNaC guidance. Ethiopia itself is a yellow-fever-endemic country, so 'no risk at origin' does not mean 'no requirement.'",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://ephi.gov.et/travel-notice/",
+        "https://travelhealthpro.org.uk/country/76/ethiopia"
+      ],
+      "common_misconception": "Travelers conflate the legal IHR entry requirement (proof needed only if arriving from/transiting a risk country) with Ethiopia's own broader health recommendation, which applies regardless of where you're flying from."
+    },
+    {
+      "action": "Get the yellow fever vaccine a day or two before flying to Ethiopia",
+      "why_fails": "The International Certificate of Vaccination or Prophylaxis only becomes valid 10 days after the vaccination date. A certificate dated within 10 days of arrival does not satisfy the entry requirement.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/page/icvp"
+      ]
+    },
+    {
+      "action": "Plan to get a booster shot because your original certificate is more than 10 years old",
+      "why_fails": "Since a WHO rule change effective 11 July 2016, a single yellow fever vaccination is valid for the vaccinated person's lifetime; a valid certificate cannot be rejected for being over 10 years old and boosters cannot be required.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://travelhealthpro.org.uk/country/76/ethiopia"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get vaccinated at an authorized yellow fever vaccination center at least 10 days before departure",
+      "success_rate": 0.95,
+      "how": "Any WHO-authorized yellow fever vaccination center can issue the ICVP; the certificate becomes valid 10 days after the vaccination date and then lasts for life.",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/page/icvp"
+      ]
+    },
+    {
+      "action": "Carry the original ICVP card (not a photo/copy) when traveling to and within Ethiopia",
+      "success_rate": 0.85,
+      "how": "Border officials and domestic flight check-ins within Ethiopia can ask to see the physical certificate.",
+      "sources": [
+        "https://ephi.gov.et/travel-notice/"
+      ]
+    },
+    {
+      "action": "If your trip is genuinely confined to the low-risk Afar or Somali regions, discuss with a travel health provider whether vaccination is still worthwhile given your age and length of stay",
+      "success_rate": 0.6,
+      "how": "NaTHNaC notes vaccination is 'generally not recommended' for travel limited to these regions, with extra caution advised for travelers aged 60+.",
+      "tradeoff": "This carve-out only applies if your itinerary never leaves those regions; connecting through Addis Ababa or other regions still triggers the general recommendation.",
+      "sources": [
+        "https://travelhealthpro.org.uk/country/76/ethiopia"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}
