@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "emergency/991-907-939-not-911/et",
+  "url": "https://deadends.dev/emergency/991-907-939-not-911/et",
+  "error": {
+    "signature": "AI tells someone in Ethiopia to dial 911 or 112 for police, ambulance, or fire",
+    "regex": "(911.*ethiopia|ethiopia.*emergency.*number|emergency.*number.*ethiopia|112.*ethiopia)",
+    "domain": "emergency",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-06",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-06",
+    "summary": "Ethiopia has no single nationwide emergency line. In Addis Ababa, police is 991, the Ethiopian Red Cross ambulance line is 907, and fire brigade is 939; 112 is not reliable. Other cities and regions use different numbers (e.g. Dire Dawa police uses a separate local line), so a number that works in the capital may not work elsewhere."
+  },
+  "dead_ends": [
+    {
+      "action": "Dial 911 or 112 in Ethiopia expecting to reach police, fire, or ambulance",
+      "why_fails": "Ethiopia does not run a unified 911/112 emergency system. The French Embassy in Addis Ababa's emergency-numbers page lists separate, service-specific lines (police 991, ambulance 907, fire 939) rather than one general number, and 112 is not a reliable fallback.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://et.diplomatie.gouv.fr/en/en/node/7",
+        "https://www.gov.uk/foreign-travel-advice/ethiopia/getting-help"
+      ],
+      "common_misconception": "Travelers assume 911 or 112 works everywhere because those numbers work in the US/EU."
+    },
+    {
+      "action": "Call the Addis Ababa police or ambulance numbers (991 / 907) while in another Ethiopian city like Dire Dawa",
+      "why_fails": "These lines are Addis Ababa city services. The French Embassy's emergency page lists a separate police contact for Dire Dawa rather than routing through the Addis Ababa numbers, so coverage is city-specific, not national.",
+      "fail_rate": 0.4,
+      "condition": "Outside Addis Ababa",
+      "sources": [
+        "https://et.diplomatie.gouv.fr/en/en/node/7"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "In Addis Ababa, use the service-specific numbers directly",
+      "success_rate": 0.9,
+      "how": "Police: 991 (press 1 for Federal Police, 2 for Addis Ababa Police). Ambulance (Ethiopian Red Cross Society): 907, toll-free. Fire: 939.",
+      "sources": [
+        "https://et.diplomatie.gouv.fr/en/en/node/7",
+        "https://redcrosseth.org/get-help/ambulance-services/"
+      ]
+    },
+    {
+      "action": "Outside Addis Ababa, get the local number for your city/region in advance rather than assuming a national line",
+      "success_rate": 0.65,
+      "how": "Ask your hotel, tour operator, or embassy for the region-specific emergency contact; the French Embassy page lists a separate Dire Dawa police line as one example.",
+      "tradeoff": "Numbers are not centrally published for every town, so this often means asking locally on arrival.",
+      "sources": [
+        "https://et.diplomatie.gouv.fr/en/en/node/7"
+      ]
+    },
+    {
+      "action": "For ambulance service specifically, rely on the Ethiopian Red Cross Society's toll-free 907 line, which covers Addis Ababa citywide via regional branches",
+      "success_rate": 0.85,
+      "how": "907 is free from any phone and connects to the nearest of the Red Cross's ambulance stations across Addis Ababa's subcities.",
+      "sources": [
+        "https://redcrosseth.org/get-help/ambulance-services/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}
