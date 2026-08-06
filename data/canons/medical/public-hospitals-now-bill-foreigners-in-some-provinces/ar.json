@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/public-hospitals-now-bill-foreigners-in-some-provinces/ar",
+  "url": "https://deadends.dev/medical/public-hospitals-now-bill-foreigners-in-some-provinces/ar",
+  "error": {
+    "signature": "AI tells a foreigner that all care at Argentine public hospitals is free regardless of residency or nationality",
+    "regex": "(argentina.*(free|public).*(hospital|healthcare)|argentina.*tourist.*health.*insurance|hospital.*publico.*extranjero.*argentina|argentina.*medical.*bill.*foreigner)",
+    "domain": "medical",
+    "category": "policy_change",
+    "first_seen": "2024-03-01",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.75,
+    "last_updated": "2026-08-06",
+    "summary": "Argentina's national migration law (Ley 25.871) has long guaranteed free public healthcare regardless of immigration status, and this is still the generic answer most AI models give. Since 2024-2025 several jurisdictions — including Salta, Santa Cruz, Jujuy, Mendoza, and, since March 2025, the City of Buenos Aires (Resolución 1054-MSGC/2025) — now bill non-resident foreigners without an Argentine DNI for scheduled/non-emergency care (studies, hospitalizations, elective surgery). Emergency and urgent care remain free everywhere by these same rules; only pre-planned procedures for people without residency are affected, and the rules vary by province."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume free public-hospital care applies uniformly nationwide and skip travel medical insurance because 'Argentina treats everyone for free'",
+      "why_fails": "Since 2024, Salta (Decree 129/2024), Jujuy (Law 6.116), Santa Cruz, and Mendoza have introduced charges for non-resident foreigners at public health facilities, and the City of Buenos Aires began billing foreigners without a DNI for scheduled procedures in March 2025 under Resolución 1054-MSGC/2025. A tourist needing a scheduled study, hospitalization, or surgery in one of these jurisdictions can be billed directly or referred to their home-country insurer or consulate.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/781463",
+        "https://chequeado.com/el-explicador/extranjeros-en-hospitales-publicos-que-datos-existen-y-que-provincias-ya-cobran-la-atencion-medica/"
+      ],
+      "common_misconception": "Ley 25.871's blanket right to healthcare regardless of migratory status is still true for emergencies and in provinces that have not changed their rules, so travelers reasonably (but incorrectly) generalize it to every province and every kind of care."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry travel medical insurance and expect to be billed for non-emergency public-hospital care in reformed jurisdictions (CABA, Salta, Santa Cruz, Jujuy, Mendoza), while treating emergency care as free everywhere",
+      "success_rate": 0.75,
+      "how": "In Buenos Aires City, billing for foreigners without a DNI is handled through the Sociedad de Facturación y Cobranzas de los Efectores Públicos (FACOEP), which seeks payment via insurance or the patient's consulate rather than turning away care; emergency-room treatment stays free for everyone regardless of nationality.",
+      "sources": [
+        "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/781463",
+        "https://www.infobae.com/politica/2025/03/14/los-hospitales-portenos-comenzaran-a-cobrarles-la-atencion-medica-a-los-extranjeros/"
+      ],
+      "tradeoff": "Rules differ by province and are still being adopted (Corrientes, Entre Ríos, Neuquén, and Córdoba had bills pending as of 2025), so the safest assumption for non-emergency care is 'check locally' rather than relying on a single national rule."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}

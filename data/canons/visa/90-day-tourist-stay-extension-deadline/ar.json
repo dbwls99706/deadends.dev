@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/90-day-tourist-stay-extension-deadline/ar",
+  "url": "https://deadends.dev/visa/90-day-tourist-stay-extension-deadline/ar",
+  "error": {
+    "signature": "AI tells a tourist in Argentina they can extend their 90-day stay any time before departure, or that leaving and re-entering the country resets an overstay",
+    "regex": "(argentina.*(visa|stay).*extend|argentina.*overstay|argentina.*90.day|prorroga.*turista.*argentina|argentina.*tourist.*visa.*run)",
+    "domain": "visa",
+    "category": "immigration_deadline",
+    "first_seen": "2026-08-06",
+    "last_confirmed": "2026-08-06"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-06",
+    "summary": "Argentina admits most tourists visa-free for up to 90 days, extendable once for another ~90 days through Migraciones. The extension must be requested before the current period lapses (Migraciones' own guidance sets a window ending shortly before the 90th day); once the period has actually expired, the transitory residence 'cannot be extended.' An overstay instead produces a fine that must be paid before departure, and leaving and re-entering does not erase days already overstayed or waive the fine."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait until the 90 days are up (or already passed) before going to Migraciones to ask for an extension",
+      "why_fails": "Argentina's official migration service states that extension requests for the 'categoría transitoria' (tourist) must be filed before the permission expires; once it has expired, 'that residence cannot be extended.' Arriving after the deadline forecloses the extension route entirely — the only remaining option is paying an overstay fine and requesting exit authorization.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.argentina.gob.ar/prorroga-de-residencia-categoria-transitoria-turista",
+        "https://www.gov.uk/foreign-travel-advice/argentina/entry-requirements"
+      ],
+      "common_misconception": "Travel blogs often describe the extension as something you can casually do 'any time before you leave.' Argentina's own guidance frames it as a pre-expiry filing, not a pre-departure one."
+    },
+    {
+      "action": "Cross into Uruguay, Chile, or Brazil for a day and re-enter, assuming this 'resets the clock' and cancels a fine already owed for days already overstayed",
+      "why_fails": "Per guidance from the Spanish consulate in Buenos Aires, overstay fines in Argentina are substantial and must be settled before leaving the country; a border run does not retroactively erase days already spent past the authorized period, and an unpaid fine blocks re-entry until it is paid.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.exteriores.gob.es/Consulados/buenosaires/es/Comunicacion/Noticias/Paginas/Articulos/20181020_NOT1.aspx"
+      ],
+      "condition": "Overstay already accrued before the border run"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File the prórroga (extension) request with Dirección Nacional de Migraciones before the 90-day period ends, not after",
+      "success_rate": 0.85,
+      "how": "Bring your passport and a copy of the entry stamp to a Migraciones office (or start the process at migraciones.gob.ar / argentina.gob.ar) before day 90. A single extension of a further ~90 days is available for tourist ('transitoria') status.",
+      "sources": [
+        "https://www.argentina.gob.ar/prorroga-de-residencia-categoria-transitoria-turista"
+      ]
+    },
+    {
+      "action": "If the 90 days already lapsed, pay the overstay fine before flying or crossing out rather than trying to leave unpaid",
+      "success_rate": 0.9,
+      "how": "The fine is payable electronically or in cash at the exit checkpoint; leaving without paying it blocks re-entry to Argentina until it is settled.",
+      "sources": [
+        "https://www.exteriores.gob.es/Consulados/buenosaires/es/Comunicacion/Noticias/Paginas/Articulos/20181020_NOT1.aspx"
+      ],
+      "tradeoff": "Official sources describe the fine as substantial but do not publish a fixed schedule online; confirm the current amount with Migraciones or the airline before travel."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-06"
+  }
+}
