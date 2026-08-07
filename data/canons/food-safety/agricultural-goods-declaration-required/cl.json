@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/agricultural-goods-declaration-required/cl",
+  "url": "https://deadends.dev/food-safety/agricultural-goods-declaration-required/cl",
+  "error": {
+    "signature": "AI tells a traveler that small amounts of fruit, meat, dairy, or plant material don't need to be declared entering Chile",
+    "regex": "(chile.*declare.*food|sag.*declaration|chile.*customs.*fruit|chile.*bring.*fruit|chile.*airport.*food)",
+    "domain": "food-safety",
+    "category": "import_ban",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.8,
+    "last_updated": "2026-08-07",
+    "summary": "Chile's joint SAG-Customs declaration form requires disclosure of ALL products of plant or animal origin on entry, regardless of quantity or how long ago they were acquired. Checking \"nothing to declare\" while carrying such items, even a small amount, is treated as a false declaration and is punished more severely than declaring truthfully and having the item confiscated."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip declaring small personal-use amounts of fruit, meat, cheese, or plant material, assuming quantity or personal use exempts them",
+      "why_fails": "SAG's joint declaration form covers \"vegetales, animales, productos, subproductos y partes de origen vegetal o animal\" with no minimum-quantity or personal-use exemption; the obligation to declare applies regardless of how small the amount is or how long it has been held.",
+      "fail_rate": 0.85,
+      "common_misconception": "Travelers assume that only commercial-quantity shipments need declaring, or that snacks brought from the plane don't count.",
+      "sources": [
+        "https://www.sag.gob.cl/ambitos-de-accion/declaracion-jurada-sag-de-ingreso-chile",
+        "https://www.chile.gob.cl/viena/tramites/para-extranjeros/tramites-aduaneros-sag"
+      ]
+    },
+    {
+      "action": "Mark \"nothing to declare\" and conceal plant/animal items to avoid a delay at inspection",
+      "why_fails": "Concealing declarable items is treated as \"faltar a la verdad\" (falsifying the declaration) under D.L. 3557 art. 21 (as modified by Ley 20.161 and Ley 20.275), which carries a materially larger fine than truthfully declaring the same item and having it confiscated or inspected. SAG documented a 30 UTM (~1,377,000 CLP) fine against a traveler who hid eight blueberry plants in his pockets to bypass the X-ray line at Santiago's airport.",
+      "fail_rate": 0.8,
+      "condition": "Carrying any plant or animal product, however small, past the SAG/Customs checkpoint",
+      "sources": [
+        "https://www.sag.gob.cl/noticias/sag-multo-pasajero-con-30-utm-por-ingreso-ilegal-de-productos",
+        "https://www.chile.gob.cl/viena/tramites/para-extranjeros/tramites-aduaneros-sag"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare every plant, animal, or food-origin item on the joint SAG-Customs form, regardless of quantity",
+      "success_rate": 0.95,
+      "how": "Fill in the SAG/Customs sworn declaration (Declaración Jurada) truthfully for any item of plant or animal origin, including small personal amounts; SAG staff will confiscate genuinely prohibited items but declared travelers are not fined for the declaration itself.",
+      "sources": [
+        "https://www.sag.gob.cl/ambitos-de-accion/declaracion-jurada-sag-de-ingreso-chile"
+      ]
+    },
+    {
+      "action": "When unsure whether an item counts, ask SAG personnel before passing the checkpoint rather than guessing",
+      "success_rate": 0.9,
+      "how": "SAG's own guidance is: \"No declarar productos de riesgo... está asociado a sanciones y pago de multas\" — when in doubt, declare or ask an official.",
+      "sources": [
+        "https://www.sag.gob.cl/ambitos-de-accion/declaracion-jurada-sag-de-ingreso-chile"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}
