@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/voa-cancelled-evisa-mandatory/ng",
+  "url": "https://deadends.dev/visa/voa-cancelled-evisa-mandatory/ng",
+  "error": {
+    "signature": "AI tells a traveler Nigeria offers visa-on-arrival, or that an e-Visa payment receipt is enough to board",
+    "regex": "(nigeria.*visa.*(arrival|voa)|voa.*nigeria|nigeria.*e-?visa)",
+    "domain": "visa",
+    "category": "entry_requirement_barrier",
+    "first_seen": "2026-08-07",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-08-07",
+    "summary": "Nigeria discontinued Visa-on-Arrival on 1 May 2025 under the Nigeria Visa Policy 2025. All eligible travelers must now obtain e-Visa approval before departure; airlines check for the printed e-Visa Approval Letter (not the payment receipt) before boarding, and travelers without it are refused boarding or entry."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan to apply for a Nigerian visa on arrival at the airport, as was possible before 2025",
+      "why_fails": "Nigeria cancelled Visa-on-Arrival effective 1 May 2025 when the Nigeria Visa Policy 2025 took effect. There is no airport visa counter for eligible categories anymore; the e-Visa must be approved before departure.",
+      "fail_rate": 0.95,
+      "common_misconception": "Older travel guides and forum posts from before 2025 describe Nigeria as a VoA country; that information is now outdated.",
+      "sources": [
+        "https://immigration.gov.ng/?echo_kb_faq=how-do-i-apply-for-an-e-visa",
+        "https://www.visaverge.com/visa/nigeria-on-arrival-visa-a-guide-for-travelers-and-upcoming-changes/"
+      ]
+    },
+    {
+      "action": "Board the flight to Nigeria with only the e-Visa payment confirmation email, assuming it doubles as the approval",
+      "why_fails": "Airlines are required to check for the emailed e-Visa Approval Letter (with QR code and reference number) before boarding, not the earlier payment receipt. A fee payment without a subsequent approval notice does not satisfy the boarding check and can lead to denied boarding.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://immigration.gov.ng/?echo_kb_faq=how-do-i-receive-my-e-visa-once-approved",
+        "https://www.visaverge.com/visa/nigeria-on-arrival-visa-a-guide-for-travelers-and-upcoming-changes/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the e-Visa through the official Nigeria Immigration Service portal at least 2-4 weeks before travel.",
+      "success_rate": 0.85,
+      "how": "Register at evisa.immigration.gov.ng, complete the application and document upload, pay the fee, and wait for the emailed e-Visa Approval Letter (typically 24-48 hours, but plan for longer). Print the approval letter with its QR code and carry it, since airlines and port-of-entry officers check the letter, not the payment receipt.",
+      "sources": [
+        "https://immigration.gov.ng/",
+        "https://evisa.immigration.gov.ng/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}

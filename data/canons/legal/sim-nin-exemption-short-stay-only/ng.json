@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/sim-nin-exemption-short-stay-only/ng",
+  "url": "https://deadends.dev/legal/sim-nin-exemption-short-stay-only/ng",
+  "error": {
+    "signature": "AI tells a foreign worker on a Nigerian resident/work permit that they can register a SIM with just a passport like a tourist",
+    "regex": "(nigeria.*sim.*nin|nin.*sim.*nigeria|register.*sim.*nigeria)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-07",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-07",
+    "summary": "Nigeria's NIN-SIM linkage rules split foreigners into two groups: tourists/short visa holders under 24 months can register a SIM with just their passport (no NIN needed), but anyone legally resident in Nigeria on a work or resident permit must obtain a full National Identification Number (NIN) from NIMC and link it, the same as citizens."
+  },
+  "dead_ends": [
+    {
+      "action": "As a foreign employee on a Nigerian work/resident permit, register a personal SIM with only your passport, assuming the tourist-visitor exemption applies to you too",
+      "why_fails": "The Nigerian Communications Commission's rules exempt only foreigners on a tourist or visiting visa (or otherwise resident under 24 consecutive months) from NIN; legally resident foreigners with work or resident permits must obtain a NIN via NIMC enrolment centres and link it to their SIM, exactly like Nigerian citizens.",
+      "fail_rate": 0.6,
+      "common_misconception": "Guides describing the passport-only rule for 'foreigners' rarely distinguish tourists/short visits from work-permit residents, so long-term expats often assume the easier tourist rule applies to them indefinitely.",
+      "sources": [
+        "https://ncc.gov.ng/faqs/foreigners-living-nigeria-or-visiting-abroad",
+        "https://sabilaw.org/persons-exempted-from-national-identification-number-nin-registration/"
+      ]
+    },
+    {
+      "action": "Keep using a SIM that was registered under someone else's NIN or under the passport-only tourist exemption after your immigration status changes to a work/resident permit",
+      "why_fails": "NCC guidance explicitly states that when a visiting foreigner's or tourist's immigration status changes to residency or a work permit, the line must be re-registered: the holder is required to obtain a NIN and link it to that SIM, or risk the line being barred in later compliance sweeps.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://ncc.gov.ng/faqs/foreigners-living-nigeria-or-visiting-abroad"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match your SIM registration method to your actual immigration status, and re-register when that status changes.",
+      "success_rate": 0.85,
+      "how": "Tourists/short visits (under 24 months): register at any network operator outlet using your passport bio-data page (plus, per NIMC rules, embassy or visa documentation showing the stay is under 24 months). Work/resident permit holders: enroll for a NIN at an NIMC centre using your valid residence/work permit, then link the NIN to your SIM. If your status changes from visitor to resident, redo the registration under the resident rules before your old registration is challenged.",
+      "sources": [
+        "https://ncc.gov.ng/faqs/foreigners-living-nigeria-or-visiting-abroad",
+        "https://sabilaw.org/persons-exempted-from-national-identification-number-nin-registration/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}

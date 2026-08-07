@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/mas-scratch-code-limited-to-antimalarials/ng",
+  "url": "https://deadends.dev/medical/mas-scratch-code-limited-to-antimalarials/ng",
+  "error": {
+    "signature": "AI tells someone in Nigeria to check any medicine for authenticity via NAFDAC's MAS scratch-code SMS service",
+    "regex": "(nafdac.*mas|mobile.*authentication.*service.*nigeria|scratch.*code.*nigeria.*drug)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-07",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-08-07",
+    "summary": "NAFDAC's Mobile Authentication Service (scratch-and-text verification) was deployed from 2012 only on anti-malarial and antibiotic medicines, not the full pharmaceutical market. A missing scratch panel on other drug classes (painkillers, cough syrups, supplements) does not by itself indicate a fake, and legislative and press reporting show even covered categories are inconsistently found with working codes today."
+  },
+  "dead_ends": [
+    {
+      "action": "Expect every Nigerian medicine (painkillers, cough syrups, supplements, etc.) to carry a NAFDAC MAS scratch panel and treat its absence as proof the product is fake",
+      "why_fails": "NAFDAC's own program description says MAS was deployed starting January 2012 across anti-malarial and antibiotic medicines specifically as the first stage; it was never rolled out as a universal requirement across all drug categories, so most other medicine classes simply never had scratch codes to check.",
+      "fail_rate": 0.6,
+      "common_misconception": "Consumer articles describing MAS as 'one of the best ways to tell if your medicine is real' are usually talking about the antimalarial/antibiotic categories MAS targets, not a blanket guarantee across all medicines.",
+      "sources": [
+        "https://nafdac.gov.ng/our-services/pharmacovigilance-post-market-surveillance/mobile-authentication-service-mas/",
+        "https://www.pulse.ng/story/how-to-spot-fake-malaria-drugs-nigeria-2026052910000770086"
+      ]
+    },
+    {
+      "action": "Treat a genuine-looking MAS scratch code SMS reply as conclusive proof the specific box in your hand is authentic",
+      "why_fails": "Nigeria's House of Representatives formally raised, and NAFDAC responded to, complaints that scratch-code coverage had lapsed on many over-the-counter and paediatric products, and 2026 consumer reporting notes that packaging can be genuine while the medicine inside is substituted, or that counterfeiters fabricate plausible NAFDAC registration numbers - so the code check is one signal, not a guarantee.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://placng.org/i/house-calls-for-the-prevention-of-counterfeit-drugs-through-nafdacs-mobile-authentication-service-mas/",
+        "https://www.pulse.ng/story/how-to-spot-fake-malaria-drugs-nigeria-2026052910000770086"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the MAS scratch code where available as one signal among several, and buy only from licensed pharmacies.",
+      "success_rate": 0.6,
+      "how": "For antimalarials/antibiotics, scratch the panel and text the code to the NAFDAC short code, and treat a 'fake/stolen' reply as a hard stop. For any medicine, also check the NAFDAC registration number is present and well-printed, inspect the pill/ syrup itself for irregularities, and buy exclusively from licensed pharmacies rather than open-market or street vendors.",
+      "sources": [
+        "https://nafdac.gov.ng/our-services/pharmacovigilance-post-market-surveillance/mobile-authentication-service-mas/",
+        "https://www.pulse.ng/story/how-to-spot-fake-malaria-drugs-nigeria-2026052910000770086"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}

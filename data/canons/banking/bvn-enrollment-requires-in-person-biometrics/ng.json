@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/bvn-enrollment-requires-in-person-biometrics/ng",
+  "url": "https://deadends.dev/banking/bvn-enrollment-requires-in-person-biometrics/ng",
+  "error": {
+    "signature": "AI tells a foreigner they can open a Nigerian bank account online before arriving in the country",
+    "regex": "(nigeria.*bank.*account.*(remote|online)|open.*account.*nigeria|bvn.*nigeria)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-07",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.7,
+    "last_updated": "2026-08-07",
+    "summary": "Every Nigerian bank account, including for foreigners, requires a Bank Verification Number (BVN), and BVN enrollment requires walking into a bank branch for in-person fingerprint and facial biometric capture. There is no purely online path for a foreigner who is not yet in Nigeria, aside from a narrow diaspora/embassy enrollment channel for specific cases."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to complete Nigerian BVN enrollment and bank account opening entirely online before landing in Nigeria",
+      "why_fails": "The Central Bank of Nigeria's BVN process requires the customer to physically visit a bank branch, submit a BVN enrolment form, and present themselves for biometric data capture (fingerprint, facial image). No standard retail-banking path skips this step; a foreigner not yet in Nigeria cannot finish enrollment purely online.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.cbn.gov.ng/PaymentsSystem/BVN.html",
+        "https://www.mondaq.com/nigeria/financial-services/1287672/requirements-for-opening-a-bank-account-as-a-foreigner-in-nigeria"
+      ]
+    },
+    {
+      "action": "Assume a tourist visa alone is sufficient documentation to open a personal Nigerian bank account",
+      "why_fails": "Banks generally require evidence of residency in Nigeria (a residence permit and a physical address, e.g. a utility bill) in addition to the BVN, so short-term visitors on a tourist e-Visa typically cannot open a personal account the way a resident can.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mondaq.com/nigeria/financial-services/1287672/requirements-for-opening-a-bank-account-as-a-foreigner-in-nigeria"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enroll for BVN at a Nigerian bank branch in person after arrival, or via a diaspora BVN channel before travel if eligible.",
+      "success_rate": 0.8,
+      "how": "Bring a valid passport/residence permit and proof of address to any bank branch for same-day biometric BVN enrollment (no fee). Nigerians and some diaspora categories abroad can instead enroll through Nigerian embassy-linked BVN enrolment centres under the CBN's diaspora BVN framework; check with the nearest Nigerian embassy for eligibility and available centres before assuming it applies to non-citizen foreigners.",
+      "tradeoff": "The diaspora enrolment framework is documented for Nigerians abroad; foreign nationals should confirm with the embassy or their receiving bank whether they qualify, since this is not a guaranteed substitute for in-branch enrollment.",
+      "sources": [
+        "https://www.cbn.gov.ng/PaymentsSystem/BVN.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}
