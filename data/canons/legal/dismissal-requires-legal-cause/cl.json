@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/dismissal-requires-legal-cause/cl",
+  "url": "https://deadends.dev/legal/dismissal-requires-legal-cause/cl",
+  "error": {
+    "signature": "AI tells an employer in Chile they can fire a worker at-will with no cause and no severance, like in a US at-will state",
+    "regex": "(chile.*at.will.*employ|chile.*fire.*employee.*no cause|chile.*despido.*sin causa|chile.*terminate.*worker)",
+    "domain": "legal",
+    "category": "labor_law_violation",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-07",
+    "summary": "Chile has no at-will employment. A dismissal must invoke one of the specific causes in Código del Trabajo Art. 159-161, delivered in a written notice with defined content and timing; the \"necesidades de la empresa\" cause requires 30 days' notice (or pay in lieu) plus severance of at least 30 days' pay per year of service, capped at 330 days."
+  },
+  "dead_ends": [
+    {
+      "action": "Terminate a worker in Chile without citing any of the legal causes in the Labor Code, assuming employment is at-will",
+      "why_fails": "Chile's Dirección del Trabajo confirms dismissal requires invoking a specific cause under Art. 159 (contract expiry, mutual agreement, force majeure), Art. 160 (worker misconduct - no severance owed), or Art. 161 (business needs/desahucio - severance owed). A termination without a valid stated cause exposes the employer to an unjustified-dismissal claim before the labor inspection or courts, which the worker can file within 60 business days.",
+      "fail_rate": 0.85,
+      "common_misconception": "Employers familiar with U.S. at-will employment assume they can dismiss without stating a cause as long as notice is given.",
+      "sources": [
+        "https://dt.gob.cl/portal/1626/w3-article-96287.html",
+        "https://www.dt.gob.cl/portal/1628/w3-article-60543.html"
+      ]
+    },
+    {
+      "action": "Give a termination letter without the required content (legal cause, supporting facts, pension contribution status) or deliver it informally (verbally, by text/email)",
+      "why_fails": "The Dirección del Trabajo requires the notice to be in writing, delivered personally or by certified mail, and to include the legal cause and facts, compensation owed, and proof of pension contributions paid through the prior month; an informally delivered or incomplete notice does not meet the legal formalities for a valid termination.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.dt.gob.cl/portal/1628/w3-article-60543.html"
+      ]
+    },
+    {
+      "action": "Invoke \"necesidades de la empresa\" but skip the 30-day notice and severance payment",
+      "why_fails": "Art. 161 dismissals require either 30 days' advance written notice or one month's pay in lieu, plus severance of at least 30 days of the worker's last monthly pay per year of service (and fraction over six months), capped at 330 days for workers hired after August 14, 1981.",
+      "fail_rate": 0.75,
+      "condition": "Dismissal citing business needs (necesidades de la empresa) or desahucio",
+      "sources": [
+        "https://dt.gob.cl/portal/1626/w3-article-96287.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cite one of the specific causes in Art. 159-161 of the Código del Trabajo and follow its notice/severance requirements",
+      "success_rate": 0.88,
+      "how": "Choose the applicable cause (contract-related under 159, worker misconduct under 160, or business needs/desahucio under 161), deliver a written notice with the required content within 3 business days of separation (6 for force majeure), and pay any severance owed for Art. 161 causes.",
+      "sources": [
+        "https://dt.gob.cl/portal/1626/w3-article-96287.html"
+      ]
+    },
+    {
+      "action": "Budget for severance when using the business-needs cause: 30 days' last pay per year of service, capped at 330 days, plus 30 days' notice or pay in lieu",
+      "success_rate": 0.85,
+      "how": "This is the statutory floor for Art. 161 (necesidades de la empresa/desahucio) terminations per Dirección del Trabajo guidance; higher increases (50-80%) apply if a court later finds the true cause was employer misconduct under Art. 160 grounds instead.",
+      "sources": [
+        "https://dt.gob.cl/portal/1626/w3-article-96287.html",
+        "https://www.dt.gob.cl/portal/1628/w3-article-60579.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}
