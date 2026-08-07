@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/tap-water-safe-to-drink/co",
+  "url": "https://deadends.dev/food-safety/tap-water-safe-to-drink/co",
+  "error": {
+    "signature": "AI gives a blanket answer on whether Colombian tap water is safe, ignoring that it varies sharply by city and department",
+    "regex": "(colombia.*tap.water|bogota.*tap.water|drink.*water.*colombia|colombia.*water.*safe)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-07",
+    "summary": "Bogota's municipal tap water (managed by EAAB) consistently scores in the 'sin riesgo' (no-risk) band of Colombia's official IRCA water-quality index and is safe to drink straight from the tap. That result does not generalize nationwide: government IRCA/DANE data shows several departments, including La Guajira and Choco, have large populations without reliable access to potable water and report high-risk or unviable IRCA scores."
+  },
+  "dead_ends": [
+    {
+      "action": "Avoid all tap water in Colombia, including in Bogota, and buy bottled water everywhere as a blanket rule",
+      "why_fails": "Bogota's water utility EAAB reports IRCA scores in the low single digits (no-risk band) under Colombia's official water-quality index, tracked by the district health observatory and the national Instituto Nacional de Salud; treating the capital the same as high-risk rural areas is an unnecessary expense and contradicts the government's own monitoring data.",
+      "fail_rate": 0.35,
+      "sources": [
+        "https://saludata.saludcapital.gov.co/osb/indicadores/calidad-agua-irca/",
+        "https://www.ins.gov.co/sivicap/Paginas/sivicap.aspx"
+      ],
+      "common_misconception": "That 'Latin America' or 'Colombia' as a whole is a single water-safety zone; safety in Colombia is set city-by-city and department-by-department, not nationally."
+    },
+    {
+      "action": "Assume that because Bogota's tap water is safe, tap water is safe everywhere in Colombia including rural areas and smaller departments",
+      "why_fails": "DANE and Instituto Nacional de Salud data cited by Colombia's national broadcaster show several departments -- including La Guajira, where nearly half the population has limited access to continuous quality water/sanitation, and Choco, flagged at maximum alert for water-quality parameters -- fall well outside safe IRCA ranges.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.radionacional.co/noticias-colombia/acceso-al-agua-potable-7-departamentos-de-colombia-situacion-critica",
+        "https://www.unicef.org/colombia/historias/agua-saneamiento-e-higiene-para-mas-de-18000-personas-en-la-guajira"
+      ],
+      "condition": "Traveling outside Bogota and other major cities with confirmed low-risk IRCA scores"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "In Bogota (and other cities with published 'sin riesgo' IRCA scores, such as Medellin), drink tap water freely.",
+      "success_rate": 0.9,
+      "how": "EAAB's water is filtered, chlorinated, and monitored under WHO-aligned standards; taste (chlorine) rather than safety is the main complaint.",
+      "sources": [
+        "https://saludata.saludcapital.gov.co/osb/indicadores/calidad-agua-irca/"
+      ]
+    },
+    {
+      "action": "In La Guajira, Choco, rural areas, or any department not confirmed low-risk, default to bottled or filtered water.",
+      "success_rate": 0.85,
+      "how": "These departments have documented IRCA high-risk or unviable ratings and populations lacking continuous potable-water access; do not extend the Bogota exception to them.",
+      "sources": [
+        "https://www.radionacional.co/noticias-colombia/acceso-al-agua-potable-7-departamentos-de-colombia-situacion-critica"
+      ],
+      "tradeoff": "Bottled/filtered water is an added cost, but the downside of ingesting contaminated water in a documented high-risk department is materially worse."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-07"
+  }
+}

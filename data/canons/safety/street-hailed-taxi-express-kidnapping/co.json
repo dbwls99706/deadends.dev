@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/street-hailed-taxi-express-kidnapping/co",
+  "url": "https://deadends.dev/safety/street-hailed-taxi-express-kidnapping/co",
+  "error": {
+    "signature": "AI tells a traveler in Colombia it is fine to hail a taxi from the street like in most countries",
+    "regex": "(colombia.*taxi|bogota.*taxi|paseo.millonario|colombia.*express.kidnap|hail.*taxi.*colombia)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-07",
+    "summary": "Street-hailed taxis in Colombia are the primary vector for 'paseo millonario' (express-kidnapping) robberies, where armed accomplices join a hailed cab and force the passenger to withdraw cash at ATMs over several hours. The U.S. State Department's Colombia travel advisory instructs its own government employees never to hail a taxi from the street anywhere in Colombia and to use an app-booked ride (Uber, InDriver) for every trip instead."
+  },
+  "dead_ends": [
+    {
+      "action": "Hail a yellow taxi from the street outside a bar, club, or restaurant late at night, treating it like ordinary street-hail taxi use elsewhere",
+      "why_fails": "The U.S. State Department's Colombia travel advisory states its personnel are barred from hailing street taxis anywhere in the country because of express-kidnapping ('paseo millonario') risk, where accomplices enter the vehicle after pickup, and Bogota's own security secretariat has documented the pattern of targeting people leaving nightlife zones.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://travel.state.gov/en/international-travel/travel-advisories/colombia.html",
+        "https://thebogotapost.com/paseo-millionario-dont-be-taken-for-a-ride/54575/"
+      ],
+      "common_misconception": "That street taxis are risky only in a few 'bad' neighborhoods; official guidance treats street-hailing as a nationwide risk, not a localized one."
+    },
+    {
+      "action": "Judge a street taxi's safety by whether it looks like an official yellow cab",
+      "why_fails": "Reporting on paseo millonario patterns notes that vehicles used in these robberies are frequently registered yellow taxis with cosmetic red flags (covered plates, disabled locks, excessive tint) that a rushed passenger at night will not spot before getting in.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://thebogotapost.com/paseo-millionario-dont-be-taken-for-a-ride/54575/"
+      ],
+      "condition": "Judging safety by vehicle appearance rather than booking method"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Book every ride through an app (Uber, InDriver, Cabify) instead of hailing from the street.",
+      "success_rate": 0.9,
+      "how": "App bookings log the driver's identity, plate, and route in advance, which is the specific gap paseo millonario exploits in street-hailed rides.",
+      "sources": [
+        "https://travel.state.gov/en/international-travel/travel-advisories/colombia.html"
+      ]
+    },
+    {
+      "action": "Where an app is unavailable, call a taxi from a registered company by phone or use a hotel/restaurant-called cab rather than flagging one down.",
+      "success_rate": 0.75,
+      "how": "A dispatched taxi is tied to a company record, unlike an anonymous street hail.",
+      "sources": [
+        "https://thebogotapost.com/paseo-millionario-dont-be-taken-for-a-ride/54575/"
+      ],
+      "tradeoff": "Slower than flagging a cab, and coverage is weaker outside major cities."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}
