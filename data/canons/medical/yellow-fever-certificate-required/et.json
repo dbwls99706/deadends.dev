@@ -8,7 +8,7 @@
     "domain": "medical",
     "category": "administrative_barrier",
     "first_seen": "2026-08-06",
-    "last_confirmed": "2026-08-06"
+    "last_confirmed": "2026-08-07"
   },
   "environment": {
     "runtime": {
@@ -27,7 +27,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.7,
-    "last_updated": "2026-08-06",
+    "last_updated": "2026-08-07",
     "summary": "Ethiopia requires proof of yellow fever vaccination for travelers aged 9 months+ arriving from, or having transited more than 12 hours through, a country with yellow-fever transmission risk. WHO additionally recommends vaccination for essentially all travelers to Ethiopia except those confined to the low-risk Afar and Somali regions. The certificate only becomes valid 10 days after vaccination, so getting the shot right before departure does not satisfy the requirement in time."
   },
   "dead_ends": [
@@ -68,9 +68,10 @@
       ]
     },
     {
-      "action": "Carry the original ICVP card (not a photo/copy) when traveling to and within Ethiopia",
+      "action": "Carry proof of yellow fever vaccination (the ICVP certificate) when traveling to Ethiopia",
       "success_rate": 0.85,
-      "how": "Border officials and domestic flight check-ins within Ethiopia can ask to see the physical certificate.",
+      "how": "The Ethiopian Public Health Institute's travel notice requires arriving travelers to present proof of vaccination. Carrying the physical ICVP card, rather than relying only on a phone photo, is the safer default for avoiding disputes at entry, though EPHI's page does not itself specify original-vs-copy rules or whether domestic flights within Ethiopia check it.",
+      "tradeoff": "Specific enforcement details (original vs. copy, domestic-flight checks) are not documented on EPHI's page and can vary in practice.",
       "sources": [
         "https://ephi.gov.et/travel-notice/"
       ]
@@ -78,7 +79,7 @@
     {
       "action": "If your trip is genuinely confined to the low-risk Afar or Somali regions, discuss with a travel health provider whether vaccination is still worthwhile given your age and length of stay",
       "success_rate": 0.6,
-      "how": "NaTHNaC notes vaccination is 'generally not recommended' for travel limited to these regions, with extra caution advised for travelers aged 60+.",
+      "how": "NaTHNaC notes vaccination is 'generally not recommended' for travel limited to these regions, and states travelers aged 60+ should not be given the vaccine for travel confined to them, due to a higher risk of life-threatening side effects.",
       "tradeoff": "This carve-out only applies if your itinerary never leaves those regions; connecting through Addis Ababa or other regions still triggers the general recommendation.",
       "sources": [
         "https://travelhealthpro.org.uk/country/76/ethiopia"
@@ -95,6 +96,6 @@
     "generation_date": "2026-08-06",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-08-06"
+    "last_verification": "2026-08-07"
   }
 }

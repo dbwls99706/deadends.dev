@@ -8,7 +8,7 @@
     "domain": "emergency",
     "category": "wrong_emergency_number",
     "first_seen": "2026-08-06",
-    "last_confirmed": "2026-08-06"
+    "last_confirmed": "2026-08-07"
   },
   "environment": {
     "runtime": {
@@ -24,22 +24,33 @@
     }
   },
   "verdict": {
-    "resolvable": "true",
-    "fix_success_rate": 0.85,
-    "confidence": 0.7,
-    "last_updated": "2026-08-06",
-    "summary": "Ethiopia has no single nationwide emergency line. In Addis Ababa, police is 991, the Ethiopian Red Cross ambulance line is 907, and fire brigade is 939; 112 is not reliable. Other cities and regions use different numbers (e.g. Dire Dawa police uses a separate local line), so a number that works in the capital may not work elsewhere."
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.6,
+    "last_updated": "2026-08-07",
+    "summary": "Ethiopia has no single, universally confirmed emergency line. Official sources conflict on 911: the UK FCDO's Ethiopia travel advice lists '911' as the police/emergency number, but the French Embassy's dedicated emergency-numbers page for Ethiopia does not mention 911 at all and instead lists only service-specific lines for Addis Ababa (police 991, Red Cross ambulance 907, fire 939). 112 is not documented as working by any source consulted. Other cities and regions use different numbers again (e.g. Dire Dawa police uses a separate local line), so the safest advice is to lead with the confirmed service-specific Addis Ababa numbers and treat 911 as an unconfirmed secondary option rather than a guaranteed line."
   },
   "dead_ends": [
     {
-      "action": "Dial 911 or 112 in Ethiopia expecting to reach police, fire, or ambulance",
-      "why_fails": "Ethiopia does not run a unified 911/112 emergency system. The French Embassy in Addis Ababa's emergency-numbers page lists separate, service-specific lines (police 991, ambulance 907, fire 939) rather than one general number, and 112 is not a reliable fallback.",
+      "action": "Assume 112 works as a fallback emergency number in Ethiopia",
+      "why_fails": "112 does not appear in any official source consulted for Ethiopia - not the French Embassy's dedicated emergency-numbers page, nor the UK FCDO's travel advice. It is a European/GSM-standard number, not one either mission documents for this country.",
       "fail_rate": 0.8,
       "sources": [
         "https://et.diplomatie.gouv.fr/en/en/node/7",
         "https://www.gov.uk/foreign-travel-advice/ethiopia/getting-help"
       ],
-      "common_misconception": "Travelers assume 911 or 112 works everywhere because those numbers work in the US/EU."
+      "common_misconception": "Travelers assume 112 works everywhere because it does across the EU."
+    },
+    {
+      "action": "Treat 911 as a guaranteed, nationwide number for police, fire, or ambulance in Ethiopia",
+      "why_fails": "Official sources disagree. The UK FCDO's Ethiopia travel advice lists '911' as the police/emergency number. The French Embassy's dedicated emergency-numbers page for Ethiopia, by contrast, does not mention 911 at all and lists only service-specific lines for Addis Ababa (police 991, Red Cross ambulance 907, fire 939). Given this direct conflict between two current official sources, 911 should not be treated as confirmed or reliable, especially outside Addis Ababa or for fire/ambulance rather than police.",
+      "fail_rate": 0.4,
+      "condition": "Especially outside Addis Ababa, or when trying to reach fire/ambulance rather than police",
+      "sources": [
+        "https://et.diplomatie.gouv.fr/en/en/node/7",
+        "https://www.gov.uk/foreign-travel-advice/ethiopia/getting-help"
+      ],
+      "common_misconception": "Because a government travel-advisory page (UK FCDO) lists 911, it's easy to assume that settles it - but it directly conflicts with the French Embassy's dedicated emergency-numbers page, which lists no such number."
     },
     {
       "action": "Call the Addis Ababa police or ambulance numbers (991 / 907) while in another Ethiopian city like Dire Dawa",
@@ -55,7 +66,7 @@
     {
       "action": "In Addis Ababa, use the service-specific numbers directly",
       "success_rate": 0.9,
-      "how": "Police: 991 (press 1 for Federal Police, 2 for Addis Ababa Police). Ambulance (Ethiopian Red Cross Society): 907, toll-free. Fire: 939.",
+      "how": "Police: 991 (press 1 for Federal Police, 2 for Addis Ababa Police). Ambulance (Ethiopian Red Cross Society): 907, toll-free. Fire: 939. These are the only numbers the French Embassy's dedicated emergency page documents, and they are corroborated by the Red Cross's own site. If none of them connect, UK FCDO guidance separately lists 911 as a police/emergency line, though no other source consulted confirms it.",
       "sources": [
         "https://et.diplomatie.gouv.fr/en/en/node/7",
         "https://redcrosseth.org/get-help/ambulance-services/"
@@ -89,6 +100,6 @@
     "generation_date": "2026-08-06",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-08-06"
+    "last_verification": "2026-08-07"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "visa",
     "category": "immigration_deadline",
     "first_seen": "2026-08-06",
-    "last_confirmed": "2026-08-06"
+    "last_confirmed": "2026-08-07"
   },
   "environment": {
     "runtime": {
@@ -25,25 +25,25 @@
   },
   "verdict": {
     "resolvable": "true",
-    "fix_success_rate": 0.85,
-    "confidence": 0.8,
-    "last_updated": "2026-08-06",
-    "summary": "Argentina admits most tourists visa-free for up to 90 days, extendable once for another ~90 days through Migraciones. The extension must be requested before the current period lapses (Migraciones' own guidance sets a window ending shortly before the 90th day); once the period has actually expired, the transitory residence 'cannot be extended.' An overstay instead produces a fine that must be paid before departure, and leaving and re-entering does not erase days already overstayed or waive the fine."
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-07",
+    "summary": "Argentina admits most tourists visa-free for up to 90 days, extendable once for another ~90 days through Migraciones. Migraciones' own FAQ sets the filing window at within the ten (10) days before the 'residencia transitoria' expires, and does not describe a route for requesting the extension after that window has passed. An overstay instead produces a fine; per Spanish consulate guidance, the amounts owed must be paid before the traveler is able to leave the country, and leaving and re-entering does not erase days already overstayed or waive the fine."
   },
   "dead_ends": [
     {
       "action": "Wait until the 90 days are up (or already passed) before going to Migraciones to ask for an extension",
-      "why_fails": "Argentina's official migration service states that extension requests for the 'categoría transitoria' (tourist) must be filed before the permission expires; once it has expired, 'that residence cannot be extended.' Arriving after the deadline forecloses the extension route entirely — the only remaining option is paying an overstay fine and requesting exit authorization.",
-      "fail_rate": 0.85,
+      "why_fails": "Argentina's official migration service states that requests for extension of a 'residencia transitoria' (tourist) must be filed within the ten (10) days before the current permission expires. Its published guidance does not describe a process for requesting the extension after that window has passed, so travelers should not assume the extension route stays open once the 90 days are gone.",
+      "fail_rate": 0.8,
       "sources": [
-        "https://www.argentina.gob.ar/prorroga-de-residencia-categoria-transitoria-turista",
+        "https://www.argentina.gob.ar/interior/migraciones/preguntas-frecuentes-residencias",
         "https://www.gov.uk/foreign-travel-advice/argentina/entry-requirements"
       ],
-      "common_misconception": "Travel blogs often describe the extension as something you can casually do 'any time before you leave.' Argentina's own guidance frames it as a pre-expiry filing, not a pre-departure one."
+      "common_misconception": "Travel blogs often describe the extension as something you can casually do 'any time before you leave.' Argentina's own guidance frames it as a filing window ending shortly before expiry, not a pre-departure one."
     },
     {
       "action": "Cross into Uruguay, Chile, or Brazil for a day and re-enter, assuming this 'resets the clock' and cancels a fine already owed for days already overstayed",
-      "why_fails": "Per guidance from the Spanish consulate in Buenos Aires, overstay fines in Argentina are substantial and must be settled before leaving the country; a border run does not retroactively erase days already spent past the authorized period, and an unpaid fine blocks re-entry until it is paid.",
+      "why_fails": "Per guidance from the Spanish consulate in Buenos Aires, Argentine authorities have raised overstay fines, and the amounts owed must be paid before the traveler is able to leave the country. A border run does not retroactively erase days already spent past the authorized period, or the fine already accrued for them.",
       "fail_rate": 0.7,
       "sources": [
         "https://www.exteriores.gob.es/Consulados/buenosaires/es/Comunicacion/Noticias/Paginas/Articulos/20181020_NOT1.aspx"
@@ -55,15 +55,15 @@
     {
       "action": "File the prórroga (extension) request with Dirección Nacional de Migraciones before the 90-day period ends, not after",
       "success_rate": 0.85,
-      "how": "Bring your passport and a copy of the entry stamp to a Migraciones office (or start the process at migraciones.gob.ar / argentina.gob.ar) before day 90. A single extension of a further ~90 days is available for tourist ('transitoria') status.",
+      "how": "Bring your passport and a copy of the entry stamp to a Migraciones office (or start the process at migraciones.gob.ar / argentina.gob.ar) before day 90, and within the ten days immediately before the transitoria expires. A single extension of a further ~90 days is available for tourist ('transitoria') status.",
       "sources": [
-        "https://www.argentina.gob.ar/prorroga-de-residencia-categoria-transitoria-turista"
+        "https://www.argentina.gob.ar/interior/migraciones/preguntas-frecuentes-residencias"
       ]
     },
     {
       "action": "If the 90 days already lapsed, pay the overstay fine before flying or crossing out rather than trying to leave unpaid",
       "success_rate": 0.9,
-      "how": "The fine is payable electronically or in cash at the exit checkpoint; leaving without paying it blocks re-entry to Argentina until it is settled.",
+      "how": "The fine is payable electronically or in cash. Spanish consulate guidance is explicit that the amounts owed must be paid before you are able to leave the country - budget time at the exit checkpoint for this.",
       "sources": [
         "https://www.exteriores.gob.es/Consulados/buenosaires/es/Comunicacion/Noticias/Paginas/Articulos/20181020_NOT1.aspx"
       ],
@@ -80,6 +80,6 @@
     "generation_date": "2026-08-06",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-08-06"
+    "last_verification": "2026-08-07"
   }
 }
