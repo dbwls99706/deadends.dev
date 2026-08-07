@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/90-day-tourist-stay-extension-deadline/co",
+  "url": "https://deadends.dev/visa/90-day-tourist-stay-extension-deadline/co",
+  "error": {
+    "signature": "AI tells a tourist in Colombia that leaving and re-entering resets their 90-day PIP or the 180-day annual limit",
+    "regex": "(colombia.*(90|180).day|colombia.*pip|permiso.*ingreso.*permanencia|colombia.*visa.*run|colombia.*overstay)",
+    "domain": "visa",
+    "category": "immigration_deadline",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-07",
+    "summary": "Colombia admits most visa-exempt nationalities for up to 90 consecutive days per entry (the Permiso de Ingreso y Permanencia, PIP), extendable once for another 90 days via a Permiso Temporal de Permanencia (PTP) requested at least 5 business days before the PIP expires. The combined total cannot exceed 180 days, continuous or discontinuous, within the same calendar year (Jan 1-Dec 31) -- leaving and re-entering does not reset that annual cap, only the per-entry 90-day PIP count."
+  },
+  "dead_ends": [
+    {
+      "action": "Leave Colombia for a day near day 90 or day 180 and re-enter, assuming the annual clock resets",
+      "why_fails": "Migracion Colombia's own PIP guidance caps the stay at 90 days per entry, extendable once via PTP, for a combined maximum of 180 days per calendar year -- and multiple immigration-law summaries of that rule describe the 180-day cap as applying to 'continuous or discontinuous' days within the same Jan 1-Dec 31 window. A border run resets the 90-day per-entry PIP but not the 180-day annual total.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.migracioncolombia.gov.co/tema/permiso-de-ingreso-y-permanencia-pip",
+        "https://www.capitaleme.com/en/guides/tourism-permit-extension-en-es"
+      ],
+      "common_misconception": "Travelers assume Colombia works like a Schengen-style 'exit and the clock restarts' visa run, when the 180-day figure is an annual calendar-year cap, not a rolling per-entry window."
+    },
+    {
+      "action": "Wait until the PIP has already expired before applying for the PTP extension",
+      "why_fails": "The extension (Permiso Temporal de Permanencia) must be requested within the 5 business days before the current PIP expires; once the permit has lapsed the online extension route is not available and the traveler is in overstay, which Migracion Colombia treats as a separate sanction process.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.migracioncolombia.gov.co/tema/permiso-de-ingreso-y-permanencia-pip",
+        "https://www.capitaleme.com/en/guides/tourism-permit-extension-en-es"
+      ],
+      "condition": "Extension requested after the PIP's listed expiry date"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Track your cumulative Colombia days for the calendar year, not just the current entry stamp",
+      "success_rate": 0.85,
+      "how": "The entry stamp shows the PIP's expiry for this visit, but the number that matters for avoiding overstay is the running total of days spent in Colombia since Jan 1. Add up every entry that year.",
+      "sources": [
+        "https://www.migracioncolombia.gov.co/tema/permiso-de-ingreso-y-permanencia-pip"
+      ]
+    },
+    {
+      "action": "File the PTP extension online through the Migracion Colombia portal at least 5 business days before the PIP's printed expiry date",
+      "success_rate": 0.85,
+      "how": "The PTP grants a single extension of up to 90 more days, still bounded by the 180-day annual cap; it typically requires proof of onward travel and a processing fee.",
+      "sources": [
+        "https://www.migracioncolombia.gov.co/tema/permiso-de-ingreso-y-permanencia-pip"
+      ],
+      "tradeoff": "The extension does not create extra days beyond the 180-day annual total -- it only lets you use the remaining balance without leaving the country."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}

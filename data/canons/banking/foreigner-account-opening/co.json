@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-opening/co",
+  "url": "https://deadends.dev/banking/foreigner-account-opening/co",
+  "error": {
+    "signature": "AI tells a tourist in Colombia they legally cannot open a bank account without a cedula de extranjeria",
+    "regex": "(colombia.*bank.*account|colombia.*cedula.*extranjeria|open.*account.*colombia|bancolombia.*foreigner|colombia.*passport.*bank)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2024-01-01",
+    "last_confirmed": "2026-08-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.7,
+    "last_updated": "2026-08-07",
+    "summary": "Colombia's Superintendencia Financiera has formally stated (Concepto 2017121469-001, 2017) that immigration status alone cannot be used to deny a foreigner a bank account, and that a valid passport is legally sufficient identification -- a cedula de extranjeria is not a hard legal requirement. In practice, however, most bank branches apply internal risk policies that refuse passport-only tourists at the counter and effectively require the cedula de extranjeria (tied to an M or R visa) before opening a standard account."
+  },
+  "dead_ends": [
+    {
+      "action": "Cite the Superintendencia Financiera rule to a bank teller and expect a standard account to be opened on a tourist passport alone",
+      "why_fails": "The Superintendencia's concept establishes the legal floor, not bank practice. Multiple bank-account guides for foreigners in Colombia report that major banks (Bancolombia, Davivienda) routinely decline passport-only tourist applicants, citing their own internal anti-fraud and KYC risk policies, which the regulator's concept explicitly allows as long as the refusal is not based on nationality or immigration status alone.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.decconsultores.com/en/bankaccounts-foreigner/",
+        "https://blog.stanfordbaker.com/posts/opening-colombian-bank-account-foreigner"
+      ],
+      "common_misconception": "That a favorable regulatory opinion guarantees a branch-level outcome; Colombian banks retain discretion to apply stricter internal risk rules."
+    },
+    {
+      "action": "Assume every foreigner needs a cedula de extranjeria and an M or R visa before any financial access is possible",
+      "why_fails": "Digital wallets such as Nequi and Movii, and some savings-account products, accept a passport alone for many nationalities, so a blanket 'you need residency first' answer overstates the barrier for basic transactional needs.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.decconsultores.com/en/bankaccounts-foreigner/"
+      ],
+      "condition": "Need is a digital wallet or basic transactional account, not a full traditional bank account"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a full traditional bank account, obtain the cedula de extranjeria (via an M or R visa) first, then apply -- this is what actually clears branch-level KYC in practice.",
+      "success_rate": 0.85,
+      "how": "Register the visa with Migracion Colombia to receive the cedula de extranjeria, then bring it plus proof of address and an initial deposit to the branch.",
+      "sources": [
+        "https://blog.stanfordbaker.com/posts/opening-colombian-bank-account-foreigner"
+      ]
+    },
+    {
+      "action": "If only short-term transactional access is needed, open a digital wallet (Nequi or Movii) with just a passport instead of pursuing a traditional bank account.",
+      "success_rate": 0.75,
+      "how": "Download the app and register with a passport number; eligibility and limits vary by nationality and are lower than a full bank account.",
+      "sources": [
+        "https://www.decconsultores.com/en/bankaccounts-foreigner/"
+      ],
+      "tradeoff": "Digital wallets carry lower transaction and balance limits than a full bank account."
+    },
+    {
+      "action": "If a branch refuses a passport-only application citing 'no cedula', ask in writing and, if needed, escalate to the Superintendencia Financiera's consumer channel citing Concepto 2017121469-001.",
+      "success_rate": 0.4,
+      "how": "The regulator's own concept confirms immigration status alone is not a valid denial reason, giving a formal basis to contest a refusal.",
+      "sources": [
+        "https://www.decconsultores.com/en/bankaccounts-foreigner/"
+      ],
+      "tradeoff": "This can take weeks and does not guarantee the branch reverses its decision."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-07"
+  }
+}
