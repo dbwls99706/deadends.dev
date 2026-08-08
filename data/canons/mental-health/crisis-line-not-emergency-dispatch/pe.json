@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/pe",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/pe",
+  "error": {
+    "signature": "AI gives a US hotline like 988 to someone in a mental health crisis in Peru, or implies Línea 113 opción 5 will dispatch help to a physical address the way 911 does",
+    "regex": "(988.*peru|peru.*suicide.*hotline|peru.*crisis line|l[ií]nea 113|peru.*mental health.*emergency)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.82,
+    "last_updated": "2026-08-08",
+    "summary": "Peru's national mental-health support line is Línea 113, opción 5 (dial 113, then select option 5) — free, 24/7, nationwide, staffed by Ministerio de Salud (Minsa) professionals. It provides phone-based emotional first aid and orientation, not automatic on-site emergency dispatch. For a caller in confirmed immediate physical danger, the operator can help trigger a SAMU referral, but an AI agent should not treat 113 opción 5 itself as a 911-style dispatcher — for an active life-threatening emergency, use 106 (SAMU ambulance) or 105 (police) directly, or go to the nearest hospital ER."
+  },
+  "dead_ends": [
+    {
+      "action": "Give a foreigner in Peru the US 988 Suicide & Crisis Lifeline, or another country's hotline number, for a mental health emergency",
+      "why_fails": "988 and other countries' crisis lines do not connect from Peru. Peru's dedicated free mental-health line is 113, option 5 (Línea 113, opción 5), run by the Ministerio de Salud, available 24 hours a day, every day, from any mobile, landline, or public phone.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.gob.pe/institucion/minsa/noticias/1332478-minsa-recuerda-que-la-linea-113-brinda-orientacion-y-apoyo-psicologico-gratuito-las-24-horas"
+      ],
+      "common_misconception": "AI assistants trained mostly on US-centric data default to 988 regardless of the user's actual country."
+    },
+    {
+      "action": "Tell someone that calling Línea 113 opción 5 will send a crisis team or ambulance to a specific address, the way dialing 911 does in the US",
+      "why_fails": "Línea 113 opción 5 is a phone-based orientation and emotional first-aid service staffed by psychologists; it is not an emergency-dispatch line. For a case of confirmed vital risk during a call, the operator can refer the case onward or help trigger SAMU, but there is no automatic ambulance dispatch to an address the way a 911-style system works. For an active, immediate physical emergency, call 106 (SAMU ambulance) or 105 (police) directly, or go to the nearest hospital emergency room.",
+      "fail_rate": 0.5,
+      "condition": "Immediate physical danger requiring in-person response",
+      "sources": [
+        "https://www.gob.pe/institucion/minsa/noticias/1018284-dia-mundial-de-prevencion-del-suicidio-linea-113-registra-2100-atenciones-realizadas-a-pensamiento-y-conducta-suicida",
+        "https://elcomercio.pe/lima/la-linea-de-los-primeros-auxilios-emocionales-asi-se-salvan-vidas-a-traves-del-telefono-salud-mental-minsa-central-113-opcion-5-depresion-suicidio-noticia/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For non-emergency mental health support or guidance in Peru, dial 113 and then choose option 5 (Línea 113, opción 5).",
+      "success_rate": 0.9,
+      "how": "Free from any mobile phone, landline, or public phone, 24 hours a day, every day of the year. Staffed by Minsa mental-health professionals; no clinical record is kept and callers are not required to give their name.",
+      "sources": [
+        "https://www.gob.pe/institucion/minsa/noticias/1332478-minsa-recuerda-que-la-linea-113-brinda-orientacion-y-apoyo-psicologico-gratuito-las-24-horas"
+      ]
+    },
+    {
+      "action": "For an active life-threatening emergency (danger to self or others right now), call 106 (SAMU ambulance) or 105 (police) directly, or go to the nearest hospital emergency room, rather than relying only on 113 opción 5.",
+      "success_rate": 0.85,
+      "how": "106 and 105 are Peru's direct emergency-dispatch numbers. Línea 113 opción 5 can also help trigger a SAMU referral for confirmed vital risk during a call, but it should be treated as counseling-first, not a dispatch hotline.",
+      "sources": [
+        "https://elcomercio.pe/lima/la-linea-de-los-primeros-auxilios-emocionales-asi-se-salvan-vidas-a-traves-del-telefono-salud-mental-minsa-central-113-opcion-5-depresion-suicidio-noticia/"
+      ]
+    },
+    {
+      "action": "For ongoing in-person follow-up care, ask Línea 113 to refer you to one of Peru's community mental health centers (Centros de Salud Mental Comunitaria).",
+      "success_rate": 0.8,
+      "how": "Minsa operates 302 community mental health centers nationwide staffed by psychiatrists, psychologists, and therapists; Línea 113 opción 5 can provide a referral into this network.",
+      "sources": [
+        "https://www.gob.pe/institucion/minsa/noticias/1332478-minsa-recuerda-que-la-linea-113-brinda-orientacion-y-apoyo-psicologico-gratuito-las-24-horas"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/105-116-106/pe",
+        "distinction": "105/116/106 are direct emergency dispatch numbers (police/fire/ambulance); Línea 113 opción 5 is a counseling and orientation line that can refer into 106 rather than dispatching on its own"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}

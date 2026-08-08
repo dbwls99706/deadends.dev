@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-opening/pe",
+  "url": "https://deadends.dev/banking/foreigner-account-opening/pe",
+  "error": {
+    "signature": "AI tells a foreigner in Peru they can now open a standard bank account with just a passport, citing the 2025 SBS rule change",
+    "regex": "(peru.*bank.*account.*foreigner|carn[eé] de extranjer[ií]a|sbs.*cuenta b[aá]sica|open.*bank.*account.*peru|bcp.*passport.*account)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.75,
+    "last_updated": "2026-08-08",
+    "summary": "As of 16 June 2025 (SBS Resolución N.° 00908-2025), foreigners in Peru can open a 'cuenta básica' (basic savings account, subject to capped daily/monthly deposits and withdrawals) or a simplified e-money account using a passport, foreign ID card, or other government-recognized document — not only the carné de extranjería. But this expanded document list applies only to that limited-purpose account tier, not to standard checking/savings accounts at commercial banks (BCP, BBVA, Interbank, Scotiabank), which still require a carné de extranjería tied to an approved residency status."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a short-term tourist in Peru they can walk into a major bank (BCP, BBVA, Interbank) and open a regular savings account with just a passport, citing the 2025 SBS rule",
+      "why_fails": "SBS Resolución N.° 00908-2025 (in force 16 June 2025) only modified the identification rules for 'cuentas básicas' and simplified electronic-money accounts — a capped, limited-purpose product tier created for financial-inclusion purposes. It did not remove the carné de extranjería requirement for standard commercial bank accounts, which most retail banks still enforce as part of their own KYC policy.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.elperuano.pe/noticia/266433-desde-junio-2025-extranjeros-podran-abrir-cuentas-con-mas-documentos-conoce-la-nueva-norma-sbs",
+        "https://larepublica.pe/economia/2025/03/18/sbs-permitira-a-extranjeros-abrir-una-cuenta-especial-de-ahorro-en-peru-con-estos-documentos-en-2025-no-solo-sera-el-carnet-de-extranjeria-atmp-286362"
+      ],
+      "common_misconception": "Headlines summarized the rule as 'foreigners can open bank accounts with more documents,' which reads as a general change, but the underlying resolution is scoped to the basic-account and e-money product tier only."
+    },
+    {
+      "action": "Recommend that a tourist just go get a carné de extranjería quickly as a workaround for the account-opening barrier",
+      "why_fails": "The carné de extranjería is issued only after Migraciones has already approved a foreigner's resident migratory status (e.g. worker, investor, family residence). It is not obtainable on a short tourist stay, so it cannot function as a quick fix for someone without an existing residency process underway.",
+      "fail_rate": 0.6,
+      "condition": "Advising a tourist rather than an established resident applicant",
+      "sources": [
+        "https://nvcabogados.com/banking-in-peru/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For short-term transactional needs, open a 'cuenta básica' (basic account) or simplified e-money account, which accepts a passport or other recognized ID under the June 2025 SBS rule.",
+      "success_rate": 0.7,
+      "how": "Present a passport, foreign national ID card, or other officially recognized identification at a participating bank branch, an agente corresponsal (bodega, pharmacy, etc.), or through the entity's digital app; the entity may verify identity via RENIEC, Migraciones, or the Ministerio de Relaciones Exteriores.",
+      "tradeoff": "Basic accounts carry capped daily and monthly deposit/withdrawal limits designed to prevent misuse; they are not a substitute for a full-featured account.",
+      "sources": [
+        "https://www.elperuano.pe/noticia/266433-desde-junio-2025-extranjeros-podran-abrir-cuentas-con-mas-documentos-conoce-la-nueva-norma-sbs"
+      ]
+    },
+    {
+      "action": "For a full/standard bank account, obtain an approved resident migratory status and carné de extranjería first, then apply with proof of address.",
+      "success_rate": 0.85,
+      "how": "Register the approved calidad migratoria with Migraciones to receive the carné de extranjería, then bring it plus a utility bill or lease and an opening deposit to the bank branch.",
+      "sources": [
+        "https://nvcabogados.com/banking-in-peru/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "visa/tourist-extension-andean-community-only/pe",
+        "probability": 0.3,
+        "condition": "User needs a resident visa/carné de extranjería to unlock a full bank account"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}

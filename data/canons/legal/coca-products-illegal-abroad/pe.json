@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/coca-products-illegal-abroad/pe",
+  "url": "https://deadends.dev/legal/coca-products-illegal-abroad/pe",
+  "error": {
+    "signature": "AI tells a tourist in Peru that mate de coca (coca tea) or coca candy is a safe souvenir or gift to pack home since it's legal and sold everywhere in Peru",
+    "regex": "(coca tea.*(bring|take|import|customs)|mate de coca.*(bring|take|import|customs)|coca leaf.*(export|customs|import)|peru.*coca.*souvenir|coca candy.*customs)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-08-08",
+    "summary": "Coca leaf and coca tea (mate de coca) are fully legal to buy, carry, and consume within Peru — sold in supermarkets, hotels, and even airport shops, and commonly offered to travelers for altitude-sickness relief. But coca leaf is a Schedule I substance under the 1961 UN Single Convention on Narcotic Drugs, ratified by most countries, and is separately listed as a Schedule II controlled substance in the United States under 21 CFR § 1308.12. Packing coca tea, leaves, or candy in luggage is a customs and criminal offense in most destination countries, with no personal-use or 'gift' exemption; only certified decocainized products are legal to import in places like the US."
+  },
+  "dead_ends": [
+    {
+      "action": "Encourage a traveler to stock up on mate de coca bags or coca candy in Peru as souvenirs or gifts to bring home",
+      "why_fails": "Coca leaf (raw, dried, or as tea) is a Schedule I substance under the 1961 UN Single Convention on Narcotic Drugs, which most countries have implemented in domestic law, and is separately listed as a Schedule II controlled substance in the US under 21 CFR § 1308.12. There is no personal-use or 'small quantity' exemption; US Customs and Border Protection treats importing coca leaf products as smuggling contraband and can confiscate them and pursue charges, even though the same tea is legally purchased and openly sold in Peru.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.ecfr.gov/current/title-21/chapter-II/part-1308/subject-group-ECFRf62f8e189108c4d/section-1308.12",
+        "https://www.unodc.org/pdf/convention_1961_en.pdf",
+        "https://www.help.cbp.gov/s/article/Article-1202?language=en_US"
+      ],
+      "common_misconception": "Because coca tea is sold openly in Peruvian hotels, supermarkets, and even the Lima airport, and is marketed to tourists for altitude sickness, travelers assume it must be safe to carry internationally."
+    },
+    {
+      "action": "Assume commercially packaged coca tea bought at a Peruvian pharmacy or supermarket is treated differently from loose leaves at foreign customs",
+      "why_fails": "Standard commercial mate de coca sold in Peru is not decocainized — it still contains the coca alkaloid that destination-country law targets. In the US, only products certified decocainized by the small number of federally licensed importers are legal; ordinary Peruvian-market coca tea does not meet that standard regardless of its retail packaging.",
+      "fail_rate": 0.6,
+      "condition": "Commercially packaged, non-decocainized coca tea",
+      "sources": [
+        "https://www.ecfr.gov/current/title-21/chapter-II/part-1308/subject-group-ECFRf62f8e189108c4d/section-1308.12"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drink or use coca tea and leaves only while in Peru (or other countries where they are legal) and leave any remainder behind rather than packing it for the flight home.",
+      "success_rate": 0.95,
+      "how": "Consume it locally, including for altitude acclimatization as commonly recommended, and give away or discard any remaining leaves or tea bags before departure.",
+      "sources": [
+        "https://www.help.cbp.gov/s/article/Article-1202?language=en_US"
+      ]
+    },
+    {
+      "action": "If you specifically want a coca-derived product to bring into the US, only buy from a source certified as decocainized, and separately verify legality for your actual destination country before packing anything.",
+      "success_rate": 0.5,
+      "how": "Decocainized coca products legal in the US are generally sourced from US-licensed importers rather than bought loose in Peru; rules vary by destination country, so check that country's customs or controlled-substances authority before travel.",
+      "tradeoff": "Certified decocainized products are hard to find at retail in Peru, and checking legality for every possible destination individually is impractical for most travelers, so the safest default is simply not to pack any coca product.",
+      "sources": [
+        "https://www.ecfr.gov/current/title-21/chapter-II/part-1308/subject-group-ECFRf62f8e189108c4d/section-1308.12"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/tourist-extension-andean-community-only/pe",
+  "url": "https://deadends.dev/visa/tourist-extension-andean-community-only/pe",
+  "error": {
+    "signature": "AI tells any tourist in Peru they can pay a fee at Migraciones to extend their authorized stay",
+    "regex": "(peru.*visa.*extension|peru.*extend.*stay|pr[oó]rroga de permanencia|peru.*overstay|peru.*183 days)",
+    "domain": "visa",
+    "category": "overstay_risk",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.8,
+    "last_updated": "2026-08-08",
+    "summary": "Peru's paid 'prórroga de permanencia' (stay extension) is, per Migraciones' own TUPA requirements, legally available only to nationals/residents of Andean Community (CAN) member states — Bolivia, Colombia, and Ecuador — whose entry authorization was shorter than the treaty maximum, up to a combined cap of 183 days per 12-month period, via Form F-007 and a small fee (S/11.70 under the governing decree). Tourists of other nationalities (US, EU, and most of the world) receive a single, non-extendable stay authorization at entry and cannot pay to extend it further. Overstaying accrues a daily fine (S/5.50/day as of 2026, 0.1% of the UIT) collected on exit, and can also lead to an entry ban or expulsion."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell any tourist in Peru they can pay a fee at Migraciones to extend their stay past their originally authorized period",
+      "why_fails": "Per Migraciones' official 'Prórroga de Permanencia' requirements (TUPA-DIGEMIN, Decreto Supremo N.° 003-2012-IN), the 'TURISTA' extension procedure is expressly limited to nationals and foreign residents of Andean Community member countries (Bolivia, Colombia, Ecuador) whose entry authorization was shorter than the treaty maximum. Tourists of other nationalities have no legal path under this procedure to extend a tourist stay, and 2026 guidance from Peruvian outlets confirms this restriction is still current.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.migraciones.gob.pe/pdf/servicios_inmigracion_prorroga_permanencia.pdf",
+        "https://perugestiona.pe/migraciones/prorroga-permanencia/"
+      ],
+      "common_misconception": "Generic guides describing 'stay up to 183 days, pay S/11.70 to extend' without mentioning the Andean Community nationality restriction, leading readers to assume the paid extension is available to everyone."
+    },
+    {
+      "action": "Assume every tourist automatically gets the maximum 183 days on entry to Peru",
+      "why_fails": "The stay period authorized at entry is set by the immigration officer per nationality and travel purpose, up to a maximum of 183 accumulated days in a 365-day period; many nationalities are granted a shorter period (commonly 90 days), and it is a single, non-extendable grant unless the traveler qualifies for the Andean Community-only extension.",
+      "fail_rate": 0.4,
+      "condition": "Non-Andean Community nationality",
+      "sources": [
+        "https://perugestiona.pe/migraciones/prorroga-permanencia/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before your authorized stay expires, verify your exact permitted days via Migraciones' online TAM lookup, and if you hold Bolivian, Colombian, or Ecuadorian nationality, file the prórroga at migraciones.gob.pe before expiry.",
+      "success_rate": 0.8,
+      "how": "Andean Community nationals: submit Form F-007, pay the Banco de la Nación fee, and present a valid passport plus Tarjeta Andina de Migración (TAM) before the current permanencia expires. Anyone can check their currently authorized stay at https://cel.migraciones.gob.pe/ConsultaTAMVirtual/VerificarTAM.",
+      "tradeoff": "Only available to Andean Community nationals whose entry grant was below the treaty maximum; it does not help tourists of other nationalities.",
+      "sources": [
+        "https://www.migraciones.gob.pe/pdf/servicios_inmigracion_prorroga_permanencia.pdf"
+      ]
+    },
+    {
+      "action": "If you are not eligible for the tourist extension and need more time in Peru, plan to exit before your authorized stay expires, or pursue a formal change of migratory status (cambio de calidad migratoria) rather than expecting a simple fee-based extension.",
+      "success_rate": 0.6,
+      "how": "Consult Migraciones or a Peruvian consulate about eligibility for a resident visa category if a longer stay is genuinely needed; this is a separate, slower administrative process, not the tourist prórroga.",
+      "tradeoff": "Changing migratory status takes weeks to months and requires meeting the specific category's own requirements.",
+      "sources": [
+        "https://perugestiona.pe/migraciones/prorroga-permanencia/"
+      ]
+    },
+    {
+      "action": "If you do overstay, pay the accrued daily fine before departure rather than attempting to leave without settling it.",
+      "success_rate": 0.85,
+      "how": "The fine (S/5.50 per day of excess as of 2026, 0.1% of the UIT) is applied automatically; travelers who don't pay cannot board their departing flight, and Migraciones can additionally impose an entry ban or expulsion for irregular migratory status.",
+      "sources": [
+        "https://www.gob.pe/institucion/migraciones/noticias/1364852-migraciones-advierte-multas-y-expulsion-a-extranjeros-que-permanezcan-en-situacion-migratoria-irregular"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/foreigner-account-opening/pe",
+        "distinction": "Both involve the carné de extranjería, but one is about extending a tourist stay and the other about opening a bank account -- the extension rule does not affect banking eligibility and vice versa"
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-08"
+  }
+}
