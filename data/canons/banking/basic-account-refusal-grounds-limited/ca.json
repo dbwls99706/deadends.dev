@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/basic-account-refusal-grounds-limited/ca",
+  "url": "https://deadends.dev/banking/basic-account-refusal-grounds-limited/ca",
+  "error": {
+    "signature": "AI tells someone in Canada that a bank can legally refuse to open a personal deposit account because they lack a credit history, a job, a minimum deposit, or a fixed address",
+    "regex": "(canad.{0,20}bank.{0,20}(refuse|reject).{0,20}account|open.{0,10}bank account.{0,15}canada.{0,20}(credit history|no job|no id))",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-08",
+    "summary": "Under Canada's federal Access to Basic Banking Services rules, banks must open a personal deposit account for anyone who provides acceptable identification, and cannot refuse based on lack of credit history, employment, minimum deposit, or fixed address. Refusal is only permitted on a narrow set of grounds tied to fraud risk or misrepresentation, and a low-cost account (capped at $4/month, some free) must be available."
+  },
+  "dead_ends": [
+    {
+      "action": "Accept a bank teller's refusal to open a personal account because the applicant has no Canadian credit history, no job, or cannot make a minimum opening deposit",
+      "why_fails": "The Financial Consumer Agency of Canada's guidance on refusal to open an account lists the bank's actual grounds: reasonable grounds to believe the account will be used for illegal or fraudulent purposes, a history of such activity within the past 7 years, or a belief the applicant knowingly misrepresented information. FCAC explicitly notes that outstanding debt or past NSF cheques with the bank are 'not, in itself, sufficient evidence' to refuse. Lack of credit history, employment, or a minimum deposit are not valid grounds at all — low-cost accounts cannot require a minimum balance.",
+      "fail_rate": 0.7,
+      "common_misconception": "Newcomers and people with thin credit files assume Canadian banks work like a loan application, where no credit history or income means automatic rejection.",
+      "sources": [
+        "https://www.canada.ca/en/financial-consumer-agency/services/industry/bulletins/refusal-open-account.html",
+        "https://www.canada.ca/en/financial-consumer-agency/services/industry/laws-regulations/low-cost-no-cost-accounts.html"
+      ]
+    },
+    {
+      "action": "Give up on opening an account after being turned away for having only one piece of ID",
+      "why_fails": "The identification rules allow an applicant with only one piece of acceptable ID to have their identity confirmed instead by a client in good standing with the bank or another person of good standing in the community — a single ID is not an automatic dead end.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://money.ca/banking/canada-newcomers-right-to-basic-bank-account-fcac"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If refused, ask the branch to state the specific regulatory ground for refusal in writing, then escalate to the bank's internal complaints process and, if unresolved, file a complaint with the Financial Consumer Agency of Canada (FCAC), which enforces the Access to Basic Banking Services rules against federally regulated banks.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.canada.ca/en/financial-consumer-agency/services/industry/bulletins/refusal-open-account.html"
+      ],
+      "condition": "Refused a basic personal deposit account without a stated fraud-related reason"
+    },
+    {
+      "action": "Ask specifically for the low-cost or no-cost account product, which every signatory bank must offer with no minimum balance and a fee capped at $4/month (free for eligible groups such as students and seniors receiving the Guaranteed Income Supplement).",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.canada.ca/en/financial-consumer-agency/services/industry/laws-regulations/low-cost-no-cost-accounts.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/tornado-warning-zone-not-actual-storm-path/ca",
+  "url": "https://deadends.dev/disaster/tornado-warning-zone-not-actual-storm-path/ca",
+  "error": {
+    "signature": "AI tells someone in Canada that a tornado siren will sound when a warning is issued, or that a wireless tornado alert on their phone means the tornado is heading for their exact location",
+    "regex": "(canada.{0,15}tornado.{0,15}siren|tornado warning.{0,15}canada.{0,15}(phone|alert ready|wireless))",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-08",
+    "summary": "Canada has no widespread outdoor tornado siren network; Alert Ready delivers severe weather warnings via TV, radio interruption, and LTE-connected, compatible wireless devices only — not every phone receives them. As of mid-2026, Environment and Climate Change Canada still issues tornado/severe-thunderstorm warnings over large, static pre-set zones (city- or county-sized) rather than the narrow storm-based polygons used in the U.S., so an alert covering your area does not mean the actual storm is near your specific location; ECCC is rolling out polygon-based warnings starting August 11, 2026."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait to hear an outdoor siren before taking shelter from a tornado warning in a Canadian city",
+      "why_fails": "Unlike parts of the U.S. Midwest, Canada has no nationwide or widespread outdoor siren system for tornado warnings; Alert Ready's own site states it delivers alerts 'through television, radio and LTE-connected and compatible wireless devices' — sirens are not part of the system. Relying on a siren that will not sound means missing the warning entirely.",
+      "fail_rate": 0.85,
+      "common_misconception": "Visitors and newcomers from regions with municipal tornado sirens assume Canada has an equivalent audible warning network.",
+      "sources": [
+        "https://www.alertready.ca/",
+        "https://www.canada.ca/en/services/environment/weather/severeweather/weather-alerts.html"
+      ]
+    },
+    {
+      "action": "Assume that everyone who should be warned will get a wireless alert on their phone",
+      "why_fails": "Alert Ready only reaches 'LTE-connected and compatible' devices — older phones, devices on older networks, or incompatible handsets will not receive the wireless alert, so wireless notification cannot be treated as a guaranteed warning channel on its own.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.alertready.ca/"
+      ]
+    },
+    {
+      "action": "Treat a tornado/severe-thunderstorm warning alert as meaning the tornado is bearing down on your exact location",
+      "why_fails": "As of the July 2026 Ottawa-area tornado, ECCC was still issuing warnings over large, pre-determined static zones covering an entire city or county even when the actual threat is confined to a small area within it, and cell towers broadcast the alert to all compatible devices in range — not just those near the real storm path. A more targeted, storm-based polygon warning system is scheduled to launch August 11, 2026.",
+      "fail_rate": 0.5,
+      "condition": "Warnings issued before the August 11, 2026 polygon-warning rollout",
+      "sources": [
+        "https://www.cp24.com/news/canada/2026/07/22/concerns-raised-over-canadas-tornado-warning-system-following-alert-in-ottawa-area/",
+        "https://www.cp24.com/news/canada/2026/08/07/new-tornado-warning-system-on-the-way-for-canadians/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat any tornado or severe thunderstorm warning for your zone as actionable regardless of whether you hear a siren: check weather.gc.ca or local news/radio directly, and take shelter if the sky, wind, or hail conditions look threatening, rather than waiting for a siren that will not come.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.canada.ca/en/services/environment/weather/severeweather/weather-alerts.html"
+      ]
+    },
+    {
+      "action": "Check your phone's Alert Ready compatibility in advance, and keep a battery or car radio as backup for severe weather alerts in case your device or network does not support wireless public alerting.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.alertready.ca/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-08"
+  }
+}

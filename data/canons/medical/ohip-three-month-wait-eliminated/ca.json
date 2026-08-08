@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/ohip-three-month-wait-eliminated/ca",
+  "url": "https://deadends.dev/medical/ohip-three-month-wait-eliminated/ca",
+  "error": {
+    "signature": "AI tells a newcomer moving to Ontario, Canada that OHIP health coverage has a mandatory 3-month waiting period",
+    "regex": "(ohip.{0,15}(three|3).{0,3}month|ontario.{0,20}health.{0,10}wait|ohip.{0,10}waiting period)",
+    "domain": "medical",
+    "category": "policy_change",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "regional",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-08-08",
+    "summary": "Ontario permanently removed the 3-month OHIP waiting period from Regulation 552 on March 19, 2020 (originally framed as a COVID-19 measure, it was never reinstated and is now the standing policy). Newcomers and returning residents who meet eligibility get OHIP coverage immediately upon approval, not after a 3-month gap."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a newcomer to Ontario to hold off applying for OHIP for 3 months, or to budget for 3 months of private travel insurance because 'OHIP has a waiting period'",
+      "why_fails": "The 3-month waiting period was removed from Ontario Regulation 552 on March 19, 2020 and has not been reinstated; Ontario's own application page states 'There is no longer a waiting period for OHIP coverage. If you are eligible, you will have immediate health insurance coverage.' Delaying the application only delays coverage — it does not avoid a mandatory wait, because there isn't one.",
+      "fail_rate": 0.8,
+      "common_misconception": "The 3-month OHIP wait was widely reported news for over a decade before 2020 and still appears in outdated immigration guides and older AI training data, so it keeps getting repeated as current fact.",
+      "sources": [
+        "https://www.ontario.ca/page/apply-ohip-and-get-health-card",
+        "https://www.health.gov.on.ca/en/pro/programs/ohip/bulletins/4000/bul4749.aspx"
+      ]
+    },
+    {
+      "action": "Assume OHIP eligibility is automatic on arrival with no residency test to satisfy",
+      "why_fails": "Removing the waiting period did not remove the residency requirement. Applicants must still be physically present in Ontario for at least 153 of the first 183 days after establishing residence, make Ontario their primary residence, and meet an immigration-status requirement; coverage becomes effective once the applicant is determined eligible, not simply on arrival.",
+      "fail_rate": 0.5,
+      "condition": "First-time OHIP application after moving to Ontario",
+      "sources": [
+        "https://www.ontario.ca/document/resources-for-physicians/registration-ontario-health-insurance-coverage"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for OHIP as soon as you establish residency in Ontario at a ServiceOntario centre (in person, over age 16) with proof of Ontario residency, identity, and immigration status; do not wait out any assumed waiting period.",
+      "success_rate": 0.9,
+      "how": "Bring documents proving Ontario residency (e.g. lease, utility bill), identity (e.g. passport), and immigration status (e.g. PR card, work/study permit); coverage takes effect once the application is approved.",
+      "sources": [
+        "https://www.ontario.ca/page/apply-ohip-and-get-health-card"
+      ],
+      "condition": "Newcomer or returning resident applying for OHIP"
+    },
+    {
+      "action": "Keep private health/travel insurance active until the OHIP application is actually approved, not for a fixed 3-month period, since approval timing depends on documentation and the residency test rather than a calendar wait.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.ontario.ca/document/resources-for-physicians/registration-ontario-health-insurance-coverage"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}
