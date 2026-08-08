@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/record-suspension-not-recognized-at-us-border/ca",
+  "url": "https://deadends.dev/legal/record-suspension-not-recognized-at-us-border/ca",
+  "error": {
+    "signature": "AI tells a Canadian with a criminal record that getting a Canadian pardon (record suspension) erases the record and guarantees entry to the United States",
+    "regex": "(canad.{0,15}(pardon|record suspension).{0,20}(erase|clear|delete)|record suspension.{0,20}(us|united states).{0,10}(entry|border|cross))",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-08",
+    "last_confirmed": "2026-08-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-08",
+    "summary": "A Canadian record suspension (pardon) does not erase or destroy the underlying conviction — it sets the record aside and keeps it separate from other criminal records, and it does not guarantee entry or visa privileges in another country. U.S. border authorities do not recognize Canadian record suspensions and can still deny entry based on the original conviction; a separate U.S. entry waiver is the actual remedy for cross-border travel."
+  },
+  "dead_ends": [
+    {
+      "action": "Cross into the United States assuming a Canadian record suspension means the old conviction no longer needs to be disclosed or will no longer show up",
+      "why_fails": "The Parole Board of Canada states a record suspension 'does not erase a convicted offence, but sets it aside' and 'does not guarantee entry or visa privileges to another country.' The U.S. does not recognize foreign pardons; a border officer can still find the original conviction and deny entry on that basis, since Canadian record suspensions do not remove the record from databases U.S. authorities can access.",
+      "fail_rate": 0.75,
+      "common_misconception": "People conflate 'record suspension' with the U.S. concept of expungement, assuming it wipes the record everywhere rather than just sealing it within Canadian systems.",
+      "sources": [
+        "https://www.canada.ca/en/parole-board/services/record-suspensions/what-is-a-record-suspension.html",
+        "https://www.courthouselibrary.ca/how-we-can-help/our-legal-knowledge-base/record-suspensions-pardons"
+      ]
+    },
+    {
+      "action": "Apply for a record suspension immediately after a sentence ends, assuming there is no mandatory waiting period",
+      "why_fails": "The Parole Board of Canada requires a waiting period after the sentence (including any fine, probation, or conditional sentence) is completed: for offences occurring on or after March 13, 2012, that is 10 years for an indictable offence and 5 years for a summary offence. Applying before the waiting period elapses is not accepted.",
+      "fail_rate": 0.6,
+      "condition": "Offence occurred on or after March 13, 2012",
+      "sources": [
+        "https://www.canada.ca/en/parole-board/services/record-suspensions/who-is-eligible-for-a-record-suspension.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Disclose the past conviction truthfully to U.S. border officers even after obtaining a Canadian record suspension, and apply in advance for a U.S. entry waiver (Form I-192) if the conviction could otherwise make you inadmissible.",
+      "success_rate": 0.7,
+      "how": "The record suspension is still worth obtaining for Canadian purposes (background checks, employment, CPIC), but treat U.S. entry as a separate legal question requiring its own waiver process through U.S. Customs and Border Protection.",
+      "sources": [
+        "https://www.courthouselibrary.ca/how-we-can-help/our-legal-knowledge-base/record-suspensions-pardons"
+      ],
+      "condition": "Planning U.S. travel with a past Canadian conviction"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-08"
+  }
+}
