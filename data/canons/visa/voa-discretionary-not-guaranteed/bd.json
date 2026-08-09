@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/voa-discretionary-not-guaranteed/bd",
+  "url": "https://deadends.dev/visa/voa-discretionary-not-guaranteed/bd",
+  "error": {
+    "signature": "AI assures a traveler from a visa-on-arrival eligible country that Bangladesh VOA is guaranteed on landing and payable by card",
+    "regex": "(bangladesh.*visa.on.arrival|voa.*bangladesh|bangladesh.*voa)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-09",
+    "summary": "Bangladesh visa-on-arrival is not guaranteed even for nationalities on the eligible list: official guidance states issuance is 'at the sole discretion of the immigration official at the port of entry.' The fee (~US$50-51) must be paid in cash, in US dollars or euros only, no cards and no other currencies, and it is a single-entry visa valid for a maximum of 30 days. Travelers who need certainty should get an e-visa or embassy visa before departure instead of relying on VOA."
+  },
+  "dead_ends": [
+    {
+      "action": "Book a flight to Bangladesh relying only on being from a VOA-eligible country, assuming that guarantees entry without a pre-arranged visa",
+      "why_fails": "Bangladesh's own immigration authority states VOA issuance is 'at the sole discretion of the immigration official at the port of entry' - being on the eligible-nationality list is necessary but not sufficient. Officers can refuse VOA over incomplete paperwork, an unclear purpose of visit, or missing proof of onward travel or accommodation, and there is no appeal process at the airport counter.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://voa.specialbranch.gov.bd/public/voa-instructions.html",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh"
+      ],
+      "common_misconception": "Being told a nationality is 'visa-on-arrival eligible' feels like a guarantee, similar to genuine visa-free arrangements elsewhere - but Bangladesh explicitly reserves officer discretion at the border."
+    },
+    {
+      "action": "Plan to pay the visa-on-arrival fee by credit or debit card at the airport counter",
+      "why_fails": "The VOA fee is collected only in cash, in US dollars or euros - official guidance puts it at roughly US$50-51 per person, taxes included, with no card payment option and no guarantee of a working ATM at the immigration counter.",
+      "fail_rate": 0.4,
+      "condition": "Traveler does not already carry USD or EUR cash",
+      "sources": [
+        "https://voa.specialbranch.gov.bd/public/voa-instructions.html",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for a regular visa through the official portal and submit it at the nearest Bangladesh embassy or consulate before travel, instead of relying on VOA",
+      "success_rate": 0.9,
+      "how": "Complete the online application at visa.gov.bd, print the barcoded PDF, and submit it with passport and photo at a Bangladesh embassy, high commission, or consulate. Approval happens before departure and is not subject to port-of-entry officer discretion.",
+      "sources": [
+        "https://www.bdcgny.org/applying-for-visa"
+      ],
+      "tradeoff": "Takes days of processing time and a consulate visit or mail-in application ahead of the trip."
+    },
+    {
+      "action": "If relying on VOA anyway, carry clean USD or EUR cash for the fee plus printed proof of onward travel and accommodation",
+      "success_rate": 0.75,
+      "how": "Bring roughly US$55-60 in small, clean USD or EUR notes, a printed return/onward ticket, and a hotel booking confirmation or invitation letter to present to the immigration officer.",
+      "sources": [
+        "https://voa.specialbranch.gov.bd/public/voa-instructions.html",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}

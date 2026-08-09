@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/voa-extension-week-window-in-person/bd",
+  "url": "https://deadends.dev/visa/voa-extension-week-window-in-person/bd",
+  "error": {
+    "signature": "AI tells a traveler they can extend a Bangladesh visa-on-arrival online or at any time before it expires",
+    "regex": "(bangladesh.*visa.*extension|extend.*bangladesh.*visa|bangladesh.*voa.*extend)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.7,
+    "last_updated": "2026-08-09",
+    "summary": "A Bangladesh visa-on-arrival extension cannot be filed online or by mail, and cannot be filed early 'to be safe.' Official policy only allows applying up to about a week before the visa expires, in person, at the Department of Immigration and Passports in Agargaon, Dhaka, using a downloadable paper form. Applying too early is rejected; not applying in the window leaves overstay penalties as the only outcome."
+  },
+  "dead_ends": [
+    {
+      "action": "Submit a visa-on-arrival extension application two or three weeks before it expires, to lock in extra time early",
+      "why_fails": "Official policy states applicants can apply for the VOA extension 'up to a week before visa expiry but not sooner' - an application filed earlier than that window is out of process and gets rejected, forcing a second in-person trip to the immigration office right before the visa actually expires anyway.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh",
+        "https://immi.specialbranch.gov.bd/Forms"
+      ]
+    },
+    {
+      "action": "Look for an online form or email address to submit the extension application and pay the fee remotely",
+      "why_fails": "The Bangladesh Police Special Branch immigration portal publishes the extension form (Form-2) only as a downloadable PDF to print and bring in person; extensions are processed at the Department of Immigration and Passports office in Agargaon, Dhaka, not through any online submission or payment channel.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Forms",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh"
+      ],
+      "common_misconception": "Because the original visa-on-arrival and the e-visa application both start online, travelers assume the extension is equally digital - it is not."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Time the in-person visit to the Department of Immigration and Passports (Agargaon, Dhaka) to fall inside the roughly one-week pre-expiry window, with the printed Form-2, passport, photos, and proof of onward travel ready",
+      "success_rate": 0.7,
+      "how": "Download Form-2 from the immigration portal, fill it out in advance, and go to the DIP office in Agargaon within about a week of the current visa's expiry date, allowing for a possible second visit to collect the extended visa.",
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Forms",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Bangladesh"
+      ],
+      "tradeoff": "Requires being physically in Dhaka during the narrow window and possibly more than one visit."
+    },
+    {
+      "action": "If the trip length is known in advance, apply for a longer-duration visa through an embassy before travel instead of planning to extend a 30-day VOA in-country",
+      "success_rate": 0.8,
+      "how": "Submit the standard visa application (visa.gov.bd) at a Bangladesh embassy or consulate before departure and request a validity that already covers the full planned stay.",
+      "sources": [
+        "https://www.bdcgny.org/applying-for-visa"
+      ],
+      "tradeoff": "Needs the travel plan finalized before departure; not useful for trips extended spontaneously."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}
