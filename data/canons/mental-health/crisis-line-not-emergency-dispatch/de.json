@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/de",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/de",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Germany that Telefonseelsorge (0800 111 0 111) will dispatch police or an ambulance to their location, or that calling 112 is an anonymous way to get emotional support",
+    "regex": "(telefonseelsorge|germany.{0,15}(suicide|crisis).{0,15}(hotline|line)|112.{0,15}germany.{0,15}anonymous)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "de",
+      "country_name": "Germany",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-09",
+    "summary": "Germany's Telefonseelsorge (0800 111 0 111, 0800 111 0 222, or the EU-wide 116 123) is a free, anonymous, 24/7 phone counseling service - it structurally does not receive the caller's number and cannot dispatch police or an ambulance; its own guidance is to call 112 for immediate danger to life. Conversely, 112 cannot be called anonymously: per the Bundesnetzagentur, caller-ID suppression does not apply to emergency calls, and location data is automatically transmitted via AML."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Telefonseelsorge (0800 111 0 111 / 0800 111 0 222 / 116 123) will dispatch police or an ambulance to a caller's location the way 112 does",
+      "why_fails": "Telefonseelsorge's own site instructs that if there is immediate suicide danger and the person seems unreachable another way, the caller should dial 112 instead - Telefonseelsorge is phone counseling, not a dispatch service, and its phone system is configured so the caller's number is not transmitted to counselors.",
+      "fail_rate": 0.8,
+      "common_misconception": "People assume any free 24/7 crisis line functions like a dispatch-capable emergency hotline.",
+      "sources": [
+        "https://www.telefonseelsorge.de/telefon/",
+        "https://www.telefonseelsorge.de/sorgen-themen/suizidpraevention/"
+      ]
+    },
+    {
+      "action": "Tell someone that calling 112 in Germany can be done anonymously for a sensitive mental-health conversation, the way a dedicated crisis line can",
+      "why_fails": "Per the Bundesnetzagentur (Germany's federal telecom regulator), caller-ID suppression/CLIR does not apply to emergency calls for safety reasons - the 112 dispatcher sees the caller's number even if number-blocking is normally active, and location data is automatically transmitted via AML (Advanced Mobile Location), in place nationwide since October 2019.",
+      "fail_rate": 0.6,
+      "condition": "Caller wants anonymity, not an active physical emergency",
+      "sources": [
+        "https://www.bundesnetzagentur.de/DE/Fachthemen/Telekommunikation/Unternehmenspflichten/Notruf/110_112/110und112-node.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For confidential, free emotional-crisis counseling in Germany (not dispatch), call Telefonseelsorge at 0800 111 0 111, 0800 111 0 222, or the EU-wide 116 123 - free, 24/7, and caller numbers are not transmitted to counselors.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.telefonseelsorge.de/telefon/"
+      ]
+    },
+    {
+      "action": "For an active, immediate danger to life, call 112 directly - dispatchers will see your number and location even if your phone normally has caller-ID blocking enabled.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.bundesnetzagentur.de/DE/Fachthemen/Telekommunikation/Unternehmenspflichten/Notruf/110_112/110und112-node.html",
+        "https://www.telefonseelsorge.de/sorgen-themen/suizidpraevention/"
+      ]
+    },
+    {
+      "action": "If unsure whether the situation needs Telefonseelsorge or 112, start with Telefonseelsorge - per their own guidance, if the situation is or becomes an immediate danger to life and the person can't be reached another way, escalate to 112 yourself.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.telefonseelsorge.de/sorgen-themen/suizidpraevention/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/call-112-not-911/de",
+        "distinction": "112 is general emergency dispatch (fire/police/ambulance) and is not anonymous; Telefonseelsorge is anonymous crisis counseling and is not itself dispatch-capable."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}

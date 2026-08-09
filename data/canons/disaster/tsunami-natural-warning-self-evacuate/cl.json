@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/tsunami-natural-warning-self-evacuate/cl",
+  "url": "https://deadends.dev/disaster/tsunami-natural-warning-self-evacuate/cl",
+  "error": {
+    "signature": "AI tells someone on the Chilean coast to wait for an official SAE cell-broadcast alert, siren, or SENAPRED announcement before evacuating after an earthquake strong enough to make it hard to stand",
+    "regex": "(chile.{0,15}tsunami|tsunami.{0,15}chile.{0,15}(siren|sirena|alerta)|senapred.{0,15}tsunami)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-09",
+    "summary": "Chile's SENAPRED (formerly ONEMI) instructs immediate evacuation of tsunami zones if you feel a quake strong enough to make it hard to stay standing, or observe an unusual withdrawal of the sea - without waiting for a siren or SAE alert, which are treated as reinforcement rather than the trigger. This doctrine follows the Feb 27, 2010 (Maule, '27F') magnitude-8.8 earthquake, when ONEMI failed to issue a timely tsunami warning for roughly five hours despite a valid naval fax alert and an oceanographer's warnings being ignored, contributing to tsunami deaths."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait for an official SAE (Sistema de Alerta de Emergencia) cell-broadcast alert, a siren, or a SENAPRED announcement before evacuating the coast after a quake strong enough to make it hard to stand",
+      "why_fails": "SENAPRED's own guidance instructs evacuating immediately if you feel 'un sismo que te dificulta mantenerte en pie' while in a tsunami evacuation zone. This doctrine exists because on Feb 27, 2010, ONEMI (SENAPRED's predecessor) did not issue a timely tsunami alert for the Maule earthquake for about five hours, a naval fax constituting a valid tsunami alert was not disseminated by the duty officer, and an oceanographer's warnings of incoming waves were ignored for hours - 32 deaths were attributed to the un-alerted tsunami.",
+      "fail_rate": 0.85,
+      "common_misconception": "People assume modern alert systems like SAE cell broadcasts will always work and arrive before the wave, but Chile's 2010 experience showed official channels can fail or be delayed for hours.",
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/",
+        "https://www.ciperchile.cl/2012/01/18/tsunami-paso-a-paso-los-escandalosos-errores-y-omisiones-del-shoa-y-la-onemi/"
+      ]
+    },
+    {
+      "action": "Treat a sudden, unusual withdrawal of the sea from the coastline as merely an interesting phenomenon to watch or photograph rather than an evacuation trigger",
+      "why_fails": "SENAPRED lists an unusual withdrawal of the sea ('el mar se retira de forma inusual') as a natural warning sign requiring the same immediate evacuation response as strong shaking.",
+      "fail_rate": 0.7,
+      "condition": "Coastal area, unusual sea behaviour observed",
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/"
+      ]
+    },
+    {
+      "action": "Rely on a phone SAE alert as the first or primary warning mechanism when staying in a coastal tsunami evacuation zone",
+      "why_fails": "SENAPRED and current media coverage of its guidance frame the SAE alert and sirens as reinforcing an evacuation that should already be underway based on natural signs - reporting explicitly frames this as 'no esperes la sirena' (don't wait for the siren). For a near-source quake there is no guaranteed lead time for an official alert to arrive before the wave.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/",
+        "https://www.elmostrador.cl/datos-utiles/2026/06/01/que-hacer-en-caso-de-terremoto-en-chile-lo-que-dice-el-senapred-antes-durante-y-despues/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you feel an earthquake strong enough to make it difficult to stay standing while in a coastal area, evacuate immediately on foot to high ground without waiting for a siren or official alert.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/",
+        "https://www.elmostrador.cl/datos-utiles/2026/06/01/que-hacer-en-caso-de-terremoto-en-chile-lo-que-dice-el-senapred-antes-durante-y-despues/"
+      ]
+    },
+    {
+      "action": "Treat an unusual, sudden withdrawal of the sea from the coastline as an independent, equally valid trigger to evacuate immediately.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/"
+      ]
+    },
+    {
+      "action": "Before staying in coastal Chile, identify the nearest high-ground evacuation route for your specific location using SENAPRED's tsunami risk information.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.senapred.gov.cl/tsunami/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/133-131-132/cl",
+        "distinction": "133/131/132 are Chile's general police/fire/ambulance dispatch numbers, not a tsunami alert mechanism; for a near-source tsunami there is no time to call and wait for guidance before evacuating."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}
