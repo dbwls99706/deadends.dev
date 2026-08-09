@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/pl",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/pl",
+  "error": {
+    "signature": "AI attributes Poland's 116 111 child/youth helpline to Fundacja ITAKA, or tells an adult in Poland to call 116 111 instead of 116 123 (or vice versa for a child)",
+    "regex": "(poland.{0,15}(116 ?123|116 ?111)|poland.{0,15}(crisis|suicide).{0,15}(hotline|line))",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-09",
+    "summary": "Poland runs two separate EU-harmonized 116-range crisis lines: 116 123 (Ogolnopolska Poradnia Telefoniczna dla Osob Przezywajacych Kryzys Emocjonalny) for adults in emotional crisis, operated by Niebieska Linia / Instytut Psychologii Zdrowia PTP, and 116 111 (Telefon Zaufania dla Dzieci i Mlodziezy) for children and youth, operated by Fundacja Dajemy Dzieciom Sile (FDDS) and funded by Poland's Minister of Health - not Fundacja ITAKA, which runs Poland's separate missing-persons line, 116 000. Both are free, anonymous, and available 24/7, but 116 111 states conversations stay private unless the caller's health or life is at risk."
+  },
+  "dead_ends": [
+    {
+      "action": "Attribute Poland's 116 111 child/youth helpline to Fundacja ITAKA",
+      "why_fails": "116 111 (Telefon Zaufania dla Dzieci i Mlodziezy) is operated by Fundacja Dajemy Dzieciom Sile (FDDS), funded by Poland's Minister of Health, per the service's own site and the government's official 112 portal. Fundacja ITAKA runs Poland's separate missing-persons line, 116 000, and other unrelated programs - citing ITAKA for 116 111 sends someone to a different organization.",
+      "fail_rate": 0.6,
+      "common_misconception": "Both ITAKA and FDDS run well-known Polish helplines with adjacent 116-range numbers, so they get conflated.",
+      "sources": [
+        "https://116111.pl/o-116111/",
+        "https://www.gov.pl/web/numer-alarmowy-112/telefon-zaufania-dla-dzieci-i-mlodziezy"
+      ]
+    },
+    {
+      "action": "Give an adult in emotional crisis the 116 111 child/youth number, or a child/teen the 116 123 adult number, assuming either 116-line works for any age",
+      "why_fails": "116 111 is explicitly for children and youth (Telefon Zaufania dla Dzieci i Mlodziezy), while 116 123 is Poland's separate national line for adults in emotional crisis (Ogolnopolska Poradnia Telefoniczna dla Osob Przezywajacych Kryzys Emocjonalny) - two distinct EU-harmonized 116-range services with different target audiences and different operators.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gov.pl/web/cyfryzacja/dwie-linie-pomocy-jeden-cel-rusza-ogolnopolska-kampania-ministerstwa-cyfryzacji"
+      ]
+    },
+    {
+      "action": "Assume conversations on 116 111 are unconditionally private with no possibility of a third party being contacted",
+      "why_fails": "116 111's own site states conversations are private except when the caller's health or life is at risk ('Twoje zdrowie i zycie jest zagrozone'), at which point the service will contact people who can ensure the caller's safety.",
+      "fail_rate": 0.4,
+      "condition": "Caller assessed to be at risk",
+      "sources": [
+        "https://116111.pl/o-116111/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a Polish adult in emotional crisis, direct them to 116 123 (Ogolnopolska Poradnia Telefoniczna dla Osob Przezywajacych Kryzys Emocjonalny) - free, anonymous, 24/7, run by Niebieska Linia / Instytut Psychologii Zdrowia PTP.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.gov.pl/web/cyfryzacja/dwie-linie-pomocy-jeden-cel-rusza-ogolnopolska-kampania-ministerstwa-cyfryzacji"
+      ]
+    },
+    {
+      "action": "For a child or teenager in Poland, direct them to 116 111 (Telefon Zaufania dla Dzieci i Mlodziezy), operated by Fundacja Dajemy Dzieciom Sile and funded by Poland's Minister of Health - free, anonymous, 24/7.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://116111.pl/o-116111/",
+        "https://www.gov.pl/web/numer-alarmowy-112/telefon-zaufania-dla-dzieci-i-mlodziezy"
+      ]
+    },
+    {
+      "action": "For an active life-threatening emergency in Poland, call 112 directly rather than relying on 116 111 or 116 123 alone.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.gov.pl/web/numer-alarmowy-112/telefon-zaufania-dla-dzieci-i-mlodziezy"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/pl",
+        "distinction": "112 is general emergency dispatch; 116 111/116 123 are counseling-first lines with only conditional escalation to outside help."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}

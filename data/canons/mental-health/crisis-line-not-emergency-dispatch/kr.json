@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/kr",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/kr",
+  "error": {
+    "signature": "AI tells someone in South Korea to call 1393 for suicide-prevention counseling, or implies Korea's mental-health crisis line can never involve outside intervention",
+    "regex": "(1393.{0,15}korea|korea.{0,15}suicide.{0,15}(hotline|line)|korea.{0,15}crisis.{0,15}(counsel|line))",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "kr",
+      "country_name": "South Korea",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-08-09",
+    "summary": "South Korea's 1393 (자살예방상담전화) suicide-prevention line was retired and consolidated, along with several other counseling lines across 8 agencies, into a single unified number, 109, effective January 1, 2024, per the Ministry of Health and Welfare (MOHW). 109 is free, 24/7, and run via the 129 Comprehensive Counseling Center; counseling content is fundamentally confidential, but if a caller is assessed to be in imminent danger, the counselor can request help from other agencies - MOHW describes this as emergency-dispatch coordination equivalent to 112 for high-risk cases."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in South Korea to call 1393 for suicide-prevention or mental-health crisis counseling",
+      "why_fails": "1393 was retired and consolidated, along with several other counseling lines across 8 agencies, into a single unified number, 109, effective January 1, 2024, per the Ministry of Health and Welfare. An AI citing 1393 after that date is giving a dead number.",
+      "fail_rate": 0.85,
+      "common_misconception": "1393 is still widely cited in older articles, forum posts, and outdated guides, so models trained on that material default to it.",
+      "sources": [
+        "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1479607",
+        "https://www.korea.kr/news/policyNewsView.do?newsId=148954797"
+      ]
+    },
+    {
+      "action": "Assume Korea's 109 mental-health counseling line is fully confidential with no possibility of outside intervention, the same as a purely anonymous peer-support line",
+      "why_fails": "The official 109 program page states that while counseling content is fundamentally confidential ('상담 내용은 기본적으로 비밀이 보장됩니다'), if the caller is assessed to be in critical/imminent danger, the counselor can request help from other agencies ('상담 대상자가 위급한 경우 다른 기관 등으로 도움을 요청할 수 있습니다') - MOHW describes 109 as providing emergency-dispatch coordination equivalent to 112 for high-risk cases.",
+      "fail_rate": 0.5,
+      "condition": "Caller assessed as high imminent risk",
+      "sources": [
+        "https://www.129.go.kr/109",
+        "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1479607"
+      ]
+    },
+    {
+      "action": "Tell someone that Korea's older mental-health line, 1577-0199, was merged into 109 along with 1393",
+      "why_fails": "MOHW's January 2024 consolidation folded 1393 and several other counseling lines into 109, but 1577-0199 continues to operate separately - conflating the two can send someone to the wrong line.",
+      "fail_rate": 0.3,
+      "condition": "Distinguishing 109 from other Korean mental-health numbers",
+      "sources": [
+        "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1479607"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For mental-health crisis counseling in South Korea (current as of 2024 onward), call 109 - free, 24/7, run by the Ministry of Health and Welfare via the 129 Comprehensive Counseling Center.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1479607",
+        "https://www.129.go.kr/109"
+      ]
+    },
+    {
+      "action": "Be aware that if a 109 counselor assesses imminent danger to life during a call, 109 can coordinate emergency dispatch equivalent to 112 - treat 109 as capable of escalating to physical intervention when necessary, not purely anonymous peer support.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.129.go.kr/109"
+      ]
+    },
+    {
+      "action": "For an active emergency requiring immediate police or ambulance response, call 112 (police) or 119 (fire/ambulance) directly rather than only 109.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.129.go.kr/109"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-119-not-911/kr",
+        "distinction": "112/119 are direct emergency dispatch numbers; 109 is primarily counseling-first, with dispatch-capable escalation only when a counselor assesses imminent risk."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}
