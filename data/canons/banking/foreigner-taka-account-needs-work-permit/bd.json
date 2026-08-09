@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-taka-account-needs-work-permit/bd",
+  "url": "https://deadends.dev/banking/foreigner-taka-account-needs-work-permit/bd",
+  "error": {
+    "signature": "AI tells a foreign resident that any valid Bangladesh visa and passport is enough to open a normal local-currency bank account",
+    "regex": "(bangladesh.*(open|opening).*(bank )?account|foreigner.*account.*bangladesh|expat.*bank.*bangladesh)",
+    "domain": "banking",
+    "category": "financial_system",
+    "first_seen": "2026-08-09",
+    "last_confirmed": "2026-08-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-09",
+    "summary": "Bangladeshi banks require a valid work permit (in addition to passport and visa) to open a Foreign National's Taka account - a normal local-currency account under Bangladesh Bank's own Form QA-22. Without a work permit, banks instead offer only a Private Foreign Currency (FC) account, which needs a minimum deposit of about US$1,000 (or GBP 500 equivalent) and does not behave like a regular local checking account."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a Bangladeshi bank on a business or student visa, expecting passport and visa alone to be enough to open a normal Taka account, as at many Western banks",
+      "why_fails": "A bank's own published requirements list 'copy of passport, valid visa, work permit' as mandatory for a Foreign National's Taka Account, plus Bangladesh Bank's Form QA-22. A tourist, student, or business visa without an accompanying work permit does not satisfy this, and the branch will decline to open a local-currency account.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://abbl.com/account-opening/",
+        "https://www.india-briefing.com/news/opening-a-bank-account-in-bangladesh-22376.html/"
+      ],
+      "common_misconception": "People assume any valid entry visa is proof enough of legal residence, conflating permission to be in the country with permission to work, which is what the account-opening rule actually checks for."
+    },
+    {
+      "action": "Expect a Foreign Currency (FC) account to work like a normal Taka current account for everyday local payments",
+      "why_fails": "The FC account route foreigners without a work permit can use requires a minimum deposit of about US$1,000 or GBP 500 (or equivalent) and is structured for holding and remitting foreign currency, not for everyday Taka transactions, bill payments, or receiving local salary deposits the way a standard Taka account is.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://abbl.com/account-opening/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get the employer to file for and obtain the work permit / employment approval before or alongside the bank account application",
+      "success_rate": 0.85,
+      "how": "Have the sponsoring employer secure the work permit or approval from the relevant authority (e.g. Board of Investment or BEPZA for investment-zone employers) and bring that, the passport, and visa copies to the branch to open the Foreign National's Taka Account with Form QA-22.",
+      "sources": [
+        "https://abbl.com/account-opening/",
+        "https://www.india-briefing.com/news/opening-a-bank-account-in-bangladesh-22376.html/"
+      ]
+    },
+    {
+      "action": "If no work permit is available yet, open the Private Foreign Currency (FC) account instead and budget for its minimum deposit",
+      "success_rate": 0.8,
+      "how": "Bring passport and visa copies and fund the account with the minimum opening deposit (about US$1,000 or GBP 500 equivalent) - no work permit or prior Bangladesh Bank approval is required for this account type.",
+      "sources": [
+        "https://abbl.com/account-opening/"
+      ],
+      "tradeoff": "Ties up a four-figure USD/GBP deposit and is not designed for routine local-currency spending."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-09"
+  }
+}
