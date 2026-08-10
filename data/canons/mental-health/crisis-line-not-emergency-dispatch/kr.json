@@ -28,7 +28,7 @@
     "fix_success_rate": 0.9,
     "confidence": 0.85,
     "last_updated": "2026-08-09",
-    "summary": "South Korea's 1393 (자살예방상담전화) suicide-prevention line was retired and consolidated, along with several other counseling lines across 8 agencies, into a single unified number, 109, effective January 1, 2024, per the Ministry of Health and Welfare (MOHW). 109 is free, 24/7, and run via the 129 Comprehensive Counseling Center; counseling content is fundamentally confidential, but if a caller is assessed to be in imminent danger, the counselor can request help from other agencies - MOHW describes this as emergency-dispatch coordination equivalent to 112 for high-risk cases."
+    "summary": "South Korea's 1393 (자살예방상담전화) suicide-prevention line was retired and consolidated, along with several other counseling lines across 8 agencies, into a single unified number, 109, effective January 1, 2024, per the Ministry of Health and Welfare (MOHW). 109 is free, 24/7, and run via the 129 Comprehensive Counseling Center; counseling content is fundamentally confidential, but if a caller is assessed to be in imminent danger, the counselor can request help from other agencies - MOHW describes 109 as coordinating with 112 emergency dispatch for high-risk cases, not as a replacement for it."
   },
   "dead_ends": [
     {
@@ -43,7 +43,7 @@
     },
     {
       "action": "Assume Korea's 109 mental-health counseling line is fully confidential with no possibility of outside intervention, the same as a purely anonymous peer-support line",
-      "why_fails": "The official 109 program page states that while counseling content is fundamentally confidential ('상담 내용은 기본적으로 비밀이 보장됩니다'), if the caller is assessed to be in critical/imminent danger, the counselor can request help from other agencies ('상담 대상자가 위급한 경우 다른 기관 등으로 도움을 요청할 수 있습니다') - MOHW describes 109 as providing emergency-dispatch coordination equivalent to 112 for high-risk cases.",
+      "why_fails": "The official 109 program page states that while counseling content is fundamentally confidential ('상담 내용은 기본적으로 비밀이 보장됩니다'), if the caller is assessed to be in critical/imminent danger, the counselor can request help from other agencies ('상담 대상자가 위급한 경우 다른 기관 등으로 도움을 요청할 수 있습니다') - MOHW describes 109 as coordinating with 112 emergency dispatch for high-risk cases, not as a replacement for it.",
       "fail_rate": 0.5,
       "condition": "Caller assessed as high imminent risk",
       "sources": [
@@ -71,7 +71,7 @@
       ]
     },
     {
-      "action": "Be aware that if a 109 counselor assesses imminent danger to life during a call, 109 can coordinate emergency dispatch equivalent to 112 - treat 109 as capable of escalating to physical intervention when necessary, not purely anonymous peer support.",
+      "action": "Be aware that if a 109 counselor assesses imminent danger to life during a call, 109 can coordinate with 112 emergency dispatch - treat 109 as capable of escalating to physical intervention when necessary, not purely anonymous peer support.",
       "success_rate": 0.8,
       "sources": [
         "https://www.129.go.kr/109"
