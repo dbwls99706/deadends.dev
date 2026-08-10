@@ -24,7 +24,10 @@ Credentials (a service account that is added as a Search Console property user):
     Credentials, so there is no key to leak. Locally, either:
     GSC_SA_KEY        raw service-account JSON, or
     GSC_SA_KEY_FILE   path to the service-account JSON file
-    GSC_PROPERTY      property URL, default https://deadends.dev/
+    GSC_PROPERTY      Search Console property identifier, default sc-domain:deadends.dev
+                      (deadends.dev is verified as a Domain property, not a
+                      URL-prefix property - the sc-domain: prefix is required or
+                      every API call 403s with "You do not own this site")
 
 Requires the optional extra:  pip install -e ".[seo]"
 """
@@ -41,7 +44,7 @@ SITE_DIR = PROJECT_ROOT / "site"
 OUTPUT_DIR = PROJECT_ROOT / "data" / "seo"
 OUTPUT_FILE = OUTPUT_DIR / "gsc_report.json"
 
-DEFAULT_PROPERTY = "https://deadends.dev/"
+DEFAULT_PROPERTY = "sc-domain:deadends.dev"
 SITEMAP_PATH = "https://deadends.dev/sitemap.xml"
 
 # URL Inspection allows 2000 queries/day and 600/minute per property. Stay well
