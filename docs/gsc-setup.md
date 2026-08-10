@@ -68,6 +68,13 @@ echo "GCP_WIF_AUDIENCE  = //iam.googleapis.com/projects/$PROJECT_NUMBER/location
 3. 위 `GCP_SA_EMAIL` 값 붙여넣기
 4. 권한: **전체** (사이트맵 제출에 필요. 조회만 할 거면 `제한됨`도 가능)
 
+`deadends.dev`는 URL-접두어 속성이 아니라 **도메인 속성**이다(속성 전환 드롭다운에
+`https://` 없이 `deadends.dev`로만 표시됨). 그래서 API 호출의 `siteUrl`은 반드시
+`sc-domain:deadends.dev` 형식이어야 한다 - `https://deadends.dev/`를 쓰면 권한이
+있어도 모든 호출이 `403 You do not own this site`로 실패한다. `generator/gsc_report.py`의
+`DEFAULT_PROPERTY`와 `gsc-report.yml`의 `GSC_PROPERTY` 기본값이 이미 이 형식으로
+맞춰져 있으니, 이후 `GSC_PROPERTY`를 오버라이드할 일이 있으면 이 형식을 유지할 것.
+
 GCP IAM이 아니라 여기서 권한이 나온다. 그래서 서비스 계정을 다른 프로젝트에
 얹어도 안전하다.
 
