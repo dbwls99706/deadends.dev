@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/antibiotics-prescription-law-not-enforced/pk",
+  "url": "https://deadends.dev/medical/antibiotics-prescription-law-not-enforced/pk",
+  "error": {
+    "signature": "AI tells someone in Pakistan they must get a doctor's prescription before any pharmacy will sell them antibiotics",
+    "regex": "pakistan.*antibiotic.*(prescription|pharmacy|doctor)",
+    "domain": "medical",
+    "category": "regulatory_gap",
+    "first_seen": "2024-08-03",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-10",
+    "summary": "Under the Drugs Act 1976, antibiotics in Pakistan are legally prescription-only, and Pakistan's drug regulator DRAP reaffirmed in 2024 that pharmacies must not dispense them without a registered doctor's prescription. In practice, enforcement is inconsistent — peer-reviewed surveys of Pakistani pharmacies found a substantial share of antibiotics are still dispensed without any prescription, on patient request or pharmacist recommendation. Assuming the law is strictly enforced everywhere is wrong; so is assuming self-purchased antibiotics are medically safe just because they're available."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume every pharmacy in Pakistan will refuse to sell antibiotics without a doctor's prescription, and delay treatment to first arrange a doctor visit",
+      "why_fails": "While the Drugs Act 1976 makes antibiotics prescription-only and DRAP issued a nationwide advisory in August 2024 restating this, a peer-reviewed dispensing-pattern study of pharmacies in Islamabad and Rawalpindi found 35.2% of antibiotics were handed out without any prescription, through patient self-demand or pharmacist recommendation, so the law is inconsistently enforced on the ground.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.geo.tv/latest/557278-amid-amr-threat-drap-advises-antibiotics-be-given-on-registered-doctors-prescription-only",
+        "https://internalmedicine.imedpub.com/antibiotic-dispensing-and-prescription-pattern-inpharmacies-of-islamabad-and-rawalpindi-pakistan.php?aid=19360"
+      ],
+      "common_misconception": "Because the law clearly requires a prescription, travelers assume it is enforced the way it would be in a country with strict pharmacy oversight."
+    },
+    {
+      "action": "Self-diagnose and buy an antibiotic over the counter based on symptoms alone because pharmacies will sell it without a prescription",
+      "why_fails": "Pharmacy staff dispensing without a prescription are not diagnosing the underlying illness; DRAP's 2024 advisory was issued specifically because unsupervised self-medication is driving antimicrobial resistance, so the drug obtained this way may be the wrong antibiotic, wrong dose, or unnecessary for a viral illness.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.geo.tv/latest/557278-amid-amr-threat-drap-advises-antibiotics-be-given-on-registered-doctors-prescription-only"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "See a registered doctor for a proper diagnosis and prescription when possible",
+      "success_rate": 0.85,
+      "how": "Use a clinic, hospital OPD, or telemedicine consultation with a PMDC-registered doctor to get an accurate diagnosis before taking an antibiotic, rather than relying on a pharmacist's guess.",
+      "sources": [
+        "https://www.geo.tv/latest/557278-amid-amr-threat-drap-advises-antibiotics-be-given-on-registered-doctors-prescription-only"
+      ]
+    },
+    {
+      "action": "If buying over the counter is unavoidable, treat it as a stopgap and confirm the drug/dose with a pharmacist or doctor as soon as possible",
+      "success_rate": 0.55,
+      "how": "Do not assume OTC availability means the drug is appropriate; follow up with a medical professional to confirm the choice and complete course.",
+      "condition": "Applies when no doctor is reachable in the short term."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-10"
+  }
+}
