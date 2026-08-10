@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/hawala-hundi-illegal-informal-transfer/pk",
+  "url": "https://deadends.dev/banking/hawala-hundi-illegal-informal-transfer/pk",
+  "error": {
+    "signature": "AI suggests using a hawala/hundi agent in Pakistan to send or receive money because it is cheaper or faster than a bank",
+    "regex": "(pakistan.*(hawala|hundi)|(hawala|hundi).*pakistan|(hawala|hundi).*transfer.*money)",
+    "domain": "banking",
+    "category": "legal_risk",
+    "first_seen": "2019-01-01",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-08-10",
+    "summary": "Moving foreign currency through hawala/hundi networks rather than an SBP-authorized bank or exchange company is illegal under the Foreign Exchange Regulation Act 1947 and the Anti-Money Laundering Act 2010. SBP and the FIA are running an active nationwide crackdown on hawala/hundi operators, and users of an unauthorized channel have no legal protection if funds are lost, seized, or delayed, and can themselves face questioning as part of an investigation into the operator."
+  },
+  "dead_ends": [
+    {
+      "action": "Use a hawala/hundi agent instead of a bank or exchange company to send or receive money in Pakistan, treating it as just an informal discount money-transfer service",
+      "why_fails": "Only entities the State Bank of Pakistan (SBP) has licensed as authorized dealers may lawfully deal in foreign exchange under the Foreign Exchange Regulation Act 1947; hawala/hundi operators are not licensed, so the transaction is a punishable offence under FERA 1947 and the Anti-Money Laundering Act 2010, and SBP and the FIA formed a joint task force in 2026 to actively pursue these networks.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.sbp.org.pk/fe_manual/appendix%20files/appendix%201/appendix1.htm",
+        "https://www.dawn.com/news/1459232",
+        "https://www.geo.tv/latest/656099-pakistan-launches-major-crackdown-against-money-laundering-hawala-hundi-networks"
+      ],
+      "common_misconception": "Users assume hawala/hundi is a harmless cultural custom or a customer-service shortcut rather than an offence, since operators are often long-standing family shops rather than obviously criminal fronts."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Send or receive money only through a bank or an SBP-licensed exchange company",
+      "success_rate": 0.95,
+      "how": "Use a bank wire, a licensed money-service business, or an SBP-authorized exchange company; these channels are legal, and disputes/losses have recourse through the bank or SBP's complaint process.",
+      "sources": [
+        "https://www.geo.tv/latest/656099-pakistan-launches-major-crackdown-against-money-laundering-hawala-hundi-networks"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-10"
+  }
+}

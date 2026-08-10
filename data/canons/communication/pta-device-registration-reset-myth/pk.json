@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/pta-device-registration-reset-myth/pk",
+  "url": "https://deadends.dev/communication/pta-device-registration-reset-myth/pk",
+  "error": {
+    "signature": "AI tells a visitor to Pakistan that swapping SIM cards, factory-resetting the phone, or leaving and re-entering the country resets the PTA/DIRBS device-registration countdown, or that any tourist must pay import duty within 60 days like a permanent resident",
+    "regex": "(pta\\s*(register|block|imei)|dirbs\\s*(register|block|imei)|pakistan.*(phone|sim).*(block|register))",
+    "domain": "communication",
+    "category": "administrative_barrier",
+    "first_seen": "2019-01-01",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.72,
+    "last_updated": "2026-08-10",
+    "summary": "Pakistan's DIRBS system blocks a phone's IMEI from local networks once its compliance window lapses. The clock starts at first network use and is tied to the IMEI itself, not the SIM card or the traveler's passport stamps, so swapping SIMs or leaving and re-entering the country does not reset it. Short-term visitors and overseas Pakistanis should use PTA's free ~120-day Temporary Registration (dirbs.pta.gov.pk/drs) instead of the standard 60-day duty-payment track meant for permanent imports."
+  },
+  "dead_ends": [
+    {
+      "action": "Swap the SIM card, factory-reset the phone, or leave and re-enter Pakistan to reset the DIRBS compliance countdown",
+      "why_fails": "DIRBS logs a 'first latch' date for the device's IMEI the moment it connects to a Pakistani network, and the countdown to being blocked runs from that date regardless of which SIM is inserted, whether the device is reset, or whether the owner leaves and comes back — it is tied to the physical IMEI, not the SIM or the traveler's entry record.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.techjuice.pk/guides/pta-approval-in-2026-how-to-dodge-the-imei-block-and-save-your-wallet/",
+        "https://www.dawn.com/news/1460697"
+      ],
+      "common_misconception": "Travelers assume the block is linked to the SIM card or their visa status, so swapping either resets the clock."
+    },
+    {
+      "action": "Register a short-visit phone through the standard DIRBS duty-payment process (pay tax, use the once-a-year free-phone allowance) instead of the tourist-specific facility",
+      "why_fails": "The standard track requires registration within 60 days and charges duty on every phone beyond the first one registered in a calendar year; it is designed for permanent imports, not short stays, so applying it to a tourist causes an unnecessary tax bill and paperwork the free Temporary Registration track was built to avoid.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.pta.gov.pk/category/overseas-pakistanis-can-register-mobile-devices-for-temporary-use-of-up-to-120-days-178668887-2025-04-28",
+        "https://www.dawn.com/news/1460697"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register the device through PTA's free DRS Temporary Registration facility on arrival",
+      "success_rate": 0.9,
+      "how": "Apply at dirbs.pta.gov.pk/drs with passport and entry details before or shortly after inserting a local SIM. It covers overseas Pakistanis and foreign nationals for up to 120 days per visit, free of duty, and can be repeated on later visits.",
+      "sources": [
+        "https://www.pta.gov.pk/category/overseas-pakistanis-can-register-mobile-devices-for-temporary-use-of-up-to-120-days-178668887-2025-04-28"
+      ]
+    },
+    {
+      "action": "Use a foreign SIM as an international roamer instead of a local Pakistani SIM",
+      "success_rate": 0.85,
+      "how": "A phone operating on a foreign SIM as a roamer is not subject to the local DIRBS registration requirement, since the requirement is triggered by inserting a Pakistani SIM.",
+      "sources": [
+        "https://www.pta.gov.pk/category/overseas-pakistanis-can-register-mobile-devices-for-temporary-use-of-up-to-120-days-178668887-2025-04-28"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-10"
+  }
+}

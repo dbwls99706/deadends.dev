@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/ordinance-2001-superseded-by-provinces/pk",
+  "url": "https://deadends.dev/mental-health/ordinance-2001-superseded-by-provinces/pk",
+  "error": {
+    "signature": "AI cites Pakistan's federal Mental Health Ordinance 2001 as the country's current, uniformly applicable mental health law",
+    "regex": "pakistan.*mental health.*(ordinance|law).*2001",
+    "domain": "mental-health",
+    "category": "outdated_legal_reference",
+    "first_seen": "2013-01-01",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "regional",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-10",
+    "summary": "After the 18th Constitutional Amendment (2010) devolved health to the provinces, the federal Mental Health Ordinance 2001 was superseded in most of the country by separate provincial laws: Sindh (2013), Punjab (2014), and Khyber Pakhtunkhwa (2017). Citing the 2001 ordinance as the current law is wrong for those three provinces, and the legal picture is genuinely fragmented — no equivalent provincial act has been passed for Balochistan or Azad Jammu and Kashmir as of the most recent academic review."
+  },
+  "dead_ends": [
+    {
+      "action": "Cite the Mental Health Ordinance 2001 as the law governing involuntary admission or patient rights anywhere in Pakistan",
+      "why_fails": "Health became a provincial subject after the 18th Amendment in 2010, and Sindh, Punjab, and Khyber Pakhtunkhwa each replaced the federal ordinance with their own act (Sindh Mental Health Ordinance 2013, Punjab Mental Health Amendment Act 2014, and the Khyber Pakhtunkhwa Mental Health Act 2017), so the 2001 text is not the operative law in those provinces even though it was the model they were drafted from.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.cambridge.org/core/journals/bjpsych-international/article/mental-health-law-in-pakistan/92791134964FDEAA7FC6DAC02CAD6543",
+        "https://kpcode.kp.gov.pk/uploads/2017_17_THE_KHYBER_PAKHTUNKHWA_MENTAL_HEALTH_ACT_2017.pdf"
+      ],
+      "common_misconception": "Because the provincial acts closely mirror the 2001 ordinance's structure, people assume citing the original federal text is interchangeable with citing the province's actual current law."
+    },
+    {
+      "action": "Assume every province has its own modern mental health act just because Sindh, Punjab, and KP do",
+      "why_fails": "As of the most recent academic review, no provincial mental health act has been passed for Balochistan or Azad Jammu and Kashmir, leaving an unresolved gap in which the legal basis for involuntary admission is unclear rather than simply 'the 2001 ordinance' or 'a provincial act.'",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8554968"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Identify the person's province first, then cite that province's specific act",
+      "success_rate": 0.85,
+      "how": "Use the Sindh Mental Health Ordinance 2013 for Sindh, the Punjab Mental Health (Amendment) Act 2014 for Punjab, or the Khyber Pakhtunkhwa Mental Health Act 2017 for KP; for Balochistan, AJK, and Gilgit-Baltistan, flag the legal basis as unsettled rather than assuming the 2001 ordinance still governs.",
+      "sources": [
+        "https://www.cambridge.org/core/journals/bjpsych-international/article/mental-health-law-in-pakistan/92791134964FDEAA7FC6DAC02CAD6543",
+        "https://kpcode.kp.gov.pk/uploads/2017_17_THE_KHYBER_PAKHTUNKHWA_MENTAL_HEALTH_ACT_2017.pdf"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-10"
+  }
+}
