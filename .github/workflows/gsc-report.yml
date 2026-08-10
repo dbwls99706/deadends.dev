@@ -91,7 +91,7 @@ jobs:
         env:
           GSC_PROPERTY: ${{ vars.GSC_PROPERTY || 'sc-domain:deadends.dev' }}
         run: |
-          python -m generator.gsc_report --submit-sitemap | tee report.txt
+          python -u -m generator.gsc_report --submit-sitemap | tee report.txt
           {
             echo "## Search Console indexing report"
             echo ""
