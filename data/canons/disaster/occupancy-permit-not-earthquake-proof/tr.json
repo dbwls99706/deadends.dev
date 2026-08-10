@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/occupancy-permit-not-earthquake-proof/tr",
+  "url": "https://deadends.dev/disaster/occupancy-permit-not-earthquake-proof/tr",
+  "error": {
+    "signature": "AI tells someone in Turkey that a building's iskan (occupancy permit) or a recent construction date means it is earthquake-safe",
+    "regex": "(turkey.{0,20}(iskan|occupancy permit|building permit).{0,20}(safe|earthquake)|earthquake.{0,20}safe.{0,20}turkey.{0,20}(permit|iskan))",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-10",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-10",
+    "summary": "An occupancy permit (iskan) or a post-2000 construction date is not reliable proof that a Turkish building meets earthquake-resistant standards. A 2018 zoning/construction amnesty (imar barisi, Law No. 7143) let millions of non-compliant structures obtain retroactive legal status for a fee without a genuine structural safety review, and many amnestied buildings collapsed in the February 2023 earthquakes. Owners and tenants can instead request an independent 'riskli yapi' (risky-building) structural assessment from a Ministry of Environment, Urbanization and Climate Change-licensed institution under Law No. 6306."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat having an iskan (occupancy/habitation permit) as proof the building meets earthquake-resistant construction standards",
+      "why_fails": "Turkey's 2018 construction amnesty (imar barisi, Law No. 7143) let over 10 million non-compliant structures - including ones with structural code violations - obtain legal status and permits retroactively for a fee, without a genuine engineering safety review. Investigations after the February 2023 Kahramanmaras earthquakes found that many buildings legalized under the amnesty, and buildings whose contractors had permits, collapsed; Turkish authorities detained and investigated hundreds of contractors and property owners over collapsed buildings.",
+      "fail_rate": 0.7,
+      "common_misconception": "Having legal paperwork (an occupancy permit) is conflated with structural engineering compliance; the permit records legal status, not verified seismic safety.",
+      "sources": [
+        "https://www.pbs.org/newshour/world/turkey-detains-building-contractors-as-earthquake-deaths-rise-past-33000",
+        "https://www.context.news/money-power-people/rotten-buildings-corruption-in-spotlight-after-turkey-quake"
+      ]
+    },
+    {
+      "action": "Assume a newer-looking building, or one built after Turkey's 1999 earthquake code reforms, automatically meets the current Turkish Earthquake Code (TBDY)",
+      "why_fails": "Reporting on the 2023 collapses found enforcement gaps and amnesty provisions meant even post-1999 buildings could be retroactively legalized despite code violations, and that some contractors altered approved structural plans after inspection sign-off. Building age and permit history alone do not confirm compliance with current seismic design standards.",
+      "fail_rate": 0.5,
+      "condition": "Applies to buildings anywhere in Turkey's seismically active regions, not only the 2023 earthquake zone",
+      "sources": [
+        "https://www.pbs.org/newshour/world/turkey-detains-building-contractors-as-earthquake-deaths-rise-past-33000",
+        "https://www.context.news/money-power-people/rotten-buildings-corruption-in-spotlight-after-turkey-quake"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Request or commission an independent 'riskli yapi' (risky-building) structural assessment through a Ministry-licensed institution under Law No. 6306, rather than relying on the occupancy permit alone",
+      "success_rate": 0.75,
+      "how": "Building owners or occupants can apply to an engineering firm, university, professional chamber office, or other institution licensed by the Ministry of Environment, Urbanization and Climate Change to carry out a structural risk survey (site/soil study plus load-bearing-system inspection); the resulting 'riskli yapi' determination is independent of the building's permit history.",
+      "sources": [
+        "https://csb.gov.tr/sss/riskli-yapilar",
+        "https://altyapi.csb.gov.tr/riskli-yapi-tespiti-ile-ilgili-kuruluslar"
+      ]
+    },
+    {
+      "action": "Before renting, buying, or staying long-term, consult a licensed structural/civil engineer for an independent opinion rather than relying on a landlord's or seller's assurances about the building's permit status",
+      "success_rate": 0.65,
+      "tradeoff": "An independent assessment costs money and takes time, and is most practical for longer stays or property purchases rather than short tourist visits.",
+      "sources": [
+        "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/turkey-travel-advisory.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-10"
+  }
+}

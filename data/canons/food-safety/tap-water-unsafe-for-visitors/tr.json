@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/tap-water-unsafe-for-visitors/tr",
+  "url": "https://deadends.dev/food-safety/tap-water-unsafe-for-visitors/tr",
+  "error": {
+    "signature": "AI tells a visitor that tap water in Turkey (e.g. Istanbul) is safe to drink straight from the tap",
+    "regex": "(turkey.{0,15}tap.water|istanbul.{0,15}tap.water|drink.{0,15}water.{0,15}turkey)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2026-08-10",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-10",
+    "summary": "Tap water in Turkey is treated and chlorinated at the municipal source in most cities, but both the US CDC and the UK's National Travel Health Network and Centre (NaTHNaC) advise visitors against drinking it or using tap-water ice, because contamination risk remains from aging distribution pipes and rooftop storage tanks common in Turkish buildings. Sealed bottled water, boiled water, or a reliable filter/purifier are the standard alternatives."
+  },
+  "dead_ends": [
+    {
+      "action": "Drink Istanbul or other Turkish city tap water directly from the tap on the assumption that municipal chlorination makes it safe",
+      "why_fails": "CDC travel guidance for Turkey lists it among destinations where typhoid fever and traveler's diarrhea are known or presumed risks tied to contaminated food and water, and the UK's NaTHNaC explicitly advises travelers to avoid tap water. Treatment at the municipal source does not account for contamination introduced later in aging distribution pipes and the rooftop storage tanks common on Turkish buildings.",
+      "fail_rate": 0.55,
+      "common_misconception": "'The water is treated by the city' is conflated with 'the water is safe by the time it reaches my tap,' which ignores contamination risk in old plumbing and building cisterns.",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/turkey",
+        "https://travelhealthpro.org.uk/country/227/turkey"
+      ]
+    },
+    {
+      "action": "Use tap water for ice cubes in drinks or to rinse fruit, assuming this small an exposure does not matter",
+      "why_fails": "NaTHNaC's country guidance for Turkey instructs travelers to avoid tap water and ice cubes in drinks and to take care with fruit that cannot be peeled, because hepatitis A and typhoid transmit through small amounts of contaminated food and water contact, not only through direct drinking.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://travelhealthpro.org.uk/country/227/turkey",
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/preparing/food-and-water-precautions"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Drink sealed bottled water, or water that has been boiled or passed through a reliable filter/purifier",
+      "success_rate": 0.9,
+      "how": "Buy sealed bottled water and check the seal is intact, boil water for at least one minute, or use a certified travel filter/purifier.",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/yellowbook/2024/preparing/food-and-water-precautions",
+        "https://travelhealthpro.org.uk/country/227/turkey"
+      ]
+    },
+    {
+      "action": "Avoid tap-water ice cubes and unpeeled raw produce you did not wash yourself with safe water",
+      "success_rate": 0.8,
+      "tradeoff": "Some higher-end venues use purified ice or bottled water for food prep; when unsure, skip ice and peel fruit yourself rather than assuming.",
+      "sources": [
+        "https://travelhealthpro.org.uk/country/227/turkey"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-10"
+  }
+}

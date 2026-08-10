@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/hair-transplant-clinic-license-required/tr",
+  "url": "https://deadends.dev/medical/hair-transplant-clinic-license-required/tr",
+  "error": {
+    "signature": "AI assumes any hair transplant clinic in Turkey with doctors on staff and professional marketing is operating legally and safely",
+    "regex": "(turkey.{0,20}hair transplant.{0,20}(safe|legit|clinic)|hair transplant.{0,20}turkey.{0,20}(license|legal|safe))",
+    "domain": "medical",
+    "category": "health_risk",
+    "first_seen": "2026-08-10",
+    "last_confirmed": "2026-08-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-10",
+    "summary": "Turkey's Ministry of Health Regulation on Hair Transplant Units (Official Gazette No. 32182, 6 May 2023, amended by No. 32358, 3 November 2023) requires a specific operating license for hair transplant units and restricts who may legally perform incisions, but a majority of clinics reportedly still operate outside this framework. Professional appearance, English-speaking staff, or possessing a general health-tourism certificate are not proof of compliance; verify the specific Hair Transplant Unit Operating License and who performs the incision."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a clinic is legitimate and safe because it has doctors, English-speaking staff, and polished before/after marketing",
+      "why_fails": "Turkey's Ministry of Health Regulation on Hair Transplant Units (Official Gazette No. 32182, 6 May 2023) requires clinics to hold a specific Hair Transplant Unit Operating License and mandates that only a licensed physician (or, under the November 2023 amendment, certificated staff working under a supervising physician) may perform incision/harvesting steps. Legal commentary on the sector reports that a large share of Istanbul clinics still operate outside this licensing framework, with unlicensed technicians performing the actual surgical steps behind professional-looking storefronts and marketing.",
+      "fail_rate": 0.6,
+      "common_misconception": "A clinic's professional appearance and having doctors employed somewhere on staff is mistaken for the specific legal requirement that a licensed physician (or certified, supervised staff) personally performs the incision and harvesting.",
+      "sources": [
+        "https://www.resmigazete.gov.tr/eskiler/2023/05/20230506-11.htm",
+        "https://www.penningtonslaw.com/insights/unlicensed-and-illegal-turkish-clinics-threaten-hair-transplant-tourism/"
+      ]
+    },
+    {
+      "action": "Rely on a clinic's own claim of holding a health-tourism authorization as proof of surgical quality or outcome",
+      "why_fails": "A general International Health Tourism Authorization Certificate confirms only that a provider is permitted to commercially treat international patients; it is a separate authorization from the Ministry's specific Hair Transplant Unit Operating License, and neither certificate guarantees surgical judgment, donor-area protection, or realistic graft planning. The UK Foreign, Commonwealth & Development Office explicitly states it does not endorse the competence or suitability of any practitioner or facility, after recording 7 British national deaths in Turkey in 2025 following medical procedures.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/turkey/health",
+        "https://www.resmigazete.gov.tr/eskiler/2023/05/20230506-11.htm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify the clinic specifically holds a Ministry of Health Hair Transplant Unit Operating License issued under the May 2023 regulation, and confirm who performs the incisions",
+      "success_rate": 0.75,
+      "how": "Ask the clinic to show its Ministry of Health hair-transplant-unit operating license and the treating physician's specific hair-transplant practitioner certificate; buildings that only had a general health-tourism license had until 6 May 2024 to also meet the physical and staffing standards of the new regulation or lose the ability to legally operate a hair transplant unit.",
+      "sources": [
+        "https://www.resmigazete.gov.tr/eskiler/2023/05/20230506-11.htm",
+        "https://ohsad.org/sac-ekimi-birimleri-hakkinda-yonetmelikte-degisiklik-yapilmasina-dair-yonetmelik-3-kasim-2023/"
+      ]
+    },
+    {
+      "action": "Get an independent medical opinion from a doctor in your home country before booking, and use government travel-health guidance rather than the clinic's own marketing as your starting point for due diligence",
+      "success_rate": 0.65,
+      "tradeoff": "Government travel advisories describe risks and legal requirements but do not rate or endorse specific clinics, so this step reduces risk without eliminating the need for your own verification.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/turkey/health"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-10"
+  }
+}
