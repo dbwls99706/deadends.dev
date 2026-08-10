@@ -1,488 +1,1219 @@
 {
-  "property": "https://deadends.dev/",
+  "property": "sc-domain:deadends.dev",
   "inspected_count": 120,
-  "indexed_count": 0,
-  "manual_request_shortlist": [],
+  "indexed_count": 1,
+  "manual_request_shortlist": [
+    "https://deadends.dev/search/",
+    "https://deadends.dev/sitemap/",
+    "https://deadends.dev/dashboard/",
+    "https://deadends.dev/about/",
+    "https://deadends.dev/android/",
+    "https://deadends.dev/api/",
+    "https://deadends.dev/aws/",
+    "https://deadends.dev/banking/",
+    "https://deadends.dev/cicd/",
+    "https://deadends.dev/cloud/"
+  ],
   "results": [
     {
       "url": "https://deadends.dev/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Submitted and indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-06T10:31:50Z",
+      "canonical_google": "https://deadends.dev/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/search/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T17:48:18Z",
+      "canonical_google": "https://deadends.dev/search/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/sitemap/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/dashboard/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/about/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-12T18:37:04Z",
+      "canonical_google": "https://deadends.dev/android/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T23:56:38Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/aws/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T22:04:41Z",
+      "canonical_google": "https://deadends.dev/aws/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/banking/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/cicd/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T18:41:18Z",
+      "canonical_google": "https://deadends.dev/cicd/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/cloud/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T00:00:30Z",
+      "canonical_google": "https://deadends.dev/cloud/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/cmake/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-24T22:17:44Z",
+      "canonical_google": "https://deadends.dev/cmake/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/communication/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-13T19:25:25Z",
+      "canonical_google": "https://deadends.dev/communication/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/cuda/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-04T13:58:12Z",
+      "canonical_google": "https://deadends.dev/cuda/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/culture/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-03T04:24:01Z",
+      "canonical_google": "https://deadends.dev/culture/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/data/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T23:01:41Z",
+      "canonical_google": "https://deadends.dev/data/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/database/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/disaster/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-27T06:25:09Z",
+      "canonical_google": "https://deadends.dev/disaster/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/docker/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-26T13:46:30Z",
+      "canonical_google": "https://deadends.dev/docker/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/dotnet/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-16T12:47:53Z",
+      "canonical_google": "https://deadends.dev/dotnet/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/elasticsearch/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T22:18:54Z",
+      "canonical_google": "https://deadends.dev/elasticsearch/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/embedded/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T02:43:33Z",
+      "canonical_google": "https://deadends.dev/embedded/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/emergency/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/flutter/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T19:45:50Z",
+      "canonical_google": "https://deadends.dev/flutter/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/food-safety/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-28T18:12:29Z",
+      "canonical_google": "https://deadends.dev/food-safety/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/git/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T22:40:24Z",
+      "canonical_google": "https://deadends.dev/git/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/go/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T11:32:11Z",
+      "canonical_google": "https://deadends.dev/go/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/grpc/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T10:39:25Z",
+      "canonical_google": "https://deadends.dev/grpc/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/huggingface/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T14:11:28Z",
+      "canonical_google": "https://deadends.dev/huggingface/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/java/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/kafka/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T10:40:16Z",
+      "canonical_google": "https://deadends.dev/kafka/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/kubernetes/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-15T01:27:44Z",
+      "canonical_google": "https://deadends.dev/kubernetes/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/legal/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-15T10:49:46Z",
+      "canonical_google": "https://deadends.dev/legal/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/llm/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T02:44:47Z",
+      "canonical_google": "https://deadends.dev/llm/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/medical/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-28T16:39:25Z",
+      "canonical_google": "https://deadends.dev/medical/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/mental-health/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-28T18:05:22Z",
+      "canonical_google": "https://deadends.dev/mental-health/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/mongodb/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T10:43:45Z",
+      "canonical_google": "https://deadends.dev/mongodb/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/networking/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/nextjs/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/nginx/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T10:47:19Z",
+      "canonical_google": "https://deadends.dev/nginx/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/node/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-25T14:37:55Z",
+      "canonical_google": "https://deadends.dev/node/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/opencv/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T23:07:54Z",
+      "canonical_google": "https://deadends.dev/opencv/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/pet-safety/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-28T03:11:16Z",
+      "canonical_google": "https://deadends.dev/pet-safety/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/php/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/pip/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T12:32:15Z",
+      "canonical_google": "https://deadends.dev/pip/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/policy/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-10T21:16:20Z",
+      "canonical_google": "https://deadends.dev/policy/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/python/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T11:27:41Z",
+      "canonical_google": "https://deadends.dev/python/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/pytorch/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T00:54:25Z",
+      "canonical_google": "https://deadends.dev/pytorch/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/react/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/redis/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T22:07:59Z",
+      "canonical_google": "https://deadends.dev/redis/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/ros2/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-10T15:05:10Z",
+      "canonical_google": "https://deadends.dev/ros2/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/rust/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-22T13:57:46Z",
+      "canonical_google": "https://deadends.dev/rust/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/safety/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-11T07:54:27Z",
+      "canonical_google": "https://deadends.dev/safety/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/security/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-13T09:06:43Z",
+      "canonical_google": "https://deadends.dev/security/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/tensorflow/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T22:16:19Z",
+      "canonical_google": "https://deadends.dev/tensorflow/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/terraform/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/typescript/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-14T23:08:17Z",
+      "canonical_google": "https://deadends.dev/typescript/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/unity/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-04-16T10:29:52Z",
+      "canonical_google": "https://deadends.dev/unity/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/visa/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/country/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/aapt2-resource-linking-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-17T07:48:11Z",
+      "canonical_google": "https://deadends.dev/android/aapt2-resource-linking-failed/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/activity-not-found/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:18:16Z",
+      "canonical_google": "https://deadends.dev/android/activity-not-found/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/adb-device-unauthorized/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-18T11:35:51Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/anr-main-thread/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:19:05Z",
+      "canonical_google": "https://deadends.dev/android/anr-main-thread/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/build-gradle-sync-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:16:47Z",
+      "canonical_google": "https://deadends.dev/android/build-gradle-sync-failed/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/camera2-permission/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-07-23T13:55:15Z",
+      "canonical_google": "https://deadends.dev/android/camera2-permission/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/class-not-found-exception/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-27T09:11:33Z",
+      "canonical_google": "https://deadends.dev/android/class-not-found-exception/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/compose-recomposition/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-05T20:04:06Z",
+      "canonical_google": "https://deadends.dev/android/compose-recomposition/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/data-binding-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-07-18T01:22:20Z",
+      "canonical_google": "https://deadends.dev/android/data-binding-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/deep-link-not-working/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-07-09T21:11:39Z",
+      "canonical_google": "https://deadends.dev/android/deep-link-not-working/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/desugaring-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/dex-method-limit/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-12T16:17:14Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/encryption-key-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T06:27:47Z",
+      "canonical_google": "https://deadends.dev/android/encryption-key-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/firebase-init-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T07:09:36Z",
+      "canonical_google": "https://deadends.dev/android/firebase-init-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/foreground-service-restriction/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-05T12:57:21Z",
+      "canonical_google": "https://deadends.dev/android/foreground-service-restriction/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/fragment-not-attached/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:08:53Z",
+      "canonical_google": "https://deadends.dev/android/fragment-not-attached/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/gradle-daemon-oom/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T06:45:10Z",
+      "canonical_google": "https://deadends.dev/android/gradle-daemon-oom/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/gradle-oom/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/hilt-injection-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T05:56:43Z",
+      "canonical_google": "https://deadends.dev/android/hilt-injection-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/jetifier-transform-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-25T08:27:42Z",
+      "canonical_google": "https://deadends.dev/android/jetifier-transform-failed/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/jetpack-navigation-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T07:23:34Z",
+      "canonical_google": "https://deadends.dev/android/jetpack-navigation-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/leak-canary-alert/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:08:57Z",
+      "canonical_google": "https://deadends.dev/android/leak-canary-alert/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/manifest-merger-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/merge-debug-resources-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-25T06:56:28Z",
+      "canonical_google": "https://deadends.dev/android/merge-debug-resources-failed/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/ndk-build-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/network-security-config/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:08:52Z",
+      "canonical_google": "https://deadends.dev/android/network-security-config/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/notification-channel-required/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:09:01Z",
+      "canonical_google": "https://deadends.dev/android/notification-channel-required/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/play-store-rejection/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-10T11:54:02Z",
+      "canonical_google": "https://deadends.dev/android/play-store-rejection/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/proguard-missing-class/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-15T19:02:21Z",
+      "canonical_google": "https://deadends.dev/android/proguard-missing-class/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/recyclerview-inconsistency/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T08:33:31Z",
+      "canonical_google": "https://deadends.dev/android/recyclerview-inconsistency/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/resource-not-found/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-27T03:54:25Z",
+      "canonical_google": "https://deadends.dev/android/resource-not-found/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/room-migration-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T07:09:47Z",
+      "canonical_google": "https://deadends.dev/android/room-migration-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/scoped-storage-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T05:29:49Z",
+      "canonical_google": "https://deadends.dev/android/scoped-storage-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/sdk-packages-not-found/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T07:36:55Z",
+      "canonical_google": "https://deadends.dev/android/sdk-packages-not-found/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/signing-config-not-found/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/viewmodel-saved-state/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-08T14:56:16Z",
+      "canonical_google": "https://deadends.dev/android/viewmodel-saved-state/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/webview-ssl-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T05:47:09Z",
+      "canonical_google": "https://deadends.dev/android/webview-ssl-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/work-manager-constraint/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-07-11T20:18:49Z",
+      "canonical_google": "https://deadends.dev/android/work-manager-constraint/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/zygote-fork-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-02-26T20:36:10Z",
+      "canonical_google": "https://deadends.dev/android/zygote-fork-error/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/dex-method-limit/agp8-linux/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/dex-method-limit/android14-linux/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-03-27T18:24:28Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/api-key-invalid/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/api-version-deprecated/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:06:55Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/batch-request-partial-failure/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:06:39Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/certificate-validation-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:11:44Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/circuit-breaker-open/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:08:54Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/content-type-charset-mismatch/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T22:16:26Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/content-type-mismatch/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:08:52Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/cors-preflight-failure/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:06:50Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/etag-precondition-failed/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:11:37Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/etag-weak-vs-strong-comparison/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T23:59:49Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/github-secondary-rate-limit/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T20:55:37Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/google-oauth-refresh-token-revoked/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T20:54:10Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/graphql-n-plus-one-dataloader/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T00:04:19Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/graphql-validation-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:09:01Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/grpc-web-proxy-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:08:52Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/hateoas-link-broken/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:06:48Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/idempotency-key-conflict/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T08:09:13Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/idempotency-key-not-propagated/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-25T21:09:36Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/api/json-parse-error/",
-      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"You do not own this site, or the inspected URL is not part of this property.\". Det"
+      "coverage": "Blocked by robots.txt",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "DISALLOWED",
+      "fetch": "BLOCKED_ROBOTS_TXT",
+      "last_crawl": "2026-02-26T07:11:52Z",
+      "canonical_google": null,
+      "verdict": "unknown"
     }
   ]
 }
