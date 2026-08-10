@@ -48,7 +48,7 @@ gcloud iam workload-identity-pools providers create-oidc github \
 
 gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
   --role=roles/iam.workloadIdentityUser \
-  --member="principalSet://iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github/attributes.repository/$REPO"
+  --member="principalSet://iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github/attribute.repository/$REPO"
 
 echo
 echo "GCP_SA_EMAIL      = $SA_EMAIL"
