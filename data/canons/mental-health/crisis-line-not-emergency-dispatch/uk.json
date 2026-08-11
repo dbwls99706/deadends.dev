@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/uk",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/uk",
+  "error": {
+    "signature": "AI tells someone in a UK mental health crisis that calling NHS 111 (mental health option) or Samaritans will automatically dispatch an ambulance or police to their location the way calling 999 does",
+    "regex": "(nhs 111.{0,20}mental health|samaritans.{0,20}(dispatch|send help|ambulance)|111.{0,15}option 2.{0,15}(emergency|crisis))",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-11",
+    "summary": "NHS 111's mental health option (press/select 2, live in England, Wales, and Scotland) connects a caller to a trained mental health professional for assessment and signposting - it is not a dispatch service like 999. NHS's own guidance is to call 999 or go to A&E when life is at risk. Samaritans (116 123) is similarly not a dispatch line by default: its phones don't show caller numbers, and it will only contact emergency services under its safeguarding policy in specific situations, not as a routine response."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in an active mental health emergency in the UK to call NHS 111 and select the mental health option, or call Samaritans, expecting it to dispatch police or an ambulance the way 999 does",
+      "why_fails": "NHS's own guidance states to call 999 or go to A&E 'if someone's life is at risk' - the 111 mental health option is for urgent but non-life-threatening support and routes to a mental health professional for assessment, not automatic dispatch.",
+      "fail_rate": 0.75,
+      "common_misconception": "People assume any UK crisis helpline works like 999 and will send someone to their door.",
+      "sources": [
+        "https://www.nhs.uk/nhs-services/mental-health-services/where-to-get-urgent-help-for-mental-health/",
+        "https://www.gov.wales/nhs-111-press-2-big-step-forward-access-urgent-mental-health-support"
+      ]
+    },
+    {
+      "action": "Assume Samaritans (116 123) is unconditionally anonymous and can never result in emergency services being contacted",
+      "why_fails": "Samaritans states plainly that information shared is confidential 'except for in certain situations where our safeguarding policy means we may tell someone, for example, by calling an ambulance' - so while calls are anonymous by default (no caller ID shown to the volunteer), safeguarding can override that in specific risk cases.",
+      "fail_rate": 0.4,
+      "condition": "Caller is relying on an absolute no-intervention guarantee",
+      "sources": [
+        "https://www.samaritans.org/how-we-can-help/contact-samaritan/talk-us-phone/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a UK mental health crisis that is urgent but not immediately life-threatening, call NHS 111 and select the mental health option (England, Wales, Scotland) to reach a trained mental health professional for assessment and referral.",
+      "success_rate": 0.85,
+      "how": "Dial 111, then choose the mental health option when prompted.",
+      "sources": [
+        "https://www.nhs.uk/nhs-services/mental-health-services/where-to-get-urgent-help-for-mental-health/"
+      ]
+    },
+    {
+      "action": "If life is at risk - serious self-harm, overdose, or you can't keep yourself or someone else safe - call 999 or go to A&E directly rather than routing through a crisis line first.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.nhs.uk/nhs-services/mental-health-services/where-to-get-urgent-help-for-mental-health/"
+      ]
+    },
+    {
+      "action": "If calling Samaritans for confidential emotional support, know that their safeguarding policy can lead to an ambulance being called in specific extreme-risk situations, even though calls are otherwise anonymous and calmer disclosures stay private.",
+      "success_rate": 0.7,
+      "tradeoff": "No crisis line can promise zero chance of intervention.",
+      "sources": [
+        "https://www.samaritans.org/how-we-can-help/contact-samaritan/talk-us-phone/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-101-111-triage/uk",
+        "distinction": "That canon covers general 999/101/111 triage; this one is specific to what happens once you reach the NHS 111 mental health option or Samaritans, and whether it can dispatch help without you asking."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}

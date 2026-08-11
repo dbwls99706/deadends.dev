@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/psychiatric-sector-hospital-assignment/fr",
+  "url": "https://deadends.dev/mental-health/psychiatric-sector-hospital-assignment/fr",
+  "error": {
+    "signature": "AI tells someone in France that they, or a family member, can freely choose any public psychiatric hospital or clinic for care - especially for an involuntary hospitalization",
+    "regex": "(france.{0,25}(choose|pick).{0,20}psychiatric.{0,20}hospital|french.{0,20}psychiatric.{0,20}sector|hospitalisation.{0,20}sans consentement.{0,20}france)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "regional",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-11",
+    "summary": "French public psychiatric care is organized into geographic 'secteurs' tied to a patient's home address, and involuntary hospitalization ('soins psychiatriques sans consentement') can only take place at specific establishments authorized by prefectural decree for that departement - not any hospital with a psychiatric ward. A legal right to request a different public practitioner or team exists, but the national family-carer association Unafam notes it is 'not always easy to obtain' in practice, and it does not override sector or prefecture rules for involuntary admission."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a family can pick any general hospital ER or private clinic to have someone involuntarily hospitalized for psychiatric care in France",
+      "why_fails": "Only establishments specifically authorized by prefectural decree ('etablissements habilites') may receive patients under soins psychiatriques sans consentement in a given departement - in Haute-Corse, for example, that is a single named clinic for the whole departement. A non-authorized hospital that first assesses the patient must arrange transfer, delaying admission.",
+      "fail_rate": 0.6,
+      "condition": "Applies to involuntary admission (soins sans consentement), not voluntary outpatient care",
+      "sources": [
+        "https://www.haute-corse.gouv.fr/Actions-de-l-Etat/Sante-et-solidarites/Sante/Les-soins-psychiatriques-sans-consentement/Hospitalisation-en-soins-psychiatriques-sans-consentement",
+        "https://www.grand-est.ars.sante.fr/soins-psychiatriques-sans-consentement-guide-pratique-pour-le-maire"
+      ]
+    },
+    {
+      "action": "Tell a patient or family that French law gives them free choice of any public psychiatric team, full stop",
+      "why_fails": "By default, a patient's home address determines the 'secteur' (catchment team/hospital) responsible for their public psychiatric care. A legal right to request a different practitioner or team exists on paper, but Unafam - France's main family-carer association - states this right, though provided for in regulations, is 'not always easy to obtain' in practice.",
+      "fail_rate": 0.5,
+      "common_misconception": "People read about the legal 'libre choix' right and assume it works like freely choosing any private clinic.",
+      "sources": [
+        "https://www.unafam.org/troubles-et-handicap-psy/soins-et-rehabilitation/organisation-de-la-psychiatrie"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For non-urgent public psychiatric care, contact the Centre Medico-Psychologique (CMP) that covers your home address - this is the default entry point and is free under the public system.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.unafam.org/troubles-et-handicap-psy/soins-et-rehabilitation/organisation-de-la-psychiatrie"
+      ]
+    },
+    {
+      "action": "If you want a different public team than your home-address sector, you or your family can formally request it in writing citing the 'libre choix' provision, but expect negotiation and possible refusal in practice, especially during a crisis.",
+      "success_rate": 0.5,
+      "tradeoff": "Not guaranteed, and slower than accepting the sector default.",
+      "sources": [
+        "https://www.unafam.org/troubles-et-handicap-psy/soins-et-rehabilitation/organisation-de-la-psychiatrie"
+      ]
+    },
+    {
+      "action": "In a genuine psychiatric emergency, call 15 (SAMU) or 112; responders will take the person to the appropriate facility, which for involuntary care will be the departement's prefecture-designated establishment, not necessarily the nearest hospital.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.haute-corse.gouv.fr/Actions-de-l-Etat/Sante-et-solidarites/Sante/Les-soins-psychiatriques-sans-consentement/Hospitalisation-en-soins-psychiatriques-sans-consentement"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}
