@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/988-confidentiality-not-absolute/us",
+  "url": "https://deadends.dev/mental-health/988-confidentiality-not-absolute/us",
+  "error": {
+    "signature": "AI tells someone that calling or texting the US 988 Suicide & Crisis Lifeline is fully confidential and guarantees no police will ever be sent, no matter what is said",
+    "regex": "(988.{0,20}(fully|completely|totally) (confidential|anonymous)|988.{0,20}(never|won.?t).{0,15}(police|911|cops)|calling 988.{0,20}no one.{0,15}(sent|come))",
+    "domain": "mental-health",
+    "category": "safety_misconception",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-11",
+    "summary": "988 Suicide & Crisis Lifeline calls and texts are confidential in the large majority of contacts, but counselors can and do contact 911/emergency services without the caller's explicit consent when they judge risk of harm to be imminent and a safety plan can't be reached collaboratively. Vibrant Emotional Health, which operates 988 under contract with SAMHSA, reports under 2% of contacts involve any emergency-services referral, and over half of those happen with the caller's consent - meaning nonconsensual dispatch happens in roughly 1% of contacts, not never."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a caller or texter that 988 will never send police or paramedics no matter what they say, as an absolute guarantee to get someone to open up",
+      "why_fails": "988's own published policy states counselors may contact emergency services when risk of harm to self or others is imminent or in progress and a less invasive safety plan can't be agreed on with the caller. Vibrant Emotional Health and independent reporting both put nonconsensual emergency dispatch at roughly 1% of contacts - rare, but real - so 'never' is a false promise.",
+      "fail_rate": 0.55,
+      "common_misconception": "People conflate '988 is confidential in the large majority of cases' with '988 can never call 911.'",
+      "sources": [
+        "https://988lifeline.org/faq/about-us/faq-does-vibrant-use-police-intervention-for-callers-texters-and-chatters-to-the-988-lifeline/",
+        "https://www.cbsnews.com/news/will-988-call-the-police-data-suggests-rarely/"
+      ]
+    },
+    {
+      "action": "Assume 988 has no way to determine a caller's physical location, so a nonconsensual dispatch is impossible even if a counselor wanted one",
+      "why_fails": "In situations assessed as imminent risk, a 988 counselor can ask a 911 dispatcher to use geolocation services on the call to help locate the caller. 988 doesn't independently track location, but it can route that request through 911 infrastructure.",
+      "fail_rate": 0.4,
+      "condition": "Only in the minority of contacts assessed as imminent risk",
+      "sources": [
+        "https://www.cbsnews.com/news/will-988-call-the-police-data-suggests-rarely/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If confidentiality is the caller's top priority and they are not in a life-threatening crisis, be upfront that 988 is confidential in the large majority of contacts but not absolutely guaranteed, and let them decide what to share.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://988lifeline.org/faq/about-us/faq-does-vibrant-use-police-intervention-for-callers-texters-and-chatters-to-the-988-lifeline/"
+      ]
+    },
+    {
+      "action": "Set expectations with the real numbers: about 2% of 988 contacts involve any emergency-services referral at all, and over half of those happen with the caller's consent - so nonconsensual dispatch is rare (roughly 1%) but not zero.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.nbcnews.com/news/us-news/new-988-hotline-draws-criticism-lead-police-response-officials-say-s-m-rcna40434",
+        "https://www.cbsnews.com/news/will-988-call-the-police-data-suggests-rarely/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/911-and-988-lifeline/us",
+        "distinction": "That canon covers which number to call (911 vs 988); this one covers what happens once 988 is contacted - specifically whether it is unconditionally confidential."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/involuntary-hospitalization-family-consent/jp",
+  "url": "https://deadends.dev/mental-health/involuntary-hospitalization-family-consent/jp",
+  "error": {
+    "signature": "AI tells a foreign resident or their family in Japan that a person cannot be hospitalized for psychiatric treatment against their will without a court order, or that only the patient's own consent counts",
+    "regex": "(japan.{0,25}(involuntary|forced|committed).{0,25}(hospital|psychiatric)|psychiatric.{0,20}japan.{0,20}court.{0,10}order|japan.{0,20}mental.{0,10}health.{0,10}court)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-11",
+    "summary": "Japan's Act on Mental Health and Welfare for Persons with Mental Disorders or Disabilities allows 'hospitalization for medical care and protection' (iryo hogo nyuin) without the patient's consent and without any court involved: one psychiatrist's determination plus the written consent of a single qualifying family member (spouse, parent, adult child, or other person with a legal duty of support, or a guardian/curator) is sufficient. If no such family member is reachable or willing, the mayor of the municipality can consent in their place under Article 33 of the Act. There is no independent judicial hearing before admission."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that a family member alone cannot authorize psychiatric hospitalization in Japan without a judge or court order",
+      "why_fails": "'Hospitalization for medical care and protection' is Japan's standard involuntary-admission route: it requires one psychiatrist's determination that hospitalization is necessary and the written consent of one qualifying family member (spouse, person with parental authority, person with a legal duty to support them, or guardian/curator) - no court, magistrate, or judicial hearing is required before admission.",
+      "fail_rate": 0.75,
+      "common_misconception": "People from countries where involuntary commitment requires a judge or independent tribunal (much of the US, UK, or Germany) assume Japan works the same way.",
+      "sources": [
+        "https://www.japaneselawtranslation.go.jp/en/laws/view/4235/en",
+        "https://www.tmhp.jp/matsuzawa/en/column/column20150713-2.html"
+      ]
+    },
+    {
+      "action": "Assume that because a person in Japan has no family there, they cannot be involuntarily hospitalized this way",
+      "why_fails": "When no qualifying family member is available, unreachable, or unwilling to decide, the hospital can seek consent from the mayor of the municipality instead, under Article 33 of the Act, and the mayor can authorize the admission in the family's place.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.mhlw.go.jp/web/t_doc?dataId=00ta4574&dataType=1&pageNo=1"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If a foreign national or their family is facing this in Japan, ask the hospital's medical social worker (soudan-in) about the prefectural Mental Health Review Board and how to formally request an outcome review or discharge - this board, not a court filing, is the main channel to challenge an admission.",
+      "success_rate": 0.55,
+      "tradeoff": "Review takes time and does not guarantee immediate release.",
+      "sources": [
+        "https://www.japaneselawtranslation.go.jp/en/laws/view/4235/en"
+      ]
+    },
+    {
+      "action": "Contact your embassy or consulate in Japan for help locating an English-speaking psychiatrist, interpreter, or patient advocate - Japanese hospitals are not required to provide interpretation during involuntary admission proceedings.",
+      "success_rate": 0.5,
+      "sources": [
+        "https://www.tmhp.jp/matsuzawa/en/column/column20150713-2.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}
