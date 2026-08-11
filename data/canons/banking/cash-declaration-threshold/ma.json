@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/cash-declaration-threshold/ma",
+  "url": "https://deadends.dev/banking/cash-declaration-threshold/ma",
+  "error": {
+    "signature": "AI tells travelers there is no limit on carrying Moroccan dirhams or foreign cash across the Moroccan border, or gets the customs declaration threshold wrong",
+    "regex": "morocco.*(dirham|mad|currency|cash|forex).*(declar|limit|customs|carry|export)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-11",
+    "summary": "Morocco requires a written customs declaration (form J7) for banknotes and bearer financial instruments worth 100,000 MAD or more entering or leaving the country (Customs Code Article 66 bis, added by the 2022 Finance Law), and separately caps how many physical Moroccan dirham banknotes may be carried across the border at 2,000 MAD regardless of how much foreign currency is declared."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any amount of foreign cash can be brought into or out of Morocco without paperwork as long as it isn't being smuggled",
+      "why_fails": "Since the 2022 Finance Law amendment added Article 66 bis to Morocco's Customs Code, any traveler crossing the border with banknotes or bearer financial instruments equal to or exceeding 100,000 MAD (about the same in foreign currency) must file a written declaration (form J7) with customs. The Office des Changes confirms declaration becomes mandatory at that threshold; below it, declaration is optional but skipping it below the threshold does not remove the requirement above it. Refusing to declare above the threshold can trigger legal proceedings under customs, exchange-control, and anti-money-laundering law.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.oc.gov.ma/fr/faq/la-declaration-aux-services-douaniers-a-l-entree-des-billets-de-banque-importes-est-elle",
+        "https://fr.le360.ma/societe/douanes-voyageurs-la-declaration-est-desormais-obligatoire-pour-tout-montant-superieur-a-100000-259141/"
+      ]
+    },
+    {
+      "action": "Try to carry a large amount of Moroccan dirham banknotes out of the country because you withdrew it from an ATM or have exchange receipts to prove its origin",
+      "why_fails": "The dirham export/import tolerance is a flat 2,000 MAD in physical banknotes, independent of documentation proving the cash's source. Receipts do not raise this cap; the dirham remains a largely non-convertible currency outside Morocco and Office des Changes rules are built around keeping large cash amounts inside the banking/exchange-bureau system rather than in travelers' pockets.",
+      "fail_rate": 0.55,
+      "condition": "Departing Morocco with dirham banknotes obtained locally",
+      "sources": [
+        "https://www.deviz.ma/blog/en/articles/foreign-currency-regulations-morocco-guide.php"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File the J7 customs declaration at the border if carrying 100,000 MAD or more in cash/bearer instruments, whether entering or leaving Morocco",
+      "success_rate": 0.85,
+      "how": "Complete the declaration form at the customs desk at your point of entry/exit; keep the stamped copy since re-exporting undeclared foreign cash later can require proof it was declared on arrival.",
+      "sources": [
+        "https://www.oc.gov.ma/fr/faq/la-declaration-aux-services-douaniers-a-l-entree-des-billets-de-banque-importes-est-elle"
+      ]
+    },
+    {
+      "action": "Convert leftover dirhams back to your home currency at a bank or licensed exchange bureau before departure, rather than trying to carry them out as cash",
+      "success_rate": 0.75,
+      "how": "Licensed exchange bureaus (bureaux de change) can convert MAD back to major foreign currencies for travelers with proof of an earlier legal exchange; this avoids the 2,000 MAD physical dirham export cap entirely.",
+      "tradeoff": "Some bureaus require the original exchange receipt or a declared-currency proof to convert back, so keep exchange receipts from earlier in the trip.",
+      "sources": [
+        "https://www.deviz.ma/blog/en/articles/foreign-currency-regulations-morocco-guide.php"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}

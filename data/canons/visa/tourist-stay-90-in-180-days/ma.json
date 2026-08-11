@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/tourist-stay-90-in-180-days/ma",
+  "url": "https://deadends.dev/visa/tourist-stay-90-in-180-days/ma",
+  "error": {
+    "signature": "AI tells travelers a Morocco visa-free tourist stay resets to a fresh 90 days every time they exit and re-enter the country (a 'border run'), or that Morocco grants 90 days per entry rather than per rolling window",
+    "regex": "morocco.*(border run|visa run|90.day|tourist stay|re.enter).*(reset|extend|renew)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-08-11",
+    "summary": "Morocco's visa-exempt tourist stay is officially described by Moroccan diplomatic missions as three consecutive months within a six-month period, not a flat 90 days that restarts on every new entry stamp. Leaving and quickly re-entering (a common 'border run' via Ceuta, Melilla, or a Spain ferry) is not an officially guaranteed way to reset the clock; the only documented way to legally extend a stay is filing a residence request with the local police prefecture (Bureau des Étrangers) or Royal Gendarmerie before the visa-free period expires."
+  },
+  "dead_ends": [
+    {
+      "action": "Take a short ferry trip to Spain (or cross into Ceuta/Melilla) and back after 90 days, assuming the new entry stamp restarts a full fresh 90-day allowance",
+      "why_fails": "Both the French Embassy in Morocco and the French Consulates General in Morocco describe the rule as a stay of at most three consecutive months within a six-month period, not 90 days per entry. Because the limit is scoped to a rolling window rather than reset by an exit/entry stamp, immigration officers can refuse to treat a short border hop as starting a new period, particularly for travelers making repeated short exits.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour",
+        "https://ma.consulfrance.org/Le-permis-de-sejour-4597",
+        "https://www.gov.uk/foreign-travel-advice/morocco/entry-requirements"
+      ],
+      "common_misconception": "Travel forums (e.g. Expat.com threads on this exact question) contain many anecdotal reports of border runs working without issue, which leads travelers to treat it as a reliable, officially sanctioned technique. Enforcement is inconsistent in practice, but the embassy-stated rule does not promise a reset, so relying on it is a gamble rather than a documented right."
+    },
+    {
+      "action": "Plan to start the stay-extension paperwork only once the 90-day period has already run out",
+      "why_fails": "Moroccan police authorities require foreigners wishing to stay beyond the visa-free period to apply for a residence document themselves, before their authorized stay expires; by the time the 90 days are already over, the traveler is in irregular status and the request is a regularization rather than a straightforward extension.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File a residence-card / stay-extension request with the local police prefecture (Bureau des Étrangers) or Royal Gendarmerie before the 90 days are up",
+      "success_rate": 0.75,
+      "how": "Bring proof of address in Morocco and proof of sufficient financial resources; approval grants documented time beyond the initial visa-free window instead of relying on border-run enforcement discretion.",
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour",
+        "https://www.gov.uk/foreign-travel-advice/morocco/entry-requirements"
+      ]
+    },
+    {
+      "action": "Track cumulative days in Morocco against a rolling six-month window instead of assuming each new entry stamp resets a fresh 90 days",
+      "success_rate": 0.65,
+      "how": "Log entry/exit dates; if approaching 90 cumulative days within any 180-day span, either file the extension request or plan to stay outside Morocco long enough that a new six-month window has clearly begun.",
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour",
+        "https://ma.consulfrance.org/Le-permis-de-sejour-4597"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}
