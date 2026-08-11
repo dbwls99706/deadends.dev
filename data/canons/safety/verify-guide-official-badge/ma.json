@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/verify-guide-official-badge/ma",
+  "url": "https://deadends.dev/safety/verify-guide-official-badge/ma",
+  "error": {
+    "signature": "AI suggests accepting help from a friendly local who offers to guide you through a Moroccan medina without mentioning that unlicensed 'faux guides' are a common, government-flagged problem",
+    "regex": "morocco.*(medina|souk).*(guide|tour).*(hire|accept|offer|approach)",
+    "domain": "safety",
+    "category": "safety_risk",
+    "first_seen": "2026-08-11",
+    "last_confirmed": "2026-08-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-11",
+    "summary": "Morocco licenses tour guides under Law 05-12 and issues them an official Ministry of Tourism badge. UK government travel guidance and Moroccan tourism-industry sources both describe unlicensed 'faux guides' who pose as official guides and harass tourists in medinas as a common problem, and recommend confirming the official badge before accepting any guiding help."
+  },
+  "dead_ends": [
+    {
+      "action": "Accept an unsolicited offer of directions or a 'quick tour' from someone who approaches you in the medina, on the assumption that a friendly, knowledgeable manner means they're an official guide",
+      "why_fails": "UK government travel guidance for Morocco warns that it is common for people posing as official tourist guides to harass tourists. Being knowledgeable about the medina's history or layout is not proof of the Ministry of Tourism license created under Law 05-12; unlicensed guides commonly steer visitors to shops that pay them commission, which inflates prices, or make aggressive demands for payment after the fact.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/safety-and-security",
+        "https://moroccotomorrow.org/need-a-tour-guide-in-morocco-the-ministry-of-tourism-guarantees-quality-its-the-law/",
+        "https://www.worldnomads.com/travel-safety/north-africa/morocco/moroccan-scams-and-rip-offs"
+      ],
+      "common_misconception": "Fluent English/French and detailed local knowledge feel like evidence of legitimacy, but neither requires a license, and many unlicensed guides are genuinely knowledgeable about the area they work in."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Arrange a guide in advance through your riad, hotel, or a licensed travel agency instead of accepting street offers",
+      "success_rate": 0.85,
+      "how": "Hotels and riads that regularly host tourists maintain relationships with licensed guides and can book one directly, avoiding the need to vet someone on the spot.",
+      "sources": [
+        "https://moroccotomorrow.org/need-a-tour-guide-in-morocco-the-ministry-of-tourism-guarantees-quality-its-the-law/"
+      ]
+    },
+    {
+      "action": "Ask to see the guide's official Ministry of Tourism badge before agreeing to anything, and decline if they cannot produce one",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/safety-and-security",
+        "https://www.worldnomads.com/travel-safety/north-africa/morocco/moroccan-scams-and-rip-offs"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-11"
+  }
+}
