@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/tsunami-natural-warning-self-evacuate/jp",
+  "url": "https://deadends.dev/disaster/tsunami-natural-warning-self-evacuate/jp",
+  "error": {
+    "signature": "AI tells someone near the Japanese coast to wait for an official JMA tsunami warning, J-Alert siren, or municipal broadcast before evacuating after strongly feeling an earthquake, or says the sea must visibly recede first as confirmation a tsunami is coming",
+    "regex": "(japan.{0,15}tsunami|jma.{0,15}tsunami.{0,15}(warning|alert)|tsunami.{0,15}japan.{0,15}evacuat)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-12",
+    "summary": "JMA instructs immediate self-evacuation to high ground on strong or prolonged shaking near the Japanese coast, without waiting for an official tsunami warning - a nearby-source tsunami can strike before JMA's fastest ~2-3 minute warning is even issued, let alone received. JMA's own FAQ also debunks the 'the sea always recedes first' folk belief: depending on the fault mechanism, the first wave can be a sudden surge with no prior recession, as in the 2003 Tokachi-oki earthquake and 2004 Indian Ocean tsunami."
+  },
+  "dead_ends": [
+    {
+      "action": "Wait to see the sea visibly recede as confirmation before deciding a tsunami is coming and evacuating",
+      "why_fails": "JMA's own FAQ states this folk belief is incorrect (それは、間違いです): depending on how the earthquake's fault ruptures, a large wave can surge ashore with no prior sea recession at all, as happened in the 2003 Tokachi-oki earthquake and the 2004 Indian Ocean tsunami. Waiting for recession as proof delays evacuation while the wave may already be arriving.",
+      "fail_rate": 0.8,
+      "common_misconception": "The globally-repeated idea that the sea always recedes dramatically before every tsunami, giving a visible early warning.",
+      "sources": [
+        "https://www.jma.go.jp/jma/kishou/know/faq/faq26.html"
+      ]
+    },
+    {
+      "action": "Wait for an official JMA tsunami warning, J-Alert siren, or municipal disaster broadcast before evacuating the coast after feeling strong or long-lasting shaking",
+      "why_fails": "JMA explicitly instructs evacuating on strong shaking, or weak shaking that continues for an extended period, alone - without waiting for a warning - because JMA targets issuing tsunami warnings only about 3 minutes after an earthquake (as fast as 2 minutes for some events), and a tsunami from a source close to the coast can strike well within that window.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.data.jma.go.jp/eqev/data/en/guide/tsunamiinfo.html",
+        "https://www.jma.go.jp/jma/kishou/know/jishin/tsunami/issuance.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat strong shaking, or any weak-but-long-lasting shaking, near the Japanese coast as the evacuation trigger itself - move to high ground immediately rather than waiting for a siren, app alert, or broadcast.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.data.jma.go.jp/eqev/data/en/guide/tsunamiinfo.html"
+      ]
+    },
+    {
+      "action": "Treat unusual sea behavior - a sudden extreme recession or surge, a loud roaring sound from the ocean, or normally-submerged reefs becoming visible - as an independent evacuation trigger, with or without having felt an earthquake, since a receding sea is not a required precursor.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.jma.go.jp/jma/kishou/know/faq/faq26.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "disaster/earthquake-early-warning-blind-zone/jp",
+        "probability": 0.3,
+        "condition": "Coastal earthquake where EEW gave little or no lead time"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/110-119-not-911/jp",
+        "distinction": "119 is Japan's fire/ambulance dispatch number for reporting an in-progress emergency; a local-source tsunami leaves no time to call and wait for guidance, so self-evacuation on natural warning signs comes before contacting emergency services."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-12"
+  }
+}
