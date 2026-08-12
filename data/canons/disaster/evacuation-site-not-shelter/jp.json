@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/evacuation-site-not-shelter/jp",
+  "url": "https://deadends.dev/disaster/evacuation-site-not-shelter/jp",
+  "error": {
+    "signature": "AI tells someone fleeing a disaster in Japan to go to the nearest 'evacuation shelter,' or treats Designated Emergency Evacuation Sites (指定緊急避難場所) and Designated Evacuation Shelters (指定避難所) as interchangeable",
+    "regex": "(japan.{0,15}evacuation (site|shelter)|hinanjo|hinanbasho)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-12",
+    "summary": "Japan legally separates two facility types after the 2011 disaster exposed the danger of treating them as one: Designated Emergency Evacuation Sites (parks, high ground, tsunami towers) are for immediate life-threatening danger and are certified per hazard type, while Designated Evacuation Shelters (schools, gyms, community centers) are for longer-term stay after the danger passes. Cabinet Office survey data shows fewer than 1 in 5 people actually understand the distinction."
+  },
+  "dead_ends": [
+    {
+      "action": "Direct someone to the nearest 'evacuation shelter' by name without checking whether it is a Designated Emergency Evacuation Site (指定緊急避難場所, for immediate danger) or a Designated Evacuation Shelter (指定避難所, for longer-term stay), treating the two as the same thing",
+      "why_fails": "A Cabinet Office survey reported by Nippon.com found only 19.8% of respondents actually understood the distinction correctly, 14.4% believed the two terms mean the same thing, and 34% weren't sure at all; after 2011, people who sheltered in facilities that had been designated only for longer-term stay - not vetted as tsunami-safe - were killed when those buildings were inundated, which is exactly why the two-tier legal designation now exists.",
+      "fail_rate": 0.7,
+      "common_misconception": "That 'evacuation site' and 'evacuation shelter' are interchangeable English translations of the same Japanese concept.",
+      "sources": [
+        "https://www.nippon.com/en/japan-data/h02501/",
+        "https://www.nic-nagoya.or.jp/en/disaster-preparedness/backnumber/disaster_preparedness/2019/08281611.html"
+      ]
+    },
+    {
+      "action": "Assume any given designated evacuation site or shelter is certified safe for every disaster type (earthquake, tsunami, flood) rather than checking which specific hazard it is designated for",
+      "why_fails": "Designated Emergency Evacuation Sites are certified per hazard type - a site can be designated safe for an earthquake but explicitly excluded for tsunami or flood because it sits inside an inundation zone; using the wrong one for the disaster actually occurring is the specific failure mode the post-2011 hazard-type designation system was created to prevent.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.nic-nagoya.or.jp/en/disaster-preparedness/backnumber/disaster_preparedness/2019/08281611.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "When immediate danger exists, evacuate to the Designated Emergency Evacuation Site verified for the hazard actually occurring (earthquake vs tsunami vs flood have separate designations) - check the municipal hazard map in advance, since sites are marked per-hazard, not generically.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.nic-nagoya.or.jp/en/disaster-preparedness/backnumber/disaster_preparedness/2019/08281611.html"
+      ]
+    },
+    {
+      "action": "Once immediate danger has passed and evacuation orders are lifted, move to a Designated Evacuation Shelter for longer-term refuge (food, bedding, registration) instead of remaining at the emergency assembly point, which is not equipped for extended stays.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.nic-nagoya.or.jp/en/disaster-preparedness/backnumber/disaster_preparedness/2019/08281611.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "disaster/tsunami-natural-warning-self-evacuate/jp",
+        "probability": 0.4,
+        "condition": "After deciding to evacuate immediately, the next question is where to go"
+      },
+      {
+        "error_id": "disaster/stay-put-not-walk-home-after-quake/jp",
+        "probability": 0.2,
+        "condition": "If a workplace becomes unsafe, the next question is which designated facility to use"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}

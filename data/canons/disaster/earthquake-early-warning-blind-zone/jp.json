@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/earthquake-early-warning-blind-zone/jp",
+  "url": "https://deadends.dev/disaster/earthquake-early-warning-blind-zone/jp",
+  "error": {
+    "signature": "AI assures someone in Japan that Earthquake Early Warning (EEW / 緊急地震速報) will always give several seconds of advance notice before shaking starts, including for people near the epicenter",
+    "regex": "(japan.{0,20}(earthquake early warning|eew)|(earthquake early warning|eew).{0,20}japan)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-12",
+    "summary": "JMA documents a 'blind zone' near an earthquake's source where its Earthquake Early Warning system cannot give useful lead time - the warning is only broadcast after nearby seismometers detect the initial P-wave, so for locations close to the epicenter the damaging shaking can arrive before or with the alert. The 2018 Osaka M5.5 earthquake, which killed 5 and injured 400+ in the epicentral area, illustrates that EEW does not mitigate near-source damage."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Japan's Earthquake Early Warning system guarantees several seconds of notice before shaking begins, no matter where you are",
+      "why_fails": "JMA states that for locations closest to the earthquake's focus, 'the warning may not be transmitted before strong tremors hit,' since the window between an EEW announcement and the arrival of main shaking is, even in the best case, 'a matter of seconds' - and it shrinks to zero or negative near the source because the system must first detect the initial P-wave before it can broadcast, while the damaging S-wave is already close behind.",
+      "fail_rate": 0.75,
+      "common_misconception": "That the Yurekuru Call / EEW push alert is a universal early-warning guarantee, rather than a system with a documented near-source blind zone.",
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/eew3.html"
+      ]
+    },
+    {
+      "action": "Treat EEW as a reason to skip physical earthquake preparedness at home or in a hotel (anchoring furniture, knowing a safe drop zone) on the assumption that an app or broadcast will give enough warning to react",
+      "why_fails": "Independent analysis of the JMA system found warning times become negative within roughly 30km of the epicenter, meaning people nearest the source - where damage is typically worst - get no usable lead time at all; the 2018 Osaka M5.5 quake caused deaths and injuries in exactly that near-epicenter zone where EEW could not have helped.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://journals.sagepub.com/doi/full/10.1177/8755293020911388",
+        "https://www.jma.go.jp/jma/en/Activities/eew3.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat EEW as a supplement for areas away from the epicenter, not a substitute for physical earthquake-proofing - anchor tall furniture and know your drop-cover-hold spot regardless of whether you expect an alert.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/eew3.html"
+      ]
+    },
+    {
+      "action": "When an EEW alert sounds (on NHK, a phone push alert, or public speakers), immediately drop, cover, and hold on rather than waiting to see whether shaking actually arrives - JMA notes false alarms happen but are rarer than genuine near-miss warnings.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.jma.go.jp/jma/en/Activities/eew3.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "disaster/tsunami-natural-warning-self-evacuate/jp",
+        "probability": 0.3,
+        "condition": "Near-epicenter coastal earthquake with no useful EEW lead time"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/earthquake-drop-cover-hold/jp",
+        "distinction": "EEW is the (imperfect) advance-warning system; drop-cover-hold is the physical response once shaking starts or an alert sounds - EEW's existence does not remove the need for the physical response, especially near the epicenter where EEW gives no lead time at all."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}

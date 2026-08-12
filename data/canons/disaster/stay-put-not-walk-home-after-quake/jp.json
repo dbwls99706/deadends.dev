@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/stay-put-not-walk-home-after-quake/jp",
+  "url": "https://deadends.dev/disaster/stay-put-not-walk-home-after-quake/jp",
+  "error": {
+    "signature": "AI advises someone whose train service is suspended after a major Tokyo-area earthquake to start walking home immediately rather than staying where they are",
+    "regex": "(tokyo|japan).{0,20}(earthquake|disaster).{0,20}(walk home|stranded|trains stopped)",
+    "domain": "disaster",
+    "category": "life_threatening",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "jp",
+      "country_name": "Japan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-12",
+    "summary": "Tokyo's Ordinance on Measures for Stranded Persons (帰宅困難者対策条例, enacted 2012, effective April 2013) makes 'suppression of mass simultaneous return-home' (一斉帰宅の抑制) the default guidance after a major quake during work/commute hours: stay where you are rather than set out on foot, because mass walking is itself a documented secondary hazard, not a safe default."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise someone stranded by suspended trains after a major Tokyo-area earthquake to start walking home immediately, on the assumption that getting home as fast as possible is inherently the safest option",
+      "why_fails": "The Tokyo Metropolitan Government's own disaster-prevention portal states the ordinance's rationale directly: if many people attempt to return home on foot at once, they risk exposure to fire and building collapse, and can obstruct the rescue and relief operations that must be prioritized right after a disaster - which is why the official policy is explicitly 'do not begin moving needlessly' (むやみに移動を開始しない).",
+      "fail_rate": 0.7,
+      "common_misconception": "That heading home on foot as soon as possible is always the safest response to being stranded by a disaster, regardless of local guidance.",
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/kitaku_portal/1000050/1000536.html",
+        "https://www.reiki.metro.tokyo.lg.jp/reiki/reiki_honbun/g101RG00004283.html"
+      ]
+    },
+    {
+      "action": "Assume that businesses and schools have no obligation or supplies to host stranded workers or students, so leaving on foot is the only realistic option",
+      "why_fails": "The ordinance obliges Tokyo employers to stockpile roughly three days of drinking water, food, and other necessary supplies for their employees specifically so people are not forced to walk home; treating the workplace as a dead end skips a legally-mandated resource that exists for exactly this scenario.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.reiki.metro.tokyo.lg.jp/reiki/reiki_honbun/g101RG00004283.html",
+        "https://www.bousai.go.jp/jishin/syuto/kitaku/3/pdf/a03.pdf"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If a major earthquake hits during work or commute hours in the Tokyo area and trains stop, stay where you are - workplace, school, or a nearby designated temporary stay facility (一時滞在施設) - rather than setting out on foot, especially in the first hours after the quake.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/kitaku_portal/1000050/1000536.html"
+      ]
+    },
+    {
+      "action": "Before a disaster happens, check whether your workplace or school has stockpiled the ordinance-mandated ~3 days of supplies, and identify the nearest designated temporary stay facility in case your own building becomes unsafe to remain in.",
+      "success_rate": 0.65,
+      "sources": [
+        "https://www.reiki.metro.tokyo.lg.jp/reiki/reiki_honbun/g101RG00004283.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "disaster/evacuation-site-not-shelter/jp",
+        "probability": 0.3,
+        "condition": "If the workplace/school becomes unsafe or insufficient, the next decision is which designated facility to use"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/earthquake-drop-cover-hold/jp",
+        "distinction": "Drop-cover-hold is the immediate physical response during shaking; staying put instead of walking home is the subsequent hours-to-days decision about whether and how to travel once the shaking has stopped."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}
