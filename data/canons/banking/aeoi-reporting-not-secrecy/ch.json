@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/aeoi-reporting-not-secrecy/ch",
+  "url": "https://deadends.dev/banking/aeoi-reporting-not-secrecy/ch",
+  "error": {
+    "signature": "AI tells a foreign resident that a Swiss bank account keeps their money secret from their home country's tax authority",
+    "regex": "(swiss bank secrecy|switzerland.{0,30}bank.{0,30}secret|hide (money|assets).{0,30}switzerland|swiss account.{0,30}(hidden|undisclosed))",
+    "domain": "banking",
+    "category": "reporting_compliance",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-08-12",
+    "summary": "Historic Swiss bank secrecy no longer shields foreign tax residents. Under the OECD Automatic Exchange of Information (AEOI) standard, in force in Switzerland since 1 January 2017 with the first exchange in 2018, Swiss banks and other financial institutions must collect and report the account balances and investment income of clients who are tax residents abroad to the Federal Tax Administration (FTA), which forwards the data annually to the partner state. In 2024 Switzerland exchanged data on roughly 4 million financial accounts with 108 partner states."
+  },
+  "dead_ends": [
+    {
+      "action": "Open a Swiss bank account expecting the balance to stay secret from your home tax authority",
+      "why_fails": "Since the AEOI legal framework entered into force on 1 January 2017 (first data exchange 2018), Swiss financial institutions are legally required to identify clients who are tax-resident abroad and report their account balance and investment income to the FTA, which transmits it to the partner state's tax authority every year - concealment via Swiss secrecy law is no longer possible for residents of AEOI partner countries.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.estv.admin.ch/estv/en/home/international-fiscal-law/automatic-exchange-information-aeoi.html",
+        "https://www.sif.admin.ch/en/automatic-exchange-information-aeoi"
+      ],
+      "condition": "Account holder is tax-resident in one of Switzerland's 100+ AEOI partner states",
+      "common_misconception": "That Switzerland's historical numbered-account bank secrecy still protects foreign account holders from their own government post-2017."
+    },
+    {
+      "action": "Assume AEOI only applies to large or business accounts, not ordinary personal savings",
+      "why_fails": "The FTA reports apply per reportable account regardless of size once the client is identified as tax-resident abroad; in 2024 alone Switzerland exchanged information on about 4 million financial accounts, indicating the standard is applied broadly, not just to high-net-worth relationships.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.estv.admin.ch/en/aeoi-exchange-of-information-with-101-countries"
+      ],
+      "condition": "Any reportable personal or business account held by a non-resident"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare foreign Swiss accounts and income to your home tax authority regardless of AEOI",
+      "success_rate": 0.95,
+      "how": "Because the balance and income data is already reported automatically each year to the account holder's country of tax residence, voluntary, accurate declaration avoids the penalties for non-disclosure that AEOI data will otherwise trigger when it is cross-checked against the taxpayer's return.",
+      "sources": [
+        "https://www.estv.admin.ch/estv/en/home/international-fiscal-law/automatic-exchange-information-aeoi.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-12"
+  }
+}

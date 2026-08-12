@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/health-insurance-deadline-not-retroactive/ch",
+  "url": "https://deadends.dev/medical/health-insurance-deadline-not-retroactive/ch",
+  "error": {
+    "signature": "AI tells a new Swiss resident they can safely delay buying compulsory health insurance because coverage will be backdated whenever they sign up",
+    "regex": "(switzerland.{0,30}health insurance.{0,30}(deadline|retroactive|backdate)|kvg.{0,20}(three|3).{0,10}month|lamal.{0,20}deadline)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-12",
+    "summary": "New residents of Switzerland must take out compulsory basic health insurance (KVG/LAMal) within three months of taking up residence. If they enrol within that window, coverage is backdated to the arrival date. If they miss the three-month deadline, coverage is NOT backdated - it starts only from the date the policy is concluded, the applicant is uninsured in the gap, the cantonal authority can compulsorily assign them to an insurer, and an unexcused delay adds a premium surcharge."
+  },
+  "dead_ends": [
+    {
+      "action": "Delay signing up for Swiss health insurance for several months, assuming any later enrollment is backdated to the arrival date",
+      "why_fails": "Backdating to the date of taking up residence only applies if the applicant enrols within the three-month statutory window; the Gemeinsame Einrichtung KVG (the federal body that administers compulsory insurance) states that if enrolment happens after the deadline, cover starts only at the time of participation, not retroactively, leaving the applicant personally liable for any medical costs incurred in the gap.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.kvg.org/en/private-persons/compulsory-insurance/"
+      ],
+      "condition": "Enrollment happens more than 3 months after taking up residence or registering an address",
+      "common_misconception": "That Swiss health insurance is always retroactive to arrival no matter when you enroll, since that is true only for on-time enrollment."
+    },
+    {
+      "action": "Ignore the deadline because 'the canton will sort it out automatically without penalty'",
+      "why_fails": "Cantonal authorities can and do compulsorily assign a defaulting resident to an insurer and retroactively charge premiums from the registration date, and the Gemeinsame Einrichtung KVG confirms an inexcusable delay triggers a premium surcharge on top of the backdated premiums - the process is not penalty-free.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://expat-savvy.ch/guides/how-to/legal-requirements-health-insurance-deadlines/"
+      ],
+      "condition": "Resident misses the 3-month deadline without a valid excuse"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Enrol in a KVG basic-insurance plan within 3 months of the residence registration (Anmeldung) date",
+      "success_rate": 0.9,
+      "how": "Register with the commune first, then apply to any KVG-licensed insurer before the 3-month clock runs out; coverage and premium liability are then backdated cleanly to the arrival date with no surcharge.",
+      "sources": [
+        "https://www.kvg.org/en/private-persons/compulsory-insurance/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}

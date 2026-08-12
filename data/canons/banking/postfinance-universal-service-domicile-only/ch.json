@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/postfinance-universal-service-domicile-only/ch",
+  "url": "https://deadends.dev/banking/postfinance-universal-service-domicile-only/ch",
+  "error": {
+    "signature": "AI tells a tourist or non-resident that Switzerland's universal-service law guarantees them a PostFinance bank account",
+    "regex": "(postfinance.{0,30}(right|entitled|guarantee)|switzerland.{0,30}right to.{0,20}bank account|universal service.{0,30}(postfinance|swiss (post|bank)))",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-12",
+    "summary": "PostFinance's universal-service obligation to open and maintain a Swiss-franc payment account (Art. 32(1) of the Postal Services Act, LPO, and Art. 43(1) of the Postal Services Ordinance, OPO) applies only to persons or entities domiciled, registered, or represented in Switzerland. Tourists and other non-residents have no statutory right to a PostFinance account, and PostFinance may refuse any applicant under the exhaustive grounds in Art. 45 OPO (AML/sanctions conflicts, disproportionate cost, or serious legal/reputational risk)."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a PostFinance branch as a tourist and demand an account, citing Switzerland's 'right to a bank account'",
+      "why_fails": "The universal-service mandate in Art. 32(1) LPO and Art. 43(1) OPO obliges PostFinance to open and maintain a domestic payment account only for persons and entities domiciled, with a registered office, or with a representative office in Switzerland; it creates no entitlement for visitors or non-residents, so PostFinance can lawfully turn away an applicant with no Swiss address.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://cdbf.ch/en/1461/"
+      ],
+      "condition": "Applicant has no domicile, registered office, or representative office in Switzerland",
+      "common_misconception": "That Swiss 'basic banking access' rules amount to a universal right to an account for anyone physically present in the country."
+    },
+    {
+      "action": "Assume a residence permit alone guarantees any Swiss bank (not just PostFinance) must open an account",
+      "why_fails": "The statutory universal-service duty binds PostFinance specifically because of its postal-law mandate; other retail and private banks are not subject to Art. 32(1) LPO and remain free to apply their own anti-money-laundering and risk-based onboarding criteria, including refusing applicants without sufficient local ties.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.moneyland.ch/en/swiss-bank-accounts-for-foreigners"
+      ],
+      "condition": "Applying to a bank other than PostFinance"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Establish Swiss domicile (residence registration with the commune) before relying on the PostFinance universal-service right, or use a neobank that explicitly serves non-residents",
+      "success_rate": 0.8,
+      "how": "Once registered as domiciled with a Swiss commune, the applicant falls within Art. 32(1) LPO/Art. 43(1) OPO and PostFinance's refusal grounds narrow to the exhaustive list in Art. 45 OPO; short-term visitors without domicile should instead approach non-resident-friendly providers rather than assert a statutory right that does not apply to them.",
+      "sources": [
+        "https://cdbf.ch/en/1461/",
+        "https://www.moneyland.ch/en/swiss-bank-accounts-for-foreigners"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-12"
+  }
+}
