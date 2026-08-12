@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/official-waste-bag-required/ch",
+  "url": "https://deadends.dev/policy/official-waste-bag-required/ch",
+  "error": {
+    "signature": "AI tells a new Swiss resident they can put household waste out in any ordinary trash bag",
+    "regex": "(switzerland.{0,20}(garbage|trash|rubbish|waste) bag|gebührensack|kehrichtsack|bebbi.?sack|switzerland.{0,30}trash.{0,20}fine)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-08-12",
+    "summary": "Art. 32a of the Federal Environmental Protection Act (USG) requires municipal waste disposal to be financed on a cost-covering, causer-based (verursachergerecht) basis, which most communes implement as a mandatory pre-paid official bag or sticker system (e.g. Basel-Stadt's 'Bebbi-Sack'). Putting out household waste in an ordinary, non-official bag is not merely frowned upon: it is a finable offence, and Basel-Stadt for example fines undeclared waste disposal CHF 200 (CHF 100 if dumped in a public litter bin)."
+  },
+  "dead_ends": [
+    {
+      "action": "Put household waste out for collection in an ordinary supermarket bag instead of the commune's official taxed bag or sticker",
+      "why_fails": "Art. 32a USG requires waste fees to be cost-covering and based on the quantity produced, which communes implement through mandatory official bags (e.g. Basel-Stadt's 'Bebbi-Sack') or stickers whose price already includes the disposal fee; Basel-Stadt's own rules confirm that disposing of waste without paying this fee - i.e. in a non-official bag - can incur a CHF 200 fine (CHF 100 for public litter bins), and collectors are entitled to leave unpaid bags uncollected.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.bs.ch/en/topics/umwelt-und-bauen/abfall-und-sauberkeit/abfallabfuhr"
+      ],
+      "condition": "Household waste placed out in a non-official bag or without the required sticker",
+      "common_misconception": "That any sealed bag is acceptable for curbside collection as long as it is left out on collection day."
+    },
+    {
+      "action": "Assume the official-bag rule is a single nationwide standard that looks the same everywhere",
+      "why_fails": "Art. 32a USG sets the federal cost-covering principle but leaves implementation to the cantons and communes, so the bag brand, price per litre, and enforcement (e.g. Basel-Stadt's 'Bebbi-Sack' versus other cantons' colored bags or stickers) differ by municipality; a bag bought in one commune is typically not valid in another.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.thelocal.ch/20200814/trash-talk-what-are-the-rules-for-garbage-disposal-in-switzerland/"
+      ],
+      "condition": "Moving between cantons/communes within Switzerland"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy the local commune's official waste bags or fee stickers (from supermarkets or the municipal administration) and use recycling for everything that qualifies",
+      "success_rate": 0.9,
+      "how": "Check the new commune's waste-collection page for the exact bag brand/sticker and sizes sold locally, keep official bags on hand from move-in day, and separate paper, glass, PET, and other recyclables (which are usually free) to cut down on how many paid bags are needed.",
+      "sources": [
+        "https://www.bs.ch/en/topics/umwelt-und-bauen/abfall-und-sauberkeit/abfallabfuhr"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}

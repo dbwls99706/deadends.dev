@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/recording-conversation-all-party-consent/ch",
+  "url": "https://deadends.dev/legal/recording-conversation-all-party-consent/ch",
+  "error": {
+    "signature": "AI tells someone in Switzerland that recording a private conversation is legal as long as they are a participant in it, like one-party-consent US states",
+    "regex": "(record.{0,20}(conversation|call).{0,30}switzerland|switzerland.{0,20}(one-party|two-party).{0,10}consent|179bis|179ter)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2026-08-12",
+    "last_confirmed": "2026-08-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-08-12",
+    "summary": "Unlike one-party-consent jurisdictions, Swiss law requires the consent of every participant to record a private conversation. Art. 179ter of the Criminal Code (StGB) makes it an offence, prosecuted on complaint, for a conversation participant to record it without the consent of the others; Art. 179bis covers a non-participant who eavesdrops or records with a listening device, punishable by up to three years. Narrow exceptions exist under Art. 179quinquies for emergency/rescue/security calls and routine high-volume business transactions such as bookings."
+  },
+  "dead_ends": [
+    {
+      "action": "Secretly record a private call or meeting in Switzerland on the assumption that being a participant makes it legal, as in many US one-party-consent states",
+      "why_fails": "The Federal Data Protection and Information Commissioner (FDPIC) confirms that Art. 179ter StGB criminalizes a participant recording a private conversation without the consent of every other person involved; Art. 179bis separately covers eavesdropping/recording by someone outside the conversation, carrying up to three years' custodial sentence or a monetary penalty.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.edoeb.admin.ch/en/recording-conversations"
+      ],
+      "condition": "Recording a private (non-public) conversation without informing all parties",
+      "common_misconception": "That Swiss recording law works like one-party-consent US states, where only one participant's agreement is needed."
+    },
+    {
+      "action": "Assume the 'business call' exception covers any customer service or complaint call",
+      "why_fails": "The Art. 179quinquies exception is narrow: it covers only high-volume, time-constrained routine transactions like bookings, orders, and reservations, and explicitly does not cover complaint calls or complex contract negotiations, so recording those without consent remains an offence.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.edoeb.admin.ch/en/recording-conversations"
+      ],
+      "condition": "Recording a complaint or negotiation call under the mistaken belief it qualifies as routine business"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ask for and obtain clear, explicit consent from every participant before recording, and only rely on the emergency/routine-business exceptions where they genuinely apply",
+      "success_rate": 0.9,
+      "how": "State at the start of the call or meeting that it is being recorded and why, and get an affirmative response from each participant; keep any exception-based recording (e.g. a booking line) limited to securing evidence, since such recordings cannot be disclosed to third parties or used for marketing or employee monitoring.",
+      "sources": [
+        "https://www.edoeb.admin.ch/en/recording-conversations"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-12"
+  }
+}
