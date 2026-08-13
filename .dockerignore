@@ -1,0 +1,24 @@
+# Generated site output - the server reads data/canons/, never site/.
+site/
+public/
+
+# Not needed at runtime
+tests/
+docs/
+archive/
+.github/
+data/analytics/
+data/seo/
+data/graph/
+data/signatures/
+data/environments/
+
+.git/
+.gitignore
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
