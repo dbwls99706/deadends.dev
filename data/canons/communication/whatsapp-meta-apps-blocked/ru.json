@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/whatsapp-meta-apps-blocked/ru",
+  "url": "https://deadends.dev/communication/whatsapp-meta-apps-blocked/ru",
+  "error": {
+    "signature": "AI tells a traveler or contact in Russia to just message via WhatsApp, or share something via Instagram or Facebook",
+    "regex": "(russia.*whatsapp|whatsapp.*russia.*block|russia.*instagram|russia.*facebook.*block|meta.*blocked.*russia)",
+    "domain": "communication",
+    "category": "telecom_restriction",
+    "first_seen": "2022-03-21",
+    "last_confirmed": "2026-08-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.8,
+    "last_updated": "2026-08-13",
+    "summary": "A Russian court declared Meta an extremist organization and banned Facebook and Instagram in March 2022. In February 2026, Roskomnadzor removed WhatsApp's domains from Russia's national DNS, fully blocking it too. None of the three load inside Russia without a VPN. Individual use of these apps or of a VPN is not itself illegal, but the state actively promotes its own MAX messenger, which can share user data with authorities on request, as the replacement."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a contact in Russia to message you or a group via WhatsApp",
+      "why_fails": "Roskomnadzor removed WhatsApp's domains from Russia's national DNS in February 2026, on top of the 2022 blocks of Instagram and Facebook. Without a VPN, WhatsApp does not load inside Russia, even though it had roughly 94.5 million monthly users there just before the block.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.themoscowtimes.com/2026/02/12/whatsapp-accuses-russian-government-of-trying-to-fully-block-platform-a91928",
+        "https://www.cbsnews.com/news/russia-blocks-whatsapp-as-it-pushes-state-backed-alternative-on-citizens/"
+      ],
+      "common_misconception": "Users assume WhatsApp's end-to-end encryption makes it unblockable; the restriction works at the network/DNS level, not by breaking the encryption."
+    },
+    {
+      "action": "Suggest posting to or messaging via Instagram or Facebook from inside Russia",
+      "why_fails": "A Moscow court declared Meta an extremist organization and banned Facebook and Instagram in March 2022; both were additionally removed from Russia's national DNS alongside WhatsApp in February 2026. Authorities have said they do not intend to prosecute individuals for merely using the apps, but the apps and sites themselves are inaccessible without circumvention tools.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.pbs.org/newshour/world/russia-court-bans-facebook-instagram-over-extremism-charges",
+        "https://www.themoscowtimes.com/2026/02/12/whatsapp-accuses-russian-government-of-trying-to-fully-block-platform-a91928"
+      ],
+      "condition": "Sharing or messaging via a Meta-owned app from inside Russia"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use a VPN to reach WhatsApp, Instagram, or Facebook from inside Russia",
+      "success_rate": 0.7,
+      "how": "CBS News confirmed WhatsApp remained reachable via VPN immediately after the February 2026 block; individual VPN use is not itself illegal in Russia.",
+      "tradeoff": "Roskomnadzor has blocked hundreds of VPN services and continues expanding the block list, so a working VPN today may stop working within weeks.",
+      "sources": [
+        "https://www.cbsnews.com/news/russia-blocks-whatsapp-as-it-pushes-state-backed-alternative-on-citizens/"
+      ]
+    },
+    {
+      "action": "Agree on an alternative channel in advance, such as Telegram, rather than assuming WhatsApp will keep working",
+      "success_rate": 0.75,
+      "how": "As of February 2026, Telegram remained the most-used messenger inside Russia by monthly users, ahead of WhatsApp and well ahead of the state-backed MAX app.",
+      "tradeoff": "The state-backed MAX app is pre-installed on new devices sold in Russia and can share user data with authorities on request, so it is not a safe substitute for sensitive communication.",
+      "sources": [
+        "https://www.themoscowtimes.com/2026/02/12/whatsapp-accuses-russian-government-of-trying-to-fully-block-platform-a91928"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-13"
+  }
+}
