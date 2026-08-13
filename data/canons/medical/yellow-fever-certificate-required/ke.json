@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/yellow-fever-certificate-required/ke",
+  "url": "https://deadends.dev/medical/yellow-fever-certificate-required/ke",
+  "error": {
+    "signature": "AI tells a safari traveler yellow fever vaccination is unnecessary for Kenya because Kenya does not legally require a certificate from their country of origin",
+    "regex": "(kenya.*yellow.?fever|yellow.?fever.*kenya|kenya.*vaccin.*(entry|require|safari)|maasai mara.*vaccin)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-13",
+    "last_confirmed": "2026-08-13"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ke",
+      "country_name": "Kenya",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-08-13",
+    "summary": "Kenya's legal entry requirement for a yellow fever certificate only applies to travelers arriving from, or transiting more than 12 hours through, a country with yellow-fever transmission risk (per Kenya's Ministry of Health). That is a separate question from the WHO/NaTHNaC health recommendation, which advises vaccination for most travelers aged 9 months+ visiting areas with transmission risk within Kenya itself, including many game reserves and national parks - regardless of where the traveler is flying in from. Kenya has also had confirmed cases (Garissa County, 2022) outside the officially mapped transmission zone."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip yellow fever vaccination for a Kenya safari because you are flying in directly from a country with no yellow-fever risk (e.g. Europe or North America) and no certificate will legally be demanded at entry",
+      "why_fails": "Kenya's IHR entry-certificate rule is a legal minimum tied to your routing, not a statement that there is no risk in Kenya. WHO/NaTHNaC separately recommend vaccination for travelers aged 9 months+ visiting areas of Kenya with transmission risk, including many game reserves and national parks, independent of where you flew from - and Kenya has had confirmed cases (Garissa County, 2022) outside the officially recognised transmission zone.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://health.go.ke/incoming-travellers",
+        "https://travelhealthpro.org.uk/country/117/kenya"
+      ],
+      "common_misconception": "Conflating 'no country requires me to prove it for entry' with 'there's no risk' - these are two different questions with two different answers for a Kenya safari itinerary."
+    },
+    {
+      "action": "Assume the whole country carries identical yellow fever guidance, so a Nairobi-and-coast-only trip needs the same vaccination decision as a Maasai Mara or game-reserve safari",
+      "why_fails": "NaTHNaC's Kenya guidance splits the country into transmission-risk versus low-potential-exposure areas by a color-coded map; vaccination is 'generally not recommended' for travel genuinely confined to low-risk areas, but itineraries that pass through higher-exposure regions (game reserves and national parks) fall under the general recommendation regardless of the traveler's main destination.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://travelhealthpro.org.uk/country/117/kenya"
+      ]
+    },
+    {
+      "action": "Get the yellow fever vaccine a day or two before flying to Kenya to 'have some protection' for a safari",
+      "why_fails": "The International Certificate of Vaccination or Prophylaxis (ICVP) only becomes valid 10 days after the vaccination date. A certificate dated within 10 days of arrival does not satisfy the legal entry requirement for travelers who do need to show proof, such as those transiting a risk country en route.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/page/icvp"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get vaccinated at a WHO-authorized yellow fever center at least 10 days before departure, and check Kenya's Ministry of Health Port Health guidance for whether your specific routing legally requires a certificate.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://health.go.ke/incoming-travellers",
+        "https://wwwnc.cdc.gov/travel/page/icvp"
+      ]
+    },
+    {
+      "action": "For safari or game-reserve itineraries, get vaccinated per the WHO/NaTHNaC health recommendation even when it is not legally required for entry, and carry the physical ICVP card rather than only a phone photo.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://travelhealthpro.org.uk/country/117/kenya"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/yellow-fever-certificate-required/et",
+        "distinction": "Ethiopia's canon covers a country where WHO recommends vaccination for essentially all travelers; Kenya's legal requirement is narrower (only travelers arriving from risk countries) while the separate WHO/NaTHNaC health recommendation applies mainly to game-reserve and national-park itineraries."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-13"
+  }
+}

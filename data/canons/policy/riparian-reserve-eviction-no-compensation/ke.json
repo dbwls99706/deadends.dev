@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/riparian-reserve-eviction-no-compensation/ke",
+  "url": "https://deadends.dev/policy/riparian-reserve-eviction-no-compensation/ke",
+  "error": {
+    "signature": "AI tells someone renting, buying, or building near a river or stream in Nairobi that a valid title deed or county building approval protects the structure from demolition",
+    "regex": "(kenya.*riparian|nairobi.*river.*(build|rent|land)|riparian.*kenya|kenya.*flood.*evict|nairobi.*demolit)",
+    "domain": "policy",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-13",
+    "last_confirmed": "2026-08-13"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ke",
+      "country_name": "Kenya",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.6,
+    "last_updated": "2026-08-13",
+    "summary": "Kenyan law reserves a riparian strip of 6 to 30 metres from the high-water mark of every watercourse, under the Environmental Management and Co-ordination (Wetlands, Riverbanks, Lakeshores and Seashores) Management Regulations, 2009. The government's right over this public land supersedes private title deeds or county approvals. Following the deadly 2024 Nairobi floods, courts upheld mass demolition of riparian structures - including some with 1990s-era approvals - and occupants received no compensation for the structures themselves, only a one-off relocation stipend of KES 10,000 (about $75) that President Ruto announced in 2024."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a property near a river is safe to buy, rent, or build on because it has a county-approved building permit, survey, and title deed",
+      "why_fails": "A title deed or local approval does not override the national riparian reserve rule. In a 2026 Environment and Land Court ruling, over 30 Gikomba property owners who had obtained government approvals in the 1990s lost their case to halt demolition; the court held that the right to own land is not absolute and that riparian protections predate the 2009 regulations under earlier laws like the Physical Planning Act.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.businessdailyafrica.com/bd/economy/property-owners-lose-fight-halt-nairobi-riparian-land-demolition-5376974",
+        "https://cms.law/en/ken/news-information/of-riparian-reserve"
+      ],
+      "common_misconception": "Owners assume decades-old county approvals grant 'grandfather' protection against a later-enforced national rule; courts have repeatedly rejected that argument."
+    },
+    {
+      "action": "Expect government compensation for the market value of a demolished structure after a riparian eviction notice",
+      "why_fails": "Because occupation of a gazetted riparian reserve is treated as unlawful from the outset, the state has not applied the compulsory-acquisition compensation regime that would apply to lawfully held land. Following the 2024 demolitions, President Ruto announced a one-off KES 10,000 (~$75) relocation stipend for displaced residents - not compensation for the value of the structure or property lost.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.voaafrica.com/a/kenya-government-demolishes-homes-in-flood-prone-areas/7602581.html",
+        "https://www.businessdailyafrica.com/bd/economy/property-owners-lose-fight-halt-nairobi-riparian-land-demolition-5376974"
+      ]
+    },
+    {
+      "action": "Treat 'riparian reserve' as a flat 30-metre setback that is safe to build right up to",
+      "why_fails": "The reserve width is not a flat figure: it ranges from a minimum of 6 metres up to a maximum of 30 metres from the high-water mark, and there has been legal dispute over whether it is measured from the high-water mark or the river's centerline. Building close to the current visible water line can still fall inside the legally reserved zone, especially since Nairobi's rivers have flooded and shifted beyond their historic banks.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://cms.law/en/ken/news-information/of-riparian-reserve"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before renting, buying, or building near any Kenyan watercourse, verify the riparian reserve boundary directly with the Water Resources Authority (WRA) or a licensed surveyor - not just the county planning office - since county-level approval has not protected structures from national enforcement.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://cms.law/en/ken/news-information/of-riparian-reserve"
+      ],
+      "tradeoff": "Even a favorable survey does not fully eliminate risk, since enforcement priorities and mapping have shifted since the 2024 floods."
+    },
+    {
+      "action": "Treat any property within a visibly narrow margin of a river or drainage channel in flood-prone Nairobi areas as high eviction/demolition risk regardless of paperwork, and do not rely on receiving compensation for the structure if it is later demolished.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.voaafrica.com/a/kenya-government-demolishes-homes-in-flood-prone-areas/7602581.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-13"
+  }
+}
