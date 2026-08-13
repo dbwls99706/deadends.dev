@@ -1,6 +1,5 @@
 """Tests for the Vercel serverless MCP endpoint (api/mcp.py)."""
 
-import api.mcp as api_mod
 from api.mcp import handle_mcp, match_error
 
 
@@ -54,31 +53,19 @@ class TestApiMatchError:
 
     def test_basic_match(self):
         canon = _make_canon()
-        api_mod._COMPILED_REGEXES = None
-        api_mod._CANONS = [canon]
         results = match_error("test error occurred", [canon])
         assert len(results) == 1
         assert results[0]["id"] == "python/test/env1"
-        api_mod._CANONS = None
-        api_mod._COMPILED_REGEXES = None
 
     def test_truncates_long_message(self):
         canon = _make_canon(regex="x")
-        api_mod._COMPILED_REGEXES = None
-        api_mod._CANONS = [canon]
         results = match_error("x" * 20_000, [canon])
         assert len(results) >= 1
-        api_mod._CANONS = None
-        api_mod._COMPILED_REGEXES = None
 
     def test_skips_invalid_regex(self):
         canon = _make_canon(regex="[invalid(")
-        api_mod._COMPILED_REGEXES = None
-        api_mod._CANONS = [canon]
         results = match_error("test", [canon])
         assert results == []
-        api_mod._CANONS = None
-        api_mod._COMPILED_REGEXES = None
 
 
 class TestApiHandleMcp:

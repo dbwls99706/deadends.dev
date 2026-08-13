@@ -1,22 +1,6 @@
 """Tests for MCP server functions — security and correctness."""
 
-import re
-
-import mcp.server as srv
 from mcp.server import lookup_by_id, match_error
-
-
-def _set_regex_cache(canons):
-    """Manually populate the regex cache for test canons."""
-    compiled = {}
-    for canon in canons:
-        canon_id = canon.get("id", "")
-        regex_str = canon.get("error", {}).get("regex", "")
-        try:
-            compiled[canon_id] = re.compile(regex_str, re.IGNORECASE)
-        except re.error:
-            compiled[canon_id] = None
-    srv._COMPILED_REGEXES = compiled
 
 
 class TestLookupById:
@@ -88,7 +72,6 @@ class TestMatchError:
 
     def test_basic_match(self):
         canon = self._make_canon()
-        _set_regex_cache([canon])
         results = match_error("test error occurred", [canon])
         assert len(results) == 1
         assert results[0]["id"] == "python/test/env1"
@@ -96,7 +79,6 @@ class TestMatchError:
     def test_truncates_long_message(self):
         """Messages longer than 10K chars should be truncated, not rejected."""
         canon = self._make_canon(regex="x")
-        _set_regex_cache([canon])
         long_msg = "x" * 20_000
         results = match_error(long_msg, [canon])
         # Should still match (the "x" is in the truncated prefix)
@@ -105,6 +87,5 @@ class TestMatchError:
     def test_skips_invalid_regex_canon(self):
         """Canons with invalid regexes should be skipped, not crash."""
         canon = self._make_canon(regex="[invalid(")
-        _set_regex_cache([canon])
         results = match_error("test", [canon])
         assert results == []

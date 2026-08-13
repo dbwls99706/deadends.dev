@@ -39,14 +39,20 @@ from pathlib import Path
 from typing import Any
 
 from generator.analytics import record_event as _record_event
-from generator.lookup import _extract_error_lines
 
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from generator.domains import suggest_domains as _suggest_domains
-
-DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
-OUTCOMES_DIR = Path(__file__).parent.parent / "data" / "outcomes"
+from mcp.core import (
+    ID_PATTERN,
+    MAX_ERROR_MESSAGE_LEN,
+    OUTCOMES_DIR,
+    CanonRepository,
+    compute_freshness,
+    list_domains,
+    lookup_by_id,
+)
+from mcp.core import match_error as _match_error
 
 # Smithery configuration via environment variables
 _PREFERRED_DOMAINS: list[str] = [
@@ -58,236 +64,54 @@ _MAX_RESULTS: int = min(
 )
 _VERBOSE: bool = os.getenv("DEADENDS_VERBOSE", "true").lower() != "false"
 
-# Module-level caches — loaded once on first request
-_OUTCOME_STATS: dict[str, dict] | None = None
-_CANONS: list[dict] | None = None
-_DOMAIN_INDEX: dict[str, list[str]] | None = None
-_COMPILED_REGEXES: dict[str, re.Pattern | None] | None = None
-
-# Maximum length for error messages to prevent ReDoS
-_MAX_ERROR_MESSAGE_LEN = 10_000
+# One repository per process. Everything cached (canons, domain index, compiled
+# regexes, outcome stats) hangs off it, so tests swap the whole object rather
+# than reaching in to clear individual caches.
+_REPO = CanonRepository()
 
 
-def _get_outcome_stats() -> dict[str, dict]:
-    """Load aggregated outcome stats if available (cached)."""
-    global _OUTCOME_STATS
-    if _OUTCOME_STATS is not None:
-        return _OUTCOME_STATS
-
-    agg_file = OUTCOMES_DIR / "aggregated.json"
-    if agg_file.exists():
-        try:
-            with open(agg_file, encoding="utf-8") as f:
-                data = json.load(f)
-            _OUTCOME_STATS = data.get("deltas", {})
-        except (json.JSONDecodeError, KeyError):
-            _OUTCOME_STATS = {}
-    else:
-        _OUTCOME_STATS = {}
-    return _OUTCOME_STATS
+def match_error(
+    error_message: str,
+    canons: list[dict],
+    repo: CanonRepository | None = None,
+) -> list[dict]:
+    """Match against known patterns, honouring this server's domain preferences."""
+    return _match_error(
+        error_message,
+        canons,
+        repo=repo,
+        preferred_domains=_PREFERRED_DOMAINS,
+    )
 
 
 def _get_canons() -> list[dict]:
-    """Load all ErrorCanon JSON files (cached after first call)."""
-    global _CANONS
-    if _CANONS is not None:
-        return _CANONS
-
-    canons = []
-    for f in sorted(DATA_DIR.rglob("*.json")):
-        with open(f, encoding="utf-8") as fh:
-            canons.append(json.load(fh))
-    _CANONS = canons
-    return canons
+    """All canons, loaded once per process."""
+    return _REPO.canons
 
 
 def _get_domain_index() -> dict[str, list[str]]:
-    """Build domain -> [signature] index (cached)."""
-    global _DOMAIN_INDEX
-    if _DOMAIN_INDEX is not None:
-        return _DOMAIN_INDEX
-
-    canons = _get_canons()
-    index: dict[str, list[str]] = {}
-    for c in canons:
-        try:
-            d = c["error"]["domain"]
-            sig = c["error"]["signature"]
-        except (KeyError, TypeError):
-            continue
-        index.setdefault(d, [])
-        if sig not in index[d]:
-            index[d].append(sig)
-    _DOMAIN_INDEX = index
-    return index
-
-
-def _compute_freshness(canon: dict) -> str:
-    """Compute freshness status based on last_confirmed date.
-
-    Returns 'fresh' (<180 days), 'aging' (180-365), 'stale' (>365), or 'unknown'.
-    """
-    last_confirmed = canon.get("error", {}).get("last_confirmed")
-    if not last_confirmed:
-        return "unknown"
-    try:
-        d = datetime.strptime(last_confirmed, "%Y-%m-%d").date()
-    except (ValueError, TypeError):
-        return "unknown"
-    age = (date.today() - d).days
-    if age > 365:
-        return "stale"
-    elif age > 180:
-        return "aging"
-    return "fresh"
+    """domain -> [signature] index, built once per process."""
+    return _REPO.domain_index
 
 
 def _get_compiled_regexes() -> dict[str, re.Pattern | None]:
-    """Pre-compile and cache all canon regexes (prevents per-request overhead)."""
-    global _COMPILED_REGEXES
-    if _COMPILED_REGEXES is not None:
-        return _COMPILED_REGEXES
-
-    canons = _get_canons()
-    compiled: dict[str, re.Pattern | None] = {}
-    for canon in canons:
-        canon_id = canon.get("id", "")
-        regex_str = canon.get("error", {}).get("regex", "")
-        try:
-            compiled[canon_id] = re.compile(regex_str, re.IGNORECASE)
-        except re.error as exc:
-            sys.stderr.write(
-                f"WARNING: Invalid regex in {canon_id}: {exc}\n"
-            )
-            compiled[canon_id] = None
-    _COMPILED_REGEXES = compiled
-    return compiled
+    """canon id -> compiled pattern, compiled once per process."""
+    return _REPO.compiled_regexes
 
 
-def match_error(error_message: str, canons: list[dict]) -> list[dict]:
-    """Match an error message against all known patterns.
-
-    Returns matches sorted by (match_ratio, preferred_domain, fix_success_rate)
-    so longer regex matches rank higher, preferred domains get a boost, and
-    fix_success_rate breaks ties.
-    """
-    if not error_message or not error_message.strip():
-        return []
-
-    # Truncate excessively long messages to prevent ReDoS
-    if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
-        error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
-
-    # Extract key error lines from long stack traces
-    extracted = _extract_error_lines(error_message)
-
-    compiled = _get_compiled_regexes()
-    matches = []
-    skipped = 0
-    msg_len = len(extracted)
-    for canon in canons:
-        try:
-            canon_id = canon.get("id", "")
-            pattern = compiled.get(canon_id)
-            if pattern is None:
-                skipped += 1
-                continue
-            # Try extracted text first, then full text as fallback
-            m = pattern.search(extracted)
-            if not m and extracted != error_message:
-                m = pattern.search(error_message)
-            if m:
-                match_ratio = len(m.group()) / msg_len if msg_len else 0
-                domain = canon["error"]["domain"]
-                preferred = 1 if domain in _PREFERRED_DOMAINS else 0
-                matches.append({
-                    "id": canon["id"],
-                    "signature": canon["error"]["signature"],
-                    "domain": domain,
-                    "resolvable": canon["verdict"]["resolvable"],
-                    "fix_success_rate": canon["verdict"]["fix_success_rate"],
-                    "summary": canon["verdict"]["summary"],
-                    "dead_ends": [
-                        {
-                            "action": d["action"],
-                            "why_fails": d["why_fails"],
-                            "fail_rate": d["fail_rate"],
-                        }
-                        for d in canon["dead_ends"]
-                    ],
-                    "workarounds": [
-                        {
-                            "action": w["action"],
-                            "success_rate": w["success_rate"],
-                            "how": w.get("how", ""),
-                        }
-                        for w in canon.get("workarounds", [])
-                    ],
-                    "leads_to": [
-                        lt["error_id"]
-                        for lt in canon.get("transition_graph", {}).get(
-                            "leads_to", []
-                        )
-                        if "error_id" in lt
-                    ],
-                    "freshness": _compute_freshness(canon),
-                    "url": canon["url"].rstrip("/").rsplit("/", 1)[0] + "/",
-                    "_match_ratio": match_ratio,
-                    "_preferred": preferred,
-                })
-        except (re.error, KeyError, TypeError) as exc:
-            canon_id = canon.get("id", "<unknown>")
-            sys.stderr.write(
-                f"WARNING: Skipping canon {canon_id}: {exc}\n"
-            )
-            skipped += 1
-            continue
-
-    matches.sort(
-        key=lambda m: (m["_match_ratio"], m["_preferred"], m["fix_success_rate"]),
-        reverse=True,
-    )
-    # Strip internal scoring fields
-    for m in matches:
-        m.pop("_match_ratio", None)
-        m.pop("_preferred", None)
-
-    # Surface skipped canon count so callers can inform users
-    if skipped and matches:
-        matches[0]["_skipped_canons"] = skipped
-    return matches
+def _get_outcome_stats() -> dict[str, dict]:
+    """Aggregated workaround outcomes, read once per process."""
+    return _REPO.outcome_stats
 
 
-_ID_PATTERN = re.compile(r"^[a-z0-9-]+/[a-z0-9-]+/[a-z0-9._-]+$")
+_compute_freshness = compute_freshness
+_ID_PATTERN = ID_PATTERN
+_MAX_ERROR_MESSAGE_LEN = MAX_ERROR_MESSAGE_LEN
+
+# lookup_by_id, list_domains and summary_url come from mcp.core; _suggest_domains
+# comes from generator.domains.
 
 
-def lookup_by_id(error_id: str, canons: list[dict]) -> dict | None:
-    """Look up a specific error by its ID.
-
-    Validates that error_id matches the expected format before searching.
-    """
-    if not error_id or not _ID_PATTERN.match(error_id):
-        return None
-    for canon in canons:
-        if canon["id"] == error_id:
-            return canon
-    return None
-
-
-def list_domains(canons: list[dict]) -> dict:
-    """List all domains with error counts."""
-    domains: dict[str, int] = {}
-    for canon in canons:
-        try:
-            d = canon["error"]["domain"]
-        except (KeyError, TypeError):
-            continue
-        domains[d] = domains.get(d, 0) + 1
-    return {"total": len(canons), "domains": domains}
-
-
-
-# _suggest_domains is imported from generator.domains
 
 
 # === MCP Protocol Implementation (JSON-RPC over stdio) ===

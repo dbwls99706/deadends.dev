@@ -2,10 +2,14 @@
 
 Handles MCP protocol over HTTP (JSON-RPC POST requests).
 Deploy: vercel --prod
+
+The canon data layer - loading, indexing, regex compilation, matching - lives in
+`mcp/core.py` and is shared with the stdio server, so the two surfaces cannot
+answer the same question differently. Only HTTP transport and this endpoint's
+prompt/resource advertisements are local to this file.
 """
 
 import json
-import re
 import sys
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
@@ -14,133 +18,44 @@ from urllib.parse import parse_qs, urlparse
 # Import shared domain utilities
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from generator.domains import suggest_domains as _suggest_domains_impl
+from mcp.core import (
+    ID_PATTERN,
+    MAX_ERROR_MESSAGE_LEN,
+    MAX_SEARCH_QUERY_LEN,
+    OUTCOMES_DIR,
+    CanonRepository,
+    compute_freshness,
+    is_valid_canon,
+    match_error,
+)
 
-DATA_DIR = Path(__file__).parent.parent / "data" / "canons"
-OUTCOMES_DIR = Path(__file__).parent.parent / "data" / "outcomes"
+_REPO = CanonRepository()
 
-_CANONS = None
-_DOMAIN_INDEX = None
-_COMPILED_REGEXES = None
-
-# Security limits
-_MAX_ERROR_MESSAGE_LEN = 10_000
-_MAX_SEARCH_QUERY_LEN = 1_000
-_ID_PATTERN = re.compile(r"^[a-z0-9-]+/[a-z0-9-]+/[a-z0-9._-]+$")
-
-
-def _is_valid_canon(c):
-    """Check that a canon has the minimum required structure."""
-    return (
-        isinstance(c, dict)
-        and isinstance(c.get("error"), dict)
-        and isinstance(c.get("verdict"), dict)
-        and "domain" in c["error"]
-        and "signature" in c["error"]
-    )
+_MAX_ERROR_MESSAGE_LEN = MAX_ERROR_MESSAGE_LEN
+_MAX_SEARCH_QUERY_LEN = MAX_SEARCH_QUERY_LEN
+_ID_PATTERN = ID_PATTERN
+_is_valid_canon = is_valid_canon
+_compute_freshness = compute_freshness
 
 
 def _load_canons():
-    global _CANONS
-    if _CANONS is not None:
-        return _CANONS
-    canons = []
-    for f in sorted(DATA_DIR.rglob("*.json")):
-        with open(f, encoding="utf-8") as fh:
-            data = json.load(fh)
-            if _is_valid_canon(data):
-                canons.append(data)
-    _CANONS = canons
-    return canons
+    """All canons, loaded once per process."""
+    return _REPO.canons
 
 
 def _get_domain_index():
-    global _DOMAIN_INDEX
-    if _DOMAIN_INDEX is not None:
-        return _DOMAIN_INDEX
-    canons = _load_canons()
-    index = {}
-    for c in canons:
-        d = c["error"]["domain"]
-        sig = c["error"]["signature"]
-        index.setdefault(d, [])
-        if sig not in index[d]:
-            index[d].append(sig)
-    _DOMAIN_INDEX = index
-    return index
+    """domain -> [signature] index, built once per process."""
+    return _REPO.domain_index
 
 
 def _get_compiled_regexes():
-    """Pre-compile and cache all canon regexes."""
-    global _COMPILED_REGEXES
-    if _COMPILED_REGEXES is not None:
-        return _COMPILED_REGEXES
-    canons = _load_canons()
-    compiled = {}
-    for canon in canons:
-        canon_id = canon.get("id", "")
-        regex_str = canon.get("error", {}).get("regex", "")
-        try:
-            compiled[canon_id] = re.compile(regex_str, re.IGNORECASE)
-        except re.error:
-            compiled[canon_id] = None
-    _COMPILED_REGEXES = compiled
-    return compiled
-
-
-def match_error(error_message, canons):
-    if not error_message or not error_message.strip():
-        return []
-    # Truncate to prevent ReDoS
-    if len(error_message) > _MAX_ERROR_MESSAGE_LEN:
-        error_message = error_message[:_MAX_ERROR_MESSAGE_LEN]
-    compiled = _get_compiled_regexes()
-    matches = []
-    for canon in canons:
-        try:
-            canon_id = canon.get("id", "")
-            pattern = compiled.get(canon_id)
-            if pattern is None:
-                continue
-            if pattern.search(error_message):
-                matches.append({
-                    "id": canon["id"],
-                    "signature": canon["error"]["signature"],
-                    "domain": canon["error"]["domain"],
-                    "resolvable": canon["verdict"]["resolvable"],
-                    "fix_success_rate": canon["verdict"]["fix_success_rate"],
-                    "summary": canon["verdict"]["summary"],
-                    "dead_ends": [
-                        {
-                            "action": d["action"],
-                            "why_fails": d["why_fails"],
-                            "fail_rate": d["fail_rate"],
-                        }
-                        for d in canon["dead_ends"]
-                    ],
-                    "workarounds": [
-                        {
-                            "action": w["action"],
-                            "success_rate": w["success_rate"],
-                            "how": w.get("how", ""),
-                        }
-                        for w in canon.get("workarounds", [])
-                    ],
-                    "leads_to": [
-                        lt["error_id"]
-                        for lt in canon.get(
-                            "transition_graph", {}
-                        ).get("leads_to", [])
-                    ],
-                    "url": canon["url"],
-                })
-        except (re.error, KeyError, TypeError, AttributeError):
-            continue
-    matches.sort(key=lambda m: m["fix_success_rate"], reverse=True)
-    return matches
+    """canon id -> compiled pattern, compiled once per process."""
+    return _REPO.compiled_regexes
 
 
 def _suggest_domains(error_message):
     return _suggest_domains_impl(error_message)
+
 
 
 PROMPTS = [
@@ -856,7 +771,11 @@ def handle_mcp(method, params, canons, config=None):
         elif tool_name == "get_error_detail":
             error_id = args.get("error_id", "")
             if not error_id or not _ID_PATTERN.match(error_id):
-                return {"content": [{"type": "text", "text": f"Invalid error ID format: {error_id}"}]}
+                return {
+                    "content": [
+                        {"type": "text", "text": f"Invalid error ID format: {error_id}"}
+                    ]
+                }
             canon = next((c for c in canons if c["id"] == error_id), None)
             if canon:
                 text = json.dumps(canon, indent=2, ensure_ascii=False)
@@ -1228,7 +1147,11 @@ def handle_mcp(method, params, canons, config=None):
         elif tool_name == "get_error_chain":
             error_id = args.get("error_id", "")
             if not error_id or not _ID_PATTERN.match(error_id):
-                return {"content": [{"type": "text", "text": f"Invalid error ID format: {error_id}"}]}
+                return {
+                    "content": [
+                        {"type": "text", "text": f"Invalid error ID format: {error_id}"}
+                    ]
+                }
             canon = next(
                 (c for c in canons if c["id"] == error_id), None
             )
@@ -1383,7 +1306,8 @@ def handle_mcp(method, params, canons, config=None):
 
             canon_exists = any(c["id"] == error_id for c in canons)
 
-            from datetime import date as _date, datetime as _datetime
+            from datetime import date as _date
+            from datetime import datetime as _datetime
             outcome = {
                 "timestamp": _datetime.now().isoformat(),
                 "error_id": error_id,
