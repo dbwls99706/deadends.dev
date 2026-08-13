@@ -144,15 +144,40 @@ curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=deadends" \
   | python -m json.tool | grep -E '"name"|"version"'
 ```
 
-### 중복 엔트리 주의
+### 레지스트리 엔트리 현황
 
-레지스트리에 두 개가 등록되어 있다:
+| 이름 | 인증 | 상태 |
+| --- | --- | --- |
+| `dev.deadends/deadends-dev` | DNS (deadends.dev apex TXT) | **active — 이쪽만 갱신한다** |
+| `io.github.dbwls99706/deadends-dev` | GitHub 계정 | deprecated (2026-08-13) |
 
-| 이름 | 인증 방식 |
-| --- | --- |
-| `dev.deadends/deadends-dev` | DNS (deadends.dev 소유 증명) - **이쪽을 유지** |
-| `io.github.dbwls99706/deadends-dev` | GitHub 계정 |
+한때 두 엔트리가 모두 `active`라 검색 결과에 같은 서버가 두 번 떴다. GitHub
+네임스페이스 쪽은 정리했으므로 다시 게시하지 말 것. `server.json`은 DNS 쪽
+이름을 쓴다.
 
-`server.json`은 DNS 쪽을 쓴다. 둘 다 `active`로 남아 있으면 검색 결과에 같은
-서버가 두 번 뜨므로, GitHub 네임스페이스 쪽은 `mcp-publisher status`로
-deprecated 처리하는 것이 좋다.
+### 상태 변경이 조회에 늦게 반영된다
+
+`mcp-publisher status`가 성공해도 `?search=` 엔드포인트는 한동안 옛 상태를
+돌려준다. 캐시다. 실제 반영 여부는 이름으로 직접 조회해서 확인한다:
+
+```bash
+curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.dbwls99706" \
+  | python -c "
+import sys, json
+for e in json.load(sys.stdin)['servers']:
+    m = e['_meta']['io.modelcontextprotocol.registry/official']
+    print(e['server']['name'], e['server']['version'], m['status'], m['statusChangedAt'])
+"
+```
+
+`statusChangedAt`이 방금 시각이면 적용된 것이다. 성공 메시지를 봤는데 조회가
+옛 값을 주더라도 명령을 다시 실행하지 말 것.
+
+### 로그인 세션은 네임스페이스마다 다르다
+
+`mcp-publisher login github`로 로그인하면 DNS 세션이 대체된다. 다음에
+`dev.deadends/*`를 게시하려면 DNS로 다시 로그인해야 한다(9-4 참고).
+
+`key.pem`을 잃어버리면 새 키를 만들어 TXT를 교체해야 하는데, 그때는 **기존 apex
+레코드를 먼저 지운다**. 남아 있으면 그쪽이 먼저 시도되어 실패한다. 리포지토리
+바깥에 백업해 둘 것.
