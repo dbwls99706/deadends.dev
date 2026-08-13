@@ -4,6 +4,34 @@ import copy
 
 import pytest
 
+
+@pytest.fixture(autouse=True)
+def reset_module_caches():
+    """Clear every cached corpus between tests.
+
+    The MCP surfaces and the lookup SDK each hold a process-lifetime cache. A
+    test that populates one and does not clear it leaks into whatever runs
+    next, which makes failures depend on test order. Resetting on both sides of
+    every test removes that coupling, so individual tests can be run in
+    isolation and reordered freely.
+    """
+    import api.mcp as api_mod
+    import mcp.server as server_mod
+    from generator import lookup
+
+    def clear():
+        server_mod._REPO.reset()
+        api_mod._REPO.reset()
+        lookup._CANONS_CACHE = None
+        lookup._REGEX_CACHE = []
+        lookup._REGEX_CACHE_SOURCE = None
+        lookup._IDF_CACHE = None
+        lookup._DOC_WORDS_CACHE = None
+
+    clear()
+    yield
+    clear()
+
 VALID_CANON = {
     "schema_version": "1.0.0",
     "id": "python/test-error/env1",
