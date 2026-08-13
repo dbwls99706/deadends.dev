@@ -8,7 +8,7 @@
     "domain": "react",
     "category": "hydration_error",
     "first_seen": "2022-03-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-13"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.88,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-13",
     "summary": "Server and client render different HTML. Common causes: browser-only APIs (window, localStorage), date/time rendering, browser extensions injecting elements, and conditional rendering based on client state."
   },
   "dead_ends": [
@@ -85,7 +85,7 @@
       "success_rate": 0.92,
       "tradeoff": "Component is not rendered during SSR; may cause layout shift",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading"
+        "https://nextjs.org/docs/app/guides/lazy-loading"
       ]
     }
   ],
@@ -107,6 +107,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-13"
   }
 }
