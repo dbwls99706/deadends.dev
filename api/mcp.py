@@ -23,9 +23,12 @@ from mcp.core import (
     MAX_ERROR_MESSAGE_LEN,
     MAX_SEARCH_QUERY_LEN,
     OUTCOMES_DIR,
+    TOOLS,
     CanonRepository,
     compute_freshness,
+    format_domain_listing,
     is_valid_canon,
+    json_match_payload,
     match_error,
 )
 
@@ -111,354 +114,6 @@ RESOURCES = [
     },
 ]
 
-TOOLS = [
-    {
-        "name": "lookup_error",
-        "description": (
-            "Match an error message against deadends.dev's database of known "
-            "errors. Returns dead ends (what NOT to try), workarounds (what "
-            "works), and error chains (what comes next). Use this BEFORE "
-            "attempting to fix any error to avoid wasting time on approaches "
-            "that are known to fail. Covers 51 domains including python, "
-            "node, docker, git, cuda, typescript, rust, go, kubernetes, "
-            "terraform, aws, react, java, database, pytorch, tensorflow, "
-            "and 34 more. Use list_error_domains to see all."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "error_message": {
-                    "type": "string",
-                    "description": "The full error message to look up",
-                }
-            },
-            "required": ["error_message"],
-        },
-        "annotations": {
-            "title": "Look up error",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "get_error_detail",
-        "description": (
-            "Get full details for a specific error by its ID "
-            "(e.g., 'python/modulenotfounderror/py311-linux'). "
-            "Includes all dead ends, workarounds, error chain info, "
-            "and source evidence."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "error_id": {
-                    "type": "string",
-                    "description": "The error ID (domain/slug/env)",
-                }
-            },
-            "required": ["error_id"],
-        },
-        "annotations": {
-            "title": "Get error details",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "list_error_domains",
-        "description": (
-            "List all error domains and counts in the deadends.dev database. "
-            "Covers 51 domains including programming languages, frameworks, "
-            "infrastructure, ML/AI, culture, safety, medical, legal, and more."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "sort_by": {
-                    "type": "string",
-                    "description": (
-                        "Sort domains by: 'count' (default, most errors first) "
-                        "or 'name' (alphabetical)"
-                    ),
-                },
-            },
-        },
-        "annotations": {
-            "title": "List domains",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "search_errors",
-        "description": (
-            "Search errors by keyword across all domains. Unlike lookup_error "
-            "(which uses regex matching), this does fuzzy keyword search. "
-            "Use when you have a vague description like 'memory issues' or "
-            "'permission denied' rather than an exact error message."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": (
-                        "Search keywords (e.g., 'memory limit', 'timeout', "
-                        "'permission denied')"
-                    ),
-                },
-                "domain": {
-                    "type": "string",
-                    "description": (
-                        "Optional: filter to a specific domain "
-                        "(e.g., 'python', 'docker')"
-                    ),
-                },
-                "limit": {
-                    "type": "integer",
-                    "description": "Max results to return (default: 10)",
-                },
-            },
-            "required": ["query"],
-        },
-        "annotations": {
-            "title": "Search errors",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "list_errors_by_domain",
-        "description": (
-            "List all errors in a specific domain with their fix rates. "
-            "Use this to understand coverage for a domain before relying on it."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "domain": {
-                    "type": "string",
-                    "description": (
-                        "The domain to list errors for "
-                        "(e.g., 'python', 'kubernetes')"
-                    ),
-                },
-                "sort_by": {
-                    "type": "string",
-                    "description": (
-                        "Sort by: 'fix_rate' (default), 'name', or 'confidence'"
-                    ),
-                },
-            },
-            "required": ["domain"],
-        },
-        "annotations": {
-            "title": "List domain errors",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "batch_lookup",
-        "description": (
-            "Look up multiple error messages at once. Returns the best match "
-            "for each error. Use when debugging a chain of errors or analyzing "
-            "a log with multiple failures."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "error_messages": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "description": "List of error messages to look up (max 10)",
-                    "maxItems": 10,
-                }
-            },
-            "required": ["error_messages"],
-        },
-        "annotations": {
-            "title": "Batch lookup",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "get_domain_stats",
-        "description": (
-            "Get detailed statistics for a domain: error counts, average fix "
-            "rate, resolvability breakdown, top categories, and confidence "
-            "levels. Use this to assess how trustworthy deadends.dev data is "
-            "for a domain."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "domain": {
-                    "type": "string",
-                    "description": "The domain to get stats for",
-                }
-            },
-            "required": ["domain"],
-        },
-        "annotations": {
-            "title": "Domain statistics",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "list_errors_by_country",
-        "description": (
-            "List all country-scoped dead ends for a given country (ISO "
-            "alpha-2 code, e.g. 'kr', 'jp', 'us', 'de'). Returns visa, "
-            "banking, legal, cultural, medical, food-safety, emergency, "
-            "and safety dead ends specific to that jurisdiction."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "country": {
-                    "type": "string",
-                    "description": (
-                        "ISO 3166-1 alpha-2 country code, lowercase"
-                    ),
-                },
-                "domain": {
-                    "type": "string",
-                    "description": "Optional: filter by domain",
-                },
-            },
-            "required": ["country"],
-        },
-        "annotations": {
-            "title": "List by country",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "get_country_summary",
-        "description": (
-            "Get a country-level summary: total entries, domain breakdown, "
-            "average fix rate, and most-recent updates for the country."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "country": {
-                    "type": "string",
-                    "description": (
-                        "ISO 3166-1 alpha-2 country code, lowercase"
-                    ),
-                }
-            },
-            "required": ["country"],
-        },
-        "annotations": {
-            "title": "Country summary",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "get_error_chain",
-        "description": (
-            "Traverse the error transition graph for a specific error. "
-            "Shows what errors typically follow this one (leads_to), "
-            "what errors usually precede it (preceded_by), and what "
-            "errors are frequently confused with it. Use this to "
-            "diagnose cascading failures and predict what comes next."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "error_id": {
-                    "type": "string",
-                    "description": (
-                        "The error ID (domain/slug/env) to get the "
-                        "transition graph for"
-                    ),
-                }
-            },
-            "required": ["error_id"],
-        },
-        "annotations": {
-            "title": "Error chain",
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": True,
-            "openWorldHint": False,
-        },
-    },
-    {
-        "name": "report_outcome",
-        "description": (
-            "Report whether a workaround from deadends.dev worked or failed. "
-            "This feedback improves fix_success_rate and confidence for future "
-            "users. Call this AFTER applying a workaround to help improve the "
-            "database. Accepts the error ID, the workaround action you tried, "
-            "and whether it succeeded."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "error_id": {
-                    "type": "string",
-                    "description": "The error ID (domain/slug/env)",
-                },
-                "workaround_action": {
-                    "type": "string",
-                    "description": (
-                        "The workaround action string you tried "
-                        "(from the workarounds list)"
-                    ),
-                },
-                "success": {
-                    "type": "boolean",
-                    "description": "Whether the workaround resolved the error",
-                },
-                "environment": {
-                    "type": "object",
-                    "description": (
-                        "Optional: your environment info "
-                        "(runtime, os, version, etc.)"
-                    ),
-                },
-                "notes": {
-                    "type": "string",
-                    "description": "Optional: additional context or notes",
-                },
-            },
-            "required": ["error_id", "workaround_action", "success"],
-        },
-        "annotations": {
-            "title": "Report outcome",
-            "readOnlyHint": False,
-            "destructiveHint": False,
-            "idempotentHint": False,
-            "openWorldHint": False,
-        },
-    },
-]
 
 
 def _parse_config(query_string):
@@ -697,6 +352,7 @@ def handle_mcp(method, params, canons, config=None):
 
         if tool_name == "lookup_error":
             error_msg = args.get("error_message", "")
+            output_format = args.get("format", "markdown")
             matches = match_error(error_msg, canons)
             if matches and config["preferred_domains"]:
                 pref = config["preferred_domains"]
@@ -766,6 +422,14 @@ def handle_mcp(method, params, canons, config=None):
                     parts.append(f"\nFull details: {m['url']}")
                     parts.append("")
                 text = "\n".join(parts)
+            if output_format == "json" and matches:
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": json_match_payload(matches, config["max_results"]),
+                    }]
+                }
+
             return {"content": [{"type": "text", "text": text}]}
 
         elif tool_name == "get_error_detail":
@@ -801,26 +465,7 @@ def handle_mcp(method, params, canons, config=None):
             return {"content": [{"type": "text", "text": text}]}
 
         elif tool_name == "list_error_domains":
-            sort_by = args.get("sort_by", "count")
-            domains = {}
-            for c in canons:
-                d = c.get("error", {}).get("domain") if isinstance(c, dict) else None
-                if d:
-                    domains[d] = domains.get(d, 0) + 1
-            if sort_by == "name":
-                sorted_domains = sorted(domains.items())
-            else:
-                sorted_domains = sorted(
-                    domains.items(), key=lambda x: x[1], reverse=True
-                )
-            text = f"Total errors: {len(canons)}\n\n"
-            for domain, count in sorted_domains:
-                text += f"- {domain}: {count} errors\n"
-            text += (
-                "\nUse lookup_error to search by error message, "
-                "or get_error_detail with an ID like "
-                "'python/modulenotfounderror/py311-linux'."
-            )
+            text = format_domain_listing(canons, args.get("sort_by", "count"))
             return {"content": [{"type": "text", "text": text}]}
 
         elif tool_name == "search_errors":
