@@ -37,6 +37,8 @@ import os
 import re
 import sys
 import time
+from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -267,13 +269,27 @@ def main():
     previous = load_previous()
     shortlist = print_report(results, previous)
 
+    # Timestamps matter here: indexing requests take days to show up, so a
+    # reader needs to know whether a report predates the requests it is being
+    # compared against. previous_generated_at makes the interval between two
+    # runs explicit rather than assumed to be a week.
+    generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    print(f"  Generated: {generated_at}")
+    if previous.get("generated_at"):
+        print(f"  Previous run: {previous['generated_at']}")
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_FILE.write_text(
         json.dumps(
             {
                 "property": site_url,
+                "generated_at": generated_at,
+                "previous_generated_at": previous.get("generated_at"),
                 "inspected_count": len(results),
                 "indexed_count": sum(1 for r in results if r.get("coverage") == INDEXED_STATE),
+                "coverage_breakdown": dict(
+                    Counter(r.get("coverage", "error") for r in results).most_common()
+                ),
                 "manual_request_shortlist": shortlist,
                 "results": results,
             },
