@@ -67,12 +67,30 @@ class TestOwnershipMarker:
 
 
 class TestServerJsonShape:
+    # The registry only accepts these two remote transports. A wrong value is
+    # rejected by `mcp-publisher validate`, which runs at release time - late
+    # enough that the PyPI upload has already happened and cannot be redone.
+    VALID_REMOTE_TRANSPORTS = {"streamable-http", "sse"}
+
     def test_declares_the_hosted_endpoint(self):
         remotes = _server_json().get("remotes", [])
         assert any(r.get("url", "").startswith("https://") for r in remotes), (
             "the hosted endpoint should stay listed so clients can use it "
             "without installing anything"
         )
+
+    def test_remote_transport_type_is_one_the_registry_accepts(self):
+        for remote in _server_json().get("remotes", []):
+            assert remote.get("type") in self.VALID_REMOTE_TRANSPORTS, (
+                f"remote {remote.get('url')} declares type={remote.get('type')!r}; "
+                f"the registry accepts only {sorted(self.VALID_REMOTE_TRANSPORTS)}"
+            )
+
+    def test_package_transport_type_is_declared(self):
+        for package in _server_json().get("packages", []):
+            assert package.get("transport", {}).get("type"), (
+                f"package {package.get('identifier')} declares no transport type"
+            )
 
     def test_repository_points_at_this_project(self):
         repo = _server_json().get("repository", {})

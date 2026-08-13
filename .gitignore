@@ -212,3 +212,7 @@ __marimo__/
 # deadend.dev specific
 .env
 .mcpregistry_*
+
+# MCP Registry DNS auth signing key — never commit
+key.pem
+*.pem
