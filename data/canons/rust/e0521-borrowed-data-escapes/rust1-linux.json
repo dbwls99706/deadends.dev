@@ -8,7 +8,7 @@
     "domain": "rust",
     "category": "borrow_error",
     "first_seen": "2018-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-14"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.84,
     "confidence": 0.86,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-14",
     "summary": "A closure or function captures a reference to data that may be dropped before the closure finishes. The solution is usually to transfer ownership (owned types) or use scoped threads."
   },
   "dead_ends": [
@@ -108,6 +108,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-14"
   }
 }

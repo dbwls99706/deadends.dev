@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/proof-of-address-barrier/za",
+  "url": "https://deadends.dev/banking/proof-of-address-barrier/za",
+  "error": {
+    "signature": "AI tells a new arrival in South Africa that FICA legally requires a utility bill or lease in their own name to open a bank account",
+    "regex": "(south africa.{0,15}(bank|fica).{0,15}(account|proof)|fica.{0,15}proof.{0,15}address|open.{0,10}account.{0,15}south africa)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-08-14",
+    "summary": "Proof of residential address has not been a legal FICA requirement in South Africa since 2 October 2017 (Government Notice R1062, Government Gazette 41154), which repealed the regulations that mandated it. FIC Guidance Note 7A now lists a residential address as only one optional, supplementary identity attribute a bank's own risk policy may ask for - so a branch that insists on a utility bill is applying internal policy, not law, and FICA-compliant alternatives (like a sworn affidavit) exist for people without one."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that not having a utility bill or lease in your own name means you cannot legally open a South African bank account",
+      "why_fails": "Government Notice R1062 (Government Gazette 41154, 29 September 2017, effective 2 October 2017) repealed the old Money Laundering and Terrorist Financing Control Regulations that made address verification mandatory. FIC Guidance Note 7A (para 86) now treats residential address as one optional supplementary attribute among several (biometric data, employer details, tax number) that an institution's own Risk Management and Compliance Programme may choose to request under FIC Act section 21(1) - it is not a statutory requirement.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.fic.gov.za/document/guidance-note-7-implementation-of-various-aspects-of-the-fic-act/",
+        "https://mjkinc.co.za/fica/proof-of-address"
+      ],
+      "common_misconception": "Bank branch staff and most online advice still describe proof of address as a mandatory legal FICA rule, even though the regulation requiring it was repealed in 2017."
+    },
+    {
+      "action": "Give up trying to open an account because you only have a bill or lease in someone else's name (a family member, host, or landlord)",
+      "why_fails": "South Africa has a recognised affidavit route for exactly this case: the person whose name is on the household bill signs a sworn affidavit before a Commissioner of Oaths (a free service at any SAPS station) confirming you live at the address, submitted with a certified copy of their ID and their own recent proof of residence.",
+      "fail_rate": 0.35,
+      "condition": "You live with family, a host, or in shared/informal housing",
+      "sources": [
+        "https://idchecker.co.za/proof-of-residence-south-africa/"
+      ],
+      "common_misconception": "People assume the requirement is binary (bill in your own name or nothing) rather than knowing an affidavit-based alternative exists."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cite the 2017 repeal when a branch insists address proof is 'required by FICA'",
+      "success_rate": 0.45,
+      "how": "Reference Government Notice R1062 (GG 41154, 2 October 2017) and FIC Guidance Note 7A para 86, and ask which alternative identity attributes the bank's own risk policy will accept instead of a utility bill.",
+      "tradeoff": "Frontline staff may not be authorised to deviate from their branch's internal policy even when shown the regulation, so this works better escalated to a compliance/FICA desk than at a teller window.",
+      "sources": [
+        "https://www.fic.gov.za/document/guidance-note-7-implementation-of-various-aspects-of-the-fic-act/",
+        "https://mjkinc.co.za/fica/proof-of-address"
+      ]
+    },
+    {
+      "action": "Use the SAPS Commissioner of Oaths affidavit route",
+      "success_rate": 0.55,
+      "how": "Have the person named on a utility bill or lease sign an affidavit at any SAPS station (free) confirming you live at the address, and bring a certified copy of their ID plus their own recent proof of residence alongside it.",
+      "tradeoff": "Some banks still want a document in the homeowner's name in addition to the affidavit, so this depends on the homeowner's cooperation and may need a second visit.",
+      "sources": [
+        "https://idchecker.co.za/proof-of-residence-south-africa/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}
