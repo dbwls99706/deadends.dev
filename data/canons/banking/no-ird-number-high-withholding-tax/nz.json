@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/no-ird-number-high-withholding-tax/nz",
+  "url": "https://deadends.dev/banking/no-ird-number-high-withholding-tax/nz",
+  "error": {
+    "signature": "AI tells someone opening a New Zealand bank account or starting a NZ job that skipping the IRD number just means tax withholding defaults to a normal or basic rate",
+    "regex": "(without|no|skip).{0,15}ird number.{0,40}(bank|tax|withhold|pay)",
+    "domain": "banking",
+    "category": "tax_withholding_trap",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-14",
+    "summary": "New Zealand banks and employers must apply the 'no-notification' default withholding rate - 45% resident withholding tax (RWT) on bank interest, and 45 cents in the dollar plus the ACC earner's levy on wages - to anyone who has not supplied their IRD number. This is well above nearly every individual's actual marginal tax rate (which tops out at 39% on income over NZD 180,000), so newcomers who delay getting an IRD number lose a large chunk of interest or pay until they provide it."
+  },
+  "dead_ends": [
+    {
+      "action": "Open a New Zealand bank account and put off giving the bank your IRD number, assuming interest will just be taxed at your normal rate in the meantime",
+      "why_fails": "Inland Revenue requires payers to deduct RWT at the 'no notification' rate of 45% on interest whenever no IRD number is on file - higher than every standard RWT rate tier and higher than the top personal income tax rate of 39%.",
+      "fail_rate": 0.7,
+      "common_misconception": "People assume 'no IRD number' just means 'basic' or 'standard' tax treatment, not a punitive default rate.",
+      "sources": [
+        "https://www.ird.govt.nz/income-tax/withholding-taxes/resident-withholding-tax-rwt/using-the-right-rwt-tax-rate"
+      ]
+    },
+    {
+      "action": "Start a new NZ job and leave the IR330 tax code declaration blank or skip giving your employer an IRD number, expecting PAYE to default to a mid-range tax code",
+      "why_fails": "IRD's IR330 form requires the employer to deduct PAYE at the 'non-notified' rate - 45 cents in the dollar plus the ACC earner's levy - whenever the tax code declaration isn't completed in full, regardless of the employee's actual expected income.",
+      "fail_rate": 0.65,
+      "condition": "Starting employment before an IRD number has been obtained or supplied",
+      "sources": [
+        "https://www.ird.govt.nz/-/media/project/ir/home/documents/forms-and-guides/ir300---ir399/ir330/ir330.pdf"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for an IRD number as early as possible after arrival and give it to your bank and employer immediately so the no-notification rate never applies.",
+      "success_rate": 0.9,
+      "how": "New arrivals with a resident, work, or student visa apply via IRD's 'new arrival to New Zealand' IRD number process; approval is typically returned within days once identity is verified.",
+      "sources": [
+        "https://www.ird.govt.nz/managing-my-tax/ird-numbers/ird-numbers-for-individuals/new-arrival-to-new-zealand---ird-number-application"
+      ]
+    },
+    {
+      "action": "If you were taxed at the no-notification rate before your IRD number was on file, the RWT withheld is credited against your final tax liability when IRD prepares your end-of-year income tax assessment, not lost outright.",
+      "success_rate": 0.6,
+      "tradeoff": "Requires waiting for the annual assessment and making sure the withheld amount is correctly reflected; it is not refunded automatically the moment you provide your IRD number.",
+      "sources": [
+        "https://www.ird.govt.nz/income-tax/income-tax-for-individuals/what-happens-at-the-end-of-the-tax-year/income-tax-assessments/understanding-your-letter",
+        "https://www.ird.govt.nz/income-tax/withholding-taxes/resident-withholding-tax-rwt/using-the-right-rwt-tax-rate"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}

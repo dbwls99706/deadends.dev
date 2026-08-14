@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/nz",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/nz",
+  "error": {
+    "signature": "AI tells someone in a New Zealand mental health crisis that calling or texting 1737 will dispatch emergency responders to their location the way calling 111 does",
+    "regex": "1737.{0,30}(dispatch|send help|ambulance|emergency)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-14",
+    "summary": "1737 (Need to Talk) is New Zealand's free 24/7 call-or-text mental health support line, but its own service description says it 'is not a crisis team' and cannot dispatch emergency responders. For immediate danger to life, call 111; for a mental health crisis needing an in-person response, contact the regional Crisis Assessment Team, reachable via Healthline on 0800 611 116."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in an active mental health crisis in New Zealand to call or text 1737, expecting it to send a crisis team or ambulance to their location",
+      "why_fails": "1737's own service description states it 'is not a crisis team or a mental health service for those with severe mental illness or psychological distress' and provides phone/text counselling only - it does not dispatch anyone.",
+      "fail_rate": 0.75,
+      "common_misconception": "People assume any well-known mental health hotline number works like an emergency dispatch line.",
+      "sources": [
+        "https://www.1737.org.nz/how-1737-works"
+      ]
+    },
+    {
+      "action": "Assume 1737 is the right number to call when someone is in immediate danger of harming themselves or others",
+      "why_fails": "1737's own guidance says to call 111 directly if someone is in immediate danger, and to contact your local Crisis Assessment Team for a mental health crisis needing an in-person response - 1737 is positioned for lower-acuity emotional support, not emergencies.",
+      "fail_rate": 0.6,
+      "condition": "The situation involves imminent risk to life, not general distress",
+      "sources": [
+        "https://www.1737.org.nz/how-1737-works",
+        "https://mentalhealth.org.nz/helplines"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For immediate danger to life, call 111 directly rather than routing through 1737 first.",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.1737.org.nz/how-1737-works",
+        "https://www.lifeline.org.nz/"
+      ]
+    },
+    {
+      "action": "For a mental health crisis that needs an in-person response but isn't an immediate 111 emergency, call Healthline (0800 611 116) to reach your regional Crisis Assessment Team, and use 1737 for ongoing phone/text emotional support in between.",
+      "success_rate": 0.75,
+      "how": "Healthline can direct you to your region's Crisis Assessment Team number; 1737 remains available 24/7 by call or text for talking through the situation.",
+      "sources": [
+        "https://mentalhealth.org.nz/helplines"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/dial-111/nz",
+        "distinction": "That canon covers New Zealand's general emergency number (111) itself; this one is specific to what 1737 can and cannot do, and when to use 111 or a regional Crisis Assessment Team instead."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}

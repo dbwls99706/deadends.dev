@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "breaking_change",
     "first_seen": "2024-10-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-14"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.93,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-14",
     "summary": "Breaking change in Next.js 15: params and searchParams are now Promises and must be awaited. The Next.js codemod can auto-migrate all pages and layouts."
   },
   "dead_ends": [
@@ -48,7 +48,7 @@
       "why_fails": "React.use() is designed for client components to unwrap promises during render. In server components, use standard await instead. Using React.use in a server component may cause a different error or unexpected behavior.",
       "fail_rate": 0.78,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/server-components"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "common_misconception": "React.use() is a universal Promise unwrapper. It is specifically for the client-side React rendering model."
     }
@@ -60,7 +60,7 @@
       "success_rate": 0.96,
       "tradeoff": "Page function must be async; cannot use hooks directly (but server components cannot use hooks anyway)",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/upgrading/version-15"
+        "https://nextjs.org/docs/app/guides/upgrading/version-15"
       ]
     },
     {
@@ -76,7 +76,7 @@
       "success_rate": 0.9,
       "tradeoff": "May need manual review for complex page components",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/upgrading/codemods"
+        "https://nextjs.org/docs/app/guides/upgrading/codemods"
       ]
     }
   ],
@@ -98,6 +98,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-14"
   }
 }

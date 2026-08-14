@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/no-fault-acc-bars-injury-lawsuit/nz",
+  "url": "https://deadends.dev/medical/no-fault-acc-bars-injury-lawsuit/nz",
+  "error": {
+    "signature": "AI tells a tourist or resident injured in an accident in New Zealand that they can sue the at-fault party for compensatory damages the way they could in the US or many other countries",
+    "regex": "(sue|lawsuit|compensat\\w*).{0,40}(injur\\w*|accident).{0,20}new zealand",
+    "domain": "medical",
+    "category": "legal_remedy_unavailable",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-14",
+    "summary": "New Zealand's Accident Compensation Act 2001 bars any court or tribunal from awarding compensatory damages for personal injury covered by the ACC no-fault scheme - this applies to residents and visitors alike. ACC subsidizes treatment and part of lost income, but there is no lawsuit route to further compensation, and ACC explicitly does not cover illness, transit-related injuries, or the full cost of care, so travel insurance is still essential for visitors."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist injured in a car crash, on a hike, or otherwise in New Zealand that they can sue the driver, operator, or business for compensatory damages, as they might at home",
+      "why_fails": "Section 317 of the Accident Compensation Act 2001 states that no court, tribunal, or other body may award compensation for personal injury covered by the Act - this bar applies to everyone injured in NZ, resident or visitor, in exchange for no-fault ACC cover.",
+      "fail_rate": 0.85,
+      "common_misconception": "Visitors from countries like the US assume the normal ability to sue for pain and suffering or lost wages carries over to New Zealand.",
+      "sources": [
+        "https://www.legislation.govt.nz/act/public/2001/0049/latest/DLM103473.html",
+        "https://www.newzealand.com/us/feature/health-and-safety/"
+      ]
+    },
+    {
+      "action": "Assume ACC cover means all medical costs for an injured visitor are fully paid, so no travel insurance is needed",
+      "why_fails": "ACC only covers treatment and rehabilitation within New Zealand, usually requires visitors to pay part of the cost themselves, and explicitly excludes illness, injuries sustained getting to and from NZ, and repatriation or emergency transport home.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.acc.co.nz/im-injured/what-we-cover/if-youre-a-visitor-injured-in-new-zealand",
+        "https://www.newzealand.com/us/feature/health-and-safety/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If injured in New Zealand, let the treating doctor or hospital lodge the ACC claim (usually automatic) to get subsidized treatment and possible income compensation, and separately claim any shortfall from your own travel insurance.",
+      "success_rate": 0.85,
+      "how": "Most healthcare providers lodge the ACC claim on your behalf when treating an accident injury; travel insurance is a separate claim filed with your own insurer for what ACC doesn't cover.",
+      "sources": [
+        "https://www.acc.co.nz/im-injured/what-we-cover/if-youre-a-visitor-injured-in-new-zealand"
+      ]
+    },
+    {
+      "action": "Buy comprehensive travel and health insurance before arriving in New Zealand specifically to cover what ACC excludes: illness, transit injuries, repatriation, and the visitor's share of treatment costs.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.newzealand.com/us/feature/health-and-safety/",
+        "https://www.acc.co.nz/im-injured/what-we-cover/if-youre-a-visitor-injured-in-new-zealand"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}
