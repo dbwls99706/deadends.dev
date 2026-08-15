@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/drug-possession-mandatory-minimums/ph",
+  "url": "https://deadends.dev/legal/drug-possession-mandatory-minimums/ph",
+  "error": {
+    "signature": "AI reassures a traveler or expat that possessing a 'small' or 'personal use' amount of drugs in the Philippines is a minor offense, similar to decriminalized-possession jurisdictions",
+    "regex": "(philippines.*(drug|shabu|marijuana).*possess|possess.*(drug|shabu).*philippines|manila.*drug.*small amount|ph.*ra ?9165|personal use.*philippines.*drug)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.92,
+    "confidence": 0.85,
+    "last_updated": "2026-08-15",
+    "summary": "Under Republic Act No. 9165 (Comprehensive Dangerous Drugs Act of 2002), Section 11, possessing even less than 5 grams of methamphetamine hydrochloride (shabu) carries 12 years and 1 day to 20 years imprisonment plus a P300,000-P400,000 fine - there is no 'personal use' exception or decriminalized threshold. Possessing 10+ grams of shabu or 500+ grams of marijuana is punishable by life imprisonment (reclusion perpetua, since RA 9346 abolished the death penalty in 2006 and converted death-eligible sentences to reclusion perpetua without parole) plus a P500,000-P10,000,000 fine. Quantity thresholds most travelers assume are 'small' are treated as serious felonies."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume possessing a small quantity of drugs (e.g. a single joint, a small pouch of shabu) for personal use will be treated leniently or as a minor citation, as in jurisdictions with decriminalized possession",
+      "why_fails": "RA 9165 Section 11 sets a mandatory minimum of 12 years and 1 day imprisonment for possessing less than 5 grams of methamphetamine hydrochloride - there is no threshold below which possession is a summary offense or fine-only violation. Philippine law and enforcement (including the post-2016 anti-drug campaign) treat any unauthorized possession as a serious felony regardless of the user's intent to use rather than sell.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2002/ra_9165_2002.html",
+        "https://www.officialgazette.gov.ph/2002/06/07/republic-act-no-9165/"
+      ],
+      "common_misconception": "Because many countries treat small personal-use quantities as decriminalized or fine-only, travelers assume the Philippines does too; RA 9165 draws no such distinction in its possession penalties."
+    },
+    {
+      "action": "Assume that because the death penalty is unconstitutional/abolished in the Philippines, drug convictions carry only moderate prison terms",
+      "why_fails": "RA 9346 (2006) abolished imposition of the death penalty but did not reduce the underlying RA 9165 penalty brackets - offenses that would have been death-eligible (10+ grams shabu, 500+ grams marijuana, or dealing/selling any amount) are instead punished with reclusion perpetua (20-40 years, no parole eligibility under the Indeterminate Sentence Law) plus fines up to P10,000,000. This is still one of the harshest drug sentencing regimes in Asia.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2006/ra_9346_2006.html",
+        "https://senate.gov.ph/republic_acts/ra%209346.pdf"
+      ],
+      "condition": "Quantity meets or exceeds the life-imprisonment threshold, or the charge is sale/dispensing rather than simple possession"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not carry, use, or accept any unauthorized dangerous drug in the Philippines under any circumstance, including amounts that would be 'personal use' elsewhere - treat every quantity as a felony-level risk",
+      "success_rate": 0.98,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2002/ra_9165_2002.html"
+      ]
+    },
+    {
+      "action": "If facing a drug charge, contact your country's embassy/consulate in Manila immediately and retain a Philippine-licensed criminal defense lawyer before making any statement to police - RA 9165 cases proceed quickly and bail is discretionary or unavailable for the higher penalty brackets",
+      "success_rate": 0.6,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2002/ra_9165_2002.html"
+      ],
+      "tradeoff": "Does not reduce statutory penalties, but is the standard first step recommended by embassies for nationals facing serious charges abroad"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/drug-death-penalty/id",
+        "distinction": "Indonesia's law retains an enforceable death penalty for drug offenses; the Philippines abolished the death penalty in 2006 (RA 9346), so equivalent-severity Philippine drug offenses are punished with reclusion perpetua (life imprisonment without parole) instead."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-15"
+  }
+}
