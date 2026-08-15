@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/hospital-deposit-illegal-but-demanded/ph",
+  "url": "https://deadends.dev/medical/hospital-deposit-illegal-but-demanded/ph",
+  "error": {
+    "signature": "AI tells someone facing a medical emergency in the Philippines that they must pay a deposit or show proof of payment before a hospital will begin treatment",
+    "regex": "(philippines.*hospital.*deposit|hospital deposit.*philippines|philippines.*emergency room.*pay first|ph.*hospital.*advance payment)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-15",
+    "summary": "Republic Act No. 10932 (the Anti-Hospital Deposit Law, 2017) makes it unlawful for any hospital or medical clinic in the Philippines - public or private - to request, solicit, demand, or accept a deposit or advance payment as a prerequisite for administering basic emergency care in an emergency or serious case. Violating staff face 6 months and 1 day to 2 years and 4 months imprisonment or a P100,000-P300,000 fine; responsible directors/officers of a facility with an institutional policy of doing this face 4-6 years imprisonment or P500,000-P1,000,000 fines, and a third violation triggers DOH revocation of the facility's operating license. In practice, understaffed or unfamiliar front-desk personnel at some hospitals still ask for a deposit or proof of ability to pay before treating, which is illegal but happens anyway and often goes unchallenged by patients who don't know their rights."
+  },
+  "dead_ends": [
+    {
+      "action": "Accept a hospital's demand for a cash deposit or proof of insurance/payment before agreeing to be seen for an emergency, assuming this is a normal and lawful prerequisite as it is in some other countries",
+      "why_fails": "RA 10932 explicitly criminalizes demanding a deposit or advance payment as a prerequisite for basic emergency care in an emergency or serious case (defined as immediate danger to life or where delay may cause loss of life, permanent disability, or endanger a woman in active labor). A patient or companion who simply pays without objecting loses the leverage the law gives them to demand immediate treatment first.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2017/ra_10932_2017.html",
+        "https://pco.gov.ph/news_releases/duterte-signs-anti-hospital-deposit-law/"
+      ],
+      "common_misconception": "Because hospital front-desk staff sometimes still ask for a deposit despite it being illegal, patients and companions assume the request itself means payment is legally required, rather than recognizing it as a violation to push back on."
+    },
+    {
+      "action": "Assume the Anti-Hospital Deposit Law guarantees free treatment for the entire hospital stay, not just the initial stabilizing care",
+      "why_fails": "RA 10932 only prohibits deposits as a precondition for basic emergency care needed to stabilize the patient (or safely enable transfer). Once stabilized, the patient can still be billed for the emergency care and any subsequent confinement/treatment; PhilHealth reimbursement to the facility for indigent/poor patients is a separate, narrower provision, not a blanket exemption from all hospital charges.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2017/ra_10932_2017.html"
+      ],
+      "condition": "After the patient has been medically stabilized"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If a hospital demands a deposit before treating an emergency, state clearly and calmly that RA 10932 prohibits this, ask to speak to the hospital administrator or duty officer, and treatment should begin regardless of ability to pay",
+      "success_rate": 0.7,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2017/ra_10932_2017.html"
+      ]
+    },
+    {
+      "action": "If a hospital refuses to budge, call the Department of Health hotline or the Commission on Human Rights to report the violation in real time - CHR has publicly supported enforcement of this law and hospitals risk license revocation on repeat violations",
+      "success_rate": 0.55,
+      "sources": [
+        "https://www.pna.gov.ph/articles/1005549"
+      ],
+      "tradeoff": "May take time to reach the right office during an active emergency; asserting the law directly to on-site staff is usually faster than an external complaint in the moment"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}
