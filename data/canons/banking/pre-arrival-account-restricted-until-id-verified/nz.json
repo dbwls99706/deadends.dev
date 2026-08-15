@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/pre-arrival-account-restricted-until-id-verified/nz",
+  "url": "https://deadends.dev/banking/pre-arrival-account-restricted-until-id-verified/nz",
+  "error": {
+    "signature": "AI tells a migrant they can open a fully-functional NZ bank account remotely with just a passport scan before arrival",
+    "regex": "(new.zealand.*bank.*account.*(remote|online|before.*arriv)|nz.*bank.*account.*(passport|remote))",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-15",
+    "summary": "New Zealand banks can open a pre-arrival account from overseas, but under AML/CFT Act 2009 customer due diligence rules it stays restricted (often no card, limited withdrawals/transfers) until identity and address are verified in person or via a certified trusted referee after arrival."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a bank account opened online from overseas before moving to NZ is immediately fully usable on arrival",
+      "why_fails": "Immigration New Zealand's own guidance says migrants 'will most likely need to activate' the account on arrival, and are 'often asked to verify your identity and permanent address' before it works fully, because NZ's AML/CFT laws require banks to identify customers clearly.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.immigration.govt.nz/live/setting-up-your-life-in-new-zealand/managing-your-money-banking-and-taxes-in-new-zealand/banking-in-new-zealand",
+        "https://www.rbnz.govt.nz/regulation-and-supervision/anti-money-laundering/requirements-on-reporting-entities"
+      ],
+      "common_misconception": "A pre-arrival account number means the account is fully operational; in practice it is typically a holding account until identity verification is completed."
+    },
+    {
+      "action": "Submit only a scanned passport photo page by email and expect that to satisfy identity verification",
+      "why_fails": "Banks require verification either in person at a branch or certification by an approved trusted referee (lawyer, notary, JP, doctor, accountant) sighting the original documents within the last 3 months - a plain scan sent by email does not meet the AML/CFT customer due diligence standard.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bnz.co.nz/support/everyday-accounts/opening-an-account/id-requirements"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open the pre-arrival account with the bank's official app/site, then complete in-branch identity verification within the bank's required window after arrival",
+      "success_rate": 0.9,
+      "how": "Bring your passport and visa/permit documents to a branch soon after landing so the account is unlocked for full use (card, transfers, cash withdrawal).",
+      "sources": [
+        "https://www.immigration.govt.nz/live/setting-up-your-life-in-new-zealand/managing-your-money-banking-and-taxes-in-new-zealand/banking-in-new-zealand"
+      ]
+    },
+    {
+      "action": "If you cannot visit a branch, use an approved trusted referee overseas (lawyer, notary public, JP, doctor, accountant) to certify true copies of your ID and proof of address",
+      "success_rate": 0.75,
+      "how": "Ask the referee to sight your original documents, certify copies as true and correct, and date the certification within 3 months of submission.",
+      "sources": [
+        "https://www.bnz.co.nz/support/everyday-accounts/opening-an-account/id-requirements"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}

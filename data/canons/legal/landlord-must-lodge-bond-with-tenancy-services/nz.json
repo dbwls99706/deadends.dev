@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/landlord-must-lodge-bond-with-tenancy-services/nz",
+  "url": "https://deadends.dev/legal/landlord-must-lodge-bond-with-tenancy-services/nz",
+  "error": {
+    "signature": "AI assumes a NZ landlord can lawfully hold the tenant's bond money themselves for the length of the tenancy",
+    "regex": "(new.zealand.*(rent|tenan).*bond|nz.*landlord.*bond|tenancy.*bond.*new.zealand)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-08-15",
+    "summary": "Under the Residential Tenancies Act 1986, a NZ landlord who receives a bond must lodge it online with Tenancy Services (a government agency) within 23 working days - the landlord cannot legally keep or hold the bond themselves, and can be ordered to pay the tenant a penalty of up to $1,000 if they fail to lodge it."
+  },
+  "dead_ends": [
+    {
+      "action": "Pay the bond directly to the landlord and assume that satisfies the tenant's legal protection, with no further action needed",
+      "why_fails": "The landlord is legally required to lodge the bond with Tenancy Services within 23 working days of receiving it; a bond simply held by the landlord privately is not lodged and is not protected under the Residential Tenancies Act.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/about-lodging-a-bond/",
+        "https://communitylaw.org.nz/community-law-manual/chapter-26-tenancy-and-housing/rent-bond-and-other-costs/bond-the-landlords-security-against-damage-or-unpaid-rent/"
+      ],
+      "common_misconception": "Many tenants assume any bond payment is automatically 'registered' with the government the moment it's paid; lodgement is a separate, landlord-initiated step with a legal deadline."
+    },
+    {
+      "action": "Wait indefinitely and take no action if the landlord never confirms the bond was lodged",
+      "why_fails": "If a landlord fails to lodge the bond, that is an unlawful act, but the burden is on the tenant to check with Tenancy Services and, if needed, apply to the Tenancy Tribunal for the penalty - it is not automatically enforced.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://communitylaw.org.nz/community-law-manual/chapter-26-tenancy-and-housing/rent-bond-and-other-costs/bond-the-landlords-security-against-damage-or-unpaid-rent/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ask the landlord for the bond lodgement reference number, or check directly with Tenancy Services that the bond was received",
+      "success_rate": 0.9,
+      "how": "Tenancy Services sends a confirmation once a bond is lodged; tenants can contact Tenancy Services directly to confirm lodgement if the landlord doesn't provide proof.",
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/about-lodging-a-bond/"
+      ]
+    },
+    {
+      "action": "Where the landlord agrees, pay the bond directly to Tenancy Services instead of to the landlord",
+      "success_rate": 0.95,
+      "how": "This bypasses the risk entirely - the bond goes straight to the government agency rather than through the landlord.",
+      "tradeoff": "Requires the landlord's agreement; not all landlords will accept this arrangement.",
+      "sources": [
+        "https://communitylaw.org.nz/community-law-manual/chapter-26-tenancy-and-housing/rent-bond-and-other-costs/bond-the-landlords-security-against-damage-or-unpaid-rent/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/undeclared-food-instant-fine-at-border/nz",
+  "url": "https://deadends.dev/food-safety/undeclared-food-instant-fine-at-border/nz",
+  "error": {
+    "signature": "AI tells a traveler it's fine to bring snacks or fresh food into New Zealand without declaring them, as long as the amount is small",
+    "regex": "(new.zealand.*(declare|customs).*food|nz.*biosecurity.*food|bring.*food.*new.zealand)",
+    "domain": "food-safety",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-08-15",
+    "summary": "New Zealand requires travelers to declare food, plant material, and animal products on arrival regardless of quantity; failing to declare - even by accident, even a single piece of fruit - can trigger an instant NZD $400 infringement fee, and deliberate concealment can lead to prosecution with fines up to NZD $100,000."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip declaring a small, seemingly harmless food item (like a piece of fruit or a sandwich) because it seems too minor to matter",
+      "why_fails": "MPI (Ministry for Primary Industries) enforces a flat instant infringement fee for any undeclared biosecurity risk good regardless of size or intent - detector dogs routinely catch items as small as a single banana or a forgotten snack, and travelers are fined on the spot.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mpi.govt.nz/bring-send-to-nz/bringing-and-posting-items-to-nz/how-to-declare-items-when-arriving-in-nz",
+        "https://www.nzherald.co.nz/nz/pilots-fined-400-after-biosecurity-dog-sophie-finds-food-in-luggage/AQLIY25KRBEVPMSHYX7B5TT7EM/"
+      ],
+      "common_misconception": "Travelers often assume biosecurity rules only target large quantities of food or obviously risky items like raw meat, not a single piece of fruit or a leftover in-flight sandwich."
+    },
+    {
+      "action": "Assume forgetting to declare (as opposed to deliberately hiding) an item avoids any penalty since it wasn't intentional",
+      "why_fails": "MPI's instant $400 infringement fee applies even when non-declaration is accidental; the higher penalty tier (prosecution, fines up to $100,000) is reserved for deliberate concealment, but simply forgetting still costs $400 on the spot.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.nzherald.co.nz/nz/pilots-fined-400-after-biosecurity-dog-sophie-finds-food-in-luggage/AQLIY25KRBEVPMSHYX7B5TT7EM/",
+        "https://www.indianweekender.co.nz/news/auckland-airport-detector-dog-sophie-sniffs-out-undeclared-food-pilots-fined"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare all food, plant material, and animal products on the arrival card or NZTA app, even if unsure whether an item counts",
+      "success_rate": 0.95,
+      "how": "Declaring an item that turns out to be fine costs nothing; MPI staff assess declared items and dispose of or clear them - the fine is specifically for failing to declare, not for carrying a restricted item you disclosed.",
+      "sources": [
+        "https://www.mpi.govt.nz/bring-send-to-nz/bringing-and-posting-items-to-nz/how-to-declare-items-when-arriving-in-nz"
+      ]
+    },
+    {
+      "action": "When in doubt about whether something counts as a biosecurity risk good, declare it and let an MPI officer decide rather than guessing",
+      "success_rate": 0.9,
+      "how": "This shifts the risk assessment to the officer rather than the traveler guessing wrong.",
+      "sources": [
+        "https://www.mpi.govt.nz/bring-send-to-nz/bringing-and-posting-items-to-nz/how-to-declare-items-when-arriving-in-nz"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}

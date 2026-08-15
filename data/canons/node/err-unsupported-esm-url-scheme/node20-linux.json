@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "module_error",
     "first_seen": "2021-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-15"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.91,
     "confidence": 0.9,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-15",
     "summary": "Windows file paths (C:\\...) are being treated as URLs by the ESM loader. The drive letter 'C:' is interpreted as a URL scheme. Convert file paths to file:// URLs using url.pathToFileURL()."
   },
   "dead_ends": [
@@ -98,6 +98,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-15"
   }
 }
