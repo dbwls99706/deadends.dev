@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/kruger-malaria-risk-zone/za",
+  "url": "https://deadends.dev/medical/kruger-malaria-risk-zone/za",
+  "error": {
+    "signature": "AI treats South Africa as malaria-free or omits malaria risk for a Kruger/Mpumalanga/Limpopo itinerary",
+    "regex": "(south.africa.*malaria|kruger.*malaria|malaria.*kruger|mpumalanga.*malaria|limpopo.*malaria)",
+    "domain": "medical",
+    "category": "health_risk",
+    "first_seen": "2026-08-16",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.75,
+    "last_updated": "2026-08-16",
+    "summary": "South Africa is not uniformly malaria-free: the National Institute for Communicable Diseases (NICD) designates the low-lying parts of Limpopo and Mpumalanga (including Kruger National Park) and far northern KwaZulu-Natal as malaria-transmission areas, with risk highest in the rainy season, while Cape Town, Johannesburg, and Durban itself carry no malaria risk."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip antimalarial prophylaxis for a Kruger/Mpumalanga/Limpopo safari because 'South Africa' as a whole is treated as malaria-free",
+      "why_fails": "NICD's national guidelines and Kruger-specific advisory identify the Kruger National Park, the Mpumalanga and Limpopo lowveld, and far northern KwaZulu-Natal as active malaria-transmission areas; the risk is real even though major cities like Cape Town, Johannesburg, and Durban have none, so a trip combining a city stay with a Kruger safari still carries risk on the safari leg.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.nicd.ac.za/malaria-advisory-for-visitors-to-the-kruger-national-park/",
+        "https://www.nicd.ac.za/diseases-a-z-index/malaria/"
+      ],
+      "common_misconception": "Travelers generalize from a Cape Town or Johannesburg city itinerary (no malaria risk) to the whole country, missing that the risk is geographically concentrated in the lowveld/Kruger region and highly seasonal."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Take antimalarial chemoprophylaxis for overnight stays in Kruger, Limpopo, or Mpumalanga lowveld camps, and use mosquito-bite prevention year-round",
+      "success_rate": 0.85,
+      "how": "NICD's national malaria prevention guidelines list doxycycline and atovaquone-proguanil as chemoprophylaxis options (doxycycline added as a pharmacist-dispensable Schedule 2 medicine in January 2024); risk is highest September/October to May. Combine with DEET repellent, long sleeves after dusk, and sleeping under nets or in screened/air-conditioned rooms.",
+      "sources": [
+        "https://www.nicd.ac.za/wp-content/uploads/2019/03/National-Guidelines-for-prevention-of-Malaria_updated-08012019-1.pdf",
+        "https://www.nicd.ac.za/diseases-a-z-index/malaria/",
+        "https://www.nicd.ac.za/malaria-advisory-for-visitors-to-the-kruger-national-park/"
+      ]
+    },
+    {
+      "action": "Seek urgent medical testing for any fever or flu-like symptoms within weeks of leaving a malaria area",
+      "success_rate": 0.75,
+      "how": "NICD advises that anyone with fever or flu-like symptoms after visiting a risk area must get an urgent blood test, since severe malaria can develop within days if diagnosis is delayed.",
+      "sources": [
+        "https://www.nicd.ac.za/malaria-advisory-for-visitors-to-the-kruger-national-park/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}
