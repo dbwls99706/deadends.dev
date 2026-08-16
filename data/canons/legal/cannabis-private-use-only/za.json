@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/cannabis-private-use-only/za",
+  "url": "https://deadends.dev/legal/cannabis-private-use-only/za",
+  "error": {
+    "signature": "AI says cannabis is legal in South Africa without the private-use qualification",
+    "regex": "(cannabis.*legal.*south.africa|marijuana.*south.africa|dagga.*legal|weed.*legal.*south.africa)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2026-08-16",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.72,
+    "last_updated": "2026-08-16",
+    "summary": "The 2018 Constitutional Court ruling and the Cannabis for Private Purposes Act 7 of 2024 only protect adult use, possession, and cultivation of cannabis in a private place for private purposes; use in public, in a vehicle on a public road, in front of children or non-consenting adults, and any sale or trade of cannabis remain criminal offences, and no legal retail dispensaries exist as of this writing."
+  },
+  "dead_ends": [
+    {
+      "action": "Smoke or carry cannabis openly in public (streets, bars, beaches, near a window or doorway of a home)",
+      "why_fails": "The Cannabis for Private Purposes Act 7 of 2024, which gives effect to the 2018 Constitutional Court ruling in Minister of Justice and Constitutional Development v Prince, criminalises possession or use of cannabis in a public place or in a vehicle on a public road, and also prohibits use in a private place within a reasonable distance of a window, doorway, or ventilation inlet of another dwelling, or in the presence of a non-consenting adult or a child.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.za/documents/acts/cannabis-private-purposes-act-7-2024-english-sepedi-03-jun-2024",
+        "https://www.thepresidency.gov.za/president-assents-cannabis-private-purposes-bill"
+      ],
+      "common_misconception": "News coverage of the Constitutional Court ruling and the 2024 Act is often shortened to 'cannabis is legal in South Africa,' which drops the private-place and private-purpose conditions that make public consumption a criminal offence."
+    },
+    {
+      "action": "Buy cannabis from a street vendor, informal 'cannabis club,' or walk-in shop assuming retail sale is legal",
+      "why_fails": "Only personal possession, use, and cultivation in private are decriminalised; sale, distribution, and trade of cannabis remain illegal, and as of the Ministry's February 2026 public-comment notice on draft possession/cultivation regulations, licensed commercial cultivation and sale rules were still not finalised or in force.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.justice.gov.za/legislation/notices/2026/20260202-gg54061rg7067-Draft%20Cannabis%20Regulations.pdf",
+        "https://www.gov.za/documents/acts/cannabis-private-purposes-act-7-2024-english-sepedi-03-jun-2024"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Only use, possess, or cultivate cannabis inside a genuinely private place, out of sight/earshot of non-consenting adults and children, and keep quantities to personal use",
+      "success_rate": 0.8,
+      "how": "Check justice.gov.za for the final gazetted possession and cultivation quantity limits before relying on a specific number, since those limits were still under public comment as draft regulations as of February 2026.",
+      "sources": [
+        "https://www.justice.gov.za/legislation/notices/2026/20260202-gg54061rg7067-Draft%20Cannabis%20Regulations.pdf",
+        "https://www.gov.za/documents/acts/cannabis-private-purposes-act-7-2024-english-sepedi-03-jun-2024"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "module_error",
     "first_seen": "2021-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-16"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.91,
     "confidence": 0.9,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-16",
     "summary": "Windows file paths (C:\\...) are being treated as URLs by the ESM loader. The drive letter 'C:' is interpreted as a URL scheme. Convert file paths to file:// URLs using url.pathToFileURL()."
   },
   "dead_ends": [
@@ -64,10 +64,10 @@
       ]
     },
     {
-      "action": "Use import.meta.dirname (Node 21.2+) instead of URL manipulation",
-      "how": "import.meta.dirname gives a plain path string directly, avoiding URL scheme issues. import.meta.filename provides the full file path. These are available since Node 21.2 and stable in Node 22+.",
+      "action": "Use import.meta.dirname (Node 20.11+/21.2+) instead of URL manipulation",
+      "how": "import.meta.dirname gives a plain path string directly, avoiding URL scheme issues. import.meta.filename provides the full file path. Both were added (experimental) in Node 20.11.0/21.2.0 and stabilized in Node 22.16.0/24.0.0.",
       "success_rate": 0.88,
-      "tradeoff": "Requires Node 21.2+ (not available in Node 18 or 20 LTS)",
+      "tradeoff": "Experimental before Node 22.16.0/24.0.0, and unavailable on Node 18 or pre-20.11 releases",
       "sources": [
         "https://nodejs.org/api/esm.html#importmetadirname"
       ]
@@ -98,6 +98,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-16"
   }
 }

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-opening-fica/za",
+  "url": "https://deadends.dev/banking/foreigner-account-opening-fica/za",
+  "error": {
+    "signature": "AI tells a foreign national they can open a South African bank account with just a passport",
+    "regex": "(south.africa.*bank.account|open.*bank.account.*south.africa|fica.*proof.of.address)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-16",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.72,
+    "last_updated": "2026-08-16",
+    "summary": "A foreign passport satisfies South Africa's FICA identity requirement, but banks separately require proof of residential address no older than three months; a passport alone is not enough to open an account, and newcomers without a lease or utility bill in their own name are routinely turned away."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a branch with only a passport and expect an account to be opened the same day",
+      "why_fails": "The Financial Intelligence Centre Act (FICA) requires accountable institutions to verify both identity and residential address before opening an account; banks such as Standard Bank require proof of address no older than three months (a utility bill, municipal account, or landlord/employer letter), so a passport alone is refused.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.za/documents/financial-intelligence-centre-act",
+        "https://www.standardbank.co.za/southafrica/personal/about-us/financial-education/opening-a-bank-account/customer-identification"
+      ],
+      "common_misconception": "People assume the barrier is the lack of a South African green-barcoded ID, when in fact a foreign passport is accepted as identification; the actual blocker is the separate proof-of-address requirement."
+    },
+    {
+      "action": "Use a hotel receipt or short-term Airbnb booking as proof of address at a traditional bank branch",
+      "why_fails": "Branch staff apply their own risk-based discretion on top of FICA's minimum rules and generally require a document that shows an ongoing residential address (lease, utility bill, or a signed letter from a landlord/local councillor), not a short-stay booking confirmation.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.standardbank.co.za/southafrica/personal/about-us/financial-education/opening-a-bank-account/customer-identification"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get a signed letter from a landlord, employer, or local councillor/chief confirming your address before applying",
+      "success_rate": 0.8,
+      "how": "FICA explicitly allows a letter of verification from a landlord, employer, bank, local chief, or councillor as proof of residence when utility bills are not yet in the applicant's name.",
+      "sources": [
+        "https://www.gov.za/documents/financial-intelligence-centre-act",
+        "https://www.finglobal.com/2024/01/22/fica-requirements-south-africa/"
+      ]
+    },
+    {
+      "action": "If not yet resident in South Africa, use a notarised and apostilled foreign proof of address instead of a local one",
+      "success_rate": 0.65,
+      "how": "For applicants residing outside South Africa, FICA allows a foreign bank statement or utility account showing an address, notarised and apostilled (and translated if not in English).",
+      "tradeoff": "Notarisation and apostille add cost and processing time before the account application can even be submitted.",
+      "sources": [
+        "https://www.finglobal.com/2024/01/22/fica-requirements-south-africa/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}

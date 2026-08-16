@@ -8,7 +8,7 @@
     "domain": "typescript",
     "category": "type_error",
     "first_seen": "2022-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-16"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-16",
     "summary": "Almost always caused by multiple versions of @types/react in the dependency tree. Different packages depend on different @types/react versions, causing conflicting JSX element type definitions."
   },
   "dead_ends": [
@@ -105,6 +105,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-16"
   }
 }
