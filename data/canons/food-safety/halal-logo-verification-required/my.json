@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/halal-logo-verification-required/my",
+  "url": "https://deadends.dev/food-safety/halal-logo-verification-required/my",
+  "error": {
+    "signature": "AI tells a Muslim traveler or consumer in Malaysia that any 'halal' text or logo displayed on food packaging or a restaurant sign means the product is officially JAKIM-certified halal",
+    "regex": "(malaysia.{0,20}halal.{0,20}(logo|certificat|sign|label).{0,20}(genuine|real|verify|fake)|jakim.{0,20}halal.{0,20}(verify|check|logo))",
+    "domain": "food-safety",
+    "category": "consumer_fraud_risk",
+    "first_seen": "2011-01-01",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-16",
+    "summary": "Only halal logos issued through Malaysia's official JAKIM certification process (Sijil Pengesahan Halal Malaysia) are legally recognized; a certificate or logo can be checked for free on the government's e-halal.jakim.gov.my portal by certificate number. Enforcement authorities reported 56 fraudulent halal logo/certificate cases and over RM1.8 million in seizures in a single year, and the Trade Descriptions (Certification and Marking of Halal) Order 2011 sets penalties of up to RM100,000 and three years' imprisonment for individuals, and up to RM500,000 for repeat corporate offenses."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any 'halal', 'halal-friendly', or 'no pork no lard' claim, or a generic crescent-and-star-style logo on packaging or a restaurant sign, is proof of official JAKIM certification",
+      "why_fails": "A 'halal-friendly' or 'no pork no lard' claim is a marketing phrase with no legal weight in Malaysia, and a logo printed on a sign or website is not itself verification - the only way to confirm certification is to look up the vendor's actual certificate number on the government portal, which returns the holder name, certified scope, validity period, and current status.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.muhibbahfnb.com/compliance/halal-certification",
+        "https://www.halal.gov.my/"
+      ],
+      "common_misconception": "Because the word 'halal' or a moon-and-star symbol is common on Malaysian food packaging generally, people assume its mere presence is regulated the same way as the official JAKIM mark."
+    },
+    {
+      "action": "Treat a business that will not or cannot produce a certificate number on request as a minor formality issue rather than a red flag",
+      "why_fails": "The Ministry of Domestic Trade and Cost of Living (KPDN), working with JAKIM and state Islamic religious departments, reported 56 fraudulent halal logo/certificate cases and RM1.813 million worth of seizures within a single year alongside over 800,000 inspection operations - fake or unauthorized halal claims are an active, actively-enforced problem, not a rare edge case.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.malaymail.com/news/malaysia/2024/12/18/deputy-minister-56-halal-fraud-cases-reported-this-year-over-rm18m-in-seizures/160338"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ask the vendor for their halal certificate number and look it up on the official e-halal.jakim.gov.my portal to confirm the holder name, certified scope (premise, product, or OEM), validity period, and current status (valid, expired, or suspended) before relying on the claim.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.muhibbahfnb.com/compliance/halal-certification",
+        "https://www.halal.gov.my/"
+      ]
+    },
+    {
+      "action": "Treat 'halal-friendly' language, a JAKIM logo shown only on a website with no certificate available on request, or a mismatched holder name/scope as reasons to verify independently rather than take the claim at face value.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.muhibbahfnb.com/compliance/halal-certification"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}
