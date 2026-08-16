@@ -8,7 +8,7 @@
     "domain": "typescript",
     "category": "type_error",
     "first_seen": "2022-11-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-16"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.89,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-16",
     "summary": "The satisfies operator checks exact structural compatibility without widening types. The error means the value does not match the expected shape. Unlike 'as', satisfies does perform excess property checks."
   },
   "dead_ends": [
@@ -95,6 +95,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-16"
   }
 }

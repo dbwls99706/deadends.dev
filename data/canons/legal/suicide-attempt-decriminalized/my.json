@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/suicide-attempt-decriminalized/my",
+  "url": "https://deadends.dev/legal/suicide-attempt-decriminalized/my",
+  "error": {
+    "signature": "AI warns someone in Malaysia that attempting suicide is a criminal offense under Section 309 of the Penal Code and that seeking help afterward could lead to arrest or prosecution",
+    "regex": "(malaysia.{0,20}(attempt(ed)?\\s+)?suicide.{0,20}(crime|illegal|offence|offense|prosecut)|section\\s*309.{0,20}malaysia|malaysia.{0,20}section\\s*309)",
+    "domain": "legal",
+    "category": "outdated_legal_reference",
+    "first_seen": "2023-05-01",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-16",
+    "summary": "Section 309 of the Penal Code, which made attempted suicide punishable by up to one year's imprisonment and/or a fine, was repealed by the Penal Code (Amendment) (No. 2) Act 2023. Parliament passed the bill in 2023, but the repeal did not actually come into legal force until 10 September 2025 (timed to World Suicide Prevention Day) - so for roughly two years, attempted suicide remained nominally a chargeable offense despite widespread reporting that it had already been decriminalized. As of now, attempting suicide is not a crime anywhere in Malaysia."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Malaysia that attempting suicide is illegal and that they or a loved one could be arrested or prosecuted for surviving an attempt",
+      "why_fails": "Section 309 of the Penal Code was repealed by the Penal Code (Amendment) (No. 2) Act 2023, which came into force on 10 September 2025; police and hospitals are no longer permitted to treat a suicide attempt itself as a criminal offense.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.bernama.com/en/news.php/?id=2466074",
+        "https://www.thestar.com.my/news/nation/2023/05/23/attempted-suicide-no-longer-a-crime"
+      ],
+      "common_misconception": "Many sources and older training data still describe attempted suicide as 'illegal in Malaysia' because that was true for decades before the 2023 repeal, and the repeal did not actually take legal effect until September 2025 - two years after Parliament passed it."
+    },
+    {
+      "action": "Assume the law changed the moment Parliament passed the bill in 2023",
+      "why_fails": "The Penal Code (Amendment) (No. 2) Act 2023 was passed by Parliament in 2023, but Section 309 remained technically in force until the government set the commencement date under the Act; that date was 10 September 2025, so for roughly two years attempted suicide was still nominally a chargeable offense despite widespread reporting that it had already been decriminalized.",
+      "fail_rate": 0.4,
+      "condition": "Only relevant when describing events or legal advice dated between mid-2023 and September 2025",
+      "sources": [
+        "https://www.bernama.com/en/news.php/?id=2466074",
+        "https://codeblue.galencentre.org/2023/05/parliament-passes-bill-to-decriminalise-attempted-suicide-in-historic-move/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "State plainly that attempting suicide is not a crime in Malaysia (since 10 September 2025) and encourage the person to seek help via Talian HEAL 15555, Befrienders Kuala Lumpur, or a hospital emergency department without fear of arrest or prosecution.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.bernama.com/en/news.php/?id=2466074"
+      ]
+    },
+    {
+      "action": "If police or Crisis Intervention Officers (Pegawai Intervensi Krisis, PIK) attend, note that under the accompanying Mental Health (Amendment) Act 2023 they are authorized to take the person to a designated psychiatric hospital for examination, which is a welfare referral rather than an arrest.",
+      "success_rate": 0.75,
+      "how": "PIK draw on personnel from the Royal Malaysia Police, Fire and Rescue Department, Civil Defence Force, Maritime Enforcement Agency, and Social Welfare Department; the Health Ministry has been designating psychiatric-capable hospitals to receive these referrals.",
+      "sources": [
+        "https://www.bernama.com/en/news.php/?id=2466074"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "mental-health/heal-15555-limited-hours/my",
+        "distinction": "This canon covers the legal status of attempting suicide in Malaysia; the mental-health canon covers which crisis helpline is actually staffed at a given hour."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}
