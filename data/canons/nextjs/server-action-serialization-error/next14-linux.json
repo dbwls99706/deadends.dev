@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "serialization_error",
     "first_seen": "2023-10-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-17"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.89,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-17",
     "summary": "Server Actions can only transmit serializable plain objects across the server-client boundary. Class instances, Date objects, and ORM model objects must be converted to plain objects first."
   },
   "dead_ends": [
@@ -69,7 +69,7 @@
       "success_rate": 0.9,
       "tradeoff": "Adds Zod as a dependency and requires schema definitions",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations"
+        "https://nextjs.org/docs/app/getting-started/mutating-data"
       ]
     },
     {
@@ -98,6 +98,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-17"
   }
 }

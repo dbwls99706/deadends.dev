@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-milk-farm-gate-only/nz",
+  "url": "https://deadends.dev/food-safety/raw-milk-farm-gate-only/nz",
+  "error": {
+    "signature": "AI tells someone in New Zealand they can buy raw (unpasteurised) milk at a shop or market stall",
+    "regex": "(raw milk.*new zealand|unpasteurised milk.*(nz|new zealand)|buy.*raw milk.*nz)",
+    "domain": "food-safety",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-17",
+    "summary": "In New Zealand, raw drinking milk can only be sold directly to consumers by an MPI-registered farm - at the farm gate or via home delivery - never through a shop, market stall, or other retailer, and despite outdated advice there is no fixed litre cap since the 1 March 2016 rules took effect."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy or sell raw (unpasteurised) drinking milk through a shop, farmers'-market stall, or other third-party retailer in New Zealand",
+      "why_fails": "MPI's Raw Milk for Sale to Consumers Regulated Control Scheme only permits raw drinking milk to be sold directly to consumers from the registered farm itself (farm gate) or via home delivery from that farm - third-party depots and retail sale are not permitted channels.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.mpi.govt.nz/news/media-releases/new-requirements-for-the-sale-of-raw-milk-to-consumers-come-into-force/",
+        "https://www.foodsafetynews.com/2018/10/new-zealand-ready-to-review-regulations-for-raw-milk-sales/"
+      ],
+      "common_misconception": "Raw milk is treated like any other farm product that can be resold through a market stall or store."
+    },
+    {
+      "action": "Assume there's still a fixed 5-litre-per-customer daily cap on raw milk purchases",
+      "why_fails": "A 5L/day limit existed under an earlier proposal, but the rules that took effect 1 March 2016 removed a fixed quantity cap - a registered farm can sell any amount to a consumer.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.foodsafetynews.com/2018/10/new-zealand-ready-to-review-regulations-for-raw-milk-sales/"
+      ],
+      "common_misconception": "A 5 litre per person per day limit still applies."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy raw milk only directly at the farm gate, or through a home-delivery arrangement with an MPI-registered raw-milk supplier",
+      "success_rate": 0.9,
+      "how": "Confirm the seller is registered under MPI's Raw Milk for Sale to Consumers Regulated Control Scheme and check for the required health-warning label before buying.",
+      "sources": [
+        "https://www.mpi.govt.nz/news/media-releases/new-requirements-for-the-sale-of-raw-milk-to-consumers-come-into-force/"
+      ]
+    },
+    {
+      "action": "If buying from a farm you haven't dealt with before, ask whether they're MPI-registered before purchase",
+      "success_rate": 0.6,
+      "tradeoff": "Relies on the seller disclosing registration status; not independently verifiable on the spot."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}
