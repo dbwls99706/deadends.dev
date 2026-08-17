@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "database_error",
     "first_seen": "2021-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-17"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.92,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-17",
     "summary": "A database insert or update violates a unique constraint. The correct fix depends on the use case: upsert for 'create or update' patterns, error catching for user-facing duplicate checks."
   },
   "dead_ends": [
@@ -107,6 +107,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-17"
   }
 }
