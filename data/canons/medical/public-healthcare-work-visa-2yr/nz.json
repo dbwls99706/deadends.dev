@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/public-healthcare-work-visa-2yr/nz",
+  "url": "https://deadends.dev/medical/public-healthcare-work-visa-2yr/nz",
+  "error": {
+    "signature": "AI tells a visitor or temporary work-visa holder in New Zealand that public healthcare is free like it is for citizens",
+    "regex": "(free healthcare.*new zealand|new zealand.*public health.*visa|public hospital.*free.*new zealand.*visitor|healthcare.*new zealand.*work visa)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-17",
+    "summary": "New Zealand's publicly funded healthcare is not available to most temporary visa holders. People on temporary visit, study, or short work visas generally cannot get publicly funded (subsidized) healthcare and must pay out of pocket for GP visits and hospital treatment for illness, though accident-related injuries are covered by ACC regardless of visa status. Work-visa holders only get resident-level access once their visa is valid for 2 years or more, counted from their first day in New Zealand."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist or short-term visitor that any illness or hospital visit in New Zealand will be free or low-cost, as it would be in a universal-healthcare country",
+      "why_fails": "New Zealand restricts publicly funded healthcare mostly to resident-class visa holders. People on temporary visit, study, or short work visas generally cannot access publicly funded care and are billed directly for GP visits, specialist care, and hospital stays for non-accident illness.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.immigration.govt.nz/live/setting-up-your-life-in-new-zealand/getting-health-care-and-finding-a-doctor/who-can-get-public-health-care/",
+        "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/publicly-funded-healthcare"
+      ],
+      "common_misconception": "Visitors conflate ACC's no-fault accident cover, which does apply to them, with general public healthcare for illness, which mostly does not."
+    },
+    {
+      "action": "Assume any work visa qualifies for resident-level public healthcare access, regardless of how long the visa is valid for",
+      "why_fails": "Work-visa holders only get resident-level access to publicly funded treatment if their visa permits a stay of 2 years or more, counted from their first day in New Zealand (or cumulative periods reaching 2 years including prior lawful stay). A work visa valid for under 2 years does not qualify, and the holder must pay for non-accident medical care.",
+      "fail_rate": 0.65,
+      "condition": "Work-visa holder whose visa is valid for less than 2 years from arrival",
+      "sources": [
+        "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/publicly-funded-healthcare",
+        "https://www.govt.nz/browse/health/public-health-services/healthcare-on-a-work-visa/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy travel or health insurance before arrival for a visit, study, or short work visa; for longer work visas, confirm the visa's stated validity meets the 2-year threshold",
+      "success_rate": 0.85,
+      "how": "For visits or short stays, purchase travel insurance with medical cover before departure, since only ACC-covered accidents are treated free and all other treatment is billed. For work visas, check the visa grant letter for a stated validity of 2 years or more from the first day in New Zealand to qualify for resident-level publicly funded care; if it is shorter, budget for private cover or insurance instead.",
+      "sources": [
+        "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/publicly-funded-healthcare",
+        "https://www.govt.nz/browse/health/public-health-services/healthcare-on-a-work-visa/"
+      ],
+      "tradeoff": "Accident-related injuries are covered by ACC regardless of visa status, so travel insurance mainly needs to cover illness rather than accidents, which can reduce the premium needed if the traveler understands the split."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/acc-bars-personal-injury-lawsuit/nz",
+        "distinction": "This canon covers eligibility for publicly funded healthcare for illness. ACC is a separate no-fault scheme that covers accident-related injury treatment for everyone regardless of visa status, and separately bars suing for compensatory damages."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreigner-account-opening-fica/za",
+  "url": "https://deadends.dev/banking/foreigner-account-opening-fica/za",
+  "error": {
+    "signature": "AI tells a foreign national they can open a South African bank account with just a passport",
+    "regex": "(south.africa.*bank.account|open.*bank.account.*south.africa|fica.*proof.of.address)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-16",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.72,
+    "last_updated": "2026-08-18",
+    "summary": "A foreign passport satisfies South Africa's FICA identity requirement, and most banks additionally ask for proof of a residential address no older than three months - so a passport alone rarely gets an account opened the same day, and newcomers without a lease or utility bill in their own name are routinely turned away. The address demand is the bank's own risk policy, not a statutory rule: the regulation that mandated address verification was repealed on 2 October 2017, which is why alternatives such as a landlord/employer letter or a sworn affidavit are accepted at all."
+  },
+  "dead_ends": [
+    {
+      "action": "Walk into a branch with only a passport and expect an account to be opened the same day",
+      "why_fails": "The Financial Intelligence Centre Act (FICA) requires accountable institutions to verify a client's identity, and leaves each institution to decide through its own Risk Management and Compliance Programme what further attributes it needs. In practice the large retail banks all chose to keep requiring proof of address no older than three months (a utility bill, municipal account, or landlord/employer letter), so a passport alone is refused at the branch.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.za/documents/financial-intelligence-centre-act",
+        "https://www.standardbank.co.za/southafrica/personal/about-us/financial-education/opening-a-bank-account/customer-identification"
+      ],
+      "common_misconception": "People assume the barrier is the lack of a South African green-barcoded ID, when a foreign passport is accepted as identification; the actual blocker is the bank's separate proof-of-address policy - which, since the 2017 repeal of the address-verification regulation, is policy rather than law."
+    },
+    {
+      "action": "Use a hotel receipt or short-term Airbnb booking as proof of address at a traditional bank branch",
+      "why_fails": "Branch staff apply their bank's own risk-based policy, which generally requires a document showing an ongoing residential address (lease, utility bill, or a signed letter from a landlord, employer, or local councillor) rather than a short-stay booking confirmation.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.standardbank.co.za/southafrica/personal/about-us/financial-education/opening-a-bank-account/customer-identification"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get a signed letter from a landlord, employer, or local councillor/chief confirming your address before applying",
+      "success_rate": 0.8,
+      "how": "Banks' FICA procedures accept a letter of verification from a landlord, employer, bank, local chief, or councillor as proof of residence when utility bills are not yet in the applicant's name.",
+      "sources": [
+        "https://www.gov.za/documents/financial-intelligence-centre-act",
+        "https://www.finglobal.com/2024/01/22/fica-requirements-south-africa/"
+      ]
+    },
+    {
+      "action": "If not yet resident in South Africa, use a notarised and apostilled foreign proof of address instead of a local one",
+      "success_rate": 0.65,
+      "how": "For applicants residing outside South Africa, banks generally accept a foreign bank statement or utility account showing an address, notarised and apostilled (and translated if not in English).",
+      "tradeoff": "Notarisation and apostille add cost and processing time before the account application can even be submitted.",
+      "sources": [
+        "https://www.finglobal.com/2024/01/22/fica-requirements-south-africa/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/proof-of-address-barrier/za",
+        "distinction": "This canon is about what a South African branch will actually ask for and how to satisfy it. The proof-of-address canon covers the separate legal point that the address requirement was repealed in 2017 and is now bank policy - useful when a branch defends the demand as a FICA obligation."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}

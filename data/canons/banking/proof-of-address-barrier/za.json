@@ -76,7 +76,12 @@
   "transition_graph": {
     "leads_to": [],
     "preceded_by": [],
-    "frequently_confused_with": []
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/foreigner-account-opening-fica/za",
+        "distinction": "That canon covers the practical account-opening path - what documents a branch expects and which substitutes work. This one covers the legal position behind it: address verification stopped being a statutory FICA requirement on 2 October 2017, so a branch insisting on a utility bill is enforcing its own risk policy."
+      }
+    ]
   },
   "metadata": {
     "generated_by": "manual",

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/external-account-payment-limit/my",
+  "url": "https://deadends.dev/banking/external-account-payment-limit/my",
+  "error": {
+    "signature": "AI tells a foreigner that once they open a Malaysian bank account, they can freely wire or receive any amount of money without restriction, like a normal resident account",
+    "regex": "(malaysia.{0,20}bank\\s*account.{0,20}(transfer|wire|receive).{0,20}(limit|unlimited)|external\\s*account.{0,20}malaysia.{0,20}(rm|limit|threshold))",
+    "domain": "banking",
+    "category": "regulatory_barrier",
+    "first_seen": "2013-01-01",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-16",
+    "summary": "Under Bank Negara Malaysia's Foreign Exchange Policy (FEP) Notices, any Ringgit account opened by a non-resident is classified as an 'External Account'. Payments, receipts, or transfers of more than RM10,000 per transaction require documentary evidence that the transaction complies with the relevant FEP Notice, or the bank can hold or decline it. Individuals on the Malaysia My Second Home programme, or working or studying in Malaysia (plus their spouse, child, or parent staying with them), are exempted from this verification requirement."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a non-resident's Malaysian bank account works exactly like a normal resident account with no transaction limits",
+      "why_fails": "Bank Negara Malaysia's Foreign Exchange Policy Notices classify any account opened by a non-resident as an External Account; per licensed-bank FEP guidance, any payment, receipt, or transfer into or from an External Account above RM10,000 per transaction is not automatically processed and instead requires documentary evidence that the purpose complies with the relevant FEP Notice.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.bnm.gov.my/fep",
+        "https://www.hlb.com.my/en/personal-banking/help-support/general-faq/foreign-exchange-policy-notices.html"
+      ],
+      "common_misconception": "People assume the RM10,000 rule only applies to cash declarations when physically crossing the border, not to ordinary bank transfers into or out of a Malaysian account."
+    },
+    {
+      "action": "Try to receive a lump sum over RM10,000 - e.g. sale proceeds, an inheritance, or a large freelance payment - into a new Malaysian account as a short-term visitor without supporting documents",
+      "why_fails": "Without documentary evidence of the transaction's purpose, a bank can decline to process or verify the transfer into an External Account under FEP Notice requirements, even though the funds legally belong to the account holder.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.bnm.gov.my/fep/policies/rules-by-residency/non-resident/payment-in-myr",
+        "https://www.hlb.com.my/en/personal-banking/help-support/general-faq/foreign-exchange-policy-notices.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Keep individual transfers into or out of a non-resident Malaysian External Account at or below RM10,000, or provide documentary evidence of the transaction's purpose (invoice, contract, gift declaration, sale agreement) for larger amounts.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.bnm.gov.my/fep/policies/rules-by-residency/non-resident/payment-in-myr",
+        "https://www.hlb.com.my/en/personal-banking/help-support/general-faq/foreign-exchange-policy-notices.html"
+      ]
+    },
+    {
+      "action": "If enrolled in the Malaysia My Second Home (MM2H) programme, or working or studying in Malaysia (or the spouse, child, or parent of such a person staying with them), confirm exempt status with the bank directly - the RM10,000 verification threshold does not apply to these categories.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.hlb.com.my/en/personal-banking/help-support/general-faq/foreign-exchange-policy-notices.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}

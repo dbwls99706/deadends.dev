@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/senior-citizen-discount-requires-citizenship/ph",
+  "url": "https://deadends.dev/policy/senior-citizen-discount-requires-citizenship/ph",
+  "error": {
+    "signature": "AI tells an elderly foreign tourist or long-term foreign retiree in the Philippines that they qualify for the 20% senior citizen discount and VAT exemption because they are over 60 and living there",
+    "regex": "(philippines.*senior citizen discount|senior discount.*philippines.*foreign|expat.*senior citizen.*philippines|srrv.*senior discount|philippines.*20% discount.*elderly)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-15",
+    "summary": "Republic Act No. 9994 (Expanded Senior Citizens Act of 2010), Section 2, defines a 'senior citizen or elderly' as 'any resident citizen of the Philippines at least sixty (60) years old' - the benefit is tied to Filipino citizenship, not merely age plus residency. Foreign nationals aged 60+, including long-term expats on a Special Resident Retiree's Visa (SRRV), are not eligible for the mandatory 20% discount and VAT exemption on medicine, transportation, restaurants, and similar goods/services, no matter how many years they have lived in the country. Only Filipino citizens (including dual citizens and naturalized citizens) who meet the age and residency requirements can obtain an OSCA senior citizen ID and claim the discount as a matter of law; any discount a business extends to an elderly foreigner is a voluntary courtesy, not a legal entitlement."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume an elderly foreign retiree living in the Philippines long-term (e.g. on an SRRV) is entitled to the mandatory 20% senior citizen discount the same way a Filipino senior citizen is, since they meet the age and residency criteria that would qualify a local",
+      "why_fails": "RA 9994 Section 2 restricts the statutory definition of 'senior citizen' to a 'resident citizen of the Philippines' - citizenship, not just residency, is required. A foreign national cannot obtain the OSCA (Office for Senior Citizens Affairs) ID that businesses require to grant the mandatory discount, regardless of age, years of residence, or visa type such as the SRRV.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2010/ra_9994_2010.html",
+        "https://www.respicio.ph/commentaries/eligibility-for-senior-citizen-discounts-for-foreign-residents-in-the-philippines"
+      ],
+      "common_misconception": "Because many other countries' senior discounts are based on age and residency alone, foreigners assume the Philippine benefit works the same way; the law explicitly requires citizenship."
+    },
+    {
+      "action": "Assume a dual citizen (Filipino + foreign) automatically qualifies for the senior discount at any age 60+ regardless of where they currently live",
+      "why_fails": "Implementing guidance under RA 9994 requires dual citizens to demonstrate Filipino citizenship and maintain at least six months of residency in the Philippines before qualifying, not merely hold a Philippine passport or dual-citizenship certificate while living abroad.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2010/ra_9994_2010.html"
+      ],
+      "condition": "Dual citizen not currently meeting the residency requirement"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Foreign retirees should not expect or request the mandatory 20% discount at point of sale; if a cashier or business offers a discount to an elderly foreign customer anyway, treat it as a voluntary courtesy that can be withdrawn, not a right to assert",
+      "success_rate": 0.85,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2010/ra_9994_2010.html"
+      ]
+    },
+    {
+      "action": "A foreign national who wants the legal entitlement should pursue Philippine naturalization (available after the statutory residency period) or confirm existing dual-citizenship status and register for an OSCA senior citizen ID once citizenship and the 6-month residency requirement are met",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.respicio.ph/commentaries/eligibility-for-senior-citizen-discounts-for-foreign-residents-in-the-philippines"
+      ],
+      "tradeoff": "Naturalization is a lengthy legal process and not a practical fix for someone who simply wants the discount while traveling or newly residing in the country"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}

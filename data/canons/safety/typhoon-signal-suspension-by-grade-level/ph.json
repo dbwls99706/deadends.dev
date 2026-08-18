@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/typhoon-signal-suspension-by-grade-level/ph",
+  "url": "https://deadends.dev/safety/typhoon-signal-suspension-by-grade-level/ph",
+  "error": {
+    "signature": "AI tells someone in the Philippines that any PAGASA tropical cyclone wind signal automatically cancels classes for all grade levels, or that a raised signal means schools are definitely closed nationwide",
+    "regex": "(pagasa.*signal.*class|typhoon signal.*philippines.*school|walang pasok|class suspension.*philippines|tcws.*(class|school)|philippines.*typhoon.*school closed)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2026-08-15",
+    "last_confirmed": "2026-08-15"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-15",
+    "summary": "DepEd Order No. 022, s. 2024 (effective December 2024) replaced the older rule that any PAGASA Tropical Cyclone Wind Signal (TCWS) automatically suspended classes at every grade level. Under the current order, TCWS No. 1 automatically suspends only Kindergarten classes in the affected area; TCWS No. 2 automatically suspends face-to-face classes from Kindergarten through Grade 10 (shifting to modular learning), and higher signals or Orange/Red rainfall and flood warnings extend suspension further. Senior High School, college, and work suspensions are not automatically triggered by low-level signals unless a local government unit or school head separately declares one - so 'a signal is up' does not by itself mean a given grade level or workplace is off."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that once any PAGASA typhoon signal (even TCWS No. 1) is raised, all classes from Kindergarten through Grade 12 and workplaces are automatically suspended nationwide",
+      "why_fails": "This matched the older DepEd Order No. 37, s. 2022, but DepEd Order No. 022, s. 2024 tightened the rule: TCWS No. 1 automatically cancels only Kindergarten face-to-face classes, not Grades 1-12. A Grade 10 student in a TCWS No. 1 area does not get an automatic day off unless the local mayor or school head separately announces a wider suspension.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.deped.gov.ph/wp-content/uploads/DO_s2024_022.pdf",
+        "https://www.deped.gov.ph/2024/12/23/december-23-2024-do-022-s-2024-revised-guidelines-on-class-and-work-suspension-in-schools-during-disasters-and-emergencies/"
+      ],
+      "common_misconception": "Older news coverage and social media habit ('any signal = no classes') still circulates from the pre-2024 rule and gets repeated as if it were still current policy."
+    },
+    {
+      "action": "Rely solely on the PAGASA signal number to determine whether a specific school or office is suspended, without checking local government or school-specific announcements",
+      "why_fails": "DepEd Order No. 022, s. 2024 explicitly preserves the authority of local government units and individual school heads to declare additional suspensions beyond the automatic triggers (e.g. due to flooding, power outages, or localized hazards not reflected in the citywide/provincial signal). The reverse is also true - the automatic rule sets only a floor, not a ceiling, so checking the signal number alone can understate a suspension that a school head has separately declared.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.deped.gov.ph/wp-content/uploads/DO_s2024_022.pdf"
+      ],
+      "condition": "Ambiguous or borderline weather conditions not clearly covered by the automatic signal thresholds"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific TCWS number, the grade level in question, and whether it maps to an automatic suspension under DepEd Order No. 022, s. 2024, then confirm with the local DepEd division office, LGU announcement, or school's own channel before assuming a closure",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.deped.gov.ph/wp-content/uploads/DO_s2024_022.pdf"
+      ]
+    },
+    {
+      "action": "During typhoon season, follow the local city/municipal government's official Facebook page or radio/TV announcements, which post explicit 'walang pasok' (no classes) notices covering any LGU-level suspensions beyond the automatic DepEd thresholds",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.deped.gov.ph/2024/12/23/december-23-2024-do-022-s-2024-revised-guidelines-on-class-and-work-suspension-in-schools-during-disasters-and-emergencies/"
+      ],
+      "tradeoff": "Requires monitoring multiple local sources rather than a single national rule, since suspension authority is split between DepEd's automatic triggers and LGU discretion"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/typhoon-signal-t8-shutdown/hk",
+        "distinction": "Hong Kong's T8 signal triggers a uniform citywide shutdown of schools, offices, and transit; the Philippines' DepEd suspension rule instead varies automatically by grade level and TCWS number, with no single signal that closes everything nationwide."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-15"
+  }
+}

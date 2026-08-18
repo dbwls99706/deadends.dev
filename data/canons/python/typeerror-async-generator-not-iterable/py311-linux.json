@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "async_error",
     "first_seen": "2018-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-17"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.91,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-17",
     "summary": "Synchronous iteration patterns (for, list(), list comprehension) cannot consume async generators. Use 'async for' or async list comprehensions instead. Must be inside an async function."
   },
   "dead_ends": [
@@ -107,6 +107,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-17"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "compose_error",
     "first_seen": "2022-01-01",
-    "last_confirmed": "2026-08-14"
+    "last_confirmed": "2026-08-16"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.91,
     "confidence": 0.91,
-    "last_updated": "2026-08-14",
+    "last_updated": "2026-08-16",
     "summary": "The dependency service's healthcheck is failing or missing. Docker Compose v2 requires explicit healthchecks with 'depends_on: condition: service_healthy'. The most common cause is a missing or incorrect healthcheck definition."
   },
   "dead_ends": [
@@ -107,6 +107,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-08-14"
+    "last_verification": "2026-08-16"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "breaking_change",
     "first_seen": "2024-10-01",
-    "last_confirmed": "2026-08-14"
+    "last_confirmed": "2026-08-15"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.93,
-    "last_updated": "2026-08-14",
+    "last_updated": "2026-08-15",
     "summary": "Breaking change in Next.js 15: params and searchParams are now Promises and must be awaited. The Next.js codemod can auto-migrate all pages and layouts."
   },
   "dead_ends": [
@@ -98,6 +98,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-08-14"
+    "last_verification": "2026-08-15"
   }
 }
