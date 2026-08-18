@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/bond-must-be-lodged-with-tenancy-services/nz",
+  "url": "https://deadends.dev/legal/bond-must-be-lodged-with-tenancy-services/nz",
+  "error": {
+    "signature": "AI tells a New Zealand tenant that paying the bond to the landlord is the end of the process, with no need to confirm it was lodged with Tenancy Services",
+    "regex": "(new zealand.*(tenancy|rental).*bond|nz.*bond.*(landlord|tenancy)|tenancy services.*bond)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-08-17",
+    "summary": "In New Zealand a landlord who receives a bond must lodge it with Tenancy Services within 23 working days - not lodging it is against the law - so tenants need to actively confirm lodgement rather than assume the landlord is simply holding the deposit."
+  },
+  "dead_ends": [
+    {
+      "action": "Pay the bond straight to the landlord and assume that's the end of it, like a security deposit held by the landlord directly in many other countries",
+      "why_fails": "Under NZ law the landlord must lodge the bond with Tenancy Services within 23 working days of receiving it; not doing so within that timeframe is against the law and can lead to a financial penalty for the landlord, and tenants who never check often only find out when a dispute arises and there's no lodged bond to draw on.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/about-lodging-a-bond/"
+      ],
+      "common_misconception": "The landlord is allowed to just keep the bond themselves as long as they return it at the end."
+    },
+    {
+      "action": "Assume that once you've paid the bond, there's nothing left to verify",
+      "why_fails": "Lodgement is the landlord's legal obligation, not something a tenant is automatically shown proof of - Tenancy Services advises tenants to contact the landlord if they don't receive lodgement confirmation.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/preventing-problems-with-bonds/"
+      ],
+      "condition": "Applies whenever a bond is paid directly to a landlord rather than lodged online jointly"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ask the landlord to confirm the bond has been lodged with Tenancy Services, and follow up if you don't hear anything within a few weeks",
+      "success_rate": 0.85,
+      "how": "Tenancy Services normally sends confirmation once a bond is lodged; if nothing arrives within about 6 weeks, contact the landlord directly and, if still unresolved, contact Tenancy Services.",
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/preventing-problems-with-bonds/"
+      ]
+    },
+    {
+      "action": "Know the legal caps so you can spot an unlawful bond amount up front",
+      "success_rate": 0.8,
+      "how": "A landlord can charge at most 4 weeks' rent as bond, plus up to 2 weeks' rent as a separate pet bond if you have a pet.",
+      "sources": [
+        "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/about-lodging-a-bond/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}

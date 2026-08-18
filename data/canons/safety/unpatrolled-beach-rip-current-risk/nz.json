@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/unpatrolled-beach-rip-current-risk/nz",
+  "url": "https://deadends.dev/safety/unpatrolled-beach-rip-current-risk/nz",
+  "error": {
+    "signature": "AI assures a traveler that swimming at any New Zealand beach is safe as long as the water looks calm",
+    "regex": "(new zealand.*beach.*(safe|rip|swim)|nz.*rip current|swim.*(beach|ocean).*new zealand)",
+    "domain": "safety",
+    "category": "physical_safety",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-17",
+    "summary": "New Zealand's per-capita fatal drowning rate is about 57% higher than Australia's, and most fatal swimming drownings happen at unpatrolled beaches or outside the flagged area - swim only at patrolled beaches, between the red-and-yellow flags, and know the rip-escape technique."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any New Zealand beach is safe to swim at because the water looks calm and there are no visible waves",
+      "why_fails": "New Zealand's per-capita fatal drowning rate is about 57% higher than Australia's (46 fatal drownings in 2022-23, 424 over the past decade), with rip currents the leading hazard at surf beaches - calm-looking water can still mask a rip.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.surflifesaving.org.nz/news/2023/december/slsnz-calls-for-greater-investment-after-disturbing-2023-beach-and-coastal-safety-report",
+        "https://www.watersafetynz.org/stay-safe/beach-and-ocean-safety"
+      ],
+      "common_misconception": "If the water looks flat with no visible waves, there's no current risk."
+    },
+    {
+      "action": "Swim wherever looks convenient at an unpatrolled beach, or outside the red-and-yellow flags at a patrolled one",
+      "why_fails": "Surf lifeguards place the flags at the safest place to swim and watch that specific area; swimming outside the flags or at unpatrolled beaches/hours removes that safety margin.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.surflifesaving.org.nz/stay-safe"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Choose a patrolled beach and swim between the red-and-yellow flags during patrol hours",
+      "success_rate": 0.9,
+      "how": "Surf lifeguards patrol around 92 NZ beaches over summer and place the flags at the safest spot on that beach; check patrol hours before you go.",
+      "sources": [
+        "https://www.surflifesaving.org.nz/stay-safe",
+        "https://www.watersafetynz.org/stay-safe/beach-and-ocean-safety"
+      ]
+    },
+    {
+      "action": "If caught in a rip, don't fight it - raise a hand for help and swim across the rip toward the whitewater rather than straight back to shore",
+      "success_rate": 0.8,
+      "how": "A rip pulls you away from shore, not underwater; stay calm, raise a hand to signal for help, then swim or float with the whitewater back toward shore.",
+      "sources": [
+        "https://www.watersafetynz.org/stay-safe/beach-and-ocean-safety"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/dial-111/nz",
+        "distinction": "111 is New Zealand's general emergency number and reaches Police, who coordinate coastal search and rescue. A swimmer already caught in a rip rarely has time for that chain to reach them, so the decision that matters is made earlier: swimming at a patrolled beach between the flags, where lifeguards are already in the water."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}
