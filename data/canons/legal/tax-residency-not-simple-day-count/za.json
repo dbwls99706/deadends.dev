@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/tax-residency-not-simple-day-count/za",
+  "url": "https://deadends.dev/legal/tax-residency-not-simple-day-count/za",
+  "error": {
+    "signature": "AI tells an expat or remote worker that South African tax residency is decided by a flat '183 days in the country' rule",
+    "regex": "(south africa.{0,15}tax.{0,10}resident|sars.{0,10}(183|91).{0,10}days|physical presence test.{0,15}south africa)",
+    "domain": "legal",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.7,
+    "confidence": 0.65,
+    "last_updated": "2026-08-14",
+    "summary": "South Africa determines individual tax residency primarily through the common-law 'ordinarily resident' test, which SARS itself describes as not clearly defined and decided case by case on where a person's real home is - not a day count. Only someone who is not ordinarily resident can fall back on the physical presence test, which requires more than 91 days in the current year of assessment, more than 91 days in each of the preceding five years, and more than 915 days in total across those five years - considerably stricter than a simple 183-day rule."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume you are (or are not) a South African tax resident purely based on whether you spent 183 days in the country in a tax year",
+      "why_fails": "SARS applies the 'ordinarily resident' test first, which it describes as 'not clearly defined,' decided case by case based on factors like where your real home, family, and habitual abode are - someone can be ordinarily resident (and thus tax resident) with very few days physically in South Africa, or conversely spend a lot of days there without triggering residency if their real home is genuinely elsewhere.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.sars.gov.za/individuals/tax-during-all-life-stages-and-events/foreign-employment-income-exemption/",
+        "https://www.sars.gov.za/wp-content/uploads/Legal/Notes/LAPD-IntR-IN-2012-04-Resident-definition-natural-person-physical-presence.pdf"
+      ],
+      "common_misconception": "The '183 days' figure from other countries' tax systems gets applied by analogy to South Africa, but SARS's fallback day-count test (physical presence test) uses a different, stricter multi-year formula and only even applies if you are not already ordinarily resident."
+    },
+    {
+      "action": "Assume the physical presence test only checks days in the current tax year",
+      "why_fails": "SARS Interpretation Note 4 sets a three-part test: more than 91 days in the current year of assessment, more than 91 days in each of the preceding five years of assessment, and more than 915 days in total across those five preceding years - all three conditions must be met, and residency then backdates to the first day of the sixth year of that period.",
+      "fail_rate": 0.5,
+      "condition": "Not already ordinarily resident",
+      "sources": [
+        "https://www.sars.gov.za/wp-content/uploads/Legal/Notes/LAPD-IntR-IN-2012-04-Resident-definition-natural-person-physical-presence.pdf"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Evaluate 'ordinarily resident' status first, on its own case-by-case factors, before reaching for a day-count test at all",
+      "success_rate": 0.6,
+      "how": "Weigh where your permanent home, family, habitual routine, and social/economic ties actually sit, since SARS treats this as the primary test and it can apply regardless of days spent in South Africa in the current year.",
+      "sources": [
+        "https://www.sars.gov.za/individuals/tax-during-all-life-stages-and-events/foreign-employment-income-exemption/"
+      ]
+    },
+    {
+      "action": "Only apply the physical presence test's day counts if you are not ordinarily resident, and use the correct three-part formula",
+      "success_rate": 0.75,
+      "how": "Check all three conditions from SARS Interpretation Note 4: >91 days this year, >91 days in each of the prior 5 years, and >915 days total across those 5 prior years.",
+      "tradeoff": "This test is retrospective and multi-year, so it cannot answer 'am I resident this year' in isolation the way a single 183-day check would.",
+      "sources": [
+        "https://www.sars.gov.za/wp-content/uploads/Legal/Notes/LAPD-IntR-IN-2012-04-Resident-definition-natural-person-physical-presence.pdf"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}

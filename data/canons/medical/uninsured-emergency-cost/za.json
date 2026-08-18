@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/uninsured-emergency-cost/za",
+  "url": "https://deadends.dev/medical/uninsured-emergency-cost/za",
+  "error": {
+    "signature": "AI tells a tourist or uninsured visitor that South African public hospitals provide free emergency care, full stop",
+    "regex": "(south africa.{0,15}(public|state).{0,10}hospital.{0,15}(free|cost)|uniform patient fee schedule|upfs)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.7,
+    "confidence": 0.65,
+    "last_updated": "2026-08-14",
+    "summary": "Section 27(3) of South Africa's Constitution guarantees that no one may be refused emergency medical treatment, so a public hospital will stabilise a genuine emergency regardless of ability to pay. That is not the same as the treatment being free: foreign nationals and tourists are automatically billed as non-subsidised, full-paying patients under the provincial Uniform Patient Fee Schedule (UPFS) for the facility fee and professional fee, regardless of income, unlike South African citizens/residents who may qualify for subsidised H1/H2 fee bands."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that because emergency treatment can't be refused, the treatment itself is free for a foreign tourist",
+      "why_fails": "The Constitution's section 27(3) guarantee ('No one may be refused emergency medical treatment') covers being treated, not the bill afterward. Provincial Uniform Patient Fee Schedule (UPFS) tariffs classify foreign nationals treated at state health facilities as non-subsidised, full-paying patients, so the facility and professional fees are still charged in full once the emergency is over.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.sahrc.org.za/index.php/sahrc-media/news-2/item/4347-media-advisory-who-is-entitled-to-access-to-healthcare-in-south-africa",
+        "https://www.gov.za/news/media-statements/gauteng-health-advises-public-revised-uniform-patient-fee-tariffs-202425"
+      ],
+      "common_misconception": "People conflate 'cannot be turned away' with 'treatment is free,' when South Africa's public system distinguishes access from cost."
+    },
+    {
+      "action": "Expect the same income-based subsidised fee bands (H1/H2) that apply to South African citizens and residents",
+      "why_fails": "The subsidised UPFS categories are based on South African income/household thresholds; foreign nationals who do not fall into a subsidised category are billed the full UPFS rate regardless of what they actually earn.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.za/news/media-statements/gauteng-health-advises-public-revised-uniform-patient-fee-tariffs-202425"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get travel medical insurance before arrival, since public hospitals will still invoice foreign patients the full UPFS rate after treatment",
+      "success_rate": 0.85,
+      "how": "Confirm the policy covers emergency hospitalisation and medevac in South Africa specifically, and keep the policy details on you.",
+      "sources": [
+        "https://www.gov.za/news/media-statements/gauteng-health-advises-public-revised-uniform-patient-fee-tariffs-202425"
+      ]
+    },
+    {
+      "action": "Know that emergency stabilisation itself will not be refused for inability to pay, even without insurance",
+      "success_rate": 0.75,
+      "how": "Section 27(3) of the Constitution obliges treatment for a genuine emergency; billing for that treatment is a separate process that follows afterward rather than a precondition to being seen.",
+      "sources": [
+        "https://www.sahrc.org.za/index.php/sahrc-media/news-2/item/4347-media-advisory-who-is-entitled-to-access-to-healthcare-in-south-africa"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}

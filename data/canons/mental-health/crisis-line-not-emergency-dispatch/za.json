@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/za",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/za",
+  "error": {
+    "signature": "AI tells someone in a South African mental health crisis to call SADAG's helpline expecting it to dispatch an ambulance or police the way 10111/10177/112 does",
+    "regex": "(sadag|south africa.{0,15}(crisis|suicide).{0,10}line|0800 567 567)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "za",
+      "country_name": "South Africa",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-14",
+    "summary": "SADAG's Suicide Crisis Helpline (0800 567 567, free, 24/7, also reachable by SMS 31393) provides telephonic counselling, crisis intervention, and referrals - it is not a dispatch service. It does not automatically send police or an ambulance to a caller's location. For a life-threatening emergency, South Africa's dispatch numbers are 10111 (police), 10177 (ambulance), or 112 from a mobile."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in an active, life-threatening mental health crisis in South Africa to call SADAG's helpline and expect it to send help to their location",
+      "why_fails": "SADAG's Suicide Crisis Helpline (0800 567 567) is a telephonic counselling and referral service staffed by counsellors, not an emergency dispatch centre with location tracking or the ability to send a vehicle. South Africa's own emergency guidance is to call 10177 for an ambulance or 112 from a mobile phone when life is in immediate danger.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.za/sites/default/files/gcis_documents/contacts.pdf",
+        "https://www.saps.gov.za/"
+      ],
+      "common_misconception": "People assume any national mental-health helpline works like a 911-style emergency line and will dispatch help automatically."
+    },
+    {
+      "action": "Assume the SADAG helpline is only available during business hours like its general office line",
+      "why_fails": "SADAG's general enquiries line (011 234 4837) runs office hours (8am-5pm), but the Suicide Crisis Helpline (0800 567 567) is a separate, free line staffed 24 hours a day, 7 days a week - confusing the two can lead someone to think no support is available outside office hours.",
+      "fail_rate": 0.3,
+      "condition": "Reaching out outside 8am-5pm",
+      "sources": [
+        "https://www.gov.za/sites/default/files/gcis_documents/contacts.pdf"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call SADAG's 24-hour Suicide Crisis Helpline (0800 567 567) or SMS 31393 for free counselling, crisis containment, and referrals",
+      "success_rate": 0.8,
+      "how": "0800 567 567 is toll-free and staffed around the clock, every day of the year.",
+      "sources": [
+        "https://www.gov.za/sites/default/files/gcis_documents/contacts.pdf"
+      ]
+    },
+    {
+      "action": "If life is at risk right now - active self-harm, overdose, or inability to keep someone safe - call South Africa's emergency dispatch numbers directly instead of routing through a helpline first",
+      "success_rate": 0.9,
+      "how": "Dial 10177 for an ambulance, 10111 for police, or 112 from any mobile network.",
+      "sources": [
+        "https://www.saps.gov.za/",
+        "https://www.gov.za/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/10111-10177-not-911/za",
+        "distinction": "That canon covers South Africa's general emergency dispatch numbers versus 911; this one is specific to what SADAG's mental-health helpline can and cannot do once you call it."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}
