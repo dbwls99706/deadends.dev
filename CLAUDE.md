@@ -51,6 +51,8 @@ generator/
   lookup.py            # Programmatic error lookup SDK (lookup, lookup_all, search, batch_lookup)
   ping_search_engines.py  # Search engine ping on deploy
   pipeline.py          # Unified pipeline: validate → generate → build → test
+  reverify.py          # Assigns each content cycle a disjoint block of aging
+                       # canons to re-verify (see 'Re-verifying Aging Canons')
   schema.py            # ErrorCanon JSON Schema (ERRORCANON_SCHEMA)
   submit_indexnow.py   # IndexNow submission on deploy
   templates/           # Jinja2 HTML templates
@@ -100,6 +102,10 @@ ruff check generator/ tests/
 
 # Look up an error (CLI)
 python -m generator.lookup "error message"
+
+# Get this cycle's re-verification block (seed with the target country code)
+python -m generator.reverify --seed nz
+python -m generator.reverify --seed nz --exclude id1,id2   # IDs open PRs touch
 
 # List all errors
 python -m generator.lookup --list
@@ -178,6 +184,38 @@ sourcing standards and confidence calibration. Quick reference:
 - `SUPPORTED_COUNTRIES` list in
   `generator/country_canon_template.py` gates new country codes - add there
   first before writing canons for a new country.
+
+## Re-verifying Aging Canons
+
+The validator warns at 180 days since `last_confirmed` and errors at 365, so a
+large cohort is permanently due for re-checking. Each content PR refreshes a
+few of them.
+
+**Do not pick "the oldest N".** That rule is deterministic, so every parallel
+cycle selects the same files and all but the first PR to merge is left
+conflicting on the very date fields it came to update. Ask `generator.reverify`
+for a block instead:
+
+```bash
+python -m generator.reverify --seed nz                    # seed = target country
+python -m generator.reverify --seed nz --exclude id1,id2  # IDs open PRs touch
+```
+
+Aging canons are sorted oldest-first and cut into fixed blocks; a seed hashes to
+one block. Two seeds therefore get either the same block or no shared files at
+all - never a partial overlap, which is the shape that conflicts on merge.
+Hashing makes a collision unlikely; `--exclude` makes it impossible, so pass the
+canon IDs any open PR already touches.
+
+Re-verification means re-reading the sources, in this order:
+
+1. Open every `sources[]` URL and read it.
+2. Update moved URLs; fix the claim if it no longer holds.
+3. Only then bump `last_confirmed`, `verdict.last_updated`, and
+   `metadata.last_verification`.
+
+A refreshed date on a canon nobody re-read is worse than a stale one - it tells
+every downstream agent the entry was confirmed when it was not.
 
 ## Security
 
@@ -261,5 +299,6 @@ Tests are in `tests/` using pytest. Key test files:
 - `test_build.py` - Site builder unit tests
 - `test_build_integration.py` - Integration tests for full site build
 - `test_pipeline.py` - Pipeline tests
+- `test_reverify.py` - Re-verification block selection (disjointness, determinism)
 
 Shared fixtures in `conftest.py`: `valid_canon` (deep copy of a valid canon) and `make_canon` (factory with overrides).

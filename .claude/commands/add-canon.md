@@ -13,7 +13,8 @@ the PR is **merged** (or you have reported a hard blocker).
 
 Argument (optional): `$ARGUMENTS` may name a target, e.g. `visa jp`,
 `banking br`, `emergency pl`, or a domain like `legal`. If empty, pick the gap
-yourself in step 2.
+yourself in step 3 — but run step 2 either way, so you do not collide with a
+cycle already in flight.
 
 ---
 
@@ -31,7 +32,24 @@ Prefer a descriptive name once you know the topic, e.g.
 `canon/visa-jp-work-permit`. Confirm `git config user.email` is
 `yujinhong3@gmail.com` before committing.
 
-## 2. Pick a real coverage gap (never duplicate)
+## 2. Claim a target no open PR is already working on
+
+`main` is not the whole picture. Other cycles may be running right now with
+branches already pushed, and their canons will not show up in any count of
+`data/canons/`. Three separate PRs once authored New Zealand coverage at the
+same time because each of them looked only at `main`.
+
+List the open PRs and the files they touch **before** choosing anything:
+
+```bash
+# mcp__github__list_pull_requests (state: open), then for each PR:
+# mcp__github__pull_request_read (method: get_files)
+```
+
+Treat every country and every canon ID appearing in an open PR as taken. Pick a
+different country. Keep the list of touched canon IDs to hand - step 6 needs it.
+
+## 3. Pick a real coverage gap (never duplicate)
 
 Count what already exists, then choose an underserved slice:
 
@@ -73,13 +91,39 @@ Selection rules:
 - The country code **must already be in** `SUPPORTED_COUNTRIES`
   (`generator/country_canon_template.py`). If you want a new country, add it
   there in the same PR.
-- Grep before writing so you do not re-author an existing slug:
-  `rg -l "your-slug" data/canons/`
+
+Then check for duplicates **by topic, not by slug**. A different slug describing
+the same dead end is still a duplicate, and the site is penalised for it. Read
+what the country already has before writing:
+
+```bash
+python - <<'PY'
+import json, pathlib
+CC = "nz"  # your target country
+for f in sorted(pathlib.Path("data/canons").rglob(f"{CC}.json")):
+    c = json.loads(f.read_text())
+    print(c["id"])
+    print("   ", c["error"]["signature"])
+    print("   ", c["verdict"]["summary"][:160])
+PY
+```
+
+For each canon you intend to write, name the existing entry it is closest to and
+say in one line why yours is a different dead end. If you cannot, drop it. Real
+examples of duplicates that got caught only at merge time: an IRD-number canon
+about bank interest when `banking/rwt-non-declaration-rate/nz` already covered
+it, and a border-declaration canon under `legal/` when
+`food-safety/undeclared-biosecurity-goods/nz` already covered it.
+
+When the overlap is partial - your canon has one genuinely new angle and the
+rest restates an existing entry - do not ship a competing page. Either narrow
+yours to the new angle alone and cross-link the two, or fold the new angle into
+the existing canon as an extra `dead_ends[]` / `workarounds[]` entry.
 
 Pick **3–5 canons** for this cycle. Fewer is fine; more than 5 makes review and
 sourcing quality slip.
 
-## 3. Research from primary sources
+## 4. Research from primary sources
 
 For each canon, find real, current, citable sources before writing a word:
 
@@ -96,7 +140,7 @@ For each canon, find real, current, citable sources before writing a word:
 A good canon captures something an AI would confidently get **wrong**: a
 non-obvious dead end, not a fact anyone can restate.
 
-## 4. Author the canons
+## 5. Author the canons
 
 Use the scaffold:
 
@@ -122,7 +166,41 @@ Follow `docs/country-canon-guide.md` and the schema in `CLAUDE.md`. Non-negotiab
 - `error.regex` must be a valid, ReDoS-safe pattern (no `(a+)+`, no `(a|b)+`)
   that matches how someone would phrase the problem.
 
-## 5. Validate — must be clean before committing
+## 6. Re-verify your assigned slice of aging canons
+
+Roughly a thousand canons sit past the 180-day aging threshold, so each cycle
+refreshes a few. Do **not** pick "the oldest three" - that rule is deterministic,
+every parallel cycle lands on the same files, and whichever PR merges first
+leaves the rest conflicting on exactly the date fields they came to update. That
+is what stalled PRs #165, #166, #168, and #172.
+
+Ask for your slice instead. Seed it with your target country code, and exclude
+whatever the open PRs from step 2 already touch:
+
+```bash
+python -m generator.reverify --seed <cc>
+python -m generator.reverify --seed <cc> --exclude id1,id2,id3   # IDs from step 2
+```
+
+Blocks are disjoint by construction, so two cycles either get the same block or
+share nothing - never a partial overlap. `--exclude` turns "unlikely to collide"
+into "cannot collide", so pass it whenever any PR is open.
+
+Then actually re-verify, in this order:
+
+1. Open every `sources[]` URL on the canon and read it.
+2. If a URL moved, update it to the new canonical location. If the claim no
+   longer holds, fix the claim - a wrong canon is worse than a stale one.
+3. Only then bump `last_confirmed`, `verdict.last_updated`, and
+   `metadata.last_verification`.
+
+Never bump a date you did not earn by re-reading the source. A refreshed date on
+an unchecked canon is a silent lie to every agent that reads it.
+
+If a source contradicts the canon, say so explicitly in the PR body - that
+finding is worth more than the new pages.
+
+## 7. Validate — must be clean before committing
 
 ```bash
 ruff check generator/ tests/
@@ -135,7 +213,7 @@ python -m generator.validate --site-only
 Fix every failure. Do not commit red. If the build emits new warnings for your
 files, resolve them too.
 
-## 6. Commit and push
+## 8. Commit and push
 
 ```bash
 git add data/ generator/
@@ -145,7 +223,7 @@ git push -u origin <branch>
 
 On network failure only, retry up to 4 times with backoff (2s, 4s, 8s, 16s).
 
-## 7. Open the PR
+## 9. Open the PR
 
 Use `mcp__github__create_pull_request` against `main`. Body should state:
 
@@ -161,7 +239,7 @@ End the body with the attribution footer:
 _Generated by [Claude Code](https://claude.ai/code)_
 ```
 
-## 8. Drive to green, then merge
+## 10. Drive to green, then merge
 
 1. Read CI status with `mcp__github__pull_request_read` (`get_status`).
 2. If checks are still running, wait with the `Monitor` tool (never a foreground
@@ -174,7 +252,7 @@ _Generated by [Claude Code](https://claude.ai/code)_
 5. If CI is red for a reason that also fails on `main` (pre-existing breakage),
    say so explicitly in the PR and stop — that one is not yours to force.
 
-## 9. Report
+## 11. Report
 
 Finish with a short summary: canons added (IDs), the PR number and merge state,
 and the new total canon count. If anything was skipped for lack of sources, say
@@ -191,3 +269,6 @@ which topic and why.
 - Duplicate or near-duplicate pages actively hurt indexing. If the only thing
   you can produce this cycle is a rewording of an existing canon, produce
   nothing and report that instead.
+- **Never** bump `last_confirmed` on a canon whose sources you did not re-read.
+- **Never** re-verify by "oldest first" — always take the block
+  `python -m generator.reverify --seed <cc>` assigns you.
