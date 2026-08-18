@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/red-sea-liveaboard-safety-standards-vary/eg",
+  "url": "https://deadends.dev/safety/red-sea-liveaboard-safety-standards-vary/eg",
+  "error": {
+    "signature": "AI assures a tourist that a Red Sea liveaboard dive boat booking is safe because of the price or the tour operator's reputation",
+    "regex": "(red sea.*(boat|liveaboard|dive).*safe|liveaboard.*egypt|egypt.*(liveaboard|dive boat))",
+    "domain": "safety",
+    "category": "water_safety",
+    "first_seen": "2026-08-18",
+    "last_confirmed": "2026-08-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.65,
+    "last_updated": "2026-08-18",
+    "summary": "UK investigators (the Marine Accident Investigation Branch) found Red Sea liveaboard dive boats 'poorly constructed' with defective or missing lifesaving equipment, after 16 incidents in five years including the November 2024 Sea Story capsizing (11 dead/missing) and the June 2023 Hurricane fire (3 British tourists dead). Price and operator reputation are not reliable indicators of vessel safety; divers are advised to verify safety equipment and confirm rescue coverage before booking."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume boat price, size, or the tour operator's general reputation is a reliable indicator of Red Sea liveaboard safety",
+      "why_fails": "The UK Marine Accident Investigation Branch documented 'poorly constructed vessels, defective lifesaving equipment, poor structural fire protection, unmarked emergency escape routes and inadequate safety briefing and crew training' across 16 incidents in five years. The Hurricane, which caught fire in 2023 killing three British tourists, was run by an established operator (Tornado Marine Fleet, booked through Scuba Travel) despite prior guests reporting ignored maintenance complaints.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.bsac.com/news-and-blog/liveaboard-safety-advice-issued-by-maib-and-bsac/",
+        "https://www.arabnews.com/node/2320851/middle-east"
+      ],
+      "common_misconception": "Price and operator popularity are treated as proxies for seaworthiness, but neither correlates with whether a vessel has functioning safety equipment or trained crew."
+    },
+    {
+      "action": "Assume standard travel insurance automatically covers a sea or air rescue in the Red Sea if something goes wrong",
+      "why_fails": "Sea or air rescue operations off Egypt can cost roughly $4,000 per hour, and standard travel policies do not automatically cover this; divers need to confirm rescue and repatriation coverage before departure, not after an incident.",
+      "fail_rate": 0.4,
+      "condition": "Booking a liveaboard or offshore dive trip",
+      "sources": [
+        "https://www.bsac.com/news-and-blog/liveaboard-safety-advice-issued-by-maib-and-bsac/",
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Book only through vendors who can demonstrate safety standards, and request a full safety briefing and emergency drill before departure.",
+      "success_rate": 0.7,
+      "how": "Ask the operator directly about life-raft servicing, fire protection, and crew training, and insist on a safety briefing covering emergency exits and equipment locations before the boat leaves port.",
+      "tradeoff": "Enforcement of safety standards in the sector is inconsistent, so a confident answer from an operator is not a guarantee.",
+      "sources": [
+        "https://www.bsac.com/news-and-blog/liveaboard-safety-advice-issued-by-maib-and-bsac/"
+      ]
+    },
+    {
+      "action": "Personally check life jackets and emergency exits, carry a personal locator/strobe, and confirm insurance covers Red Sea sea or air rescue before booking.",
+      "success_rate": 0.65,
+      "how": "Do a walk-through of escape routes, verify life-jacket lights function, and check your policy explicitly covers offshore rescue costs (roughly $4,000/hour) before you depart.",
+      "sources": [
+        "https://www.bsac.com/news-and-blog/liveaboard-safety-advice-issued-by-maib-and-bsac/",
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}

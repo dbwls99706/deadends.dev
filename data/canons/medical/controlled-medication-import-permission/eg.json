@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/controlled-medication-import-permission/eg",
+  "url": "https://deadends.dev/medical/controlled-medication-import-permission/eg",
+  "error": {
+    "signature": "AI tells a traveler they can bring their prescription painkillers (like tramadol or codeine) into Egypt without prior approval",
+    "regex": "(egypt.*(tramadol|codeine|prescription|controlled substance)|(tramadol|codeine).*egypt)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-18",
+    "last_confirmed": "2026-08-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-18",
+    "summary": "Egypt treats tramadol as a narcotic regardless of a valid foreign prescription, and other controlled medicines require advance written permission from Egypt's Ministry of Health plus a doctor's letter. Travelers who arrive without this documentation risk having the medication refused and can be prosecuted; a UK traveler was jailed for three years in 2018 for carrying tramadol for a family member."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a foreign doctor's prescription is enough to bring tramadol or other controlled painkillers into Egypt",
+      "why_fails": "Egypt lists tramadol as an illegal narcotic given its local abuse as a heroin substitute, regardless of a foreign prescription. A UK traveler was sentenced to three years in prison in 2018 for carrying tramadol tablets she said were for her partner's back pain.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://gulfnews.com/world/mena/british-woman-sentenced-to-3-years-for-smuggling-painkillers-1.2147292",
+        "https://www.cbsnews.com/news/court-in-egypt-convicts-british-woman-of-smuggling-powerful-painkillers"
+      ],
+      "common_misconception": "A valid foreign prescription is often assumed to make possession legal anywhere, but Egypt does not recognize foreign prescriptions for substances on its controlled list."
+    },
+    {
+      "action": "Pack controlled medicines in original pharmacy packaging and assume that documentation is sufficient",
+      "why_fails": "Original packaging alone does not satisfy Egyptian requirements. Travelers need advance written permission from Egypt's Ministry of Health plus a doctor's letter stating the condition, medication, and quantity; without it the medication can be refused entry and the traveler prosecuted.",
+      "fail_rate": 0.5,
+      "condition": "Carrying a substance on Egypt's controlled-medicine list",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/health"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Contact the Egyptian consulate or Ministry of Health in advance for written permission before traveling with controlled medication.",
+      "success_rate": 0.8,
+      "how": "Submit a doctor's letter naming the condition, medication, and quantity, and obtain Ministry of Health approval before departure.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/health"
+      ]
+    },
+    {
+      "action": "Avoid carrying tramadol or codeine-based medicines into Egypt; ask a doctor for a non-controlled alternative for the trip.",
+      "success_rate": 0.9,
+      "how": "Request an equivalent non-opioid painkiller from a doctor before travel.",
+      "tradeoff": "May mean less effective pain relief for a chronic condition during the trip.",
+      "sources": [
+        "https://www.cbsnews.com/news/court-in-egypt-convicts-british-woman-of-smuggling-powerful-painkillers"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}

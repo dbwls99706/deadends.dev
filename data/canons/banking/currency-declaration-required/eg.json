@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/currency-declaration-required/eg",
+  "url": "https://deadends.dev/banking/currency-declaration-required/eg",
+  "error": {
+    "signature": "AI tells a traveler there's no limit on cash they can bring into or take out of Egypt",
+    "regex": "(egypt.*(cash|currency|money).*(limit|declare|declaration)|(cash|currency|money).*(limit|declare).*egypt)",
+    "domain": "banking",
+    "category": "reporting_compliance",
+    "first_seen": "2026-08-18",
+    "last_confirmed": "2026-08-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-18",
+    "summary": "Egypt lets travelers bring in any amount of foreign currency, but sums over USD 10,000 (or equivalent) must be declared in writing on both arrival and departure. Egyptian pounds are capped at EGP 5,000 on entry and exit regardless of declaration. Undeclared or excess cash risks confiscation and prosecution under Central Bank of Egypt rules."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any amount of cash can be freely carried into or out of Egypt without paperwork",
+      "why_fails": "Foreign currency above USD 10,000 (or equivalent) must be declared in writing on both entry and exit, and Egyptian pounds are capped at EGP 5,000 regardless of declaration. Carrying more risks confiscation and prosecution.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/entry-requirements",
+        "https://wise.com/gb/blog/taking-cash-in-and-out-of-egypt"
+      ],
+      "common_misconception": "Travelers assume Egypt only restricts local currency (EGP) and that foreign cash is unregulated, but the USD 10,000 declaration threshold applies to foreign currency too."
+    },
+    {
+      "action": "Believe the declaration only needs to happen when leaving Egypt, not on arrival",
+      "why_fails": "The declaration requirement applies symmetrically on both arrival and departure. Skipping the arrival declaration makes it impossible to cleanly re-export the same funds later, since departure checks expect the original arrival declaration or a bank purchase receipt for sums over the threshold.",
+      "fail_rate": 0.4,
+      "condition": "Carrying more than USD 10,000 equivalent in foreign currency",
+      "sources": [
+        "https://goodsacrossborders.com/traveling/can-i-take/cash-currency/from/egypt",
+        "https://www.gov.uk/foreign-travel-advice/egypt/entry-requirements"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare foreign currency over USD 10,000 in writing at customs on both arrival and departure, and keep the stamped form.",
+      "success_rate": 0.85,
+      "how": "Fill out the customs currency declaration form at the airport on arrival; retain the stamped copy to present again on departure.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/entry-requirements",
+        "https://wise.com/gb/blog/taking-cash-in-and-out-of-egypt"
+      ]
+    },
+    {
+      "action": "Keep official bank exchange/purchase receipts for large sums and never carry more than EGP 5,000 in local currency.",
+      "success_rate": 0.8,
+      "how": "Exchange currency only at licensed banks or exchange bureaus and retain the receipts in case of a spot check at the border.",
+      "tradeoff": "Adds paperwork and requires using licensed exchangers rather than street-rate touts.",
+      "sources": [
+        "https://goodsacrossborders.com/traveling/can-i-take/cash-currency/from/egypt"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}
