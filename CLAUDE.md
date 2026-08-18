@@ -51,6 +51,8 @@ generator/
   lookup.py            # Programmatic error lookup SDK (lookup, lookup_all, search, batch_lookup)
   ping_search_engines.py  # Search engine ping on deploy
   pipeline.py          # Unified pipeline: validate → generate → build → test
+  reverify.py          # Assigns each content cycle a disjoint bucket of aging
+                       # canons to re-verify (see 'Re-verifying Aging Canons')
   schema.py            # ErrorCanon JSON Schema (ERRORCANON_SCHEMA)
   submit_indexnow.py   # IndexNow submission on deploy
   templates/           # Jinja2 HTML templates
@@ -100,6 +102,10 @@ ruff check generator/ tests/
 
 # Look up an error (CLI)
 python -m generator.lookup "error message"
+
+# Get this cycle's re-verification bucket (seed with the target country code)
+git fetch origin --prune && python -m generator.reverify --seed nz
+python -m generator.reverify --seed nz --exclude id1,id2   # additional claims
 
 # List all errors
 python -m generator.lookup --list
@@ -178,6 +184,55 @@ sourcing standards and confidence calibration. Quick reference:
 - `SUPPORTED_COUNTRIES` list in
   `generator/country_canon_template.py` gates new country codes - add there
   first before writing canons for a new country.
+
+## Re-verifying Aging Canons
+
+The validator warns at 180 days since `last_confirmed` and errors at 365, so a
+large cohort is permanently due for re-checking. Each content PR refreshes a
+few of them.
+
+**Do not pick "the oldest N".** That rule is deterministic, so every parallel
+cycle selects the same files and all but the first PR to merge is left
+conflicting on the very date fields it came to update. Ask `generator.reverify`
+for a bucket instead:
+
+```bash
+git fetch origin --prune                                  # refresh the claim scan
+python -m generator.reverify --seed nz                    # seed = target country
+python -m generator.reverify --seed nz --exclude id1,id2  # additional claims
+```
+
+Every canon belongs to a bucket determined solely by hashing its **ID**; a seed
+hashes to one bucket and the cycle takes the oldest canons in it. Two seeds
+therefore own the same bucket (identical picks - obvious immediately) or share
+nothing at all. A partial overlap, the shape that conflicts on merge, cannot
+occur.
+
+Bucketing by ID rather than by position in the aging list is the point. Two
+cycles never see the same list - each branches from a different `main` - so
+positional blocks would shift their boundaries whenever a merge aged canons in
+or refreshed them, and two cycles would land on overlapping-but-unequal slices.
+A canon's ID does not move. This is why `DEFAULT_BUCKETS` must stay constant:
+changing it re-shuffles every canon, which is only safe with no content PR open.
+
+The command also excludes every canon touched by another pushed branch
+(`claimed_canon_ids`) and always says which state it is in - excluded N, clean,
+or **incomplete**. A scan that could not read every branch reports as such
+rather than as a clean bill of health. That scan is conservative by design: it
+does not try to tell a merged branch from a live one, because squash-merging
+severs ancestry and leaves no reliable local signal. It also only sees *pushed*
+branches, so re-run it before committing rather than trusting one check at the
+start.
+
+Re-verification means re-reading the sources, in this order:
+
+1. Open every `sources[]` URL and read it.
+2. Update moved URLs; fix the claim if it no longer holds.
+3. Only then bump `last_confirmed`, `verdict.last_updated`, and
+   `metadata.last_verification`.
+
+A refreshed date on a canon nobody re-read is worse than a stale one - it tells
+every downstream agent the entry was confirmed when it was not.
 
 ## Security
 
@@ -261,5 +316,6 @@ Tests are in `tests/` using pytest. Key test files:
 - `test_build.py` - Site builder unit tests
 - `test_build_integration.py` - Integration tests for full site build
 - `test_pipeline.py` - Pipeline tests
+- `test_reverify.py` - Re-verification bucket selection (disjointness, determinism)
 
 Shared fixtures in `conftest.py`: `valid_canon` (deep copy of a valid canon) and `make_canon` (factory with overrides).
