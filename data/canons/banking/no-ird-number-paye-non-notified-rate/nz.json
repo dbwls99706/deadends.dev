@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/no-ird-number-paye-non-notified-rate/nz",
+  "url": "https://deadends.dev/banking/no-ird-number-paye-non-notified-rate/nz",
+  "error": {
+    "signature": "AI tells someone starting a job in New Zealand before their IRD number arrives that PAYE will default to a normal or mid-range tax code until they supply it",
+    "regex": "(ir330|paye|non.?notified).{0,40}ird number|(no|without|skip).{0,15}ird number.{0,40}(job|employer|paye|wage|salary)",
+    "domain": "banking",
+    "category": "tax_withholding_trap",
+    "first_seen": "2026-08-14",
+    "last_confirmed": "2026-08-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-14",
+    "summary": "A New Zealand employer must deduct PAYE at the 'non-notified' rate - 45 cents in the dollar plus the ACC earner's levy - from any employee who has not handed in a completed IR330 tax code declaration with an IRD number. That is above the 39% top personal rate and applies no matter how little the employee actually earns, so starting work before the IRD number arrives costs close to half of each pay until it is supplied."
+  },
+  "dead_ends": [
+    {
+      "action": "Start a new NZ job and leave the IR330 tax code declaration blank or skip giving your employer an IRD number, expecting PAYE to default to a mid-range tax code",
+      "why_fails": "IRD's IR330 form requires the employer to deduct PAYE at the 'non-notified' rate - 45 cents in the dollar plus the ACC earner's levy - whenever the tax code declaration isn't completed in full, regardless of the employee's actual expected income.",
+      "fail_rate": 0.65,
+      "condition": "Starting employment before an IRD number has been obtained or supplied",
+      "sources": [
+        "https://www.ird.govt.nz/-/media/project/ir/home/documents/forms-and-guides/ir300---ir399/ir330/ir330.pdf"
+      ],
+      "common_misconception": "People assume an incomplete tax code declaration means 'default' or 'emergency' treatment at a middling rate, as it is in some other PAYE systems; in New Zealand the non-notified rate is deliberately punitive and higher than any normal tax code."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for an IRD number as soon as you arrive and give your employer a completed IR330 before your first pay run",
+      "success_rate": 0.9,
+      "how": "New arrivals with a resident, work, or student visa apply through Inland Revenue's 'new arrival to New Zealand' IRD number process; approval typically comes back within days once identity is verified. Hand the completed IR330 to payroll before the first pay is processed - the non-notified rate applies per pay period, so the fix is only prospective.",
+      "sources": [
+        "https://www.ird.govt.nz/managing-my-tax/ird-numbers/ird-numbers-for-individuals/new-arrival-to-new-zealand---ird-number-application",
+        "https://www.ird.govt.nz/-/media/project/ir/home/documents/forms-and-guides/ir300---ir399/ir330/ir330.pdf"
+      ]
+    },
+    {
+      "action": "If pay was already taxed at the non-notified rate, treat the excess as recoverable at the end-of-year assessment rather than lost",
+      "success_rate": 0.6,
+      "how": "PAYE deducted at the non-notified rate is credited against the final tax liability when Inland Revenue prepares the end-of-year income tax assessment, so over-deducted amounts come back as a refund.",
+      "tradeoff": "The money is tied up until the annual assessment is issued after 31 March - it is not refunded when the IRD number is finally supplied, so a newcomer can be short on cash for months.",
+      "sources": [
+        "https://www.ird.govt.nz/income-tax/income-tax-for-individuals/what-happens-at-the-end-of-the-tax-year/income-tax-assessments/understanding-your-letter"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/rwt-non-declaration-rate/nz",
+        "distinction": "Same missing IRD number, two different payers and two different rules. This canon is the employer's PAYE non-notified rate (45c in the dollar plus the ACC earner's levy) on wages; the RWT canon is the bank's 45% non-declaration rate on interest. Giving the number to one does not give it to the other."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-14"
+  }
+}
