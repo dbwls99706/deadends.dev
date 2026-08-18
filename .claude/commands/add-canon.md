@@ -46,8 +46,11 @@ List the open PRs and the files they touch **before** choosing anything:
 # mcp__github__pull_request_read (method: get_files)
 ```
 
-Treat every country and every canon ID appearing in an open PR as taken. Pick a
-different country. Keep the list of touched canon IDs to hand - step 6 needs it.
+Treat every country appearing in an open PR as taken, and pick a different one.
+
+Step 6 excludes the canon IDs those branches touch on its own, by reading the
+pushed branches. It cannot see a PR from a fork, so note the touched IDs of any
+fork PR here and pass them along explicitly.
 
 ## 3. Pick a real coverage gap (never duplicate)
 
@@ -166,7 +169,7 @@ Follow `docs/country-canon-guide.md` and the schema in `CLAUDE.md`. Non-negotiab
 - `error.regex` must be a valid, ReDoS-safe pattern (no `(a+)+`, no `(a|b)+`)
   that matches how someone would phrase the problem.
 
-## 6. Re-verify your assigned slice of aging canons
+## 6. Re-verify your assigned bucket of aging canons
 
 Roughly a thousand canons sit past the 180-day aging threshold, so each cycle
 refreshes a few. Do **not** pick "the oldest three" - that rule is deterministic,
@@ -174,17 +177,31 @@ every parallel cycle lands on the same files, and whichever PR merges first
 leaves the rest conflicting on exactly the date fields they came to update. That
 is what stalled PRs #165, #166, #168, and #172.
 
-Ask for your slice instead. Seed it with your target country code, and exclude
-whatever the open PRs from step 2 already touch:
+Ask for your slice instead. Seed it with your target country code:
 
 ```bash
+git fetch origin --prune            # so the claim scan sees current branches
 python -m generator.reverify --seed <cc>
-python -m generator.reverify --seed <cc> --exclude id1,id2,id3   # IDs from step 2
 ```
 
-Blocks are disjoint by construction, so two cycles either get the same block or
-share nothing - never a partial overlap. `--exclude` turns "unlikely to collide"
-into "cannot collide", so pass it whenever any PR is open.
+Each canon sits in a bucket fixed by hashing its ID, and your seed owns one
+bucket. Two cycles get the same bucket (identical picks) or share nothing -
+a partial overlap, the thing that conflicts on merge, cannot happen. The command
+also excludes canons other pushed branches already touch. Fetch first, or that
+scan reads a stale view of the remote.
+
+**Read the `Claim scan:` line it prints.** `INCOMPLETE` means some or all
+branches went unchecked and another branch may own your picks - resolve that
+before editing anything. Add `--exclude id1,id2` for what the scan cannot see:
+a PR from a fork, or canons you will touch later in this same cycle.
+
+The scan only sees branches already pushed, and you pick before you push. If
+another cycle started at the same time, re-run this command just before
+committing; if your picks are now claimed, take the new ones instead.
+
+If your bucket comes back empty or fully claimed, vary the seed (`nz` ->
+`nz-2`). Do not raise `--buckets` - that re-shuffles every canon and breaks the
+agreement with every other cycle.
 
 Then actually re-verify, in this order:
 
@@ -270,5 +287,6 @@ which topic and why.
   you can produce this cycle is a rewording of an existing canon, produce
   nothing and report that instead.
 - **Never** bump `last_confirmed` on a canon whose sources you did not re-read.
-- **Never** re-verify by "oldest first" — always take the block
-  `python -m generator.reverify --seed <cc>` assigns you.
+- **Never** re-verify by "oldest first" — always take the bucket
+  `python -m generator.reverify --seed <cc>` assigns you, after
+  `git fetch origin --prune`.
