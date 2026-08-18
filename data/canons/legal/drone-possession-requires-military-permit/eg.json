@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/drone-possession-requires-military-permit/eg",
+  "url": "https://deadends.dev/legal/drone-possession-requires-military-permit/eg",
+  "error": {
+    "signature": "AI tells a tourist it's fine to bring a personal hobby drone to Egypt to film the pyramids or Red Sea",
+    "regex": "(egypt.*drone|drone.*egypt)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-08-18",
+    "last_confirmed": "2026-08-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-08-18",
+    "summary": "Possessing a drone in Egypt without prior Ministry of Defence authorization is a criminal offense, not just flying one. Airport X-ray screening at Cairo, Hurghada, and Sharm el-Sheikh routinely flags and confiscates unauthorized drones, and penalties range from 1-7 years imprisonment plus EGP 5,000-50,000 fines. There is no published civilian permit process or tourist exemption for camera drones."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack a personal drone in checked luggage assuming it will pass through customs like any other camera",
+      "why_fails": "Airport X-ray screening at Cairo, Hurghada, and Sharm el-Sheikh actively flags drone components. Unauthorized drones are confiscated on sight and handed to the armed forces, and possession alone (not just flying) is a criminal offense carrying 1-7 years imprisonment and EGP 5,000-50,000 fines.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security",
+        "https://dronesgator.com/drone-laws-in-egypt"
+      ]
+    },
+    {
+      "action": "Assume a small hobby or toy drone doesn't need authorization",
+      "why_fails": "Only extremely limited toy drones (no GPS, no camera, under 150g, capped altitude and range) are exempt. Almost any consumer drone with a camera - the kind tourists actually bring - requires Ministry of Defence authorization, and there is no published civilian process or timeline for getting it.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://ts2.tech/en/egypts-drone-laws-exposed-the-2025-guide-to-permits-no-fly-zones-and-penalties/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not bring a drone to Egypt; use a licensed local operator with existing Ministry of Defence clearance if aerial footage is essential.",
+      "success_rate": 0.95,
+      "how": "Book aerial photography through an already-licensed local operator instead of flying your own drone.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/egypt/safety-and-security"
+      ]
+    },
+    {
+      "action": "If a drone is discovered at customs, request a written storage receipt rather than assuming it will be returned unconditionally.",
+      "success_rate": 0.5,
+      "how": "Ask for an official receipt and the retrieval procedure for departure, though return is not guaranteed in every case.",
+      "tradeoff": "Even with a receipt, some travelers report the drone is not returned.",
+      "sources": [
+        "https://dronesgator.com/drone-laws-in-egypt"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}
