@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/heal-15555-limited-hours/my",
+  "url": "https://deadends.dev/mental-health/heal-15555-limited-hours/my",
+  "error": {
+    "signature": "AI tells someone in Malaysia to call the Talian HEAL 15555 mental health crisis line at any time of day or night, implying 24/7 availability",
+    "regex": "(malaysia.{0,20}(heal|15555).{0,20}(hotline|helpline|crisis)|15555.{0,20}malaysia.{0,20}(24.?7|any\\s*time|overnight))",
+    "domain": "mental-health",
+    "category": "operational_limitation",
+    "first_seen": "2022-10-21",
+    "last_confirmed": "2026-08-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-08-16",
+    "summary": "Talian HEAL (Help with Empathy And Love) 15555, the Ministry of Health's mental health tele-counselling line, is staffed daily from 8am until midnight only - not 24/7. Someone in crisis outside those hours needs a different number: Befrienders Kuala Lumpur (03-7627 2929) and Talian Kasih (15999) both operate around the clock."
+  },
+  "dead_ends": [
+    {
+      "action": "Direct someone in crisis in Malaysia to call Talian HEAL 15555 without checking the time, assuming it operates 24/7 like other crisis lines",
+      "why_fails": "The Health Ministry has stated that 'the Talian Heal 15555 helpline is operated by Health Ministry counselling officers daily from 8am until midnight, including public holidays' - a caller during the overnight gap will not reach a counselor on that line.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.thestar.com.my/news/nation/2026/07/09/malaysias-mental-health-helpline-received-more-than-230000-calls-since-launch-says-health-ministry",
+        "https://evecentre.com.my/malaysia-emergency-helplines/"
+      ],
+      "common_misconception": "Because 15555 is a short government code similar in format to 999 or 15999, people assume it has the same round-the-clock, dispatch-style availability as those numbers."
+    },
+    {
+      "action": "Treat Befrienders Kuala Lumpur and Talian Kasih being '24/7 helplines' as proof that Talian HEAL 15555 is also 24/7",
+      "why_fails": "Talian Kasih (15999) and Befrienders Kuala Lumpur (03-7627 2929) are genuinely staffed 24/7, but Talian HEAL 15555 is not; conflating the three leads to sending an overnight caller to a line that will go unanswered until 8am.",
+      "fail_rate": 0.35,
+      "sources": [
+        "https://befrienders.org.my/",
+        "https://evecentre.com.my/malaysia-emergency-helplines/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Between 8am and midnight, call Talian HEAL 15555 for Ministry of Health tele-counselling. Outside those hours, call Befrienders Kuala Lumpur (03-7627 2929) or Talian Kasih (15999) instead - both are staffed 24/7.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.thestar.com.my/news/nation/2026/07/09/malaysias-mental-health-helpline-received-more-than-230000-calls-since-launch-says-health-ministry",
+        "https://befrienders.org.my/",
+        "https://evecentre.com.my/malaysia-emergency-helplines/"
+      ]
+    },
+    {
+      "action": "For an active, life-threatening emergency at any hour, call 999 (Malaysia's emergency number) or go to the nearest hospital emergency department rather than waiting for a counselling line to open.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://evecentre.com.my/malaysia-emergency-helplines/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-not-911-my/my",
+        "distinction": "999 is general emergency dispatch available 24/7; Talian HEAL 15555 is a Health Ministry counselling line with fixed daytime-to-midnight hours, not a dispatch service."
+      },
+      {
+        "error_id": "legal/suicide-attempt-decriminalized/my",
+        "distinction": "This canon covers which helpline is actually staffed at a given hour; the legal canon covers whether attempting suicide is a criminal offense in Malaysia."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-16"
+  }
+}

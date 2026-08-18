@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/rwt-non-declaration-rate/nz",
+  "url": "https://deadends.dev/banking/rwt-non-declaration-rate/nz",
+  "error": {
+    "signature": "AI says giving your IRD number to your New Zealand bank is optional or only matters for large accounts",
+    "regex": "(ird number.*(bank|account|optional)|new zealand.*bank account.*ird number|resident withholding tax.*new zealand|rwt.*non.declaration.*new zealand)",
+    "domain": "banking",
+    "category": "reporting_compliance",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-08-17",
+    "summary": "New Zealand banks must withhold Resident Withholding Tax (RWT) from any interest a customer earns. Without an IRD number on file, the bank is required to apply the non-declaration rate of 45% to that interest, instead of a lower rate chosen once an IRD number is supplied. This applies from the first dollar of interest, not just to large balances."
+  },
+  "dead_ends": [
+    {
+      "action": "Skip giving your IRD number to the bank because the account is small or you assume it only matters for filing an annual tax return",
+      "why_fails": "Banks must apply the RWT non-declaration rate, currently 45%, to interest paid to any account without an IRD number recorded, regardless of balance size. This is markedly higher than the 33% default rate that applies once an IRD number is on file but no specific rate is chosen.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.ird.govt.nz/income-tax/withholding-taxes/resident-withholding-tax-rwt",
+        "https://www.ird.govt.nz/income-tax/withholding-taxes/resident-withholding-tax-rwt/using-the-right-rwt-tax-rate"
+      ],
+      "common_misconception": "Newcomers assume an IRD number is only needed for filing taxes at year-end, not for how a bank withholds tax on everyday account interest from day one."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for an IRD number and give it to the bank at account opening or as soon as it arrives, choosing an RWT rate that matches your income",
+      "success_rate": 0.95,
+      "how": "Apply for an IRD number through ird.govt.nz (a bank statement or account-opening letter can serve as proof of address for the application). Provide the IRD number to the bank in person or via online banking, and select an RWT rate; this replaces the 45% non-declaration rate with a rate based on your income.",
+      "sources": [
+        "https://www.ird.govt.nz/income-tax/withholding-taxes/resident-withholding-tax-rwt/using-the-right-rwt-tax-rate",
+        "https://www.ird.govt.nz/managing-my-tax/ird-numbers/ird-numbers-for-individuals"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}

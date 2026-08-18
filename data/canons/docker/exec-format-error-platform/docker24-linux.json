@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "platform_error",
     "first_seen": "2021-01-01",
-    "last_confirmed": "2026-02-01"
+    "last_confirmed": "2026-08-15"
   },
   "environment": {
     "runtime": {
@@ -30,7 +30,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.92,
-    "last_updated": "2026-02-01",
+    "last_updated": "2026-08-15",
     "summary": "The container image was built for a different CPU architecture than the host. Most commonly: arm64 image on amd64 host or vice versa, triggered by Apple Silicon Macs deploying to amd64 Linux servers."
   },
   "dead_ends": [
@@ -107,6 +107,6 @@
     "page_views": 0,
     "ai_agent_hits": 0,
     "human_hits": 0,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-15"
   }
 }
