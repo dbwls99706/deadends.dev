@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/addis-ababa-malaria-altitude-dispute/et",
+  "url": "https://deadends.dev/medical/addis-ababa-malaria-altitude-dispute/et",
+  "error": {
+    "signature": "AI gives a single confident answer on whether malaria prophylaxis is needed for a trip confined to Addis Ababa, Ethiopia",
+    "regex": "(addis.ababa.*malaria|malaria.*addis.ababa|ethiopia.*malaria.*(addis|capital)|malaria.*prophylaxis.*ethiopia)",
+    "domain": "medical",
+    "category": "health_risk",
+    "first_seen": "2026-08-18",
+    "last_confirmed": "2026-08-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "city",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.65,
+    "last_updated": "2026-08-18",
+    "summary": "The US and UK governments give opposite answers for Addis Ababa specifically, because the city's elevation (roughly 2,350-2,410 m, depending on the source) sits between their two different cutoffs. The US CDC's Ethiopia destination guidance draws the line at 2,500 m and explicitly lists 'all areas <2,500 m elevation, including Addis Ababa' as requiring antimalarial prophylaxis. The UK's NaTHNaC/TravelHealthPro and the UK FCDO's own health-advice page both draw the line at 2,000 m and state there is no malaria risk in Addis Ababa. A traveler who checks only one authority gets a confident but contradictory answer."
+  },
+  "dead_ends": [
+    {
+      "action": "State flatly that Addis Ababa has 'no malaria risk' because of its high altitude, without naming a source",
+      "why_fails": "This is true under the UK NaTHNaC/TravelHealthPro guidance (2,000 m cutoff, city sits above it) and under the UK FCDO's own separate health-advice page ('Malaria is common in areas of the country up to 2,000 metres above sea level. Addis Ababa sits at 2,400m'), but it contradicts the US CDC's guidance, which uses a 2,500 m cutoff and explicitly includes Addis Ababa in its malaria-risk area for Ethiopia. Presenting either answer as the single correct one omits that the two governments' health authorities disagree specifically because Addis Ababa's elevation falls in the gap between their thresholds.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/ethiopia",
+        "https://travelhealthpro.org.uk/country/76/ethiopia",
+        "https://www.gov.uk/foreign-travel-advice/ethiopia/health"
+      ],
+      "common_misconception": "That 'high altitude' malaria-free advice is a single, universally agreed threshold rather than a number each health authority sets independently, and that Addis Ababa's actual elevation clearly clears whichever threshold is being used."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tell the traveler which specific authority the advice is coming from, and recommend a travel-health consultation for an itinerary confined to Addis Ababa",
+      "success_rate": 0.75,
+      "how": "Cite CDC (risk area, 2,500 m cutoff) or NaTHNaC/TravelHealthPro (no risk, 2,000 m cutoff) by name rather than stating a bare conclusion, since the two disagree for this specific city. A travel clinic can weigh the traveler's exact route, season, and health history rather than relying on a single altitude cutoff.",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/ethiopia",
+        "https://travelhealthpro.org.uk/country/76/ethiopia"
+      ]
+    },
+    {
+      "action": "Default to prophylaxis if the itinerary extends beyond Addis Ababa to any lower-elevation region",
+      "success_rate": 0.85,
+      "how": "Both authorities agree that areas below roughly 2,000-2,500 m carry malaria risk, so any itinerary that leaves the capital for lowland regions removes the ambiguity and should follow standard prophylaxis guidance (e.g. atovaquone-proguanil or doxycycline, per CDC).",
+      "sources": [
+        "https://wwwnc.cdc.gov/travel/destinations/traveler/none/ethiopia"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-18"
+  }
+}
