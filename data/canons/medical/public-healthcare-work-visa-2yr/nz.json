@@ -27,8 +27,8 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.75,
-    "last_updated": "2026-08-17",
-    "summary": "New Zealand's publicly funded healthcare is not available to most temporary visa holders. People on temporary visit, study, or short work visas generally cannot get publicly funded (subsidized) healthcare and must pay out of pocket for GP visits and hospital treatment for illness, though accident-related injuries are covered by ACC regardless of visa status. Work-visa holders only get resident-level access once their visa is valid for 2 years or more, counted from their first day in New Zealand."
+    "last_updated": "2026-08-18",
+    "summary": "New Zealand's publicly funded healthcare is not available to most temporary visa holders. People on temporary visit, study, or short work visas generally cannot get publicly funded (subsidized) healthcare and must pay out of pocket for GP visits and hospital treatment for illness, though accident-related injuries are covered by ACC regardless of visa status. Work-visa holders only get resident-level access once their visa is valid for 2 years or more, counted from their first day in New Zealand. Travelers from Australia and the UK get limited cover under reciprocal health agreements, and ACC's cover is narrower than visitors expect: it is accident-only and stops at the New Zealand border."
   },
   "dead_ends": [
     {
@@ -50,6 +50,15 @@
         "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/publicly-funded-healthcare",
         "https://www.govt.nz/browse/health/public-health-services/healthcare-on-a-work-visa/"
       ]
+    },
+    {
+      "action": "Treat ACC as a safety net that makes travel insurance optional, on the grounds that it covers visitors' injuries",
+      "why_fails": "ACC covers treatment for accidental injury that happens in New Zealand, and nothing else. It does not cover illness or infection, it does not cover injuries that occur in transit to or from New Zealand, and it does not pay for emergency travel home or for rehabilitation once the visitor has left the country - the costs that most often turn a visitor's injury into a large bill.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.acc.co.nz/im-injured/what-we-cover/if-youre-a-visitor-injured-in-new-zealand"
+      ],
+      "common_misconception": "ACC is well known as a government-run no-fault scheme, so it reads as general health insurance for visitors; it is accident-only and geographically bounded."
     }
   ],
   "workarounds": [
@@ -61,7 +70,17 @@
         "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/publicly-funded-healthcare",
         "https://www.govt.nz/browse/health/public-health-services/healthcare-on-a-work-visa/"
       ],
-      "tradeoff": "Accident-related injuries are covered by ACC regardless of visa status, so travel insurance mainly needs to cover illness rather than accidents, which can reduce the premium needed if the traveler understands the split."
+      "tradeoff": "ACC covers accident-related injury treatment inside New Zealand regardless of visa status, so the policy's main job is illness cover - but ACC excludes in-transit injuries and repatriation, so dropping accident and evacuation cover entirely is not safe."
+    },
+    {
+      "action": "If traveling from Australia or the UK, confirm what the reciprocal health agreement actually covers instead of assuming it substitutes for insurance",
+      "success_rate": 0.7,
+      "how": "Health New Zealand's reciprocal health agreements page sets out the scope: cover is limited to treatment that becomes immediately necessary during a temporary visit, not the full range a domestic patient receives, and it varies by treatment type.",
+      "tradeoff": "Reciprocal cover leaves the same gaps ACC does - routine care, ongoing treatment, and repatriation - so it narrows the insurance needed rather than removing it.",
+      "condition": "Traveler is an Australian or UK resident covered by a reciprocal agreement",
+      "sources": [
+        "https://www.healthnz.govt.nz/hospitals-services/eligibility-subsidies/reciprocal-health-agreements"
+      ]
     }
   ],
   "transition_graph": {
@@ -78,7 +97,7 @@
     "generated_by": "manual",
     "generation_date": "2026-08-17",
     "review_status": "human_reviewed",
-    "evidence_count": 3,
-    "last_verification": "2026-08-17"
+    "evidence_count": 5,
+    "last_verification": "2026-08-18"
   }
 }
