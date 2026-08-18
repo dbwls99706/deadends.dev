@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/undeclared-biosecurity-goods/nz",
+  "url": "https://deadends.dev/food-safety/undeclared-biosecurity-goods/nz",
+  "error": {
+    "signature": "AI tells a traveler that small amounts of food, fruit, or plant material don't need to be declared entering New Zealand",
+    "regex": "(bring food.*new zealand|declare.*food.*new zealand|nz customs.*food|new zealand.*biosecurity.*declare|import food.*new zealand)",
+    "domain": "food-safety",
+    "category": "import_ban",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.7,
+    "last_updated": "2026-08-17",
+    "summary": "New Zealand treats failing to declare biosecurity risk goods (food, plant material, animal products) at the border as an instantly finable offence, even when the amount is small or the omission was accidental. Ministry for Primary Industries (MPI) staff and detector dogs have issued the standard NZD$400 infringement fee to travelers, including airline pilots, over items as small as a banana or a sandwich. Declaring the item, or dropping it in an amnesty bin, avoids the fine even though the item itself may still be confiscated."
+  },
+  "dead_ends": [
+    {
+      "action": "Not declare a small, everyday food item (a piece of fruit, a sandwich, leftover snacks) on the arrival declaration, assuming it's too minor to count",
+      "why_fails": "There is no minimum-quantity exception. MPI's border operations have issued the instant $400 infringement fee for items as ordinary as a banana, a chicken sandwich, or a raw vegetable salad, including to airline pilots who assumed their occupation or a quick transit made it irrelevant. The rule applies regardless of the traveler's status or the item's value.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.nzherald.co.nz/nz/pilots-fined-400-after-biosecurity-dog-sophie-finds-food-in-luggage/AQLIY25KRBEVPMSHYX7B5TT7EM/",
+        "https://www.stuff.co.nz/travel/360990337/three-pilots-fined-after-detector-dog-sophie-sniffs-out-undeclared-food"
+      ],
+      "common_misconception": "Travelers assume only large quantities or obviously risky items (raw meat, live plants, seeds) need declaring, not everyday snacks packed for a flight."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare every food, plant, or animal-product item on the New Zealand Traveller Declaration, or dispose of undeclared items in an amnesty bin before biosecurity screening",
+      "success_rate": 0.9,
+      "how": "Complete the free New Zealand Traveller Declaration online, via the NZTD app, or on the paper form handed out on arrival, marking yes for any food, plant, or animal product carried. Alternatively, place undeclared items in a marked amnesty bin before reaching the biosecurity checkpoint. Declared or surrendered items may still be inspected and confiscated, but declaring or disposing of them avoids the infringement fee.",
+      "sources": [
+        "https://www.mpi.govt.nz/bring-send-to-nz/bringing-and-posting-items-to-nz/how-to-declare-items-when-arriving-in-nz"
+      ],
+      "tradeoff": "Declaring an item does not guarantee you keep it; risk goods are frequently confiscated and destroyed regardless, so declaring only protects against the fine, not the loss of the item."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}

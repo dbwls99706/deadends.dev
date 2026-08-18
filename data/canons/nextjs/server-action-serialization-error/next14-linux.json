@@ -39,7 +39,7 @@
       "why_fails": "Loses Date objects (become strings), undefined values (become null or disappear), Map/Set (become empty objects), BigInt (throws), and Symbol/Function properties. Seems to work in simple cases but silently corrupts data in production.",
       "fail_rate": 0.65,
       "sources": [
-        "https://nextjs.org/docs/messages/"
+        "https://nextjs.org/docs/app/getting-started/mutating-data"
       ],
       "common_misconception": "JSON round-tripping is seen as a universal serialization mechanism, but it only handles a small subset of JavaScript types."
     },
@@ -48,7 +48,7 @@
       "why_fails": "FormData only supports string and Blob values. Nested objects, arrays, numbers, and booleans are all lost or coerced to strings. It works for simple forms but breaks for complex structured data.",
       "fail_rate": 0.72,
       "sources": [
-        "https://nextjs.org/docs/messages/"
+        "https://nextjs.org/docs/app/getting-started/mutating-data"
       ],
       "common_misconception": "FormData is treated as an alternative serialization format when it is actually designed for simple HTML form submissions."
     }
@@ -69,7 +69,7 @@
       "success_rate": 0.9,
       "tradeoff": "Adds Zod as a dependency and requires schema definitions",
       "sources": [
-        "https://nextjs.org/docs/app/getting-started/mutating-data"
+        "https://nextjs.org/docs/app/guides/server-actions"
       ]
     },
     {

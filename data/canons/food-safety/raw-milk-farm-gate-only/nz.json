@@ -69,7 +69,12 @@
   "transition_graph": {
     "leads_to": [],
     "preceded_by": [],
-    "frequently_confused_with": []
+    "frequently_confused_with": [
+      {
+        "error_id": "food-safety/undeclared-biosecurity-goods/nz",
+        "distinction": "Both are Ministry for Primary Industries food rules, but the biosecurity canon covers declaring food you carry across the New Zealand border on arrival, while this one covers how raw drinking milk may lawfully be sold to consumers inside New Zealand."
+      }
+    ]
   },
   "metadata": {
     "generated_by": "manual",

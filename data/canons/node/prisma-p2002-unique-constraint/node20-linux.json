@@ -69,7 +69,7 @@
       "success_rate": 0.94,
       "tradeoff": "Requires knowing which unique constraint is being violated",
       "sources": [
-        "https://www.prisma.io/docs/orm/reference/prisma-client-reference#upsert"
+        "https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#upsert"
       ]
     },
     {
@@ -78,7 +78,7 @@
       "success_rate": 0.92,
       "tradeoff": "Requires error handling at each create/update call site",
       "sources": [
-        "https://www.prisma.io/docs/orm/reference/error-reference#p2002"
+        "https://www.prisma.io/docs/reference/api-reference/error-reference#p2002"
       ]
     },
     {
