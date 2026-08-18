@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/acc-bars-personal-injury-lawsuit/nz",
+  "url": "https://deadends.dev/legal/acc-bars-personal-injury-lawsuit/nz",
+  "error": {
+    "signature": "AI tells someone injured by accident in New Zealand that they can sue the at-fault party for compensatory damages",
+    "regex": "(sue.*new zealand.*accident|new zealand.*personal injury.*lawsuit|compensation claim.*new zealand.*injury|injury.*new zealand.*sue for damages)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-08-17",
+    "last_confirmed": "2026-08-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nz",
+      "country_name": "New Zealand",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-17",
+    "summary": "The Accident Compensation Act 2001 replaced the right to sue for personal-injury compensatory damages with a no-fault Accident Compensation Corporation (ACC) scheme. Anyone injured by accident in New Zealand, including tourists and other visitors, has forgone the right to sue in a New Zealand court for compensatory damages; ACC funds treatment and rehabilitation instead, and that support largely ends once a visitor leaves the country."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise someone injured in New Zealand to hire a lawyer and sue the at-fault driver, business, or person for compensatory personal-injury damages, as would be normal in their home country",
+      "why_fails": "In exchange for no-fault ACC cover, everyone in New Zealand, residents and visitors alike, has given up the right to sue for compensatory personal-injury damages; New Zealand courts will not hear such a claim. Only narrow exemplary damages remain available in limited cases. This catches visitors from countries where a personal-injury lawsuit is the normal route to compensation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.acc.co.nz/for-providers/provide-services/supporting-injured-international-visitors",
+        "https://communitylaw.org.nz/community-law-manual/chapter-19-accident-compensation-acc/overview-of-the-acc-scheme/"
+      ],
+      "common_misconception": "Visitors from litigation-common jurisdictions such as the US assume the same lawsuit-based compensation process applies in New Zealand."
+    },
+    {
+      "action": "Assume ACC support for an injured visitor continues after they leave New Zealand, covering ongoing treatment or lost income back home",
+      "why_fails": "ACC support for international visitors effectively ends when they leave New Zealand. ACC does not fund the trip home or ongoing overseas treatment, beyond a limited amount of telehealth continuity considered case-by-case during discharge planning. Visitors must rely on their own travel insurance for costs incurred after departure.",
+      "fail_rate": 0.7,
+      "condition": "The injured visitor has already left, or is about to leave, New Zealand",
+      "sources": [
+        "https://www.acc.co.nz/for-providers/provide-services/supporting-injured-international-visitors"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File an ACC claim through a treatment provider instead of pursuing a lawsuit, and rely on travel insurance for costs ACC does not cover",
+      "success_rate": 0.85,
+      "how": "Report the injury to a treatment provider (doctor, hospital, physiotherapist), who lodges the ACC claim; ACC then funds eligible treatment and rehabilitation in New Zealand on a no-fault basis. Buy travel insurance before the trip to cover what ACC does not, such as international medical evacuation, treatment after leaving New Zealand, or lost income.",
+      "sources": [
+        "https://www.acc.co.nz/for-providers/provide-services/supporting-injured-international-visitors"
+      ],
+      "tradeoff": "ACC payouts are typically lower than what a compensatory lawsuit might award in a litigation-friendly jurisdiction, and cover is limited to accident-caused injury rather than all forms of harm."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/public-healthcare-work-visa-2yr/nz",
+        "distinction": "ACC covers accident-related injury and bars suing for it, regardless of visa status. Public-healthcare eligibility for non-accident illness is a separate scheme gated by visa type and, for work visas, a 2-year validity threshold."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-17"
+  }
+}

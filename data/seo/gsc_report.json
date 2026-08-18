@@ -1,7 +1,15 @@
 {
   "property": "sc-domain:deadends.dev",
+  "generated_at": "2026-08-16T22:38:22+00:00",
+  "previous_generated_at": null,
   "inspected_count": 120,
   "indexed_count": 1,
+  "coverage_breakdown": {
+    "Crawled - currently not indexed": 93,
+    "Blocked by robots.txt": 19,
+    "URL is unknown to Google": 7,
+    "Submitted and indexed": 1
+  },
   "manual_request_shortlist": [
     "https://deadends.dev/search/",
     "https://deadends.dev/sitemap/",
@@ -21,7 +29,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-08-06T10:31:50Z",
+      "last_crawl": "2026-08-13T16:55:16Z",
       "canonical_google": "https://deadends.dev/",
       "verdict": "unknown"
     },
@@ -37,32 +45,32 @@
     },
     {
       "url": "https://deadends.dev/sitemap/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:40:37Z",
+      "canonical_google": "https://deadends.dev/sitemap/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/dashboard/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:32:27Z",
+      "canonical_google": "https://deadends.dev/dashboard/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/about/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:30:34Z",
+      "canonical_google": "https://deadends.dev/about/",
       "verdict": "unknown"
     },
     {
@@ -71,7 +79,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-12T18:37:04Z",
+      "last_crawl": "2026-08-13T02:56:40Z",
       "canonical_google": "https://deadends.dev/android/",
       "verdict": "unknown"
     },
@@ -91,18 +99,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T22:04:41Z",
+      "last_crawl": "2026-08-13T00:30:40Z",
       "canonical_google": "https://deadends.dev/aws/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/banking/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:28:25Z",
+      "canonical_google": "https://deadends.dev/banking/",
       "verdict": "unknown"
     },
     {
@@ -111,7 +119,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-11T18:41:18Z",
+      "last_crawl": "2026-08-13T00:47:52Z",
       "canonical_google": "https://deadends.dev/cicd/",
       "verdict": "unknown"
     },
@@ -121,7 +129,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T00:00:30Z",
+      "last_crawl": "2026-08-13T03:00:16Z",
       "canonical_google": "https://deadends.dev/cloud/",
       "verdict": "unknown"
     },
@@ -131,7 +139,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-24T22:17:44Z",
+      "last_crawl": "2026-08-13T05:39:01Z",
       "canonical_google": "https://deadends.dev/cmake/",
       "verdict": "unknown"
     },
@@ -151,7 +159,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-04T13:58:12Z",
+      "last_crawl": "2026-08-12T08:38:44Z",
       "canonical_google": "https://deadends.dev/cuda/",
       "verdict": "unknown"
     },
@@ -161,7 +169,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-03T04:24:01Z",
+      "last_crawl": "2026-08-12T08:34:37Z",
       "canonical_google": "https://deadends.dev/culture/",
       "verdict": "unknown"
     },
@@ -171,18 +179,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T23:01:41Z",
+      "last_crawl": "2026-08-13T05:41:42Z",
       "canonical_google": "https://deadends.dev/data/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/database/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T00:27:33Z",
+      "canonical_google": "https://deadends.dev/database/",
       "verdict": "unknown"
     },
     {
@@ -191,7 +199,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-27T06:25:09Z",
+      "last_crawl": "2026-08-13T06:05:33Z",
       "canonical_google": "https://deadends.dev/disaster/",
       "verdict": "unknown"
     },
@@ -201,7 +209,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-26T13:46:30Z",
+      "last_crawl": "2026-08-12T08:36:08Z",
       "canonical_google": "https://deadends.dev/docker/",
       "verdict": "unknown"
     },
@@ -211,7 +219,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-16T12:47:53Z",
+      "last_crawl": "2026-08-13T00:32:43Z",
       "canonical_google": "https://deadends.dev/dotnet/",
       "verdict": "unknown"
     },
@@ -221,7 +229,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T22:18:54Z",
+      "last_crawl": "2026-08-13T05:13:21Z",
       "canonical_google": "https://deadends.dev/elasticsearch/",
       "verdict": "unknown"
     },
@@ -231,18 +239,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-11T02:43:33Z",
+      "last_crawl": "2026-08-13T05:53:14Z",
       "canonical_google": "https://deadends.dev/embedded/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/emergency/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T00:31:17Z",
+      "canonical_google": "https://deadends.dev/emergency/",
       "verdict": "unknown"
     },
     {
@@ -251,7 +259,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T19:45:50Z",
+      "last_crawl": "2026-08-13T05:24:37Z",
       "canonical_google": "https://deadends.dev/flutter/",
       "verdict": "unknown"
     },
@@ -261,7 +269,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-28T18:12:29Z",
+      "last_crawl": "2026-08-13T05:59:01Z",
       "canonical_google": "https://deadends.dev/food-safety/",
       "verdict": "unknown"
     },
@@ -271,7 +279,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T22:40:24Z",
+      "last_crawl": "2026-08-12T08:41:04Z",
       "canonical_google": "https://deadends.dev/git/",
       "verdict": "unknown"
     },
@@ -281,7 +289,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T11:32:11Z",
+      "last_crawl": "2026-08-13T00:08:49Z",
       "canonical_google": "https://deadends.dev/go/",
       "verdict": "unknown"
     },
@@ -291,7 +299,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T10:39:25Z",
+      "last_crawl": "2026-08-13T05:41:42Z",
       "canonical_google": "https://deadends.dev/grpc/",
       "verdict": "unknown"
     },
@@ -301,18 +309,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T14:11:28Z",
+      "last_crawl": "2026-08-13T05:17:19Z",
       "canonical_google": "https://deadends.dev/huggingface/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/java/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T00:18:52Z",
+      "canonical_google": "https://deadends.dev/java/",
       "verdict": "unknown"
     },
     {
@@ -321,7 +329,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T10:40:16Z",
+      "last_crawl": "2026-08-13T05:02:12Z",
       "canonical_google": "https://deadends.dev/kafka/",
       "verdict": "unknown"
     },
@@ -331,7 +339,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-15T01:27:44Z",
+      "last_crawl": "2026-08-12T08:38:44Z",
       "canonical_google": "https://deadends.dev/kubernetes/",
       "verdict": "unknown"
     },
@@ -341,7 +349,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-15T10:49:46Z",
+      "last_crawl": "2026-08-13T05:35:51Z",
       "canonical_google": "https://deadends.dev/legal/",
       "verdict": "unknown"
     },
@@ -351,7 +359,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-11T02:44:47Z",
+      "last_crawl": "2026-08-13T04:59:01Z",
       "canonical_google": "https://deadends.dev/llm/",
       "verdict": "unknown"
     },
@@ -361,7 +369,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-28T16:39:25Z",
+      "last_crawl": "2026-08-13T05:31:43Z",
       "canonical_google": "https://deadends.dev/medical/",
       "verdict": "unknown"
     },
@@ -371,7 +379,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-28T18:05:22Z",
+      "last_crawl": "2026-08-13T06:02:18Z",
       "canonical_google": "https://deadends.dev/mental-health/",
       "verdict": "unknown"
     },
@@ -381,28 +389,28 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T10:43:45Z",
+      "last_crawl": "2026-08-13T04:54:41Z",
       "canonical_google": "https://deadends.dev/mongodb/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/networking/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:26:55Z",
+      "canonical_google": "https://deadends.dev/networking/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/nextjs/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:22:32Z",
+      "canonical_google": "https://deadends.dev/nextjs/",
       "verdict": "unknown"
     },
     {
@@ -411,7 +419,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T10:47:19Z",
+      "last_crawl": "2026-08-13T03:05:47Z",
       "canonical_google": "https://deadends.dev/nginx/",
       "verdict": "unknown"
     },
@@ -421,7 +429,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-25T14:37:55Z",
+      "last_crawl": "2026-08-12T08:35:23Z",
       "canonical_google": "https://deadends.dev/node/",
       "verdict": "unknown"
     },
@@ -431,7 +439,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T23:07:54Z",
+      "last_crawl": "2026-08-13T05:43:05Z",
       "canonical_google": "https://deadends.dev/opencv/",
       "verdict": "unknown"
     },
@@ -441,18 +449,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-28T03:11:16Z",
+      "last_crawl": "2026-08-13T06:18:30Z",
       "canonical_google": "https://deadends.dev/pet-safety/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/php/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:05:57Z",
+      "canonical_google": "https://deadends.dev/php/",
       "verdict": "unknown"
     },
     {
@@ -461,7 +469,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T12:32:15Z",
+      "last_crawl": "2026-08-13T05:13:21Z",
       "canonical_google": "https://deadends.dev/pip/",
       "verdict": "unknown"
     },
@@ -471,7 +479,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-10T21:16:20Z",
+      "last_crawl": "2026-08-13T05:09:09Z",
       "canonical_google": "https://deadends.dev/policy/",
       "verdict": "unknown"
     },
@@ -481,7 +489,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T11:27:41Z",
+      "last_crawl": "2026-08-12T08:34:37Z",
       "canonical_google": "https://deadends.dev/python/",
       "verdict": "unknown"
     },
@@ -491,18 +499,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T00:54:25Z",
+      "last_crawl": "2026-08-13T04:55:58Z",
       "canonical_google": "https://deadends.dev/pytorch/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/react/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:14:23Z",
+      "canonical_google": "https://deadends.dev/react/",
       "verdict": "unknown"
     },
     {
@@ -511,7 +519,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-11T22:07:59Z",
+      "last_crawl": "2026-08-13T03:08:31Z",
       "canonical_google": "https://deadends.dev/redis/",
       "verdict": "unknown"
     },
@@ -521,7 +529,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-10T15:05:10Z",
+      "last_crawl": "2026-08-13T00:37:03Z",
       "canonical_google": "https://deadends.dev/ros2/",
       "verdict": "unknown"
     },
@@ -531,7 +539,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-03-22T13:57:46Z",
+      "last_crawl": "2026-08-13T00:46:21Z",
       "canonical_google": "https://deadends.dev/rust/",
       "verdict": "unknown"
     },
@@ -541,7 +549,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-11T07:54:27Z",
+      "last_crawl": "2026-08-13T05:12:20Z",
       "canonical_google": "https://deadends.dev/safety/",
       "verdict": "unknown"
     },
@@ -551,7 +559,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-13T09:06:43Z",
+      "last_crawl": "2026-08-13T02:52:33Z",
       "canonical_google": "https://deadends.dev/security/",
       "verdict": "unknown"
     },
@@ -561,18 +569,18 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T22:16:19Z",
+      "last_crawl": "2026-08-13T04:59:01Z",
       "canonical_google": "https://deadends.dev/tensorflow/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/terraform/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:26:30Z",
+      "canonical_google": "https://deadends.dev/terraform/",
       "verdict": "unknown"
     },
     {
@@ -581,7 +589,7 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-14T23:08:17Z",
+      "last_crawl": "2026-08-13T00:41:26Z",
       "canonical_google": "https://deadends.dev/typescript/",
       "verdict": "unknown"
     },
@@ -591,28 +599,28 @@
       "indexing_state": "INDEXING_ALLOWED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-16T10:29:52Z",
+      "last_crawl": "2026-08-13T05:56:04Z",
       "canonical_google": "https://deadends.dev/unity/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/visa/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T02:00:14Z",
+      "canonical_google": "https://deadends.dev/visa/",
       "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/country/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-12T08:34:37Z",
+      "canonical_google": "https://deadends.dev/country/",
       "verdict": "unknown"
     },
     {
