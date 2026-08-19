@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/br",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/br",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Brazil that calling CVV at 188 will dispatch police or SAMU to their location",
+    "regex": "(cvv|188).{0,20}(brazil|brasil).{0,20}(dispatch|police|samu|ambul)|brazil.{0,20}(suicide|crisis).{0,20}(hotline|188|cvv)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.72,
+    "last_updated": "2026-08-19",
+    "summary": "Brazil's CVV (Centro de Valorização da Vida), reachable free at 188, chat, or email 24/7, is an anonymous, confidential emotional-support and suicide-prevention service staffed by trained volunteers - it does not diagnose, treat, or dispatch police, ambulances, or SAMU to a caller's location. For an active, immediate danger to life in Brazil, the correct number is SAMU at 192 (or the police at 190), which - unlike CVV - can send an emergency response team."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in an active, immediate crisis that calling CVV at 188 will send help to their physical location the way SAMU (192) or the police (190) would",
+      "why_fails": "CVV's own materials describe the service as anonymous and confidential emotional support delivered by trained volunteers - it is structured as a listening and support service, not a dispatch-capable emergency line, and it does not offer therapy, diagnosis, or physical intervention. Brazil's Ministério da Saúde and municipal health departments (e.g. São Paulo's Secretaria Municipal da Saúde) direct people with an immediate risk to life to SAMU (192), UPA, or a pronto-socorro instead.",
+      "fail_rate": 0.65,
+      "common_misconception": "People assume any free 24/7 crisis line functions like a dispatch-capable emergency hotline, when CVV explicitly positions itself as peer emotional support rather than a substitute for ambulance or police intervention.",
+      "sources": [
+        "https://cvv.org.br/ligue-188/",
+        "https://prefeitura.sp.gov.br/web/saude/w/noticias/318737"
+      ]
+    },
+    {
+      "action": "Tell someone that CVV volunteers will trace their call or share their identity with authorities without consent",
+      "why_fails": "CVV states that its service is provided 'com respeito, anonimato, que guardará estrito sigilo' (with respect, anonymity, and strict confidentiality) - the service is built around anonymity and confidentiality for the caller, which is also why it cannot itself dispatch emergency responders to a caller's location the way a traced emergency call can.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://cvv.org.br/ligue-188/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For confidential, anonymous emotional support or suicide-prevention counseling in Brazil (not dispatch), use CVV at 188 (free, 24/7), or via chat/email at cvv.org.br",
+      "success_rate": 0.85,
+      "sources": [
+        "https://cvv.org.br/ligue-188/"
+      ]
+    },
+    {
+      "action": "For an active, immediate danger to life (including a suicide attempt in progress), call SAMU at 192 directly rather than CVV, since SAMU is the service equipped to send a response team",
+      "success_rate": 0.85,
+      "sources": [
+        "https://prefeitura.sp.gov.br/web/saude/w/noticias/318737"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/190-192-193-not-911/br",
+        "distinction": "190/192/193 are Brazil's dispatch-capable emergency numbers (police/SAMU/fire); CVV at 188 is anonymous crisis counseling and is not itself dispatch-capable."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}

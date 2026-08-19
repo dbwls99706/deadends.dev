@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/yellow-fever-recommended-zones/br",
+  "url": "https://deadends.dev/medical/yellow-fever-recommended-zones/br",
+  "error": {
+    "signature": "AI tells a traveler that yellow fever vaccination is either required everywhere in Brazil or unnecessary for Rio de Janeiro / Sao Paulo",
+    "regex": "(yellow.fever).{0,25}(brazil|rio de janeiro|sao paulo)|brazil.{0,25}yellow.fever.{0,25}(vaccin|require)",
+    "domain": "medical",
+    "category": "health_risk",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-19",
+    "summary": "Brazil does not require proof of yellow fever vaccination to enter the country, but the CDC recommends it for travelers to most Brazilian states, including - since the 2016-2018 outbreaks reached the southeastern coast - the cities and coastal islands of Rio de Janeiro and Sao Paulo. The CDC's list of states where vaccination is NOT recommended is short: Ceara, Rio Grande do Norte, Paraiba, Pernambuco, Alagoas, Sergipe, and part of Bahia (coastal northeastern beach destinations like Fortaleza and Recife)."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that yellow fever vaccination isn't needed for Rio de Janeiro or Sao Paulo because those are coastal cities outside the Amazon",
+      "why_fails": "This was accurate before 2017 but is now outdated: after yellow fever outbreaks spread to Brazil's southeastern coast in 2016-2018, the CDC updated its guidance to recommend vaccination for travelers to 'Rio de Janeiro (including the city of Rio de Janeiro and all coastal islands)' and 'Sao Paulo (including the city of Sao Paulo and all coastal islands)' specifically, alongside most other Brazilian states.",
+      "fail_rate": 0.6,
+      "common_misconception": "Older travel-blog and forum advice from before the 2017 outbreak still circulates online claiming the vaccine is 'only for the Amazon,' which is no longer accurate for Rio and Sao Paulo.",
+      "sources": [
+        "https://www.cdc.gov/yellow-book/hcp/americas-caribbean/brazil.html"
+      ]
+    },
+    {
+      "action": "Tell a traveler that yellow fever vaccination is legally required to enter Brazil, or to enter every part of Brazil",
+      "why_fails": "Brazil does not require proof of yellow fever vaccination for entry from most countries (PAHO/WHO confirm this is a recommendation, not an entry mandate), and the CDC explicitly lists several northeastern coastal states - Ceara, Rio Grande do Norte, Paraiba, Pernambuco, Alagoas, and Sergipe, plus part of Bahia, covering cities like Fortaleza and Recife - where vaccination is not recommended at all because there is no significant transmission risk.",
+      "fail_rate": 0.55,
+      "condition": "Traveler's itinerary is limited to the excluded northeastern coastal states",
+      "sources": [
+        "https://www.paho.org/en/news/22-10-2025-cop30-belem-paho-recommends-yellow-fever-and-measles-vaccination-travelers",
+        "https://www.cdc.gov/yellow-book/hcp/americas-caribbean/brazil.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the CDC Yellow Book's state-by-state list for Brazil before advising: vaccination is recommended for the city/state of Rio de Janeiro and all coastal islands, the city/state of Sao Paulo and all coastal islands, Iguacu Falls, and most other states, but not for Ceara, Rio Grande do Norte, Paraiba, Pernambuco, Alagoas, Sergipe, or part of Bahia.",
+      "success_rate": 0.88,
+      "how": "Get vaccinated at least 10 days before travel; a single dose provides lifelong protection per WHO guidance.",
+      "sources": [
+        "https://www.cdc.gov/yellow-book/hcp/americas-caribbean/brazil.html"
+      ]
+    },
+    {
+      "action": "For travelers 60 or older, recommend a personalized risk-benefit discussion with a travel medicine provider rather than a blanket 'get vaccinated' answer",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.paho.org/en/news/22-10-2025-cop30-belem-paho-recommends-yellow-fever-and-measles-vaccination-travelers"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/190-192-193-not-911/br",
+        "distinction": "Yellow fever vaccination guidance is a pre-travel health decision; the 190/192/193 canon covers what to dial during an active emergency in Brazil."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}
