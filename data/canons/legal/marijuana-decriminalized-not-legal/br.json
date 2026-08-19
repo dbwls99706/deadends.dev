@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/marijuana-decriminalized-not-legal/br",
+  "url": "https://deadends.dev/legal/marijuana-decriminalized-not-legal/br",
+  "error": {
+    "signature": "AI tells someone in Brazil that marijuana/cannabis is either fully illegal or fully legal to possess",
+    "regex": "(marijuana|cannabis|maconha|weed).{0,20}(legal|illegal|decriminal).{0,20}brazil|brazil.{0,20}(marijuana|cannabis|maconha).{0,20}(legal|illegal)",
+    "domain": "legal",
+    "category": "criminal_liability",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.72,
+    "last_updated": "2026-08-19",
+    "summary": "On June 26, 2024 Brazil's Supreme Federal Court (STF) ruled in RE 635.659 that possessing up to 40 grams of cannabis or 6 female plants for personal use is not a crime, but it remains an illicit administrative infraction (warnings, community service, or an educational program) rather than being legalized outright - selling, trafficking, and amounts above the threshold remain criminal offenses. Separately, Congress's PEC 45/2023, which would criminalize possession of any amount of any drug via constitutional amendment, was still moving through the Chamber of Deputies as of this writing and had not been enacted; if it is promulgated it would directly conflict with the STF ruling."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that cannabis is 'legal in Brazil now' because of the 2024 Supreme Court ruling",
+      "why_fails": "The STF's ruling in RE 635.659 (concluded June 26, 2024) removed criminal penalties for possessing up to 40g or 6 female plants for personal use, but the Court explicitly characterized this as an illicit act subject to administrative sanctions (warnings about drug effects, community service, mandatory attendance at an educational program) - not legalization. Cultivation for sale, possession above the threshold, and any commercial sale remain criminal offenses, and no legal retail exists.",
+      "fail_rate": 0.6,
+      "common_misconception": "News headlines shortened the ruling to 'Brazil decriminalizes weed,' which is commonly misread by AI systems and travelers as 'weed is legal,' dropping the distinction between decriminalized-but-illicit and actually legal.",
+      "sources": [
+        "https://www.nbcnews.com/news/latino/brazil-decriminalizes-marijuana-personal-use-rcna159028",
+        "https://en.wikipedia.org/wiki/RE_635659"
+      ]
+    },
+    {
+      "action": "Tell someone that cannabis possession in Brazil is a straightforward criminal offense in all cases, or that the 2024 ruling has no exceptions",
+      "why_fails": "The 40g/6-plant threshold is a presumption, not an absolute rule: per the STF ruling, judges still weigh context (e.g., possession of a scale and sale records alongside 40g pushes a case toward trafficking charges), and quantities above the threshold, or any indication of sale, are prosecuted as trafficking under Law 11.343/2006, which carries serious criminal penalties.",
+      "fail_rate": 0.5,
+      "condition": "Amount is near or above 40g, or other circumstances suggest distribution",
+      "sources": [
+        "https://en.wikipedia.org/wiki/RE_635659"
+      ]
+    },
+    {
+      "action": "Assume the June 2024 decriminalization is Brazil's final, settled legal position on cannabis possession",
+      "why_fails": "Congress reacted to the STF ruling with PEC 45/2023, a constitutional amendment that would criminalize possession of any quantity of any drug, overriding the Court's decision. The Senate approved it in April 2024 and the Chamber's Constitution and Justice Committee approved its admissibility in June 2024, but as of this writing it had not passed a full floor vote in the Chamber or been promulgated - the legal status is not fully stable and should be rechecked before relying on it.",
+      "fail_rate": 0.35,
+      "common_misconception": "Travel advice sites often present the STF ruling as a permanent, unconditional rule without mentioning the pending congressional attempt to override it.",
+      "sources": [
+        "https://www.congressonacional.leg.br/materias/materias-bicamerais/-/ver/pec-45-2023",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2428236"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Explain the actual status accurately: possessing up to 40g or 6 female cannabis plants for personal use is not a crime but is still an illicit administrative infraction (no arrest or criminal record for a first-time small amount, but mandatory warnings/community service/education can apply); selling, trafficking, or exceeding the threshold remains a serious crime; and the legal landscape may shift if Congress's PEC 45/2023 is enacted.",
+      "success_rate": 0.82,
+      "how": "Check the Congresso Nacional's tracking page for PEC 45/2023 for the current legislative status before advising anyone relying on the 2024 STF ruling.",
+      "sources": [
+        "https://www.congressonacional.leg.br/materias/materias-bicamerais/-/ver/pec-45-2023"
+      ]
+    },
+    {
+      "action": "Never carry a scale, baggies, cash in small denominations, or any sale-related item alongside cannabis, since these push a case toward trafficking charges regardless of the amount carried",
+      "success_rate": 0.75,
+      "sources": [
+        "https://en.wikipedia.org/wiki/RE_635659"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-19"
+  }
+}

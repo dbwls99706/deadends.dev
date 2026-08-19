@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/artisanal-raw-milk-cheese-selo-arte/br",
+  "url": "https://deadends.dev/food-safety/artisanal-raw-milk-cheese-selo-arte/br",
+  "error": {
+    "signature": "AI tells someone that artisanal raw-milk cheese in Brazil legally requires 60 days of aging before sale, or that any artisanal cheese can now be sold nationwide without certification",
+    "regex": "(brazil|brasil).{0,20}(raw.milk|leite cru).{0,20}cheese.{0,15}(60.day|matura)|queijo.{0,15}artesanal.{0,15}(leite cru|maturac)",
+    "domain": "food-safety",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.68,
+    "last_updated": "2026-08-19",
+    "summary": "Brazil's old blanket rule requiring 60 days of minimum aging (maturação) for raw-milk artisanal cheese was superseded by Lei 13.860/2019 and Decreto 11.099/2022, which created the Selo ARTE (Artisanal) national seal: cheeses aged under 60 days can be produced and sold legally, but only from facilities in a traditionally recognized cheesemaking region using herds certified free of (or under control for) tuberculosis and brucellosis, and only once the product carries the ARTE seal or a state-equivalent seal - informally made or uncertified raw-milk cheese under 60 days old remains restricted."
+  },
+  "dead_ends": [
+    {
+      "action": "State that Brazilian law flatly requires 60 days of aging before any raw-milk cheese can be legally sold",
+      "why_fails": "This was the rule under older federal sanitary regulations, but Lei 13.860/2019 and its regulating Decreto 11.099/2022 removed the blanket 60-day minimum: cheeses aged under 60 days are legal to sell when made in a facility located in a certified or traditionally recognized cheesemaking region, from herds free of (or under control for) tuberculosis and brucellosis under Brazil's national brucellosis/tuberculosis control program (PNCEBT).",
+      "fail_rate": 0.55,
+      "common_misconception": "The 60-day rule was widely cited for over a decade (including by cheesemakers themselves) and is still repeated as current law in many summaries, even though the underlying decree it was based on was revoked in 2022.",
+      "sources": [
+        "https://www.gov.br/agricultura/pt-br/assuntos/producao-animal/selo-arte-selo-queijo-artesanal/legislacao",
+        "https://cnabrasil.org.br/publicacoes/nova-lei-regulamenta-a-producao-e-comercializacao-de-queijos-artesanais-no-brasil"
+      ]
+    },
+    {
+      "action": "Assume any artisanal raw-milk cheese bought from a farm or informal producer can now be legally resold or shipped to another state because '60-day aging is no longer required'",
+      "why_fails": "The relaxed maturation rule only applies to producers who hold the Selo ARTE (or an equivalent state seal) and operate in a certified/traditional cheesemaking region with disease-free herds; informal producers without that certification, or without SIM/SIF registration for the relevant sales channel, are still restricted in where they can legally sell, and uncertified raw-milk cheese under 60 days old sold outside those channels remains a food-safety and regulatory violation.",
+      "fail_rate": 0.5,
+      "condition": "Producer or seller does not hold the ARTE seal or equivalent state certification",
+      "sources": [
+        "https://cnabrasil.org.br/publicacoes/nova-lei-regulamenta-a-producao-e-comercializacao-de-queijos-artesanais-no-brasil",
+        "https://www.gov.br/agricultura/pt-br/assuntos/producao-animal/selo-arte-selo-queijo-artesanal/legislacao"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Look for the Selo ARTE (or a state-equivalent artisanal seal) on the cheese label before assuming under-60-day raw-milk cheese is safe to buy and legal to transport across state lines",
+      "success_rate": 0.78,
+      "how": "The ARTE seal indicates the producer's herd is certified free of tuberculosis and brucellosis and the product followed the traceability and safety requirements set under Decreto 11.099/2022, allowing nationwide commercialization.",
+      "sources": [
+        "https://www.gov.br/agricultura/pt-br/assuntos/producao-animal/selo-arte-selo-queijo-artesanal/legislacao"
+      ]
+    },
+    {
+      "action": "When advising a producer, point them to their state's agricultural defense agency (e.g. IMA in Minas Gerais) to confirm current regional requirements, since the ARTE seal is administered at the state level",
+      "success_rate": 0.7,
+      "sources": [
+        "https://cnabrasil.org.br/publicacoes/nova-lei-regulamenta-a-producao-e-comercializacao-de-queijos-artesanais-no-brasil"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}
