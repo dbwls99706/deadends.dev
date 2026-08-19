@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/deposit-return-any-retailer/at",
+  "url": "https://deadends.dev/policy/deposit-return-any-retailer/at",
+  "error": {
+    "signature": "AI tells someone in Austria they can only return Einwegpfand deposit bottles/cans to the exact store they bought them from, with a receipt, or via any vending machine",
+    "regex": "(austria.*pfand|einwegpfand|austria.*bottle.deposit|austria.*can.deposit|pfandflasche)",
+    "domain": "policy",
+    "category": "regulatory_misconception",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-19",
+    "summary": "Since 1 January 2025, Austria's Einwegpfand system charges EUR 0.25 deposit on closed plastic bottles and metal cans (0.1-3L). Per oesterreich.gv.at and Wien's city government, any retailer that sells deposit-marked packaging must take back that same packaging type - not only the specific branch where it was purchased - and no receipt is required. Small kiosks and sausage stands (Trafiken, Wurstelstande) only owe returns up to their usual sales volume, or may hand the obligation to a partnered supermarket; standalone beverage vending machines and postal/parcel couriers are excluded from the take-back duty entirely."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a Pfand bottle can only be returned to the exact branch/receipt it was bought from, and throw it away elsewhere instead of carrying it to another store",
+      "why_fails": "oesterreich.gv.at states any point of sale that dispenses deposit-marked packaging (Alle Verkaufsstellen, die mit dem Pfandlogo gekennzeichnete Einwegpfandverpackungen ausgeben) must take it back, and no receipt is required - the obligation attaches to selling that packaging type, not to the individual transaction.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.oesterreich.gv.at/de/themen/umwelt_und_klima/klima_und_umweltschutz/einwegpfandsystem",
+        "https://www.wien.gv.at/umwelt/einwegpfand"
+      ],
+      "common_misconception": "Deposit systems in some other countries (or Austria's own pre-2025 multi-use Mehrweg system for beer/water crates) are tied to the specific retailer's own brand, so travelers assume the new Einwegpfand works the same way."
+    },
+    {
+      "action": "Try to return deposit bottles at a standalone beverage vending machine (Getrankeautomat) or hand them to a postal/parcel courier, expecting the deposit back",
+      "why_fails": "Wien's city government page explicitly excludes Getrankeautomaten and Post- und Paketzustellerinnen from the Rucknahmepflicht (take-back obligation) - only staffed points of sale or dedicated return machines inside stores accept returns.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.wien.gv.at/umwelt/einwegpfand"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Return deposit-marked bottles and cans to any store that sells that same packaging type - supermarket, kiosk, or gas station - without needing a receipt",
+      "success_rate": 0.85,
+      "how": "Look for the Austrian deposit logo and EAN barcode on the container; hand it back manually to staff or use an in-store Rucknahme-Automat. Small operators like Trafiken and Wurstelstande are only required to take back the usual sales quantity, or may direct you to a partnered larger retailer.",
+      "sources": [
+        "https://www.oesterreich.gv.at/de/themen/umwelt_und_klima/klima_und_umweltschutz/einwegpfandsystem",
+        "https://www.wko.at/tourismus-freizeitwirtschaft/pfand-auf-bestimmte-getraenkeverpackungen"
+      ]
+    },
+    {
+      "action": "Keep the container empty, uncrumpled, and with a readable label and visible deposit logo before attempting a return",
+      "success_rate": 0.8,
+      "how": "Automated Rucknahme-Automaten scan the barcode and reject damaged, crushed, or unlabeled packaging; manual returns at a till are more forgiving but staff can still refuse packaging with no visible deposit logo.",
+      "sources": [
+        "https://www.oesterreich.gv.at/de/themen/umwelt_und_klima/klima_und_umweltschutz/einwegpfandsystem"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}

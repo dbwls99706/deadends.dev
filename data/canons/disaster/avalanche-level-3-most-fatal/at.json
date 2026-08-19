@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/avalanche-level-3-most-fatal/at",
+  "url": "https://deadends.dev/disaster/avalanche-level-3-most-fatal/at",
+  "error": {
+    "signature": "AI treats Austria's avalanche danger level 3 (considerable/erheblich) as a moderate, low-risk condition for ski touring",
+    "regex": "(austria.*avalanche|lawinenwarnstufe|avalanche.*danger.*level.*3|erheblich.*lawine|considerable.*avalanche)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-08-19",
+    "summary": "Austria uses the 5-level European avalanche danger scale (1 low - 5 very high), with warnings issued per federal state and published via Lawineninfo Osterreich. Per OKAS's 10-year accident analysis (2013/14-2022/23), danger level 3 (considerable/Erheblich) - the middle level, which the English name makes sound moderate - accounts for 54% of Austrian avalanche accidents, far more than level 4 (7%) or level 2 (22%); most touring parties who trigger fatal slides do so at level 3, not at the higher-numbered levels they instinctively fear more."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat danger level 3 ('considerable'/Erheblich) as a green light for ski touring because it is only the middle of a 5-point scale and the English word 'considerable' does not sound alarming",
+      "why_fails": "OKAS's decade-long accident analysis shows level 3 accounts for 54% of Austrian avalanche accidents on a 10-year average, and in the February 2023 period two of seven fatal accidents occurred at level 3 - by far the most dangerous single level in practice, precisely because it is the most commonly issued rating that still invites touring.",
+      "fail_rate": 0.54,
+      "sources": [
+        "https://alpinesicherheit.at/lawinenunfaelle-analyse-fachwissen-0223/"
+      ],
+      "common_misconception": "Non-German speakers read '3 out of 5, considerable' as roughly 'medium risk, proceed with normal caution,' when OKAS and EAWS data show it is the level most associated with human-triggered fatal avalanches."
+    },
+    {
+      "action": "Check only a single national or generic snow-forecast app instead of the official regional Lawinenwarndienst for the specific federal state being visited",
+      "why_fails": "Avalanche warnings in Austria are issued independently per Bundesland (federal state) rather than nationally; oesterreich.gv.at directs users to Lawineninfo Osterreich and the EAWS regional bulletins because a single blanket rating does not exist and danger can differ sharply between neighboring valleys.",
+      "fail_rate": 0.35,
+      "condition": "Touring near a state border or relying on a non-Austrian weather app",
+      "sources": [
+        "https://www.oesterreich.gv.at/de/themen/notfaelle_unfaelle_und_kriminalitaet/katastrophenfaelle/2/Seite.29500314",
+        "https://www.avalanches.org/standards/danger-scale/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the region-specific bulletin on Lawineninfo Osterreich or the relevant Bundesland's Lawinenwarndienst before touring, and treat level 3 with the same route-choice discipline as level 4",
+      "success_rate": 0.7,
+      "how": "EAWS's official scale defines level 3 as conditions where avalanches can be triggered by a single backcountry traveler on many slopes; OKAS recommends avoiding slopes over roughly 35 degrees and steep terrain traps at level 3 rather than treating it as routine.",
+      "sources": [
+        "https://www.avalanches.org/standards/danger-scale/",
+        "https://alpinesicherheit.at/lawinenunfaelle-analyse-fachwissen-0223/"
+      ],
+      "tradeoff": "This still requires the traveler to read and correctly interpret the regional bulletin in German or via EAWS's translated summaries; it does not eliminate risk, only reduces exposure at the level where most accidents cluster."
+    },
+    {
+      "action": "Carry standard avalanche safety equipment (transceiver, probe, shovel) and take a companion-rescue course before touring at level 3 or above, rather than relying on the number alone",
+      "success_rate": 0.6,
+      "how": "OKAS's accident data is drawn from parties triggering slides themselves, not passive exposure, so terrain choice and group behavior at level 3 matter more than the label; equipment and rescue skills reduce burial time in the event of a trigger.",
+      "sources": [
+        "https://alpinesicherheit.at/lawinenunfaelle-analyse-fachwissen-0223/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}
