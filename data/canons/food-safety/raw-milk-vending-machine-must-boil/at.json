@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-milk-vending-machine-must-boil/at",
+  "url": "https://deadends.dev/food-safety/raw-milk-vending-machine-must-boil/at",
+  "error": {
+    "signature": "AI tells a tourist that raw milk from an Austrian farm vending machine (Milchautomat) is safe to drink straight",
+    "regex": "(austria.*raw.milk|austria.*milchautomat|rohmilch.*automat|austria.*milk.vending)",
+    "domain": "food-safety",
+    "category": "food_safety_hazard",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-08-19",
+    "summary": "Austria's Rohmilchverordnung (BGBl. II Nr. 106/2006, Section 5) legally requires raw milk sold directly to consumers - including via farm vending machines (Milchautomaten) - to carry the warning 'Rohmilch, vor dem Verzehr abkochen' (raw milk, boil before consumption). AGES, Austria's food safety agency, confirms unpasteurized milk can carry Listeria, Campylobacter, and STEC even from hygienic operations, and the warning must be posted clearly at the machine."
+  },
+  "dead_ends": [
+    {
+      "action": "Drink raw milk straight from a farm vending machine because it is legally sold to the public and assumed pasteurized like supermarket milk",
+      "why_fails": "Section 5 of the Rohmilchverordnung (BGBl. II Nr. 106/2006) explicitly classifies vending-machine milk as raw and mandates the posted warning 'Rohmilch, vor dem Verzehr abkochen'; AGES confirms it can carry Listeria, Campylobacter, and STEC regardless of how clean the dispensing operation looks, and is not equivalent to pasteurized shop milk.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20004644",
+        "https://www.ages.at/mensch/ernaehrung-lebensmittel/lebensmittelinformationen/milch"
+      ],
+      "common_misconception": "A coin-operated dispenser next to a supermarket-style dairy fridge reads as an industrial, pasteurized product to visitors unfamiliar with direct-marketing rules for farm milk."
+    },
+    {
+      "action": "Assume the boil-before-consumption warning is only a suggestion or liability disclaimer rather than a legal labeling requirement",
+      "why_fails": "The warning text and its placement (posted visibly at the machine for open raw milk not consumed on the spot) is a statutory Kennzeichnung requirement under Section 5 of the Rohmilchverordnung, not optional signage; regional food-safety authorities such as the OO food inspection association confirm inspectors check for exactly this posting.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20004644",
+        "https://www.lebensmittelaufsicht-oberoesterreich.org/abgabe-von-rohmilch/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Boil raw milk from a Milchautomat before drinking it, or buy pasteurized (pasteurisiert/homogenisiert) milk from a supermarket instead",
+      "success_rate": 0.95,
+      "how": "Bring the milk to a rolling boil as instructed by the posted 'vor dem Verzehr abkochen' notice before drinking; this is the same guidance AGES gives to reduce the Listeria/Campylobacter/STEC risk from unpasteurized milk.",
+      "sources": [
+        "https://www.ages.at/mensch/ernaehrung-lebensmittel/lebensmittelinformationen/milch"
+      ]
+    },
+    {
+      "action": "Check for the posted warning sign at the vending machine before buying, and avoid raw milk entirely if traveling with young children, pregnant women, elderly, or immunocompromised people",
+      "success_rate": 0.85,
+      "how": "AGES specifically flags these groups as higher-risk for severe outcomes from raw-milk pathogens; the presence of the mandated warning sign is itself confirmation the product is unpasteurized.",
+      "sources": [
+        "https://www.ages.at/mensch/ernaehrung-lebensmittel/lebensmittelinformationen/milch"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}

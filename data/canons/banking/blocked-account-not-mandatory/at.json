@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/blocked-account-not-mandatory/at",
+  "url": "https://deadends.dev/banking/blocked-account-not-mandatory/at",
+  "error": {
+    "signature": "AI tells an Austria student-visa applicant they must open a German-style Sperrkonto blocked account",
+    "regex": "(austria.*sperrkonto|austria.*blocked.account|vienna.*blocked.account|austria.*student.*visa.*bank|aufenthaltsbewilligung.*sperrkonto)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-19",
+    "last_confirmed": "2026-08-19"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-19",
+    "summary": "Austria has no legal requirement to open a blocked account (Sperrkonto) for the Aufenthaltsbewilligung - Studierende residence permit, unlike Germany. Applicants must show proof of Unterhaltsmittel (means of subsistence) of EUR 722.58/month (under 24) or EUR 1,308.39/month (24+) as of January 2026, but migration.gv.at, oesterreich.gv.at, and OeAD accept salary slips, employment confirmations, pension/insurance statements, proof of investment capital or personal assets, 6 months of bank statements, or a Haftungserklarung (third-party liability declaration) - a Sperrkonto is one option among several, not mandatory."
+  },
+  "dead_ends": [
+    {
+      "action": "Delay or abandon the Aufenthaltsbewilligung - Studierende application because you can't afford to lock 12 months of funds into a blocked account, believing a Sperrkonto is the only accepted proof of Unterhaltsmittel",
+      "why_fails": "migration.gv.at and oesterreich.gv.at do not list a blocked account among accepted proof of means; wage slips, employment confirmations, pension/insurance statements, proof of investment capital, or a Haftungserklarung are explicitly accepted instead, so the monthly threshold can be met without locking funds away in a blocked account.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.migration.gv.at/de/formen-der-zuwanderung/temporaerer-aufenthalt/",
+        "https://www.oesterreich.gv.at/de/themen/menschen_aus_anderen_staaten/aufenthalt/3/2/1/1/Seite.120121"
+      ],
+      "common_misconception": "Applicants who researched Germany's Sperrkonto process (mandatory there) assume Austria works the same way since both are German-speaking neighbors with similar-looking immigration bureaucracy."
+    },
+    {
+      "action": "Reuse Germany-focused blocked-account guides (Fintiba/Expatrio marketing pages) for Austria, including Germany's separate annual deposit figure",
+      "why_fails": "Austria's own monthly Unterhaltsmittel thresholds (EUR 722.58 under 24 / EUR 1,308.39 24+, as of Jan 2026) are set by migration.gv.at and differ from Germany's blocked-account benchmark, and Austria has no Sperrkonto mandate at all - commercial guides conflate the two countries because the same private providers market blocked-account products in both markets.",
+      "fail_rate": 0.4,
+      "condition": "Researching via a commercial blocked-account provider's website rather than migration.gv.at or oead.at",
+      "sources": [
+        "https://www.migration.gv.at/de/formen-der-zuwanderung/temporaerer-aufenthalt/",
+        "https://oead.at/de/nach-oesterreich/einreise-und-aufenthalt/aufenthaltsbewilligung-student-kein-mobilitaetsprogramm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Submit a Haftungserklarung from a qualifying sponsor, or provide 6-12 months of personal bank statements plus an employer/pension confirmation, instead of opening a blocked account",
+      "success_rate": 0.8,
+      "how": "OeAD's guidance lists accepted evidence of Unterhaltsmittel origin: savings, loan, scholarship, sale of property, inheritance, 6 months of account statements with deposit records, or an employment contract with the last 6 payslips; gather whichever applies and submit it with the Aufenthaltsbewilligung application.",
+      "sources": [
+        "https://oead.at/de/nach-oesterreich/einreise-und-aufenthalt/aufenthaltsbewilligung-student-kein-mobilitaetsprogramm"
+      ],
+      "tradeoff": "A Haftungserklarung requires a sponsor with sufficient income or assets who becomes jointly liable for costs; without one, the applicant's own funds still need to clear the monthly threshold for the full 12 months."
+    },
+    {
+      "action": "Check the current monthly Unterhaltsmittel rate on migration.gv.at before relying on any cached figure, since the threshold is revised every January and does not match Germany's separate blocked-account benchmark",
+      "success_rate": 0.75,
+      "how": "migration.gv.at publishes the updated monthly amounts (tied to the Ausgleichszulage reference rate) each January; confirm the current figure rather than reusing a number from an older blog post.",
+      "sources": [
+        "https://www.migration.gv.at/de/formen-der-zuwanderung/temporaerer-aufenthalt/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-19",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-19"
+  }
+}
