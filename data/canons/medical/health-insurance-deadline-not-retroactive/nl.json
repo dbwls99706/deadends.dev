@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/health-insurance-deadline-not-retroactive/nl",
+  "url": "https://deadends.dev/medical/health-insurance-deadline-not-retroactive/nl",
+  "error": {
+    "signature": "AI tells a new arrival in the Netherlands that the four-month window to arrange Dutch health insurance is a grace period during which they are still covered",
+    "regex": "(netherlands.{0,40}health insurance.{0,40}(deadline|retroactive|backdate|four months)|zorgverzekering.{0,30}(4 maanden|terugwerkende kracht)|dutch basisverzekering deadline|cak.{0,20}(fine|boete).{0,20}uninsured)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-20",
+    "summary": "Everyone who lives or works in the Netherlands must take out Dutch basic health insurance, and has four months to arrange it. The four months are a deadline, not a covered grace period. Enrol inside the window and the policy starts on the date your insurance obligation began - retroactively, with premiums owed back to that date. Miss it and there is no backdating at all: cover starts the day you sign, and Rijksoverheid is explicit that for care needed while uninsured, 'als u zorg nodig hebt, betaalt u de kosten zelf'. The CAK then escalates - a fine of EUR 529.74 in 2026, a second fine three months later, and finally a policy taken out on your behalf."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat the four-month window as insured time and postpone buying a policy, expecting cover to be backdated whenever you get around to it",
+      "why_fails": "Rijksoverheid states you have four months to take out health insurance, and that if you enrol later the cover simply starts from the enrolment date: 'Als u zorg nodig hebt, betaalt u de kosten zelf.' Government.nl puts it the same way - after four months you are not insured retroactively and are not reimbursed for care received in the gap. A hospital admission in month five is billed to you personally.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.rijksoverheid.nl/onderwerpen/immigratie-naar-nederland/vraag-en-antwoord/moet-ik-een-zorgverzekering-afsluiten-als-ik-in-nederland-ga-werken",
+        "https://www.government.nl/topics/health-insurance/standard-health-insurance/taking-out-compulsory-health-insurance"
+      ],
+      "condition": "Enrolment after the four-month deadline",
+      "common_misconception": "That the deadline works like Switzerland's, where enrolling late still backdates cover to the arrival date."
+    },
+    {
+      "action": "Wait for the CAK's letter to act as the reminder, and treat its fine as the worst case",
+      "why_fails": "The CAK fine is EUR 529.74 in 2026, made up of three times EUR 176.58, and a second fine follows if you are still uninsured three months after the first. If you still do not enrol, the CAK takes out a policy on your behalf - on its terms, not yours - while none of the care you needed during the uninsured months becomes reimbursable.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.hetcak.nl/en/uninsured/received-fine/",
+        "https://www.rijksoverheid.nl/onderwerpen/immigratie-naar-nederland/vraag-en-antwoord/moet-ik-een-zorgverzekering-afsluiten-als-ik-in-nederland-ga-werken"
+      ],
+      "condition": "Registered with a municipality but still uninsured"
+    },
+    {
+      "action": "Assume that enrolling inside the four-month window means you only start paying premium from the day you sign",
+      "why_fails": "When the policy is backdated to the start of your insurance obligation, the premium is backdated with it: Rijksoverheid states that in that case 'moet hij ook met terugwerkende kracht premie betalen aan zijn zorgverzekeraar'. Budget for several months of premium arriving as one bill.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.rijksoverheid.nl/onderwerpen/zorgverzekering/vraag-en-antwoord/kan-ik-een-zorgverzekering-afsluiten-als-ik-nog-geen-verblijfsvergunning-heb"
+      ],
+      "condition": "On-time enrolment after a delay of some weeks"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Arrange Dutch basic insurance in the first weeks after you arrive or start work, not in month four",
+      "success_rate": 0.9,
+      "how": "Government.nl: 'Everyone who lives or works in the Netherlands is obliged to take out health insurance', and the standard package is the compulsory one. Enrolling early keeps the backdated premium small and closes the uninsured gap before any care is needed.",
+      "sources": [
+        "https://www.government.nl/topics/health-insurance/standard-health-insurance/taking-out-compulsory-health-insurance",
+        "https://www.rijksoverheid.nl/onderwerpen/immigratie-naar-nederland/vraag-en-antwoord/moet-ik-een-zorgverzekering-afsluiten-als-ik-in-nederland-ga-werken"
+      ],
+      "condition": "New resident or worker"
+    },
+    {
+      "action": "If the deadline has already passed, enrol immediately anyway rather than waiting for the CAK process to run its course",
+      "success_rate": 0.7,
+      "tradeoff": "Enrolling now stops the fines and starts cover, but nothing recovers the care costs from the uninsured period - those stay yours.",
+      "sources": [
+        "https://www.hetcak.nl/en/uninsured/received-fine/"
+      ],
+      "condition": "Already past the four-month deadline"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "policy/rni-desk-restricted-for-non-eu/nl",
+        "probability": 0.4,
+        "condition": "the BSN and municipal registration usually come first and start this clock"
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/health-insurance-deadline-not-retroactive/ch",
+        "distinction": "Switzerland backdates cover to the arrival date when you enrol inside its three-month window; the Netherlands has a four-month window and, once missed, no backdating whatsoever."
+      },
+      {
+        "error_id": "medical/ehic-non-eu-ineligible/nl",
+        "distinction": "This canon covers the residents' obligation to buy Dutch insurance; the EHIC canon covers short-stay visitors relying on a European card."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-20"
+  }
+}

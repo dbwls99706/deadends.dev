@@ -8,7 +8,7 @@
     "domain": "go",
     "category": "packages",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-20"
   },
   "environment": {
     "runtime": {
@@ -21,25 +21,26 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.94,
-    "last_updated": "2026-02-11",
-    "summary": "Go packages have a circular dependency - package A imports B and B imports A."
+    "last_updated": "2026-08-20",
+    "summary": "Go packages have a circular dependency - package A imports B and B imports A. The Go specification makes this illegal outright: a package may not import itself, directly or indirectly."
   },
   "dead_ends": [
     {
       "action": "Merging the packages into one",
-      "why_fails": "Creates a monolithic package; violates separation of concerns",
+      "why_fails": "Merging removes the cycle by removing the boundary, producing one large package whose internals are all mutually visible. Effective Go's package guidance points the other way - toward small, well-named packages - and the merged package tends to accumulate the next cycle internally instead.",
       "fail_rate": 0.55,
       "sources": [
-        "https://pkg.go.dev/cmd/go#hdr-Add_dependencies_to_current_module_and_install_them"
+        "https://go.dev/doc/effective_go#package-names"
       ],
       "condition": ""
     },
     {
       "action": "Using go:linkname to access unexported symbols",
-      "why_fails": "Compiler directive abuse; breaks with Go updates",
+      "why_fails": "//go:linkname deliberately bypasses encapsulation and even type safety, which is why the compiler only honours it in files that import \"unsafe\". It is also actively being closed off: since Go 1.23 the linker disallows //go:linkname references to standard-library internal symbols that are not themselves marked, so new uses break on upgrade.",
       "fail_rate": 0.9,
       "sources": [
-        "https://pkg.go.dev/cmd/go#hdr-Add_dependencies_to_current_module_and_install_them"
+        "https://pkg.go.dev/cmd/compile#hdr-Linkname_Directive",
+        "https://go.dev/doc/go1.23"
       ],
       "condition": ""
     }
@@ -50,6 +51,7 @@
       "success_rate": 0.95,
       "how": "Create a types or models package with the shared definitions",
       "sources": [
+        "https://go.dev/ref/spec#Import_declarations",
         "https://go.dev/doc/effective_go#package-names"
       ],
       "condition": ""
@@ -77,6 +79,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-20"
   }
 }

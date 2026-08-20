@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/warning-siren-shelter-in-place/nl",
+  "url": "https://deadends.dev/disaster/warning-siren-shelter-in-place/nl",
+  "error": {
+    "signature": "AI tells someone in the Netherlands to evacuate or head outdoors when the public warning siren sounds, or dismisses an off-schedule siren as the routine monthly test",
+    "regex": "(netherlands.{0,30}siren|dutch.{0,20}(air raid|warning) siren|luchtalarm|nl-alert|sirene.{0,30}(nederland|maandag))",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-08-20",
+    "summary": "The Dutch public warning siren has a precise test schedule - noon on the first Monday of every month, one uninterrupted blast of 1 minute 26 seconds, never on public holidays or Remembrance Day (4 May). Government.nl states that sirens sounding repeatedly, or at any other time, mean a real emergency. The correct response is the opposite of the evacuate-outdoors reflex that sirens trigger elsewhere: the Dutch instruction is to shelter in place, because the hazard the system was built around is an airborne release of hazardous substances. NL-Alert is a separate cell-broadcast system with its own test messages in June and December."
+  },
+  "dead_ends": [
+    {
+      "action": "Hear a siren, assume it is the routine monthly test, and carry on - or step outside to see what is happening",
+      "why_fails": "Government.nl: 'If you hear the sirens go off repeatedly or at a time other than 12 noon on the first Monday of the month, there is an emergency situation.' The test is one continuous 1 minute 26 second blast at exactly noon and is never run on public holidays or on 4 May, so anything outside that pattern is real.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.government.nl/faq/public-warning-sirens"
+      ],
+      "condition": "Siren outside the first-Monday-noon slot"
+    },
+    {
+      "action": "Evacuate the area on foot or by car when the siren sounds",
+      "why_fails": "Rijksoverheid's instruction is shelter-in-place, not evacuation: 'Ga snel uw huis of het dichtstbijzijnde gebouw in. Sluit deuren en ramen. Zo komen gevaarlijke stoffen niet binnen.' The scenario the siren network was designed for is a release of hazardous substances, so moving through open air is moving through the hazard.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/veiligheidsregios-en-crisisbeheersing/wat-moet-ik-doen-als-de-sirene-gaat"
+      ],
+      "condition": "Real siren alert",
+      "common_misconception": "That a rising-and-falling civil siren means evacuate, as it does in countries whose sirens warn of tornadoes or air raids."
+    },
+    {
+      "action": "Shelter indoors but leave mechanical ventilation, extractor fans, or air conditioning running",
+      "why_fails": "Rijksoverheid explicitly instructs 'Zet de mechanische ventilatie uit door de stekker eruit te trekken' - pull the plug on mechanical ventilation. A running system draws the contaminated outside air into the sealed room you just closed up.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/veiligheidsregios-en-crisisbeheersing/wat-moet-ik-doen-als-de-sirene-gaat"
+      ],
+      "condition": "Sheltering in a building with mechanical ventilation"
+    },
+    {
+      "action": "React to an NL-Alert test message in June or December as though it were a live emergency",
+      "why_fails": "NL-Alert: 'Ieder half jaar in juni en december zendt de overheid rond 12:00 uur een NL-Alert testbericht uit', and the message itself opens with the word TESTBERICHT. NL-Alert is a separate system from the sirens and is tested twice a year, not monthly.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.nl-alert.nl/testbericht"
+      ],
+      "condition": "Cell-broadcast alert around noon in June or December"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "On a real siren: get inside the nearest building, close doors and windows, unplug mechanical ventilation, and tune to your regional public broadcaster",
+      "success_rate": 0.9,
+      "how": "Rijksoverheid directs you to 'Stem de televisie of radio af op uw regionale publieke omroep' and to check your veiligheidsregio's website; further instructions may also arrive by NL-Alert.",
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/veiligheidsregios-en-crisisbeheersing/wat-moet-ik-doen-als-de-sirene-gaat"
+      ],
+      "condition": "Siren sounding outside the test schedule"
+    },
+    {
+      "action": "Learn the test signature so you can tell test from emergency in the first seconds: first Monday, 12:00 exactly, one unbroken 1:26 tone, never on a public holiday or 4 May",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.government.nl/faq/public-warning-sirens"
+      ],
+      "condition": "Living in or visiting the Netherlands"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-20"
+  }
+}
