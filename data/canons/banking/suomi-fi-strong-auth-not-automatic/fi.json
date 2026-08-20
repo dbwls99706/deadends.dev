@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/suomi-fi-strong-auth-not-automatic/fi",
+  "url": "https://deadends.dev/banking/suomi-fi-strong-auth-not-automatic/fi",
+  "error": {
+    "signature": "AI assumes a Finnish personal identity code alone grants access to Suomi.fi digital government services via strong authentication",
+    "regex": "(suomi\\.fi|vahva tunnistautuminen|mobiilivarmenne|finnish strong authentication|pankkitunnukset)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-20",
+    "summary": "Suomi.fi (Finland's digital-services portal) requires one of a short list of strong-authentication tools: bank-issued online banking credentials, a telecom mobile certificate, the hightrust.id app, or a DVV certificate card. A Finnish personal identity code (hetu) is a prerequisite to apply for these but is not itself a login credential. The mobile certificate route is a dead end for newcomers because it requires already holding Finnish bank credentials plus a postpaid mobile subscription, so opening a bank account in person is the practical first step to strong authentication."
+  },
+  "dead_ends": [
+    {
+      "action": "Try to activate a mobiilivarmenne (mobile certificate) as the first strong-authentication method, before holding a Finnish bank account",
+      "why_fails": "Suomi.fi's own setup instructions state you need 'suomalaiset pankkitunnukset, jotka tarvitset henkilollisyytesi todentamiseen kayttoonoton yhteydessa' (Finnish bank credentials, needed to verify your identity during setup) to activate a mobile certificate, and that a prepaid subscription disqualifies you - only postpaid plans from DNA, Elisa, or Telia are accepted. It cannot be anyone's entry point into strong authentication.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.suomi.fi/ohjeet-ja-tuki/tunnistus/tietoa-suomi-fi-tunnistuksessa-kaytossa-olevista-tunnistusvalineista/mobiilivarmenteen-kayttoonotto"
+      ],
+      "condition": "No existing Finnish bank credentials"
+    },
+    {
+      "action": "Assume a Finnish personal identity code by itself lets you log into Suomi.fi e-services",
+      "why_fails": "Suomi.fi lists the accepted strong-authentication tools as Finnish bank credentials, mobile certificate, the hightrust.id app, or a DVV certificate card; a hetu lets you apply for these but grants no login on its own.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.suomi.fi/ohjeet-ja-tuki/tunnistus/tietoa-suomi-fi-tunnistuksessa-kaytossa-olevista-tunnistusvalineista"
+      ],
+      "condition": "Newcomer with a hetu but no bank account yet"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Open a Finnish bank account in person, using your hetu, passport, and proof of address, to obtain bank-issued online banking credentials (pankkitunnukset) - the fastest route to a first strong-authentication tool",
+      "success_rate": 0.85,
+      "how": "Once you hold pankkitunnukset you can also activate a mobile certificate with a postpaid subscription if you want a second authentication tool for your phone.",
+      "sources": [
+        "https://www.suomi.fi/ohjeet-ja-tuki/tunnistus/tietoa-suomi-fi-tunnistuksessa-kaytossa-olevista-tunnistusvalineista"
+      ],
+      "condition": "Has a hetu, needs first strong-auth credential"
+    },
+    {
+      "action": "If you do not yet have a hetu at all, use DVV's Finnish Authenticator app for remote identity verification into a limited set of e-services such as Suomi.fi e-Authorizations",
+      "success_rate": 0.6,
+      "how": "Register a foreigner identifier and verify identity with a passport photo and a selfie inside the app; DVV notes this method does not meet the eIDAS 'high' assurance level, so some services will still be out of reach.",
+      "tradeoff": "Lower assurance level than bank credentials means some high-security services (e.g. certain tax and benefits actions) remain unavailable through this route.",
+      "sources": [
+        "https://dvv.fi/en/finnish-authenticator-identification-service1"
+      ],
+      "condition": "No hetu and no Finnish bank account"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/personal-identity-code-required/fi",
+        "distinction": "This canon covers which strong-authentication tool works once you have a hetu; the other covers getting the hetu itself."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-20"
+  }
+}
