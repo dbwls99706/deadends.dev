@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/gp-gatekeeper-referral-required/nl",
+  "url": "https://deadends.dev/medical/gp-gatekeeper-referral-required/nl",
+  "error": {
+    "signature": "AI tells someone in the Netherlands to book a medical specialist directly, or to go to a hospital emergency department for a complaint that is not urgent",
+    "regex": "(netherlands.{0,40}(specialist|dermatologist|referral)|huisarts|verwijsbrief|huisartsenpost|dutch (gp|doctor).{0,30}(referral|specialist))",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-20",
+    "summary": "Dutch health care is gatekept by the huisarts (GP). Zorginstituut Nederland states you cannot simply make an appointment with a medical specialist - a referral from a doctor is always required - and the GP may refuse one if convinced it would serve no medical purpose. Going to a specialist without a valid referral can leave you paying for the treatment yourself. The routing also has a cost consequence: GP care, including the out-of-hours huisartsenpost, is exempt from the compulsory eigen risico (EUR 385 in 2026), while medisch-specialistische zorg - which is what a hospital emergency department delivers - falls under it."
+  },
+  "dead_ends": [
+    {
+      "action": "Phone a Dutch hospital or specialist clinic and book an appointment directly, the way you would in a country with open specialist access",
+      "why_fails": "Zorginstituut Nederland: 'U kunt niet zomaar een afspraak maken met een medisch specialist. U hebt altijd een verwijzing nodig van een arts.' Rijksoverheid adds that without a valid referral letter you may have to pay for the treatment yourself, and your policy specifies who is allowed to refer you.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.zorginstituutnederland.nl/verzekerde-zorg/m/medisch-specialistische-zorg-zvw",
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/eerstelijnszorg/wanneer-heb-ik-een-verwijsbrief-van-mijn-huisarts-nodig-en-wanneer-mag-hij-deze-weigeren"
+      ],
+      "condition": "Non-urgent specialist care"
+    },
+    {
+      "action": "Go to the hospital emergency department (spoedeisende hulp) out of hours for a non-emergency complaint instead of calling the huisartsenpost",
+      "why_fails": "Rijksoverheid lists 'huisartsenzorg (waaronder de huisartsenpost)' among the care exempt from the compulsory eigen risico, which is EUR 385 in 2026, while Zorginstituut Nederland states that 'de kosten voor medisch-specialistische zorg vallen onder het verplichte eigen risico'. The same complaint therefore costs nothing through the out-of-hours GP post and up to the full deductible through the hospital.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/zorgverzekering/eigen-risico-zorgverzekering",
+        "https://www.zorginstituutnederland.nl/verzekerde-zorg/m/medisch-specialistische-zorg-zvw"
+      ],
+      "condition": "Non-urgent complaint outside GP office hours",
+      "common_misconception": "That a Dutch emergency department is the fast lane around the GP; it is the expensive lane, and it is meant for genuine emergencies."
+    },
+    {
+      "action": "Assume the GP must write the referral you ask for if you insist",
+      "why_fails": "Rijksoverheid: 'De huisarts weigert een verwijzing als hij ervan overtuigd is dat deze voor u niet zinvol is.' The GP must explain the refusal, but the decision is clinical and is not a customer-service negotiation.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/eerstelijnszorg/wanneer-heb-ik-een-verwijsbrief-van-mijn-huisarts-nodig-en-wanneer-mag-hij-deze-weigeren"
+      ],
+      "condition": "Patient-requested referral the GP judges unnecessary"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register with a huisarts as soon as you arrive and route every non-urgent complaint through them; outside office hours use the huisartsenpost, not the hospital",
+      "success_rate": 0.9,
+      "how": "The GP consultation itself does not count against your eigen risico, though Rijksoverheid notes that lab work the GP orders and medicines the GP prescribes do count.",
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/zorgverzekering/eigen-risico-zorgverzekering",
+        "https://www.rijksoverheid.nl/onderwerpen/eerstelijnszorg/vraag-en-antwoord/huisartskosten-op-zorgnota"
+      ],
+      "condition": "Non-urgent care"
+    },
+    {
+      "action": "For genuinely urgent specialist care, go straight there - no referral is required in an emergency",
+      "success_rate": 0.95,
+      "how": "Zorginstituut Nederland: 'U hebt geen verwijzing nodig als u met spoed zorg nodig hebt van een medisch specialist.'",
+      "sources": [
+        "https://www.zorginstituutnederland.nl/verzekerde-zorg/m/medisch-specialistische-zorg-zvw"
+      ],
+      "condition": "Accident or sudden serious illness"
+    },
+    {
+      "action": "Use the direct-access disciplines that need no referral at all - physiotherapist, exercise therapist, dental hygienist, skin therapist, dietician, occupational therapist, speech therapist, podotherapist",
+      "success_rate": 0.75,
+      "tradeoff": "No referral is needed to be seen, but whether the visit is reimbursed still depends on your insurance policy and any supplementary cover.",
+      "sources": [
+        "https://www.rijksoverheid.nl/vraag-en-antwoord/eerstelijnszorg/wanneer-heb-ik-een-verwijsbrief-van-mijn-huisarts-nodig-en-wanneer-mag-hij-deze-weigeren"
+      ],
+      "condition": "Allied-health care"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/ehic-non-eu-ineligible/nl",
+        "distinction": "This canon is about how care is accessed once you are covered; the EHIC canon is about who is covered in the first place."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-20"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "oom_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-20"
   },
   "environment": {
     "runtime": {
@@ -25,25 +25,25 @@
     "resolvable": "partial",
     "fix_success_rate": 0.85,
     "confidence": 0.9,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-20",
     "summary": "New PyTorch 2.x OOM error type. GPU memory exhausted during training or inference."
   },
   "dead_ends": [
     {
       "action": "Add torch.cuda.empty_cache() in training loop",
-      "why_fails": "Only frees cached memory, not memory held by tensors - negligible effect",
+      "why_fails": "empty_cache() releases only unoccupied cached blocks held by the caching allocator. The PyTorch docs state plainly that it 'doesn't increase the amount of GPU memory available for PyTorch' - memory occupied by live tensors is untouched, so the OOM recurs on the next allocation.",
       "fail_rate": 0.75,
       "sources": [
-        "https://pytorch.org/docs/stable/generated/torch.cuda.empty_cache.html"
+        "https://docs.pytorch.org/docs/stable/generated/torch.cuda.memory.empty_cache.html"
       ],
       "condition": ""
     },
     {
-      "action": "Set PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb",
-      "why_fails": "Only helps with fragmentation, not actual OOM",
+      "action": "Set PYTORCH_ALLOC_CONF=max_split_size_mb (formerly PYTORCH_CUDA_ALLOC_CONF)",
+      "why_fails": "The allocator config tunes how blocks are split and reused, so it only helps when the failure is fragmentation - free memory that exists but not in a large enough contiguous block. When the model plus activations genuinely exceed VRAM, no allocator setting creates memory. Note the variable was renamed: PYTORCH_ALLOC_CONF is canonical and PYTORCH_CUDA_ALLOC_CONF is retained only as a backward-compatibility alias.",
       "fail_rate": 0.65,
       "sources": [
-        "https://pytorch.org/docs/stable/notes/cuda.html#memory-management"
+        "https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-alloc-conf"
       ],
       "condition": ""
     }
@@ -53,7 +53,7 @@
       "action": "Reduce batch size - most direct fix for OOM",
       "success_rate": 0.95,
       "sources": [
-        "https://pytorch.org/docs/stable/notes/cuda.html"
+        "https://docs.pytorch.org/docs/stable/notes/cuda.html"
       ],
       "condition": "",
       "how": "# Halve the batch size:\nbatch_size = 16  # was 32\n\n# Or use gradient accumulation to maintain effective batch size:\naccumulation_steps = 2\nfor i, batch in enumerate(dataloader):\n    loss = model(batch) / accumulation_steps\n    loss.backward()\n    if (i + 1) % accumulation_steps == 0:\n        optimizer.step()\n        optimizer.zero_grad()"
@@ -63,7 +63,7 @@
       "success_rate": 0.88,
       "how": "model.gradient_checkpointing_enable()",
       "sources": [
-        "https://pytorch.org/docs/stable/checkpoint.html"
+        "https://docs.pytorch.org/docs/stable/checkpoint.html"
       ],
       "condition": ""
     },
@@ -72,7 +72,7 @@
       "success_rate": 0.9,
       "how": "scaler = torch.amp.GradScaler(); with torch.autocast('cuda'):",
       "sources": [
-        "https://pytorch.org/docs/stable/amp.html"
+        "https://docs.pytorch.org/docs/stable/amp.html"
       ],
       "condition": ""
     },
@@ -80,7 +80,7 @@
       "action": "Use DeepSpeed ZeRO or FSDP for multi-GPU memory distribution",
       "success_rate": 0.82,
       "sources": [
-        "https://pytorch.org/docs/stable/fsdp.html"
+        "https://docs.pytorch.org/docs/stable/fsdp.html"
       ],
       "condition": "",
       "how": "Use DeepSpeed ZeRO or FSDP for multi-GPU memory distribution"
@@ -101,6 +101,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-20"
   }
 }

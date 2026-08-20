@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/rni-desk-restricted-for-non-eu/nl",
+  "url": "https://deadends.dev/policy/rni-desk-restricted-for-non-eu/nl",
+  "error": {
+    "signature": "AI tells someone they can get a Dutch citizen service number (BSN) at any RNI desk, or that a stay under four months means no registration and no BSN at all",
+    "regex": "(netherlands.{0,40}(bsn|citizen service number)|burgerservicenummer|rni desk|non-residents records database|dutch bsn.{0,30}(short stay|without address))",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-20",
+    "summary": "A BSN is issued automatically to everyone entered in the Personal Records Database (BRP). Which route you take depends on how long you stay: over four months means registering as a resident with your municipality within five days of arrival; under four months means registering as a non-resident in the RNI. The RNI route has a restriction that generic advice almost always misses - of the 19 municipalities with an RNI desk, only Breda and Venlo accept people who hold neither Dutch nor EU/EEA/Swiss nationality. Registration is in person, by appointment, with a valid passport or ID card."
+  },
+  "dead_ends": [
+    {
+      "action": "As a non-EU/EEA/Swiss national, book an RNI appointment at a convenient desk such as Amsterdam, Rotterdam, Utrecht, or The Hague",
+      "why_fails": "Netherlands Worldwide states that if you do not have Dutch nationality and are not a national of an EU country, Norway, Iceland, Liechtenstein, or Switzerland, 'you can only register at the RNI desks in Breda and Venlo'. The other 17 RNI municipalities are open only to EU/EEA/Swiss nationals, so an appointment booked elsewhere does not produce a BSN.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.netherlandsworldwide.nl/non-residents-records-database/contacting-rni-desk"
+      ],
+      "condition": "Third-country national registering in the RNI",
+      "common_misconception": "That all 19 RNI desks are interchangeable and you simply pick the nearest one."
+    },
+    {
+      "action": "Assume that because you will be in the Netherlands for under four months you cannot get a BSN, or that you must first find a Dutch address to be registered",
+      "why_fails": "Government.nl states that people in the Netherlands for less than four months - for work or study, for instance - can register as non-residents with the RNI and receive a citizen service number when they register. The RNI route deliberately does not require a Dutch home address; the residence-address requirement belongs to the resident (BRP) route only.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.government.nl/themes/government-and-democracy/personal-data/personal-records-database-brp",
+        "https://www.government.nl/topics/personal-data/citizen-service-number-bsn"
+      ],
+      "condition": "Stay shorter than four months"
+    },
+    {
+      "action": "Try to complete RNI registration online or by post to avoid travelling to a desk",
+      "why_fails": "Netherlands Worldwide requires attendance in person: 'You must register at an RNI desk in person so that a staff member can verify your identity', by appointment and with a valid passport or identity card. Anyone you register besides yourself, children included, must attend with you.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.netherlandsworldwide.nl/non-residents-records-database/register"
+      ],
+      "condition": "Remote or postal registration attempt"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you will live in the Netherlands for more than four months, register as a resident with your municipality within five days of arrival - the BSN follows automatically from the BRP entry",
+      "success_rate": 0.9,
+      "how": "Government.nl: 'If you will be living in the Netherlands for longer than 4 months, you must register as a resident with the Personal Records Database (BRP)' and 'You must register within 5 days of arriving in the Netherlands', at your permanent home address or at a correspondence address if you have none.",
+      "sources": [
+        "https://www.government.nl/faq/when-should-i-register-with-the-personal-records-database-as-a-resident",
+        "https://www.government.nl/topics/personal-data/citizen-service-number-bsn"
+      ],
+      "condition": "Intended stay over four months"
+    },
+    {
+      "action": "If you are a third-country national on a short stay, book your RNI appointment specifically at Breda or Venlo and plan the travel into your schedule",
+      "success_rate": 0.85,
+      "tradeoff": "Neither desk is likely to be near where you are working or studying, so the BSN costs you a day of travel that an EU national would not spend.",
+      "sources": [
+        "https://www.netherlandsworldwide.nl/non-residents-records-database/contacting-rni-desk",
+        "https://www.netherlandsworldwide.nl/non-residents-records-database/register"
+      ],
+      "condition": "Non-EU/EEA/Swiss nationality, stay under four months"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "medical/health-insurance-deadline-not-retroactive/nl",
+        "probability": 0.4,
+        "condition": "once registered, the Dutch health-insurance obligation and its four-month clock start applying"
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-08-20"
+  }
+}

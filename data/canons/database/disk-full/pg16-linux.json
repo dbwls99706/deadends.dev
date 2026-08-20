@@ -8,7 +8,7 @@
     "domain": "database",
     "category": "storage_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-20"
   },
   "environment": {
     "runtime": {
@@ -21,25 +21,26 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-20",
     "summary": "The filesystem containing PostgreSQL's data directory is full. Writes fail including WAL, temp files, and table data. PostgreSQL may become read-only or crash. Caused by table bloat, excessive WAL retention, large temp files, or insufficient disk provisioning."
   },
   "dead_ends": [
     {
       "action": "Running VACUUM FULL on large tables when the disk is already completely full",
-      "why_fails": "VACUUM FULL needs to create a complete copy of the table before dropping the old one. When disk is at 100%, there is no space for the copy and the operation fails immediately or makes things worse.",
+      "why_fails": "The PostgreSQL docs state that VACUUM FULL 'requires extra disk space, since it writes a new copy of the table and doesn't release the old copy until the operation is complete'. At 100% full there is no room for that copy, so the rewrite fails - after having taken an exclusive lock on the table.",
       "fail_rate": 0.95,
       "sources": [
-        "https://www.postgresql.org/docs/current/sql-vacuum.html"
+        "https://www.postgresql.org/docs/16/sql-vacuum.html"
       ],
       "condition": ""
     },
     {
       "action": "Deleting PostgreSQL WAL files manually from pg_wal directory",
-      "why_fails": "Manually deleting WAL segments can corrupt the database and prevent recovery. PostgreSQL tracks which WAL files are needed; removing them without pg_archivecleanup causes data loss.",
+      "why_fails": "PostgreSQL decides for itself which segments are still required: after a checkpoint, only WAL preceding the redo record is recyclable, and crash recovery replays forward from that redo record. Deleting segments by hand removes exactly what recovery needs, and with archiving configured the segments must be archived before removal. Use pg_archivecleanup rather than rm.",
       "fail_rate": 0.85,
       "sources": [
-        "https://www.postgresql.org/docs/current/wal.html"
+        "https://www.postgresql.org/docs/16/wal-configuration.html",
+        "https://www.postgresql.org/docs/16/pgarchivecleanup.html"
       ],
       "condition": ""
     }
@@ -49,14 +50,18 @@
       "action": "Free disk space by removing non-essential files, then run maintenance",
       "success_rate": 0.9,
       "how": "1) Remove old log files: find /var/log/postgresql -name '*.log' -mtime +7 -delete. 2) Clear temp files. 3) Drop unused tables or indexes. 4) Once some space is available, run regular VACUUM (not FULL) on bloated tables. 5) Check pg_wal size and adjust wal_keep_size if excessive.",
-      "sources": [],
+      "sources": [
+        "https://www.postgresql.org/docs/16/sql-vacuum.html"
+      ],
       "condition": ""
     },
     {
       "action": "Move tablespaces or WAL to a different volume with available space",
       "success_rate": 0.85,
       "how": "Create a tablespace on a volume with space: CREATE TABLESPACE extra_space LOCATION '/mnt/extra/pgdata'; Move large tables: ALTER TABLE big_table SET TABLESPACE extra_space; For WAL, symlink pg_wal to a larger volume (requires stop/start).",
-      "sources": [],
+      "sources": [
+        "https://www.postgresql.org/docs/16/wal-internals.html"
+      ],
       "condition": ""
     }
   ],
@@ -87,6 +92,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 45,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-20"
   }
 }
