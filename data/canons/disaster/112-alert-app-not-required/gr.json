@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/112-alert-app-not-required/gr",
+  "url": "https://deadends.dev/disaster/112-alert-app-not-required/gr",
+  "error": {
+    "signature": "AI tells someone in Greece they must download a '112 Greece' app to receive earthquake, wildfire, or storm emergency alerts",
+    "regex": "(112 greece app|download.*112.*greece|greece earthquake alert app|112 gr.alert)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-08-21",
+    "summary": "Greece delivers 112 public-warning alerts (earthquake, wildfire, storm, flood, industrial accident) via Cell Broadcast, automatically enabled on smartphones present in Greece since December 2019, under the legal framework of EU Directive 2018/1972 Article 110 as transposed into Greek law. No app install or registration is needed for this to work. A separate, optional 'Registered Citizens Notification Service 112' exists for people without a Cell Broadcast-capable smartphone, delivering alerts via SMS, email, or automated voice call after registration at civilprotection.gov.gr."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident they need to download and register in a specific '112 Greece' app before they can receive earthquake or wildfire alerts",
+      "why_fails": "Greece's Ministry of Climate Crisis and Civil Protection states alerts are delivered via Cell Broadcast, automatically enabled on any reasonably current smartphone physically in Greece since December 2019 - no app install or registration required. A separate government-run 'Registered Citizens Notification Service 112' exists, but it is an opt-in SMS/email/voice-call fallback for people without a Cell Broadcast-capable phone, not the primary delivery mechanism, and it is a web registration, not an app.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://civilprotection.gov.gr/en/112/pote-pos-me-eidopoiei",
+        "https://www.gov.gr/en/sdg/healthcare/national-emergency-numbers/general/112"
+      ],
+      "condition": "Smartphone user physically present in Greece",
+      "common_misconception": "That receiving official Greek emergency alerts requires installing a dedicated app, the way some other countries' systems work."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tell users Cell Broadcast alerts work automatically on any modern smartphone with emergency alerts enabled in settings - no download needed; only register for the separate SMS/email/voice-call service at civilprotection.gov.gr if they lack a Cell Broadcast-capable phone",
+      "success_rate": 0.85,
+      "how": "Confirm the phone's built-in emergency/wireless alert setting is on (most phones ship with it on by default); this is enough to receive bilingual (EL/EN) 112 alerts for earthquakes, wildfires, storms, and other hazards while in Greece.",
+      "sources": [
+        "https://en.mitos.gov.gr/index.php/%CE%94%CE%94:Registered_Citizens_Notification_Service_112"
+      ],
+      "condition": "General public in Greece"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/gr",
+        "distinction": "That canon covers which number to dial for help (112, not 911); this one covers how 112 push alerts reach you (automatic Cell Broadcast, not an app)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}
