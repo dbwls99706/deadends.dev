@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/mitid-p-code-no-online-banking/dk",
+  "url": "https://deadends.dev/banking/mitid-p-code-no-online-banking/dk",
+  "error": {
+    "signature": "AI assumes getting a Danish MitID digital ID (via passport, without a CPR number) grants access to online or mobile banking",
+    "regex": "(mitid.*(bank|denmark)|denmark.*digital id|p.code.*mitid|mitid.*p.code)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "dk",
+      "country_name": "Denmark",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.75,
+    "last_updated": "2026-08-21",
+    "summary": "Non-citizens without a Danish CPR number can get MitID (Denmark's national digital ID) using an 8-digit P-code tied to a foreign passport instead. However, MitID's own help pages and Danish banks (e.g. Danske Bank) state that most self-service solutions, including eBanking and Mobile Bank, currently require a MitID created with a genuine CPR number or civil registration number at 'Substantial' security level - a P-code MitID cannot log into online or mobile banking."
+  },
+  "dead_ends": [
+    {
+      "action": "Get a P-code MitID with a foreign passport and expect it to work for Danish online or mobile banking",
+      "why_fails": "MitID's official help page for non-citizens states 'most self-service solutions currently require a CPR number. It's not possible to access these self-service solutions with a MitID created with a P code.' Danske Bank confirms a MitID must be created with a valid CPR number or civil registration number, at the 'Substantial' security level, to log into eBanking and Mobile Bank.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.mitid.dk/en-gb/help/help-universe/non-citizens/",
+        "https://danskebank.dk/en/personal/help/log-on-user-id-password-and--code-card/requirements-for-your-mitid"
+      ],
+      "condition": "MitID created via P-code, no CPR number yet"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Obtain a Danish CPR number first (see the CPR-registration canon for this country), then create or upgrade MitID using the CPR number so it reaches the 'Substantial' security level required for eBanking and Mobile Bank",
+      "success_rate": 0.85,
+      "how": "Danske Bank directs customers without a CPR number to obtain one via the official Danish civil registration channel before MitID can be used for banking.",
+      "sources": [
+        "https://danskebank.dk/en/personal/help/log-on-user-id-password-and--code-card/requirements-for-your-mitid"
+      ],
+      "condition": "Newcomer who has not yet registered for a CPR number"
+    },
+    {
+      "action": "For the interim, contact the bank directly for a branch-based or paper-based process instead of relying on MitID-gated self-service",
+      "success_rate": 0.5,
+      "sources": [
+        "https://www.mitid.dk/en-gb/help/help-universe/non-citizens/"
+      ],
+      "condition": "Urgent banking need before CPR number is issued",
+      "tradeoff": "Slower and may require an in-person branch visit each time."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/cpr-number-required-for-everything/dk",
+        "distinction": "This canon covers what MitID access level is possible without CPR; the other covers the CPR-registration process itself."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}
