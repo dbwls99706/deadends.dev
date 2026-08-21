@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/alcohol-age-6-percent-threshold/dk",
+  "url": "https://deadends.dev/legal/alcohol-age-6-percent-threshold/dk",
+  "error": {
+    "signature": "AI tells someone in Denmark that 16-year-olds can legally buy wine or any alcoholic beverage up to about 16.5% ABV, with only spirits reserved for 18+",
+    "regex": "(denmark.*alcohol.*age|denmark.*drinking age|16 (year|aar).*alcohol.*denmark|alkoholaldersgraense)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "dk",
+      "country_name": "Denmark",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-21",
+    "summary": "Since 1 April 2025, Danish retail alcohol age limits changed: 16-17-year-olds may buy beverages with more than 1.2% and up to 6% ABV (ordinary beer, for example), while anything above 6% ABV - including most wine and all spirits - now requires the buyer to be 18. This replaced the previous, much higher 16.5% ABV threshold for the age-16 tier, so pre-2025 knowledge that wine is purchasable at 16 is now wrong. Bars, clubs and restaurants still require age 18 for any alcohol regardless of strength, unchanged by this reform."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a 16- or 17-year-old (or someone buying for them) that Danish shops can sell them wine, or any alcoholic beverage up to roughly 16.5% ABV, at age 16",
+      "why_fails": "Denmark's Ministry of the Interior and Health confirms the current retail rule: 'Alkohol med mere end 1,2 procent og op til 6 procent' requires the buyer to be 16, while 'Alkohol med mere end 6 procent' requires age 18 - effective 1 April 2025. Most wine (typically 11-14% ABV) now falls in the 18+ tier, not the 16+ tier some pre-reform sources still describe.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.ism.dk/nyheder/2025/april/ny-alkoholgraense-og-nattelivszoner-skal-fremme-en-mere-ansvarlig-alkoholkultur-blandt-unge",
+        "https://www.nordicalcohol.org/post/new-age-limits-for-alcohol-sales-to-16-17-year-olds-in-denmark-enters-into-force-on-1-april-2025"
+      ],
+      "condition": "Retail alcohol purchase after 1 April 2025",
+      "common_misconception": "That the old 16-year age limit (formerly covering beverages up to 16.5% ABV, which included most wine) is still current."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the ABV before assuming eligibility: 16-17-year-olds may buy only beverages between 1.2% and 6% ABV (most standard-strength beer); anyone buying wine, strong beer, or spirits must be 18",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.ism.dk/nyheder/2025/april/ny-alkoholgraense-og-nattelivszoner-skal-fremme-en-mere-ansvarlig-alkoholkultur-blandt-unge"
+      ],
+      "condition": "Retail purchase in Denmark"
+    },
+    {
+      "action": "For bars, clubs, and restaurants, apply the flat 18+ rule regardless of drink strength - this part of the law is unchanged by the 2025 reform",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.nordicalcohol.org/post/new-age-limits-for-alcohol-sales-to-16-17-year-olds-in-denmark-enters-into-force-on-1-april-2025"
+      ],
+      "condition": "On-premise alcohol service"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "permission_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-21"
   },
   "environment": {
     "runtime": {
@@ -21,16 +21,16 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.9,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-21",
     "summary": "npm install fails inside Docker due to root user + npm cache permissions."
   },
   "dead_ends": [
     {
       "action": "Run npm with --unsafe-perm",
-      "why_fails": "Security risk and deprecated flag",
+      "why_fails": "The user/group/uid/gid/unsafe-perm configs were removed entirely as of npm v7 - npm now always runs scripts with the effective uid/gid of the working directory owner when run as root, so the flag no longer exists to pass",
       "fail_rate": 0.7,
       "sources": [
-        "https://docs.npmjs.com/cli/v10/using-npm/config#unsafe-perm"
+        "https://blog.npmjs.org/post/626173315965468672/npm-v7-series-beta-release-and-semver-major.html"
       ],
       "condition": ""
     }
@@ -70,6 +70,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-21"
   }
 }

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/livslinien-not-24-7/dk",
+  "url": "https://deadends.dev/mental-health/livslinien-not-24-7/dk",
+  "error": {
+    "signature": "AI tells someone in crisis in Denmark that the national suicide-prevention helpline Livslinien is available 24/7 like the US 988 Lifeline",
+    "regex": "(livslinien|denmark.*suicide.*hotline|denmark.*crisis.*line|70 ?201 ?201)",
+    "domain": "mental-health",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "dk",
+      "country_name": "Denmark",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-21",
+    "summary": "Livslinien, Denmark's national anonymous suicide-prevention phone line (70 201 201), is not staffed around the clock. As of a July 2026 hours expansion it operates daily from 09:00 to 05:00 (previously 11:00-05:00), still leaving roughly a four-hour overnight-to-morning gap with no coverage. Its separate chat counselling runs even shorter hours (weekdays 17:00-21:00, weekends 13:00-17:00). For a life-threatening emergency at any hour, Denmark's general emergency number 112 is the correct fallback, not Livslinien."
+  },
+  "dead_ends": [
+    {
+      "action": "Direct someone in Denmark to call Livslinien at any hour, assuming it is a 24/7 crisis line the way the US 988 Suicide & Crisis Lifeline or UK Samaritans are",
+      "why_fails": "Livslinien's own site states its phone counselling runs 'alle aarets dage fra kl. 11-05' (every day from 11:00 to 05:00) prior to a further hours expansion; Danish media (e.g. the July 2026 announcement of a 20-hour service) confirm the line still closes for several hours each morning and is not staffed 24 hours a day - unlike the always-on hotlines common in some other countries.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.livslinien.dk/raadgivning/telefonraadgivning",
+        "https://www.avisen.dk/livslinien-udvider-nu-aaben-20-timer-i-doegnet_837609.aspx"
+      ],
+      "condition": "Any time outside Livslinien's published operating hours",
+      "common_misconception": "That every developed country's national suicide-prevention line has 24/7 phone coverage by default."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For an acute, life-threatening situation at any hour, call 112 (Denmark's general emergency number) rather than waiting for Livslinien to open",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.livslinien.dk/raadgivning/telefonraadgivning"
+      ],
+      "condition": "Immediate danger to life"
+    },
+    {
+      "action": "For non-acute support, call Livslinien at 70 201 201 within its published hours (09:00-05:00 daily as of the 2026 expansion), or use its chat counselling during its separate, shorter weekday/weekend windows",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.livslinien.dk/raadgivning/telefonraadgivning"
+      ],
+      "condition": "Within Livslinien's operating hours"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}
