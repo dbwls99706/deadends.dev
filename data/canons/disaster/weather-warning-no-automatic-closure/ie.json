@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/weather-warning-no-automatic-closure/ie",
+  "url": "https://deadends.dev/disaster/weather-warning-no-automatic-closure/ie",
+  "error": {
+    "signature": "AI tells someone that a Met Eireann Status Orange or Status Red weather warning automatically closes schools, transport, or workplaces across the affected area",
+    "regex": "(met eireann.*warning|status orange ireland|status red ireland|ireland.*school closure.*weather)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-22",
+    "summary": "Met Eireann's Status Yellow/Orange/Red system communicates weather severity; it is not itself an automatic administrative trigger for closing schools, transport, or workplaces. Those closure decisions are made separately, case by case, by individual school management, transport operators, or (for the most severe events) the National Emergency Coordination Group, and are announced through the Department of Education, gov.ie press releases, or the operator directly - even a Status Red warning has prompted county-specific closure guidance issued as its own announcement rather than an automatic rule tied to the warning color alone."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that a Status Orange or Status Red weather warning for their county automatically means schools, public transport, or workplaces there are closed",
+      "why_fails": "Citizens Information's severe-weather guidance and the Department of Education's own press releases show closures are decided and announced separately for each event - for example, the Department of Education issued a specific press release stating schools in counties under Orange and Red warnings would not open before 10am for a particular storm, rather than pointing to a standing rule that a given warning color automatically closes schools nationwide. The decision is coordinated case by case (via the National Emergency Coordination Group for the most severe events), not an automatic consequence of the color code itself.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.citizensinformation.ie/en/government-in-ireland/security-and-emergency-services/severe-weather/",
+        "https://www.gov.ie/en/department-of-education/press-releases/schools-in-counties-under-orange-and-red-weather-warnings-will-not-open-before-10am-tomorrow/"
+      ],
+      "condition": "Any Status Orange or Status Red warning",
+      "common_misconception": "That the Met Eireann warning level is itself a legal or administrative closure trigger, rather than each closure being separately decided and announced for that specific event."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check gov.ie / Department of Education announcements, the specific school's own website or text-alert system, or the transport operator's status page directly, rather than inferring a closure from the warning color alone",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.ie/en/department-of-education/press-releases/schools-in-counties-under-orange-and-red-weather-warnings-will-not-open-before-10am-tomorrow/",
+        "https://www.citizensinformation.ie/en/government-in-ireland/security-and-emergency-services/severe-weather/"
+      ],
+      "condition": "Severe weather event with an active warning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/no-statutory-right-to-roam/ie",
+  "url": "https://deadends.dev/legal/no-statutory-right-to-roam/ie",
+  "error": {
+    "signature": "AI tells a hiker or camper that Ireland has a right-to-roam law, like Scotland or Scandinavia, letting them walk or camp on any private land if they're respectful",
+    "regex": "(ireland.*right to roam|wild camping ireland|ireland.*access.*private land|hike.*ireland.*trespass)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-22",
+    "summary": "Ireland has no general statutory right of access to the countryside comparable to Scotland's Land Reform Act 2003 or Scandinavian allemansratt. Access to private land is a matter of the landowner's discretion, which they may withdraw at any time; most of Ireland's popular walking trails, including the National Waymarked Ways, are 'permissive routes' agreed with landowners rather than legal rights of way, and very few registered public rights of way exist outside maintained public roads."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that Ireland has a right-to-roam law and they can walk or wild camp across open countryside as long as they are discreet and respectful, the way they could in Scotland or Norway",
+      "why_fails": "Citizens Information's guidance on walking and rambling states that in the absence of a registered right of way, access to private land in Ireland is at the discretion of the landowner, who may prohibit access or withdraw consent without prior notice; Ireland has no equivalent of Scotland's or Scandinavia's statutory access rights. Citizens Information's separate guidance on rights of way confirms there are very few registered public rights of way that are not already maintained public roads, and that popular walking routes including the National Waymarked Ways are permissive arrangements the landowner can end.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.citizensinformation.ie/en/travel-and-recreation/sport-and-leisure/walking-and-rambling-in-ireland/",
+        "https://www.citizensinformation.ie/en/housing/owning-a-home/home-owners/right-of-way/"
+      ],
+      "condition": "Private land not covered by a public road or a registered right of way",
+      "common_misconception": "That 'European hiking culture' generally implies open-access rights, when in fact only a minority of European countries (the UK's constituent nations, the Nordics) actually legislate a right to roam - Ireland does not."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Stick to National Waymarked Ways, Coillte forest trails, and National Parks (state-owned and open to the public), or get explicit landowner permission before crossing private farmland or camping on it",
+      "success_rate": 0.85,
+      "how": "Waymarked and signposted routes are agreed with the landowners they cross, so staying on the marked path avoids the access dispute even though the route is not a legal right of way.",
+      "sources": [
+        "https://www.citizensinformation.ie/en/travel-and-recreation/sport-and-leisure/walking-and-rambling-in-ireland/"
+      ],
+      "condition": "General hiking or camping trip planning"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}

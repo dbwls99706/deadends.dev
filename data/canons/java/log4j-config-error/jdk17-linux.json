@@ -8,7 +8,7 @@
     "domain": "java",
     "category": "configuration_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-22"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-22",
     "summary": "Log4j cannot find its configuration file (log4j2.xml, log4j2.properties, or log4j2.yaml) on the classpath. The application will use default ERROR-level logging, missing all important log output."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Hiding the warning means your application runs without proper logging configuration. You lose all application logs, making debugging production issues nearly impossible.",
       "fail_rate": 0.85,
       "sources": [
-        "https://docs.oracle.com/en/java/javase/21/docs/api/"
+        "https://logging.apache.org/log4j/2.x/manual/configuration.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Log4j 2 does not read Log4j 1.x configuration files by default. The file name and format are different. You need log4j2.xml or log4j2.properties, not log4j.properties.",
       "fail_rate": 0.8,
       "sources": [
-        "https://docs.oracle.com/en/java/javase/21/docs/api/"
+        "https://logging.apache.org/log4j/2.x/manual/configuration.html"
       ],
       "condition": ""
     }
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 85,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-22"
   }
 }

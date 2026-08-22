@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/proof-of-address-required-not-ppsn/ie",
+  "url": "https://deadends.dev/banking/proof-of-address-required-not-ppsn/ie",
+  "error": {
+    "signature": "AI tells a newcomer to Ireland that a PPS Number (or PPSN allocation letter) plus a passport is enough identification to open a bank account",
+    "regex": "(ireland.*bank account|irish bank account|open.*account.*ireland|pps number.*bank)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-22",
+    "summary": "Irish banks require photo ID plus a separate proof-of-address document issued to the applicant at their home address within the past 6 months (a utility bill, correspondence from a regulated financial institution, an electoral/polling card, or a Revenue certificate). A Personal Public Service (PPS) Number is not a legal requirement to open a standard personal account - Citizens Information notes banks only ask for it in specific cases such as mortgage interest relief - and AIB's own published requirements explicitly list a PPS Letter issued by the Client Identity Services Department as NOT acceptable as proof of address. Applicants not currently resident in Ireland need two proof-of-address documents instead of one."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a passport plus a PPS Number or PPSN allocation letter is sufficient identification to open an Irish bank account",
+      "why_fails": "AIB's published personal identification requirements explicitly state that 'A Personal Public Service (PPS) Letter issued by the Irish Client Identity Services Department' is NOT acceptable as proof of address. Banks require a separate proof-of-address document (e.g. a utility bill or correspondence from a regulated financial institution) issued to the applicant at their home address within the past 6 months, in addition to photo ID - the PPSN letter itself does not substitute for it.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.aib.ie/our-products/savings-and-deposits/personal-identification-requirements"
+      ],
+      "condition": "First-time applicant without an established Irish address paper trail",
+      "common_misconception": "That the government-issued PPSN letter counts as address proof because it is an official document with the applicant's name and address on it."
+    },
+    {
+      "action": "Tell an applicant who is not yet resident in Ireland that one proof of address is enough",
+      "why_fails": "AIB's non-resident identification requirements state that if you are not currently resident in Ireland you must provide two proof-of-address documents, and for the overseas address a bank statement or utility bill from the home country issued within the last three months is required, on top of an Irish address document once available.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.aib.ie/our-products/savings-and-deposits/non-resident-personal-identification-requirements"
+      ],
+      "condition": "Applicant not currently resident in Ireland"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before applying, obtain a proof-of-address document dated within the last 6 months from an accepted category (utility bill, correspondence from a regulated financial institution, electoral/polling card, Revenue certificate) rather than relying on PPSN paperwork or a passport alone",
+      "success_rate": 0.85,
+      "how": "If no utility account exists yet, ask the bank in advance which alternative documents (e.g. a tenancy agreement plus Revenue correspondence) it will accept, since photocopies are not accepted and originals must be produced in person.",
+      "sources": [
+        "https://www.aib.ie/our-products/savings-and-deposits/personal-identification-requirements"
+      ],
+      "condition": "Newcomer with limited Irish paperwork"
+    },
+    {
+      "action": "If applying before or immediately upon arrival, bring two address proofs - a recent (within 3 months) home-country bank statement or utility bill plus visa/residency documentation - and expect enhanced due diligence to take longer than for an established resident",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.aib.ie/our-products/savings-and-deposits/non-resident-personal-identification-requirements"
+      ],
+      "condition": "Applying as a non-resident or very recent arrival"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/pps-number-in-person-appointment-required/ie",
+        "distinction": "This canon covers what a bank needs to open an account (photo ID + proof of address, not a PPSN); the other covers the separate PPS Number registration needed for employment and public services."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}

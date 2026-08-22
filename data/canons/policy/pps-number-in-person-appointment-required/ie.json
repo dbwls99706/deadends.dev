@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/pps-number-in-person-appointment-required/ie",
+  "url": "https://deadends.dev/policy/pps-number-in-person-appointment-required/ie",
+  "error": {
+    "signature": "AI tells a newcomer to Ireland that a PPS Number can be obtained fully online or same-day, or that emergency tax is equally lenient whether or not an employer has been given a PPS Number at all",
+    "regex": "(pps number ireland|ppsn.*appointment|personal public service number ireland|apply.*pps.*ireland)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-22",
+    "summary": "Getting a Personal Public Service (PPS) Number requires a mandatory in-person appointment at an Intreo Centre or PPS Number Allocation Centre booked in advance through MyWelfare.ie with a MyGovID account - there is no walk-in or fully remote route. Separately, you can legally start a job before you have a PPSN, but Revenue's emergency-tax rules only give the softer four-week standard-rate, zero-credits band once you HAVE supplied your PPSN to your employer; if you have not given your employer any PPSN at all, tax is deducted at the higher 40% rate from the very first payment, with no lower band."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume the PPS Number application is entirely online/self-service, or can be completed same-day at a walk-in office",
+      "why_fails": "The Department of Social Protection's application process requires booking a mandatory in-person appointment, via MyWelfare.ie with a MyGovID account, at an Intreo Centre or PPS Number Allocation Centre; walk-ins are not accepted and busy centres' appointment slots can run weeks out.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.ie/en/department-of-social-protection/services/get-a-personal-public-service-pps-number/",
+        "https://services.mywelfare.ie/en/topics/identity-services/personal-public-service-pps-number/"
+      ],
+      "condition": "First-time PPSN applicant"
+    },
+    {
+      "action": "Tell a new employee without any PPS Number that emergency tax will be lenient (the standard rate for the first four weeks), the same as any other emergency-tax case",
+      "why_fails": "Revenue's own emergency-tax rules state the four-week standard-rate, zero-credit band applies only once you HAVE provided your PPSN to your employer; if you have not provided a PPSN at all, your employer must deduct tax at the higher rate (40%) from the very first payment, with no lower-rate band.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.revenue.ie/en/jobs-and-pensions/emergency-tax/emergency-tax-rules.aspx"
+      ],
+      "condition": "Started work without providing any PPSN to the employer",
+      "common_misconception": "That 'emergency tax' is one flat, lenient rate regardless of whether the employer has been given a PPSN."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Book the PPSN appointment through MyWelfare.ie as soon as grounds for being in Ireland are confirmed (job offer, college registration, tenancy) - ideally before or immediately upon arrival - and bring every requested identity and address document to avoid needing a second appointment",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.ie/en/department-of-social-protection/services/get-a-personal-public-service-pps-number/"
+      ],
+      "condition": "Planning arrival or a new job/college start in Ireland"
+    },
+    {
+      "action": "If work starts before the PPSN appointment, give the employer the PPSN the moment it is issued and ask them to request a Revenue Payroll Notification (RPN) immediately; Revenue recalculates tax on a cumulative basis once the RPN is applied and refunds any overpaid tax automatically through payroll",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.revenue.ie/en/jobs-and-pensions/emergency-tax/getting-off-emergency-tax.aspx"
+      ],
+      "condition": "Already on emergency tax"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/proof-of-address-required-not-ppsn/ie",
+        "distinction": "This canon covers the PPS Number registration itself (appointment-only, needed for employment/tax); the other covers what a bank actually requires to open an account, which is proof of address, not a PPSN."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}
