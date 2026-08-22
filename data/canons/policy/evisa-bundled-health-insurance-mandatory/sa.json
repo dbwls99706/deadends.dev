@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/evisa-bundled-health-insurance-mandatory/sa",
+  "url": "https://deadends.dev/policy/evisa-bundled-health-insurance-mandatory/sa",
+  "error": {
+    "signature": "AI tells a Saudi Arabia tourist e-visa applicant that travel health insurance is optional or must be purchased separately",
+    "regex": "(saudi.*(evisa|e-visa|visa).*insurance|saudi.*travel insurance mandatory|chi\\.gov\\.sa|saudi visa 535)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.72,
+    "last_updated": "2026-08-22",
+    "summary": "Saudi Arabia's tourist e-visa fee (about SAR 535) automatically bundles a government-run visitor health insurance policy administered by the Council of Health Insurance (CHI), covering medical emergencies up to SAR 100,000 and emergency childbirth up to SAR 5,000; there is no way to opt out or buy the visa without it. That basic coverage is bare-bones and does not carry over to a visa extension - CHI requires a fresh insurance policy be issued and linked to the passport for the extension period."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist e-visa applicant to shop for or purchase a separate travel health insurance policy to satisfy Saudi Arabia's visa insurance requirement",
+      "why_fails": "The Council of Health Insurance (CHI)-administered visitor policy is automatically bundled into the roughly SAR 535 e-visa fee and issued digitally alongside the visa; applicants cannot opt out of it or substitute a different policy to get the e-visa issued, though they may add supplementary private coverage on top.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.chi.gov.sa/en/knowledge-center/health-insurance-policies/Pages/tourist-policy.aspx"
+      ],
+      "condition": "Applying for the Saudi tourist e-visa",
+      "common_misconception": "That Saudi Arabia's visa insurance works like a checkbox add-on travelers can decline the way they can on many airline booking flows."
+    },
+    {
+      "action": "Assume the original e-visa's bundled insurance automatically extends its coverage if the visit visa itself is extended",
+      "why_fails": "CHI's guidance states a visitor who extends their visit visa after its expiry must obtain a new insurance policy covering the extension period, linked to their passport - the original bundled policy does not roll over automatically.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.chi.gov.sa/en/knowledge-center/health-insurance-policies/Pages/tourist-policy.aspx"
+      ],
+      "condition": "Visa extension requested after original expiry"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the e-visa as normal - the visitor insurance is issued automatically with it - and verify coverage afterward on the CHI website using the visa or passport number",
+      "success_rate": 0.85,
+      "how": "Use CHI's online insurance-inquiry service (chi.gov.sa) with your visa/passport number to confirm the policy is active before travel.",
+      "sources": [
+        "https://www.chi.gov.sa/en/knowledge-center/health-insurance-policies/Pages/tourist-policy.aspx"
+      ],
+      "condition": "Standard tourist e-visa application"
+    },
+    {
+      "action": "If extending a visit visa past its original expiry, arrange a new CHI-linked insurance policy for the extension period through the Ministry of Foreign Affairs' Enjaz platform before the extension is finalized",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.chi.gov.sa/en/knowledge-center/health-insurance-policies/Pages/tourist-policy.aspx"
+      ],
+      "condition": "Visa extension"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/tourist-evisa-open/sa",
+        "distinction": "That canon covers e-visa eligibility and application; this one covers the mandatory, bundled health insurance that comes with it and its extension rules."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}
