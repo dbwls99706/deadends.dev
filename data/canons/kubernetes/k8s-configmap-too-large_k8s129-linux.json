@@ -8,7 +8,7 @@
     "domain": "kubernetes",
     "category": "configuration_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-22"
   },
   "environment": {
     "runtime": {
@@ -20,8 +20,8 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.88,
-    "confidence": 0.90,
-    "last_updated": "2026-02-12",
+    "confidence": 0.9,
+    "last_updated": "2026-08-22",
     "summary": "ConfigMap data exceeds the 1MB etcd object size limit. Data must be reduced or moved to an alternative storage mechanism."
   },
   "dead_ends": [
@@ -68,7 +68,7 @@
     "leads_to": [
       {
         "error_id": "kubernetes/createcontainerconfigerror/k8s1-linux",
-        "probability": 0.20,
+        "probability": 0.2,
         "condition": "when splitting ConfigMaps and referencing wrong names"
       }
     ],
@@ -91,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-22"
   }
 }
