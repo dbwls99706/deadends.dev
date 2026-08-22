@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "validation_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-22"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.92,
     "confidence": 0.92,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-22",
     "summary": "Pydantic model received data that doesn't match the schema. Type or required field error."
   },
   "dead_ends": [
@@ -40,7 +40,7 @@
       "why_fails": "Defeats the purpose of validation - model can hold invalid state",
       "fail_rate": 0.7,
       "sources": [
-        "https://docs.pydantic.dev/latest/concepts/fields/"
+        "https://pydantic.dev/docs/validation/latest/concepts/fields/"
       ],
       "condition": ""
     }
@@ -51,7 +51,7 @@
       "success_rate": 0.95,
       "how": "try:\n    Model(**data)\nexcept ValidationError as e:\n    print(e.errors())  # detailed field-by-field errors",
       "sources": [
-        "https://docs.pydantic.dev/latest/concepts/models/"
+        "https://pydantic.dev/docs/validation/latest/concepts/models/"
       ],
       "condition": ""
     },
@@ -80,6 +80,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-22"
   }
 }

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/controlled-medication-clearance-required/sa",
+  "url": "https://deadends.dev/medical/controlled-medication-clearance-required/sa",
+  "error": {
+    "signature": "AI tells a traveler a foreign prescription for Xanax, Adderall, Valium, Tramadol, or similar controlled medication is enough to carry it into or out of Saudi Arabia",
+    "regex": "(saudi.*(adderall|xanax|tramadol|valium|controlled (drug|medication))|bring.*medication.*saudi|sfda.*clearance|cds\\.sfda)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.72,
+    "last_updated": "2026-08-22",
+    "summary": "Effective November 1, 2025, Saudi Arabia requires travelers carrying narcotic or psychotropic medications for personal use - common examples include Xanax (alprazolam), Adderall, Valium (diazepam), and Tramadol - to obtain an advance electronic clearance permit from the Saudi Food and Drug Authority (SFDA) through its Controlled Drugs System (CDS) before arriving in or departing from the Kingdom. A foreign prescription alone is not accepted as authorization; travelers without the permit risk the medication being confiscated at customs or being denied boarding/entry."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a valid home-country prescription for a controlled medication (e.g. Xanax, Adderall, Valium, Tramadol) is sufficient documentation to bring it into or out of Saudi Arabia",
+      "why_fails": "Since the SFDA's controlled-drug traveler rule took effect November 1, 2025, these medications require a separate electronic clearance permit obtained in advance through the Controlled Drugs System (CDS) at cds.sfda.gov.sa - a foreign prescription is supporting documentation for that application, not a substitute for the permit itself.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.sfda.gov.sa/en/news/4292351",
+        "https://sa.usembassy.gov/health-alert-new-prescription-regulations-for-saudi-arabia-2/"
+      ],
+      "condition": "Carrying narcotic/psychotropic medication into or out of Saudi Arabia without prior SFDA clearance",
+      "common_misconception": "That Saudi customs will simply check the prescription bottle and prescription label like in most other countries."
+    },
+    {
+      "action": "Apply for the SFDA clearance permit only after arriving in Saudi Arabia, or plan to apply at the airport on the day of travel",
+      "why_fails": "The CDS clearance permit must be obtained in advance of travel; the US Embassy in Saudi Arabia's advisory states travelers without clearance for listed medications may be prevented from arriving or departing, meaning it functions as a pre-travel requirement, not something resolved at the border.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://sa.usembassy.gov/health-alert-new-prescription-regulations-for-saudi-arabia-2/"
+      ],
+      "condition": "No CDS permit obtained before the trip"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before traveling, create an account on the SFDA's Controlled Drugs System (CDS) at cds.sfda.gov.sa and submit an electronic clearance permit request with the medication's trade name, active ingredient, concentration, and quantity, plus a prescription and medical report",
+      "success_rate": 0.85,
+      "how": "Track the application status (Submitted / Completed / Rejected / Incomplete) in the CDS portal before departure so any rejection can be resolved ahead of the trip.",
+      "sources": [
+        "https://www.sfda.gov.sa/en/news/4292351"
+      ],
+      "condition": "Traveler needs to carry a controlled/narcotic/psychotropic medication"
+    },
+    {
+      "action": "If cannabis/CBD-based products are involved, do not attempt the CDS process at all - these remain banned outright with no clearance path, even with a foreign medical prescription",
+      "success_rate": 0.9,
+      "sources": [
+        "https://sa.usembassy.gov/health-alert-new-prescription-regulations-for-saudi-arabia-2/"
+      ],
+      "condition": "Cannabis/CBD-based medication",
+      "tradeoff": "No legal import route exists for these substances regardless of documentation; travelers must arrange alternative treatment for the trip's duration."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/alcohol-prohibition/sa",
+        "distinction": "Alcohol is banned outright with no permit process; controlled prescription medications are legal to carry with SFDA clearance obtained in advance - two different regimes."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}

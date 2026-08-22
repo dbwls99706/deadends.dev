@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "app-router",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-22"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.96,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-22",
     "summary": "Client component (use client) tries to import a Node.js-only module like fs, path, or child_process."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "fs and child_process cannot be meaningfully polyfilled in browsers",
       "fail_rate": 0.8,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "fs is a built-in Node module; npm install fs installs a shim that doesn't work",
       "fail_rate": 0.85,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     }
@@ -50,7 +50,7 @@
       "success_rate": 0.96,
       "how": "Remove 'use client' from the component that needs Node.js APIs",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     },
@@ -59,7 +59,7 @@
       "success_rate": 0.85,
       "how": "import dynamic from 'next/dynamic';\n\n// Dynamically import component that uses Node.js APIs:\nconst ServerChart = dynamic(() => import('./ServerChart'), {\n  ssr: false,\n  loading: () => <p>Loading chart...</p>\n});",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading"
+        "https://nextjs.org/docs/app/guides/lazy-loading"
       ],
       "condition": ""
     },
@@ -68,7 +68,7 @@
       "success_rate": 0.88,
       "how": "npm install server-only\n\n// Add at top of any server-only module:\nimport 'server-only';\n// Now if a client component imports this file,\n// you get a clear build error instead of a cryptic runtime error",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components#preventing-environment-poisoning"
       ],
       "condition": ""
     }
@@ -88,6 +88,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-22"
   }
 }

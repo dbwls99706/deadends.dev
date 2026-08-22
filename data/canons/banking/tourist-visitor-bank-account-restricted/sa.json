@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/tourist-visitor-bank-account-restricted/sa",
+  "url": "https://deadends.dev/banking/tourist-visitor-bank-account-restricted/sa",
+  "error": {
+    "signature": "AI tells a Saudi Arabia tourist e-visa holder or Hajj pilgrim they can open a normal bank account with just a passport",
+    "regex": "(saudi.*(bank account|open.*account)|open.*account.*saudi|ksa.*bank account|hajj.*bank account)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-08-22",
+    "summary": "SAMA's Rulebook sets different, restricted bank-account rules by visa type in Saudi Arabia. Only Iqama (residence permit) holders get a normal account. Tourists/visitors hold a Ministry of Interior Visitor ID and get an account that closes when their permit expires and cannot receive a checkbook. Temporary work-visa holders (first 90 days) are limited to an ATM card and transfers up to SAR 10,000 per transaction. Foreign pilgrims holding only a Hajj identification card are not allowed to open a bank account at all."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist e-visa holder or short-term visitor that a passport alone lets them open a regular Saudi bank account the way an Iqama (residency) holder can",
+      "why_fails": "SAMA's Rulebook classifies visitor/tourist accounts under a separate, restricted category: valid only through the visa/Visitor ID's expiry (closing immediately for single-entry visas), with no checkbook, and treated as high-risk. It is not the same account product a resident opens with an Iqama.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://rulebook.sama.gov.sa/en/20013-expatriates-saudi-arabia"
+      ],
+      "condition": "Tourist e-visa or short-term visitor without an Iqama",
+      "common_misconception": "That any valid Saudi entry visa is enough to open a full bank account, the same as a resident."
+    },
+    {
+      "action": "Assume a foreign Hajj pilgrim can open a bank account in Saudi Arabia using their Hajj identification card",
+      "why_fails": "SAMA's Rulebook explicitly lists foreign pilgrims holding only a Hajj identification card among the prohibited-account categories: banks are not allowed to open accounts for them on that basis at all.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://rulebook.sama.gov.sa/en/20013-expatriates-saudi-arabia"
+      ],
+      "condition": "Hajj pilgrim without a separate residency or visitor account basis"
+    },
+    {
+      "action": "Tell a new temporary work-visa holder they get full banking services (checkbook, credit card, unlimited transfers) as soon as the account is opened",
+      "why_fails": "During the first 90 days before the Iqama is issued, SAMA restricts the account to an ATM card and transfers capped at SAR 10,000 per transaction; no checkbooks or credit cards are permitted, and the account freezes if the Iqama is not submitted within three months.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://rulebook.sama.gov.sa/en/20013-expatriates-saudi-arabia"
+      ],
+      "condition": "First 90 days on a temporary work visa, before Iqama issuance"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wait until Iqama (residence permit) issuance to open a full-service account; in the interim, use the restricted temporary-work-visa account (ATM card + capped transfers) that SAMA permits during the first 90 days",
+      "success_rate": 0.85,
+      "how": "Provide the employer's official request, original passport with work visa, and sign the account-opening agreement in person; submit the Iqama within three months to avoid the account freezing.",
+      "sources": [
+        "https://rulebook.sama.gov.sa/en/20013-expatriates-saudi-arabia"
+      ],
+      "condition": "Temporary work-visa holder awaiting Iqama"
+    },
+    {
+      "action": "For a genuine tourist/visitor need (e.g. a long multiple-entry visit visa), apply for the restricted visitor account with a Ministry of Interior Visitor ID, a stated purpose of visit, and expect only a MADA-network ATM card and no checkbook",
+      "success_rate": 0.7,
+      "how": "Multiple-entry visit visas can get a 6-month renewable account; single-entry visas get an account that closes when the visa expires.",
+      "sources": [
+        "https://rulebook.sama.gov.sa/en/20013-expatriates-saudi-arabia"
+      ],
+      "condition": "Visit-visa holder (business, scientific, professional, or government visit)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/tourist-evisa-open/sa",
+        "distinction": "That canon covers whether Saudi Arabia issues a tourist e-visa at all; this one covers the separate, much more restricted bank-account rules that apply once someone is in the country on that visa."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}

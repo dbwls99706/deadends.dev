@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/desert-flash-flood-risk-underestimated/sa",
+  "url": "https://deadends.dev/disaster/desert-flash-flood-risk-underestimated/sa",
+  "error": {
+    "signature": "AI dismisses flash flood and heavy rain risk in Saudi Arabia as negligible because it is a desert climate",
+    "regex": "(saudi arabia.*(flood|flash flood)|does saudi arabia flood|riyadh.*flood|jeddah.*flood|ncm.*(red|orange|yellow) alert)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-22",
+    "last_confirmed": "2026-08-22"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-22",
+    "summary": "Saudi Arabia's National Center for Meteorology (NCM) runs a nationwide, government-run color-coded early warning system (yellow/orange/red) for weather hazards including flash floods, and Saudi Civil Defense issues matching public advisories, precisely because seasonal heavy rain regularly causes fast-moving flash floods and deaths in cities like Jeddah and Riyadh, and in valleys (wadis) across the Kingdom. Treating a desert climate as flood-proof is a documented, government-flagged misconception."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident that Saudi Arabia's desert climate means flash floods are not a real risk worth planning for",
+      "why_fails": "The National Center for Meteorology (NCM) operates an automated, government early-warning system with red/orange/yellow alert levels specifically because heavy rain and flash floods recur seasonally; as of a recent check there were dozens of simultaneous active alerts (including red alerts for flash-flood-capable rainfall in the Makkah, Asir, and Jazan regions), and Saudi Civil Defense separately urges the public to avoid valleys (wadis) and waterways during these events.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.ncm.gov.sa/en/early-warning",
+        "https://998.gov.sa/en/Page/Rains-and-flood-hazards/web//NaturalDisasters/"
+      ],
+      "condition": "Rainy season travel or residence in flood-prone regions (Jeddah, Riyadh valleys, Jazan, Asir)",
+      "common_misconception": "That an arid, desert-dominated country cannot experience serious flooding, when concentrated seasonal downpours on hard, poorly-absorbent ground routinely cause fast flash floods."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the NCM's color-coded early warning system (ncm.gov.sa/en/early-warning) before and during travel in rainy months, and follow Saudi Civil Defense (998.gov.sa) instructions - especially avoiding valleys, waterways, and rural roads - when a red or orange alert is active for your region",
+      "success_rate": 0.85,
+      "how": "Subscribe to NCM email notifications by region and alert level, and treat a red alert as an instruction to avoid affected valleys/waterways entirely, per Civil Defense guidance.",
+      "sources": [
+        "https://www.ncm.gov.sa/en/early-warning",
+        "https://998.gov.sa/en/Page/Rains-and-flood-hazards/web//NaturalDisasters/"
+      ],
+      "condition": "General public in Saudi Arabia during rainy-season weather events"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-22",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-22"
+  }
+}
