@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/wildfire-fire-use-ban-critical-period/pt",
+  "url": "https://deadends.dev/disaster/wildfire-fire-use-ban-critical-period/pt",
+  "error": {
+    "signature": "AI treats bonfires, BBQs, cigarette disposal, or vegetation burning in rural Portugal during summer as a personal risk decision rather than a legal prohibition",
+    "regex": "(portugal.*(bonfire|campfire|bbq|barbecue).*(legal|rural|forest)|portugal wildfire (season|ban)|queimada.*portugal)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-23",
+    "summary": "Portugal's Sistema de Gestao Integrada de Fogos Rurais (Decreto-Lei n.o 82/2021) legally bans specific fire-related activities in rural areas whenever the daily rural fire-danger index reaches 'muito elevado' or 'maximo' - not just during an official 'critical period'. On those days it is prohibited to light bonfires for recreation or festivities, smoke or use any open flame in rural territory, carry out unauthorized burning of vegetation (queimadas), and launch lit balloons/fireworks; agricultural machinery use is also time-restricted. This is enforced with tiered fines (from a few hundred to tens of thousands of euros depending on severity and whether it is an individual or organization), and a burn that causes a wildfire can additionally be prosecuted as arson under the Penal Code."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat having a campfire, BBQ, or discarding a lit cigarette in the Portuguese countryside in summer as a personal risk decision rather than something the law restricts",
+      "why_fails": "SGIFR (the government agency implementing Decreto-Lei 82/2021) states that on days of 'muito elevado' or 'maximo' rural fire danger, extensive burnings and recreational bonfires are legally prohibited, and a municipal government's own published restriction list additionally bans smoking or any open flame in rural territory on those days - this is a legal ban, not informal guidance, with fines from several hundred to tens of thousands of euros.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.sgifr.gov.pt/en/burnings",
+        "https://www.cm-ilhavo.pt/viver/areas-de-intervencao/protecao-civil-e-gestao-florestal/floresta/informacao-e-sensibilizacao/restricoes-associadas-ao-indice-de-perigo-de-incendio-rural-diario"
+      ],
+      "condition": "Rural Portugal on a 'muito elevado' or 'maximo' fire-danger day",
+      "common_misconception": "That the ban only applies during a fixed summer 'critical period' calendar window, rather than being tied to the daily published fire-danger index, which can trigger restrictions outside the usual months too."
+    },
+    {
+      "action": "Assume any vegetation burning (queimada) is fine as long as it's on private land",
+      "why_fails": "Decreto-Lei 82/2021 requires prior notification and, on most days, municipal authorization before any queimada, regardless of land ownership; skipping the required notification alone carries a fine of 150-1,500 EUR for individuals, and burning without authorization at all is 500-5,000 EUR, rising to 2,500-25,000 EUR if done on a 'muito elevado'/'maximo' danger day.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.sgifr.gov.pt/en/burnings"
+      ],
+      "condition": "Burning vegetation on private rural land in Portugal"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the daily rural fire-danger index (IPMA/ICNF) before any outdoor fire use, and treat 'muito elevado' or 'maximo' days as a hard legal no for bonfires, smoking outdoors in rural areas, and unauthorized burning - not just elevated risk",
+      "success_rate": 0.85,
+      "how": "https://www.ipma.pt/pt/riscoincendio/rcm.pt/ publishes the daily index by municipality.",
+      "sources": [
+        "https://www.sgifr.gov.pt/en/burnings"
+      ],
+      "condition": "Planning outdoor fire use in rural Portugal, June-October"
+    },
+    {
+      "action": "For any planned queimada or extensive burning, submit the required prior notification/authorization through the municipal Forest Technical Office or the ICNF online platform before burning, even on private land",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=3453&tabela=leis&so_miolo="
+      ],
+      "condition": "Any vegetation burning on rural land"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}
