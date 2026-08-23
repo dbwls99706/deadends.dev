@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/national-health-insurance-residency-based/il",
+  "url": "https://deadends.dev/medical/national-health-insurance-residency-based/il",
+  "error": {
+    "signature": "AI tells a tourist or short-term visitor to Israel that they're automatically covered by Israel's National Health Insurance because the country has universal healthcare",
+    "regex": "(israel.*(universal healthcare|national health insurance)|tourist.*israel.*health insurance|kupat cholim.*tourist)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-23",
+    "summary": "Israel's State Health Insurance Law covers every 'Israeli resident' - defined by the National Insurance Institute (Bituach Leumi) as someone whose life is centered in Israel (permanent residence, family, workplace, or studies) - not anyone merely present in the country. Tourists and short-term visitors are not covered and need private travel medical insurance. New immigrants (Olim) must also actively register with a Kupat Holim (health fund); coverage is not automatic on arrival, though a 6-month contribution exemption applies for those with no income or earnings below NIS 688/month (as of Jan 1, 2026)."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist or short-term visitor that Israel's National Health Insurance Law automatically covers them because Israel has 'universal healthcare'",
+      "why_fails": "Israel's National Insurance Institute states that State Health Insurance Law coverage applies to every 'Israeli resident' - defined as someone whose life is centered in Israel via permanent residence, family location, children's schooling, primary workplace, or place of study - not simply anyone physically present. A tourist without established residency does not meet this test and is not covered; they need private travel medical insurance.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.btl.gov.il/English%20Homepage/Insurance/Health%20Insurance/Pages/default.aspx"
+      ],
+      "condition": "Short-term tourist or visitor without residency status",
+      "common_misconception": "That 'universal healthcare' in Israel means coverage is triggered by physical presence rather than by residency status."
+    },
+    {
+      "action": "Assume a new immigrant (Oleh) is fully covered by a Kupat Holim (health fund) the moment they land, with no registration step or income-based exemption to check",
+      "why_fails": "Bituach Leumi's own guidance for new Olim describes registration through specific channels - the Ministry of Absorption's airport office on arrival, a post office branch, or online after three weeks - meaning it is not automatic. Separately, new immigrants with no income or earnings below NIS 688/month (as of Jan 1, 2026) get a 6-month exemption from health insurance contributions, extendable another 6 months if receiving Ministry of Absorption subsistence benefits, so 'covered' and 'registered/paying' are different states that both need to be actively completed.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.btl.gov.il/English%20Homepage/%D7%9E%D7%99%D7%93%D7%A2%20%D7%9C%D7%A7%D7%94%D7%9C%20%D7%99%D7%A2%D7%93/NewOlim/Pages/HMO_Contributions.aspx"
+      ],
+      "condition": "New immigrant (Oleh) in the first weeks after arrival"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tourists and short-term visitors should buy private travel medical insurance for the full trip; new residents/Olim should register with a Kupat Holim as soon as possible through the airport absorption desk, a post office branch, or the Bituach Leumi website",
+      "success_rate": 0.85,
+      "how": "New Olim can register immediately at Ministry of Absorption airport offices on arrival; everyone else can register online at btl.gov.il or at a post-office branch, keeping in mind the NIS 688/month income threshold for the initial contribution exemption.",
+      "sources": [
+        "https://www.btl.gov.il/English%20Homepage/Insurance/Health%20Insurance/Registration/Pages/Making-registration.aspx",
+        "https://www.btl.gov.il/English%20Homepage/%D7%9E%D7%99%D7%93%D7%A2%20%D7%9C%D7%A7%D7%94%D7%9C%20%D7%99%D7%A2%D7%93/NewOlim/Pages/HMO_Contributions.aspx"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}

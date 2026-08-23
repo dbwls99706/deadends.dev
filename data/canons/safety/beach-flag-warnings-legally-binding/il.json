@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/beach-flag-warnings-legally-binding/il",
+  "url": "https://deadends.dev/safety/beach-flag-warnings-legally-binding/il",
+  "error": {
+    "signature": "AI tells a traveler that Israeli beach flag warnings (black flag, lifeguard hours) are just safety advice they can ignore if they're a confident swimmer",
+    "regex": "(israel.*beach.*(black flag|swim)|tel aviv beach swim|israel beach lifeguard hours)",
+    "domain": "safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.68,
+    "last_updated": "2026-08-23",
+    "summary": "Swimming when the black flag is raised, or outside posted lifeguard hours, is a statutory offense in Israel under the Law for the Regulation of Bathing Places, 1964 and its 1965 implementing ordinance - not just a liability disclaimer. Tel Aviv's own municipal guidance states rescue service runs seasonally (April-October) and that bathing without lifeguard supervision is forbidden. Roughly 80% of Israel's drowning deaths in a documented year occurred when no lifeguard was on duty, underscoring that the rule tracks a real hazard, not bureaucratic caution."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that Israeli beach flag colors and lifeguard hours are informal safety advice they can disregard if they consider themselves a strong swimmer",
+      "why_fails": "Tel Aviv-Yafo's municipal guidance states swimming without lifeguard supervision is 'forbidden and dangerous,' and swimming when the black flag is raised is prohibited under Israel's Law for the Regulation of Bathing Places, 1964 (חוק הסדרת מקומות רחצה, תשכ״ד-1964) and its 1965 implementing ordinance - both carry statutory penalties, not just a recommendation.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.tel-aviv.gov.il/en/Visit/beaches/Pages/default.aspx",
+        "https://lifeguard.co.il/%D7%97%D7%95%D7%A7-%D7%95%D7%9E%D7%A9%D7%A4%D7%98/"
+      ],
+      "condition": "Swimming outside lifeguard hours or against a black flag",
+      "common_misconception": "That flag warnings are only a liability disclaimer rather than an enforceable legal prohibition."
+    },
+    {
+      "action": "Assume Israeli beaches are lifeguard-supervised, and therefore swimmable, year-round",
+      "why_fails": "Tel Aviv's own beach guidance states rescue/lifeguard service runs seasonally, April through October, and that bathing is prohibited when no lifeguard is on duty; reporting on Israel's drowning statistics found that roughly 80% of one year's drownings happened when no lifeguard was present, many at unauthorized beaches or after hours - the risk is real, not theoretical.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.tel-aviv.gov.il/en/Visit/beaches/Pages/default.aspx",
+        "https://www.israelhayom.com/2021/07/26/beach-season-proves-deadly-as-israel-sees-troubling-spike-in-drowning-cases/"
+      ],
+      "condition": "Visiting outside April-October, or before/after posted lifeguard hours",
+      "common_misconception": "That Mediterranean beaches are safe to swim whenever the weather looks calm, regardless of season or posted hours."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Only swim at a beach with a visible, staffed lifeguard tower during posted hours (seasonally April-October), and check the flag color before entering the water",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.tel-aviv.gov.il/en/Visit/beaches/Pages/default.aspx"
+      ],
+      "condition": "Any beach visit in Israel"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}
