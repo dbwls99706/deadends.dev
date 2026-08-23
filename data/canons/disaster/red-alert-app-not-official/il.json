@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/red-alert-app-not-official/il",
+  "url": "https://deadends.dev/disaster/red-alert-app-not-official/il",
+  "error": {
+    "signature": "AI tells a traveler in Israel that any 'Red Alert' or 'Tzeva Adom' rocket-siren app found in an app store is the official Home Front Command alert channel, or that shelter response time is the same everywhere in the country",
+    "regex": "(red alert app israel|tzeva adom app|home front command app|israel rocket alert app|pikud haoref app)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.72,
+    "last_updated": "2026-08-23",
+    "summary": "Israel's official rocket/missile alert app is the Home Front Command (Pikud Ha'oref) app - Android package com.alert.meserhadash, iOS id1542010719 - published by the Ministry of Defense. Several independent volunteer apps (RedAlert, Tzofar) relay the same public feed and are useful, but their own store listings state they are unofficial. Response time to reach shelter also varies sharply by zone: 90 seconds in Tel Aviv per the city's own guidance, as little as 15 seconds in Gaza-border communities, and longer further north."
+  },
+  "dead_ends": [
+    {
+      "action": "Recommend a generic 'RedAlert' or 'Tzofar' style app found by searching app stores as the official Home Front Command channel",
+      "why_fails": "These are independent volunteer-built apps that relay data pulled from Home Front Command's public feed; the Tzofar app's own Google Play listing describes it as not official and says it should not be relied on in place of government alerts. Israel's one official app is published under the Home Front Command name (Pikud Ha'oref), package com.alert.meserhadash on Android and listed as 'Israel Home Front Command' (id1542010719) on iOS.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://play.google.com/store/apps/details?id=com.redalert.tzevaadom&hl=en_US",
+        "https://apps.apple.com/us/app/israel-home-front-command/id1542010719"
+      ],
+      "condition": "Choosing an alert app before or during travel to Israel",
+      "common_misconception": "That any app carrying 'Red Alert'/'Tzeva Adom' branding is government-run because it uses the same siren terminology."
+    },
+    {
+      "action": "Treat the countdown to reach shelter as a fixed national number, such as always '90 seconds'",
+      "why_fails": "Response time is zone-specific: Tel Aviv's own municipal emergency guidance sets it at 90 seconds, while Home Front Command's published guidance and reporting on the Lebanon border area put it at around 15 seconds for communities closest to the border, with other zones falling in between. Using the wrong number for a given location risks either a fatal delay or unnecessary panic.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.tel-aviv.gov.il/en/Live/Emergency/Pages/Residents_Preparation.aspx",
+        "https://www.jpost.com/israel-news/defense-news/article-891410"
+      ],
+      "condition": "Any traveler or resident outside their home zone"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the official Home Front Command app (Pikud Ha'oref) using the confirmed store listings, and check the zone-specific response time for your current location on arrival",
+      "success_rate": 0.85,
+      "how": "Search app stores using the exact official listing (Android package com.alert.meserhadash; iOS id1542010719) rather than generic 'red alert' search terms, since imitator apps use similar names and icons.",
+      "sources": [
+        "https://apps.apple.com/us/app/israel-home-front-command/id1542010719",
+        "https://www.nbn.org.il/life-in-israel/emergency-resources-life-in-israel-2/national-emergency-preparation/"
+      ],
+      "condition": "Any traveler or new resident"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/100-101-102/il",
+        "distinction": "That canon covers which phone number to dial for help; this one covers which app delivers official rocket/missile push alerts and how much time you actually have."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-08-23"
+  }
+}
