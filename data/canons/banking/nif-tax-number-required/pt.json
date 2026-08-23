@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/nif-tax-number-required/pt",
+  "url": "https://deadends.dev/banking/nif-tax-number-required/pt",
+  "error": {
+    "signature": "AI tells a foreigner in Portugal that a passport or residence permit alone is enough to open a bank account, sign a lease, or get a phone contract",
+    "regex": "(portugal.*(bank account|open.*account)|portuguese tax number|nif.*portugal|n[uú]mero de identifica[cç][aã]o fiscal)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-23",
+    "summary": "Portugal requires a nine-digit Número de Identificação Fiscal (NIF), issued by the Autoridade Tributária, before a foreigner can open a bank account, sign a lease, or take out a phone contract. A passport or residence permit is only supporting documentation for the NIF application, not a substitute for it. Residents apply directly with ID and proof of address; non-residents outside the EU/EEA only need a paid fiscal representative once they establish an actual tax relationship in Portugal (owning property, a work contract, VAT-liable self-employment) - not merely to be issued the NIF - and can often avoid that cost entirely by enrolling in electronic notifications instead. EU/EEA citizens never need a fiscal representative; it is always optional for them."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner that a passport or residence permit alone lets them open a bank account, sign a lease, or get a phone contract in Portugal",
+      "why_fails": "gov.pt's official NIF service page states the NIF is required for 'purchasing goods or services, entering into contracts, opening bank accounts, etc.'; the passport/residence permit are only documents submitted alongside the NIF application, not a substitute for it.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www2.gov.pt/en/servicos/pedir-o-numero-de-identificacao-fiscal-para-pessoa-singular"
+      ],
+      "condition": "First administrative registration in Portugal"
+    },
+    {
+      "action": "Tell any non-EU/EEA foreigner they must pay for an ongoing fiscal representative just to be issued a NIF",
+      "why_fails": "The Portuguese Tax Authority's own FAQ states designating a fiscal representative is not mandatory at the point a non-resident's NIF is attributed - it only becomes mandatory once that person establishes an actual tax relationship (owning property/vehicles, a work contract, or VAT-liable self-employment), and even then most non-EU/EEA residents can substitute electronic notifications (Portal das Finanças or ViaCTT) instead of paying a representative. EU/EEA citizens never need one; it is always optional for them.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00307.aspx"
+      ],
+      "condition": "Non-EU/EEA foreigner applying for or holding a NIF as a non-resident",
+      "common_misconception": "That every non-resident or non-EU foreigner must pay for fiscal representation indefinitely just to hold a NIF."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Residents: apply for the NIF in person at a Finanças office or via the AT e-balcão with an ID/passport and proof of address - no fiscal representative needed. Non-residents: an identification document plus, per the current gov.pt foreign-citizens guide, either a fiscal representative or (for most nationalities) enrollment in electronic notifications.",
+      "success_rate": 0.85,
+      "how": "Non-residents typically submit the request through the e-Balcão via a representative; residents can request an appointment through the CAT call centre (217 206 707).",
+      "sources": [
+        "https://www.gov.pt/guias/como-pedir-o-nif-e-o-niss-para-pessoas-estrangeiras-em-portugal"
+      ],
+      "condition": "Foreigner establishing residence or a financial relationship in Portugal"
+    },
+    {
+      "action": "If you're a non-EU/EEA non-resident and later establish a tax relationship (buy property, sign a work contract), you have 15 days to either appoint a fiscal representative or enroll in electronic notifications on Portal das Finanças/ViaCTT - except VAT-liable self-employment, which requires a representative regardless",
+      "success_rate": 0.75,
+      "sources": [
+        "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00307.aspx"
+      ],
+      "condition": "Non-EU/EEA non-resident who later establishes a Portuguese tax relationship"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/aima-replaced-sef-immigration/pt",
+        "distinction": "NIF is a tax-registration number from the Autoridade Tributária needed for banking, leases, and contracts; AIMA is the separate immigration agency handling residence permits and visas. Getting one does not involve the other."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}

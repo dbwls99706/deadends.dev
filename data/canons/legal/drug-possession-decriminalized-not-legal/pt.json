@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/drug-possession-decriminalized-not-legal/pt",
+  "url": "https://deadends.dev/legal/drug-possession-decriminalized-not-legal/pt",
+  "error": {
+    "signature": "AI tells a traveler that drugs are 'legal' in Portugal, or that carrying any amount for personal use carries no legal consequence",
+    "regex": "(portugal.*(drugs? (are )?legal|legalized drugs)|drugs.*legal.*portugal|portugal drug policy)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-23",
+    "summary": "Lei n.o 30/2000 reclassified the acquisition, possession, and consumption of drugs for personal use as a 'contraordenacao' (administrative offense) rather than a crime, when the quantity held does not exceed the amount needed for an average 10-day individual supply. It never legalized drugs: buying, selling, trafficking, and cultivation, as well as possession beyond that 10-day reference quantity, remain criminal offenses. Cases within the threshold go to a regional Comissao para a Dissuasao da Toxicodependencia (CDT), which can still impose fines or other sanctions - it is unlawful, just not prosecuted in criminal court."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident that drugs are 'legal' in Portugal, or that carrying drugs carries no legal consequence",
+      "why_fails": "Lei 30/2000 (Article 2) makes acquisition, possession, and consumption for personal use within a 10-day reference quantity a 'contraordenacao' - an administrative offense handled by a regional Dissuasion Commission (CDT), not a decriminalized-into-nonexistence act. It is still unlawful and can lead to fines or other sanctions; trafficking, dealing, and cultivation beyond personal-use quantities remain criminal offenses under separate narcotics legislation.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=186&tabela=leis&so_miolo="
+      ],
+      "condition": "Personal possession/consumption of a substance covered by Lei 30/2000",
+      "common_misconception": "That 'decriminalized' means 'legal' - Portugal moved enforcement from criminal court to an administrative panel; it never made drug possession lawful."
+    },
+    {
+      "action": "Assume any quantity carried 'for personal use' is treated the same and stays out of the criminal system",
+      "why_fails": "The law only shields possession up to the amount needed for an average 10-day individual supply. Exceeding that quantity is treated as an indication of trafficking intent, referred to a judicial authority, and only excluded from prosecution if the person proves it was exclusively for personal consumption.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=186&tabela=leis&so_miolo="
+      ],
+      "condition": "Possession exceeding the 10-day personal-use reference quantity"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Explain that possession/use within the 10-day personal-use threshold is an administrative offense handled by a regional Dissuasion Commission (CDT) - not a criminal court - but can still mean fines or mandatory measures; it is not risk-free or 'legal'",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.euda.europa.eu/publications/drug-policy-profiles/portugal_en"
+      ],
+      "condition": "General explanation of Portugal's drug policy"
+    },
+    {
+      "action": "Warn that buying, selling, or possessing quantities beyond the personal-use threshold remains a criminal offense, and that Portugal's framework (documented by the Library of Congress comparative report) is decriminalization, not legalization",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.loc.gov/item/2016479004/"
+      ],
+      "condition": "Trafficking, dealing, or quantities beyond personal-use thresholds"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}

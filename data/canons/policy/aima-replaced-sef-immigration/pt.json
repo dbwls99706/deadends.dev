@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/aima-replaced-sef-immigration/pt",
+  "url": "https://deadends.dev/policy/aima-replaced-sef-immigration/pt",
+  "error": {
+    "signature": "AI tells a foreigner in Portugal to contact SEF (Servico de Estrangeiros e Fronteiras), book a SEF appointment, or check sef.pt for a residence-permit renewal or visa follow-up",
+    "regex": "(sef\\.pt|sef appointment|servi[cç]o de estrangeiros e fronteiras|contact sef)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-23",
+    "last_confirmed": "2026-08-23"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-23",
+    "summary": "SEF (Servico de Estrangeiros e Fronteiras) was abolished at 00:00 on 29 October 2023 under Decreto-Lei n.o 41/2023, of 2 June. Its administrative functions for foreigners - residence-permit issuance and renewal, visa follow-up, and related appointments - transferred to the newly created Agencia para a Integracao, Migracoes e Asilo (AIMA, I.P.). Border-control duties did not go to AIMA: air-border control went to the PSP and land/maritime border control went to the GNR. An AI trained before late 2023, or simply reciting older material, will confidently point users to an agency that no longer exists."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner to book a SEF appointment, visit sef.pt, or wait for a SEF-issued residence-card renewal",
+      "why_fails": "Decreto-Lei n.o 41/2023 created AIMA, I.P. as the successor to SEF for administrative matters concerning foreign citizens, and SEF was abolished when AIMA began operating on 29 October 2023; SEF no longer processes appointments or renewals.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://diariodarepublica.pt/dr/detalhe/decreto-lei/41-2023-213881448",
+        "https://www2.gov.pt/en/noticias/agencia-para-a-integracao-migracoes-e-asilo-aima-inicia-funcoes"
+      ],
+      "condition": "Any residence-permit, visa, or immigration appointment topic after October 2023",
+      "common_misconception": "That SEF still exists as Portugal's immigration authority, since it operated under that name for decades."
+    },
+    {
+      "action": "Assume AIMA also handles airport passport checks or other border-control duties that used to belong to SEF",
+      "why_fails": "Decreto-Lei n.o 41/2023 split SEF's old law-enforcement duties away from its administrative ones: air-border control went to the PSP and land/maritime border control went to the GNR, while AIMA took only the administrative-integration functions (residence permits, asylum, integration policy).",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://diariodarepublica.pt/dr/detalhe/decreto-lei/41-2023-213881448",
+        "https://www.theportugalnews.com/news/2023-02-25/sef-powers-moving-to-other-authorities/75129"
+      ],
+      "condition": "Border-control or passport-check questions"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct users to AIMA (Agencia para a Integracao, Migracoes e Asilo) for residence-permit renewals, visa follow-up, and appointment scheduling - not SEF",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www2.gov.pt/en/noticias/agencia-para-a-integracao-migracoes-e-asilo-aima-inicia-funcoes"
+      ],
+      "condition": "General immigration/residence-permit question"
+    },
+    {
+      "action": "For airport or border-crossing questions, point to the PSP (air border) or GNR (land/maritime border) rather than an immigration-specific agency",
+      "success_rate": 0.65,
+      "sources": [
+        "https://www.theportugalnews.com/news/2023-02-25/sef-powers-moving-to-other-authorities/75129"
+      ],
+      "condition": "Border-control or passport-check questions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/nif-tax-number-required/pt",
+        "distinction": "AIMA handles immigration status (residence permits, visas); NIF is a separate tax-registration number from the Autoridade Tributaria needed for banking, leases, and contracts."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-23",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-23"
+  }
+}
