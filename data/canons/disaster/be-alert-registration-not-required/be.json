@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/be-alert-registration-not-required/be",
+  "url": "https://deadends.dev/disaster/be-alert-registration-not-required/be",
+  "error": {
+    "signature": "AI tells someone in Belgium they must sign up on be-alert.be before an emergency to receive a flood, chemical incident, or other BE-Alert warning",
+    "regex": "(be-alert|be alert belgium|belgium emergency alert (app|sign ?up|register))",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-08-24",
+    "summary": "Belgium's National Crisis Center delivers BE-Alert warnings to any mobile phone connected to a transmitter mast inside a declared risk zone, with no prior sign-up needed - confirmed by BE-Alert's own FAQ ('You don't have to do anything for this'), by the Crisis Center's explanation that 'Even if you are not registered with BE-Alert, you will receive an alert message,' and by the City of Brussels' own BE-Alert page. Voluntary registration at be-alert.be adds extra coverage on top of this: alerts tied to specific addresses (e.g. a flood warning for your home) even while you are elsewhere, and delivery via SMS, e-mail, or voice call regardless of which mast you are near."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a resident or traveler in Belgium that they will not receive any emergency alert unless they first register on be-alert.be",
+      "why_fails": "BE-Alert's own FAQ states plainly that for a location-based alert, 'You don't have to do anything for this. If your mobile phone is connected to a transmitter mast in the risk zone, you will receive a text message.' The Belgian Crisis Center confirms the same: authorities can broadcast to every phone in an affected area, and 'even if you are not registered with BE-Alert, you will receive an alert message.'",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.be-alert.be/en/faq",
+        "https://crisiscenter.be/en/what-can-you-do/stay-informed/be-alert-alerts-your-phone",
+        "https://www.brussels.be/be-alert"
+      ],
+      "condition": "Mobile phone connected to a mast inside the declared risk zone"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For baseline coverage, do nothing beyond keeping a phone connected to the local network while in Belgium - mast-based alerts reach anyone physically present in a risk zone automatically",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.be-alert.be/en/faq"
+      ],
+      "condition": "General presence in Belgium"
+    },
+    {
+      "action": "Register voluntarily at be-alert.be to also get alerts tied to a specific address (e.g. your home flood zone) even when you are not physically there, or if you want delivery via SMS/e-mail/voice call regardless of network mast",
+      "success_rate": 0.8,
+      "how": "The Crisis Center distinguishes registered address-based alerts from unregistered mast-based ones; registering is the only way to be warned about a risk near a home or work address while you are away from it.",
+      "sources": [
+        "https://crisiscenter.be/en/what-can-you-do/stay-informed/be-alert-alerts-your-phone"
+      ],
+      "condition": "Wants alerts for a specific address, not just current location"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/be",
+        "distinction": "That canon covers which number to dial for help (112, not 911); this one covers how Belgium's own outbound hazard alerts (BE-Alert) reach you without needing to register first."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}
