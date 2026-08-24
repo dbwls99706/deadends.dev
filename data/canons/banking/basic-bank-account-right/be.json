@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/basic-bank-account-right/be",
+  "url": "https://deadends.dev/banking/basic-bank-account-right/be",
+  "error": {
+    "signature": "AI tells someone in Belgium without a Belgian address, income, or clean credit history that no bank will open an account for them",
+    "regex": "(belgium.*(basic bank|open.*bank account)|service bancaire de base|basisbankdienst|belgium.*bank.*refus)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-24",
+    "summary": "Belgian law gives any consumer legally residing in an EU member state (plus Belgians who left the population register less than 10 years ago) a right to a 'service bancaire de base' / 'basisbankdienst' - a basic payment account with withdrawals, deposits, card payments, transfers, and direct debits. Per FPS Economy and Febelfin (the Belgian financial sector federation), a bank may refuse only for a short list of reasons (an existing basic account elsewhere, holdings or credit above roughly 10,000 EUR, or an anti-money-laundering/fraud conflict) and cannot ask why the applicant wants the service. Asylum seekers and recognised refugees qualify even with only a temporary address. A refusal must be justified in writing within 10 business days, and the applicant can escalate a wrongful refusal to the Financial Ombudsman Service (Ombudsfin) for a binding opinion."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone with no fixed Belgian address, no income, or a poor credit history that they cannot get a Belgian bank account at all, or that it is purely at each bank's discretion",
+      "why_fails": "FPS Economy's official page on the basic banking service does not condition eligibility on income, credit history, or a fixed address - it conditions it on legal residence in an EU member state (or recent Belgian emigrants). Febelfin's own page on the service confirms banks' allowed refusal grounds exhaustively (duplicate basic account, balances/credit above roughly 10,000 EUR elsewhere, fraud/AML conflict); those grounds do not include low income or bad credit, and the bank is barred from even asking why the applicant wants the account.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://economie.fgov.be/fr/themes/services-financiers/services-de-paiement/service-bancaire-de-base/service-bancaire-de-base-pour-0",
+        "https://febelfin.be/en/services/request-a-basic-banking-service-for-individuals"
+      ],
+      "condition": "EU-resident consumer applying for a basic account"
+    },
+    {
+      "action": "Tell an asylum seeker or refugee they cannot get a Belgian bank account because they lack a permanent address",
+      "why_fails": "Febelfin's page on the basic banking service states explicitly that 'the basic banking service is also there for asylum seekers and recognised refugees. Even if they only have a temporary address' - a temporary address is not a disqualifying condition.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://febelfin.be/en/services/request-a-basic-banking-service-for-individuals"
+      ],
+      "condition": "Asylum seeker or recognised refugee with only a temporary address",
+      "common_misconception": "That only people with a permanent registered address can access banking services in Belgium."
+    },
+    {
+      "action": "Tell someone whose basic-account request was refused that the decision is final with no recourse",
+      "why_fails": "Per FPS Economy, a refusing bank must give written reasons within 10 business days (except for anti-terrorism cases), and the applicant can then bring the refusal to the Financial Ombudsman Service (Ombudsfin), which issues a binding opinion - a refusal is contestable, not final.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://economie.fgov.be/fr/themes/services-financiers/services-de-paiement/service-bancaire-de-base/service-bancaire-de-base-pour-0"
+      ],
+      "condition": "After a bank has refused a basic-account request"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the 'service bancaire de base' / 'basisbankdienst' directly at a Belgian bank, citing legal residence in an EU member state as the qualifying condition - the bank cannot ask why you want the account",
+      "success_rate": 0.8,
+      "how": "Bring proof of identity and of legal residence (an ID card, residence permit, or registration certificate from the commune). If refused, request the written justification the bank is required to provide within 10 business days.",
+      "sources": [
+        "https://economie.fgov.be/fr/themes/services-financiers/services-de-paiement/service-bancaire-de-base/service-bancaire-de-base-pour-0"
+      ],
+      "condition": "Legal EU residency, first application"
+    },
+    {
+      "action": "If refused without one of the narrow permitted grounds, or without written justification, escalate the case to the Financial Ombudsman Service (Ombudsfin)",
+      "success_rate": 0.65,
+      "sources": [
+        "https://economie.fgov.be/fr/themes/services-financiers/services-de-paiement/service-bancaire-de-base/service-bancaire-de-base-pour-0"
+      ],
+      "condition": "Wrongful or unexplained refusal"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}

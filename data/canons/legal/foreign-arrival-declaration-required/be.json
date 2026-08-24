@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/foreign-arrival-declaration-required/be",
+  "url": "https://deadends.dev/legal/foreign-arrival-declaration-required/be",
+  "error": {
+    "signature": "AI tells a foreign visitor staying privately (not in a hotel) in Belgium that no registration or paperwork is needed for a short stay",
+    "regex": "(belgium.*(declaration|declare).*(arrival|presence)|belgium.*commune.*register|annex 3ter|d[ée]claration d'arriv[ée]e belgique)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-24",
+    "summary": "Anyone staying in Belgium who is not registered at a hotel, hospital, or prison must personally declare their arrival/presence at the municipal administration (commune). EU/EEA/Swiss citizens (and their family members) have 10 working days from arrival; third-country nationals have a stricter 3-working-day deadline for the initial arrival declaration. Missing the deadline can draw an administrative fine of up to 200 EUR from the Immigration Office. Guests booked into a hotel, hospital, or prison are exempt because the establishment reports on their behalf."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign visitor staying with friends, family, or a private short-term rental in Belgium that no registration is required because they are 'just visiting' or staying under 90 days",
+      "why_fails": "Belgium's FPS Home Affairs (IBZ) states that anyone not staying at a hotel, hospital, or prison must report to the municipality of their place of stay - EU/EEA/Swiss nationals within 10 days of arrival - and that failing to do so can draw an administrative fine of 200 euros from the Immigration Office. This is separate from, and in addition to, any longer-stay Schengen 90/180 tracking.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://ibz.be/en/registration-and-reporting-obligation-general",
+        "https://www.mons.be/fr/vivre-a-mons/etat-civil-population-1/service-etrangers/inscription-dun-citoyen-de-lunion-europeenne-ue/declaration-darrivee"
+      ],
+      "condition": "Private (non-hotel) short stay in Belgium"
+    },
+    {
+      "action": "Apply the same 10-working-day deadline to a non-EU (third-country) visitor that applies to EU/EEA/Swiss citizens",
+      "why_fails": "The commune of Etterbeek's official arrivals page distinguishes the two regimes explicitly: 'Tout ressortissant provenant d'un pays tiers (hors Union europeenne) sejournant en Belgique' must declare within 3 working days of entry, while EU/EEA/Swiss nationals get 10 working days - using the longer EU deadline for a non-EU visitor understates how soon the declaration is due.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://etterbeek.brussels/fr/demarches/adresse/declaration-darrivee-et-de-presence-etrangers"
+      ],
+      "condition": "Third-country (non-EU/EEA/Swiss) visitor",
+      "common_misconception": "That one uniform 'declare within X days' rule applies to every nationality; the deadline is shorter for non-EU visitors than for EU/EEA/Swiss ones."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If not staying at a hotel, hospital, or prison, report in person to the Foreigners' Service (Service des Etrangers / Dienst Vreemdelingenzaken) of the commune where you are staying, within the applicable deadline - 3 working days for non-EU/EEA/Swiss nationals, 10 working days for EU/EEA/Swiss nationals and their family members",
+      "success_rate": 0.9,
+      "how": "Bring a valid passport or ID and proof of the address you are staying at (e.g. a signed statement from the host). The commune issues a declaration of presence (Annex 3ter for non-EU visitors), which does not itself grant residency - it only satisfies the reporting obligation.",
+      "sources": [
+        "https://ibz.be/en/registration-and-reporting-obligation-general",
+        "https://etterbeek.brussels/fr/demarches/adresse/declaration-darrivee-et-de-presence-etrangers"
+      ],
+      "condition": "Non-hotel stay in Belgium"
+    },
+    {
+      "action": "Skip the personal declaration only if staying at a hotel, hospital, or prison - these establishments file the required declaration automatically",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.mons.be/fr/vivre-a-mons/etat-civil-population-1/service-etrangers/inscription-dun-citoyen-de-lunion-europeenne-ue/declaration-darrivee"
+      ],
+      "condition": "Hotel, hospital, or prison stay"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/90-180-schengen-rule/be",
+        "distinction": "The Schengen 90/180 rule caps total days a non-EU short-stay visitor can spend across the Schengen area; the arrival/presence declaration is a separate, shorter-deadline local reporting duty owed to the Belgian commune regardless of how many Schengen days remain."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}
