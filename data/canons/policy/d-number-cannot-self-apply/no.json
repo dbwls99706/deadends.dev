@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/d-number-cannot-self-apply/no",
+  "url": "https://deadends.dev/policy/d-number-cannot-self-apply/no",
+  "error": {
+    "signature": "AI tells a foreigner in Norway to apply for a D-number themselves at the tax office or online",
+    "regex": "(apply.*d-number.*norway|d-number application norway|get a d.number norway|norway d-nummer apply)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-24",
+    "summary": "Norway's D-number (an ID number for foreigners who don't qualify for a fødselsnummer) cannot be self-applied for. Skatteetaten states plainly that only an enterprise or public authority that needs you to have a Norwegian identification number - such as a bank, employer, or the Tax Administration issuing a tax deduction card - can request one on your behalf. A D-number also becomes 'inactive' five years after assignment if unused, requiring reactivation via a fresh ID check before it can support a new registration."
+  },
+  "dead_ends": [
+    {
+      "action": "Direct a foreigner to submit a personal application for a D-number to Skatteetaten or another authority",
+      "why_fails": "Skatteetaten's own guidance states individuals cannot apply for a D-number or national identity number themselves; only an enterprise or public authority that needs the person to have a Norwegian ID number - a bank, employer, Nav, the Brønnøysund Register Centre, or the Tax Administration - can request/order one.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.skatteetaten.no/en/person/foreign/norwegian-identification-number/what-is-an-identification-number",
+        "https://www.skatteetaten.no/en/person/foreign/norwegian-identification-number/d-number/"
+      ],
+      "condition": "First registration in Norway",
+      "common_misconception": "That obtaining a D-number is a self-service application, similar to a passport or driving licence."
+    },
+    {
+      "action": "Assume a D-number, once issued, remains permanently usable with no need for renewal",
+      "why_fails": "Skatteetaten states a D-number is given 'inactive' status five years after it was assigned; it is not deleted, but must be reactivated - either by a requesting enterprise or by booking an ID check with the Tax Administration - before it works for a new registration.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.skatteetaten.no/en/person/national-registry/identitetsnummer-og-elektronisk-id/d-nummer/"
+      ],
+      "condition": "D-number issued more than 5 years ago and unused since",
+      "common_misconception": "That a Norwegian ID number, once assigned, never needs to be reactivated."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Identify which organization needs you to have a Norwegian ID number - the bank opening your account, the employer running your payroll, or the Tax Administration processing your tax card - and have that organization request/order the D-number; you cannot initiate it yourself.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.skatteetaten.no/en/person/foreign/norwegian-identification-number/d-number/"
+      ],
+      "condition": "General"
+    },
+    {
+      "action": "If your D-number has been dormant for 5+ years, contact Skatteetaten to reactivate it with fresh ID verification before relying on it for a new registration",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.skatteetaten.no/en/person/national-registry/identitetsnummer-og-elektronisk-id/d-nummer/"
+      ],
+      "condition": "Returning foreigner with an old, unused D-number"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/bankid-not-guaranteed-d-number/no",
+        "distinction": "This canon covers how a D-number is obtained (only requested by a bank/employer/authority, never self-applied); the other covers whether holding one guarantees BankID."
+      },
+      {
+        "error_id": "mental-health/d-number-no-fastlege-right/no",
+        "distinction": "This canon covers the D-number application process itself; the other covers a specific consequence - that most D-number holders (non-asylum-seekers) have no right to register with a fastlege."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}

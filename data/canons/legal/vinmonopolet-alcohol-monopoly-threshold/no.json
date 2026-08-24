@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/vinmonopolet-alcohol-monopoly-threshold/no",
+  "url": "https://deadends.dev/legal/vinmonopolet-alcohol-monopoly-threshold/no",
+  "error": {
+    "signature": "AI tells a visitor in Norway they can buy wine or spirits at a regular grocery store, states a flat 18-year purchase age for all alcohol, or implies Vinmonopolet keeps normal retail hours",
+    "regex": "(norway.*(buy|purchase).*(wine|spirits|alcohol)|vinmonopolet|norway alcohol age|norway drinking age)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-24",
+    "summary": "AS Vinmonopolet holds Norway's exclusive retail monopoly on wine, spirits, and any beverage above 4.7% ABV; ordinary grocery stores and kiosks may only sell beverages up to that threshold, and only during permitted hours. The purchase age is 18 for beverages under 22% ABV but rises to 20 for beverages at or above 22% ABV (most spirits). Vinmonopolet outlets sell 08:30-18:00 on weekdays and 10:00-16:00 the day before Sundays and public holidays, and are barred from selling on Sundays, public holidays, 1 May, 17 May, and Christmas Eve entirely - there is no seasonal or tourist exception."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visitor they can buy wine, spirits, or beer above roughly 4.7% ABV at a regular Norwegian grocery store, kiosk, or supermarket",
+      "why_fails": "Helsedirektoratet's guidance on retail alcohol sales confirms beverages up to 4.7 volume-% may be sold in ordinary grocery stores during permitted hours, while AS Vinmonopolet holds the exclusive monopoly, set in the Alcohol Act (alkoholloven), on retail sale of wine, spirits, and any beverage above that threshold - a supermarket cannot legally stock or sell it regardless of price or local availability.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-3-salg-av-alkoholholdig-drikker",
+        "https://lovdata.no/lov/1989-06-02-27"
+      ],
+      "condition": "Purchasing wine, spirits, or beer above ~4.7% ABV"
+    },
+    {
+      "action": "State that Norway's alcohol purchase age is a flat 18 for everything",
+      "why_fails": "Helsedirektoratet's guidance on age limits (alkoholloven §1-5) sets 18 as the minimum for beverages under 22% ABV, but requires 20 as the minimum to buy, be served, or be sold any beverage at or above 22% ABV - most spirits - so a flat '18' answer is wrong for the strongest products.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-1-alminnelige-bestemmelser/-1-5.aldersgrenser"
+      ],
+      "condition": "Purchasing spirits or any beverage at or above 22% ABV",
+      "common_misconception": "That Norway has one uniform alcohol purchase age, like most other retail age limits."
+    },
+    {
+      "action": "Assume Vinmonopolet keeps normal retail/Saturday hours, or that a purchase can simply happen later on a Sunday",
+      "why_fails": "Under alkoholloven §3-4, as documented by Helsedirektoratet, AS Vinmonopolet outlets may sell from 08:30-18:00 on weekdays and 10:00-16:00 the day before Sundays and public holidays, and are prohibited from selling entirely on Sundays, public holidays, 1 May, 17 May, and Christmas Eve - these are hard cutoffs, not a delayed pickup window.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-3-salg-av-alkoholholdig-drikker/-3-4.tidsinnskrenkninger-for-salg-fra-as-vinmonopolets-utsalg"
+      ],
+      "condition": "Planning a purchase on a Sunday, public holiday, or after normal closing hours"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the ABV before shopping: up to 4.7% at any grocery store or kiosk within normal hours; anything stronger only at a Vinmonopolet store",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-3-salg-av-alkoholholdig-drikker"
+      ],
+      "condition": "Retail purchase"
+    },
+    {
+      "action": "Plan Vinmonopolet visits for weekdays (08:30-18:00) or Saturday/pre-holiday hours (10:00-16:00); never expect a purchase on Sundays or listed holidays",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-3-salg-av-alkoholholdig-drikker/-3-4.tidsinnskrenkninger-for-salg-fra-as-vinmonopolets-utsalg"
+      ],
+      "condition": "Planning a purchase near a weekend or holiday"
+    },
+    {
+      "action": "For spirits or anything at or above 22% ABV, confirm the buyer is 20+, not just 18+",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.helsedirektoratet.no/rundskriv/alkoholloven/kapittel-1-alminnelige-bestemmelser/-1-5.aldersgrenser"
+      ],
+      "condition": "Buying or serving spirits"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-24"
+  }
+}

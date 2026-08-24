@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/d-number-no-fastlege-right/no",
+  "url": "https://deadends.dev/mental-health/d-number-no-fastlege-right/no",
+  "error": {
+    "signature": "AI tells a foreigner in Norway holding only a D-number that they can register with a fastlege like any resident, or that seeing a psychologist through the public system needs no referral",
+    "regex": "(norway.*fastlege|norway.*psychologist.*referral|norway public.*mental health|d-number.*fastlege)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-24",
+    "summary": "Non-asylum-seeker foreigners in Norway holding only a D-number (not a fødselsnummer) do not have the legal right to register on a fastlege (regular GP) list - only asylum seekers/refugees and certain NATO personnel with D-numbers retain that right - though they are still entitled to 'necessary healthcare' arranged by the municipality. Separately, planned public-funded treatment by a psychologist or psychiatrist normally requires a referral, usually from a fastlege, with a narrow exception allowing a limited number of assessment sessions with certain public-agreement psychologists without one."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner with only a D-number they can register with a fastlege exactly like a resident with a fødselsnummer",
+      "why_fails": "Bergen kommune's official guidance for foreign citizens states persons with a D-number do not have the right to a fastlege, with narrow exceptions for asylum seekers and NATO personnel; everyone else with a D-number is instead entitled only to 'necessary healthcare' (nødvendig helsehjelp) arranged through the municipality, not a standing GP relationship.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.bergen.kommune.no/innbyggerhjelpen/helse-og-omsorg/helsetjenester/legehjelp/legehjelp-til-utenlandske-borgere",
+        "https://www.helsedirektoratet.no/veiledere/helsetjenester-til-asylsokere-flyktninger-og-familiegjenforente/helsetjenester-for-flyktninger-asylsokere-og-familiegjenforente/rett-til-fastlege"
+      ],
+      "condition": "Foreigner holding only a D-number, not an asylum seeker/refugee/NATO-affiliated",
+      "common_misconception": "That any Norwegian ID number (D-number or fødselsnummer) grants the same right to a regular GP."
+    },
+    {
+      "action": "Tell someone they can see a public-funded psychologist or psychiatrist in Norway without any referral",
+      "why_fails": "Helsedirektoratet's guidance confirms a referral - typically from a fastlege or an emergency clinic - is required for planned specialist mental-health treatment funded through the public system; only private psychologists paid out-of-pocket, or a limited number of initial assessment sessions with certain public-agreement psychologists, can be accessed without one.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.helsedirektoratet.no/tema/fritt-behandlingsvalg/fastlegens-ansvar-i-fritt-behandlingsvalg"
+      ],
+      "condition": "Seeking publicly-funded specialist mental health care",
+      "common_misconception": "That psychologist access in Norway's public system works like walk-in/self-referral care."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you hold only a D-number and are not an asylum seeker/refugee, contact your municipality's health service directly for necessary care rather than trying to register with a fastlege",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.bergen.kommune.no/innbyggerhjelpen/helse-og-omsorg/helsetjenester/legehjelp/legehjelp-til-utenlandske-borgere"
+      ],
+      "condition": "General"
+    },
+    {
+      "action": "For public-funded psychologist/psychiatrist care, get a referral from a fastlege or the legevakt (emergency clinic) first; municipal psychologists and a handful of no-referral private-assessment sessions are the main alternatives",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.helsedirektoratet.no/tema/fritt-behandlingsvalg/fastlegens-ansvar-i-fritt-behandlingsvalg"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/d-number-cannot-self-apply/no",
+        "distinction": "This canon covers a consequence of holding a D-number - no automatic fastlege right; the other covers how the D-number itself is obtained."
+      },
+      {
+        "error_id": "medical/ehic-non-eu-ineligible/no",
+        "distinction": "That canon covers EHIC eligibility for temporary EU/EEA visitors; this one covers fastlege/psychologist access for foreign residents, an entirely separate system."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}

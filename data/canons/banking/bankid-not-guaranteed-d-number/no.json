@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/bankid-not-guaranteed-d-number/no",
+  "url": "https://deadends.dev/banking/bankid-not-guaranteed-d-number/no",
+  "error": {
+    "signature": "AI tells a foreigner in Norway that holding a D-number and foreign passport automatically qualifies them for standard BankID",
+    "regex": "(norway.*bankid|bankid.*d-number|d-number.*bankid|norwegian bankid foreigner)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-24",
+    "summary": "BankID requires an existing bank relationship (bankforhold) in Norway plus identity verification with a passport or Norwegian national ID card. For D-number holders and people with only a foreign passport, bankid.no's own FAQ says eligibility and any alternative authentication method depend on the individual bank, not a guaranteed standard issuance. Opening the underlying bank account, including D-number assignment and identity checks, can itself take several weeks to months, and not all banks offer to request a D-number on the customer's behalf."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any foreigner with a D-number and foreign passport can get standard BankID the same way a fødselsnummer holder can",
+      "why_fails": "bankid.no's own eligibility FAQ requires an existing bank relationship (\"bankforhold i Norge\") plus identity verification via passport or Norwegian national ID card, and explicitly tells D-number holders and foreign-passport holders to contact their individual bank for available options rather than promising standard BankID issuance.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://bankid.no/faq/hvem-kan-faa-bankid"
+      ],
+      "condition": "Foreigner holding a D-number and a foreign (non-Norwegian) passport, no Norwegian national ID card",
+      "common_misconception": "That BankID works identically for everyone who holds any Norwegian ID number."
+    },
+    {
+      "action": "Tell a newcomer BankID will be issued quickly once they get a D-number",
+      "why_fails": "Unlock Norway's guide to opening a bank account documents that some banks apply for a D-number on the customer's behalf but not all offer this service, and that the full account-opening and identity-verification process can take several weeks or even months before banking access, including BankID and Vipps, becomes functional.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.unlocknorway.com/insights/how-to-open-a-bank-account-in-norway"
+      ],
+      "condition": "Newly arrived foreigner without an existing Norwegian bank relationship"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Contact your specific bank directly to ask about BankID or an alternative authentication method for D-number/foreign-passport holders; if the bank can't offer it, use Buypass ID, which provides the same top security level for public services.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://bankid.no/faq/hvem-kan-faa-bankid"
+      ],
+      "condition": "General"
+    },
+    {
+      "action": "Open a Norwegian bank account in person as early as possible, since a functioning bank relationship is a prerequisite for BankID eligibility, and budget several weeks for D-number issuance plus identity verification before banking services are fully usable.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.unlocknorway.com/insights/how-to-open-a-bank-account-in-norway",
+        "https://www.skatteetaten.no/en/person/national-registry/identitetsnummer-og-elektronisk-id/d-nummer/"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/d-number-cannot-self-apply/no",
+        "distinction": "This canon covers whether a D-number lets you get BankID; the other covers how a D-number itself is obtained (it cannot be self-applied for)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}
