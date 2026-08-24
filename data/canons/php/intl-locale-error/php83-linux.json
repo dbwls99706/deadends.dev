@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "extension",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-24"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.94,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-24",
     "summary": "Intl extension errors occur when PHP's internationalization extension is missing. The Intl extension provides ICU-based locale-aware formatting for numbers, dates, currencies, and message translation. Many frameworks (Symfony, Laravel) require it."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Reimplementing ICU locale rules manually is error-prone and incomplete. Edge cases like right-to-left scripts, complex number systems, and locale-specific sorting will produce incorrect results.",
       "fail_rate": 0.78,
       "sources": [
-        "https://www.php.net/manual/en/errorfunc.constants.php"
+        "https://www.php.net/manual/en/book.intl.php"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "The symfony/polyfill-intl-icu package provides only basic fallback behavior. Complex formatting, collation, and transliteration will not work correctly without the real ICU library.",
       "fail_rate": 0.55,
       "sources": [
-        "https://symfony.com/doc/current/"
+        "https://github.com/symfony/polyfill-intl-icu"
       ],
       "condition": ""
     }
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-24"
   }
 }

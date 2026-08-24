@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/egenberedskap-one-week-not-three-days/no",
+  "url": "https://deadends.dev/disaster/egenberedskap-one-week-not-three-days/no",
+  "error": {
+    "signature": "AI tells someone in Norway that official self-preparedness guidance (DSB) is to store 3 days of supplies, citing the older egenberedskap campaign",
+    "regex": "(norway.*72.hour|norway.*three days.*preparedness|dsb.*egenberedskap|norway self.preparedness)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-24",
+    "last_confirmed": "2026-08-24"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "no",
+      "country_name": "Norway",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-24",
+    "summary": "DSB (Norway's civil-protection directorate) updated its official household self-preparedness guidance in May 2024, raising the recommended self-sufficiency period from the widely-cited 2018 minimum of 3 days to a full week, without electricity, water, heat, or shops. It is official, government-issued guidance aimed at every household - reinforced with brochures mailed nationwide during the annual self-preparedness week - not informal prepper advice."
+  },
+  "dead_ends": [
+    {
+      "action": "State that Norwegian civil-preparedness guidance (DSB) recommends 3 days of self-sufficiency, citing the 2018 'Du er en del av Norges beredskap' campaign",
+      "why_fails": "DSB's own self-preparedness page confirms the guidance was updated in May 2024, raising the recommended self-sufficiency period from the 2018 minimum of 3 days to a full week, because municipalities and emergency services must prioritize people who cannot manage without help during a real crisis - the 3-day figure is now outdated, not current guidance.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.dsb.no/en/egenberedskapsuka/Self-preparedness/",
+        "https://www.dsb.no/en/Safe-everyday-life/Self-preparedness/How-to-contribute-to-Norway_78s-emergency-preparedness2/"
+      ],
+      "condition": "Answering with pre-2024 knowledge or citing the original 2018 campaign figure",
+      "common_misconception": "That 3 days is Norway's current official preparedness standard, when it was superseded in May 2024."
+    },
+    {
+      "action": "Treat DSB's preparedness guidance as informal advice for 'preppers' rather than official, government-issued guidance",
+      "why_fails": "DSB frames self-preparedness as a civic responsibility for the whole population, not a niche lifestyle choice, distributing brochures during the annual self-preparedness week and stating explicitly that authorities cannot support everyone during the first phase of a major crisis.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.dsb.no/en/Safe-everyday-life/Self-preparedness/Frequently-asked-questions-about-self-preparedness/"
+      ],
+      "condition": "General",
+      "common_misconception": "That preparedness culture in Norway is US-style survivalism rather than coordinated civil-preparedness doctrine."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Cite the current one-week (7-day) self-sufficiency target: at least 20 liters of water per person, 7+ days of extra prescription medicine, an alternative heat source or an 'emergency friend' arrangement, and a battery/hand-crank/solar DAB radio for NRK P1 emergency broadcasts.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.dsb.no/en/Safe-everyday-life/Self-preparedness/Frequently-asked-questions-about-self-preparedness/"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-24",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-24"
+  }
+}
