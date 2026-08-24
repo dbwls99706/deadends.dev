@@ -28,7 +28,7 @@
     "fix_success_rate": 0.8,
     "confidence": 0.72,
     "last_updated": "2026-08-23",
-    "summary": "Israel's official rocket/missile alert app is the Home Front Command (Pikud Ha'oref) app - Android package com.alert.meserhadash, iOS id1542010719 - published by the Ministry of Defense. Several independent volunteer apps (RedAlert, Tzofar) relay the same public feed and are useful, but their own store listings state they are unofficial. Response time to reach shelter also varies sharply by zone: 90 seconds in Tel Aviv per the city's own guidance, as little as 15 seconds in Gaza-border communities, and longer further north."
+    "summary": "Israel's official rocket/missile alert app is the Home Front Command (Pikud Ha'oref) app - Android package com.alert.meserhadash, iOS id1542010719 - published by the IDF's Home Front Command (Pikud Ha'oref). Several independent volunteer apps (RedAlert, Tzofar) relay the same public feed and are useful, but their own store listings state they are unofficial. Response time to reach shelter also varies sharply by zone: 90 seconds in Tel Aviv per the city's own guidance, as little as 15 seconds in Gaza-border communities, and longer further north."
   },
   "dead_ends": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "action": "Treat the countdown to reach shelter as a fixed national number, such as always '90 seconds'",
-      "why_fails": "Response time is zone-specific: Tel Aviv's own municipal emergency guidance sets it at 90 seconds, while Home Front Command's published guidance and reporting on the Lebanon border area put it at around 15 seconds for communities closest to the border, with other zones falling in between. Using the wrong number for a given location risks either a fatal delay or unnecessary panic.",
+      "why_fails": "Response time is zone-specific and has changed over time: Tel Aviv's own municipal emergency guidance sets it at 90 seconds, while a Home Front Command siren-timing upgrade reported in March 2026 extended warning time near the Lebanese border from near-zero to about 15 seconds, with Nahariya, Safed, Haifa, Tiberias and Tel Aviv itself also slated for longer windows under that same upgrade. Treating any single number as fixed nationally, or assuming a reported figure still holds after a system change, risks either a fatal delay or unnecessary panic.",
       "fail_rate": 0.4,
       "sources": [
         "https://www.tel-aviv.gov.il/en/Live/Emergency/Pages/Residents_Preparation.aspx",
