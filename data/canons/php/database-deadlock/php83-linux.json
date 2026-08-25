@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "database",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-25"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.83,
     "confidence": 0.87,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-25",
     "summary": "Database deadlocks occur when two or more transactions hold locks that each other needs, creating a circular wait. MySQL automatically detects this and rolls back one transaction. The fix involves consistent lock ordering, shorter transactions, and retry logic."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Lock wait timeout and deadlock detection are different mechanisms. Increasing the timeout only delays the inevitable and causes longer request hangs. The deadlock will still be detected and one transaction rolled back.",
       "fail_rate": 0.75,
       "sources": [
-        "https://www.php.net/manual/en/errorfunc.constants.php"
+        "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Using one transaction per query loses atomicity guarantees and can leave data in an inconsistent state. It also doesn't prevent deadlocks since the issue is about lock ordering across concurrent requests.",
       "fail_rate": 0.7,
       "sources": [
-        "https://www.php.net/manual/en/errorfunc.constants.php"
+        "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html"
       ],
       "condition": ""
     }
@@ -49,14 +49,18 @@
       "action": "Implement automatic retry logic for deadlocked transactions",
       "success_rate": 0.9,
       "how": "Wrap the transactional code in a retry loop that catches SQLSTATE 40001 and retries the entire transaction up to 3 times with a short random delay. In Laravel, use DB::transaction($callback, 3) which has built-in retry support.",
-      "sources": [],
+      "sources": [
+        "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html"
+      ],
       "condition": ""
     },
     {
       "action": "Access tables and rows in a consistent order across all transactions",
       "success_rate": 0.85,
       "how": "Ensure all code paths that modify the same tables acquire locks in the same order (e.g., always update table A before table B). Use SELECT ... FOR UPDATE with ORDER BY to lock rows in a deterministic order.",
-      "sources": [],
+      "sources": [
+        "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html"
+      ],
       "condition": ""
     }
   ],
@@ -87,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 65,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-25"
   }
 }

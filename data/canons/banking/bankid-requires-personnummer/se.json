@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/bankid-requires-personnummer/se",
+  "url": "https://deadends.dev/banking/bankid-requires-personnummer/se",
+  "error": {
+    "signature": "AI tells a foreigner in Sweden holding a coordination number (samordningsnummer) - even one issued after Skatteverket's in-person 'styrkt identitet' (verified identity) check - that they can obtain Swedish BankID",
+    "regex": "(samordningsnummer.*bankid|bankid.*samordningsnummer|sweden.*bankid.*(foreigner|utan personnummer))",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "se",
+      "country_name": "Sweden",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.7,
+    "last_updated": "2026-08-25",
+    "summary": "BankID, issued only by Swedish banks, requires a full personnummer, not a samordningsnummer of any identity-verification tier. Sweden's Parliament confirmed in October 2024 that no official Swedish photo-ID document yet exists for coordination-number holders and set no timeline for banks to accept a passport as sufficient proof for BankID issuance. The practical route remains obtaining a personnummer via 12-month population registration (folkbokforing), or, for select government e-services only, logging in with a foreign eIDAS-notified eID through Sweden Connect instead of BankID."
+  },
+  "dead_ends": [
+    {
+      "action": "State or imply that a samordningsnummer - even one issued after Skatteverket's in-person 'styrkt identitet' (verified identity) check - is sufficient to obtain BankID",
+      "why_fails": "BankID's issuing banks require a full personnummer, not a coordination number of any tier. In a written parliamentary answer dated 30 October 2024, Minister Erik Slottner confirmed no official Swedish photo-ID document yet exists for coordination-number holders and that, due to related EU negotiations, 'a specific timeline cannot currently be provided' for changing this.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/skriftlig-fraga/id-for-personer-med-samordningsnummer_hc11306/"
+      ],
+      "condition": "Holds samordningsnummer, not personnummer",
+      "common_misconception": "That the 2023 reform introducing the three-tier samordningsnummer system (with 'styrkt identitet' as the top tier) itself unlocked BankID eligibility for coordination-number holders."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If eligible (planned stay of 12+ months), register with Skatteverket via the 'Flytta till Sverige' e-service as soon as you arrive and complete the required in-person identity check to obtain a personnummer - the standard prerequisite banks require before issuing BankID",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.skatteverket.se/servicelankar/otherlanguages/englishengelska/individualsandemployees/movingtosweden.4.7be5268414bea064694c40c.html"
+      ],
+      "condition": "Planned stay of 12+ months"
+    },
+    {
+      "action": "If BankID itself is unobtainable, check whether the specific Swedish government e-service accepts login via a foreign eIDAS-notified eID through Sweden Connect / DIGG's eIDAS node instead of BankID",
+      "success_rate": 0.4,
+      "how": "eIDAS requires Swedish public-sector e-services to offer a login option for notified eIDs issued by other EU/EEA states, proxied through the Swedish eIDAS node - but this covers only eIDAS-connected services, not a general BankID replacement.",
+      "sources": [
+        "https://www.digg.se/en/digital-services/eid"
+      ],
+      "condition": "Holder of an EU/EEA-notified eID needing a specific eIDAS-connected government e-service"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/personnummer-registration-not-automatic/se",
+        "distinction": "That canon covers how and when a personnummer itself is issued; this one covers what BankID access does (and does not) follow from having one, or lacking one."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

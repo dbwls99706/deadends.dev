@@ -8,7 +8,7 @@
     "domain": "rust",
     "category": "dependency_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-25"
   },
   "environment": {
     "runtime": {"name": "rust", "version_range": ">=1.70,<2.0"},
@@ -18,7 +18,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.80,
     "confidence": 0.83,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-25",
     "summary": "Two or more dependencies require incompatible features or versions of the same crate. Resolve by aligning dependency versions."
   },
   "dead_ends": [
@@ -62,6 +62,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-25"
   }
 }

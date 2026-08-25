@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/personnummer-registration-not-automatic/se",
+  "url": "https://deadends.dev/policy/personnummer-registration-not-automatic/se",
+  "error": {
+    "signature": "AI tells a newcomer to Sweden that a personnummer is issued automatically on residence-permit approval or arrival, or that anyone staying under a year still receives a full personnummer",
+    "regex": "(personnummer.*automatic|sweden.*personal identity number|folkbokf(ö|o)ring|swedish population register)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "se",
+      "country_name": "Sweden",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-25",
+    "summary": "A Swedish personnummer is assigned only once Skatteverket approves population-register (folkbokforing) registration, which the agency restricts to people planning to live in Sweden for one year or more. Registration is not automatic: newcomers must actively notify Skatteverket via its 'Flytta till Sverige' e-service and then attend an in-person identity check by appointment at a state service centre, with the personnummer itself following 1-4 weeks after approval. Those staying under a year are told not to register and instead need a coordination number (samordningsnummer)."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a personnummer is issued automatically the moment a residence permit is approved or upon arrival in Sweden",
+      "why_fails": "Skatteverket states people should register in the population register only if they plan to live in Sweden for one year or more, and registration requires actively notifying the Tax Agency via the 'Flytta till Sverige' e-service plus a by-appointment, in-person identity check at a state service centre - it is not automatic, and the personnummer itself follows 1-4 weeks after approval.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.skatteverket.se/servicelankar/otherlanguages/englishengelska/individualsandemployees/movingtosweden.4.7be5268414bea064694c40c.html"
+      ],
+      "condition": "Newcomer with an approved residence permit",
+      "common_misconception": "That being granted a residence permit and being assigned a personnummer are the same administrative step."
+    },
+    {
+      "action": "Tell someone planning to stay under 12 months that they will still receive a full personnummer",
+      "why_fails": "Skatteverket's own guidance is that people planning to stay less than a year should not be listed in the population register and instead need a coordination number (samordningsnummer), which is typically requested through an employer or another authority rather than by the individual directly, and which carries fewer service entitlements than a personnummer.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.informationsverige.se/en/jag-har-fatt-uppehallstillstand/att-gora-den-forsta-tiden/anmal-din-flytt-till-sverige-och-fa-ett-personnummer.html"
+      ],
+      "condition": "Planned stay under 12 months"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If staying 12+ months, submit Skatteverket's 'Flytta till Sverige' notification as soon as you arrive and book the required in-person identity-check appointment promptly, since appointment availability and processing add real lead time before the personnummer is assigned",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.skatteverket.se/servicelankar/otherlanguages/englishengelska/individualsandemployees/livinginsweden/personalidentitynumbers.4.2cf1b5cd163796a5c8b4295.html"
+      ],
+      "condition": "Stay of 12+ months"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/bankid-requires-personnummer/se",
+        "distinction": "This canon covers how and when a personnummer itself is issued; the other covers what BankID access does (and does not) follow from having, or lacking, one."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

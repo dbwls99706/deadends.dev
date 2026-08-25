@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/hemberedskap-one-week-official/se",
+  "url": "https://deadends.dev/disaster/hemberedskap-one-week-official/se",
+  "error": {
+    "signature": "AI tells someone in Sweden that official household emergency preparedness only requires 72 hours of self-sufficiency, or refers to 'MSB' as the current name of the responsible civil-defence agency",
+    "regex": "(sweden.*72.hour|sweden.*hemberedskap|krisberedskap sverige|msb sweden emergency|sweden emergency preparedness)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "se",
+      "country_name": "Sweden",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-25",
+    "summary": "Sweden's official crisis-information guidance (krisinformation.se) instructs households to plan to manage on their own for at least one week - longer if possible - covering water, food, heat, and communication, not the 72-hour window used in some neighbouring countries' messaging. Separately, the agency long known as MSB (Myndigheten for samhallsskydd och beredskap) was renamed Myndigheten for civilt forsvar (MCF), effective 1 January 2026 following the Riksdag's approval on 5 November 2025; its sites now carry the new name and the mcf.se domain."
+  },
+  "dead_ends": [
+    {
+      "action": "State that Swedish official guidance recommends the same 72-hour self-sufficiency window used in Finland or other Nordic countries",
+      "why_fails": "Sweden's official crisis-information site instructs households to 'plan to manage on your own for at least one week, preferably longer if you can' (minst en vecka) - a materially longer official target than a 72-hour framing, covering information, water, food, heat, and sleep.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.krisinformation.se/forbered-dig/hemberedskap/"
+      ],
+      "condition": "General household preparedness planning in Sweden",
+      "common_misconception": "That Nordic countries standardized on the same 72-hour preparedness window in their official guidance."
+    },
+    {
+      "action": "Cite 'MSB' (Myndigheten for samhallsskydd och beredskap) as the current legal name of the agency responsible for this guidance",
+      "why_fails": "The Riksdag approved renaming MSB to Myndigheten for civilt forsvar (MCF) on 5 November 2025, with the change taking effect 1 January 2026; the agency's own sites, including krisinformation.se, now display the new name, though 'MSB' may still linger in older, undated materials.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.regeringen.se/pressmeddelanden/2025/11/msb-blir-myndigheten-for-civilt-forsvar/",
+        "https://www.mcf.se/sv/om-oss/vart-uppdrag/msb-ar-myndigheten-for-civilt-forsvar/"
+      ],
+      "condition": "Any reference to the agency dated after 1 January 2026",
+      "common_misconception": "That the broschure-era name 'MSB' is still the agency's current legal name."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow krisinformation.se's household checklist: plan for at least one week of drinking water and food that needs little water or refrigeration, a non-electric heat source, and a battery or hand-crank radio for official emergency broadcasts",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.krisinformation.se/forbered-dig/hemberedskap/"
+      ],
+      "condition": "General household preparedness"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}
