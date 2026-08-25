@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/rcb-alert-sms-not-rso-app/pl",
+  "url": "https://deadends.dev/disaster/rcb-alert-sms-not-rso-app/pl",
+  "error": {
+    "signature": "AI tells someone in Poland they must download an app (or the RSO app specifically) to receive RCB Alert emergency warnings",
+    "regex": "(alert rcb|rcb alert|poland emergency alert app|regionalny system ostrzegania)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-08-25",
+    "summary": "Poland's Government Centre for Security (RCB) delivers Alert RCB warnings (armed threat, flood, extreme weather, industrial accident) as a direct SMS broadcast to every phone connected to a mobile mast inside the danger area, mandated for all operators since a 2018 amendment to the Telecommunications Law and the Crisis Management Act. No app install or registration is needed. Alert RCB is a separate system from RSO (Regionalny System Ostrzegania), a free MSWiA-run mobile app that publishes more detailed, voivodeship-level warnings compiled by regional crisis-management centres; the two run in parallel, and provincial centres also relay an Alert RCB message through the RSO app, but RSO itself does require an install."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident they need to download an app - especially the RSO (Regionalny System Ostrzegania) app - before they can receive Poland's national emergency alerts",
+      "why_fails": "RCB's own FAQ states Alert RCB is not part of the RSO application and that no app or program needs to be installed to receive it: operators broadcast a warning SMS to every phone connected to a mast in the designated area, regardless of carrier or handset. RSO is a genuinely separate, MSWiA-run app for more detailed voivodeship-level warnings - conflating the two produces a false 'you must install something' instruction for the primary channel.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.gov.pl/web/rcb-en/rcb-alert--faq",
+        "https://www.gov.pl/web/mswia/regionalny-system-ostrzegania"
+      ],
+      "condition": "Mobile phone connected to a mast in the designated danger area",
+      "common_misconception": "That Poland's Alert RCB works like a cell-broadcast or opt-in app system requiring setup, rather than an unconditional SMS push to every connected phone in the area."
+    },
+    {
+      "action": "Describe Alert RCB as a cell-broadcast (Wireless Emergency Alert-style) system, the way some other EU countries' 112-based alerting works",
+      "why_fails": "Polish public broadcaster TVP Info's explainer states Alert RCB sends 'automatyczne komunikaty wysyłane drogą SMS-ową' (automatic messages sent via SMS) - it is SMS delivery via mobile network operators targeting a geographic area (down to county level), not the cell-broadcast technology used elsewhere.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.tvp.info/88864545/regionalny-system-ostrzegania-rso-i-rzadowe-centrum-bezpieczenstwa-rcb-jak-dzialaja-te-systemy-i-czym-sie-roznia-rso-pozwala-korzystac-z-aplikacji-rcb-to-automatyczne-komunikaty-wysylane-droga-sms-owa"
+      ],
+      "condition": "Explaining the underlying delivery technology"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Keep a phone powered on with normal network coverage while in Poland; no app, registration, or setting change is required to receive Alert RCB",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.pl/web/rcb-en/rcb-alert--faq"
+      ],
+      "condition": "General presence in Poland"
+    },
+    {
+      "action": "Additionally install the free RSO app if more detailed, region-specific warnings (compiled by your voivodeship's crisis management centre) are wanted on top of the baseline SMS alerts",
+      "success_rate": 0.7,
+      "how": "RSO is published by the Ministry of Interior and Administration (MSWiA) and covers content curated by Wojewódzkie Centra Zarządzania Kryzysowego; it is a supplement to, not a replacement for, Alert RCB.",
+      "sources": [
+        "https://www.gov.pl/web/mswia/regionalny-system-ostrzegania"
+      ],
+      "condition": "Wants region-specific detail beyond the SMS alert"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/pl",
+        "distinction": "That canon covers which number to dial for help (112, not 911); this one covers how Poland's outbound hazard alerts (Alert RCB) reach you without an app."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/nighttime-alcohol-sale-ban-by-municipality/pl",
+  "url": "https://deadends.dev/safety/nighttime-alcohol-sale-ban-by-municipality/pl",
+  "error": {
+    "signature": "AI tells a traveler that Poland has (or does not have) a nationwide law banning off-premise alcohol sales at night",
+    "regex": "(poland.*(alcohol|nocna prohibicja).*(ban|night)|nocna prohibicja|poland.*buy alcohol.*night)",
+    "domain": "safety",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-25",
+    "summary": "Poland has no nationwide night-time alcohol sales ban. A 2018 amendment to the Act on Upbringing in Sobriety and Counteracting Alcoholism (Art. 12(4)) lets each gmina (municipal) council decide, by its own resolution, whether to restrict off-premise alcohol sale hours, with any restriction confined to the window 22:00-06:00. Roughly 180 municipalities, including Kraków (an early adopter) and Warsaw (from 1 June 2026), have adopted some version of the restriction, but most Polish municipalities have not, so the rule - and its exact hours and area - varies by city and must be checked locally rather than assumed either way."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that alcohol cannot be bought in shops after 10pm anywhere in Poland, as a blanket national rule",
+      "why_fails": "Art. 12(4) of the Act on Upbringing in Sobriety and Counteracting Alcoholism, added by the Act of 10 January 2018 (Dz.U. 2018 poz. 310), only lets a gmina council 'may' (\"może\") adopt such a restriction for its own territory - it is opt-in per municipality, not a default national closing time. Reporting in 2026 counted roughly 180 municipalities with some form of the ban out of Poland's roughly 2,477 gminas, meaning most still have no restriction at all.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20180000310",
+        "https://lexlege.pl/ustawa-o-wychowaniu-w-trzezwosci-i-przeciwdzialaniu-alkoholizmowi/art-12/"
+      ],
+      "condition": "Shopping for off-premise alcohol outside an adopting municipality",
+      "common_misconception": "That a night alcohol-sale ban reported for one Polish city (e.g. Warsaw or Kraków) applies nationwide."
+    },
+    {
+      "action": "Assume that because no nationwide ban exists, alcohol can always be bought at any hour in any Polish city, including Warsaw or Kraków",
+      "why_fails": "Kraków was an early adopter of a 22:00-06:00 off-premise sale restriction, and Warsaw's city council approved the same 22:00-06:00 window effective 1 June 2026; reporting attributes roughly 180 municipalities nationwide with an active restriction, so a traveler in one of those specific cities will find shops legally barred from selling take-away alcohol during those hours.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://notesfrompoland.com/2026/03/12/warsaw-bans-nighttime-alcohol-sales-in-shops/"
+      ],
+      "condition": "Shopping for off-premise alcohol inside an adopting municipality"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific city's own resolution (or ask the shop) for whether a night alcohol-sale restriction applies before assuming either a national ban or unrestricted hours",
+      "success_rate": 0.85,
+      "sources": [
+        "https://notesfrompoland.com/2026/03/12/warsaw-bans-nighttime-alcohol-sales-in-shops/"
+      ],
+      "condition": "Planning an off-premise alcohol purchase at night"
+    },
+    {
+      "action": "Note that the restriction applies only to off-premise sales (shops, kiosks, petrol stations); licensed bars and restaurants serving alcohol for on-site consumption are not covered by Art. 12(4) resolutions",
+      "success_rate": 0.75,
+      "sources": [
+        "https://lexlege.pl/ustawa-o-wychowaniu-w-trzezwosci-i-przeciwdzialaniu-alkoholizmowi/art-12/"
+      ],
+      "condition": "Wants to drink at night in a city with an active restriction"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}
