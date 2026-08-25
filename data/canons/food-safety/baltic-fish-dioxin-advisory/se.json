@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/baltic-fish-dioxin-advisory/se",
+  "url": "https://deadends.dev/food-safety/baltic-fish-dioxin-advisory/se",
+  "error": {
+    "signature": "AI tells someone in Sweden, including pregnant or breastfeeding women and children, that wild-caught Baltic Sea herring, salmon, or trout is safe to eat without limit",
+    "regex": "(baltic (herring|salmon|trout).*(safe|eat)|strömming.*gravid|sweden.*fish.*dioxin|livsmedelsverket.*fisk)",
+    "domain": "food-safety",
+    "category": "health_risk",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "se",
+      "country_name": "Sweden",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-25",
+    "summary": "Livsmedelsverket (the Swedish Food Agency) advises children, adolescents, and women who are pregnant, breastfeeding, or may become pregnant to eat wild-caught salmon, trout, or herring/sprat from the whole Baltic Sea - plus wild salmon, trout, and whitefish from Lakes Vanern and Vattern, and char from Vattern - no more than 2-3 times per year, because dioxins and PCBs accumulate in these fish and cross the placenta and into breast milk. Farmed salmon or salmon caught in the Atlantic or Pacific, the kind usually sold in Swedish supermarkets, carries substantially lower levels and is not covered by the same limit."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a pregnant or breastfeeding woman, someone who may become pregnant, or a child/adolescent in Sweden that wild-caught Baltic herring, salmon, or trout is safe to eat freely",
+      "why_fails": "Livsmedelsverket advises these groups to limit wild-caught salmon, trout, and herring/sprat from the entire Baltic Sea - and wild salmon, trout, and whitefish from Lakes Vanern and Vattern, plus Vattern char - to no more than 2-3 times per year, because dioxins and PCBs in these fish are transferred to a fetus via the placenta and to an infant via breast milk.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.livsmedelsverket.se/en/food-and-content/oonskade-amnen/miljogifter/dioxiner-och-pcb/",
+        "https://www.livsmedelsverket.se/4aac69/globalassets/publikationsdatabas/andra-sprak/rad-om-mat-till-dig-som-ar-gravid/advice-about-food-for-you-who-are-pregnant.pdf"
+      ],
+      "condition": "Pregnant, breastfeeding, planning pregnancy, or under 18",
+      "common_misconception": "That Baltic herring ('stromming') is uniformly healthy oily fish with no caveats, the way farmed salmon is often marketed."
+    },
+    {
+      "action": "Assume all salmon sold in Sweden, including ordinary supermarket salmon, carries the same dioxin risk as wild Baltic-caught salmon",
+      "why_fails": "Livsmedelsverket notes that salmon commonly sold in Swedish supermarkets is usually farmed, or caught in the Atlantic or Pacific, and carries substantially lower dioxin and PCB levels than wild salmon caught in the Baltic Sea itself - the advisory targets wild-caught fish from the named Baltic-basin waters specifically, not salmon in general.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.livsmedelsverket.se/matvanor-halsa--miljo/kostrad/kostrad-vuxna/fisk/"
+      ],
+      "condition": "General population, non-risk group"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "At-risk groups should choose farmed or Atlantic/Pacific-caught salmon, or limit wild Baltic-basin herring/salmon/trout/char to 2-3 servings per year; the general adult population outside these risk groups can follow Livsmedelsverket's ordinary fish advice without this stricter limit",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.livsmedelsverket.se/en/food-and-content/oonskade-amnen/miljogifter/dioxiner-och-pcb/"
+      ],
+      "condition": "Buying or catching fish in Sweden"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

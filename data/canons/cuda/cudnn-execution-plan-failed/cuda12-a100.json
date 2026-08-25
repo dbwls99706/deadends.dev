@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "runtime_error",
     "first_seen": "2021-01-01",
-    "last_confirmed": "2026-02-14"
+    "last_confirmed": "2026-08-25"
   },
   "environment": {
     "runtime": {
@@ -25,7 +25,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.8,
     "confidence": 0.8,
-    "last_updated": "2026-02-14",
+    "last_updated": "2026-08-25",
     "summary": "cuDNN fails to execute a convolution or attention kernel. Often caused by cuDNN benchmark mode selecting an algorithm that doesn't work for the specific input shape, or by a cuDNN/CUDA version incompatibility."
   },
   "dead_ends": [
@@ -34,7 +34,7 @@
       "why_fails": "PyTorch bundles its own cuDNN, but if CUDA driver version is too old for the bundled cuDNN, or if LD_LIBRARY_PATH points to a system cuDNN that conflicts, reinstalling PyTorch alone doesn't resolve the mismatch.",
       "fail_rate": 0.65,
       "sources": [
-        "https://docs.nvidia.com/cuda/"
+        "https://docs.nvidia.com/deeplearning/cudnn/backend/latest/reference/support-matrix.html"
       ],
       "condition": ""
     },
@@ -43,7 +43,7 @@
       "why_fails": "CUDNN_STATUS_EXECUTION_FAILED is not an OOM error. Reducing batch size changes input dimensions, which may cause cuDNN to select a different algorithm that happens to work, but this masks the real issue and breaks reproducibility.",
       "fail_rate": 0.6,
       "sources": [
-        "https://docs.nvidia.com/cuda/"
+        "https://docs.nvidia.com/deeplearning/cudnn/backend/latest/reference/support-matrix.html"
       ],
       "condition": ""
     }
@@ -54,7 +54,7 @@
       "how": "import torch\ntorch.backends.cudnn.benchmark = False\ntorch.backends.cudnn.deterministic = True\n# This prevents cuDNN from auto-tuning algorithms, avoiding the problematic one",
       "success_rate": 0.85,
       "sources": [
-        "https://pytorch.org/docs/stable/backends.html#torch.backends.cudnn.benchmark"
+        "https://docs.pytorch.org/docs/stable/backends.html#torch.backends.cudnn.benchmark"
       ],
       "condition": "Error occurs intermittently or only with specific input shapes"
     },
@@ -72,7 +72,7 @@
       "how": "import torch\ntorch.backends.cuda.matmul.allow_tf32 = False\ntorch.backends.cudnn.allow_tf32 = False\n# If error disappears, TF32 precision is the issue. A100-specific.",
       "success_rate": 0.75,
       "sources": [
-        "https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere"
+        "https://docs.pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere"
       ],
       "condition": "On Ampere GPUs (A100, A30) with TF32 enabled"
     }
@@ -98,6 +98,6 @@
     "generation_date": "2026-02-14",
     "review_status": "auto_generated",
     "evidence_count": 60,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-08-25"
   }
 }
