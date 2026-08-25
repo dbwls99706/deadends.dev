@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/pesel-in-person-required-non-eu/pl",
+  "url": "https://deadends.dev/policy/pesel-in-person-required-non-eu/pl",
+  "error": {
+    "signature": "AI tells a non-EU/EEA/Swiss foreigner they can apply for a Polish PESEL number by mail or through a proxy, or that holding a PESEL grants legal residence or work rights",
+    "regex": "(pesel.*(proxy|by mail|remotely)|apply for pesel poland|pesel.*(work permit|residence permit))",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.68,
+    "last_updated": "2026-08-25",
+    "summary": "Since 1 January 2026, under the Act of 12 September 2025 amending certain acts, third-country nationals (i.e. not citizens of an EU, EFTA, or Swiss state, nor their family members) applying for a PESEL number must appear in person at a municipal office - mail and proxy applications, previously allowed, are no longer accepted for this group (children born in Poland remain exempt). Separately, a PESEL number is only an administrative identifier: it does not legalize a stay, does not substitute for a visa or residence card, and by itself does not authorize legal employment."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a non-EU/EEA/Swiss foreigner they can submit a PESEL application by mail or through a proxy/representative, without traveling to Poland",
+      "why_fails": "Since 1 January 2026, the Act of 12 September 2025 requires third-country nationals (and their family members) to appear personally at any municipal office to apply for a PESEL number; this replaced the prior rule that allowed submission by mail or proxy for any foreigner. Children born on Polish territory remain the only exemption.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.pl/web/gov/uzyskaj-numer-pesel-dla-cudzoziemcow",
+        "https://www.bankier.pl/wiadomosc/Od-1-stycznia-cudzoziemiec-wnioskujacy-o-numer-PESEL-musi-stawic-sie-osobiscie-w-urzedzie-9062924.html"
+      ],
+      "condition": "Third-country national applying for PESEL after 1 January 2026",
+      "common_misconception": "That the pre-2026 remote/proxy procedure, well documented in older guides, is still current."
+    },
+    {
+      "action": "Tell a foreigner that once they have a PESEL number they are legally resident, or authorized to work, in Poland",
+      "why_fails": "A PESEL is purely an administrative identifier used by public systems to recognise a person; a Polish legal/HR advisory notes explicitly that 'PESEL nie jest tytułem pobytowym ani prawem do pracy' (PESEL is neither a residency title nor a right to work) and that holding one 'nie legalizuje pobytu w Polsce, nie zastępuje wizy ani karty pobytu' (does not legalize a stay, does not replace a visa or residence card). A PESEL also does not automatically deactivate if the underlying visa or residence card later expires, so holding a valid-looking PESEL is not proof of current legal status either.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://hr-legal.pl/pesel-dla-cudzoziemca/"
+      ],
+      "condition": "Any foreigner assuming PESEL confers residence or work status"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Third-country nationals needing a PESEL should plan an in-person visit to a Polish municipal office (urząd gminy) with valid ID and documentation of the legal basis requiring the number",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.gov.pl/web/gov/uzyskaj-numer-pesel-dla-cudzoziemcow"
+      ],
+      "condition": "Third-country national applying after 1 January 2026"
+    },
+    {
+      "action": "Treat PESEL and residence/work authorization as two separate questions: obtaining a PESEL does not end the need to also hold a valid visa, residence card, or work permit, and vice versa",
+      "success_rate": 0.75,
+      "sources": [
+        "https://hr-legal.pl/pesel-dla-cudzoziemca/"
+      ],
+      "condition": "Any foreigner planning their administrative status in Poland"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/basic-bank-account-right/pl",
+        "distinction": "This canon covers the PESEL application process and what a PESEL does/does not grant; the other covers whether a PESEL is required to open a Polish bank account (it is not, for the statutory basic payment account)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

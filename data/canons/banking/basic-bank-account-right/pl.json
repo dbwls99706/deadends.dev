@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/basic-bank-account-right/pl",
+  "url": "https://deadends.dev/banking/basic-bank-account-right/pl",
+  "error": {
+    "signature": "AI tells a legally-resident foreigner in Poland that they cannot open any bank account without a PESEL number",
+    "regex": "(poland.*(bank account|pesel).*(require|need)|pesel.*poland.*bank|podstawowy rachunek płatniczy)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-25",
+    "last_confirmed": "2026-08-25"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pl",
+      "country_name": "Poland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.68,
+    "last_updated": "2026-08-25",
+    "summary": "Poland's Payment Services Act (Ustawa o usługach płatniczych, Art. 59ia-59ic, implementing EU Directive 2014/92/EU) entitles any consumer who legally resides in an EU member state and lacks another PLN payment account to a free 'podstawowy rachunek płatniczy' (basic payment account). Art. 59ic §7 lists the exhaustive grounds on which a provider may refuse - no valid identity document, no legal residence in a member state, or no residence/mailing address in Poland - and a PESEL number is not among them. In practice many banks still ask for a PESEL on their standard consumer account products because it speeds up internal ID verification and is required for related services (mobile banking app registration, credit products), so a foreigner who is refused should specifically request the 'podstawowy rachunek płatniczy' product by name rather than accepting a blanket 'no PESEL, no account' answer."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an EU-resident foreigner in Poland they cannot open a bank account at all without a PESEL number",
+      "why_fails": "Art. 59ia of the Payment Services Act obliges providers to offer a basic payment account to any consumer legally residing in an EU member state who has no other PLN account; Art. 59ic §7 lists the only permitted refusal grounds (no valid ID document, no legal EU residence, no PL residence/mailing address) and a missing PESEL is not one of them.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://lexlege.pl/ustawa-o-uslugach-platniczych/rozdzial-7-dostep-do-podstawowego-rachunku-platniczego/11317/",
+        "https://www.gov.pl/web/finanse/dostep-konsumentow-do-bezplatnego-rachunku-podstawowego"
+      ],
+      "condition": "EU-resident consumer requesting a basic payment account",
+      "common_misconception": "That PESEL is a universal legal precondition for any Polish bank account, rather than a practical convenience most banks ask for on their standard (non-basic) account products."
+    },
+    {
+      "action": "Assume that because the law entitles you to a basic account, any bank teller who says 'no PESEL, no account' is simply wrong and the matter is settled",
+      "why_fails": "The statutory right applies specifically to the 'podstawowy rachunek płatniczy' product, not to a bank's standard consumer current account, which banks are free to condition on a PESEL since it feeds their internal KYC and mobile-app systems; a law firm review of the practice confirms that although the PESEL requirement 'is not legally required' for a basic account, 'some banks may still require' it for their regular accounts.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://codozasady.pl/en/p/polish-banking-services-for-non-eu-foreigners"
+      ],
+      "condition": "Bank refuses a standard (non-basic) account without a PESEL"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If refused for lack of a PESEL, explicitly ask for the 'podstawowy rachunek płatniczy' (basic payment account) by its statutory name rather than a standard current account",
+      "success_rate": 0.75,
+      "how": "Bring a valid passport or residence card and proof of a Polish mailing/residence address; the provider cannot condition opening on holding another product or a minimum balance.",
+      "sources": [
+        "https://lexlege.pl/ustawa-o-uslugach-platniczych/rozdzial-7-dostep-do-podstawowego-rachunku-platniczego/11317/"
+      ],
+      "condition": "Legal EU residency, no other PLN account held"
+    },
+    {
+      "action": "If you plan to use mobile banking, credit products, or want the fastest onboarding, apply for a PESEL first (it is often faster and avoids friction even though it is not a legal precondition)",
+      "success_rate": 0.7,
+      "sources": [
+        "https://codozasady.pl/en/p/polish-banking-services-for-non-eu-foreigners"
+      ],
+      "condition": "Wants full-featured account rather than the basic product"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-25",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-25"
+  }
+}

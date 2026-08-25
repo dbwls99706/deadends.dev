@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "library_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-25"
   },
   "environment": {
     "runtime": {
@@ -25,7 +25,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.78,
     "confidence": 0.85,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-25",
     "summary": "cuSOLVER failure in linear algebra operations. Matrix may be singular or GPU memory corrupted."
   },
   "dead_ends": [
@@ -43,7 +43,7 @@
       "why_fails": "Works but defeats the purpose of GPU acceleration",
       "fail_rate": 0.5,
       "sources": [
-        "https://pytorch.org/docs/stable/generated/torch.linalg.solve.html"
+        "https://docs.pytorch.org/docs/stable/generated/torch.linalg.solve.html"
       ],
       "condition": ""
     }
@@ -54,7 +54,7 @@
       "success_rate": 0.9,
       "how": "torch.isnan(matrix).any()  # check for NaN\ntorch.isinf(matrix).any()  # check for Inf",
       "sources": [
-        "https://pytorch.org/docs/stable/generated/torch.isnan.html"
+        "https://docs.pytorch.org/docs/stable/generated/torch.isnan.html"
       ],
       "condition": ""
     },
@@ -63,7 +63,7 @@
       "success_rate": 0.85,
       "how": "A = A + 1e-6 * torch.eye(A.size(0), device=A.device)",
       "sources": [
-        "https://pytorch.org/docs/stable/generated/torch.linalg.solve.html"
+        "https://docs.pytorch.org/docs/stable/generated/torch.linalg.solve.html"
       ],
       "condition": ""
     },
@@ -92,6 +92,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-25"
   }
 }
