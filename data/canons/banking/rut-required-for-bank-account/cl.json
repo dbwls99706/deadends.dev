@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/rut-required-for-bank-account/cl",
+  "url": "https://deadends.dev/banking/rut-required-for-bank-account/cl",
+  "error": {
+    "signature": "AI tells a tourist or newcomer in Chile that a passport is enough to open a Chilean bank account, including BancoEstado's CuentaRUT",
+    "regex": "(chile.*(bank account|open.*account)|cuentarut.*(tourist|passport)|chile.*rut.*bank)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-26",
+    "summary": "Chilean banks, including BancoEstado's low-barrier CuentaRUT, require a valid Cedula de Identidad para Extranjeros (foreigner ID card) carrying a RUT before any account can be opened; a passport alone is not accepted as the identifying document. That ID card is issued only to foreigners who already hold a residency visa processed through Chile's Servicio Nacional de Migraciones, so most banks other than BancoEstado additionally expect around two years of residency history before opening a standard account. Chile's tax authority (SII) separately confirms tourists do not need a RUT at all for ordinary purchases and services paid for as a visitor - the RUT requirement only bites when trying to open an account."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist or short-term visitor they can open a CuentaRUT or any Chilean bank account with just their passport",
+      "why_fails": "BancoEstado's own eligibility rule for CuentaRUT is a valid cedula de identidad; for a foreigner that means the residency-linked Cedula de Identidad para Extranjeros, not a passport. Chile's tax authority (SII) confirms that a passport lets a tourist make purchases and consume services without a RUT, but that exemption does not extend to opening a bank account, which needs the RUT-bearing ID card.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.sii.cl/contribuyentes/contribuyentes_individuales/chilenos_extranjero/rol_unico_tributario.htm",
+        "https://www.encancha.cl/enlahora/nacional/2026/8/13/bancoestado-anuncia-modificacion-en-importante-requisito-para-adquirir-la-cuenta-rut-315640.html"
+      ],
+      "condition": "Tourist or visitor without a Chilean residency visa"
+    },
+    {
+      "action": "Assume a non-resident foreigner can get a general-purpose RUT and retail bank account simply by requesting one, the way one might request a tax ID abroad",
+      "why_fails": "SII only issues a RUT to a non-resident foreigner for specific investment or legal-representation purposes (stocks, real estate, time deposits, acting for a company) - not as a general identity credential. That investor RUT does not come bundled with the Cedula de Identidad para Extranjeros that retail banks require, so it does not unlock ordinary banking.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.sii.cl/contribuyentes/contribuyentes_individuales/chilenos_extranjero/rol_unico_tributario.htm"
+      ],
+      "condition": "Non-resident foreigner without an investment reason for a RUT",
+      "common_misconception": "That any RUT, however obtained, unlocks retail banking access."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Obtain a residency visa via Chile's Servicio Nacional de Migraciones, then get the Cedula de Identidad para Extranjeros at the Registro Civil; once issued, apply for BancoEstado's CuentaRUT online or at a branch - it has no income or minimum-deposit requirement once the ID/RUT exist",
+      "success_rate": 0.85,
+      "how": "CuentaRUT approval is fast (often same day) once the applicant holds a valid foreigner ID card; the account has no minimum income or commercial history requirement.",
+      "sources": [
+        "https://www.encancha.cl/enlahora/nacional/2026/8/13/bancoestado-anuncia-modificacion-en-importante-requisito-para-adquirir-la-cuenta-rut-315640.html"
+      ],
+      "condition": "Foreigner who already holds the definitive ID card"
+    },
+    {
+      "action": "Temporary residents who don't yet meet the ~2-year history some banks expect can ask specifically about a cuenta vista account, which several banks offer with capped monthly deposits, instead of assuming they must wait for a full account",
+      "success_rate": 0.6,
+      "sources": [
+        "https://wise.com/us/blog/opening-a-bank-account-in-chile"
+      ],
+      "condition": "Temporary resident visa holder without long residency history",
+      "tradeoff": "Cuenta vista accounts cap monthly deposits and have fewer features than a full account."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}

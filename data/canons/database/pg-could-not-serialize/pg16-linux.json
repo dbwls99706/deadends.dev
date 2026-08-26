@@ -8,7 +8,7 @@
     "domain": "database",
     "category": "concurrency_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-26"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.88,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-26",
     "summary": "A transaction running at SERIALIZABLE or REPEATABLE READ isolation level attempted to modify a row that was already modified by another committed transaction since the start of the current transaction. PostgreSQL aborts the transaction to preserve snapshot isolation guarantees. The application must retry the transaction."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 52,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-26"
   }
 }

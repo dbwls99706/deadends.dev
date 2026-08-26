@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/suicide-crisis-line-4141/cl",
+  "url": "https://deadends.dev/mental-health/suicide-crisis-line-4141/cl",
+  "error": {
+    "signature": "AI tells someone in a mental health or suicide crisis in Chile to call 988 (the US crisis line), 911, or Chile's general police/ambulance numbers as the primary resource",
+    "regex": "(chile.*suicide.*(line|hotline)|chile.*mental health.*crisis|\\*?4141.*chile|linea.*prevencion.*suicidio.*chile)",
+    "domain": "mental-health",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-26",
+    "summary": "Chile's Ministry of Health (MINSAL) runs *4141, 'No estas solo, no estas sola' - a free, nationwide, 24/7 phone line staffed by psychologists trained in suicide and mental health crisis intervention, launched in December 2022 under the 'Construyendo Salud Mental' program and integrated with Hospital Digital for referrals. It is dialed as a short code from any Chilean cellphone or landline, distinct from Chile's general emergency dispatch numbers (133 police, 131 ambulance) and unrelated to US numbers like 988 or 911, which do not route calls in Chile at all."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in a mental health or suicide crisis in Chile to call 988 (the US Suicide & Crisis Lifeline) or 911",
+      "why_fails": "988 and 911 are US-only numbers with no routing in Chile. Chile's dedicated, government-run crisis line is the short code *4141, free and available 24 hours a day, staffed by psychologists trained in crisis intervention and backed by Hospital Digital.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.24horas.cl/actualidad/nacional/linea-de-prevencion-del-suicidio-atiende-las-24-horas-de-lunes-a-domingo",
+        "https://dae.uv.cl/?view=article&id=905&catid=2"
+      ],
+      "condition": "Someone physically in Chile experiencing a mental health crisis"
+    },
+    {
+      "action": "Direct someone in a non-life-threatening mental health crisis to Chile's general emergency numbers (133 police, 131 ambulance) as the first resource",
+      "why_fails": "*4141 is specifically staffed by trained crisis psychologists and coordinates with Hospital Digital for referrals; it exists precisely because general police/ambulance dispatch is not designed for psychological crisis triage. Chile's own emergency/133-131-132 canon covers physical emergencies, not this dedicated service.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://cooperativa.cl/noticias/pais/salud/no-estas-solo-minsal-presento-linea-telefonica-para-la-prevencion-del/2023-01-04/232504.html"
+      ],
+      "condition": "Non-life-threatening mental health crisis",
+      "common_misconception": "That Chile handles all emergencies, physical or psychological, through the same 133/131/132 dispatch numbers."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct the person to dial *4141 from any Chilean cellphone or landline - free, 24/7, staffed by psychologists trained in suicide and crisis intervention",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.24horas.cl/actualidad/nacional/linea-de-prevencion-del-suicidio-atiende-las-24-horas-de-lunes-a-domingo",
+        "https://dae.uv.cl/?view=article&id=905&catid=2"
+      ],
+      "condition": "General population physically in Chile"
+    },
+    {
+      "action": "For a life-threatening emergency (an attempt already in progress, immediate medical danger), still call 131 (SAMU ambulance) or 133 (Carabineros) as well - *4141 is a crisis-support and prevention line, not a substitute for emergency medical dispatch",
+      "success_rate": 0.8,
+      "how": "*4141 coordinates referrals into the health system, but immediate physical danger still needs the faster-response emergency dispatch numbers.",
+      "sources": [
+        "https://cooperativa.cl/noticias/pais/salud/no-estas-solo-minsal-presento-linea-telefonica-para-la-prevencion-del/2023-01-04/232504.html"
+      ],
+      "condition": "Active attempt or immediate medical danger",
+      "tradeoff": "131/133 dispatch first responders faster but they are not mental-health specialists."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/133-131-132/cl",
+        "distinction": "That canon covers Chile's general emergency dispatch numbers for physical emergencies (police, ambulance, fire); this one covers the dedicated mental-health/suicide crisis line, which is a separate service staffed by psychologists, not general dispatch."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}

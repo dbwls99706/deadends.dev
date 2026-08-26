@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/public-alcohol-consumption-prohibited/cl",
+  "url": "https://deadends.dev/legal/public-alcohol-consumption-prohibited/cl",
+  "error": {
+    "signature": "AI tells a traveler that casually drinking alcohol on a Chilean street, plaza, or beach promenade is tolerated the way it might be in other Latin American countries",
+    "regex": "(chile.*drink.*(street|public|beach)|chile.*public.*alcohol|beber.*via publica.*chile|chile.*open container)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-26",
+    "summary": "Article 25 of Chile's Ley 19.925 (Ley sobre Expendio y Consumo de Bebidas Alcoholicas) explicitly prohibits consuming alcoholic beverages in streets, roads, plazas, promenades, and other public-use places nationwide, with a fine of up to 1 UTM. Article 26 extends the same sanctions to anyone found visibly drunk in a public place. Carabineros will not arrest a first-time offender, but can take them to a police station to process the infraction and, if they cannot control their actions, hold them there for up to six hours."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that having a beer or wine on a Chilean street, plaza, or beach promenade is casually tolerated, similar to more permissive norms elsewhere in Latin America",
+      "why_fails": "Article 25 of Ley 19.925 explicitly prohibits consuming alcoholic beverages in 'calles, caminos, plazas, paseos y demas lugares de uso publico' (streets, roads, plazas, promenades and other public places) nationwide - it is a specific, named legal prohibition, not an informally tolerated gray area.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.bcn.cl/leychile/navegar?idNorma=220208",
+        "https://www.gov.uk/foreign-travel-advice/chile/safety-and-security"
+      ],
+      "condition": "Drinking outside a licensed venue's premises"
+    },
+    {
+      "action": "Assume the penalty for public drinking in Chile is severe (arrest, jail) and therefore not worth mentioning as a realistic risk",
+      "why_fails": "Chilean press coverage of enforcement confirms Carabineros do not arrest a first-time offender for public drinking; the actual sanction is a fine of up to 1 UTM (or a warning), with escalation only after repeated offenses in the same year - understating the restriction is wrong, but so is overstating the penalty.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.eldinamo.cl/pais/2014/12/31/alcohol-via-publica-carabineros-ano-nuevo/"
+      ],
+      "condition": "First-time offense with no aggravating circumstances",
+      "common_misconception": "That any brush with Chilean police over alcohol results in arrest rather than an on-the-spot fine."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Consume alcohol only inside licensed venues (bars, restaurants, private residences) or at events with a municipal permit, rather than in streets, plazas, or on beach promenades",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.bcn.cl/leychile/navegar?idNorma=220208"
+      ],
+      "condition": "General travel in Chile"
+    },
+    {
+      "action": "If cited for public drinking, pay the on-the-spot 25% reduced fine to the officer on duty (or the 50% reduced fine within five days of a court citation) to close the matter quickly rather than contest it",
+      "success_rate": 0.8,
+      "how": "Ley 19.925 Art. 25 lets an infractor immediately pay 25% of the maximum 1 UTM fine to the officer on duty, or 50% within five days if cited to appear before a local police court.",
+      "sources": [
+        "https://www.eldinamo.cl/pais/2014/12/31/alcohol-via-publica-carabineros-ano-nuevo/"
+      ],
+      "condition": "First-time citation for public drinking"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}
