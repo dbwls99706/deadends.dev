@@ -8,7 +8,7 @@
     "domain": "terraform",
     "category": "meta-arguments",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-26"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.96,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-26",
     "summary": "Using count.index outside of a resource that has count, or mixing count with for_each."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Terraform doesn't allow both; pick one",
       "fail_rate": 0.9,
       "sources": [
-        "https://developer.hashicorp.com/terraform/language/resources"
+        "https://developer.hashicorp.com/terraform/language/meta-arguments/count"
       ],
       "condition": ""
     },
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-26"
   }
 }

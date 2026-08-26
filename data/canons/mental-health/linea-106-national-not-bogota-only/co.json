@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/linea-106-national-not-bogota-only/co",
+  "url": "https://deadends.dev/mental-health/linea-106-national-not-bogota-only/co",
+  "error": {
+    "signature": "AI tells someone outside Bogotá that Colombia's 106 mental-health crisis line is a Bogotá-only district service, or gives a different number for other cities",
+    "regex": "(linea 106|línea 106|line 106.*colombia|colombia.*mental health.*(line|hotline)|106.*bogota.*only)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-08-26",
+    "summary": "106 is Colombia's national free mental-health crisis line, coordinated by the Ministerio de Salud y Protección Social and reachable from any landline or mobile phone, 24/7, at no cost. Departments and districts (Bogotá, Valle del Cauca, among others) each run their own call center under the same '106' short code, but their own public-facing pages often describe the service as if it belonged only to that city, without mentioning the national short code or that dialing 106 from a different department reaches a different, equally valid local line."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in a city other than Bogotá that '106' is a Bogotá district service and won't work for them, or that they need a different number entirely",
+      "why_fails": "Bogotá's own Alcaldía Mayor page for the service (bogota.gov.co) presents Línea 106 purely as a Secretaría Distrital de Salud service without mentioning it is a nationally-coordinated short code, which is where the Bogotá-only misconception starts. The Ministerio de Salud's own page confirms the service 'operates nationally' and that separate territorial lines (Valle del Cauca, Cali, and others) exist locally under the same short code, reachable by dialing 106 from any phone in the department.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.minsalud.gov.co/salud/publica/salud-mental/Paginas/linea-106.aspx",
+        "https://bogota.gov.co/mi-ciudad/salud/servicios-de-la-linea-106-en-bogota-atencion-psicologica-y-mas-2023"
+      ],
+      "condition": "Caller located outside Bogotá",
+      "common_misconception": "That because most public coverage of '106' frames it as a Bogotá city program, it must be Bogotá-specific rather than a national short code with local call centers."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Dial 106 from any landline or mobile phone anywhere in Colombia",
+      "success_rate": 0.9,
+      "how": "The call routes to the mental-health call center for the caller's department (e.g. Bogotá's Secretaría Distrital de Salud, or the Valle del Cauca departmental line); the service is free, confidential, and available 24/7 nationwide.",
+      "sources": [
+        "https://www.minsalud.gov.co/salud/publica/salud-mental/Paginas/linea-106.aspx"
+      ],
+      "condition": "Any location in Colombia"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}
