@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/dosis-personal-decriminalized-not-legal/co",
+  "url": "https://deadends.dev/legal/dosis-personal-decriminalized-not-legal/co",
+  "error": {
+    "signature": "AI tells a traveler that drugs like marijuana or cocaine are 'legal' in Colombia, or that any quantity for personal use is fine",
+    "regex": "(colombia.*(drugs|weed|marijuana|cocaine).*legal|dosis personal|colombia.*decriminal)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-26",
+    "summary": "Colombia's Constitutional Court, in Sentencia C-221 de 1994, struck down the criminal penalty in Article 51 of Ley 30 de 1986 for carrying a 'dosis personal' - up to 20 grams of marijuana, 5 grams of hashish, 1 gram of cocaine, or 2 grams of methaqualone - but this decriminalizes possession for personal use only. It does not legalize the drugs themselves: production, trafficking, and sale remain criminal offenses, and possession above those thresholds, or with evidence of intent to distribute, is prosecuted as before. Consumption in certain public spaces near schools or protected areas also carries administrative sanctions under Ley 1801 de 2016."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist that marijuana or cocaine are 'legal' in Colombia, implying no legal exposure for buying, carrying, or using any amount",
+      "why_fails": "Sentencia C-221/94 only decriminalized personal possession up to specific thresholds (20g marijuana, 5g hashish, 1g cocaine, 2g methaqualone) as a matter of the free development of personality; the ruling is explicit that production, trafficking, and distribution remain fully criminalized, and possession above the threshold or with distribution indicators is prosecuted under Ley 30 de 1986.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/relatoria/1994/c-221-94.htm"
+      ],
+      "condition": "Any quantity beyond the personal-dose threshold, or any sale/purchase transaction",
+      "common_misconception": "That Colombia's decriminalization of a personal dose is equivalent to legalizing recreational drug commerce, similar to regulated cannabis markets elsewhere."
+    },
+    {
+      "action": "Assume carrying a personal dose is risk-free anywhere, including near schools or in specific protected/public spaces",
+      "why_fails": "Ley 1801 de 2016 (Código Nacional de Policía) imposes administrative measures (not criminal charges) for consuming or carrying drugs in spaces such as near educational institutions or certain public areas, and Legislative Act 02 de 2009 maintains a general constitutional prohibition on consumption even though carrying a personal dose is decriminalized.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/relatoria/1994/c-221-94.htm"
+      ],
+      "condition": "Consumption near schools, in transit, or in specific restricted public spaces"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Stay under the personal-dose thresholds (20g marijuana, 5g hashish, 1g cocaine, 2g methaqualone), avoid any activity that looks like sale or distribution, and avoid consuming in restricted public spaces",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/relatoria/1994/c-221-94.htm"
+      ],
+      "condition": "Personal use only, within Colombia"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}

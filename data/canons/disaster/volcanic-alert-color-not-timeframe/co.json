@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/volcanic-alert-color-not-timeframe/co",
+  "url": "https://deadends.dev/disaster/volcanic-alert-color-not-timeframe/co",
+  "error": {
+    "signature": "AI tells someone that Colombia's orange volcanic alert means an eruption is expected within days or weeks, or that eruptions progress predictably from yellow to orange to red",
+    "regex": "(colombia.*volcan.*(alert|alerta)|nevado del ruiz.*alert|purace.*alerta|sgc.*alerta volc)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-26",
+    "summary": "Since 14 September 2023 the Servicio Geologico Colombiano (SGC) replaced its old 'activity level' scheme with four 'alert states' (verde, amarillo, naranja, rojo) that deliberately drop any days/weeks/hours eruption-timing claim that the old orange level used to carry. Orange now means significantly elevated activity and higher probability, without a promised timeframe; red means an eruption is already in progress. The SGC has publicly stressed that volcanoes do not necessarily escalate level by level - Nevado del Huila erupted within about 21 hours of dormancy in 2007 - so an eruption can occur even from a lower alert state."
+  },
+  "dead_ends": [
+    {
+      "action": "State that a Colombian volcano on 'alerta naranja' will erupt within a specific number of days or weeks, based on older news coverage of the pre-2023 scheme",
+      "why_fails": "The SGC's own announcement of the 14 September 2023 scheme change states explicitly: 'En el nuevo esquema ya no existe ninguna categoria en la que se afirme que es probable que se de una erupcion en cuestion de dias, semanas u horas, como pasaba con el nivel de actividad Naranja' (in the new scheme there is no longer any category claiming an eruption is probable within days, weeks, or hours, as happened with the Orange activity level). Reporting written before that date, or that still repeats the old framing, gives a false sense of a fixed countdown.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www2.sgc.gov.co/Noticias/Paginas/Colombia-cambia-su-esquema-de-medicion-de-la-actividad-volcanica.aspx",
+        "https://www2.sgc.gov.co/Paginas/estados-de-alerta-volcanes.aspx"
+      ],
+      "condition": "Any SGC-monitored volcano since 14 September 2023",
+      "common_misconception": "That the pre-2023 'activity level' timing claims (e.g. days/weeks for orange) still apply under the current 'alert state' scheme."
+    },
+    {
+      "action": "Assume a volcano must pass through yellow and orange in sequence before it can erupt, so a currently-green or currently-yellow volcano poses no near-term risk",
+      "why_fails": "The SGC's director cited Nevado del Huila's 2007 eruption - after more than 500 years of dormancy, it erupted within roughly 21 hours - as the reason the new scheme avoids implying orderly, predictable progression through alert levels.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www2.sgc.gov.co/Noticias/Paginas/Colombia-cambia-su-esquema-de-medicion-de-la-actividad-volcanica.aspx"
+      ],
+      "condition": "Any SGC-monitored volcano"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the SGC's current alert-state definitions and the latest bulletin for the specific volcano rather than relying on general knowledge of what 'orange' used to mean",
+      "success_rate": 0.85,
+      "how": "SGC publishes a weekly bulletin every Tuesday for volcanoes at yellow or orange, and switches to daily/hourly reporting if a volcano reaches red or activity otherwise warrants it.",
+      "sources": [
+        "https://www2.sgc.gov.co/Paginas/estados-de-alerta-volcanes.aspx"
+      ],
+      "condition": "Planning travel near an active Colombian volcano"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}

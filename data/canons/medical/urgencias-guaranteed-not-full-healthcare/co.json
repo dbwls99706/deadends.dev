@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/urgencias-guaranteed-not-full-healthcare/co",
+  "url": "https://deadends.dev/medical/urgencias-guaranteed-not-full-healthcare/co",
+  "error": {
+    "signature": "AI tells a foreigner that Colombia's public healthcare system covers them fully once in the country, or conversely that undocumented migrants and uninsured tourists get no medical care at all",
+    "regex": "(colombia.*(healthcare|health care|hospital).*(foreigner|tourist|migrant)|colombia.*urgencias|colombia.*free healthcare)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "co",
+      "country_name": "Colombia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-26",
+    "summary": "Colombian Constitutional Court rulings T-021 de 2021 and T-090 de 2021 confirm that any person in Colombia - including foreigners with irregular immigration status - has a guaranteed right to initial emergency care (atencion inicial de urgencias) without needing prior authorization, documentation, or payment. That guarantee does not extend to ongoing, non-emergency, or specialized treatment: adults generally must regularize their migratory status and affiliate to the EPS health-insurance system (contributive or subsidized regime) to access that care, with the Court carving out an exception only for minors, whose access to necessary follow-up care cannot be denied because a parent failed to regularize their status."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an uninsured tourist or an undocumented migrant that they will not be treated at all in a Colombian hospital",
+      "why_fails": "Sentencia T-021 de 2021 and Sentencia T-090 de 2021 both hold that 'extranjeros en situacion irregular ... tienen derecho a recibir atencion basica y de urgencias' (foreigners in irregular status have the right to receive basic and emergency care), with no prior authorization or payment required - a hospital that turns away someone with an emergency condition over documentation or payment is acting against binding Constitutional Court precedent.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/Relatoria/2021/T-021-21.htm",
+        "https://www.corteconstitucional.gov.co/relatoria/2021/T-090-21.htm"
+      ],
+      "condition": "Genuine emergency, any documentation status",
+      "common_misconception": "That lacking a cedula de extranjeria, PPT, or health insurance means a foreigner has no legal right to be treated at all."
+    },
+    {
+      "action": "Assume that same emergency-care guarantee means a foreigner's ongoing treatment, specialist follow-up, or elective care is free and automatic without EPS affiliation",
+      "why_fails": "Both rulings distinguish emergency stabilization from ongoing care: T-090/21 states that irregular migrants seeking additional comprehensive care 'deben atender la normatividad vigente de afiliacion' (must comply with current affiliation rules), meaning adults generally need to regularize their status and enroll in an EPS to get non-emergency treatment covered.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/relatoria/2021/T-090-21.htm"
+      ],
+      "condition": "Non-emergency, ongoing, or specialized care for an adult"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For short-term tourists: buy travel medical insurance before arrival, since Colombia does not require it for entry but the public guarantee only covers emergency stabilization, not full treatment costs",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.corteconstitucional.gov.co/Relatoria/2021/T-021-21.htm"
+      ],
+      "condition": "Tourists and short-term visitors"
+    },
+    {
+      "action": "For residents/migrants: regularize immigration status (e.g. via the applicable visa, PPT for eligible Venezuelan nationals, or RAMV where applicable) and affiliate to an EPS under the contributive or subsidized regime to access non-emergency care",
+      "success_rate": 0.75,
+      "how": "Minors are the exception: courts have ordered continued specialist and follow-up care for undocumented children even without full regularization, since 'no es deber de los menores asumir una carga publica' (minors should not bear a public burden) caused by a parent's failure to regularize.",
+      "sources": [
+        "https://www.corteconstitucional.gov.co/relatoria/2021/T-090-21.htm"
+      ],
+      "condition": "Migrants/residents seeking non-emergency care"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/foreigner-account-opening/co",
+        "distinction": "That canon covers whether a foreigner without a cedula de extranjeria can open a bank account; this one covers whether they can receive medical care - both hinge on documentation status but are governed by entirely different rules."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}
