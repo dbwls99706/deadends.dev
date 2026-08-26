@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/clave-unica-requires-definitive-id/cl",
+  "url": "https://deadends.dev/policy/clave-unica-requires-definitive-id/cl",
+  "error": {
+    "signature": "AI tells a foreigner in Chile they can get a Clave Unica (the login for most Chilean government online services) with a provisional RUN or their passport",
+    "regex": "(clave.?unica.*chile|chile.*digital.*identity.*login|run provisorio.*clave|chileatiende.*login)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-26",
+    "last_confirmed": "2026-08-26"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "cl",
+      "country_name": "Chile",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-26",
+    "summary": "Clave Unica, issued by Chile's Servicio de Registro Civil e Identificacion, is required to use most Chilean government online services. For foreigners the only accepted credential is a valid, definitive Cedula de Identidad para Extranjeros; a provisional RUN (issued while a residency application is still processing) or a passport does not qualify, so a newly arrived resident can be blocked from Clave Unica for months while their permanent card is processed. Applicants must be 14 or older and can apply in person at a Civil Registry office, at a consulate abroad, or via a scheduled videoconference."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a newcomer with a residency visa but only a provisional RUN (RUN provisorio) that they can request Clave Unica immediately",
+      "why_fails": "Chilean immigration guides echoing Registro Civil rules state plainly that a provisional RUN cannot be used to request Clave Unica - the definitive Cedula de Identidad para Extranjeros must be issued first.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://extranjeriachile.com/clave-unica-extranjeros-chile/"
+      ],
+      "condition": "Newly arrived foreigner still awaiting their definitive ID card"
+    },
+    {
+      "action": "Assume a passport is an acceptable substitute for the Cedula de Identidad para Extranjeros when requesting Clave Unica",
+      "why_fails": "La Tercera's own how-to guide states in-person applicants must bring a 'cedula de identidad vigente' (current ID card); atencionchilena.cl confirms Clave Unica is issued by the Servicio de Registro Civil e Identificacion specifically to foreigners with residence in Chile, against valid Chilean identity documentation - not a foreign passport.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.latercera.com/servicios/noticia/clave-unica-como-obtenerla-de-manera-online-o-presencial/L5RW2WJELJGKXKQ5AYTIT2NP2A/",
+        "https://atencionchilena.cl/tramites/clave-unica/"
+      ],
+      "condition": "Foreigner without a Chilean ID card",
+      "common_misconception": "That any government-issued photo ID, including a home-country passport, satisfies Chile's 'cedula de identidad vigente' requirement."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wait for the definitive Cedula de Identidad para Extranjeros to be issued by the Registro Civil, then request Clave Unica in person at a Civil Registry office or via a scheduled videoconference",
+      "success_rate": 0.85,
+      "sources": [
+        "https://extranjeriachile.com/clave-unica-extranjeros-chile/"
+      ],
+      "condition": "Foreigner who already holds the definitive ID card"
+    },
+    {
+      "action": "Chileans and foreign residents abroad can request Clave Unica remotely through a Chilean consulate, scheduling a videoconference with Civil Registry officials instead of visiting an office in Chile",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.latercera.com/servicios/noticia/clave-unica-como-obtenerla-de-manera-online-o-presencial/L5RW2WJELJGKXKQ5AYTIT2NP2A/"
+      ],
+      "condition": "Applicant located outside Chile with a valid ID card"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-26",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-26"
+  }
+}

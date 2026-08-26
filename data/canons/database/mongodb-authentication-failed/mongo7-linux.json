@@ -8,7 +8,7 @@
     "domain": "database",
     "category": "authentication_error",
     "first_seen": "2023-06-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-26"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-26",
     "summary": "MongoDB rejected the authentication attempt. Commonly caused by wrong password, wrong authentication database (authSource), user not existing in the specified database, or SCRAM mechanism mismatch between client and server."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-26"
   }
 }
