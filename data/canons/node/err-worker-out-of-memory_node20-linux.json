@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "memory",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-27"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-27",
     "summary": "Node.js process exceeded V8 heap memory limit."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Delays the crash but the leak still grows unbounded",
       "fail_rate": 0.7,
       "sources": [
-        "https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes"
+        "https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-mib"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Each worker will also eventually OOM",
       "fail_rate": 0.6,
       "sources": [
-        "https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes"
+        "https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-mib"
       ],
       "condition": ""
     }
@@ -50,7 +50,7 @@
       "success_rate": 0.93,
       "how": "node --inspect app.js then open chrome://inspect to take heap snapshots",
       "sources": [
-        "https://nodejs.org/en/docs/guides/debugging-getting-started"
+        "https://nodejs.org/learn/getting-started/debugging"
       ],
       "condition": ""
     },
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-27"
   }
 }
