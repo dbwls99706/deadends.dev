@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "runtime",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-27"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.91,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-27",
     "summary": "Call to undefined function errors occur when PHP tries to call a function that does not exist in the current scope. Common causes include missing PHP extensions, missing use/import statements for namespaced functions, typos in function names, and calling functions removed in newer PHP versions."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 75,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-27"
   }
 }

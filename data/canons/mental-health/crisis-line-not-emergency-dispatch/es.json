@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/es",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/es",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Spain to call 988 (the US Suicide & Crisis Lifeline number) or assumes Spain's 024 line will automatically dispatch an ambulance the way 112 does",
+    "regex": "(spain.*988|call 988.*spain|linea 024|024.*espa[nñ]a|suicide (hotline|prevention).*spain)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-27",
+    "summary": "Spain's dedicated suicide-behavior support line is 024 (free, nationwide, 24/7, run by the Ministry of Health) - 988 is a US number and does not work in Spain. 024 itself is not a dispatch service: its own guidance tells callers facing an imminent life-threatening emergency to call 112 directly rather than expecting 024 to send help automatically."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Spain to call 988 for suicide-crisis support, the way they would in the United States",
+      "why_fails": "988 is a US-specific Suicide & Crisis Lifeline number and is not a working emergency or crisis number in Spain; Spain's equivalent is the Ministry of Health's Linea 024, a separate national service.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.sanidad.gob.es/linea024/home.htm"
+      ],
+      "condition": "Caller physically in Spain",
+      "common_misconception": "Assuming crisis-line numbers are internationally standardized the way 112 is across the EU."
+    },
+    {
+      "action": "Assume calling 024 will automatically get an ambulance or police dispatched to the caller's location, the same way calling 112 does",
+      "why_fails": "024's own official description states it works through emotional support and active listening, and forwards to NHS health services or 112 only 'en caso de emergencia vital inminente' - i.e. the caller (or 024 staff assessing real-time risk) must escalate to 112 for dispatch; 024 is not itself an automatic dispatch line.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.sanidad.gob.es/linea024/home.htm",
+        "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/sanidad14/paginas/2024/100524-linea-024.aspx"
+      ],
+      "condition": "Active, immediately life-threatening emergency",
+      "common_misconception": "That any national crisis line functions like calling 112/999 and will send responders without the caller separately contacting emergency services."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For non-immediately-life-threatening suicidal ideation or crisis support in Spain, call or chat with 024 - free, confidential, nationwide, 24/7 - for emotional support and referral",
+      "success_rate": 0.85,
+      "how": "Dial 024 from any phone in Spain, or use the online chat via sanidad.gob.es/linea024.",
+      "sources": [
+        "https://www.sanidad.gob.es/linea024/home.htm"
+      ],
+      "condition": "Non-imminent crisis or support for a family member"
+    },
+    {
+      "action": "If life is at risk right now, call 112 directly rather than routing through 024 first",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.sanidad.gob.es/linea024/home.htm"
+      ],
+      "condition": "Immediate life-threatening emergency"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/es",
+        "distinction": "That canon covers Spain's general emergency dispatch number (112, not 911); this one covers the separate, non-dispatch mental-health support line 024."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}

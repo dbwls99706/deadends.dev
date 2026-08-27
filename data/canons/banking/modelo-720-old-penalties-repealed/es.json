@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/modelo-720-old-penalties-repealed/es",
+  "url": "https://deadends.dev/banking/modelo-720-old-penalties-repealed/es",
+  "error": {
+    "signature": "AI warns a Spanish tax resident that failing to file Modelo 720 (declaration of assets held abroad) triggers fixed fines of 5,000 euros per item / minimum 10,000 euros, plus a 150% surcharge on undeclared amounts",
+    "regex": "(modelo 720|form 720 spain|spain.*(foreign assets|overseas assets).*declaration.*penalty)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-27",
+    "summary": "Modelo 720 (declaring foreign-held assets over 50,000 euros) is still mandatory for Spanish tax residents, but its old fixed-fine penalty regime - 5,000 euros per undeclared/incorrect data point (minimum 10,000 euros), 100 euros per item for late filing (minimum 1,500 euros), and a 150% surcharge treating undeclared assets as unjustified capital gains - was ruled contrary to EU law by the CJEU on 27 January 2022 (case C-788/19) and formally repealed by Ley 5/2022. Since then, non-compliance is punished under the ordinary Ley General Tributaria (articles 198-199), which produces materially smaller, proportionate fines."
+  },
+  "dead_ends": [
+    {
+      "action": "Warn a Spanish tax resident that missing or incorrect Modelo 720 filings still carry the old fixed fines (5,000 euros per data point, minimum 10,000 euros for errors/omissions; 100 euros per data point, minimum 1,500 euros for late filing) plus a 150% capital-gains surcharge",
+      "why_fails": "The CJEU ruled on 27 January 2022 (C-788/19) that this penalty regime breached EU free movement of capital, and Ley 5/2022 of 9 March formally repealed those fixed fines and the 150% surcharge; Spain's Agencia Tributaria FAQ on Modelo 720 penalties now states the applicable regime is the general one in articles 198 and 199 of the Ley General Tributaria (Ley 58/2003), not the old special sanctions.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://sede.agenciatributaria.gob.es/Sede/todas-gestiones/impuestos-tasas/declaraciones-informativas/modelo-720-decla_____sobre-bienes-derechos-extranjero_/preguntas-frecuentes/sanciones-efectos.html",
+        "https://www.hoganlovells.com/es/publications/el-tjue-elimina-las-consecuencias-del-incumplimiento-de-la-normativa-del-modelo-720"
+      ],
+      "condition": "Late, incomplete, or missing Modelo 720 filing since Ley 5/2022 took effect",
+      "common_misconception": "That the CJEU ruling and 2022 reform abolished Modelo 720 itself, rather than just its disproportionate penalty regime - the filing obligation over 50,000 euros in foreign assets still applies."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File Modelo 720 on time (by 31 March) for any category of foreign assets exceeding 50,000 euros; if a past filing was missed and fined under the old regime, request nullity of that sanction citing the CJEU ruling and Ley 5/2022",
+      "success_rate": 0.85,
+      "how": "Sanctions issued under the pre-2022 regime have been treated as void; taxpayers who paid such fines can seek reimbursement via a nullity claim referencing C-788/19 and the Consejo de Estado's 23 March 2023 opinion.",
+      "sources": [
+        "https://sede.agenciatributaria.gob.es/Sede/todas-gestiones/impuestos-tasas/declaraciones-informativas/modelo-720-decla_____sobre-bienes-derechos-extranjero_/preguntas-frecuentes/sanciones-efectos.html"
+      ],
+      "condition": "Filing going forward, or challenging a pre-2022 fine"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/es-alert-cell-broadcast-not-app/es",
+  "url": "https://deadends.dev/disaster/es-alert-cell-broadcast-not-app/es",
+  "error": {
+    "signature": "AI tells someone in Spain they need to download an 'ES-Alert' or 'Proteccion Civil' app to receive emergency warnings for floods (DANA), wildfires, or other hazards",
+    "regex": "(es-alert.*app|download.*es.?alert|spain emergency alert app|protecci[oó]n civil app alertas)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "es",
+      "country_name": "Spain",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-27",
+    "summary": "Spain delivers official hazard alerts through ES-Alert, a Cell Broadcast system operated by Proteccion Civil that pushes Level 1 warnings directly to any compatible phone connected to a Spanish mobile network - no app install or registration is involved. Support depends on OS version: Android 11+ and iOS 15.6+ receive alerts by default, Android 10 shows them without a title, and Android 8 or older does not receive them at all."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell residents or travelers in Spain they must download and register in a specific 'ES-Alert' or 'Proteccion Civil' app to get emergency alerts for floods, wildfires, or other hazards",
+      "why_fails": "Proteccion Civil's own page on the system states plainly: 'La recepcion de los mensajes utiliza directamente la conexion de radio con la antena de telefonia movil, por lo que no se requiere la instalacion de ninguna app' and 'No es necesario realizar ninguna accion previa' - compatible phones connected to any Spanish operator's network receive Level 1 alerts automatically with zero setup.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.proteccioncivil.es/coordinacion/redes/ran/public-warning-system",
+        "https://www.interior.gob.es/opencms/es/detalle/articulo/Proteccion-Civil-ensaya-el-envio-de-alertas-a-moviles-ES-Alert-en-diversas-Comunidades-Autonomas/"
+      ],
+      "condition": "Compatible smartphone connected to a Spanish mobile network",
+      "common_misconception": "Assuming Spain's alert system works like an opt-in SMS/email registration service rather than automatic Cell Broadcast."
+    },
+    {
+      "action": "Assume any 4G/5G phone will automatically receive ES-Alert Level 1 alerts regardless of its OS version",
+      "why_fails": "INCIBE's official guidance notes 'dispositivos con version Android 8 o inferior no recibiran las alertas', Android 10 shows the alert without its title, and full support needs Android 11+ or iOS 15.6+ - older devices are silently left out.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.incibe.es/ciudadania/blog/alertas-de-proteccion-civil-en-espana-como-funcionan-y-como-configurarlas-en-tu"
+      ],
+      "condition": "Device running Android 10 or older, or iOS below 15.6",
+      "common_misconception": "That any phone with a working SIM automatically supports ES-Alert regardless of OS version."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm the phone's built-in wireless emergency alert setting is enabled - no app download needed",
+      "success_rate": 0.9,
+      "how": "Android: Settings > Notifications > Wireless emergency alerts (or Security & emergency) > enable 'Permitir alertas'. iPhone: Settings > Notifications > enable 'Pre-Alertas de Proteccion Civil' near the bottom of the notifications list.",
+      "sources": [
+        "https://www.incibe.es/ciudadania/blog/alertas-de-proteccion-civil-en-espana-como-funcionan-y-como-configurarlas-en-tu"
+      ],
+      "condition": "General public with a supported OS version"
+    },
+    {
+      "action": "If traveling with an older or unsupported device, do not rely on Cell Broadcast alerts alone - follow the regional Proteccion Civil/AEMET channels and local news during red-alert weather events",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.proteccioncivil.es/coordinacion/redes/ran/public-warning-system"
+      ],
+      "condition": "Incompatible or outdated device (Android <=10, iOS <15.6)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/es",
+        "distinction": "That canon covers which number to dial for help (112, not 911); this one covers how official hazard warnings reach your phone unprompted (automatic Cell Broadcast, not an app)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}
