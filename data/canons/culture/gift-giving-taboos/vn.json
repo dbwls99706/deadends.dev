@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/gift-giving-taboos/vn",
+  "url": "https://deadends.dev/culture/gift-giving-taboos/vn",
+  "error": {
+    "signature": "AI suggests giving a Vietnamese host or business contact a handkerchief, yellow flowers/chrysanthemums, or a gift wrapped in black or white paper",
+    "regex": "(vietnam.*gift.*(etiquette|taboo|avoid)|gift.*vietnamese.*(host|business)|vietnam.*wrap.*gift)",
+    "domain": "culture",
+    "category": "social_norm_violation",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.75,
+    "confidence": 0.55,
+    "last_updated": "2026-08-27",
+    "summary": "In Vietnamese gift-giving etiquette, handkerchiefs (associated with tears and farewells), yellow flowers and chrysanthemums (funeral flowers), and anything wrapped in black or white paper (funeral colors) are read as bad-omen gifts, not neutral ones. Gifts should be given and received with both hands, and the giver conventionally downplays the gift's value verbally. Separately, the number 4 carries a death association in Vietnamese numerology because of a Sino-Vietnamese homophone between 'four' and 'death', which is why buildings commonly skip a labeled 4th floor."
+  },
+  "dead_ends": [
+    {
+      "action": "Suggest handkerchiefs, yellow flowers, chrysanthemums, or a gift wrapped in black or white paper as a safe, generic gift for a Vietnamese host or business contact",
+      "why_fails": "Cultural Atlas's guide to Vietnamese etiquette states: 'Do not give handkerchiefs, yellow flowers, chrysanthemums or anything black as a gift. This can be interpreted as a bad omen.' Handkerchiefs evoke partings and sorrow; chrysanthemums and yellow flowers are associated with funerals; black and white wrapping read as funeral colors rather than festive ones.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://culturalatlas.sbs.com.au/vietnamese-culture/vietnamese-culture-etiquette",
+        "https://www.vietnamtourism.com/en/gift-giving-in-vietnam-what-to-bring-what-to-avoid-and-how-to-hand-it-over"
+      ],
+      "condition": "Choosing a gift for a Vietnamese host, friend, or business contact",
+      "common_misconception": "That gift color and item choice are stylistic preferences rather than carrying specific funeral/mourning associations in Vietnamese custom."
+    },
+    {
+      "action": "Hand over or accept a gift casually with one hand, the way it's normal to do in many Western contexts",
+      "why_fails": "Vietnamese gift etiquette calls for presenting and receiving gifts with both hands as a sign of respect; using one careless hand reads as dismissive even though the giver's intent was positive.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://culturalatlas.sbs.com.au/vietnamese-culture/vietnamese-culture-etiquette"
+      ],
+      "condition": "Formal or first-meeting gift exchange"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Choose gifts wrapped in bright, festive colors (red, gold, pink) and avoid handkerchiefs, chrysanthemums/yellow flowers, and black or white wrapping; present and receive with both hands and do not open the gift in front of the giver",
+      "success_rate": 0.85,
+      "sources": [
+        "https://culturalatlas.sbs.com.au/vietnamese-culture/vietnamese-culture-etiquette",
+        "https://www.vietnamtourism.com/en/gift-giving-in-vietnam-what-to-bring-what-to-avoid-and-how-to-hand-it-over"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "When choosing a quantity or a numbered set (e.g. a boxed set of items), avoid landing on four items or a price/number ending in 4, since Vietnamese numerology treats the number 4 as death-associated the same way it skips a labeled 4th floor in buildings",
+      "success_rate": 0.55,
+      "how": "Vietcetera's overview of Vietnamese superstitions explains the number 4's death association comes from a Sino-Vietnamese homophone, an association strong enough that it routinely determines floor numbering, addresses, and phone number preferences.",
+      "sources": [
+        "https://vietcetera.com/en/vietnamese-superstitions-origin-and-cultural-connotations"
+      ],
+      "condition": "Selecting a quantity or numbered set of gift items",
+      "tradeoff": "The number-4 avoidance is well documented for floors/addresses/phone numbers; its application specifically to gift quantities is a reasonable extrapolation rather than a directly documented rule."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}
