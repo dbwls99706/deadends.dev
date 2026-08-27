@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-27"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-27",
     "summary": "The CUDA context was destroyed while operations were still pending or references to it remained. Happens when cuCtxDestroy is called prematurely, during process forking with active GPU contexts, or when GPU driver resets the context due to a timeout."
   },
   "dead_ends": [
@@ -97,6 +97,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-27"
   }
 }
