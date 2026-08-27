@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/idp-requires-home-license/vn",
+  "url": "https://deadends.dev/legal/idp-requires-home-license/vn",
+  "error": {
+    "signature": "AI tells a tourist that an International Driving Permit (IDP) alone, without the underlying home-country driving license, is enough to legally ride a motorbike or drive a car in Vietnam",
+    "regex": "(vietnam.*international driving permit|vietnam.*idp.*(motorbike|drive|license)|drive.*vietnam.*license|ride.*motorbike.*vietnam.*license)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-27",
+    "summary": "Vietnam acceded to the 1968 Vienna Convention on Road Traffic in 2013 (Resolution 141/NQ-CP), effective 20 August 2014, so a correctly issued 1968 IDP is recognized - but only when carried together with the underlying home-country driving license, never on its own. Riding or driving on an IDP without the paired home license draws a fine under Decree 168/2024/ND-CP: 6-8 million VND for motorbikes over 125cc, 8-10 million VND for cars."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist that carrying only an International Driving Permit, without their physical home-country driving license, is legally sufficient to ride a motorbike or drive a car in Vietnam",
+      "why_fails": "The UK Foreign, Commonwealth & Development Office's Vietnam travel advice states plainly: 'You'll need to have both the 1968 version of the international driving permit and your UK driving licence with you whilst driving a car or motorbike in Vietnam.' The IDP is a translation aid issued alongside a valid license, not a replacement for it.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/vietnam/safety-and-security"
+      ],
+      "condition": "Riding or driving a motor vehicle in Vietnam as a foreign visitor"
+    },
+    {
+      "action": "Assume Vietnam does not recognize the 1968 Vienna Convention IDP at all, so any IDP is worthless there",
+      "why_fails": "Vietnam's government acceded to the 1968 Vienna Convention on Road Traffic via Resolution 141/NQ-CP, dated 31 December 2013, with accession taking effect on 20 August 2014. A correctly issued 1968-convention IDP is recognized - the failure mode is using it alone, not the IDP itself being invalid in Vietnam.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://moit.gov.vn/van-ban-phap-luat/van-ban-dieu-hanh/-nghi-quyet-ve-viec-gia-nhap-cong-uoc-quoc-te-1968-ve-giao-t.html"
+      ],
+      "condition": "",
+      "common_misconception": "That Vietnam sits entirely outside the 1968 Vienna Convention framework, a claim repeated on many motorbike-rental blogs but outdated since 2014."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry both the home-country driving license (with a motorcycle/car endorsement as needed) and a 1968-convention IDP together at all times while riding or driving in Vietnam",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/vietnam/safety-and-security"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For a longer stay, convert the foreign license to a Vietnamese one (GPLX) through the Ministry of Transport's exchange procedure rather than relying on the IDP pairing indefinitely",
+      "success_rate": 0.75,
+      "how": "A Vietnamese Ministry of Public Security circular (Circular 12/2025) confirms IDPs issued by Vietnam itself have no domestic validity, reinforcing that a converted Vietnamese license is the more durable option for residents; conversion needs a passport, valid foreign license, and proof of a residence status of 3+ months.",
+      "sources": [
+        "https://tuoitre.vn/plo/giay-phep-lai-xe-quoc-te-co-duoc-dung-tai-viet-nam-khong-post872073.html"
+      ],
+      "condition": "Staying in Vietnam long-term rather than as a short-term tourist",
+      "tradeoff": "Conversion takes 5-10 business days and is not available to every visa type."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}

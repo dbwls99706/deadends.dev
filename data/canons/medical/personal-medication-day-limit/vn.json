@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/personal-medication-day-limit/vn",
+  "url": "https://deadends.dev/medical/personal-medication-day-limit/vn",
+  "error": {
+    "signature": "AI tells a traveler that any prescription medication can be brought into Vietnam in full trip-length quantities as long as it is in original packaging",
+    "regex": "(vietnam.*(bring|carry|import).*medication|vietnam.*prescription.*(drug|medicine)|vietnam.*narcotic.*medicine|vietnam.*psychotropic)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-27",
+    "last_confirmed": "2026-08-27"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-27",
+    "summary": "Vietnam caps personal import of controlled prescription medication without an import license at a maximum 7-day supply for narcotic drugs and a maximum 10-day supply for psychotropic drugs or precursor-containing medication, per the quantities stated on the accompanying prescription. Larger quantities require prior approval from Vietnam's Drug Administration. All controlled medication must travel with the original prescription showing the patient's name, drug name, dosage, and duration, plus the prescribing doctor's signature."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler they can bring a full trip's supply of any prescribed narcotic or psychotropic medication (e.g. strong painkillers, anti-anxiety or sleep medication) into Vietnam as long as it's in original packaging with a prescription",
+      "why_fails": "The UK government's Vietnam travel advice states it is illegal to carry more than 7 days of prescribed addictive or psychotropic medicine used for conditions such as addiction, anxiety, depression, or insomnia, without further authorization - packaging and a prescription alone do not lift the quantity cap.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/vietnam/health"
+      ],
+      "condition": "Narcotic or psychotropic prescription medication",
+      "common_misconception": "That any amount of prescribed medication is fine to bring as long as it's accompanied by a prescription, the way it typically works for non-controlled drugs."
+    },
+    {
+      "action": "Assume the same day-limit applies uniformly to all controlled medication categories",
+      "why_fails": "Vietnam's own embassy guidance splits the limit by drug class: narcotic medication (thuoc gay nghien) is capped at a 7-day supply, while psychotropic medication or medicine containing precursor substances (thuoc huong than) is capped at a 10-day supply - treating them as one uniform limit misstates roughly a third of cases.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://vietnamembassy.org.au/en/bring-medication-viet-nam"
+      ],
+      "condition": "Determining the correct quantity cap for a specific medication"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry only up to a 7-day supply of narcotic medication or a 10-day supply of psychotropic/precursor medication, together with the original prescription stating the patient's name and age, drug name, strength, quantity/duration, dosage, and the prescribing physician's signature and address",
+      "success_rate": 0.85,
+      "how": "This matches the documentation format specified by Vietnam's embassy guidance and by Vietnam's General Department of Customs guidance for personal medication at entry.",
+      "sources": [
+        "https://vietnamembassy.org.au/en/bring-medication-viet-nam",
+        "https://kv01.customs.gov.vn/index.jsp?pageId=2&aid=1644&cid=46"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "For a medically necessary quantity beyond the 7/10-day cap, declare it at the port-of-entry customs desk with supporting medical documentation rather than trying to carry it in undeclared, and arrange prior approval from Vietnam's Drug Administration where required",
+      "success_rate": 0.6,
+      "sources": [
+        "https://vietnamembassy.org.au/en/bring-medication-viet-nam"
+      ],
+      "condition": "Quantity needed exceeds the standard personal-use cap",
+      "tradeoff": "Requires advance paperwork and is not guaranteed to be approved on arrival without prior contact."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-27",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-27"
+  }
+}
