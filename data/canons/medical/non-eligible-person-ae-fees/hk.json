@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/non-eligible-person-ae-fees/hk",
+  "url": "https://deadends.dev/medical/non-eligible-person-ae-fees/hk",
+  "error": {
+    "signature": "AI tells a tourist or short-term visitor that Hong Kong's public hospital care is cheap or free, citing the low fees Hong Kong ID holders pay",
+    "regex": "(hong kong.{0,20}(public hospital|a&e|emergency room).{0,20}(cheap|fee|cost)|hospital.{0,15}fee.{0,15}hong kong)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-08-28",
+    "summary": "Hong Kong's Hospital Authority charges two entirely different fee schedules: 'eligible persons' (Hong Kong ID card holders and resident children under 11) pay heavily subsidized rates - HK$400 per Accident & Emergency (A&E) attendance as of the January 2026 fee reform - while 'non-eligible persons' (visitors, tourists, and anyone without a valid HKID) are charged over 5x more: HK$2,100 per A&E attendance, HK$850 per specialist outpatient visit (plus HK$90 per drug item), and HK$7,400 per day for a general ward inpatient bed. Public hospital care is not a low-cost safety net for visitors, and Hong Kong requires no reciprocal healthcare agreement coverage for most foreign nationals."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist or visitor that Hong Kong public hospital/A&E fees are low (e.g. citing the HK$400 eligible-person A&E rate) and that travel medical insurance is therefore low priority",
+      "why_fails": "The Hospital Authority's own fee schedule states non-eligible persons (anyone without a valid Hong Kong ID card, which includes essentially all tourists and short-term visitors) are charged HK$2,100 per A&E attendance - more than 5x the eligible-person rate - plus HK$7,400/day for general ward inpatient care and HK$35,600/day for intensive care, none of which is capped or subsidized for visitors the way it is for HKID holders.",
+      "fail_rate": 0.75,
+      "common_misconception": "That because Hong Kong's healthcare system is well-regarded and affordable statistics are widely cited, those subsidized rates apply to anyone physically present rather than being conditional on holding a Hong Kong ID card.",
+      "sources": [
+        "https://www.ha.org.hk/visitor/fees_and_charges.asp?lang=ENG",
+        "https://www.ha.org.hk/HAConnect/en/FeesAndCharges/Details/8"
+      ]
+    },
+    {
+      "action": "Assume a foreign national's home-country health insurance or a reciprocal healthcare agreement will cover non-eligible-person fees at Hong Kong public hospitals automatically",
+      "why_fails": "Non-eligible persons are billed directly by the Hospital Authority at point of service (with a deposit typically required on admission); Hong Kong has no broad reciprocal public-healthcare arrangement comparable to the EU's EHIC, so reimbursement depends entirely on the visitor's own private travel insurance policy, not automatic coverage.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202601/01/P2025123100724p.htm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy travel medical insurance with adequate emergency-care coverage before visiting Hong Kong, since non-eligible-person hospital fees (HK$2,100+/A&E visit, HK$7,400+/inpatient day) are billed directly and are not subsidized for visitors",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.ha.org.hk/visitor/fees_and_charges.asp?lang=ENG"
+      ]
+    },
+    {
+      "action": "If leaving an A&E department before being seen by a doctor, apply for the partial refund (HK$1,850 as of the 2026 fee schedule) within 24 hours of registration",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.ha.org.hk/HAConnect/en/FeesAndCharges/Details/8"
+      ],
+      "condition": "Left A&E before consultation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/octopus-card-cashless/hk",
+        "distinction": "Unrelated payment topics, but both are 'Hong Kong is cheap/convenient for visitors' assumptions that only hold for residents or require visitor-specific setup, not a like-for-like resident experience."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

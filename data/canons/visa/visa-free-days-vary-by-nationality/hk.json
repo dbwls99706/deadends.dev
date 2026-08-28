@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/visa-free-days-vary-by-nationality/hk",
+  "url": "https://deadends.dev/visa/visa-free-days-vary-by-nationality/hk",
+  "error": {
+    "signature": "AI tells a traveler Hong Kong grants a flat visa-free stay (e.g. always 90 days, or the mainland China 'permit' model) regardless of passport nationality",
+    "regex": "(hong kong.{0,20}visa[- ]free|visa[- ]free.{0,20}hong kong|hk.{0,10}90[- ]day.{0,10}visa)",
+    "domain": "visa",
+    "category": "immigration_risk",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-28",
+    "summary": "Hong Kong's Immigration Department (IMMD) grants visa-free/visa-on-arrival entry to nationals of roughly 170 countries and territories, but the permitted stay is NOT a single fixed number - it ranges from 7 to 180 days depending entirely on the visitor's nationality (per the officially published country-by-country schedule), with a small number of nationalities requiring a visa with no visa-free option at all. British passport holders get 180 days; most EU, Australian, Canadian, Japanese, and Singaporean passport holders get 90 days; several nationalities (e.g. India, Philippines, Russia) get only 14 days; and the residual default for unlisted nationalities is 7 days. All visa-free/visa-on-arrival entrants are legally barred from taking up employment (paid or unpaid), from establishing or joining a business, and from enrolling as a student - immigration status generally cannot be changed after arrival."
+  },
+  "dead_ends": [
+    {
+      "action": "State or assume Hong Kong gives every visitor the same visa-free duration (commonly guessed as 90 days, by analogy with the EU/US/many other countries' visa-waiver programs)",
+      "why_fails": "IMMD's own visit-visa/entry-permit requirements page states durations ranging from 7 to 180 days that vary strictly by nationality: British citizens get 180 days; most European, Australian, Canadian, Japanese, and Singaporean nationals get 90 days; several nationalities (India, Philippines, Russia, Ukraine, many African states) get only 14 days; and the residual default is 7 days. A traveler told '90 days' who is actually only entitled to 14 or 7 can unknowingly overstay.",
+      "fail_rate": 0.75,
+      "common_misconception": "That Hong Kong's visa-free scheme works like the US ESTA or EU Schengen waiver, which apply one uniform duration across eligible nationalities.",
+      "sources": [
+        "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html",
+        "https://www.gov.hk/en/nonresidents/visarequire/general/index.htm"
+      ]
+    },
+    {
+      "action": "Tell a visa-free/visa-on-arrival visitor they can take up short-term paid work, freelance gigs, or unpaid volunteering/internships during their stay since they already have permission to be in Hong Kong",
+      "why_fails": "IMMD explicitly states visitors 'are not allowed by law to take up employment (paid or unpaid), to establish or join in any business, or to enter school as a student' - the visa-free entry only covers tourism, social visits, and certain short business-meeting activities, and does not convert into a work authorization regardless of nationality or the length of stay granted.",
+      "fail_rate": 0.6,
+      "condition": "Visitor entering visa-free or visa-on-arrival",
+      "sources": [
+        "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before travel, check the exact permitted stay for your specific nationality on IMMD's official visit-visa/entry-permit page (or the underlying data.gov.hk Immigration Department dataset) rather than assuming a round number",
+      "success_rate": 0.9,
+      "how": "IMMD's Visit Visa / Entry Permit Requirements page lists the exact days-of-stay bucket (7/14/30/90/180) and any visa-required exceptions for each nationality; the underlying dataset is also published as open data by the Immigration Department.",
+      "sources": [
+        "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html",
+        "https://data.gov.hk/en-data/dataset/hk-immd-set4-visit-visa-entry-permit-requirements-hksar"
+      ]
+    },
+    {
+      "action": "If work, study, or an extended stay is actually needed, apply for the appropriate visa/entry permit category in advance rather than relying on visa-free entry and trying to change status locally",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.immd.gov.hk/eng/services/visas/visit-transit/visit-visa-entry-permit.html"
+      ],
+      "condition": "Intending to work, study, or stay long-term"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "communication/hong-kong-mainland-distinction/hk",
+        "distinction": "That canon covers conflating Hong Kong with mainland China generally (currency, media framing); this one covers the specific immigration detail that Hong Kong's visa-free durations are nationality-dependent and separate from mainland China's own visa/permit rules."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}
