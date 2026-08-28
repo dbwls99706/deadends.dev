@@ -8,7 +8,7 @@
     "domain": "go",
     "category": "modules",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-28"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.97,
     "confidence": 0.98,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-28",
     "summary": "Dependency checksum not recorded in go.sum file."
   },
   "dead_ends": [
@@ -35,8 +35,8 @@
       "condition": ""
     },
     {
-      "action": "Setting GONOSUMCHECK to skip verification",
-      "why_fails": "Disables tamper detection for dependencies",
+      "action": "Setting GOSUMDB=off (or the outdated/nonexistent GONOSUMCHECK) to skip verification",
+      "why_fails": "GONOSUMCHECK is not a real Go environment variable - the Go module system's source (cmd/go/internal/modfetch/sumdb.go) only recognizes GOSUMDB, GONOSUMDB, and GOPRIVATE for controlling checksum-database verification. GOSUMDB=off disables tamper detection for any new dependency by skipping the checksum database entirely, rather than fixing the missing go.sum entry.",
       "fail_rate": 0.85,
       "sources": [
         "https://go.dev/ref/mod"
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-28"
   }
 }

@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/hk",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/hk",
+  "error": {
+    "signature": "AI tells someone in Hong Kong having a mental health crisis to call 999, or cites a foreign hotline (e.g. US 988), instead of Hong Kong's dedicated 18111 Mental Health Support Hotline",
+    "regex": "(hong kong.{0,20}mental health.{0,20}(hotline|helpline)|18111|hong kong.{0,15}988|hong kong.{0,15}suicide.{0,15}(hotline|helpline))",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-28",
+    "summary": "Hong Kong's government-funded, 24-hour 18111 Mental Health Support Hotline launched 27 December 2023 and coordinates about 20 organizations to provide immediate emotional support and referral for people in mental distress; by late October 2025 it had handled almost 220,000 calls and, as of a November 2025 upgrade, now supports 12 languages (Cantonese, Mandarin, English, and nine ethnic-minority languages) plus WhatsApp messaging and scheduled callbacks. It is a support-and-referral service, not a police/ambulance/fire dispatch line - Hong Kong's Department of Health lists it alongside, not instead of, other dedicated lines like Samaritans (2896 0000) and Hospital Authority Mental Health Direct (2466 7350). For an active life-threatening emergency, 999 (or 112 from a mobile) remains the number for direct police/fire/ambulance dispatch."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Hong Kong seeking non-emergency mental health support to call 999, or recommend a foreign crisis line (e.g. US 988, UK Samaritans 116 123) that does not connect from a Hong Kong phone in the same way",
+      "why_fails": "Hong Kong has had its own government-funded, toll-free, 24-hour Mental Health Support Hotline at 18111 since 27 December 2023, specifically built to coordinate about 20 organizations for people with mental health needs; 999 is Hong Kong's general police/fire/ambulance emergency number, not a mental-health-specialist line, and routing a non-emergency caller there wastes emergency dispatch capacity and gives the caller a worse-fit response than a trained mental-health line would.",
+      "fail_rate": 0.65,
+      "common_misconception": "That Hong Kong has no dedicated government mental-health hotline (true only before December 2023) or that a foreign hotline number will work the same way from Hong Kong.",
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202312/27/P2023122700238.htm",
+        "https://www.chp.gov.hk/en/features/48085.html"
+      ]
+    },
+    {
+      "action": "Assume 18111 itself dispatches police/ambulance directly, so a caller facing an active, immediate, life-threatening emergency (e.g. an attempt already in progress) should call 18111 rather than 999",
+      "why_fails": "18111 is described by the government as providing 'immediate mental health support and referral services,' positioning it as a support-and-referral service that coordinates callers to appropriate organizations - not as a direct-dispatch emergency line replacing 999/112 police, fire, and ambulance response.",
+      "fail_rate": 0.4,
+      "condition": "Active, immediate life-threatening emergency",
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202511/04/P2025110400499.htm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For ongoing mental health support, counseling, or referral in Hong Kong, use the 24-hour 18111 Mental Health Support Hotline (available in Cantonese, Mandarin, English, and 9 ethnic-minority languages, plus WhatsApp messaging as of late 2025)",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202511/04/P2025110400499.htm",
+        "https://www.info.gov.hk/gia/general/202312/27/P2023122700238.htm"
+      ]
+    },
+    {
+      "action": "For an active, immediate, life-threatening emergency, call 999 (or 112 from a mobile) directly for police/fire/ambulance dispatch rather than only 18111 or another counseling line",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.chp.gov.hk/en/features/48085.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-not-911-hk/hk",
+        "distinction": "That canon covers the general emergency number being 999, not 911; this one covers that 999 is for active dispatch emergencies while 18111 is the dedicated non-emergency mental-health support/referral line."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

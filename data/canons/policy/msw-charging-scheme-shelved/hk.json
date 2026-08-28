@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/msw-charging-scheme-shelved/hk",
+  "url": "https://deadends.dev/policy/msw-charging-scheme-shelved/hk",
+  "error": {
+    "signature": "AI tells a Hong Kong resident they must buy and use government-designated rubbish bags under the Municipal Solid Waste (MSW) Charging Scheme",
+    "regex": "(hong kong.{0,20}(designated|garbage|rubbish|waste).{0,20}bag|msw charging.{0,20}hong kong|waste charging scheme.{0,10}hong kong)",
+    "domain": "policy",
+    "category": "policy_reversal",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.8,
+    "last_updated": "2026-08-28",
+    "summary": "Hong Kong's Municipal Solid Waste Charging Scheme - which would have required residents to dispose of general refuse only in government-designated pay-per-bag bags - was originally due to start 1 April 2024, then deferred on 27 May 2024 after a limited-success trial run. In September 2025, the Environment and Ecology Bureau formally confirmed to the Legislative Council that it will NOT implement the scheme for the remainder of the current administration's term (through June 2027), citing public opposition (70-80% in government surveys) and economic pressure on households and SMEs. As of the 2026 status, Hong Kong residents are NOT required to buy or use designated garbage bags; free designated bags are only being distributed as a promotional/educational tool in public housing and to Waste Reduction Charter participants, not as an enforced charging mechanism."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a Hong Kong resident they are legally required to buy and use designated garbage bags for household refuse disposal, citing the MSW Charging Scheme that was widely reported as launching in 2024",
+      "why_fails": "The government deferred the scheme's implementation on 27 May 2024 after a trial run, and then in September 2025 the Environment and Ecology Bureau confirmed to the Legislative Council it will not implement charging for the remainder of the current administration's term (through June 2027). An AI trained on 2023-2024 coverage of the planned launch is describing a scheme that was never actually enforced and has since been shelved, not merely delayed by a few months.",
+      "fail_rate": 0.7,
+      "common_misconception": "That because the scheme was heavily covered as imminent in 2023-2024 news and passed into law in 2021, it must already be in force by now.",
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202411/13/P2024111300269.htm",
+        "https://hongkongfp.com/2025/09/25/hong-kong-green-group-urges-decisive-action-after-govt-shelves-waste-charge-scheme/"
+      ]
+    },
+    {
+      "action": "Assume the free designated bags being distributed in public housing estates and to Waste Reduction Charter participants mean the charging scheme is quietly already in effect",
+      "why_fails": "Official LegCo responses describe these as promotional/educational distributions (free bags to public housing residents since June 2024 and Charter participants since August 2024), explicitly framed as separate from - and not a phased rollout of - the paid charging mechanism, which remains suspended.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202411/13/P2024111300269.htm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm current MSW charging status via the Environment and Ecology Bureau's LegCo submissions or reputable Hong Kong news before advising on garbage-bag requirements, rather than relying on 2021-2024 coverage of the original legislation and planned launch date",
+      "success_rate": 0.85,
+      "sources": [
+        "https://hongkongfp.com/2025/09/25/hong-kong-green-group-urges-decisive-action-after-govt-shelves-waste-charge-scheme/",
+        "https://news.rthk.hk/rthk/en/component/k2/1825157-20250929.htm"
+      ]
+    },
+    {
+      "action": "Dispose of general household refuse using ordinary bags/existing collection arrangements; no designated pay-bag is currently mandatory for general waste disposal",
+      "success_rate": 0.85,
+      "sources": [
+        "https://hongkongfp.com/2025/09/25/hong-kong-green-group-urges-decisive-action-after-govt-shelves-waste-charge-scheme/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/e-cigarette-possession-ban/hk",
+  "url": "https://deadends.dev/legal/e-cigarette-possession-ban/hk",
+  "error": {
+    "signature": "AI tells a visitor or resident that bringing a personal vape/e-cigarette into Hong Kong, or carrying one for personal use, is fine as long as they don't sell or advertise it",
+    "regex": "(bring.{0,15}vape.{0,15}hong kong|e[- ]?cigarette.{0,15}hong kong|vape.{0,15}hong kong.{0,15}legal|hong kong.{0,15}vaping)",
+    "domain": "legal",
+    "category": "legal_prohibition",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "hk",
+      "country_name": "Hong Kong",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.85,
+    "last_updated": "2026-08-28",
+    "summary": "Since 30 April 2022, Hong Kong has banned the import, manufacture, promotion, and sale of 'alternative smoking products' (ASPs) - e-cigarettes, heated-tobacco products, and herbal cigarettes - under the Smoking (Public Health) (Amendment) Ordinance, with import violations carrying up to HK$2 million and 7 years' imprisonment; this already made it illegal for inbound travelers to bring such devices into the city. Since 30 April 2026, the law was extended further: simple possession of a specified ASP in a public place is now also banned, carrying a fixed penalty of HK$3,000 for personal-use quantities and up to HK$50,000 plus 6 months' imprisonment for larger amounts. The Department of Health states this 2026 change 'does not impose additional restrictions in practice on tourists' precisely because import has already been illegal for both residents and visitors since 2022."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Hong Kong only regulates the commercial sale/import/manufacture of e-cigarettes, so bringing a personal device in checked or carry-on luggage, or simply carrying one while in the city, is legally fine",
+      "why_fails": "The Tobacco and Alcohol Control Office states the ban already covers import 'by way of parcels, cargoes, and bringing in by incoming travellers' since 30 April 2022 - travelers have been legally barred from bringing alternative smoking products into Hong Kong for four years, independent of the newer possession ban. Import penalties reach HK$2 million and 7 years' imprisonment, far higher than the sale/manufacture penalty.",
+      "fail_rate": 0.7,
+      "common_misconception": "That a 2022-era 'ban' necessarily targets only businesses (sellers, importers-for-resale) and leaves personal possession/use untouched, as is the pattern in many other jurisdictions that regulate vape sales without banning personal use.",
+      "sources": [
+        "https://www.taco.gov.hk/t/english/legislation/legislation_asp.html",
+        "https://www.info.gov.hk/gia/general/202604/29/P2026042900589.htm"
+      ]
+    },
+    {
+      "action": "Tell a traveler that even after April 2026, simply carrying a vape brought in before the possession ban took effect is a minor, effectively unenforced technicality",
+      "why_fails": "Possession of a specified alternative smoking product in a public place is now a specific offence with a fixed penalty of HK$3,000 for personal-use quantities (up to 5 capsule units/5mL liquid, 100 heat sticks, or 100 herbal-cigarette rolls) and up to HK$50,000 plus 6 months' imprisonment above those thresholds; the government ran in-flight announcements, boundary-checkpoint promotion, and tourist leaflets specifically to enforce awareness from day one (30 April 2026).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202604/29/P2026042900589.htm"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Do not bring e-cigarettes, heated-tobacco sticks, or herbal cigarettes into Hong Kong at all, and do not carry or use any such device while in the city, including devices bought locally before the ban or personal stockpiles",
+      "success_rate": 0.95,
+      "how": "Dispose of or leave devices at home before travel; there is no legal channel to import, buy, or possess these products in Hong Kong as of 30 April 2026.",
+      "sources": [
+        "https://www.taco.gov.hk/t/english/legislation/legislation_asp.html",
+        "https://www.news.gov.hk/eng/2026/04/20260430/20260430_181730_790.html"
+      ]
+    },
+    {
+      "action": "If already in Hong Kong holding such a device, check current customs/TACO guidance on surrender or amnesty arrangements at boundary control points rather than attempting to carry it in a public place",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.info.gov.hk/gia/general/202604/29/P2026042900589.htm"
+      ],
+      "condition": "Already holding a device while in Hong Kong"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}
