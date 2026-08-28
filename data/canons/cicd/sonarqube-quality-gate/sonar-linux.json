@@ -8,7 +8,7 @@
     "domain": "cicd",
     "category": "code_quality",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-28"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.8,
     "confidence": 0.84,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-28",
     "summary": "SonarQube Quality Gate check failed because one or more metrics (coverage, duplication, reliability, security, maintainability) did not meet the configured thresholds for new code."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "This defeats the purpose of quality gates. Technical debt accumulates, and code quality degrades continuously.",
       "fail_rate": 0.6,
       "sources": [
-        "https://docs.sonarsource.com/sonarqube/latest/"
+        "https://docs.sonarsource.com/sonarqube-server/2025.1/instance-administration/analysis-functions/quality-gates"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "This bypasses the quality gate entirely. If the branch is merged, low-quality code enters the main branch without review.",
       "fail_rate": 0.7,
       "sources": [
-        "https://docs.sonarsource.com/sonarqube/latest/"
+        "https://docs.sonarsource.com/sonarqube-server/2025.1/instance-administration/analysis-functions/quality-gates"
       ],
       "condition": ""
     }
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-28"
   }
 }
