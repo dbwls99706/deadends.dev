@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/psychotropic-medication-prescription-required/mx",
+  "url": "https://deadends.dev/medical/psychotropic-medication-prescription-required/mx",
+  "error": {
+    "signature": "AI tells a traveler that carrying prescribed stimulant or other psychotropic medication in its original pharmacy bottle is enough to bring it into Mexico",
+    "regex": "(bring adderall.*mexico|mexico.*prescription.*medication|psychotropic.*mexico.*customs|controlled substance.*mexico.*travel|mexico customs medication)",
+    "domain": "medical",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-28",
+    "summary": "Mexico's customs agency (ANAM) requires travelers carrying psychotropic-substance medication to show the corresponding medical prescription at the port of entry - a labeled pharmacy bottle by itself is not that prescription. The US Embassy in Mexico adds that the prescription or doctor's letter should be translated into Spanish and include the prescriber's name, signature, contact details, and professional license (cédula profesional) number, with quantities limited to what is needed for the length of stay. COFEPRIS is the health authority that classifies and regulates these substances."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that carrying ADHD stimulants or other controlled psychiatric medication in the original US pharmacy bottle is sufficient documentation to bring into Mexico",
+      "why_fails": "ANAM's official baggage-allowance guidance states that for psychotropic substances, the corresponding medical prescription must be shown ('Tratándose de sustancias psicotrópicas deberá mostrarse la receta médica correspondiente'). A pharmacy label is not that prescription, and a traveler without a presentable prescription risks the medication being confiscated or facing legal problems at the port of entry.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.anam.gob.mx/equipaje-y-franquicia/"
+      ],
+      "condition": "Carrying stimulant or other psychotropic medication into Mexico",
+      "common_misconception": "That US law's acceptance of a labeled pharmacy bottle as sufficient travel documentation also satisfies Mexican customs requirements."
+    },
+    {
+      "action": "Assume any English-language prescription or doctor's note is accepted as-is at the Mexican port of entry",
+      "why_fails": "The US Embassy in Mexico's traveler guidance states the prescription must be translated into Spanish and must include the prescribing doctor's name, signature, contact information, and professional registration (cédula profesional) number, and that the quantity carried should not exceed what is needed for the length of stay.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://mx.usembassy.gov/bringing-items-into-mexico-u-s/"
+      ],
+      "condition": "Presenting documentation for a controlled or psychotropic medication at Mexican customs",
+      "common_misconception": "That a US prescription in English is automatically valid documentation abroad."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before traveling, get a prescription or doctor's letter specifically for the trip, have it translated into Spanish, and ensure it includes the doctor's name, signature, contact information, and cédula profesional number; carry the medication in its original packaging, limited to the quantity needed for the trip",
+      "success_rate": 0.8,
+      "sources": [
+        "https://mx.usembassy.gov/bringing-items-into-mexico-u-s/",
+        "https://www.anam.gob.mx/equipaje-y-franquicia/"
+      ],
+      "condition": "Traveling with psychotropic or other controlled medication"
+    },
+    {
+      "action": "Check the specific substance against COFEPRIS's narcotics/psychotropics regulatory framework before travel, since Mexico can classify and restrict some medications more tightly than the traveler's home country",
+      "success_rate": 0.55,
+      "sources": [
+        "https://www.gob.mx/cofepris/es/documentos/estupefacientes-psicotropicos-y-sustancias-quimicas"
+      ],
+      "condition": "Uncertain whether a specific medication is controlled in Mexico"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

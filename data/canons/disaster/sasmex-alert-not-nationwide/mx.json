@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/sasmex-alert-not-nationwide/mx",
+  "url": "https://deadends.dev/disaster/sasmex-alert-not-nationwide/mx",
+  "error": {
+    "signature": "AI tells someone anywhere in Mexico that they will get an automatic SASMEX loudspeaker or phone earthquake early warning before shaking starts",
+    "regex": "(sasmex|alerta sismica mexico|mexico earthquake early warning|seismic alert mexico|mexico earthquake alert app)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-28",
+    "summary": "SASMEX (Sistema de Alerta Sísmica Mexicano) is operated by CIRES, an independent civil association - not by CENAPRED, Mexico's national disaster-prevention agency, which explicitly states it does not operate any seismic alert. SASMEX's roughly 14,000 loudspeakers only sound in the states along the Pacific subduction zone and central seismic belt (Mexico City, Estado de México, Guerrero, Oaxaca, Puebla, Michoacán, Jalisco, Morelos, Chiapas, Colima); most of the country, including the north and the Yucatán Peninsula, has no coverage."
+  },
+  "dead_ends": [
+    {
+      "action": "State that the SASMEX seismic alert reaches every state or city in Mexico via loudspeakers or an automatic government warning",
+      "why_fails": "CENAPRED's own explainer says alerts reach only 'cities that have this coverage,' and 2026 national-drill reporting lists loudspeaker coverage as roughly ten states along the Pacific and central seismic belt (CDMX, Estado de México, Guerrero, Oaxaca, Puebla, Michoacán, Jalisco, Morelos, Chiapas, Colima) out of Mexico's 32 entities - most of the country, including the north and the Yucatán Peninsula, has no SASMEX loudspeaker.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gob.mx/cenapred/articulos/conocemas-como-funciona-la-alerta-sismica",
+        "https://www.eluniversal.com.mx/tendencias/primer-simulacro-nacional-2026-en-que-estados-sonara-la-alerta-sismica-esta-es-la-hipotesis/"
+      ],
+      "condition": "Anywhere outside the roughly ten covered central/southern states",
+      "common_misconception": "That SASMEX, like Japan's or California's earthquake early-warning systems, is a nationwide network."
+    },
+    {
+      "action": "Credit CENAPRED, Mexico's national civil-protection and disaster-prevention agency, as the operator of the seismic alert system",
+      "why_fails": "CENAPRED's own official explainer states plainly that it does not operate any seismic alert and identifies CIRES (Centro de Instrumentación y Registro Sísmico), an independent civil association, as the actual operator of SASMEX.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gob.mx/cenapred/articulos/conocemas-como-funciona-la-alerta-sismica"
+      ],
+      "condition": "Identifying which agency runs Mexico's earthquake early-warning system",
+      "common_misconception": "That the government's own civil-protection agency runs the alert, when it is actually operated by CIRES under a separate arrangement."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check whether the destination is one of the covered municipalities (mainly Mexico City, the State of Mexico conurbation, Guerrero's and Oaxaca's coasts, Puebla, Michoacán, Guadalajara, Morelos, Chiapas, and Colima) rather than assuming a loudspeaker or default alert will sound anywhere in Mexico",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.eluniversal.com.mx/tendencias/primer-simulacro-nacional-2026-en-que-estados-sonara-la-alerta-sismica-esta-es-la-hipotesis/",
+        "https://www.gob.mx/cenapred/articulos/conocemas-como-funciona-la-alerta-sismica"
+      ],
+      "condition": "Planning earthquake preparedness in Mexico"
+    },
+    {
+      "action": "Outside the covered states, rely on feeling the shaking itself ('drop, cover, hold on') rather than expecting advance warning, since no SASMEX loudspeaker or official broadcast reaches those areas",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.gob.mx/cenapred/articulos/conocemas-como-funciona-la-alerta-sismica"
+      ],
+      "condition": "Outside the roughly ten covered states"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

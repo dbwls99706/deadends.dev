@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/fideicomiso-required-restricted-zone/mx",
+  "url": "https://deadends.dev/legal/fideicomiso-required-restricted-zone/mx",
+  "error": {
+    "signature": "AI tells a foreign buyer they can hold direct title to residential property anywhere in Mexico, including beachfront or border areas",
+    "regex": "(buy property mexico|fideicomiso|mexico.*beachfront.*property|restricted zone mexico|own land mexico border)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-28",
+    "summary": "Article 27, Section I of Mexico's Constitution, implemented through the Ley de Inversión Extranjera, bars foreigners from holding direct title to land within 100 km of an international border or 50 km of the coast (the 'restricted zone'). For residential use inside that zone, a foreigner's only route is a fideicomiso - a bank trust, capped at 50 years and renewable, in which a Mexican credit institution holds title while the foreigner keeps full beneficial rights (use, rental, sale, inheritance). The permit is issued by the Secretaría de Relaciones Exteriores (SRE); its own site currently warns that the statutory 5-business-day turnaround is suspended due to a system outage and applications are being processed manually with longer waits."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign buyer they can hold direct fee-simple title to residential property within 50 km of the coast or 100 km of a land border",
+      "why_fails": "The Ley de Inversión Extranjera (Título Segundo), implementing Article 27 Section I of the Constitution, restricts direct ownership of restricted-zone real estate to Mexican nationals and Mexican companies without a foreign-admission clause. Foreigners may only obtain 'use and enjoyment' of such property through a bank trust (fideicomiso); direct title is not an option regardless of how the deal is structured.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIE.pdf"
+      ],
+      "condition": "Residential property inside the restricted zone"
+    },
+    {
+      "action": "Assume the fideicomiso application will be resolved within Mexico's legally mandated 5 business days",
+      "why_fails": "SRE's own permit page (2026) states the 5-business-day statutory deadline has been suspended because of technical failures in the SIPAC27 electronic system; applications are being processed manually and are taking longer than the legal deadline, with appointments needed even to collect an approved permit.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://sre.gob.mx/permiso-para-constituir-un-fideicomiso-en-zona-restringida"
+      ],
+      "condition": "Applying for a new fideicomiso permit in 2026",
+      "common_misconception": "That the SRE's fideicomiso permit still resolves within the legally mandated 5 business days."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Have a Mexican bank's delegado fiduciario file the Article 27 fideicomiso permit with SRE, naming the foreign buyer as beneficiary of a trust that holds title to the restricted-zone property",
+      "success_rate": 0.85,
+      "how": "The trust term runs up to 50 years and can be renewed indefinitely; the beneficiary keeps full practical rights - living in, renting, remodeling, selling, or passing on the property - while the bank holds bare legal title.",
+      "sources": [
+        "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIE.pdf",
+        "https://sre.gob.mx/permiso-para-constituir-un-fideicomiso-en-zona-restringida"
+      ],
+      "condition": "Residential property in the restricted zone"
+    },
+    {
+      "action": "For non-residential use inside the restricted zone, acquire through a Mexican company with a foreign-admission clause instead of a fideicomiso, and file the required notice with SRE",
+      "success_rate": 0.7,
+      "how": "A Mexican company that includes a foreign-admission clause can acquire restricted-zone real estate directly for a non-residential purpose, but must notify SRE within 60 business days of the acquisition.",
+      "sources": [
+        "https://sre.gob.mx/aviso-de-adquisicion-de-inmuebles-por-sociedades-mexicanas-con-clausula-de-admision-de-extranjeros-en-la-zona-restringida-que-se-destinen-a-un-fin-no-residencial"
+      ],
+      "condition": "Non-residential property inside the restricted zone"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

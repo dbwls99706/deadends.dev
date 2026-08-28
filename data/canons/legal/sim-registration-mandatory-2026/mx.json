@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/sim-registration-mandatory-2026/mx",
+  "url": "https://deadends.dev/legal/sim-registration-mandatory-2026/mx",
+  "error": {
+    "signature": "AI says Mexico has no mandatory SIM or phone-line registration because the Supreme Court struck down the PANAUT registry as unconstitutional",
+    "regex": "(panaut|mexico sim registration|mexico phone line registration|registro linea telefonica mexico|mexico cell phone register unconstitutional)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-28",
+    "summary": "Mexico's Supreme Court (SCJN) declared the 2021 PANAUT mobile-line registry unconstitutional on April 25, 2022 because collecting biometric data failed a proportionality test. That ruling did not end mandatory SIM registration in Mexico: new Lineamientos para la identificación de líneas telefónicas móviles, issued by the telecom regulator (CRT) and published in the Diario Oficial de la Federación on December 9, 2025, took effect January 9, 2026 and require every prepaid or postpaid line to be linked to an owner via official ID (INE or passport) plus CURP, or RFC for legal entities - no biometric data. The SCJN has not ruled on this new mechanism, and unregistered lines are suspended to emergency-only calling."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone Mexico has no mandatory SIM or phone-line registration because the Supreme Court struck down PANAUT as unconstitutional",
+      "why_fails": "The SCJN's April 2022 ruling only invalidated the 2021 PANAUT law over its collection of biometric data. A new, non-biometric registration requirement - the CRT's Lineamientos para la identificación de líneas telefónicas móviles, published in the DOF on December 9, 2025 and effective January 9, 2026 - has been in force since, and the SCJN has not extended its PANAUT ruling to this new mechanism.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.internet2.scjn.gob.mx/red2/comunicados/comunicado.asp?id=6857",
+        "https://www.gob.mx/crt/prensa/la-crt-aprueba-y-emite-los-lineamientos-para-la-identificacion-de-lineas-telefonicas-moviles"
+      ],
+      "condition": "Describing Mexico's phone-line registration status in 2026",
+      "common_misconception": "That the 2022 PANAUT ruling permanently settled the question of mandatory SIM registration in Mexico."
+    },
+    {
+      "action": "Assume the new mandatory line-registration requirement collects the same biometric fingerprint or facial data that made PANAUT unconstitutional",
+      "why_fails": "The CRT's official press release on the new Lineamientos states the required documents are an official ID (voter card or passport) plus CURP for individuals, or an RFC for legal entities - no biometric data is collected, which is precisely the distinction that lets this rule stand where PANAUT was struck down.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.gob.mx/crt/prensa/la-crt-aprueba-y-emite-los-lineamientos-para-la-identificacion-de-lineas-telefonicas-moviles"
+      ],
+      "condition": "Describing what data the 2026 registration collects",
+      "common_misconception": "Conflating the new registration with the struck-down PANAUT because both are described as a phone-line registry."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register or verify registration of every prepaid and postpaid line before the deadline via the carrier's app, website, or in person, presenting an INE or passport plus CURP (or RFC for a business line); the process is free",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.gob.mx/crt/prensa/la-crt-aprueba-y-emite-los-lineamientos-para-la-identificacion-de-lineas-telefonicas-moviles"
+      ],
+      "condition": "Any active mobile line in Mexico as of January 9, 2026"
+    },
+    {
+      "action": "If unsure whether a specific line still needs registering, check the CRT's public consultation portal or ask the carrier directly rather than assuming the PANAUT ruling covers it",
+      "success_rate": 0.6,
+      "sources": [
+        "https://portal.crt.gob.mx/ConsultaPublica/Detalle/1"
+      ],
+      "condition": "Uncertain edge cases (e.g. corporate lines, IoT SIMs)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}

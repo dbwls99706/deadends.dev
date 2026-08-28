@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/curp-required-not-passport-alone/mx",
+  "url": "https://deadends.dev/policy/curp-required-not-passport-alone/mx",
+  "error": {
+    "signature": "AI tells a foreigner in Mexico that a passport and residence permit alone are enough to enroll in public healthcare or complete official registrations",
+    "regex": "(curp.*mexico|clave unica de registro de poblacion|mexico.*imss.*enroll|need curp mexico|mexico.*registration.*passport only)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-28",
+    "last_confirmed": "2026-08-28"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "mx",
+      "country_name": "Mexico",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-28",
+    "summary": "CURP (Clave Única de Registro de Población) is Mexico's population-registry number and is a prerequisite for many transactions, including enrolling in IMSS's public health insurance. Per the official SEGOB procedure, foreigners are only eligible for a CURP once INM grants them residente temporal or residente permanente status - a tourist on an FMM visitor permit cannot get one no matter how long they stay, and a passport plus residence card does not substitute for it."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner staying in Mexico on a tourist FMM permit that they can get a CURP by visiting a RENAPO/DDV office with just their passport",
+      "why_fails": "The official gob.mx procedure 'Asignación de CURP' restricts issuance to foreigners who have been granted residente temporal or residente permanente status by INM; the CURP is generated automatically, tied to the Número Único de Extranjero, once that residency status is granted - it is not a separate request an FMM tourist can make.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gob.mx/public/tramites/detalleTramite.xhtml?homoclave=SEGOB-2021-069-009-A",
+        "https://www.infobae.com/mexico/2026/05/06/curp-para-extranjeros-en-mexico-requisitos-pasos-y-para-que-sirve/"
+      ],
+      "condition": "Foreigner without residente temporal/permanente status",
+      "common_misconception": "That CURP is available to any foreigner physically present in Mexico regardless of visa/permit status."
+    },
+    {
+      "action": "Assume enrolling in IMSS's Seguro de Salud para la Familia (voluntary public health insurance) only requires a passport and proof of address",
+      "why_fails": "IMSS's own online enrollment procedure (trámite imss02014) requires a CURP and an NSS (Social Security Number) for every family member before the form can be submitted; without a CURP - which itself requires resident status - the online route is closed, and in-person enrollment still depends on the same underlying registry number.",
+      "fail_rate": 0.6,
+      "sources": [
+        "http://www.imss.gob.mx/tramites/imss02014"
+      ],
+      "condition": "Enrolling in Seguro de Salud para la Familia (Modality 33)"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for residente temporal or residente permanente status with INM (via a Mexican consulate abroad, or in-country for qualifying cases) before expecting to obtain a CURP",
+      "success_rate": 0.85,
+      "how": "Once INM issues the resident card with its Número Único de Extranjero, RENAPO's system generates the CURP automatically - it is not a request made separately at a RENAPO counter.",
+      "sources": [
+        "https://www.gob.mx/public/tramites/detalleTramite.xhtml?homoclave=SEGOB-2021-069-009-A"
+      ],
+      "condition": "Intending to stay long-term or access CURP-gated services"
+    },
+    {
+      "action": "For a short/tourist stay, plan around CURP-gated services instead of expecting to obtain one - use private healthcare or travel insurance rather than IMSS enrollment, and cash or a foreign card where a CURP-linked account would otherwise be required",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.gob.mx/public/tramites/detalleTramite.xhtml?homoclave=SEGOB-2021-069-009-A",
+        "http://www.imss.gob.mx/tramites/imss02014"
+      ],
+      "condition": "Tourist or short-term visitor without residency status"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-28",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-28"
+  }
+}
