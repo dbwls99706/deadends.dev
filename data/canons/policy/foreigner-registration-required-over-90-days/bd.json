@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/foreigner-registration-required-over-90-days/bd",
+  "url": "https://deadends.dev/policy/foreigner-registration-required-over-90-days/bd",
+  "error": {
+    "signature": "AI tells a foreigner on a long-stay Bangladeshi visa that the visa itself is all the paperwork needed, or assumes the mandatory 90-day police registration rule applies identically to every nationality",
+    "regex": "(bangladesh.*(foreign national|foreigner).*(regist|report).*(police|special branch)|register.*special branch.*bangladesh|bangladesh.*90.day.*(visa|regist))",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-29",
+    "summary": "Bangladesh Police's Special Branch requires foreigners on visas exceeding 90 days to register in person (Form B) within 7 days of arrival, separate from and in addition to the visa itself - exempted categories are diplomats, mission staff, government officials, and children under 16. Registration is free within 7 days; late fees are Tk 2,000 after 7 days and Tk 5,000 after 15 days. The Special Branch's own general rules page states this covers 'all foreigners' on 90+ day visas, but its own FAQ page and a Bangladeshi legal-services firm's guide instead describe the mandatory 90-day threshold as specific to nationals of India, Pakistan, and (per the legal guide) South Korea. The government's own materials do not agree on scope, so nationality-based assumptions are unreliable without confirming directly."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner with a 90+ day Bangladeshi visa that the visa itself is sufficient and no other government registration is required",
+      "why_fails": "The Special Branch's official 'Foreigner Registration Rules' page requires foreigners on visas exceeding 90 days to present in person to a Registration Officer and file Form B within 7 days of arrival - a step separate from, and required in addition to, the visa itself.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Frner_reg_rules"
+      ],
+      "condition": "Visa validity exceeds 90 days and the traveler is not in an exempted category"
+    },
+    {
+      "action": "Assume the 90-day mandatory registration rule applies identically to every nationality",
+      "why_fails": "The Special Branch's own FAQ page names citizens of India and Pakistan specifically for the 90-day registration threshold, and a Bangladeshi legal-services firm's guide separately names India, Pakistan, and South Korea - while the Special Branch's general rules page states the requirement covers 'all foreigners' except exempted categories. The government's own public pages do not agree on scope, so treating any single description as the complete rule for an untested nationality is unreliable.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Faq",
+        "https://bdlclegal.com/work-permit-visa-in-bangladesh/"
+      ],
+      "condition": "Nationality other than India, Pakistan, or South Korea",
+      "common_misconception": "That Bangladesh's foreigner-registration threshold is a single uniform national rule, rather than one the government's own materials describe with inconsistent nationality scope."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Register in person with the Registration Officer (airport or land-port immigration desk, District/City Special Branch office, or the SB Office in Malibagh, Dhaka) within 7 days of arrival using Form B - free within that window",
+      "success_rate": 0.85,
+      "how": "Late registration costs Tk 2,000 after the 7-day window and Tk 5,000 after 15 days; diplomats, mission staff, government officials, and children under 16 are exempted from registration entirely.",
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Frner_reg_rules",
+        "https://immi.specialbranch.gov.bd/Faq"
+      ],
+      "condition": "Visa exceeds 90 days"
+    },
+    {
+      "action": "Before assuming exemption based on nationality, contact Special Branch directly or check both the Frner_reg_rules and Faq pages, since they describe different scope for who must register",
+      "success_rate": 0.7,
+      "sources": [
+        "https://immi.specialbranch.gov.bd/Faq",
+        "https://bdlclegal.com/work-permit-visa-in-bangladesh/"
+      ],
+      "condition": "Nationality not explicitly named in either government description"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/voa-extension-week-window-in-person/bd",
+        "distinction": "That canon covers extending a Bangladesh visa-on-arrival before it expires; this one covers a separate mandatory post-arrival registration with police/Special Branch that applies once a foreigner already holds a visa longer than 90 days."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-29"
+  }
+}

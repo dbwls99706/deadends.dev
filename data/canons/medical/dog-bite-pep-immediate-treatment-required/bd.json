@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/dog-bite-pep-immediate-treatment-required/bd",
+  "url": "https://deadends.dev/medical/dog-bite-pep-immediate-treatment-required/bd",
+  "error": {
+    "signature": "AI tells someone bitten or scratched by a dog (or other mammal) in Bangladesh that it is fine to wait a few days before seeking rabies post-exposure prophylaxis, or that cost is a reason to skip it",
+    "regex": "(bangladesh.*dog bite|rabies.*bangladesh|dog bite.*(wait|delay|later)|animal bite.*bangladesh.*(vaccine|treatment))",
+    "domain": "medical",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-29",
+    "summary": "WHO states rabies is fatal in essentially 100% of cases once clinical symptoms appear, so post-exposure prophylaxis (PEP) only works if it starts before symptom onset - it is not something that can be safely delayed. Bangladesh has expanded free PEP access nationwide: all 64 districts now have at least one facility offering PEP and wound care, through a network of more than 300 Animal Bite Management Centres providing vaccine and, where indicated, rabies immunoglobulin at no cost. Despite free availability, hospital-based research in Dhaka found most bite victims still delay: only 20% received their first vaccine dose on the day of the bite, and 66% delayed 1-3 days, mainly citing distance to a facility or being occupied with other commitments - not that treatment was unavailable or unaffordable."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a bite/scratch victim in Bangladesh that treatment can reasonably wait a few days, or that only a bite from an animal that looks visibly sick or aggressive needs post-exposure prophylaxis",
+      "why_fails": "WHO's rabies guidance states a person exposed to a potentially rabid animal should 'immediately and always seek PEP care,' and that once the virus reaches the central nervous system and clinical symptoms appear, rabies is fatal in essentially 100% of cases. PEP works by preventing the virus from establishing infection before symptoms start; there is no treatment once symptoms appear, so any delay narrows the window in which PEP can still work, regardless of how the animal looked at the time.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.who.int/news-room/fact-sheets/detail/rabies",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10645289/"
+      ],
+      "condition": "Bite or scratch from a dog, cat, or other mammal with unknown vaccination/health status"
+    },
+    {
+      "action": "Assume the cost or unavailability of rabies vaccine is a reasonable excuse to postpone or skip seeking care in Bangladesh",
+      "why_fails": "A hospital-based study of Bangladeshi bite victims found care and vaccine were free of charge at the treating government facility (patients paid only for a syringe, about $0.09), and a national One Health analysis found all 64 of Bangladesh's districts now have at least one facility offering free PEP and wound care through a network of 300+ Animal Bite Management Centres - so cost or absence of a nearby facility is rarely the real barrier the way it was before this network expanded.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10645289/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11321326/"
+      ],
+      "condition": "Bite occurring in a district with an Animal Bite Management Centre or district-level health facility",
+      "common_misconception": "That free rabies PEP is only available in major cities like Dhaka, when government facilities now cover every district."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Wash the wound immediately with soap and running water for at least 15 minutes, then go the same day to the nearest government hospital, Upazila Health Complex, or Animal Bite Management Centre for free PEP and wound care - do not wait to see if the animal seems fine",
+      "success_rate": 0.9,
+      "how": "WHO recommends immediate, thorough wound washing before medical care; Bangladesh's PEP schedule and immunoglobulin (for higher-risk WHO Category III wounds) are provided free at government facilities in every district.",
+      "sources": [
+        "https://www.who.int/news-room/fact-sheets/detail/rabies",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11321326/"
+      ],
+      "condition": "Any bite or scratch from a mammal with unknown health/vaccination status"
+    },
+    {
+      "action": "If a district hospital or Upazila Health Complex is not immediately reachable, do not wait for one to open on a convenient day - travel to the nearest facility offering PEP as soon as possible, since delay (not just non-treatment) reduces how effectively PEP can still prevent the disease",
+      "success_rate": 0.75,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10645289/"
+      ],
+      "condition": "Facility not within same-day easy reach"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-29"
+  }
+}
