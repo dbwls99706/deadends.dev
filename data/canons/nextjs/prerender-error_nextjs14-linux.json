@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "build_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-29"
   },
   "environment": {
     "runtime": {
@@ -20,8 +20,8 @@
   "verdict": {
     "resolvable": "true",
     "fix_success_rate": 0.88,
-    "confidence": 0.90,
-    "last_updated": "2026-02-11",
+    "confidence": 0.9,
+    "last_updated": "2026-08-29",
     "summary": "Page failed during static generation. Async data fetch failed or dynamic content used without proper boundaries."
   },
   "dead_ends": [
@@ -30,16 +30,16 @@
       "why_fails": "Loses all SSG performance benefits; pages become fully dynamic",
       "fail_rate": 0.65,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering"
+        "https://nextjs.org/docs/app/guides/caching-without-cache-components"
       ],
       "condition": ""
     },
     {
       "action": "Wrap entire page in try/catch and return empty page on error",
       "why_fails": "Hides real data fetching bugs; users see blank pages",
-      "fail_rate": 0.70,
+      "fail_rate": 0.7,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/routing/error-handling"
+        "https://nextjs.org/docs/app/getting-started/error-handling"
       ],
       "condition": ""
     }
@@ -47,10 +47,10 @@
   "workarounds": [
     {
       "action": "Use export const dynamic = 'force-dynamic' for pages that can't be statically rendered",
-      "success_rate": 0.90,
+      "success_rate": 0.9,
       "how": "// app/dashboard/page.tsx\nexport const dynamic = 'force-dynamic'\n// Or for specific segments:\nexport const revalidate = 0",
       "sources": [
-        "https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config"
+        "https://nextjs.org/docs/app/guides/caching-without-cache-components"
       ],
       "condition": ""
     },
@@ -59,7 +59,7 @@
       "success_rate": 0.88,
       "how": "import { Suspense } from 'react'\n\nexport default function Page() {\n  return (\n    <Suspense fallback={<Loading />}>\n      <AsyncDataComponent />\n    </Suspense>\n  )\n}",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming"
+        "https://nextjs.org/docs/app/api-reference/file-conventions/loading"
       ],
       "condition": ""
     },
@@ -68,7 +68,7 @@
       "success_rate": 0.85,
       "how": "async function DataComponent() {\n  try {\n    const data = await fetch('https://api.example.com/data')\n    if (!data.ok) throw new Error('Fetch failed')\n    const json = await data.json()\n    return <div>{json.title}</div>\n  } catch (error) {\n    return <div>Failed to load data</div>\n  }\n}",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/data-fetching/fetching"
+        "https://nextjs.org/docs/app/getting-started/fetching-data"
       ],
       "condition": ""
     }
@@ -88,6 +88,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-29"
   }
 }
