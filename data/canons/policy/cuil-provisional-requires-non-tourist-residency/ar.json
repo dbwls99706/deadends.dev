@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/cuil-provisional-requires-non-tourist-residency/ar",
+  "url": "https://deadends.dev/policy/cuil-provisional-requires-non-tourist-residency/ar",
+  "error": {
+    "signature": "AI tells a foreigner in Argentina that a tourist passport stamp is enough to get a CUIL and start working legally, or that an employer can register a worker on payroll before the worker has any CUIL",
+    "regex": "(cuil.*argentina|argentina.*cuil|work legally.*argentina|trabajar legal.*argentina)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-29",
+    "summary": "ANSES requires a CUIL (Codigo Unico de Identificacion Laboral) before any employer can legally register a worker in Argentina and make social-security contributions in their name. A foreigner without an Argentine DNI can request a provisional CUIL for free at any ANSES office, but only when their passport shows a residency status that is explicitly neither tourist nor permanent (temporary/precaria residency, or a consular/international-agreement entry permit) - a plain tourist entry stamp does not qualify. Once the DNI for foreigners is issued, the provisional CUIL must be unified into a permanent one via form PS 1.48."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner holding only a tourist entry stamp that they can request a CUIL at ANSES and start working legally",
+      "why_fails": "Argentina.gob.ar's official 'Obtener CUIL' procedure states the passport accepted for a provisional CUIL must certify a residency status that is 'neither tourist nor permanent' - tourist status is explicitly excluded from provisional-CUIL eligibility, regardless of how long the stay is planned.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.argentina.gob.ar/servicio/obtener-cuil",
+        "https://www.embajadadelperu.com.ar/tramites/cuil-argentina-extranjeros-como-sacar/"
+      ],
+      "condition": "Foreigner without an Argentine DNI, tourist entry status",
+      "common_misconception": "That any passport, including a tourist entry stamp, is sufficient documentation to obtain a work-authorizing CUIL."
+    },
+    {
+      "action": "Assume an employer can legally register a foreign worker on payroll before the worker holds any CUIL",
+      "why_fails": "Argentina.gob.ar's labor-registration guidance lists 'el trabajador debe tener CUIL' as a prerequisite the employer must have on file before completing AFIP's alta temprana; registering someone without it leaves the relationship informal ('trabajo no registrado'), denying the worker retirement contributions, obra social health coverage, and ANSES benefits.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.argentina.gob.ar/trabajo/registrotrabajoadolescente",
+        "https://www.embajadadelperu.com.ar/tramites/cuil-argentina-extranjeros-como-sacar/"
+      ],
+      "condition": "Foreign worker without a CUIL"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Obtain temporary/precaria residency from Migraciones first (based on employment, study, or family ties), then bring the migration file plus passport to any ANSES office - no appointment needed - to request the provisional CUIL",
+      "success_rate": 0.85,
+      "how": "ANSES issues the provisional CUIL for free based on the migration file number and passport; it is enough to start employment and pay taxes even before the DNI for foreigners is issued.",
+      "sources": [
+        "https://www.argentina.gob.ar/servicio/obtener-cuil"
+      ],
+      "condition": "Legal grounds for non-tourist residency already established"
+    },
+    {
+      "action": "Once the DNI for foreigners is granted, return to ANSES to unify the provisional CUIL into a permanent one using form PS 1.48",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.embajadadelperu.com.ar/tramites/cuil-argentina-extranjeros-como-sacar/"
+      ],
+      "condition": "DNI issued after the provisional CUIL was granted"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/90-day-tourist-stay-extension-deadline/ar",
+        "distinction": "That canon covers extending a 90-day tourist stay; this one covers why tourist status itself blocks getting a work-authorizing CUIL even during a valid stay."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-29"
+  }
+}

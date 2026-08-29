@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/cuyo-seismic-zone-highest-risk/ar",
+  "url": "https://deadends.dev/disaster/cuyo-seismic-zone-highest-risk/ar",
+  "error": {
+    "signature": "AI tells a traveler or new resident that Argentina overall is not earthquake-prone, generalizing from Buenos Aires's negligible seismic risk",
+    "regex": "(argentina.*(earthquake|seismic)|earthquake.*argentina|mendoza.*earthquake|san juan.*earthquake)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "regional",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-29",
+    "summary": "Argentina's national seismic code (INPRES-CIRSOC 103) divides the country into 5 hazard zones (0-4) based on a 500-year design-earthquake ground acceleration. Buenos Aires, Santa Fe, Entre Rios, Corrientes and Misiones sit in Zone 0, the lowest hazard classification, but Gran Mendoza and Gran San Juan sit entirely in Zone 4, the highest. The Cuyo region has suffered repeated destructive earthquakes (1861, 1920, 1929, 1944, 1977, 1985) and its building codes require the strictest seismic-resistant standards in the country."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume the whole country shares Buenos Aires's negligible seismic risk, or give someone relocating to or building in Mendoza/San Juan advice calibrated to Buenos Aires norms",
+      "why_fails": "INPRES's official zoning page states regulatory requirements are 'more severe for zone 4, decreasing as the seismic hazard of the corresponding zone reduces.' Buenos Aires/Santa Fe/Entre Rios are Zone 0 while Gran Mendoza/Gran San Juan are entirely Zone 4 - the maximum-hazard classification - so a Buenos Aires-calibrated assumption understates risk by the widest margin possible within one country.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.argentina.gob.ar/inpres/ingenieria-sismorresistente/zonificacion-sismica",
+        "https://www.infobae.com/salud/ciencia/2026/08/11/terremotos-en-la-region-cual-es-el-riesgo-sismico-para-argentina/"
+      ],
+      "condition": "Relocating to, building in, or visiting Mendoza/San Juan",
+      "common_misconception": "That Argentina, unlike Chile or Peru, sits outside the Andean seismic belt because its capital is essentially aseismic."
+    },
+    {
+      "action": "Treat the Cuyo region's earthquake risk as a single historical event (the 1944 San Juan quake) rather than an ongoing hazard",
+      "why_fails": "CONICET's overview of the region lists six separate destructive earthquakes in the Mendoza/San Juan area since 1861 (1861, 1920, 1929, 1944, 1977, 1985) plus constant low-magnitude seismicity, describing the hazard as continuous rather than a one-off historical disaster.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.conicet.gov.ar/los-temblores-de-mendoza/"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check which INPRES zone (0-4) applies to the specific city before applying national-average assumptions, and if in zone 3-4 (Cuyo, parts of the Northwest), verify a building was constructed or retrofitted to INPRES-CIRSOC 103 for that zone",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.argentina.gob.ar/inpres/ingenieria-sismorresistente/zonificacion-sismica"
+      ],
+      "condition": "Building, renting, or long-term relocation in western Argentina"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-29"
+  }
+}

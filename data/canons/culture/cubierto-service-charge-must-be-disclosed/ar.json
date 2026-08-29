@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/cubierto-service-charge-must-be-disclosed/ar",
+  "url": "https://deadends.dev/culture/cubierto-service-charge-must-be-disclosed/ar",
+  "error": {
+    "signature": "AI tells a diner in Argentina that the 'cubierto' or 'servicio de mesa' table charge is always a mandatory, non-negotiable fee, comparable to a fixed European cover charge",
+    "regex": "(cubierto.*argentina|servicio de mesa|argentina.*cover charge|argentina restaurant.*service charge)",
+    "domain": "culture",
+    "category": "consumer_rights",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-29",
+    "summary": "Argentina's Ley de Defensa del Consumidor and Buenos Aires City's own table-service rules make an undisclosed or unrequested 'cubierto'/'servicio de mesa' charge illegal. A 2018 ruling by the Camara Civil y Comercial de La Plata found charging for table service without informing the customer what it includes, or presenting it as mandatory without being requested, violates the consumer's right to information and to choose. Where establishments do charge it, Buenos Aires City rules require it to include at least a glass of drinkable water per person and a gluten-free/celiac-safe bread option, and it cannot be charged to children under 12."
+  },
+  "dead_ends": [
+    {
+      "action": "Pay, or advise paying, a cubierto/servicio de mesa charge without question, treating it as a universal, always-legal fixed cost of dining out in Argentina",
+      "why_fails": "A 2018 ruling by the Camara Civil y Comercial de La Plata, reported by La Nacion and Infobae, found charging table service illegal when the menu doesn't clearly disclose what it includes or when it's imposed as mandatory without being requested - an undisclosed or unrequested charge can be refused or disputed, not simply accepted as unavoidable.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.lanacion.com.ar/lifestyle/declaran-es-ilegal-cobrar-servicio-mesa-provincia-nid2191226/",
+        "https://www.infobae.com/sociedad/2018/11/12/la-justicia-bonaerense-determino-que-es-ilegal-cobrar-el-servicio-de-mesa-si-el-cliente-no-lo-pide/"
+      ],
+      "condition": "Menu does not list the cubierto or its price",
+      "common_misconception": "Comparing it to Europe's 'coperto' and assuming it is always legally mandatory regardless of disclosure."
+    },
+    {
+      "action": "Assume the cubierto is a flat fee identical everywhere with no required inclusions",
+      "why_fails": "Buenos Aires City's official rules state a chargeable 'servicio de mesa' must include at minimum a glass of drinkable water per person and at least one gluten-free/celiac-safe bread option, and cannot be charged for children under 12 - a charge that skips these minimums is non-compliant, not just a customary price difference.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://buenosaires.gob.ar/noticias/servicio-de-mesa-quienes-pueden-cobrarlo"
+      ],
+      "condition": "Dining in the City of Buenos Aires (CABA)"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the menu for the cubierto/servicio de mesa price before ordering; if it isn't listed or staff can't explain what it includes, ask for it to be removed from the bill, or contact CABA's consumer-defense line (147 or defensa@buenosaires.gob.ar) afterward",
+      "success_rate": 0.7,
+      "sources": [
+        "https://buenosaires.gob.ar/noticias/servicio-de-mesa-quienes-pueden-cobrarlo"
+      ],
+      "condition": "City of Buenos Aires (CABA)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-29"
+  }
+}

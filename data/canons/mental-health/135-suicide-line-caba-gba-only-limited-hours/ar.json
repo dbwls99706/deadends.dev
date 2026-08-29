@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/135-suicide-line-caba-gba-only-limited-hours/ar",
+  "url": "https://deadends.dev/mental-health/135-suicide-line-caba-gba-only-limited-hours/ar",
+  "error": {
+    "signature": "AI tells someone anywhere in Argentina to dial the short code 135 for a mental-health crisis, expecting nationwide, around-the-clock coverage from a single hotline",
+    "regex": "(argentina.*(suicide|crisis) (hotline|line)|linea 135 argentina|call 135 argentina|argentina mental health hotline)",
+    "domain": "mental-health",
+    "category": "service_limitation",
+    "first_seen": "2026-08-29",
+    "last_confirmed": "2026-08-29"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ar",
+      "country_name": "Argentina",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-29",
+    "summary": "Argentina runs multiple mental-health crisis lines with different, non-overlapping coverage. The Centro de Asistencia al Suicida's short code '135' only works within CABA and Greater Buenos Aires, and by the organization's own account is not staffed around the clock ('aun no estamos en condiciones de cubrir todos los horarios'). The line that is genuinely free, national, and available 24 hours a day, 365 days a year is 0800-999-0091, run by the national Hospital 'Lic. Laura Bonaparte' as part of Argentina's Federal Mental Health Initiative."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone outside CABA/Greater Buenos Aires to dial the short code '135' for a mental-health crisis",
+      "why_fails": "The Centro de Asistencia al Suicida's own help page states 135 is a free line only from Capital and Gran Buenos Aires; from anywhere else in the country the short code does not connect the same way, and the caller must use the full number (011) 5275-1135 or 0800-345-1435 instead.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.asistenciaalsuicida.org.ar/ayuda"
+      ],
+      "condition": "Caller outside CABA/Greater Buenos Aires",
+      "common_misconception": "Assuming a short 3-digit code works nationwide the way it might in other countries' unified hotline systems."
+    },
+    {
+      "action": "Assume any of Argentina's mental-health hotlines, including 135, is staffed 24/7 the way a single national crisis line typically is",
+      "why_fails": "The Centro de Asistencia al Suicida explicitly states it is not yet able to cover all hours ('aun no estamos en condiciones de cubrir todos los horarios') and asks callers to check its published schedule; the genuine around-the-clock, every-day-of-the-year option is a separate number, 0800-999-0091, not 135.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.asistenciaalsuicida.org.ar/ayuda",
+        "https://www.asistenciaalsuicida.org.ar/horarios-de-atencion"
+      ],
+      "condition": "Crisis occurring outside 135's covered hours"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For round-the-clock, nationwide mental-health crisis support anywhere in Argentina, call 0800-999-0091 (Hospital Nacional 'Lic. Laura Bonaparte,' part of the national Federal Mental Health Initiative)",
+      "success_rate": 0.85,
+      "how": "Staffed by mental-health professionals 24 hours a day, 365 days a year, free from anywhere in the country.",
+      "sources": [
+        "https://www.argentina.gob.ar/noticias/nueva-linea-telefonica-nacional-y-gratuita-de-salud-mental",
+        "https://www.ambito.com/informacion-general/ministerio-salud/salud-mental-lanzan-nueva-linea-telefonica-orientacion-y-apoyo-n5531395"
+      ],
+      "condition": "Any time, any province"
+    },
+    {
+      "action": "In CABA/Greater Buenos Aires during its published daytime-to-midnight hours, 135 (or 0800-345-1435 from elsewhere during those hours) remains a valid option for confidential, anonymous listening",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.asistenciaalsuicida.org.ar/ayuda"
+      ],
+      "condition": "CABA/Greater Buenos Aires, roughly 8am-midnight"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/911-police-107-ambulance/ar",
+        "distinction": "That canon covers Argentina's split emergency numbers for police/ambulance/fire; this one covers Argentina's separate, non-overlapping mental-health crisis lines and their different coverage areas and hours."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-29",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-29"
+  }
+}
