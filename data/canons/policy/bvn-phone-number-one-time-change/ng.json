@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/bvn-phone-number-one-time-change/ng",
+  "url": "https://deadends.dev/policy/bvn-phone-number-one-time-change/ng",
+  "error": {
+    "signature": "AI tells a Nigerian bank customer they can update the phone number linked to their BVN whenever they need to",
+    "regex": "(bvn.*(phone|number).*(change|update)|update.*bvn.*nigeria|bank verification number.*phone number)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.7,
+    "last_updated": "2026-08-30",
+    "summary": "A Central Bank of Nigeria circular issued 12-13 March 2026 restricts updates to the phone number linked to a Bank Verification Number (BVN) to a single change for the lifetime of the BVN, effective 1 May 2026, with no publicly documented exception process. The Data Privacy Lawyers Association sued the CBN at the Federal High Court, Kaduna (filed 8 April 2026), arguing telecoms routinely recycle lost, stolen, or deactivated numbers, and that anyone who has already used their one change - or whose old number is later reassigned - has no structured appeal path, leaving their transaction alerts and OTPs exposed to whoever now holds that number."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone their BVN-linked phone number can simply be updated again after they have already used their one lifetime change",
+      "why_fails": "Per the CBN circular effective 1 May 2026 (reported by TechCabal and explained by fact-checking outlet Dubawa), phone-number changes on a BVN are capped at one per lifetime; a Federal High Court suit filed 8 April 2026 by the Data Privacy Lawyers Association states in its affidavit that there is 'an absence of a structured appeal process for device loss or errors', meaning no confirmed second-change route existed as of that filing.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://techcabal.com/2026/03/13/cbn-restricts-bvn-phone-number-changes-to-once-in-a-lifetime/",
+        "https://www.icirnigeria.org/bvn-restriction-data-privacy-lawyers-sue-cbn-over-one-time-phone-number-update-rule/"
+      ],
+      "condition": "Since 1 May 2026"
+    },
+    {
+      "action": "Treat losing a phone or having an old Nigerian SIM number reassigned by the carrier as a minor, easily-fixed inconvenience for someone with a BVN",
+      "why_fails": "The Data Privacy Lawyers Association's Federal High Court filing (Kaduna Judicial Division, 8 April 2026) specifically warns that telecom providers 'frequently reassign numbers that have been lost, stolen, or deactivated'; once a customer's one lifetime BVN phone-number update is used, or the number is compromised afterward, transaction alerts and One-Time Passwords sent to that number become interceptable by whoever now holds it, with no appeal mechanism documented at the time of filing.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.icirnigeria.org/bvn-restriction-data-privacy-lawyers-sue-cbn-over-one-time-phone-number-update-rule/"
+      ],
+      "condition": "Already used the one lifetime change, or whose registered SIM has lapsed",
+      "common_misconception": "That a recycled or reassigned Nigerian phone number is just an inconvenience, rather than an account-security and OTP-interception risk under the 2026 one-time-change rule."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Only update a BVN-linked phone number once you are certain it is your long-term number, and keep that SIM active rather than letting it lapse or go dormant",
+      "success_rate": 0.7,
+      "how": "Banks and NIBSS process the update in-branch or via bank apps; because only one change is allowed for the lifetime of the BVN (per the March 2026 CBN circular), treat the update as a rare, deliberate action rather than a routine settings change.",
+      "sources": [
+        "https://dubawa.org/5-new-bvn-rules-nigerians-must-know-before-may-1/"
+      ],
+      "condition": "Has not yet used the lifetime BVN phone-number update"
+    },
+    {
+      "action": "If the one-time change is already used and the number is later lost or reassigned, do not assume a routine fix exists - contact the bank/CBN directly and watch the outcome of the Data Privacy Lawyers Association's Federal High Court suit (filed 8 April 2026, Kaduna Judicial Division)",
+      "success_rate": 0.3,
+      "sources": [
+        "https://www.icirnigeria.org/bvn-restriction-data-privacy-lawyers-sue-cbn-over-one-time-phone-number-update-rule/"
+      ],
+      "condition": "Already used the one-time change and lost access to the registered number",
+      "tradeoff": "Low success rate reflects that no confirmed public remedy existed as of the lawsuit's filing date."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/bvn-enrollment-requires-in-person-biometrics/ng",
+        "distinction": "That canon covers first-time BVN enrollment requiring an in-person branch visit; this one covers the separate 2026 rule limiting how many times an already-issued BVN's phone number can be changed."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}

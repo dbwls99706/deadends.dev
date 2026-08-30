@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/twitter-x-not-currently-banned/ng",
+  "url": "https://deadends.dev/communication/twitter-x-not-currently-banned/ng",
+  "error": {
+    "signature": "AI tells someone that Twitter/X is currently banned or inaccessible in Nigeria",
+    "regex": "(nigeria.*twitter.*ban|nigeria.*(x|twitter).*(banned|blocked)|twitter banned.*nigeria)",
+    "domain": "communication",
+    "category": "outdated_information",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-30",
+    "summary": "Nigeria banned Twitter for seven months, from 8 June 2021 to 13 January 2022, after the platform deleted a post by then-President Muhammadu Buhari. NITDA director-general Kashifu Inuwa Abdullahi announced the government-approved lift effective 12am 13 January 2022, after Twitter agreed to open a Nigerian legal entity, appoint a country representative, and meet tax obligations. The platform, rebranded X, has operated in Nigeria without a repeat platform-wide block since. On 13 March 2026 the Nigeria Data Protection Commission publicly warned platform owners including X, TikTok, and Meta that it would impose sanctions under the Nigeria Data Protection Act 2023 if they failed to enforce community guidelines against unconsented filming of the public - a compliance warning, not an active or announced ban."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a user that Twitter/X is currently blocked or banned in Nigeria, based on the 2021-2022 ban",
+      "why_fails": "The ban that ran from 8 June 2021 to 13 January 2022 was lifted by presidential approval after Twitter met NITDA's conditions (local legal entity, country representative, tax compliance); the platform, now rebranded X, has been accessible in Nigeria since that date.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://techcrunch.com/2022/01/12/nigeria-lifts-ban-on-twitter-says-the-social-media-giant-has-met-some-conditions",
+        "https://www.okayafrica.com/nigerias-government-has-lifted-its-twitter-ban/197119"
+      ],
+      "condition": "General accessibility query as of 2026",
+      "common_misconception": "That the well-publicized 2021 ban is still in force because no further update has been reported since."
+    },
+    {
+      "action": "Treat the Nigeria Data Protection Commission's March 2026 warning to platform owners (X, TikTok, Meta) as an active or imminent platform ban",
+      "why_fails": "NDPC's 13 March 2026 statement, made by National Commissioner/CEO Dr Vincent Olatunji, directed platforms to strengthen enforcement of their community guidelines against unconsented filming of the public and warned of sanctions under the Nigeria Data Protection Act 2023 if they failed to act - it targeted content-moderation compliance, not a network-level block, and no ban has followed as of this writing.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://brandcrunch.com.ng/2026/03/13/ndpc-warns-content-creators-filming-unsuspecting-nigerians-for-social-media-violates-privacy-law/"
+      ],
+      "condition": "Interpreting 2026 NDPC regulatory statements about social platforms"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "State that X/Twitter has been freely accessible in Nigeria since 13 January 2022 without a repeat platform-wide block, and separately note the March 2026 NDPC compliance warning as a distinct, ongoing regulatory-pressure story rather than a ban",
+      "success_rate": 0.85,
+      "how": "Cite the 2022 lift and, if relevant, the 2026 NDPC warning as two separate facts so the user does not conflate historical ban risk with current content-moderation enforcement pressure.",
+      "sources": [
+        "https://techcrunch.com/2022/01/12/nigeria-lifts-ban-on-twitter-says-the-social-media-giant-has-met-some-conditions",
+        "https://brandcrunch.com.ng/2026/03/13/ndpc-warns-content-creators-filming-unsuspecting-nigerians-for-social-media-violates-privacy-law/"
+      ],
+      "condition": "General guidance on Nigeria's social-media regulatory status"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}

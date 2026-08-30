@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/attempted-suicide-still-criminal-code-offense/ng",
+  "url": "https://deadends.dev/mental-health/attempted-suicide-still-criminal-code-offense/ng",
+  "error": {
+    "signature": "AI tells someone that attempting or surviving suicide is already legal/decriminalized in Nigeria because of the Mental Health Act 2021 or August 2026 news coverage",
+    "regex": "(nigeria.*suicide.*(legal|decriminali[sz]ed)|attempted suicide.*nigeria.*(law|criminal)|nigeria mental health act.*suicide)",
+    "domain": "mental-health",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ng",
+      "country_name": "Nigeria",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-30",
+    "summary": "Attempted suicide remains a criminal offense in Nigeria under Section 327 of the Criminal Code Act (used in southern states) and Section 231 of the Penal Code (used in northern states). The Mental Health Act 2021 (Act No. 46, presidential assent 5 January 2023) replaced the colonial Lunacy Act 1958 with a rights-based treatment framework but never touched those criminal-code provisions. On 20 August 2026 the Federal Executive Council approved a proposed amendment to decriminalize attempted suicide, but as of this writing it is only an executive bill forwarded to the National Assembly for consideration - not a change in law that has taken effect."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that attempted suicide is already decriminalized in Nigeria because the Mental Health Act 2021 exists, or because of August 2026 headlines about the Federal Executive Council approving decriminalization",
+      "why_fails": "The Mental Health Act 2021 (Act No. 46, presidential assent 5 January 2023) never addressed the criminal-code provisions; attempted suicide remains prosecutable under Section 327 of the Criminal Code Act and Section 231 of the Penal Code. The FEC's 20 August 2026 approval, reported by Lawyard and ThisDayLive, is an executive bill forwarded to the National Assembly for debate - not an enacted change to the law in force.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.lawyard.org/news/fec-approves-decriminalisation-of-attempted-suicide-moves-to-amend-mental-health-act/",
+        "https://www.thisdaylive.com/2026/08/28/decriminalising-attempted-suicide/"
+      ],
+      "condition": "As of August 2026",
+      "common_misconception": "That Federal Executive Council approval of a bill means it has already become law."
+    },
+    {
+      "action": "Assume the Mental Health Act 2021's rights-based protections, such as a functioning Department of Mental Health Services or Mental Health Assessment Committee, are already operating just because the Act has been in force since December 2022",
+      "why_fails": "A commentary by Professor A.G. Ahmed published in ThisDayLive notes that more than three years after the Act's commencement, the government has not established its mandated institutions, including the Department of Mental Health Services and the Mental Health Assessment Committee, so protections dependent on those bodies are not yet operative in practice.",
+      "fail_rate": 0.45,
+      "sources": [
+        "https://www.thisdaylive.com/2026/08/28/decriminalising-attempted-suicide/"
+      ],
+      "condition": "Assessing what legal or institutional protection a person in crisis can actually access"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Give accurate legal-status information - attempted suicide is still a criminal offense and decriminalization is a pending bill, not current law - and direct the person toward crisis support rather than a legal-risk framing",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.lawyard.org/news/fec-approves-decriminalisation-of-attempted-suicide-moves-to-amend-mental-health-act/"
+      ],
+      "condition": "General guidance about Nigerian law on suicide attempts"
+    },
+    {
+      "action": "Point someone in active crisis to an operating Nigerian crisis line, such as SURPIN (Suicide Research and Prevention Initiative), rather than a police or legal framing",
+      "success_rate": 0.7,
+      "how": "SURPIN lists +234-908-021-7555 and +234-903-440-0009, among other numbers, on its own website as of August 2026; confirm current numbers directly on surpinng.com since hotline numbers change over time.",
+      "sources": [
+        "https://www.surpinng.com/"
+      ],
+      "condition": "Person in active suicidal crisis"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}
