@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/n95-mask-not-needed-until-psi-300/sg",
+  "url": "https://deadends.dev/disaster/n95-mask-not-needed-until-psi-300/sg",
+  "error": {
+    "signature": "AI tells a healthy person in Singapore to wear an N95 mask outdoors whenever PSI is in the 'Unhealthy' band during haze season",
+    "regex": "(singapore.*haze.*mask|psi.*singapore.*n95|singapore.*n95.*haze|haze.*singapore.*mask)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.68,
+    "last_updated": "2026-08-30",
+    "summary": "Singapore's official haze health guidance (HealthHub, under the Ministry of Health/Health Promotion Board) sets the N95 mask threshold for healthy individuals at PSI above 300 (the 'Hazardous' band), not the much lower 101-200 'Unhealthy' band. People with chronic heart/lung disease are advised to mask earlier, above PSI 200. Below those thresholds, official guidance is to reduce prolonged or strenuous outdoor exertion, not to mask up. NEA's 24-hour PSI forecast (via haze.gov.sg or the myENV app) is the index the Ministry of Manpower directs employers to monitor for outdoor-work decisions."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a healthy person to put on an N95 mask as soon as PSI enters the 'Unhealthy' (101-200) band during Singapore's haze season",
+      "why_fails": "HealthHub's official haze advisory sets PSI bands at 0-50 Good, 51-100 Moderate, 101-200 Unhealthy, 201-300 Very Unhealthy, and 300+ Hazardous, and states N95 masks are recommended for healthy individuals only when PSI exceeds 300. In the 101-300 range, the guidance for healthy people is to reduce prolonged or strenuous outdoor physical exertion, not to mask up - over-recommending masks at moderate PSI wastes N95 supply and can give a false sense of continuous need.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.healthhub.sg/highlights-and-insights/health-safety-advisory/how-to-protect-yourself-against-haze"
+      ],
+      "condition": "Healthy individual, PSI between 101 and 300",
+      "common_misconception": "That any PSI reading outside the 'Good'/'Moderate' bands calls for an N95 mask, when the mask threshold for healthy people is specifically above 300, two bands higher."
+    },
+    {
+      "action": "Apply the same PSI mask threshold to someone with chronic heart or lung disease, elderly, or pregnant as to a healthy adult",
+      "why_fails": "HealthHub's guidance sets a lower N95 threshold of PSI above 200 for people with chronic lung/heart disease, a full band below the 300 threshold for healthy individuals, since these groups are more vulnerable to particulate exposure at lower concentrations.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.healthhub.sg/highlights-and-insights/health-safety-advisory/how-to-protect-yourself-against-haze"
+      ],
+      "condition": "At-risk individual (chronic lung/heart disease, elderly, pregnant)"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the current 24-hr PSI forecast on NEA's haze microsite (haze.gov.sg) or the myENV app before deciding on outdoor activity or masking, rather than assuming a fixed rule of thumb",
+      "success_rate": 0.85,
+      "how": "MOM directs employers to the same 24-hr PSI forecast plus NEA's health advisories to decide protective measures for outdoor workers, so this is the authoritative index to check first.",
+      "sources": [
+        "https://www.mom.gov.sg/faq/haze/which-haze-index-should-employers-monitor-so-as-to-decide-what-measures-to-take-to-protect-their-workers",
+        "https://www.haze.gov.sg/"
+      ],
+      "condition": "Planning outdoor activity or work during haze season"
+    },
+    {
+      "action": "For healthy adults, reduce prolonged/strenuous outdoor exertion once PSI passes 100-200 and reserve N95 masks for PSI above 300; for at-risk groups, mask above 200 and consult a doctor for extended outdoor exposure",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.healthhub.sg/highlights-and-insights/health-safety-advisory/how-to-protect-yourself-against-haze"
+      ],
+      "condition": "Deciding when to mask during elevated PSI"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}

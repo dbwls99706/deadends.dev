@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/foreigner-property-purchase-restricted/sg",
+  "url": "https://deadends.dev/policy/foreigner-property-purchase-restricted/sg",
+  "error": {
+    "signature": "AI tells a foreigner in Singapore they can freely buy any residential property, or quotes a stamp duty rate well under 60%",
+    "regex": "(singapore.*(buy|purchase).*(property|condo|house|flat)|absd.*singapore|singapore.*stamp duty.*foreigner)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.78,
+    "last_updated": "2026-08-30",
+    "summary": "Foreigners buying any residential property in Singapore pay a flat 60% Additional Buyer's Stamp Duty (ABSD) on top of the standard Buyer's Stamp Duty, in effect since 27 April 2023 (IRAS, Stamp Duties Act). Foreigners can buy condominium/apartment units and HDB executive condominiums freely, but need case-by-case Singapore Land Authority (SLA) approval under the Residential Property Act to buy landed houses, vacant residential land, or Sentosa Cove property; approval generally requires 5+ years of PR status and demonstrated exceptional economic contribution."
+  },
+  "dead_ends": [
+    {
+      "action": "Quote a foreigner a stamp duty estimate based on the old 30% ABSD rate, or state that ABSD scales up gradually with the number of properties owned the way it does for citizens/PRs",
+      "why_fails": "IRAS's official ABSD rate table shows foreigners pay a flat 60% on any residential property purchase - first or fifth - since 27 April 2023, when the rate doubled from 30%. There is no graduated scale by property count for foreigners the way there is for Singapore Citizens (0/20/30%) or PRs (5/30/35%).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.iras.gov.sg/taxes/stamp-duty/for-property/buying-or-acquiring-property/additional-buyer's-stamp-duty-(absd)"
+      ],
+      "condition": "Any residential property purchase by a foreign individual"
+    },
+    {
+      "action": "Tell a foreigner they can buy any type of house in Singapore as long as they pay the ABSD, including a landed terrace/semi-detached/bungalow house",
+      "why_fails": "SLA's foreign-ownership rules require a foreign person to obtain prior approval under the Residential Property Act before acquiring landed residential property, vacant residential land, strata landed houses outside approved condominiums, or Sentosa Cove property. Approval is discretionary, assessed case-by-case, and generally requires 5+ years as a Singapore PR plus evidence of exceptional economic contribution - condominium/apartment units and HDB executive condominiums are the properties exempt from this approval requirement.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.sla.gov.sg/regulatory/foreign-ownership-of-property/"
+      ],
+      "condition": "Landed residential property, vacant land, or Sentosa Cove property",
+      "common_misconception": "That paying a higher stamp duty is the only barrier for foreigners buying Singapore property, when landed housing has a separate, discretionary approval gate."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For condo/apartment units and HDB executive condominiums, budget for 60% ABSD plus standard Buyer's Stamp Duty (1-4% tiered) on top of the purchase price - no approval needed beyond the purchase itself",
+      "success_rate": 0.9,
+      "how": "ABSD is calculated on the higher of purchase price or market value and is due within 14 days of the sale agreement.",
+      "sources": [
+        "https://www.iras.gov.sg/taxes/stamp-duty/for-property/buying-or-acquiring-property/additional-buyer's-stamp-duty-(absd)"
+      ],
+      "condition": "Condominium, apartment, or executive condominium purchase"
+    },
+    {
+      "action": "For landed property, apply for in-principle approval from SLA's Land Dealings Approval Unit before or after identifying a specific property; expect roughly 30 working days for a decision on a complete application",
+      "success_rate": 0.4,
+      "how": "Approval is not guaranteed and depends on residency duration and assessed economic contribution; approved properties are capped at 15,000 sq ft and cannot be in a Good Class Bungalow area, and must be held at least 5 years before resale.",
+      "tradeoff": "Even with approval, the property size and location are restricted, and the property cannot be sold within 5 years of purchase.",
+      "sources": [
+        "https://www.sla.gov.sg/regulatory/foreign-ownership-of-property/"
+      ],
+      "condition": "Landed residential property"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/foreigner-account-needs-pass/sg",
+        "distinction": "That canon covers opening a bank account as a tourist; this one covers buying residential property, a separate and much larger administrative barrier with its own approval regime."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}
