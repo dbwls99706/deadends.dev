@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/no-additional-tip-on-service-charge/sg",
+  "url": "https://deadends.dev/culture/no-additional-tip-on-service-charge/sg",
+  "error": {
+    "signature": "AI advises a traveler to leave an extra 15-20% cash tip on top of the bill at Singapore restaurants and hotels",
+    "regex": "(tip.*singapore|tipping.*singapore|gratuity.*singapore|service charge.*singapore)",
+    "domain": "culture",
+    "category": "cultural_norm",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.72,
+    "last_updated": "2026-08-30",
+    "summary": "Singapore does not have a tipping culture; most restaurants and hotels already add a mandatory 10% service charge to the bill, with GST (9% in 2026) then calculated on the service-charge-inclusive total - shown on menus as '++' pricing. IRAS confirms F&B and hotel establishments that impose a service charge are specifically exempted from the usual GST-inclusive price display rule, precisely because the '++' add-on is the norm. Tipping on top of that is not expected and, per Visit Singapore-aligned travel guidance, unnecessary."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler to leave a 15-20% cash tip at Singapore restaurants the way they would in the US, on top of whatever is printed on the bill",
+      "why_fails": "IRAS's GST price-display guidance confirms the standard Singapore restaurant/hotel bill already layers a 10% service charge and then GST on top of that combined amount (e.g. $100 food + $10 service charge + $9.90 GST = $119.90 total) - this is the source of the '++' notation seen on menus. A traveler who does not know this will either be confused by '++' pricing or add a further cash tip on a bill that already includes a service charge, which is redundant since the charge is not itself a discretionary gratuity to staff.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/basics-of-gst/invoicing-price-display-and-record-keeping/displaying-and-quoting-prices"
+      ],
+      "condition": "Restaurant, hotel, or other establishment that displays '++' pricing",
+      "common_misconception": "That '++' is an unusual or hidden fee rather than the standard, IRAS-sanctioned way F&B/hotel businesses are allowed to display service charge and GST separately instead of one GST-inclusive price."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check whether the bill or menu shows '++' (service charge + GST not yet added) or 'Nett' (all charges already included) before deciding whether to tip further; if a 10% service charge line item already appears on the final bill, no additional tip is expected",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/basics-of-gst/invoicing-price-display-and-record-keeping/displaying-and-quoting-prices",
+        "https://www.qantas.com/travelinsider/en/explore/asia/singapore/singapore/how-to-tip-in-singapore.html"
+      ],
+      "condition": "Dining or staying at a hotel in Singapore"
+    },
+    {
+      "action": "At hawker centres, food courts, and taxis - where no service charge applies - tipping is optional and not culturally expected either; round up or leave small change only as a discretionary thank-you",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.qantas.com/travelinsider/en/explore/asia/singapore/singapore/how-to-tip-in-singapore.html"
+      ],
+      "condition": "Hawker centre, food court, or taxi"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}

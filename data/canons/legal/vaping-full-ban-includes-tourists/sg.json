@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/vaping-full-ban-includes-tourists/sg",
+  "url": "https://deadends.dev/legal/vaping-full-ban-includes-tourists/sg",
+  "error": {
+    "signature": "AI tells a traveler they can bring or use a personal vape/e-cigarette in Singapore since it's legal where they're from",
+    "regex": "(vape.*singapore|e-cigarette.*singapore|vaping.*singapore|bring.*vape.*singapore)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-30",
+    "last_confirmed": "2026-08-30"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sg",
+      "country_name": "Singapore",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-08-30",
+    "summary": "Singapore has banned the purchase, possession, use, import, and sale of e-vaporisers (vapes) since 1 February 2018 - not just sale, but personal possession and use by anyone, including tourists. As of 1 May 2026, the Tobacco and Vaporisers Control Act (TVCA) raised the maximum fine for individual possession/use to S$10,000 (from S$2,000), and foreigners caught face device seizure, a Notice of Composition, and escalating immigration consequences up to re-entry bans and deportation for repeat or etomidate-laced offences."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist it's fine to bring or use their personal vape in Singapore since vaping is a legal, regulated alternative to smoking in their home country",
+      "why_fails": "HSA states vaporisers have been completely prohibited in Singapore since 1 February 2018 - purchase, possession, and use are all banned, not just commercial sale. The ban applies to anyone in Singapore regardless of nationality or where the device was purchased; there is no personal-use or transit exemption.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.hsa.gov.sg/tobacco-regulation/vaping-enforcement/"
+      ],
+      "condition": "Any traveler carrying or intending to use a vape in Singapore"
+    },
+    {
+      "action": "Assume the penalty is a minor fine similar to a parking ticket, or that tourists get a pass since they're leaving soon anyway",
+      "why_fails": "Since the Tobacco and Vaporisers Control Act took effect 1 May 2026, individual possession or use carries a fine of up to S$10,000 (up from S$2,000). gov.sg's official guidance states foreigners are not exempt - devices are seized and a Notice of Composition issued, with short-term visitors barred from re-entry on a second offence and long-term pass holders risking pass revocation and deportation on a third; etomidate-laced vapes can trigger immediate deportation and a permanent re-entry ban.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.sg/stopvaping-penalties/"
+      ],
+      "condition": "Foreigner caught with a vape in Singapore",
+      "common_misconception": "That enforcement against foreigners is new or rare - MOH/HSA press releases show foreigners convicted have long faced deportation and re-entry bans, and airport/checkpoint seizures of thousands of devices predate the 2026 penalty increase."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Leave vapes and e-cigarette devices at home entirely before traveling to Singapore; do not pack them in checked or carry-on luggage",
+      "success_rate": 0.95,
+      "sources": [
+        "https://www.hsa.gov.sg/tobacco-regulation/vaping-enforcement/"
+      ],
+      "condition": "Any trip to Singapore"
+    },
+    {
+      "action": "If already caught in possession, cooperate with HSA/ICA - the device will be seized and a Notice of Composition (fine) issued for a first minor offence; do not attempt to conceal or dispose of etomidate-laced pods, which carry criminal penalties under the Poisons Act",
+      "success_rate": 0.5,
+      "sources": [
+        "https://www.moh.gov.sg/newsroom/moh-and-hsa-continue-to-intensify-enforcement-on-e-vaporiser-offences/"
+      ],
+      "condition": "Already stopped by enforcement officers"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/chewing-gum-ban/sg",
+        "distinction": "Both are Singapore import/possession bans that surprise travelers, but chewing gum is a civil import-control offence while vaping is a criminal offence with much higher fines and immigration consequences."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-30",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-30"
+  }
+}

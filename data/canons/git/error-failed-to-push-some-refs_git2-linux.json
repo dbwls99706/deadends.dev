@@ -8,7 +8,7 @@
     "domain": "git",
     "category": "remote",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-30"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.97,
     "confidence": 0.98,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-30",
     "summary": "Remote has commits that the local branch doesn't - need to pull before pushing."
   },
   "dead_ends": [
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-30"
   }
 }
