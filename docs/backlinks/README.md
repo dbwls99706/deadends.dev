@@ -10,6 +10,7 @@ tracker - see each kit file for the exact fork-and-edit link.
 | --- | --- | --- | --- |
 | 2026-08-17 | punkpeye/awesome-mcp-servers (Knowledge & Memory) | drafted, awaiting human submission | [2026-08-17-awesome-mcp-servers.md](2026-08-17-awesome-mcp-servers.md) |
 | 2026-08-24 | thedaviddias/llms-txt-hub (developer-tools) | drafted, awaiting human submission | [2026-08-24-llms-txt-hub.md](2026-08-24-llms-txt-hub.md) |
+| 2026-08-31 | hesreallyhim/awesome-claude-code (Documentation, Knowledge & Learning) | drafted, awaiting human submission | [2026-08-31-awesome-claude-code.md](2026-08-31-awesome-claude-code.md) |
 
 ## Status values
 
