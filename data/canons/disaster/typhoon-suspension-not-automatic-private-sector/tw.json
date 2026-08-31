@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/typhoon-suspension-not-automatic-private-sector/tw",
+  "url": "https://deadends.dev/disaster/typhoon-suspension-not-automatic-private-sector/tw",
+  "error": {
+    "signature": "AI tells someone that a Taiwan government typhoon-day announcement (停班停課) automatically closes every workplace nationwide, including private employers, and is one single national decision",
+    "regex": "(taiwan.*typhoon day|停班停課|taiwan.*typhoon.*(work|office).*(closed|suspend))",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-31",
+    "summary": "Under the Regulations Governing the Suspension of Work and Classes Due to Natural Disasters (天然災害停止上班及上課作業辦法), each special municipality mayor or county/city magistrate decides independently for their own jurisdiction, so neighboring cities routinely rule differently on the same storm and there is no single national announcement. Article 18 also explicitly excludes private enterprises from the automatic suspension: their work stoppage is handled under the Labor Standards Act through employer-employee negotiation, not granted automatically by the government order."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a government-announced typhoon day automatically closes every workplace in Taiwan, including private employers, with no one legally required to go to work, and that it is decided nationally rather than city by city",
+      "why_fails": "Article 2 of 天然災害停止上班及上課作業辦法 gives suspension authority to each special-municipality mayor or county/city magistrate for their own jurisdiction only, which is why the Directorate-General of Personnel Administration publishes a live per-city/county status page rather than one nationwide flag, and news coverage regularly shows some cities suspending while neighboring ones stay open on the same storm. Article 18 separately states private-enterprise work stoppage is 'handled according to the Labor Standards Act or other regulations, through negotiation between labor and management' (依照勞動基準法或其他法令規定，由勞資雙方協商處理) - it is not an automatic legal closure the way it is for government agencies and schools.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=S0110022",
+        "https://www.dgpa.gov.tw/typh/daily/nds.html",
+        "https://focustaiwan.tw/society/202507060016"
+      ],
+      "condition": "Private-sector employee during a declared 天然災害停止上班",
+      "common_misconception": "That '停班停課' is one nationwide government order that binds private employers the same way it binds public agencies and schools, rather than dozens of separate, sometimes conflicting, local decisions that private employers are legally excluded from."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific city/county government's own announcement (or DGPA's live status page) for whether a suspension applies to your exact location, and separately confirm with your private employer whether they are treating the day as suspended, since attendance for private-sector staff is a labor-management matter governed by the Labor Standards Act, not the suspension order itself",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.dgpa.gov.tw/typh/daily/nds.html"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/110-119-not-911-tw/tw",
+        "distinction": "That canon covers which number to dial for an active emergency; this one covers whether a declared typhoon day legally excuses you from work."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/anxin-hotline-number-changed-2019/tw",
+  "url": "https://deadends.dev/mental-health/anxin-hotline-number-changed-2019/tw",
+  "error": {
+    "signature": "AI tells someone in Taiwan to call 0800-788-995 for the government 24-hour suicide-prevention/mental-health hotline",
+    "regex": "(0800-788-995|0800788995|taiwan.*suicide.*hotline|taiwan.*mental health hotline|安心專線)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-08-31",
+    "summary": "The Ministry of Health and Welfare's free 24-hour Anxin (安心) crisis line moved to a single, easy-to-remember number, 1925 (諧音「依舊愛我」, 'still loves me'), effective 20 December 2019 (民國108年12月20日), retiring the old 0800-788-995 number. Older guides and cached web content that still list 0800-788-995 are pointing at a number the ministry has since retired."
+  },
+  "dead_ends": [
+    {
+      "action": "Give a caller in Taiwan the pre-2019 Anxin Hotline number 0800-788-995 as the current 24-hour free psychological support line",
+      "why_fails": "The Ministry of Health and Welfare's official notice confirms the Anxin Hotline switched to the single number 1925 on 20 December 2019, retiring 0800-788-995; Taipei Times' contemporaneous coverage confirms the same date and rationale (a number that's easier to remember and dial from a mobile), and current local health-bureau pages (e.g. Taichung's) now direct callers only to 1925.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.mohw.gov.tw/cp-4250-50587-1.html",
+        "https://www.taipeitimes.com/News/taiwan/archives/2019/07/03/2003718042",
+        "https://www.health.taichung.gov.tw/1065880/1065891/1065893/1504554"
+      ],
+      "condition": "Referencing older (pre-2020) guides or cached web content about Taiwan's mental-health hotline",
+      "common_misconception": "That Taiwan's suicide-prevention hotline number hasn't changed, since some official-looking city-government pages published before the switch still list 0800-788-995 alongside newer pages that correctly list 1925."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct anyone in a mental-health crisis in Taiwan to dial 1925 (toll-free, 24/7, from any mobile or landline, no area code needed); for a medical emergency dial 119, for police dial 110",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.mohw.gov.tw/cp-4250-50587-1.html"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/110-119-not-911-tw/tw",
+        "distinction": "That canon covers police/fire/ambulance numbers (110/119); this one covers the separate mental-health crisis line (1925) and its 2019 number change."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}

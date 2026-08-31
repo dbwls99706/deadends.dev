@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/post-account-without-arc-suspended/tw",
+  "url": "https://deadends.dev/banking/post-account-without-arc-suspended/tw",
+  "error": {
+    "signature": "AI tells a newly arrived foreigner in Taiwan without an ARC yet that they can open a Chunghwa Post passbook savings account right away using just a passport and a Unified ID Number Basic Data Form (統一證號基資表)",
+    "regex": "(chunghwa post.*account|taiwan.*bank account.*without.*arc|post office account taiwan|統一證號基資表.*開戶)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-08-31",
+    "summary": "Chunghwa Post (the state postal bank, historically the standard no-ARC workaround for opening a Taiwan account) has suspended accepting the passport-plus-Unified-ID-Number-Basic-Data-Form pathway for foreigners without household registration, with no resumption date announced. Foreigners must present an ARC (residence certificate) plus a second ID document in person to open an account; the only carved-out exception is foreign scholarship students who additionally hold a Ministry of Education or Ministry of Foreign Affairs scholarship certificate and school proof."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visa-exempt visitor or short-term-visa holder without an ARC that they can open a Chunghwa Post account immediately with just a passport and the Unified ID Number Basic Data Form, as many older expat guides describe",
+      "why_fails": "Chunghwa Post's official account-opening pages state this pathway is currently suspended ('暫停受理持護照及「中華民國統一帳號基資表」辦理開戶，恢復辦理時程將另行公告') with no announced resumption date. Foreigners without household registration who lack an ARC cannot open a passbook account through this route until it reopens.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.post.gov.tw/post/internet/B_saving/index.jsp?ID=3010102",
+        "https://www.post.gov.tw/post/internet/Customer_service/index.jsp?ID=16020402&defaultAllOpen=1&sn=6401FB72-58AA-400F-A524-4C1BC1AFE3F7"
+      ],
+      "condition": "Visa-exempt visitor or short-term visa holder without an ARC, not a scholarship student",
+      "common_misconception": "That the pre-2025 workaround (opening a post-office account with just a passport, no ARC) still works because many expat guides written before the suspension still describe it as current."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Obtain the ARC first and open the account afterward using ARC plus a second ID document (passport, NHI card, or driver's licence) and a personal seal, done in person; if genuinely ARC-less, only a foreign scholarship student holding a Ministry of Education Chinese-Language Scholarship Certificate or MOFA Taiwan-EU Link Scholarship Certificate plus school proof can still use the passport-only route",
+      "success_rate": 0.85,
+      "how": "Chunghwa Post requires the applicant to appear in person; account opening cannot be delegated to a third party.",
+      "sources": [
+        "https://www.post.gov.tw/post/internet/B_saving/index.jsp?ID=3010105&faq_kind_sn=7&lang=CHINESE&topage=2&PreRowDatas=10"
+      ],
+      "condition": "Foreigner establishing a Taiwan bank presence"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/resident-certificate-not-work-authorization/tw",
+        "distinction": "That canon covers the ARC not granting work authorization; this one covers the ARC being required to open a bank account at all, separate from any employment question."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}
