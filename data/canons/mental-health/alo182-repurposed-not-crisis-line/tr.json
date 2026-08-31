@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/alo182-repurposed-not-crisis-line/tr",
+  "url": "https://deadends.dev/mental-health/alo182-repurposed-not-crisis-line/tr",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Turkey to call 'Alo 182' for suicide-prevention or psychological support",
+    "regex": "(alo 182.*(turkey|türkiye)|turkey.*182.*(crisis|suicide|psikolojik)|turkey mental health hotline|turkey suicide hotline|umut ışığı hattı)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-08-31",
+    "summary": "Turkey operated a dedicated suicide-prevention line, 'Alo 182 Umut Işığı Hattı' (Hope Light Line), until it was discontinued in 2008 for budget reasons. Since then, the Ministry of Health has repurposed the 182 number entirely: the Ministry's own current page for it is titled 'Alo 182 - Merkezi Hastane Randevu Sistemi' (Central Hospital Appointment System) and makes no mention of psychological or crisis support. The UK Foreign, Commonwealth & Development Office's Turkey mental-health-abroad guidance likewise lists no dedicated Turkish mental-health crisis hotline, pointing instead to the general emergency number 112 (which may not have English-speaking operators) or a Turkish-only list of mental health centres."
+  },
+  "dead_ends": [
+    {
+      "action": "Direct someone in a mental health crisis in Turkey to call 'Alo 182' for psychological support or suicide prevention",
+      "why_fails": "Alo 182 ('Umut Işığı Hattı', Hope Light Line) was a genuine Ministry of Health suicide-prevention hotline, but it was shut down in 2008 for cost reasons. The Ministry of Health's own current page for the number, titled 'Alo 182 - Merkezi Hastane Randevu Sistemi', shows it has been repurposed into the Central Hospital Appointment System (MHRS) - calling it during a crisis reaches an appointment-booking service, not psychological support.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.saglik.gov.tr/TR-11523/alo-182---merkezi-hastane-randevu-sistemi.html"
+      ],
+      "condition": "Referencing 182 for crisis support in Turkey",
+      "common_misconception": "That a hotline number remembered from older sources still serves its original purpose rather than having been reassigned to an unrelated government service."
+    },
+    {
+      "action": "Assume Turkey has an easily findable, English-language dedicated mental health crisis hotline comparable to 988 in the US or 111 in the UK",
+      "why_fails": "The UK government's own Turkey mental-health-support-abroad guidance names no dedicated Turkish crisis hotline; it directs people to the general emergency number 112 (noting not all operators speak English) or to a Turkish-only list of mental health centres, and recommends contacting the British consulate for non-emergency guidance.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/guidance/turkey-mental-health-support-abroad"
+      ],
+      "condition": "Non-Turkish-speaking foreigner seeking crisis support"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For an active crisis or medical emergency, call 112 (Turkey's single emergency number, free from any phone) and ask for an ambulance",
+      "success_rate": 0.75,
+      "how": "112 dispatches police, fire, and ambulance nationwide; be prepared for the possibility the operator does not speak English.",
+      "sources": [
+        "https://www.gov.uk/guidance/turkey-mental-health-support-abroad"
+      ],
+      "condition": "Immediate danger to self or others"
+    },
+    {
+      "action": "For non-emergency social/family support in multiple languages, use Alo 183 (Ministry of Family and Social Services), which offers Turkish, Kurdish, and Arabic support and can refer callers onward",
+      "success_rate": 0.55,
+      "sources": [
+        "https://alo183.aile.gov.tr/"
+      ],
+      "condition": "Non-emergency support, social/family-services adjacent needs",
+      "tradeoff": "Alo 183 is oriented toward family, women's, child, elderly, and disability social support rather than being a dedicated psychiatric crisis line."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}

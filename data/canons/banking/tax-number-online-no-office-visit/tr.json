@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/tax-number-online-no-office-visit/tr",
+  "url": "https://deadends.dev/banking/tax-number-online-no-office-visit/tr",
+  "error": {
+    "signature": "AI tells a foreigner opening a Turkish bank account that they must visit a vergi dairesi (tax office) in person to get a tax number, or that a residence permit is a fixed legal requirement for any account",
+    "regex": "(turkey.*bank account.*tax number|vergi numarası.*banka|potansiyel vergi kimlik|turkish tax id.*bank account|open bank account turkey foreigner)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-31",
+    "summary": "Turkish banks require a tax number (vergi kimlik numarası) before opening an account for a foreigner, but Turkey's Revenue Administration (Gelir İdaresi Başkanlığı, GİB) issues a Potansiyel Vergi Kimlik Numarası (Potential Tax ID) to foreigners entirely online through the Interactive Tax Office (ivd.gib.gov.tr) using just a passport photo - no in-person visit is needed. Separately, no banking law mandates a residence permit for a basic account; acceptance of foreigners without one varies bank by bank due to each institution's own post-2022 AML/KYC policies rather than a single fixed national rule."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner they must visit a Turkish tax office (vergi dairesi) in person, or wait in line, to obtain the tax number a bank requires before opening an account",
+      "why_fails": "GİB's own Interactive Tax Office (ivd.gib.gov.tr) issues a Potansiyel Vergi Kimlik Numarası (Potential Tax ID Number) to foreigners fully online: applicants fill in personal details and upload a photo of their passport's photo page. The İstanbul Tax Office Directorate's own promotional flyer for the service is titled 'Vergi Dairesine Gitmek Yok!!! Sıra Beklemek Yok!!!' ('No need to go to the tax office!!! No need to wait in line!!!').",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://istanbul.goc.gov.tr/kurumlar/istanbul.goc/Dosyalar/gelir-vergisi-daire-bsk/2-tr.pdf",
+        "https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru"
+      ],
+      "condition": "Foreigner without an existing Turkish tax number",
+      "common_misconception": "That obtaining any Turkish tax ID number necessarily involves an in-person government office visit."
+    },
+    {
+      "action": "Assume Turkish law requires a residence permit (ikamet) before any bank will open an account for a foreigner",
+      "why_fails": "No banking law fixes a residence-permit requirement for a basic account - the online potential tax number is what actually gets keyed into the account application. In practice, individual banks apply their own, stricter internal compliance policies following the post-2022 tightening of AML/KYC checks, so acceptance of foreigners without a residence permit varies bank by bank rather than being a uniform legal bar; several banks (e.g. Ziraat Bank, and multiple private banks) are reported to still open accounts for foreigners on just a passport and tax number, sometimes with a minimum deposit.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://crpartners.av.tr/en/opening-bank-account-turkey-foreigners-2026/",
+        "https://mihci.av.tr/yabancilarin-banka-hesabi-acmasi/"
+      ],
+      "condition": "Foreigner without a residence permit",
+      "common_misconception": "That a residence permit is a fixed statutory prerequisite for opening any Turkish bank account, rather than a bank-specific internal policy."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the Potansiyel Vergi Kimlik Numarası online via GİB's Interactive Tax Office (ivd.gib.gov.tr) using a passport photo before visiting any bank branch, then bring the resulting number plus passport and a Turkish address/phone number to the bank",
+      "success_rate": 0.85,
+      "how": "Scan the QR code or go to ivd.gib.gov.tr, select the foreigners' potential tax number form, fill it in, and upload the passport photo page - the number is issued immediately.",
+      "sources": [
+        "https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru"
+      ],
+      "condition": "Any foreigner without an existing Turkish tax number"
+    },
+    {
+      "action": "If one bank declines to open an account without a residence permit, try a state bank (e.g. Ziraat Bank) or another private bank, since acceptance criteria for non-resident foreigners vary by institution",
+      "success_rate": 0.6,
+      "sources": [
+        "https://crpartners.av.tr/en/opening-bank-account-turkey-foreigners-2026/"
+      ],
+      "condition": "No residence permit yet",
+      "tradeoff": "May require a larger minimum deposit or come with lower transaction limits than a resident account."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-08-31"
+  }
+}
