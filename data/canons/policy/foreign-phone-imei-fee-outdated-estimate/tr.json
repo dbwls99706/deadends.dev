@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/foreign-phone-imei-fee-outdated-estimate/tr",
+  "url": "https://deadends.dev/policy/foreign-phone-imei-fee-outdated-estimate/tr",
+  "error": {
+    "signature": "AI cites a fixed dollar/lira figure (e.g. $85-115, 3,000-4,000 TL) as the current fee to register a foreign phone brought into Turkey past the 120-day grace period",
+    "regex": "(imei kayıt|imei registration fee|yurt dışı telefon.*(harç|ücret)|turkey.*phone.*register.*120 day|foreign phone.*turkey.*(register|fee))",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tr",
+      "country_name": "Turkey",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-31",
+    "summary": "Turkey requires foreign phones used with a local SIM for more than 120 cumulative days to be registered with BTK (the telecom regulator) and a 'harç' (fee) paid, or the device is blocked from all three Turkish networks. The fee is not fixed: it is Tariff 8 of the Fees Law (492 sayılı Harçlar Kanunu), reset every January 1 by the Ministry of Treasury and Finance's Gelir İdaresi Başkanlığı using the prior year's statutory revaluation rate. For 2026, the Harçlar Kanunu Genel Tebliği (Seri No: 98), published in the Official Gazette on 31 December 2025, fixed it at 54,258.00 TL - far above the ~$85-115 (3,000-4,000 TL) figures still circulating in older English-language guides. Separately, BTK limits each passport to registering one device per 3 calendar years."
+  },
+  "dead_ends": [
+    {
+      "action": "Cite a fixed dollar/lira figure (e.g. $85-115 or 3,000-4,000 TL) as this year's fee for registering a foreign phone used in Turkey past 120 days",
+      "why_fails": "The fee is a 'harç' under Tariff 8 of Turkey's Fees Law (492 sayılı Harçlar Kanunu), reset every January 1st by the Ministry of Treasury and Finance's Gelir İdaresi Başkanlığı using the prior year's statutory revaluation rate (18.95% for 2026, itself building on a 25.49% 2025 revaluation). The Harçlar Kanunu Genel Tebliği (Seri No: 98), Official Gazette, 31 December 2025, fixes the 'Yolcu beraberinde getirilen telefon kullanım izin harcı' at 54,258.00 TL for 2026 - roughly fifteen times the $85-115 figure still repeated in older English-language travel guides. An AI answer trained on that older data understates the fee by an order of magnitude.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.resmigazete.gov.tr/eskiler/2025/12/20251231M5-28.pdf",
+        "https://archive.ismmmo.org.tr/docs/mevzuat/2026/02012026_harclar_kanunu_genel_tebligi_seri_no_98.pdf"
+      ],
+      "condition": "Registering a foreign phone in 2026 or later",
+      "common_misconception": "That the registration fee is a small, mostly-static customs charge rather than an annually re-priced tax that compounds with Turkey's inflation-linked revaluation rate."
+    },
+    {
+      "action": "Assume a traveler can register a new personal device on the same passport again soon after a previous registration, e.g. after upgrading phones",
+      "why_fails": "BTK's Central Device Registration System (Merkezi Cihaz Kayıt Sistemi) limits each passport to bringing in one device per 3 calendar years ('3 takvim yılı içerisinde 1 adet cihazın yurda getirilebileceği'); after one registration, no new registration right exists until January 1 two years later. A second device registered on the same passport within that window is disconnected from Turkish networks after its own 120-day window.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://tuketici.btk.gov.tr/merkezi-cihaz-kayit-sistemi"
+      ],
+      "condition": "Second foreign device on the same passport within 3 calendar years",
+      "common_misconception": "That the 120-day/registration rule applies per device with no limit on how many devices one passport can register."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the current-year fee directly from the annual Harçlar Kanunu Genel Tebliği (or a Turkish accountancy/tax portal that mirrors it) before budgeting, rather than reusing a figure from a prior year or an English-language blog",
+      "success_rate": 0.85,
+      "how": "Search for the current year's 'Harçlar Kanunu Genel Tebliği' and look up Tariff 8, section VIII ('Yolcu beraberinde getirilen telefon kullanım izin harcı').",
+      "sources": [
+        "https://www.resmigazete.gov.tr/eskiler/2025/12/20251231M5-28.pdf"
+      ],
+      "condition": "Planning to keep and use a foreign phone in Turkey past 120 days"
+    },
+    {
+      "action": "If staying long-term, buy a phone from a Turkish retailer instead of registering one brought from abroad - domestically sold phones already carry a valid Turkish IMEI and are exempt from this registration process and fee entirely",
+      "success_rate": 0.9,
+      "sources": [
+        "https://tuketici.btk.gov.tr/merkezi-cihaz-kayit-sistemi"
+      ],
+      "condition": "Long-term stay or digital-nomad visa holder",
+      "tradeoff": "Loses use of a phone already owned; involves the up-front cost of a new device."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}
