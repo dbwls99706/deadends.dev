@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "dependency_management",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-31"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-31",
     "summary": "Composer dependency conflicts occur when two or more packages require incompatible versions of a shared dependency. This is especially common when upgrading major versions of frameworks or when mixing packages from different ecosystem generations."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 100,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-31"
   }
 }

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/tax-residency-183-day-calendar-year/tw",
+  "url": "https://deadends.dev/policy/tax-residency-183-day-calendar-year/tw",
+  "error": {
+    "signature": "AI assumes Taiwan's 183-day tax-residency threshold uses a rolling 12-month window, or that leaving and re-entering Taiwan resets the day count, when calculating whether a foreigner qualifies for resident (progressive) tax rates",
+    "regex": "(taiwan.*183 day|taiwan.*tax resident|taiwan.*non.resident.*tax|taiwan.*flat.*18%.*tax)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-31",
+    "last_confirmed": "2026-08-31"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "tw",
+      "country_name": "Taiwan",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-08-31",
+    "summary": "Taiwan's National Taxation Bureau defines resident status by calendar 'taxable year' (1 January - 31 December): a foreigner is a tax resident only if their cumulative days of presence reach 183 within that single calendar year, counted from passport or NIA entry-exit stamps and not reset by leaving and re-entering. Someone whose stay spans a year-end boundary can rack up nearly a year of continuous presence while never reaching 183 days in either individual calendar year, and gets taxed at the non-resident flat rate (18% on Taiwan-source salary for 90-183 days present) both years instead of the progressive resident rates (5-40%)."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Taiwan's 183-day tax-residency threshold uses a rolling 12-month window (as some other countries do), so a foreigner living in Taiwan continuously across a calendar year-end is automatically a tax resident",
+      "why_fails": "National Taxation Bureau of Taipei defines the threshold strictly per calendar 'taxable year': a foreigner is a resident only if they accumulate at least 183 days within that single calendar year (1 Jan - 31 Dec). Someone who, say, arrives in August and stays continuously into the following June can fall short of 183 days in both the first calendar year (~5 months) and the second (~6 months) despite never leaving the country, and is taxed as a non-resident for both years.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.ntbt.gov.tw/English/htmlList/bfc158abe6fe4e43b301e491263e7fee",
+        "https://www.ntbt.gov.tw/english/multiplehtml/06922971ae7e48d18d2902dfa6ebfcea"
+      ],
+      "condition": "Stay spans a calendar year-end without reaching 183 days in either single calendar year",
+      "common_misconception": "That total continuous days present in Taiwan, rather than days within one calendar year, determine resident tax status."
+    },
+    {
+      "action": "Tell a foreign worker that days spent in Taiwan across several separate trips in the same calendar year don't add up toward the 183-day threshold because each departure resets the count",
+      "why_fails": "NTBT's official 'Computing Period of Stay' guidance states that when a foreigner enters and exits Taiwan multiple times within a taxable year, the period of residence is the total accumulated days across all stays, not reset by departure; days are counted from entry/exit stamps, excluding the arrival date and including the departure date.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.ntbt.gov.tw/english/multiplehtml/06922971ae7e48d18d2902dfa6ebfcea"
+      ],
+      "condition": "Multiple entries and exits within one calendar year"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Track cumulative days physically present in Taiwan within the current calendar year using entry/exit stamps or the National Immigration Agency's Certificate of Entry and Exit Dates; below 183 days means non-resident flat withholding (18% on Taiwan-source salary for 90-183 days present, also 18% if under 90 days and paid by a Taiwan-registered entity), while reaching 183 triggers progressive resident rates (5-40%) and a resident tax filing the following May",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.ntbt.gov.tw/English/htmlList/d8fa239122dc4d14989884c1ded43df8"
+      ],
+      "condition": "General"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/health-insurance-six-month-clock/tw",
+        "distinction": "That canon covers the separate six-month clock for National Health Insurance enrollment; this one covers the calendar-year 183-day clock for individual income-tax residency, which runs independently."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-31",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-31"
+  }
+}
