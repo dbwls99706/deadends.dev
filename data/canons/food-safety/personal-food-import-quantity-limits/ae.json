@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/personal-food-import-quantity-limits/ae",
+  "url": "https://deadends.dev/food-safety/personal-food-import-quantity-limits/ae",
+  "error": {
+    "signature": "AI tells a traveler that bringing home-cooked or packaged meat, dairy, or other food into the UAE for personal use is either freely unlimited or entirely banned",
+    "regex": "(uae.*(bring|import).*(meat|dairy|food).*personal|dubai customs.*food.*limit|uae customs.*meat.*kg)",
+    "domain": "food-safety",
+    "category": "import_ban",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-09-01",
+    "summary": "Ministerial Resolution No. 14 of 2016 on the Control of Imported Food for Non-Commercial Purposes sets specific per-traveler quantity caps for personal food imports into the UAE rather than a blanket ban or unlimited allowance: up to 30kg of red meat, 20kg of yoghurt, 11kg of eggs, 10kg of fish/seafood, 100kg of dates, 50 litres of oil, and similar caps for other categories, alongside a requirement that imported food carry documentation from the country of origin. Food the UAE separately bans (such as pork by non-licensed importers) is excluded regardless of quantity."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that any amount of home-cooked/packaged meat or dairy is fine to bring into the UAE as long as it is 'for personal use', with no numeric limit",
+      "why_fails": "Ministerial Resolution No. 14 of 2016, announced by the UAE Cabinet and reported in detail by Gulf News, sets explicit per-category maximums for non-commercial personal food imports - for example 30kg of red meat, 20kg of yoghurt, 11kg of eggs, and 10kg of fish/seafood - not an open-ended personal-use exemption; exceeding the listed quantities can see the food treated as a commercial consignment subject to different rules.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://uaecabinet.ae/en/details/news/minister-of-environment-issues-ministerial-resolution-on-control-of-imported-food-for-non-commercial-purposes",
+        "https://gulfnews.com/uae/government/new-rules-on-importing-food-for-personal-use-1.1666867"
+      ],
+      "condition": "Personal food import through UAE borders",
+      "common_misconception": "That online freight-forwarder guides citing a flat 5kg meat allowance reflect the actual government resolution, rather than an informal approximation."
+    },
+    {
+      "action": "Tell a traveler that all meat and dairy products are simply banned from personal import into the UAE",
+      "why_fails": "The same Ministerial Resolution No. 14 of 2016 explicitly permits personal-use meat, dairy, fish, and other food categories up to specific weight limits with accompanying origin documentation - it is a quantity-and-documentation regime, not a prohibition, except for items the UAE separately restricts such as pork products outside licensed non-Muslim retail channels.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://gulfnews.com/uae/government/new-rules-on-importing-food-for-personal-use-1.1666867"
+      ],
+      "condition": "Personal, non-commercial food import"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific per-category weight limit under Ministerial Resolution No. 14 of 2016 before packing, and carry documentation of origin for the food; declare anything close to or above the limit to UAE Customs on arrival",
+      "success_rate": 0.8,
+      "how": "The UAE government's own food-safety portal confirms the resolution requires food packages to carry non-removable labels naming the stakeholders and documentation from the country of origin with full product details, in addition to staying within the listed quantity caps.",
+      "sources": [
+        "https://gulfnews.com/uae/government/new-rules-on-importing-food-for-personal-use-1.1666867",
+        "https://u.ae/en/information-and-services/health-and-fitness/food-safety-and-health-tips"
+      ],
+      "condition": "Bringing packaged/commercial food items for personal use"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}

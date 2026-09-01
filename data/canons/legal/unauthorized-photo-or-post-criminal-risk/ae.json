@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/unauthorized-photo-or-post-criminal-risk/ae",
+  "url": "https://deadends.dev/legal/unauthorized-photo-or-post-criminal-risk/ae",
+  "error": {
+    "signature": "AI tells a tourist or resident that photographing/filming people in public and posting on social media in the UAE is a minor issue, or that leaving a negative online review carries no real legal risk",
+    "regex": "(photograph.*people.*(uae|dubai)|film.*(uae|dubai).*without.*consent|negative review.*(uae|dubai)|uae.*(defamation|cybercrime).*(social media|review))",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-09-01",
+    "summary": "Federal Decree-Law No. 34 of 2021 on Combatting Rumours and Cybercrimes (in force since 2 January 2022) makes it a criminal offense to record, publish, or share a photo/video of a person without consent, and separately criminalizes online defamation. Article 44 sets penalties of at least six months' imprisonment plus a fine of AED 150,000-500,000 for unauthorized recording/publishing, rising to at least one year and AED 250,000-500,000 where the content is defamatory or edited to harm reputation. The law applies to anyone physically in the UAE regardless of visa status, including a tourist posting a negative review of a business."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat taking someone's photo/video in public without asking, or posting it online, as a minor social faux pas rather than a criminal offense in the UAE",
+      "why_fails": "Gulf News, citing Article 44 of Federal Decree-Law No. 34 of 2021 (Revealing Secrets and Invasion of Privacy), reports a minimum penalty of six months' imprisonment and a fine of AED 150,000 to AED 500,000 for recording, publishing, or distributing a photo, audio, or video of a person without their permission; the UAE government's own Cyber-laws portal confirms the decree-law's existence and scope, and the Ministry of Justice lists it among special penal legislation currently in force.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://gulfnews.com/living-in-uae/ask-us/uae-up-to-dh500000-for-taking-someones-picture-without-permission-1.1604935039441",
+        "https://u.ae/en/Resources/Cyber-laws",
+        "https://www.moj.gov.ae/en/laws-and-legislation/legislative-framework-of-the-judicial-system-in-uae/special-penal-legislations.aspx"
+      ],
+      "condition": "Photographing or filming an identifiable person without consent",
+      "common_misconception": "That this is only about paparazzi-style photos of celebrities, rather than any unconsented photo/video of a person, including bystanders in a travel photo or a video shot in a public place."
+    },
+    {
+      "action": "Assume a negative Google/TripAdvisor-style review or an angry social media post about a business or person carries no real legal exposure for a short-term tourist",
+      "why_fails": "Reporting on real cases (Gulf News, legal-sector coverage) describes tourists arrested at the airport before departure over a negative online review a business owner treated as defamatory; digital defamation under the same cybercrimes law carries fines of AED 250,000-500,000, possible jail time, and the law applies to anyone physically present in the UAE regardless of visa type or length of stay - deleting the post afterward does not remove the exposure since platforms retain cached/logged copies.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://gulfnews.com/living-in-uae/ask-us/uae-up-to-dh500000-for-taking-someones-picture-without-permission-1.1604935039441"
+      ],
+      "condition": "Posting a negative review or critical post naming a business/person"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get explicit consent before photographing or filming identifiable people, and avoid publishing images of accident scenes, injured or deceased people, or minors without a guardian's permission",
+      "success_rate": 0.85,
+      "sources": [
+        "https://gulfnews.com/living-in-uae/ask-us/uae-up-to-dh500000-for-taking-someones-picture-without-permission-1.1604935039441"
+      ],
+      "condition": "Any street/candid photography involving identifiable people"
+    },
+    {
+      "action": "If dissatisfied with a business, use its formal complaint channel or a consumer-protection body rather than a public social media post or review naming individuals",
+      "success_rate": 0.65,
+      "how": "Consumer complaints against businesses can be filed with the relevant emirate's Department of Economic Development, which does not carry the defamation exposure of a public post.",
+      "sources": [
+        "https://gulfnews.com/living-in-uae/ask-us/uae-up-to-dh500000-for-taking-someones-picture-without-permission-1.1604935039441"
+      ],
+      "condition": "Consumer dispute with a UAE business"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}

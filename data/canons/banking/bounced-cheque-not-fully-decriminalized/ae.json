@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/bounced-cheque-not-fully-decriminalized/ae",
+  "url": "https://deadends.dev/banking/bounced-cheque-not-fully-decriminalized/ae",
+  "error": {
+    "signature": "AI tells someone in the UAE that bounced cheques were fully decriminalized in 2022, so a returned cheque is now purely a civil matter",
+    "regex": "(bounced?\\s*cheque.*(uae|dubai|emirates)|uae.*cheque.*(law|decriminal)|dishonou?red\\s*cheque.*uae)",
+    "domain": "banking",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-01",
+    "summary": "The UAE's Commercial Transactions Law amendments (Federal Decree-Law No. 14 of 2020), effective 2 January 2022, removed criminal liability for cheques that bounce purely for insufficient funds - that is now a civil debt enforceable directly through the execution judge. But criminal liability survives where the drawer acted in bad faith: ordering the bank not to pay, closing the account or withdrawing the balance before the cheque is presented, or signing so the cheque cannot be honored. Administrative penalties (chequebook withdrawal, up to five years' denial of new chequebooks, and a fine of AED 50,000-100,000 for not surrendering an existing chequebook when ordered) also still apply."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that ANY bounced cheque in the UAE is now purely a civil matter with no criminal exposure, full stop",
+      "why_fails": "The Central Bank of the UAE's own FAQ on the 2022 Commercial Transactions Law amendments and reporting on the reform (IFLR) both confirm criminal liability remains when the drawer acted in bad faith - ordering the bank not to cash the cheque before maturity, closing the account or withdrawing funds before the due date, or deliberately signing the cheque so it cannot be honored. Only cheques that bounce for plain insufficient funds, without such bad-faith conduct, were moved to the civil track.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.centralbank.ae/media/nknfbci1/cheques-faq-commercial-transaction-law-en.pdf",
+        "https://www.iflr.com/article/2a63733ixysbvclr19i0c/bounced-cheques-for-insufficient-funds-is-no-longer-a-crime-in-the-uae"
+      ],
+      "condition": "Cheque bounced with evidence of bad-faith intent by the drawer",
+      "common_misconception": "That the 2022 reform abolished all criminal exposure for bounced cheques, rather than narrowing it to bad-faith cases."
+    },
+    {
+      "action": "Assume there is no consequence at all beyond repaying the debt once a cheque bounces for insufficient funds",
+      "why_fails": "Gulf News's coverage of the amended law reports that, independent of any criminal case, the drawer's chequebook can be withdrawn and new chequebooks denied for up to five years, and failing to surrender existing chequebooks within 15 days of notice carries a fine of AED 50,000 to AED 100,000 - administrative penalties that apply on top of the civil debt itself.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://gulfnews.com/uae/bounced-cheques-in-the-uae-what-the-amended-law-says-1.79231616"
+      ],
+      "condition": "Cheque bounced for insufficient funds, civil track"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a cheque bounced purely due to insufficient funds, use the cheque itself as an executive document and apply directly to the execution judge for enforcement, rather than filing a fresh lawsuit or expecting a criminal complaint to apply",
+      "success_rate": 0.85,
+      "how": "Beneficiaries can request the bank certify the dishonor and then petition the execution court directly for forcible collection, which is faster than a standard civil suit.",
+      "sources": [
+        "https://www.iflr.com/article/2a63733ixysbvclr19i0c/bounced-cheques-for-insufficient-funds-is-no-longer-a-crime-in-the-uae"
+      ],
+      "condition": "No bad-faith conduct by the drawer"
+    },
+    {
+      "action": "If bad-faith indicators are present (stop-payment order, account closure, or funds withdrawn before the cheque date), file a criminal complaint rather than relying on the civil execution track",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.centralbank.ae/media/nknfbci1/cheques-faq-commercial-transaction-law-en.pdf"
+      ],
+      "condition": "Evidence of bad-faith conduct by the drawer"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}

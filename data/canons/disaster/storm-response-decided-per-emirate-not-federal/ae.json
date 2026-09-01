@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/storm-response-decided-per-emirate-not-federal/ae",
+  "url": "https://deadends.dev/disaster/storm-response-decided-per-emirate-not-federal/ae",
+  "error": {
+    "signature": "AI tells someone in the UAE to wait for a single federal government announcement about work-from-home or school closures during heavy rain/flooding, or assumes one emirate's decision applies nationwide",
+    "regex": "(uae.*(flood|storm|heavy rain).*(work from home|school closure)|dubai.*flood.*remote work|abu dhabi.*storm.*closure|ncm.*alert.*uae)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ae",
+      "country_name": "United Arab Emirates",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-01",
+    "summary": "During UAE storms and flooding (as in February and April 2024), remote-work and school-closure decisions were announced separately by each emirate's own government or ruler's office - Dubai, Abu Dhabi/Al Ain/Al Dhafra, Sharjah, and Fujairah each issued their own notices rather than following one uniform federal order, while the Ministry of Human Resources and Emiratisation only called on private employers nationwide to allow flexible working. The trigger for these decisions is the National Center of Meteorology's (NCM) yellow/orange/red alerts, which residents should follow directly through the NCM app or website rather than waiting for a single blanket UAE-wide statement."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that because Dubai announced remote work during a storm, the same applies automatically in Abu Dhabi, Sharjah, or another emirate, or wait for one federal announcement covering the whole UAE",
+      "why_fails": "The National's coverage of the February 2024 storms shows Dubai's Crown Prince announced remote work for Dubai government staff, Abu Dhabi Media Office separately activated remote work across Abu Dhabi/Al Ain/Al Dhafra, and Sharjah's Private Education Authority separately ordered remote learning - three distinct, emirate-level decisions issued around the same event, not one federal order. The federal Ministry of Human Resources and Emiratisation's role was limited to calling on private-sector employers nationwide to apply flexible working, not mandating public-sector closures.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.thenationalnews.com/uae/2024/02/10/uae-weather-dubai-government-employees-to-work-from-home-on-monday/"
+      ],
+      "condition": "Severe weather affecting multiple emirates simultaneously",
+      "common_misconception": "That UAE public-sector emergency responses are issued centrally the way NCM's weather alerts are, when work/school closures are each emirate's own call."
+    },
+    {
+      "action": "Cite a single past event (e.g. the February 2024 storms) as proof the pattern was a one-off, rather than the UAE's ongoing practice",
+      "why_fails": "Gulf News's live coverage of a later 2026 storm shows the same pattern recurring: Ras Al Khaimah's Executive Council independently declared a remote-working day for its own government departments (with named exceptions for essential on-site roles) while parts of Dubai, Sharjah, Fujairah, and Ras Al Khaimah sat under different NCM alert levels at once - confirming per-emirate decision-making is the standing approach, not a one-time 2024 response.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://gulfnews.com/uae/weather/heavy-rain-and-thunderstorms-in-uae-live-weather-traffic-updates-and-safety-tips-1.500486613"
+      ],
+      "condition": "Any subsequent UAE storm event"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow the National Center of Meteorology's (NCM) alerts directly via its app or ncm.gov.ae, and separately check the specific emirate's own government media office/social channels for work-from-home or school-closure notices rather than relying on a single nationwide announcement",
+      "success_rate": 0.85,
+      "how": "NCM issues color-coded alerts (yellow = 'be aware', orange = 'be prepared', red = most severe) that trigger each emirate's own response; enable push notifications in the NCM app for your specific emirate/area.",
+      "sources": [
+        "https://ew4all.ncm.gov.ae/?lang=en",
+        "https://www.thenationalnews.com/uae/2024/02/10/uae-weather-dubai-government-employees-to-work-from-home-on-monday/"
+      ],
+      "condition": "Living or working across more than one emirate, or unsure which applies"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}
