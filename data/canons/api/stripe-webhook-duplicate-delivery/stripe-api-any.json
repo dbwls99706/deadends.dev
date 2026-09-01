@@ -8,7 +8,7 @@
     "domain": "api",
     "category": "webhook_reliability",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-24"
+    "last_confirmed": "2026-09-01"
   },
   "environment": {
     "runtime": {
@@ -21,25 +21,25 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-24",
-    "summary": "Stripe retries webhooks if your endpoint takes >5s to respond 200, even if it eventually succeeds. Docs say 'up to 3 days' but don't clarify the 5s window clearly."
+    "last_updated": "2026-09-01",
+    "summary": "Stripe retries webhook delivery (with exponential backoff, for up to three days in live mode) whenever your endpoint doesn't quickly return a 2xx response, including timeouts and slow responses caused by complex processing before the response is sent - this produces duplicate deliveries of the same event ID even though the event was ultimately handled. Stripe's docs no longer publish an exact timeout threshold in seconds; the documented guidance is to return 2xx immediately and defer processing, not to rely on a specific cutoff."
   },
   "dead_ends": [
     {
-      "action": "Return 200 after processing the event fully",
-      "why_fails": "If processing takes >5s, Stripe assumes failure and retries. You get duplicate events with same event ID.",
+      "action": "Return 200 only after processing the event fully, assuming there's no meaningful risk as long as processing 'isn't too slow'",
+      "why_fails": "Stripe's webhook docs instruct endpoints to quickly return a successful 2xx status code before any complex logic that could cause a timeout, and state that if delivery fails (including a timeout), Stripe retries with exponential backoff for up to three days in live mode - so slow processing before the response is sent produces duplicate deliveries of the same event ID.",
       "fail_rate": 0.85,
       "sources": [
-        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+        "https://docs.stripe.com/webhooks"
       ],
       "condition": ""
     },
     {
       "action": "Rely on Stripe's 'at-most-once' delivery assumption",
-      "why_fails": "Stripe explicitly guarantees 'at-least-once' delivery. Duplicates are expected behavior, not a bug.",
+      "why_fails": "Stripe's webhook docs describe delivery as at-least-once: 'Webhook endpoints might occasionally receive the same event more than once,' and recommend guarding against duplicates by tracking event IDs rather than assuming single delivery.",
       "fail_rate": 0.9,
       "sources": [
-        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+        "https://docs.stripe.com/webhooks"
       ],
       "condition": ""
     }
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-24",
     "review_status": "auto_generated",
     "evidence_count": 3,
-    "last_verification": "2026-02-24"
+    "last_verification": "2026-09-01"
   }
 }
