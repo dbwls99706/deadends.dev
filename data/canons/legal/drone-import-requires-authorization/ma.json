@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/drone-import-requires-authorization/ma",
+  "url": "https://deadends.dev/legal/drone-import-requires-authorization/ma",
+  "error": {
+    "signature": "AI tells a tourist they can bring a personal/recreational drone into Morocco the way they would to most countries, or that only flying it (not simply bringing it) requires permission",
+    "regex": "(morocco.*drone|drone.*morocco|bring.*drone.*morocco|morocco.*uav)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-01",
+    "summary": "Morocco has restricted civilian drone import and use since 2015 for security and privacy reasons. Government travel advisories from the UK, Canada, and Australia all warn that a drone brought into Morocco without prior authorization from Morocco's civil aviation authority (DGAC) risks confiscation at the border, plus a fine reported at around 1,165 MAD (~110 EUR/USD). This is a customs-entry issue, not just a flying-without-a-permit issue - an undeclared or unauthorized drone can be seized on arrival before it is ever unpacked, and the authorization process (technical specs, planned flight areas, proof of insurance, submitted weeks in advance) is built for commercial/professional operators, not a same-trip tourist workaround."
+  },
+  "dead_ends": [
+    {
+      "action": "Pack a personal/recreational drone for a Morocco trip assuming it just can't be flown near airports or sensitive sites, the way drone rules work in most tourist destinations",
+      "why_fails": "UK government travel advice states that to fly a drone in Morocco you must first get permission from Morocco's Directorate General for Civil Aviation, and that failing to do so risks fines and confiscation of the equipment; Canada's government travel advisory is more blunt, stating drones and surveillance equipment 'are prohibited and will be confiscated by the authorities upon entry' - the restriction bites at the border, before any flying happens.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/safety-and-security",
+        "https://travel.gc.ca/destinations/morocco"
+      ],
+      "condition": "No prior DGAC authorization obtained before travel"
+    },
+    {
+      "action": "Assume declaring the drone at customs guarantees it will simply be allowed through, or that it can be picked up quickly on the way out if held",
+      "why_fails": "Australia's government travel advisory notes private drone use is essentially prohibited without pre-approval and that a seized drone can be held for up to 45 days; declaring an undeclared drone does not substitute for having actually obtained authorization in advance.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.smartraveller.gov.au/destinations/africa/morocco"
+      ],
+      "condition": "Drone declared at customs without pre-arranged DGAC authorization"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If professional/commercial drone use is genuinely needed (e.g. filming), apply to Morocco's DGAC well in advance of travel with the drone's technical specifications, planned flight areas, and proof of insurance; for ordinary tourism, simply leave the drone at home",
+      "success_rate": 0.7,
+      "how": "The authorization process is designed around commercial filming and similar professional use cases and routinely takes weeks, so it is not a viable last-minute fix for a leisure trip.",
+      "tradeoff": "Even with paperwork in hand, enforcement at the point of entry is inconsistent, so travelers should be prepared for the drone to be held anyway pending verification.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/safety-and-security"
+      ],
+      "condition": "Genuine professional need for aerial photography/filming in Morocco"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}

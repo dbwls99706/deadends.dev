@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/hotel-marriage-certificate-no-longer-required/ma",
+  "url": "https://deadends.dev/legal/hotel-marriage-certificate-no-longer-required/ma",
+  "error": {
+    "signature": "AI tells an unmarried couple visiting Morocco that hotels are legally required to demand a marriage certificate before giving them a shared room, or conversely that this was formally repealed by legislation",
+    "regex": "(morocco.*(marriage certificate|hotel room).*unmarried|unmarried couple.*morocco.*hotel|morocco.*hotel.*proof of marriage)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.6,
+    "last_updated": "2026-09-01",
+    "summary": "For decades many Moroccan hotels demanded a marriage certificate from unmarried couples before giving them a shared room, even though no Moroccan law or decree ever required this - hotel owners describe it as an unwritten customary practice. In May 2024, Justice Minister Abdellatif Ouahbi publicly stated hotels asking for marriage proof are acting illegally, and security services followed up with verbal directives telling hotels to stop the practice. This is not a change in written law (Morocco's penal code, Article 490, still nominally criminalizes sex outside marriage) and it was communicated informally rather than through legislation, so enforcement in practice still varies by hotel and by whether guests are Moroccan nationals or foreign tourists."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an unmarried couple that Moroccan hotels are legally allowed (or required) to demand a marriage certificate before giving them a room",
+      "why_fails": "Morocco's Justice Minister stated in May 2024 that requiring a marriage certificate at check-in has no legal basis and that hotel staff have no authority to question guests' marital status - only police do; a hotel owner quoted in coverage of the episode confirmed 'there is no law or decree on this matter,' calling it a decades-old customary practice, not a legal requirement.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.moroccoworldnews.com/2024/05/19102/moroccans-divided-over-lifted-ban-on-marriage-certificate-requirement-in-hotels/",
+        "https://en.yabiladi.com/articles/details/150155/morocco-cracks-down-discriminatory-hotel.html"
+      ],
+      "condition": "Unmarried couple booking a Moroccan hotel after May 2024"
+    },
+    {
+      "action": "Assume the May 2024 statements mean the underlying law changed and that hotels can never ask about marital status anywhere in Morocco going forward",
+      "why_fails": "The change came from a public statement by the Justice Minister and verbal directives from security services to individual hotels, not from new legislation; Article 490 of the penal code criminalizing extramarital sexual relations remains on the books, and reporting on the episode notes some hoteliers treated the minister's comments as personal opinion and kept requiring certificates absent 'explicit legal or ministerial guidance.'",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.newarab.com/news/morocco-hotels-lift-ban-unmarried-couples-solo-women"
+      ],
+      "condition": "Any hotel, especially outside major tourist-facing establishments",
+      "common_misconception": "That an informal ministerial statement and police directive is the same thing as a repealed or amended law."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For foreign tourists, expect this to be a non-issue in practice - Moroccan authorities have not targeted foreign visitors over marital status - but if a hotel still asks, note that Morocco's own Justice Minister has said this has no legal basis, and ask for a different room or property if the hotel insists",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.moroccoworldnews.com/2024/05/19102/moroccans-divided-over-lifted-ban-on-marriage-certificate-requirement-in-hotels/"
+      ],
+      "condition": "Foreign (non-Moroccan) unmarried couple"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}
