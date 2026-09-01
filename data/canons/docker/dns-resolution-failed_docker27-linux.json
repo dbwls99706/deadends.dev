@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "network_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-01"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.8,
     "confidence": 0.85,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-01",
     "summary": "Container can't resolve DNS. Common during build (apt-get) or runtime (API calls)."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "IPs change - this is fragile and breaks when servers move",
       "fail_rate": 0.8,
       "sources": [
-        "https://docs.docker.com/engine/daemon/networking/"
+        "https://docs.docker.com/engine/network/"
       ],
       "condition": ""
     },
@@ -49,7 +49,7 @@
       "action": "Specify DNS server: docker run --dns 8.8.8.8",
       "success_rate": 0.9,
       "sources": [
-        "https://docs.docker.com/engine/daemon/networking/#dns-services"
+        "https://docs.docker.com/engine/reference/commandline/run/"
       ],
       "condition": "",
       "how": "docker run --dns 8.8.8.8"
@@ -59,7 +59,7 @@
       "success_rate": 0.88,
       "how": "{\"dns\": [\"8.8.8.8\", \"8.8.4.4\"]}",
       "sources": [
-        "https://docs.docker.com/engine/daemon/networking/#dns-services"
+        "https://docs.docker.com/reference/cli/dockerd/"
       ],
       "condition": ""
     },
@@ -67,7 +67,7 @@
       "action": "If on corporate VPN, use VPN's DNS server instead of public DNS",
       "success_rate": 0.82,
       "sources": [
-        "https://docs.docker.com/engine/daemon/networking/"
+        "https://docs.docker.com/engine/network/"
       ],
       "condition": "",
       "how": "# In Docker daemon config (/etc/docker/daemon.json):\n{\n  \"dns\": [\"10.0.0.2\", \"8.8.8.8\"]\n}\n# Replace 10.0.0.2 with your VPN/corporate DNS\nsudo systemctl restart docker"
@@ -97,6 +97,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-01"
   }
 }

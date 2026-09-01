@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/unmarried-partner-not-recognized-for-residency/ma",
+  "url": "https://deadends.dev/policy/unmarried-partner-not-recognized-for-residency/ma",
+  "error": {
+    "signature": "AI tells a foreigner in Morocco that living with an unmarried partner qualifies them for a residence permit (carte de sejour / carte d'immatriculation) the way a spouse would, or that a stay longer than 90 days just needs the same paperwork regardless of marital status",
+    "regex": "(morocco.*(residence permit|carte de séjour|carte de sejour)|carte d.immatriculation.*maroc|morocco.*unmarried.*partner)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-01",
+    "last_confirmed": "2026-09-01"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-01",
+    "summary": "Morocco requires foreigners staying beyond the visa-exempt three consecutive months (within a six-month period) to hold a residence permit issued by the local police commissariat or Gendarmerie Royale under Law 02-03. France's diplomatic mission in Morocco states explicitly that free/common-law unions (union libre) are not recognized for this purpose - an unmarried partner cannot be added to an application the way a spouse can, and is capped at the same three-month visa-exempt stay as any other tourist. The permit itself is renewed annually until a foreigner qualifies for a 10-year card under Article 17 of Law 02-03, and renewal must be filed before the current card expires."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume an unmarried partner can be included on a residence permit application as a de facto household member, or that cohabiting with a Moroccan or foreign partner extends the 3-month visa-exempt stay the way marriage does",
+      "why_fails": "France's embassy in Morocco states plainly that free union ('union libre') is not recognized in Morocco ('L'union libre n'est pas reconnue au Maroc'); an unmarried partner has no residency pathway through the relationship and remains capped at the standard three-consecutive-months-in-six visa-exempt stay available to any tourist.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour"
+      ],
+      "condition": "Unmarried/cohabiting foreign partner seeking residency through the relationship",
+      "common_misconception": "That Morocco treats long-term cohabitation like marriage for immigration purposes, as some European countries do."
+    },
+    {
+      "action": "Wait until after the current residence card expires to file the renewal, assuming a short grace period is automatically tolerated",
+      "why_fails": "Law 02-03 requires foreigners to keep their status in order and renew before expiration; Moroccan authorities have tightened enforcement of renewal deadlines, and letting the card lapse can force the applicant to leave Moroccan territory and restart the application from outside the country rather than simply renewing.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://cnclt.justice.gov.ma/fr/publication/loi-02-03/"
+      ],
+      "condition": "Residence card nearing its annual expiration date"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File the residence-permit application (or renewal) at the local police commissariat or Gendarmerie Royale before the current authorization expires, bringing the old card, proof of the underlying ground for residence (work contract, enrollment, or proof of sufficient income), and - for renewals - an up-to-date employment or enrollment attestation",
+      "success_rate": 0.85,
+      "how": "Conditions and the exact document list vary by prefecture and by the reason for residence (employment, study, retirement, family reunification via marriage), so confirm the current checklist with the receiving commissariat/gendarmerie rather than relying on a generic list.",
+      "sources": [
+        "https://morocco.diplomatie.belgium.be/fr/services-consulaires/inscription-dans-les-registres-consulaires-de-population"
+      ],
+      "condition": "Foreigner with an established legal ground for residence (not union libre)"
+    },
+    {
+      "action": "If the relationship is the only basis for wanting to stay longer, marry before applying, or plan around the three-consecutive-months-in-six visa-exempt limit with periodic departures rather than assuming a residence permit is available",
+      "success_rate": 0.6,
+      "sources": [
+        "https://ma.diplomatie.gouv.fr/fr/vivre-venir/permis-de-sejour"
+      ],
+      "condition": "Unmarried partner with no independent ground (job, enrollment, income) for residency",
+      "tradeoff": "Relying on repeated visa-exempt entries is fragile: Morocco's own rule is three consecutive months within a six-month window, not a resettable 90-day clock, so border officers can and do refuse entry to travelers who appear to be using tourism status to live in Morocco long-term."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/tourist-stay-90-in-180-days/ma",
+        "distinction": "That canon covers the visa-exempt tourist stay limit itself; this one covers what happens next - applying for an actual residence permit - and why an unmarried partner cannot use the relationship as the basis for one."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-01",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-01"
+  }
+}

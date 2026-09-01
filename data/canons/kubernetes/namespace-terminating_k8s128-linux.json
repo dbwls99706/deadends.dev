@@ -8,7 +8,7 @@
     "domain": "kubernetes",
     "category": "namespace",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-01"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-01",
     "summary": "Namespace stuck in Terminating state - usually due to a finalizer that can't complete."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Does not work for stuck Terminating namespaces; finalizers still block",
       "fail_rate": 0.8,
       "sources": [
-        "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/"
+        "https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "May never resolve if the finalizer controller is gone",
       "fail_rate": 0.7,
       "sources": [
-        "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/"
+        "https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/"
       ],
       "condition": ""
     }
@@ -52,7 +52,8 @@
       "sources": [
         "https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/"
       ],
-      "condition": ""
+      "condition": "",
+      "tradeoff": "Kubernetes' own finalizers documentation cautions against manually removing finalizers to force deletion through - they exist to stop a resource from being removed before its cleanup logic (e.g. an external cloud resource, a CRD's own controller) has finished, and clearing one by hand can leave that dependent state orphaned. Check why the owning controller is not clearing the finalizer itself before forcing it."
     },
     {
       "action": "Check what's preventing deletion: kubectl api-resources --verbs=list --namespaced -o name | xargs -n1 kubectl get -n <ns>",
@@ -77,6 +78,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-01"
   }
 }
