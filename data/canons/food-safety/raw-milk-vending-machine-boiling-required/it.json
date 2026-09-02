@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-milk-vending-machine-boiling-required/it",
+  "url": "https://deadends.dev/food-safety/raw-milk-vending-machine-boiling-required/it",
+  "error": {
+    "signature": "AI tells someone raw milk from an Italian vending machine (distributore di latte crudo) is safe to drink straight from the tap because it's fresh or refrigerated, or treats the boiling warning as an old-fashioned precaution",
+    "regex": "(raw milk italy|latte crudo|italy milk vending machine|unpasteurized milk italy|distributore.*latte.*crudo)",
+    "domain": "food-safety",
+    "category": "contamination_risk",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Italian law (Ministero della Salute decree of 12 December 2012, published in Gazzetta Ufficiale n. 24 of 29 January 2013, implementing Legge 189/2012) requires raw/unpasteurized milk sold via automatic vending machines to display the mandatory warning 'Prodotto da consumarsi solo dopo bollitura' (product to be consumed only after boiling) in red lettering at least 4 cm tall on the front of the machine, along with visible milking and expiry dates (expiry capped at 3 days after milking), and bans providing containers meant for on-the-spot consumption. Raw milk can carry E. coli O157, verocytotoxin-producing E. coli (VTEC), and other pathogens that survive refrigeration and are eliminated only by boiling."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident that milk from an Italian roadside 'latte crudo' vending machine is fine to drink straight, since it's fresh, local, or refrigerated",
+      "why_fails": "Istituto Superiore di Sanita (ISS) states raw milk can harbor E. coli O157, verocytotoxin-producing E. coli (VTEC), and other pathogens introduced from the cow's skin, workers' hands, or equipment; rapid refrigeration only slows bacterial growth, it does not eliminate these pathogens - only heat treatment (boiling) does, which is why the machine itself is legally required to carry the boiling warning.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/l/latte-crudo"
+      ],
+      "condition": "Buying from an automatic raw-milk vending machine in Italy",
+      "common_misconception": "That 'fresh from a local farm' or refrigerated raw milk is inherently safer, or doesn't need the same precaution as raw milk sold any other way."
+    },
+    {
+      "action": "Assume the boiling warning on raw-milk vending machines is a generic disclaimer with no specific legal format or enforcement behind it",
+      "why_fails": "The Ministero della Salute decree of 12 December 2012 (Gazzetta Ufficiale n. 24/2013) mandates specific, measurable requirements: the exact phrase 'prodotto da consumarsi solo dopo bollitura' displayed in red characters at least 4 cm tall on the front of the machine, visible milking and expiry dates (expiry no more than 3 days after milking), and a ban on the machine providing containers intended for on-site consumption.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.gazzettaufficiale.it/eli/id/2013/01/29/13A00727/sg"
+      ],
+      "condition": "Evaluating whether a specific vending machine's labeling is compliant"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Boil raw milk bought from an Italian vending machine before drinking it, regardless of how fresh it looks or how the seller describes it",
+      "success_rate": 0.95,
+      "how": "A rolling boil destroys E. coli, VTEC, and other common raw-milk pathogens; this is the same instruction legally printed on the machine itself.",
+      "sources": [
+        "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/l/latte-crudo"
+      ],
+      "condition": "Any raw milk purchased from an Italian vending machine"
+    },
+    {
+      "action": "If you want milk that doesn't need boiling, buy pasteurized or UHT milk (latte pastorizzato/UHT) from a regular supermarket instead of a raw-milk distributor",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/l/latte-crudo"
+      ],
+      "condition": "Wanting to skip the boiling step entirely"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

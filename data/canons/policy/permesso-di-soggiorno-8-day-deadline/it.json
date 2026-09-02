@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/permesso-di-soggiorno-8-day-deadline/it",
+  "url": "https://deadends.dev/policy/permesso-di-soggiorno-8-day-deadline/it",
+  "error": {
+    "signature": "AI tells a non-EU visa holder they can submit their first permesso di soggiorno application by walking into the Questura, or treats the 8-day filing deadline as roughly a week of calendar days",
+    "regex": "(permesso di soggiorno|italy residence permit deadline|8 (working )?days.*(italy|soggiorno)|kit postale.*soggiorno)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Non-EU nationals staying in Italy more than three months must request a permesso di soggiorno within 8 working days of entry (giorni lavorativi, excluding Sundays and public holidays), per Article 5 of the Testo Unico Immigrazione (D.Lgs. 286/1998) and confirmed by Ministero dell'Interno guidance. For the main permit reasons, the application is not filed at the Questura counter directly: it is compiled using the yellow postal kit (kit a banda gialla) and submitted at a Poste Italiane branch offering Sportello Amico service, after which the applicant receives a Questura appointment for fingerprinting and biometric processing."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a newcomer that they can submit their first permesso di soggiorno application by walking into the Questura in person",
+      "why_fails": "Poste Italiane's official guidance routes first-issuance, renewal, conversion, and update requests for the listed permit reasons through the yellow postal kit submitted at a Poste Italiane branch with Sportello Amico service; the Questura visit that follows is a scheduled appointment for fingerprinting and biometric data collection, not the point of initial filing.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno"
+      ],
+      "condition": "First-time or renewal application for one of the permit reasons handled via postal kit",
+      "common_misconception": "That the Questura front desk is the correct walk-in point for a first application, when it is actually only for the later fingerprinting appointment."
+    },
+    {
+      "action": "Treat the 8-day filing deadline as roughly a week of calendar days, or assume weekends and holidays count toward it the same as any other day",
+      "why_fails": "Ministero dell'Interno's guidance and Article 5 of the Testo Unico Immigrazione (D.Lgs. 286/1998) both specify the deadline as 8 giorni lavorativi (8 working days), explicitly excluding Sundays and public holidays - so the actual calendar window is longer than a literal 8-calendar-day count would suggest, and miscounting it either way risks filing late or being told (incorrectly) that the deadline has already passed.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.interno.gov.it/it/temi/immigrazione-e-asilo/modalita-dingresso/visto-e-permesso-soggiorno"
+      ],
+      "condition": "Calculating the filing deadline after entry into Italy",
+      "common_misconception": "That the 8-day rule is measured in calendar days rather than working days, or that it is an informally-enforced guideline."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Get the yellow kit (kit a banda gialla) from any Poste Italiane branch as soon as possible after entry, complete it, and submit it at a branch offering Sportello Amico service within 8 working days of entry",
+      "success_rate": 0.85,
+      "how": "Total costs typically include a EUR 16 revenue stamp, roughly EUR 30 for the post-office operator, about EUR 30.46 for permit production, plus permit-type-specific contributions. Submission produces a receipt allowing continued lawful presence in Italy while the application is processed, plus a Questura summons letter with a date, time, and location for the fingerprinting appointment.",
+      "sources": [
+        "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno"
+      ],
+      "condition": "Within 8 working days of entry into Italy"
+    },
+    {
+      "action": "If unsure whether a specific circumstance uses the postal-kit route or requires filing directly with the competent Questura, check the Ministero dell'Interno's guidance for that permit reason before the 8-working-day window closes",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.interno.gov.it/it/temi/immigrazione-e-asilo/modalita-dingresso/visto-e-permesso-soggiorno"
+      ],
+      "condition": "Uncommon or unclear permit category"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/codice-fiscale-tax-number-required/it",
+        "distinction": "This canon covers the deadline and postal-kit procedure for filing the permesso di soggiorno itself; the other covers which office assigns the codice fiscale and when it comes bundled with that same permit application."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

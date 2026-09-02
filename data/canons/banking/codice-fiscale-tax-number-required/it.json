@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/codice-fiscale-tax-number-required/it",
+  "url": "https://deadends.dev/banking/codice-fiscale-tax-number-required/it",
+  "error": {
+    "signature": "AI tells a non-EU immigrant applying for a permesso di soggiorno to get their codice fiscale by visiting Agenzia delle Entrate directly, or claims a passport/residence permit alone is enough to open a bank account in Italy",
+    "regex": "(italy.*(bank account|open.*account)|codice fiscale.*italy|italian tax code|open.*account.*italy)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Italy requires a codice fiscale (16-character alphanumeric tax code) before a bank account, lease, or mobile contract can be finalized. For non-EU nationals applying for a permesso di soggiorno tied to work or family reunification, the code is assigned automatically by the Questura or the Sportello Unico per l'Immigrazione as part of that permit application - it is not obtained by a separate Agenzia delle Entrate visit. EU citizens, and non-EU foreigners outside that specific permit route, instead book an in-person appointment at any Agenzia delle Entrate territorial office and submit form AA4/8 with a valid ID."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a non-EU applicant with a pending work or family-reunification permesso di soggiorno to go directly to Agenzia delle Entrate for their codice fiscale",
+      "why_fails": "Agenzia delle Entrate's own guidance for foreign citizens states the code is assigned by the Questura for most permit renewal/issuance requests, and by the Sportello Unico per l'Immigrazione for work-permit and family-reunification applications, as part of the immigration process itself - not through a standalone Agenzia delle Entrate visit for this group. A provisional numeric code is issued first, replaced by the definitive alphanumeric code once the permit itself is granted.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-cittadini"
+      ],
+      "condition": "Non-EU applicant applying for permesso di soggiorno for work or family reunification"
+    },
+    {
+      "action": "Assume a passport or residence permit alone, without a codice fiscale, is sufficient to open an Italian bank account",
+      "why_fails": "Italian banks use the codice fiscale as the primary identifier for customer identification and anti-money-laundering checks; the passport or residence permit is only supporting identity documentation used to request the tax code, not a substitute for it, so account opening cannot complete without it.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.agenziaentrate.gov.it/portale/documents/20143/233505/Folder_CodiceFiscaleStranieri_08+03+23.pdf/218dc638-ced1-3b2d-f5f2-912686b1f7fe"
+      ],
+      "condition": "First bank account application in Italy",
+      "common_misconception": "That the codice fiscale is an optional convenience document rather than the mandatory customer identifier Italian banks rely on."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Non-EU nationals applying for a permesso di soggiorno for work or family reunification: request the codice fiscale as part of that same application at the Sportello Unico per l'Immigrazione (or expect it from the Questura for other permit renewals) rather than seeking it separately",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-cittadini"
+      ],
+      "condition": "Applying for permesso di soggiorno tied to work or family reunification"
+    },
+    {
+      "action": "EU citizens, or non-EU foreigners not going through that specific immigration-permit route: book an in-person appointment at any Agenzia delle Entrate territorial office and bring form AA4/8 plus a valid identity document",
+      "success_rate": 0.85,
+      "how": "First issuance of a codice fiscale to a foreign citizen requires an in-person appointment; digital signature can substitute for physically attaching the ID document in some cases.",
+      "sources": [
+        "https://consfiume.esteri.it/it/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/codice-fiscale-per-stranieri/"
+      ],
+      "condition": "EU citizen, or non-EU foreigner without a pending work/family-reunification permesso di soggiorno application"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/permesso-di-soggiorno-8-day-deadline/it",
+        "distinction": "This canon covers who issues the codice fiscale and through which office; the other covers the separate 8-working-day deadline and postal-kit procedure for filing the permesso di soggiorno application itself."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

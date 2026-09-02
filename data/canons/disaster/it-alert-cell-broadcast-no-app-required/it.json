@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/it-alert-cell-broadcast-no-app-required/it",
+  "url": "https://deadends.dev/disaster/it-alert-cell-broadcast-no-app-required/it",
+  "error": {
+    "signature": "AI tells someone in Italy they must download an 'IT-Alert' app to receive earthquake, volcanic, dam-collapse, or industrial-accident emergency alerts, or assumes every future IT-Alert risk category will stay app-free",
+    "regex": "(it-alert app|italy earthquake alert app|download.*it.?alert|italy disaster warning app|it-alert.*app)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "it",
+      "country_name": "Italy",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-02",
+    "summary": "IT-Alert, Italy's national public warning system run by the Dipartimento della Protezione Civile, delivers alerts via cell-broadcast technology automatically to any powered-on phone in the affected area - no app download or registration is required. It is operational for nuclear/radiological emergencies, major industrial accidents, large-dam collapse, and volcanic activity at Campi Flegrei, Vesuvius, and Vulcano; tsunami and Stromboli volcanic-activity alerts remain in an extended experimental phase through 31 December 2026 under the Direttiva Ministro PCPM of 12 February 2026. That same directive changes the plan specifically for intense-precipitation (flash-flood) alerts: cell broadcast is being dropped for that one risk type in favor of a dedicated app, required to become operational within 12 months of the directive's publication (by roughly May 2027) - so the 'no app needed' answer will stop being universally true once that app launches."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Italy they need to install a specific 'IT-Alert' app to receive official emergency alerts",
+      "why_fails": "Dipartimento della Protezione Civile's own explainer states IT-Alert messages reach any powered-on mobile device in the affected area via cell-broadcast technology built into the mobile network; there is no app to install or account to register for the risk categories covered so far (nuclear/radiological, industrial accident, dam collapse, and the operational Campi Flegrei/Vesuvius/Vulcano volcanic risk).",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.protezionecivile.gov.it/it/approfondimento/it-alert-il-sistema-nazionale-di-allarme-pubblico/"
+      ],
+      "condition": "Nuclear, industrial-accident, dam-collapse, or Campi Flegrei/Vesuvius/Vulcano volcanic risk",
+      "common_misconception": "That Italy's alert system works like some other countries' app-based warning systems."
+    },
+    {
+      "action": "Assume the 'no app needed' answer will keep applying to every future IT-Alert risk category, including intense-precipitation/flash-flood warnings",
+      "why_fails": "The Direttiva Ministro PCPM of 12 February 2026 explicitly abandons cell broadcast for the intense-precipitation risk category specifically, citing strong local variability of weather events and the difficulty of setting uniform regional thresholds, and instead mandates a dedicated app be made operational within 12 months of the directive's publication (i.e., by roughly May 2027).",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.protezionecivile.gov.it/it/normativa/direttiva-ministro-pcpm-12-febbraio-2026/",
+        "https://www.gazzettaufficiale.it/eli/id/2026/05/02/26A02136/SG"
+      ],
+      "condition": "Intense-precipitation/flash-flood risk specifically, once that app launches",
+      "common_misconception": "That IT-Alert's delivery mechanism is uniform across every hazard type and will stay cell-broadcast-only indefinitely."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm the phone's built-in emergency/wireless alert setting is enabled (most modern smartphones ship with it on); no separate download is needed for the currently operational or experimental risk categories",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.protezionecivile.gov.it/it/approfondimento/it-alert-il-sistema-nazionale-di-allarme-pubblico/"
+      ],
+      "condition": "General public in Italy, current operational and experimental risk categories"
+    },
+    {
+      "action": "For intense-precipitation/flash-flood risk once the mandated app becomes operational, check protezionecivile.gov.it for the official rollout rather than assuming cell-broadcast coverage extends to that hazard",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.protezionecivile.gov.it/it/normativa/direttiva-ministro-pcpm-12-febbraio-2026/"
+      ],
+      "condition": "Intense-precipitation/flash-flood risk, after the app launches"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/it",
+        "distinction": "That canon covers which number to dial for help during an emergency (112); this one covers how IT-Alert push warnings reach you before or during a hazard (automatic cell broadcast, and soon a dedicated app for one specific risk)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}
