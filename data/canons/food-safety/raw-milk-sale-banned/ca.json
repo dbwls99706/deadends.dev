@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-milk-sale-banned/ca",
+  "url": "https://deadends.dev/food-safety/raw-milk-sale-banned/ca",
+  "error": {
+    "signature": "AI tells someone in Canada that raw/unpasteurized milk can be legally bought from a farm, farmers' market, or 'cow-share' program",
+    "regex": "(raw milk.*canada|unpasteurized milk.*canada|buy.*raw milk.*(ontario|quebec|bc|alberta)|cow.share.*canada)",
+    "domain": "food-safety",
+    "category": "regulatory_prohibition",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Canada's Food and Drug Regulations have banned the sale, delivery, or distribution of raw (unpasteurized) milk for human consumption nationwide since 1991, enforced through matching provincial legislation (e.g. Ontario's Milk Act). The only carved-out exception is cheese made from unpasteurized milk, which may be sold if stored at 2 C or above for at least 60 days from the start of manufacture, under Food and Drug Regulations section B.08.044. There is no province where fluid raw milk can be legally sold to consumers, including through 'cow-share' or herd-share arrangements, which operate as unlicensed distribution networks despite being sometimes framed as a legal workaround."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone they can legally buy raw milk directly from a Canadian farm or through a herd-share/cow-share arrangement",
+      "why_fails": "Health Canada states plainly that 'the sale of raw milk has been strictly prohibited under the Food and Drug Regulations since 1991.' A 2023 Public Health Agency of Canada case report on raw-milk-linked paediatric HUS describes how consumers accessed raw milk only through 'an illicit network' distributing jars from a delivery vehicle - i.e. the supply itself is unlawful, not a licensed grey market, and it is illegal to sell, deliver or distribute raw milk under matching provincial statutes such as Ontario's Milk Act.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.canada.ca/en/health-canada/services/food-nutrition/food-safety/information-product/statement-about-drinking-milk.html",
+        "https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2023-49/issue-9-september-2023/raw-milk-consumption-paediatric-hemolytic-uremic-syndrome.html"
+      ],
+      "condition": "Consumer purchase of fluid raw milk anywhere in Canada"
+    },
+    {
+      "action": "Assume all raw-milk cheese is also illegal, or that cheese must be pasteurized to be sold in Canada",
+      "why_fails": "Food and Drug Regulations section B.08.044 permits selling cheese not made from a pasteurized source provided it has been 'stored' - kept at 2 C or more for at least 60 days from the start of the manufacturing process - which is why aged raw-milk cheeses are legally sold in Canadian stores while raw fluid milk is not.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://laws-lois.justice.gc.ca/eng/regulations/C.R.C.,_c._870/section-B.08.044.html"
+      ],
+      "condition": "Raw-milk cheese specifically, not fluid milk",
+      "common_misconception": "That the raw-milk ban is absolute and covers all dairy products including aged cheese."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For raw-milk cheese, buy only commercially sold product that has been aged 60+ days per Canadian regulation; for fluid milk, buy only pasteurized product",
+      "success_rate": 0.9,
+      "sources": [
+        "https://laws-lois.justice.gc.ca/eng/regulations/C.R.C.,_c._870/section-B.08.044.html"
+      ],
+      "condition": "General consumer"
+    },
+    {
+      "action": "If raw milk is desired for its taste/nutrition claims, be aware there is no legal retail channel in any province; treat any 'farm share' or private delivery offer as an unregulated, unlawful source with the documented outbreak risks (E. coli, Listeria, Salmonella) Health Canada warns about",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.canada.ca/en/public-health/services/reports-publications/canada-communicable-disease-report-ccdr/monthly-issue/2023-49/issue-9-september-2023/raw-milk-consumption-paediatric-hemolytic-uremic-syndrome.html"
+      ],
+      "condition": "Consumer considering informal raw milk access",
+      "tradeoff": "No legal path exists; the only 'workaround' is understanding the risk and legal exposure, not a sanctioned alternative."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

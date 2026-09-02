@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/sin-not-required-before-starting-work/ca",
+  "url": "https://deadends.dev/policy/sin-not-required-before-starting-work/ca",
+  "error": {
+    "signature": "AI tells a newcomer to Canada they must have their Social Insurance Number (SIN) in hand before they can legally start a job",
+    "regex": "(social insurance number.*(before|start work)|sin.*canada.*(required|before).*(work|job)|canada.*(work|job).*without.*sin)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Employment and Social Development Canada's SIN Code of Practice states that a new employee without a SIN is not prevented from working while they wait for one. They must apply for a SIN within 3 days of their employment start date, and once issued, must give it to the employer within 3 days of receiving the SIN confirmation. Employers must collect the SIN within 3 days of the employee's start date, but that collection deadline does not block the employee from beginning work first."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a newcomer or new hire they cannot legally start their job until they physically have a SIN",
+      "why_fails": "Service Canada's own SIN Code of Practice for employers states plainly: 'This doesn't prevent the individual from working before getting their SIN.' A new employee eligible to work in Canada is told to apply within the first 3 days of employment, not to wait for the number before starting.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.canada.ca/en/employment-social-development/services/sin/reports/code-of-practice.html"
+      ],
+      "condition": "Newcomer with confirmed work authorization but no SIN yet",
+      "common_misconception": "That a SIN functions like a work permit and must be obtained before employment begins, rather than a payroll/tax registration number applied for in parallel."
+    },
+    {
+      "action": "Assume the employer can legally wait indefinitely, or refuse to onboard, until the employee's SIN is confirmed",
+      "why_fails": "Every employer in Canada must collect the SIN within 3 days of the employee's start date so they can report earnings and remit CPP/EI contributions; treating SIN collection as an open-ended prerequisite rather than a fixed 3-day post-start obligation misstates the employer's own compliance deadline.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.canada.ca/en/employment-social-development/services/sin/reports/code-of-practice.html"
+      ],
+      "condition": "Employer onboarding a new hire without a SIN yet"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Newcomer applies for a SIN online, by mail, or in person as soon as their grounds for work (job offer plus valid work/study permit or PR/citizenship proof) are confirmed, and starts work without waiting for the confirmation letter",
+      "success_rate": 0.9,
+      "how": "canada.ca confirms: 'You can start working as soon as you apply for a SIN - you don't need to wait for the number.' Online applications typically show a SIN confirmation letter in about 5 business days.",
+      "sources": [
+        "https://www.canada.ca/en/employment-social-development/services/sin/temporary-residents.html"
+      ],
+      "condition": "Temporary resident or newcomer with valid work authorization"
+    },
+    {
+      "action": "Employer records the employee's start date, requests the SIN application be filed within 3 days, and collects the actual SIN within 3 days of the employee receiving their confirmation letter - not before the employee's first day",
+      "success_rate": 0.85,
+      "how": "Follow the SIN Code of Practice's 3-day / 3-day sequence rather than an informal 'SIN in hand before day one' policy.",
+      "sources": [
+        "https://www.canada.ca/en/employment-social-development/services/sin/apply.html"
+      ],
+      "condition": "Employer payroll onboarding"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

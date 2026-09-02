@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/winter-tire-mandate-not-nationwide/ca",
+  "url": "https://deadends.dev/safety/winter-tire-mandate-not-nationwide/ca",
+  "error": {
+    "signature": "AI states either that winter tires are legally mandatory across Canada, or that no part of Canada legally requires them",
+    "regex": "(winter tires.*mandatory.*canada|canada.*winter tire law|snow tires.*required.*canada)",
+    "domain": "safety",
+    "category": "regulatory_patchwork",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-02",
+    "summary": "Winter tire legal mandates in Canada exist at three distinct, non-overlapping jurisdictional layers rather than as one national rule: Quebec requires winter tires on all vehicles registered in the province from December 1 to March 15 (fine $200-300), British Columbia requires winter tires or chains on designated Winter Tire & Chain routes from October 1 to March 31 or April 30 depending on the route, and Parks Canada federally requires snow tires or chains on specific mountain highways such as the Icefields Parkway (Hwy 93N) from November 1 to March 31. Every other province and territory, including Ontario and Alberta, has no legal winter-tire mandate at all - only insurance-discount incentives."
+  },
+  "dead_ends": [
+    {
+      "action": "State flatly that winter tires are legally required everywhere in Canada during winter",
+      "why_fails": "Quebec's government explicitly scopes its mandate to vehicles registered in Quebec, not a national rule: 'This regulation applies only to Quebec' and 'vehicles registered outside of Quebec' are not covered, with the mandate running December 1 to March 15 and a $200-300 fine for non-compliance.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.quebec.ca/en/transports/traffic-road-safety/winter-road-safety/requirements-for-winter-tires"
+      ],
+      "condition": "Driving outside Quebec"
+    },
+    {
+      "action": "State flatly that no part of Canada legally requires winter tires, treating it as purely a recommendation everywhere",
+      "why_fails": "Winter tires or chains are legally required on B.C.'s designated Winter Tire & Chain routes from October 1 through March 31 or April 30 depending on the route, and Parks Canada separately mandates snow tires or chains on the Icefields Parkway (Hwy 93N) in Banff/Jasper National Parks from November 1 to March 31 - both are enforceable legal requirements, not recommendations, on top of Quebec's provincial mandate.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/traveller-information/seasonal/winter-driving/winter-tire-and-chain-up-routes",
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/hiver-winter/pcghiver-ipwinter/pcg-securite-safety-ip"
+      ],
+      "condition": "Driving in BC's designated routes or federal mountain park highways",
+      "common_misconception": "That because most provinces (Ontario, Alberta, the Prairies, Atlantic Canada) have no mandate, none of Canada does."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific province/route before driving in winter: Quebec (province-wide, Dec 1-Mar 15), BC (designated routes only, Oct 1-Mar 31/Apr 30), Parks Canada mountain highways like the Icefields Parkway (Nov 1-Mar 31) all have enforceable mandates; everywhere else it is a strong safety recommendation with insurance discounts but not a legal requirement",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.quebec.ca/en/transports/traffic-road-safety/winter-road-safety/requirements-for-winter-tires",
+        "https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/traveller-information/seasonal/winter-driving/winter-tire-and-chain-up-routes",
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/hiver-winter/pcghiver-ipwinter/pcg-securite-safety-ip"
+      ],
+      "condition": "Winter driving trip planning across Canadian jurisdictions"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

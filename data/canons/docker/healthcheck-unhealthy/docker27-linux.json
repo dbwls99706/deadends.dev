@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-02"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.85,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-02",
     "summary": "Container healthcheck failing. App may be starting slow or endpoint misconfigured."
   },
   "dead_ends": [
@@ -79,6 +79,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-02"
   }
 }
