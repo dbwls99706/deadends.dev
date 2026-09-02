@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/cannabis-public-consumption-provincial-rules/ca",
+  "url": "https://deadends.dev/legal/cannabis-public-consumption-provincial-rules/ca",
+  "error": {
+    "signature": "AI tells someone that since cannabis is legal nationwide in Canada, it can be smoked or vaped in any public place",
+    "regex": "(smoke.*cannabis.*canada.*public|cannabis legal canada.*smoke anywhere|vape.*weed.*public.*canada|marijuana.*public.*canada)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "The federal Cannabis Act (in force since October 17, 2018) legalized cannabis possession and consumption nationally, but the Department of Justice is explicit that provinces and territories retain authority to restrict 'where adults can consume cannabis, such as in public or in vehicles.' Public-consumption rules are genuinely different by province: Ontario bans smoking/vaping cannabis in enclosed public/work places, within 20 metres of school grounds, and within 9 metres of hospital and patio entrances, while British Columbia generally allows it wherever tobacco smoking is allowed but bans it in parks, beaches, playgrounds, and within 6 metres of building entrances and transit stops. Legalization is not the same as unrestricted public use anywhere in the country."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visitor or newcomer that legal cannabis means they can smoke or vape it in any public place in Canada, the way alcohol is broadly restricted but weed is not",
+      "why_fails": "Justice Canada states the federal Cannabis Act sets national production/product rules while provinces and territories are 'responsible for ... restricting where adults can consume cannabis, such as in public or in vehicles.' Ontario's official guidance lists specific bans: enclosed public and work places, school grounds and the 20-metre zone around them, and within 9 metres of hospital, long-term-care, and patio entrances - materially different from a blanket 'legal so anywhere is fine' assumption.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.justice.gc.ca/eng/cj-jp/cannabis/",
+        "https://www.ontario.ca/page/cannabis-laws"
+      ],
+      "condition": "Public cannabis consumption in Ontario"
+    },
+    {
+      "action": "Apply Ontario's (or any one province's) specific cannabis public-consumption rules to the rest of Canada",
+      "why_fails": "British Columbia's rules differ structurally from Ontario's: BC generally permits smoking or vaping cannabis 'in a public place where smoking and vaping tobacco is allowed,' but separately bans it at playgrounds, sports fields, pools, in most parks, and within 6 metres of building entrances/windows and transit stops - a different baseline and different distances than Ontario's rules.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www2.gov.bc.ca/gov/content/safety/public-safety/cannabis/where-you-can-consume"
+      ],
+      "condition": "Traveling between provinces",
+      "common_misconception": "That one province's cannabis public-consumption rule generalizes nationally."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific province's current public-consumption rule before assuming cannabis can be smoked/vaped in a given public location; when in doubt, treat it like tobacco smoking restrictions in that province plus extra distance rules near schools, hospitals, and playgrounds",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.ontario.ca/page/cannabis-laws",
+        "https://www2.gov.bc.ca/gov/content/safety/public-safety/cannabis/where-you-can-consume"
+      ],
+      "condition": "Cannabis consumption while traveling within Canada"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}

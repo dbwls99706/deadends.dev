@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/988-routes-to-provincial-line-in-qc-pe-nb/ca",
+  "url": "https://deadends.dev/mental-health/988-routes-to-provincial-line-in-qc-pe-nb/ca",
+  "error": {
+    "signature": "AI tells someone that dialing or texting 988 anywhere in Canada always reaches the same CAMH-coordinated national Suicide Crisis Helpline",
+    "regex": "(988.*canada.*(crisis|suicide)|canada.*988.*helpline|dial 988 canada|text 988 canada)",
+    "domain": "mental-health",
+    "category": "service_routing",
+    "first_seen": "2026-09-02",
+    "last_confirmed": "2026-09-02"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ca",
+      "country_name": "Canada",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-02",
+    "summary": "Canada's 9-8-8: Suicide Crisis Helpline launched November 30, 2023, is available by phone and text, 24/7, in English and French, nationwide. It is coordinated by CAMH and funded by the Government of Canada. However, callers or texters located in Quebec, Prince Edward Island, and New Brunswick are instead connected to their existing provincial crisis service (in Quebec's case, 1-866-APPELLE / 53 53 53 by text) - they receive a message that they are being redirected, so 988 is not a single uniform national service in every province."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Quebec, PEI, or New Brunswick that dialing 988 connects them to the same national CAMH-run service as the rest of Canada",
+      "why_fails": "The Government of Canada's own announcement states: 'You may receive a message that you are being connected to your provincial service when connecting to 9-8-8 if you are located in Quebec, Prince Edward Island, and New Brunswick.' In Quebec specifically, the call or text is redirected to the pre-existing provincial service (1-866-APPELLE / 53 53 53 by text), not the CAMH-coordinated national line.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.canada.ca/en/public-health/news/2023/11/9-8-8-suicide-crisis-helpline.html"
+      ],
+      "condition": "Caller/texter located in Quebec, PEI, or New Brunswick",
+      "common_misconception": "That a nationally announced three-digit number implies one single uniform back-end service everywhere it works, when three provinces route it to their own pre-existing crisis lines instead."
+    },
+    {
+      "action": "Assume 988 only works by phone call and not by text, or is region-limited to certain carriers",
+      "why_fails": "The Government of Canada confirms 9-8-8 is 'now available to call or text, in English and French, 24 hours a day and seven days a week, across Canada' - both channels work nationwide outside the QC/PE/NB routing exception.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.canada.ca/en/public-health/news/2023/11/government-of-canada-launches-three-digit-suicide-crisis-helpline.html"
+      ],
+      "condition": "General availability question"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tell users nationwide to call or text 988 - it works everywhere - but to expect an automatic redirect message to a provincial line if they are physically in Quebec, PEI, or New Brunswick, rather than treating the redirect as an error",
+      "success_rate": 0.85,
+      "how": "988 is coordinated by CAMH with Government of Canada funding; the provincial redirect in QC/PE/NB preserves continuity with services residents already used before the national line launched.",
+      "sources": [
+        "https://www.camh.ca/en/driving-change/988"
+      ],
+      "condition": "General public in Canada"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-02",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-02"
+  }
+}
