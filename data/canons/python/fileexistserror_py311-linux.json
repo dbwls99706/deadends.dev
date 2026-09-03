@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "filesystem_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-03"
   },
   "environment": {
     "runtime": {
@@ -22,7 +22,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.95,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-03",
     "summary": "File or directory already exists. Common with os.makedirs() or shutil.copy()."
   },
   "dead_ends": [
@@ -80,6 +80,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-03"
   }
 }

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/restricted-border-zones-noc-still-required/pk",
+  "url": "https://deadends.dev/safety/restricted-border-zones-noc-still-required/pk",
+  "error": {
+    "signature": "AI tells a foreign tourist that Pakistan abolished all NOC/restricted-area rules in 2019, so any part of the country including Balochistan is freely accessible",
+    "regex": "(pakistan.*noc.*(abolish|remov|end)|pakistan.*restricted area|pakistan.*balochistan.*travel)",
+    "domain": "safety",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-03",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.3,
+    "last_updated": "2026-09-03",
+    "summary": "Pakistan's Interior Ministry abolished the blanket No-Objection Certificate (NOC) requirement for foreign tourists in March 2019 (cabinet decision of 31 January 2019), opening Azad Jammu and Kashmir, Gilgit-Baltistan, and Chitral to free movement outside signposted restricted zones. That 2019 change did not create unconditional access everywhere: as of the current government travel advisories, Balochistan province remains an 'avoid all travel' security zone, Gilgit-Baltistan has had road-travel disruptions from clashes, and border buffer zones (Canada's government advisory cites roughly 50km along the Afghanistan border and 10km along the China/India/Iran borders) remain off-limits to foreigners except at official crossings."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist that since Pakistan's Interior Ministry abolished the NOC requirement in March 2019, they can travel freely to any province or district, including Balochistan or border areas, without special permission",
+      "why_fails": "The 2019 change (announced via Interior Ministry notification) opened AJK, Gilgit-Baltistan, and Chitral to free movement outside signposted restricted zones, but it did not remove restrictions everywhere: current government travel advisories still classify Balochistan as an 'avoid all travel' security zone and list border buffer zones (around 50km along the Afghanistan border, 10km along the China/India/Iran borders) as off-limits to foreigners except at official crossings.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.dawn.com/news/1471984",
+        "https://travel.gc.ca/destinations/pakistan"
+      ],
+      "condition": "Travel to Balochistan, border-adjacent districts, or areas near the Line of Control",
+      "common_misconception": "That the 2019 NOC abolition was a one-time, permanent, nationwide removal of all foreigner travel restrictions, rather than a change limited to specific regions that leaves security-driven restrictions elsewhere (particularly Balochistan) in place and subject to change."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check a current government travel advisory (e.g. from your own country) for province- and district-level guidance before planning travel in Pakistan, rather than relying on the 2019 NOC-abolition announcement alone; avoid Balochistan and marked border buffer zones unless you have arranged the specific permission those areas require",
+      "success_rate": 0.8,
+      "sources": [
+        "https://travel.gc.ca/destinations/pakistan"
+      ],
+      "condition": "Planning travel outside the main tourist corridors (AJK, Gilgit-Baltistan, Chitral, major cities)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 2,
+    "last_verification": "2026-09-03"
+  }
+}
