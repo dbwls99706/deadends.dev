@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/coastal-desert-huaico-flood-risk/pe",
+  "url": "https://deadends.dev/disaster/coastal-desert-huaico-flood-risk/pe",
+  "error": {
+    "signature": "AI assumes Peru's Pacific coast (Lima, Ica, Arequipa, Piura, the Panamericana highway) is a rainless desert with no flood or landslide risk",
+    "regex": "(peru.*(desert|coast).*(flood|rain)|panamericana.*(huaico|bloqueo|cerrada)|peru.*el ni[nñ]o costero|peru.*huaico)",
+    "domain": "disaster",
+    "category": "infrastructure_disruption",
+    "first_seen": "2017-01-01",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.68,
+    "last_updated": "2026-09-03",
+    "summary": "Peru's coastal strip is arid, but during Coastal El Niño episodes (ENFEN keeps declaring these; the one that began March 2026 is projected to run into 2027) intense rain in the Andes above the coast triggers huaicos (flash mudslides) that cut the Panamericana highway and coastal roads, sometimes for days. An August 2026 huaico shut the Panamericana Sur near Camaná/Ático for six days, stranding travelers and requiring helicopter evacuation, outside the 'usual' Dec-Apr rain window."
+  },
+  "dead_ends": [
+    {
+      "action": "Plan an overland Panamericana Sur or Norte trip (e.g. Lima-Arequipa, Lima-Piura by bus/car) without checking current huaico/road-closure and El Niño Costero advisories, on the assumption that a coastal desert route has no rain-related risk",
+      "why_fails": "During active Coastal El Niño conditions, storm systems can dump enough rain in the coastal quebradas (dry ravines) to trigger huaicos even outside the traditional Jan-Mar peak. On 16 Aug 2026, a huaico driven by Coastal El Niño plus a low-pressure system (DANA Aníbal) closed the Panamericana Sur between km 728-752 (Ático-Ocoña, Arequipa region) for six days, stranding 113+ vehicles including buses, with 120 people evacuated by helicopter on day 5.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://elcomercio.pe/peru/seis-dias-varados-en-la-panamericana-sur-el-huaico-que-aislo-a-viajeros-entre-atico-y-ocona-noticia/",
+        "https://www.infobae.com/peru/2026/05/31/enfen-mantiene-alerta-por-el-nino-costero-y-no-descarta-impactos-hasta-2027-en-la-costa-peruana/"
+      ],
+      "condition": "Overland travel on Peru's coastal highways during an active Coastal El Niño alert",
+      "common_misconception": "Because Lima, Ica, and Piura look like sand-dune desert, travelers assume 'it never rains here' rules out flood/landslide risk — the risk comes from rain falling in the Andean foothills above the coast, not on the coast itself."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before any coastal overland trip during the Sept 2026-Apr 2027 rain season (or any active ENFEN Niño Costero alert), check ENFEN's official bulletin and PVN/Provias road-status updates, and build in 1-2 buffer days.",
+      "success_rate": 0.8,
+      "how": "ENFEN (Instituto del Mar del Perú / Senamhi) publishes numbered official communiqués on El Niño Costero status; regional news (El Comercio, Infobae Peru) reports live road closures faster than official channels during an active event.",
+      "sources": [
+        "https://www.gob.pe/institucion/senamhi/informes-publicaciones/8307223-comunicado-oficial-enfen-n-12-2026",
+        "https://elcomercio.pe/peru/seis-dias-varados-en-la-panamericana-sur-el-huaico-que-aislo-a-viajeros-entre-atico-y-ocona-noticia/"
+      ],
+      "condition": "Pre-trip planning"
+    },
+    {
+      "action": "Prefer domestic flights over long-distance coastal buses/cars during an active Niño Costero alert for routes that depend on the Panamericana",
+      "success_rate": 0.85,
+      "how": "Flights are not blocked by highway huaicos; the Aug 2026 closure stranded buses and cargo trucks for up to six days while air travel continued.",
+      "sources": [
+        "https://elcomercio.pe/peru/seis-dias-varados-en-la-panamericana-sur-el-huaico-que-aislo-a-viajeros-entre-atico-y-ocona-noticia/"
+      ],
+      "condition": "Route has a flight alternative (e.g. Lima-Arequipa, Lima-Piura)",
+      "tradeoff": "Flights cost more than buses and remote strips can still see weather delays."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}

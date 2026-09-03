@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/recargo-al-consumo-service-charge/pe",
+  "url": "https://deadends.dev/culture/recargo-al-consumo-service-charge/pe",
+  "error": {
+    "signature": "AI tells a tourist that the 10-13% charge added to a Peruvian restaurant bill is just a suggested/optional tip they can freely decline, or that they should also leave an additional US-style 15-20% tip on top",
+    "regex": "(peru.*(tip|propina)|recargo al consumo|peru.*restaurant.*(bill|charge)|peru.*service charge)",
+    "domain": "culture",
+    "category": "consumer_rights",
+    "first_seen": "2024-08-22",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.72,
+    "confidence": 0.62,
+    "last_updated": "2026-09-03",
+    "summary": "Peru's 'recargo al consumo' (up to 13%, tracing to Decreto Ley 25988) is legally distinct from a voluntary tip: when properly disclosed on the menu/bill, restaurants and hotels can lawfully apply it and it is not simply refusable at the table the way a US tip is. It already functions as the service staff's tip, so stacking an additional American-style 15-20% on top is not the local norm. Consumers who were not informed in advance, or believe the charge is mishandled, have recourse through the establishment's complaint book or INDECOPI - not a unilateral refusal to pay."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat the 'recargo al consumo' (RC, up to 13%) line on a Peruvian restaurant/hotel bill as a purely optional courtesy tip that can simply be refused at checkout, the way an American diner might decline to tip",
+      "why_fails": "The charge derives from Decreto Ley 25988 (formalized 1963, raised to 13% in 1967) and is legally distinct from a voluntary propina: when the establishment discloses it in advance (on the menu or before ordering) and has an agreement with staff to distribute it, it is a legitimate contractual charge, not a tip a customer can unilaterally strike off. A 2024 INDECOPI resolution (1235-2024/SPC) confirmed this distinction. Refusing to pay a properly disclosed RC can itself be treated as a billing dispute rather than a simple 'no thanks.'",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://larepublica.pe/economia/2025/07/12/me-pueden-obligar-a-dejar-propina-en-los-restaurantes-abogado-explica-que-dice-la-ley-sobre-los-pagos-en-un-consumo-atmp-ntpe-487836",
+        "https://www.infobae.com/peru/2024/08/22/el-recargo-al-consumo-la-propina-disfrazada-que-anade-hasta-un-13-a-tu-cuenta-en-restaurantes/"
+      ],
+      "condition": "Dining at a restaurant/hotel that lists 'recargo al consumo' or 'RC' on the bill",
+      "common_misconception": "Because it functions like a tip and the word 'propina' sometimes appears alongside it colloquially, travelers assume it has the same optional legal status as a US tip."
+    },
+    {
+      "action": "Leave an additional US-style 15-20% cash tip on top of a bill that already includes the recargo al consumo",
+      "why_fails": "The recargo al consumo already functions as the service staff's tip once collected; stacking a large additional tip on top is not the local expectation (rounding up or a small extra amount for standout service is appreciated, but 15-20% on top is not the norm the way it is in the US).",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.infobae.com/peru/2025/08/27/recargo-al-consumo-asi-verificas-si-un-restaurante-te-cobra-esta-propina-obligatoria/"
+      ],
+      "condition": "Bill already includes RC/recargo al consumo"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the menu or ask before ordering whether a recargo al consumo applies and at what percentage (should be disclosed, labeled 'RC' or 'recargo al consumo', capped at 13%)",
+      "success_rate": 0.75,
+      "how": "Disclosure in advance is exactly the condition that makes the charge lawful; if it wasn't disclosed and appears as a surprise, that's the basis for a complaint, not a refusal at the table.",
+      "sources": [
+        "https://www.infobae.com/peru/2025/08/27/recargo-al-consumo-asi-verificas-si-un-restaurante-te-cobra-esta-propina-obligatoria/"
+      ],
+      "condition": "Before ordering"
+    },
+    {
+      "action": "If the RC was not disclosed in advance or you suspect it isn't being passed to staff, use the establishment's official 'libro de reclamaciones' (complaint book, required by law at every business) or file with INDECOPI rather than just refusing to pay at the table",
+      "success_rate": 0.65,
+      "how": "INDECOPI is Peru's consumer-protection regulator and has already ruled on RC disputes (Resolution 1235-2024/SPC).",
+      "sources": [
+        "https://larepublica.pe/economia/2025/07/12/me-pueden-obligar-a-dejar-propina-en-los-restaurantes-abogado-explica-que-dice-la-ley-sobre-los-pagos-en-un-consumo-atmp-ntpe-487836"
+      ],
+      "condition": "Undisclosed or disputed charge",
+      "tradeoff": "A formal complaint takes longer than a quick refusal and won't resolve the bill on the spot."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}

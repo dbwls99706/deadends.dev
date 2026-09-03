@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/ceviche-citrus-does-not-kill-anisakis/pe",
+  "url": "https://deadends.dev/food-safety/ceviche-citrus-does-not-kill-anisakis/pe",
+  "error": {
+    "signature": "AI tells a traveler that the lime/lemon juice in Peruvian ceviche 'cooks' the fish and makes it as safe as heat-cooked fish, including for parasite risk",
+    "regex": "(ceviche.*(safe|cook|raw)|peru.*raw fish|anisakis.*ceviche|cebiche.*parasit)",
+    "domain": "food-safety",
+    "category": "food_safety_hazard",
+    "first_seen": "2004-01-01",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-03",
+    "summary": "The citric acid in ceviche denatures surface proteins (changing texture/opacity) but does not reach the temperature needed to kill Anisakis larvae, which cause anisakiasis/anisakidosis. Peruvian medical literature documents eight confirmed/probable ceviche-linked human anisakidosis cases; the same literature also concludes anisakiasis is not currently a major public-health problem in Peru in aggregate, since it remains rare relative to national ceviche consumption. The only validated controls are cooking at 60°C+ for 10+ minutes or freezing at -20°C for 48-72h (a typical home freezer, around -10°C, is documented as insufficient). Pre-freezing raw fish is not a universal legal requirement at Peruvian restaurants the way it is in parts of the EU/US, so it varies by establishment."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume ceviche's lime-juice marinade is equivalent to cooking and therefore poses no more parasite risk than a cooked fish dish",
+      "why_fails": "Citric acid changes the fish's color and texture (denaturing surface proteins) but does not reach a temperature that kills Anisakis simplex/Pseudoterranova larvae. Peruvian case reports in the Revista de Gastroenterología del Perú and a related Peruvian medical-journal editorial document eight human anisakidosis cases (five confirmed) where the common exposure was ceviche made from marine fish; validated kill methods are cooking to 60°C for at least 10 minutes or freezing at -20°C for 48-72 hours, and a typical home freezer (~-10°C) is documented as insufficient to kill the larvae even over extended time. The absolute case count is low relative to national ceviche consumption, which is why Peruvian clinicians still describe the disease as under-recognized rather than a major public-health problem — but 'rare' is not 'zero risk', and lime marination specifically is not established in this literature as a kill step.",
+      "fail_rate": 0.1,
+      "sources": [
+        "http://www.scielo.org.pe/scielo.php?script=sci_arttext&pid=S1022-51292004000400006&lng=es",
+        "http://www.scielo.org.pe/scielo.php?script=sci_arttext&pid=S1018-130X2017000400001",
+        "https://elcomercio.pe/blog/cuidatusalud/2017/11/anisakis-en-el-ceviche/"
+      ],
+      "condition": "Eating ceviche or other citrus-marinated raw fish in Peru",
+      "common_misconception": "Because the fish visibly turns opaque/white in the marinade, diners (and generic AI food-safety answers) treat that as equivalent to being cooked through."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Favor established, high-turnover cevicherías (busy lunch spots where fish doesn't sit) over informal beach/street vendors, and ask whether the fish was pre-frozen",
+      "success_rate": 0.7,
+      "how": "Some higher-end Peruvian restaurants already freeze fish destined for ceviche before service; unlike Spain or the US there is no blanket legal mandate or customer-facing disclosure requirement in Peru, so it depends on the establishment's own practice.",
+      "sources": [
+        "https://elcomercio.pe/blog/cuidatusalud/2017/11/anisakis-en-el-ceviche/"
+      ],
+      "condition": "Choosing where to eat ceviche",
+      "tradeoff": "Pre-frozen fish can be slightly softer in texture than fresh-caught fish used the same day."
+    },
+    {
+      "action": "If symptoms (severe acute abdominal pain, vomiting, sometimes an allergic reaction) start within hours to a few days of eating raw/marinated fish, seek medical care and mention the ceviche/raw-fish meal specifically",
+      "success_rate": 0.75,
+      "how": "Anisakidosis is treatable (often via endoscopic larva removal) but under-recognized in Peru; naming the raw-fish exposure helps clinicians consider it.",
+      "sources": [
+        "http://www.scielo.org.pe/scielo.php?script=sci_arttext&pid=S1022-51292004000400006&lng=es"
+      ],
+      "condition": "Post-exposure symptoms"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}

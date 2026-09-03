@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/sismate-alert-not-self-authenticating/pe",
+  "url": "https://deadends.dev/communication/sismate-alert-not-self-authenticating/pe",
+  "error": {
+    "signature": "AI tells someone in Peru to treat any SISMATE-branded earthquake/tsunami SMS or cell-broadcast alert on their phone as automatically genuine and immediately act on its specific claimed magnitude/tsunami warning",
+    "regex": "(sismate|peru.*earthquake.*alert.*(sms|text|phone)|peru.*tsunami.*alert.*(sms|phone))",
+    "domain": "communication",
+    "category": "safety_misconception",
+    "first_seen": "2026-05-20",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.7,
+    "confidence": 0.62,
+    "last_updated": "2026-09-03",
+    "summary": "Peru's national early-warning cell-broadcast/SMS system (Sismate, run via the Everbridge Consortium under MTC/INDECI oversight) was compromised on the night of 20 May 2026: attackers used a provider account to send a fake magnitude-8.7 earthquake alert plus a fabricated tsunami warning for the entire Peruvian coast, alongside unrelated hacker/political messaging. MTC confirmed the breach and INDECI stated the alert was false, noting earthquakes cannot be predicted and urging people to follow only official channels. A Sismate-branded message is therefore not, by itself, sufficient basis to act on a specific claimed magnitude or evacuation order."
+  },
+  "dead_ends": [
+    {
+      "action": "Receive a Sismate-branded SMS/cell-broadcast claiming a specific earthquake magnitude and tsunami threat, and treat it as automatically authoritative because it uses the official system's name/format",
+      "why_fails": "On the night of 20 May 2026, Sismate was compromised through a provider (Everbridge Consortium) account and used to send a false magnitude-8.7 earthquake alert with a fabricated coast-wide tsunami warning, plus content unrelated to emergency management (references to a hacker group and unrelated political claims). MTC confirmed the unauthorized access and INDECI issued a statement that the alert was false, explicitly noting that Sismate is not designed to predict earthquakes before they happen — so a message claiming to warn of an event 'about to happen' with a specific magnitude is itself a red flag, not a routine feature of the real system.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.infobae.com/peru/2026/05/21/hackean-el-sismate-y-envian-falsa-alerta-de-terremoto-87-en-peru-con-amenaza-de-tsunami-mencionan-a-curwen-y-fraude-electoral/",
+        "https://larepublica.pe/sociedad/2026/05/21/ministerio-de-justicia-inicia-investigacion-tras-reporte-de-hackeo-al-sismate-y-falsa-alerta-de-terremoto-de-87-en-peru-1988868"
+      ],
+      "condition": "Receiving an unsolicited earthquake/tsunami cell-broadcast in Peru",
+      "common_misconception": "People assume any message from a government-branded emergency-alert channel is inherently unspoofable, when the May 2026 incident showed the delivery pipeline itself (a third-party vendor account) could be compromised."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you actually feel strong or prolonged shaking near the coast, self-evacuate to high ground immediately regardless of whether any SMS alert arrives — do not wait for or depend on a Sismate message either way",
+      "success_rate": 0.85,
+      "how": "This is standard tsunami-safety guidance independent of the alert system: physically felt strong/prolonged shaking is itself the trigger to evacuate, per Lima-district civil defense guidance.",
+      "sources": [
+        "https://www.miraflores.gob.pe/ante-un-tsunami/"
+      ],
+      "condition": "Physically felt a strong or long earthquake near the coast"
+    },
+    {
+      "action": "Treat a Sismate/INDECI SMS with a specific advance-claimed magnitude or an incongruous/political message attached as suspect, and cross-check INDECI's and DHN's official social-media or web channels before mass-evacuating on the SMS's specific numbers alone",
+      "success_rate": 0.65,
+      "how": "INDECI publicly confirmed the May 2026 incident and pointed people to official channels rather than trusting the SMS content itself.",
+      "sources": [
+        "https://www.infobae.com/peru/2026/05/21/hackean-el-sismate-y-envian-falsa-alerta-de-terremoto-87-en-peru-con-amenaza-de-tsunami-mencionan-a-curwen-y-fraude-electoral/"
+      ],
+      "condition": "Received an alert but felt no shaking / want to verify before reacting",
+      "tradeoff": "Verification costs time that matters in a genuine near-field tsunami scenario, which is why felt-shaking should always take priority over waiting on any message."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}
