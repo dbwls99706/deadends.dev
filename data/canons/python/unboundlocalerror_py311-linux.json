@@ -3,12 +3,12 @@
   "id": "python/unboundlocalerror/py311-linux",
   "url": "https://deadends.dev/python/unboundlocalerror/py311-linux",
   "error": {
-    "signature": "UnboundLocalError: cannot access local variable 'x' referred to before assignment",
+    "signature": "UnboundLocalError: cannot access local variable 'x' where it is not associated with a value",
     "regex": "UnboundLocalError: cannot access local variable '(\\w+)'",
     "domain": "python",
     "category": "scoping",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-03"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.98,
     "confidence": 0.97,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-03",
     "summary": "Variable referenced before assignment in local scope, often caused by reassigning a global/outer variable without nonlocal/global declaration."
   },
   "dead_ends": [
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-03"
   }
 }

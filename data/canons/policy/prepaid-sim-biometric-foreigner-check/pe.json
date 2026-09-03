@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/prepaid-sim-biometric-foreigner-check/pe",
+  "url": "https://deadends.dev/policy/prepaid-sim-biometric-foreigner-check/pe",
+  "error": {
+    "signature": "AI tells a tourist in Peru to just walk into any kiosk or airport stand and buy a prepaid SIM with their passport",
+    "regex": "(peru.*sim card|peru.*prepaid.*(sim|chip|line)|comprar.*chip.*peru|peru.*mobile.*line)",
+    "domain": "policy",
+    "category": "registration_requirement",
+    "first_seen": "2025-11-22",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pe",
+      "country_name": "Peru",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.72,
+    "last_updated": "2026-09-03",
+    "summary": "Since Resolución 000116-2025-CD/Osiptel (published 22 Nov 2025) — adopted as a temporary security measure tied to the state of emergency in Lima and Callao — foreigners buying a mobile line there can no longer walk into a street kiosk with just a passport. Purchase now requires an in-person visit to an authorized operator store, biometric identity verification, and a real-time match against the Superintendencia Nacional de Migraciones database; if the passport/entry record doesn't match (or RENIEC data is inconsistent), the operator must notify the user and the line is suspended after 2 days and terminated on day 3 if unresolved. The measure has no announced end date."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy a prepaid SIM ('chip') from an airport kiosk, street stand, or informal reseller using only a passport, expecting the same quick process that worked before late 2025",
+      "why_fails": "OSIPTEL Resolución 000116-2025-CD (22 Nov 2025) restricts foreigners to in-person purchase at authorized Centros/Puntos de Atención with mandatory biometric identity verification checked live against the Superintendencia Nacional de Migraciones database, without exception. Kiosks and informal resellers generally cannot perform this check and either refuse the sale or the line gets blocked shortly after activation. If the traveler's data doesn't match Migraciones or RENIEC records, the operator notifies the user by SMS/email, gives 2 days to correct it, then suspends the line for 2 more days before terminating service on day 3 if unresolved.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://larepublica.pe/sociedad/2025/11/26/osiptel-extranjeros-en-peru-solo-podran-contratar-lineas-moviles-presencialmente-y-tras-pasar-por-control-biometrico-822536",
+        "https://www.infobae.com/peru/2025/11/26/venta-de-lineas-moviles-a-extranjeros-sera-presencial-y-sujeta-a-controles-biometricos-segun-osiptel/",
+        "https://www.osiptel.gob.pe/media/xpxl0map/resol116-2025-cd.pdf"
+      ],
+      "condition": "Purchasing a Peruvian prepaid line as a foreign traveler after Nov 2025",
+      "common_misconception": "Many pre-2025 travel blogs and forum threads still say 'any kiosk, just bring your passport' — that was true before the Nov 2025 resolution but is no longer reliable."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy the SIM at an official brand store (Claro, Movistar, Entel, Bitel) inside a mall or their main storefront, not a street kiosk, and bring your passport plus proof of your entry stamp/date.",
+      "success_rate": 0.75,
+      "how": "Official stores have the biometric terminals and staff trained on the Migraciones lookup; kiosks and resellers usually don't.",
+      "sources": [
+        "https://larepublica.pe/sociedad/2025/11/26/osiptel-extranjeros-en-peru-solo-podran-contratar-lineas-moviles-presencialmente-y-tras-pasar-por-control-biometrico-822536"
+      ],
+      "condition": "Need a local number for more than a short trip"
+    },
+    {
+      "action": "Use an eSIM or international roaming from your home carrier instead of a Peruvian prepaid line",
+      "success_rate": 0.9,
+      "how": "Roaming/eSIM traffic is not subject to the foreigner biometric-registration rule, which targets locally issued lines.",
+      "sources": [
+        "https://larepublica.pe/sociedad/2025/11/26/osiptel-extranjeros-en-peru-solo-podran-contratar-lineas-moviles-presencialmente-y-tras-pasar-por-control-biometrico-822536"
+      ],
+      "condition": "Short trip or unwilling to risk a refused sale",
+      "tradeoff": "Roaming/eSIM data is typically more expensive per GB than a local prepaid plan."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}
