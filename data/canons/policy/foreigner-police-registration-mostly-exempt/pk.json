@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/foreigner-police-registration-mostly-exempt/pk",
+  "url": "https://deadends.dev/policy/foreigner-police-registration-mostly-exempt/pk",
+  "error": {
+    "signature": "AI tells every foreign visitor to Pakistan they must personally register with the police (FRO) within 24 hours of arrival",
+    "regex": "(pakistan.*(register|registration).*police|pakistan.*fro|foreigner registration.*pakistan)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-03",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-03",
+    "summary": "Under the Registration of Foreigners Rules 1966, most foreign tourists staying under 30 days in Pakistan are exempt from personal police registration; diplomatic/official passport holders and SAARC visa holders are also exempt, as are managerial-category work-visa holders (except Indians and people of Indian origin). Mandatory Foreigner Registration Office (FRO) registration applies specifically to Indian and Somali nationals, and to anyone an immigration officer flags at the airport with a passport stamp directing them to report to an FRO. Where registration is required, hotels typically handle it at check-in; only travelers not staying at a licensed hotel need to visit a District Police Officer's FRO branch in person."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell every foreign tourist entering Pakistan that they are legally required to visit a police station and register in person within 24 hours, as a blanket rule",
+      "why_fails": "Pakistan's Federal Investigation Agency and Directorate General of Immigration & Passports both state that diplomatic/official passport holders, SAARC visa holders, and managerial-category work-visa holders are exempt from police registration, and that mandatory registration under the Registration of Foreigners Rules 1966 is specifically named for Indian and Somali nationals - not a universal 24-hour rule for all foreigners.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.fia.gov.pk/immigration_w",
+        "https://dgip.gov.pk/visa/categories.php"
+      ],
+      "condition": "Short-stay tourist not directed to an FRO by immigration at entry",
+      "common_misconception": "That Pakistan's police-registration rule works like a generic 24-hour foreigner-registration requirement common to some other countries, applying equally to all nationalities."
+    },
+    {
+      "action": "Assume that because most nationalities are exempt, an Indian or Somali national (or anyone whose passport was stamped at the airport directing them to an FRO) can also skip registration",
+      "why_fails": "The FIA explicitly carves Indian and Somali nationals (and, for work visas, Indians/persons of Indian origin) out of the general exemption; they must register at the Foreigner Registration Branch of the District Police Officer's office in their city of stay to receive a residential permit, and surrender it for a travel permit before departing.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.fia.gov.pk/immigration_w",
+        "https://fpcci.org.pk/registration-of-foreigners-with-police/"
+      ],
+      "condition": "Indian or Somali national, or anyone flagged for FRO reporting at entry"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the entry stamp/notation in your passport at immigration - if you are not directed to report to an FRO and are not an Indian or Somali national, no personal police registration is needed for a short stay; if you are, register at the District Police Officer's Foreigner Registration Branch (hotels handle this automatically at check-in for guests staying at licensed hotels)",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.fia.gov.pk/immigration_w"
+      ],
+      "condition": "Any foreign visitor unsure whether registration applies to them"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}

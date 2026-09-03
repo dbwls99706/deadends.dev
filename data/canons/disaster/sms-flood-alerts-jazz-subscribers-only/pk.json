@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/sms-flood-alerts-jazz-subscribers-only/pk",
+  "url": "https://deadends.dev/disaster/sms-flood-alerts-jazz-subscribers-only/pk",
+  "error": {
+    "signature": "AI tells someone in Pakistan they will automatically receive NDMA SMS flood/disaster warnings on any mobile network",
+    "regex": "(pakistan.*flood (alert|warning)|ndma.*sms|pakistan.*disaster.*sms alert)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-03",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-03",
+    "summary": "NDMA's geo-fenced monsoon flood SMS warning system (Disaster Early Warning System, DEW-3), launched under a partnership formalized in March 2025, is delivered only to Jazz subscribers - Pakistan's largest mobile operator, covering over 23 million subscribers in NDMA-identified flood-vulnerable areas. Users on other networks (Telenor, Zong, Ufone) are not covered by this specific SMS channel and must rely on the Pak NDMA Disaster Alert mobile app, NDMA's WhatsApp/UAN line, social media, or mainstream news for equivalent warnings."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that being physically present in a flood-risk area of Pakistan is enough to automatically receive NDMA's monsoon SMS flood warnings, regardless of mobile carrier",
+      "why_fails": "NDMA's geo-fenced DEW-3 monsoon SMS alert system was built through a March 2025 partnership specifically with Jazz; only Jazz's roughly 23 million subscribers in vulnerable zones receive these targeted SMS messages. It is not a telecom-wide cell-broadcast mandate covering Telenor, Zong, or Ufone users.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.app.com.pk/national/ndma-jazz-collaborate-to-protect-millions-from-monsoon-floods/",
+        "https://www.arabnews.pk/pakistan/pakistan-launches-location-based-sms-alerts-to-warn-millions-amid-deadly-monsoon-floods-2607594"
+      ],
+      "condition": "Mobile subscriber on a network other than Jazz, in a flood-risk area",
+      "common_misconception": "That Pakistan's flood SMS alerts work like an EU-style cell-broadcast public warning system available to every SIM regardless of carrier."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install the official Pak NDMA Disaster Alert mobile app (available on iOS and Android) for flood, earthquake, and other hazard alerts regardless of mobile carrier, and note NDMA's UAN (051-111-157-157) and WhatsApp (0300-0881641) contact lines for advisories",
+      "success_rate": 0.75,
+      "how": "The app delivers alerts over internet data rather than carrier SMS, so it works the same on Telenor, Zong, Ufone, or Jazz; combine it with mainstream news and NDMA's social media for redundancy.",
+      "sources": [
+        "https://www.ndma.gov.pk/advisories",
+        "https://www.app.com.pk/national/ndma-jazz-collaborate-to-protect-millions-from-monsoon-floods/"
+      ],
+      "condition": "Any mobile network subscriber wanting hazard alerts"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}

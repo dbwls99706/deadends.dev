@@ -8,7 +8,7 @@
     "domain": "node",
     "category": "server_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-03"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.95,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-03",
     "summary": "Next.js dev server port already in use. Another instance or process on port 3000."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Inconsistent URLs during development",
       "fail_rate": 0.55,
       "sources": [
-        "https://nextjs.org/docs/api-reference/cli"
+        "https://nextjs.org/docs/app/api-reference/cli/next"
       ],
       "condition": ""
     }
@@ -41,7 +41,7 @@
       "success_rate": 0.95,
       "how": "lsof -ti :3000 | xargs kill -9",
       "sources": [
-        "https://nextjs.org/docs/api-reference/cli"
+        "https://nextjs.org/docs/app/api-reference/cli/next"
       ],
       "condition": ""
     },
@@ -49,7 +49,7 @@
       "action": "Use a different port: next dev -p 3001",
       "success_rate": 0.9,
       "sources": [
-        "https://nextjs.org/docs/api-reference/cli#development"
+        "https://nextjs.org/docs/app/api-reference/cli/next#next-dev-options"
       ],
       "condition": "",
       "how": "next dev -p 3001"
@@ -70,6 +70,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-03"
   }
 }

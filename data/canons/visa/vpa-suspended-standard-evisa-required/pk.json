@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/vpa-suspended-standard-evisa-required/pk",
+  "url": "https://deadends.dev/visa/vpa-suspended-standard-evisa-required/pk",
+  "error": {
+    "signature": "AI tells a traveler to Pakistan they can get the free Visa Prior to Arrival (VPA) approved within 24-48 hours before their trip",
+    "regex": "(pakistan.*visa prior to arrival|pakistan.*vpa|pakistan.*visa on arrival)",
+    "domain": "visa",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-03",
+    "last_confirmed": "2026-09-03"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pk",
+      "country_name": "Pakistan",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.6,
+    "last_updated": "2026-09-03",
+    "summary": "Pakistan's free Visa Prior to Arrival (VPA), introduced August 2024 and typically approved within 24-48 hours, was suspended for citizens of 126 countries starting 1 January 2026 with no public government announcement - the VPA option simply disappeared from the official e-visa portal (visa.nadra.gov.pk). Affected nationalities (most of the EU, US, UK, Canada, Australia, China, Japan, South Korea, and others) must now apply for a paid standard e-Visa, which takes roughly 7-10 business days and requires more supporting documents (including proof of accommodation) than the old VPA form did."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler from an EU/US/UK/Canada/Australia/China/Japan/South Korea passport to apply for the free VPA a day or two before departure, expecting approval within 24-48 hours",
+      "why_fails": "The VPA category for these 126 nationalities was withdrawn from Pakistan's official e-visa portal on 1 January 2026 with no prior notice; applicants are now routed to the paid standard e-Visa, which takes about 7-10 business days to process, so a 1-2 day timeline will miss the trip.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Pakistan",
+        "https://visasnews.com/en/pakistan-suspends-its-free-vpa-visa-for-126-nationalities/"
+      ],
+      "condition": "Nationality previously eligible for VPA, applying close to departure",
+      "common_misconception": "That Pakistan's 2024 VPA program is still active and free; there has been no official government press release confirming the suspension or whether it is permanent, so some trip-planning guides and older AI answers still describe VPA as available."
+    },
+    {
+      "action": "Submit the same ~20-question form and budget the same fee-free process the old VPA used, assuming the new e-Visa application is materially the same",
+      "why_fails": "The standard e-Visa form that replaced VPA is longer and requires proof of accommodation and more extensive personal/travel details; it is also a paid application (roughly USD 35 for EU citizens, USD 60 for US/UK/Canadian citizens for a single-entry tourist visa, varying by nationality), not free like VPA was.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://easyvisa.pk/pakistan-new-visa-policy",
+        "https://visasnews.com/en/pakistan-suspends-its-free-vpa-visa-for-126-nationalities/"
+      ],
+      "condition": "Applying under the post-1-January-2026 standard e-Visa category"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the standard e-Visa at visa.nadra.gov.pk at least 2-3 weeks before departure, with proof of accommodation and full trip details ready, and budget the applicable fee for your nationality",
+      "success_rate": 0.85,
+      "how": "Verify current eligibility and fee on the official portal rather than a third-party list, since the suspension was applied without a formal notification and could change again without notice.",
+      "sources": [
+        "https://easyvisa.pk/pakistan-new-visa-policy"
+      ],
+      "condition": "Nationality previously eligible for VPA"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-03",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-03"
+  }
+}
