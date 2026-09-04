@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/oms-not-available-to-tourists/ru",
+  "url": "https://deadends.dev/medical/oms-not-available-to-tourists/ru",
+  "error": {
+    "signature": "AI tells a traveler heading to Russia that Russian public healthcare (OMS) will cover their medical costs, or that private travel medical insurance is optional for a Russian visa/e-visa",
+    "regex": "(russia.*(health insurance|medical insurance|oms)|oms.*russia|russian visa.*insurance|e-visa.*russia.*insurance)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-04",
+    "last_confirmed": "2026-09-04"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-04",
+    "summary": "Russia's compulsory medical insurance system (OMS, under Federal Law 326-FZ Art. 10) insures only Russian citizens and foreigners permanently or temporarily *residing* in Russia (RVP/VNZh holders) - not tourists or other short-term \"temporarily staying\" visa entrants. Federal Law 323-FZ Art. 11 guarantees only life-threatening emergency stabilization free of charge to anyone regardless of status; any further treatment, hospitalization, or follow-up care is billed directly unless covered by private insurance. Separately, Russia's official e-visa portal requires most foreign e-visa applicants to hold medical insurance valid for their entire stay, with exemptions granted only on a reciprocity basis for citizens of specific countries."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist or short-term visa entrant that Russia's public OMS system will cover their healthcare costs, so separate travel insurance is unnecessary",
+      "why_fails": "Federal Law 326-FZ Art. 10 (\"Insured persons\") limits OMS coverage to Russian citizens and foreign citizens permanently or temporarily *residing* in Russia - i.e. RVP or VNZh holders. A tourist or e-visa entrant is legally \"temporarily staying\" (vremenno prebyvayushchiy), a distinct status the law does not cover, so they cannot obtain or rely on an OMS policy at all.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://base.garant.ru/12180688/3d3a9e2eb4f30c73ea6671464e2a54b5/"
+      ],
+      "condition": "Tourist or short-term visa/e-visa entrant, no residence permit",
+      "common_misconception": "That any foreigner physically in Russia can walk into a clinic and use OMS the way a resident would."
+    },
+    {
+      "action": "Assume that because emergency care is free in Russia, medical costs overall are covered and private travel insurance can be skipped",
+      "why_fails": "The Russian Ministry of Health's own published text of Federal Law 323-FZ Art. 11 guarantees only care rendered \"v ekstrennoy forme\" (in emergency form) - i.e. immediate, life-threatening stabilization - free of charge and without refusal, to anyone regardless of status. It does not extend to non-emergency consultations, planned hospitalization, medication, follow-up care, or medical evacuation, all of which are billed directly to a foreigner who has no OMS policy and no private insurance.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://minzdrav.gov.ru/documents/7025-federalnyy-zakon-323-fz-ot-21-noyabrya-2011-g"
+      ],
+      "condition": "Any non-life-threatening treatment",
+      "common_misconception": "That Russia's guarantee of free emergency care functions like a reciprocal-healthcare system (e.g. an EU EHIC), covering routine care too."
+    },
+    {
+      "action": "Tell an e-visa applicant that travel medical insurance is a formality nobody actually checks, so it can be skipped or faked",
+      "why_fails": "Russia's official e-visa portal (evisa.kdmid.ru), operated by the Consular Department of the Russian MFA, states that foreign citizens staying in Russia on a unified e-visa are required to have medical insurance valid throughout Russian territory for the entire duration of their stay, with exemptions granted only to citizens of specific countries on a reciprocity basis - it is a stated eligibility condition of the e-visa itself, not an optional add-on.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://evisa.kdmid.ru/"
+      ],
+      "condition": "Applying for or holding Russia's unified e-visa"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy private travel medical insurance valid for the whole territory and full duration of the Russian trip before applying for the e-visa (or standard visa), and carry proof of it",
+      "success_rate": 0.9,
+      "how": "Confirm the policy explicitly covers Russia and the full travel dates; e-visa applicants from countries not on the reciprocity exemption list must show this at application, and border/consular officials can request it.",
+      "sources": [
+        "https://evisa.kdmid.ru/"
+      ],
+      "condition": "Tourist, business, or other short-term entrant"
+    },
+    {
+      "action": "Foreigners actually holding a temporary residence permit (RVP) or permanent residence permit (VNZh) should apply for an OMS policy through an insurance company or MFC once their permit is issued, rather than assuming coverage is automatic",
+      "success_rate": 0.8,
+      "sources": [
+        "https://base.garant.ru/12180688/3d3a9e2eb4f30c73ea6671464e2a54b5/"
+      ],
+      "condition": "Holder of RVP or VNZh (not a tourist)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/unified-e-visa-2023/ru",
+        "distinction": "That canon covers who can get the e-visa and how; this one covers the medical-insurance condition attached to holding it and why Russia's public OMS system cannot substitute for it."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-04",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-04"
+  }
+}

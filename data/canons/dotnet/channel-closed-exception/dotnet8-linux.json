@@ -8,7 +8,7 @@
     "domain": "dotnet",
     "category": "concurrency_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-13"
+    "last_confirmed": "2026-09-04"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.86,
     "confidence": 0.88,
-    "last_updated": "2026-02-13",
+    "last_updated": "2026-09-04",
     "summary": "ChannelClosedException is thrown when attempting to write to or read from a System.Threading.Channels.Channel<T> that has been completed (writer.Complete() was called) or when a bounded channel's writer is completed while readers are still awaiting. This commonly occurs in producer-consumer patterns when the producer signals completion prematurely, when exception handling in the producer calls Complete(exception) and the consumer does not handle the closure, or when application shutdown triggers channel completion while background consumers are still processing. Fix by using TryWrite/WaitToReadAsync patterns that gracefully handle closure, implementing proper cancellation token propagation, and ensuring producers and consumers have coordinated lifecycle management."
   },
   "dead_ends": [
@@ -113,6 +113,6 @@
     "generation_date": "2026-02-13",
     "review_status": "auto_generated",
     "evidence_count": 80,
-    "last_verification": "2026-02-13"
+    "last_verification": "2026-09-04"
   }
 }
