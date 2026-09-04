@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/foreign-license-two-week-limit/et",
+  "url": "https://deadends.dev/legal/foreign-license-two-week-limit/et",
+  "error": {
+    "signature": "AI tells a traveler or new resident that a foreign driving licence or International Driving Permit lets them drive in Ethiopia for the whole length of their stay",
+    "regex": "(ethiopia.*(drive|driving licen[cs]e)|international driving permit.*ethiopia|drive.*ethiopia.*foreign licen[cs]e)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-04",
+    "last_confirmed": "2026-09-04"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-04",
+    "summary": "The UK Foreign, Commonwealth & Development Office's Ethiopia travel advice states a UK driving licence is only valid to drive in Ethiopia for up to 2 weeks; driving for longer requires applying for an Ethiopian driving licence through the Ethiopian Ministry of Transport and Logistics. Converting a foreign licence is not a simple counter exchange: the Italian Embassy in Addis Ababa's consular guidance describes a multi-step process - a certificate of licence validity from the holder's home motor-vehicle authority, legalisation, certification by the relevant Ethiopian embassy or the Ethiopian Ministry of Foreign Affairs, professional translation into Amharic or English, and submission to the local motor-vehicle registration office - before a local licence is issued. The process is not uniform across nationalities either: the U.S. Embassy in Addis Ababa states its consular officers are not authorized to authenticate U.S.-issued driver's licences, so American citizens must instead obtain proof of licensure through their home state's motor vehicle department for the Ethiopian Ministry of Transportation."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume an International Driving Permit or home-country licence remains valid to drive in Ethiopia for the duration of a longer stay, the way it does in many countries for 3-12 months",
+      "why_fails": "The UK government's official Ethiopia travel advice states plainly that a UK driving licence can be used to drive in Ethiopia for up to 2 weeks only; beyond that, the traveler must apply for an Ethiopian driving licence via the Ethiopian Ministry of Transport and Logistics. There is no general grace period tied to visa validity or IDP expiry dates the way there is in many other countries.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/ethiopia/safety-and-security"
+      ],
+      "condition": "Staying in Ethiopia longer than roughly two weeks and planning to drive"
+    },
+    {
+      "action": "Expect the Ethiopian licence conversion to be a same-day counter swap once the traveler has a residence permit",
+      "why_fails": "Consular guidance from the Italian Embassy in Addis Ababa describes a multi-agency process: obtaining a certificate of licence validity from the home country's motor-vehicle authority, legalising it, having it certified (via the relevant embassy in Addis Ababa or the Ethiopian Ministry of Foreign Affairs), professionally translating it into Amharic or English, and only then submitting it to the local motor-vehicle registration office - the embassy warns that skipping these steps risks 'penalties and problems at local customs.' This is a document-assembly process across multiple offices, not a single-visit exchange.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://ambaddisabeba.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-italiano/autoveicoli-e-patenti-di-guida/"
+      ],
+      "condition": "Converting a foreign driving licence after taking up residence in Ethiopia",
+      "common_misconception": "That an embassy-issued letter alone (skipping legalisation/translation/Ministry certification) is sufficient for the local licence office."
+    },
+    {
+      "action": "Assume every embassy in Addis Ababa can simply authenticate its citizens' home driving licence on request, the way the Italian Embassy's published process implies",
+      "why_fails": "The U.S. Embassy in Addis Ababa explicitly states its consular officers are not authorized to authenticate driver's licences issued in the United States; U.S. citizens must instead get proof of licensure from their home state's motor vehicle department to present to the Ethiopian Ministry of Transportation. The conversion path is nationality-specific, not a single universal embassy procedure.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://et.usembassy.gov/drivers-license-information/"
+      ],
+      "condition": "U.S. citizens converting a driving licence"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For stays under about two weeks, drive on the home-country/international licence as normal; for longer stays, start the Ethiopian licence process early by contacting the Ethiopian Ministry of Transport and Logistics before the two-week window closes",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/ethiopia/safety-and-security"
+      ],
+      "condition": "Planning a stay longer than two weeks that will involve driving"
+    },
+    {
+      "action": "Before traveling, get a certificate of licence validity from your home motor-vehicle authority, have it legalised, and check with your embassy in Addis Ababa (or the Ethiopian Ministry of Foreign Affairs if your country has no embassy there) which certification and translation steps they require, so the paperwork chain is ready rather than started from scratch after arrival",
+      "success_rate": 0.7,
+      "how": "The Italian Embassy's published steps (validity certificate to legalisation to embassy/Ministry certification to translation to submission) illustrate the chain most nationalities will need to follow, though the specific office contacted varies by nationality.",
+      "sources": [
+        "https://ambaddisabeba.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-italiano/autoveicoli-e-patenti-di-guida/"
+      ],
+      "condition": "Planning ahead for a licence conversion tied to relocation"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-04",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-04"
+  }
+}

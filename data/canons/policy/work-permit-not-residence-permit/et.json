@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/work-permit-not-residence-permit/et",
+  "url": "https://deadends.dev/policy/work-permit-not-residence-permit/et",
+  "error": {
+    "signature": "AI tells a foreign hire that an Ethiopian work permit alone lets them legally live and work in Ethiopia, without a separate residence permit",
+    "regex": "(ethiopia.*work permit|ethiopia.*residence permit|ethiopian investment commission.*permit|expatriate.*ethiopia.*permit)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-04",
+    "last_confirmed": "2026-09-04"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "et",
+      "country_name": "Ethiopia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-04",
+    "summary": "Ethiopia runs a two-track system for foreign employees: a work permit (issued by the Ethiopian Investment Commission for staff of foreign-invested companies, or the Ministry of Labour and Skills for domestic employers) authorizes the job itself, while a separate residence permit from the immigration authority authorizes staying in the country. The Ethiopian Investment Commission's own FAQ confirms it processes work permits for expatriate hires in about 3-5 days, but that permit does not by itself cover residence. Independent guides for employers describe the residence permit as an additional requirement for longer engagements, obtained only after the work permit and from a different agency, and note that a foreign national of Ethiopian origin or a diplomatic-mission member does not need a work permit at all - an exception generic advice tends to miss."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign employee that receiving an Ethiopian work permit means they are also authorized to reside in Ethiopia for the length of their assignment",
+      "why_fails": "The Ethiopian Investment Commission's official FAQ describes its role as assisting with and processing the work permit itself - authorization to work in a specific role - and does not present that as covering residence. Independent employer-facing guidance on Ethiopian hiring states that for longer engagements a residence permit must additionally be obtained from the immigration authority, a separate document from a separate agency, applied for after the work permit is issued.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://investethiopia.gov.et/resources/faqs/",
+        "https://rivermate.com/guides/ethiopia/work-permits-and-visas"
+      ],
+      "condition": "Foreign national taking up employment in Ethiopia for an extended stay"
+    },
+    {
+      "action": "Assume every foreign worker in Ethiopia must go through the same single agency for a work permit, regardless of who employs them",
+      "why_fails": "Ethiopia splits work-permit processing by employer type: the Ethiopian Investment Commission's FAQ describes it assisting investors' expatriate hires (about 3-5 days to process), while guidance on foreign-national employment in Ethiopia states the Ministry of Labour issues the permit for employees of domestic (non-investor-licensed) companies, and that Ethiopian-origin foreign nationals and diplomatic-mission staff are exempt from needing a work permit at all.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://investethiopia.gov.et/resources/faqs/",
+        "https://www.2merkato.com/articles/labour-law/873-foreign-nationals-employment-and-work-permit-in-ethiopia-requirements-and-procedures"
+      ],
+      "condition": "Determining which agency a specific foreign hire must apply through",
+      "common_misconception": "That 'Ethiopian work permit' refers to one uniform process rather than a track that depends on whether the employer holds an investment licence."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm which track applies before applying: expatriates hired by a foreign-investment-licensed company apply through the Ethiopian Investment Commission; expatriates hired by a domestic Ethiopian company apply through the Ministry of Labour and Skills",
+      "success_rate": 0.75,
+      "how": "The Ethiopian Investment Commission's FAQ states it assists in processing work permits for investors' expat hires within about 3-5 days; confirm with the employer which agency issued their business/investment licence to know the correct track.",
+      "sources": [
+        "https://investethiopia.gov.et/resources/faqs/"
+      ],
+      "condition": "Starting the work-permit application"
+    },
+    {
+      "action": "After the work permit is issued, apply separately for the residence permit needed to legally stay in Ethiopia for the assignment, and keep it renewed alongside the work permit",
+      "success_rate": 0.7,
+      "how": "Guidance for employers describes the residence permit as a follow-on step through the immigration authority once the work permit is in hand, required for longer contracts rather than short visits.",
+      "sources": [
+        "https://rivermate.com/guides/ethiopia/work-permits-and-visas",
+        "https://www.2merkato.com/articles/labour-law/873-foreign-nationals-employment-and-work-permit-in-ethiopia-requirements-and-procedures"
+      ],
+      "condition": "Planning an extended work assignment in Ethiopia",
+      "tradeoff": "Adds a second application and renewal cycle on top of the work permit, with its own documentation and timeline."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-04",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-04"
+  }
+}
