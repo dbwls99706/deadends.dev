@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/sim-card-biometric-registration-required/ru",
+  "url": "https://deadends.dev/policy/sim-card-biometric-registration-required/ru",
+  "error": {
+    "signature": "AI tells a foreign traveler they can just walk into a Russian phone shop or kiosk and buy a prepaid Russian SIM card with only their passport, the way it works in most countries",
+    "regex": "(russia.*sim card|buy.*sim.*russia|russian sim.*foreigner|russia.*prepaid.*sim)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-04",
+    "last_confirmed": "2026-09-04"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ru",
+      "country_name": "Russia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-09-04",
+    "summary": "Since Federal Law 303-FZ (signed 8 August 2024) took full effect on 1 January 2025, a foreign citizen can only activate or reissue a Russian mobile subscriber contract if their biometric data (face and voice) is already registered in Russia's Unified Biometric System (EBS). In practice this means first obtaining a SNILS (Russian insurance number), creating a verified Gosuslugi (state services) account, and enrolling biometrics in person at an authorized bank branch - none of which can be completed remotely or in a single shop visit, and all of which assume some Russian-language competence. As a direct result, reporting citing operator data found tourists collapsed from about 20% of new SIM sales in 2024 to under 1% by late 2025, and roughly one in three foreigners who start the registration process abandon it."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a short-term visitor to just bring their passport to any mobile phone shop or kiosk in Russia and buy a prepaid SIM card on the spot",
+      "why_fails": "Russia's Unified Biometric System operator (EBS) states that to activate or reissue any SIM card, a foreign citizen must first obtain a SNILS, create a verified Gosuslugi account, and register biometrics (face and voice) in person at a bank branch - a passport alone no longer suffices, and online-only contract formation with a foreigner is separately prohibited under Federal Law 303-FZ.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://ebs.ru/news/?ELEMENT_ID=4273870",
+        "https://www.consultant.ru/law/hotdocs/85971.html"
+      ],
+      "condition": "Foreign citizen without prior SNILS/Gosuslugi/EBS enrollment",
+      "common_misconception": "That Russia's SIM rules work like most countries', where a passport and a same-day shop visit are enough."
+    },
+    {
+      "action": "Assume a Russian SIM card bought or activated before 2025 will keep working indefinitely without any further action",
+      "why_fails": "Federal Law 303-FZ required foreign citizens who registered a SIM before 1 January 2025 to re-register it through the biometric system by 1 July 2025; unregistered cards were cut off, and reporting found many operators struggled to make the re-registration process reliably work at all.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.consultant.ru/law/hotdocs/85971.html"
+      ],
+      "condition": "Pre-2025 SIM card held by a foreign citizen"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan for a multi-step process well before relying on a Russian number: obtain a SNILS, verify a Gosuslugi account, and enroll biometrics at a bank branch - ideally with a Russian-speaking contact or fixer, since the process is not practically doable in a foreign language on a short visit",
+      "success_rate": 0.6,
+      "how": "Reporting from mobile operator MTS found about one in three foreigners who start the process abandon it before completion, so budget real time and expect friction rather than a same-day outcome.",
+      "tradeoff": "Realistically out of reach for most tourists on a short trip; more viable for longer-term residents, students, or workers.",
+      "sources": [
+        "https://ebs.ru/news/?ELEMENT_ID=4273870",
+        "https://www.themoscowtimes.com/2025/10/22/new-rules-keep-tourists-from-buying-russian-sim-cards-operators-complain-a90901"
+      ],
+      "condition": "Longer-stay foreigner able to invest the time"
+    },
+    {
+      "action": "For short trips, rely on an international eSIM/roaming plan from a home carrier or an eSIM provider instead of trying to obtain a local Russian number",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.themoscowtimes.com/2025/10/22/new-rules-keep-tourists-from-buying-russian-sim-cards-operators-complain-a90901"
+      ],
+      "condition": "Short-term tourist or business traveler"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-04",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-04"
+  }
+}
