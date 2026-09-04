@@ -23,6 +23,8 @@ BASE_URL = "https://deadends.dev"
 # Base path for subpath hosting (e.g., "/deadends.dev" for github.io/deadends.dev/)
 # Empty string when hosted at root domain
 BASE_PATH = ""
+# Client-side search index, fetched lazily by /search/ (see build_search_page).
+SEARCH_DATA_FILE = "search-data.json"
 
 # DOMAIN_DISPLAY_NAMES and domain_display_name imported from generator.domains
 
@@ -70,9 +72,22 @@ def load_canons(data_dir: Path) -> list[dict]:
 
 
 def build_env_summary(canon: dict) -> str:
-    """Build a human-readable environment summary string."""
+    """Build a human-readable environment summary string.
+
+    Country canons are scoped by jurisdiction, not by runtime: their
+    ``runtime``/``os`` fields are the placeholder ``ai-agent >=1.0 · any``,
+    so the summary is the country name (plus audience) alone - that is
+    what titles, descriptions and the "Verified for ..." lines should say.
+    """
     env = canon.get("environment", {})
     parts = []
+
+    additional = env.get("additional", {})
+    if additional.get("country") and additional.get("country_name"):
+        parts.append(additional["country_name"])
+        if additional.get("audience"):
+            parts.append(additional["audience"])
+        return " · ".join(parts)
 
     runtime = env.get("runtime", {})
     if runtime.get("name") and runtime.get("version_range"):
@@ -209,11 +224,22 @@ def _truncate_at_word(text: str, max_len: int) -> str:
     return cut.rstrip(" .,:;-–-") + "…"
 
 
+TITLE_SUFFIX = " | deadends.dev"
+TITLE_MAX_LEN = 70
+# Env pages carry "on <environment>" after the signature; give them room so
+# the signature is not cut to a stump. Search engines truncate visually but
+# index the whole title.
+ENV_TITLE_MAX_LEN = 85
+# Longest "on <context>" fragment a title will carry.
+TITLE_CONTEXT_MAX_LEN = 40
+
+
 def seo_title(
     signature: str,
     context: str = "",
-    max_len: int = 70,
+    max_len: int = TITLE_MAX_LEN,
     counts: tuple[int, int] | None = None,
+    disambiguator: str = "",
 ) -> str:
     """Build a SERP-safe <title>: "Fix {signature}[ on {context}] | deadends.dev".
 
@@ -225,10 +251,19 @@ def seo_title(
     short enough that the whole thing still fits, append the counts - they
     vary per page, so short titles gain uniqueness and CTR without pushing
     the keyword out of the visible window on long ones.
+
+    `disambiguator` is appended in parentheses (before the suffix) when two
+    pages would otherwise truncate to the same title - e.g. several AWS
+    canons all starting "An error occurred (AccessDenied) when calling
+    the ...". Google treats duplicate titles across a site as a
+    scaled-content footprint, so uniqueness wins over a few extra chars.
     """
-    suffix = " | deadends.dev"
-    ctx = f" on {context}" if context else ""
-    if counts is not None and not ctx:
+    suffix = TITLE_SUFFIX
+    # Bound the context: it distinguishes sibling pages, it is not the
+    # keyword. A runaway environment string must not swallow the title.
+    ctx = f" on {_truncate_at_word(context, TITLE_CONTEXT_MAX_LEN)}" if context else ""
+    tail = f" ({' '.join(disambiguator.split())})" if disambiguator else ""
+    if counts is not None and not ctx and not tail:
         n_de, n_wa = counts
         if n_de > 0 and n_wa > 0:
             counted = (
@@ -237,12 +272,221 @@ def seo_title(
             )
             if len(counted) <= max_len:
                 return counted
-    budget = max_len - len("Fix ") - len(ctx) - len(suffix)
-    if budget < 20 and ctx:
-        # Context would crowd out the signature itself - drop it.
-        ctx = ""
-        budget = max_len - len("Fix ") - len(suffix)
-    return f"Fix {_truncate_at_word(signature, budget)}{ctx}{suffix}"
+    budget = max_len - len("Fix ") - len(ctx) - len(tail) - len(suffix)
+    # A long context (or disambiguator) must not crowd the signature out
+    # entirely, but dropping it would make the title identical to the
+    # summary page's - keep at least a recognisable stem of the signature
+    # and accept a title that runs a little past max_len.
+    budget = max(budget, 24)
+    return f"Fix {_truncate_at_word(signature, budget)}{ctx}{tail}{suffix}"
+
+
+def title_collision_key(signature: str, max_len: int = TITLE_MAX_LEN) -> str:
+    """The signature as it would appear in a plain seo_title() - two slugs
+    with the same key would render identical <title> tags."""
+    budget = max_len - len("Fix ") - len(TITLE_SUFFIX)
+    return _truncate_at_word(signature, budget)
+
+
+PLAIN_TITLE_MAX_LEN = 80
+
+
+def seo_title_plain(title: str, max_len: int = PLAIN_TITLE_MAX_LEN) -> str:
+    """"{title} | deadends.dev", word-boundary-truncated to fit max_len.
+
+    Plain titles (country pages) get a slightly longer budget than the
+    "Fix ..." code titles: the country name sits at the end and must
+    survive - it is the part that makes the page unique.
+    """
+    return f"{_truncate_at_word(title, max_len - len(TITLE_SUFFIX))}{TITLE_SUFFIX}"
+
+
+def title_disambiguators(canons: list[dict]) -> dict[str, str]:
+    """slug_key -> short phrase for slugs whose signatures would render
+    identical <title> tags once truncated (or are identical outright).
+
+    The phrase is the humanised slug when that alone separates the group,
+    the domain name when the same slug exists in several domains, and
+    both when neither is enough. Country pages are titled from their slug
+    and country and never need one.
+    """
+    first_by_slug: dict[str, dict] = {}
+    for c in canons:
+        first_by_slug.setdefault(c["id"].rsplit("/", 1)[0], c)
+    groups: dict[str, list[str]] = {}
+    for sk, c in first_by_slug.items():
+        if _canon_country_info(c) is not None:
+            continue
+        groups.setdefault(title_collision_key(c["error"]["signature"]), []).append(sk)
+    out: dict[str, str] = {}
+    for members in groups.values():
+        if len(members) < 2:
+            continue
+        slugs = [sk.split("/", 1)[1] for sk in members]
+        domains = [sk.split("/", 1)[0] for sk in members]
+        for sk in members:
+            domain, slug = sk.split("/", 1)
+            if len(set(slugs)) == len(slugs):
+                out[sk] = humanize_slug(slug)
+            elif len(set(domains)) == len(domains):
+                out[sk] = domain_display_name(domain)
+            else:
+                out[sk] = f"{domain_display_name(domain)} {humanize_slug(slug)}"
+    return out
+
+
+def short_env_label(canon: dict) -> str:
+    """Compact environment label for titles: "cpython 3.11 · linux".
+
+    build_env_summary() is the full human string (version ranges, Python
+    range, audience); it is too long for a <title>, where the environment
+    only has to tell sibling env pages apart.
+    """
+    env = canon.get("environment", {})
+    parts: list[str] = []
+    runtime = env.get("runtime", {})
+    if runtime.get("name"):
+        m = re.search(r"\d+(?:\.\d+)?", runtime.get("version_range", "") or "")
+        parts.append(f"{runtime['name']} {m.group(0)}".strip() if m else runtime["name"])
+    hw = env.get("hardware", {}) or {}
+    if hw.get("gpu") and str(hw["gpu"]).lower() != "any":
+        parts.append(str(hw["gpu"]))
+    if env.get("os") and env["os"].lower() != "any":
+        parts.append(env["os"])
+    arch = (env.get("additional", {}) or {}).get("architecture")
+    if arch and str(arch).lower() != "any":
+        parts.append(arch)
+    return " · ".join(parts)
+
+
+def env_title_contexts(canons: list[dict]) -> dict[str, str]:
+    """canon id -> title context for multi-env pages.
+
+    Uses short_env_label(); when two envs of one slug produce the same
+    label (e.g. docker24-linux vs docker24-vpn, whose structured
+    environment fields are identical) the env segment of the id is used
+    instead, so sibling env pages never share a <title>.
+    """
+    by_slug: dict[str, list[dict]] = {}
+    for c in canons:
+        by_slug.setdefault(c["id"].rsplit("/", 1)[0], []).append(c)
+    out: dict[str, str] = {}
+    for members in by_slug.values():
+        labels = {c["id"]: short_env_label(c) for c in members}
+        counts: dict[str, int] = {}
+        for label in labels.values():
+            counts[label] = counts.get(label, 0) + 1
+        for c in members:
+            label = labels[c["id"]]
+            if not label or counts[label] > 1:
+                label = c["id"].rsplit("/", 1)[1]
+            out[c["id"]] = label
+    return out
+
+
+# Slug tokens that are initialisms or product names. Everything else in a
+# slug is an ordinary lower-case word, so humanize_slug() only needs to fix
+# the tokens a reader would expect capitalised.
+_SLUG_ACRONYMS = {
+    "eu": "EU", "eea": "EEA", "uk": "UK", "us": "US", "usa": "USA", "uae": "UAE",
+    "nz": "NZ", "cdmx": "CDMX", "eta": "eTA", "esta": "ESTA", "etias": "ETIAS",
+    "evisa": "eVisa", "e-visa": "e-Visa", "ehic": "EHIC", "ghic": "GHIC",
+    "nie": "NIE", "nif": "NIF", "dni": "DNI", "bsn": "BSN", "cpr": "CPR",
+    "hkid": "HKID", "nric": "NRIC", "fin": "FIN", "arc": "ARC", "cpf": "CPF",
+    "curp": "CURP", "rfc": "RFC", "rut": "RUT", "tin": "TIN", "ssn": "SSN",
+    "itin": "ITIN", "irs": "IRS", "sim": "SIM", "esim": "eSIM", "imei": "IMEI",
+    "vat": "VAT", "gst": "GST", "atm": "ATM", "id": "ID", "pin": "PIN",
+    "kyc": "KYC", "fatca": "FATCA", "aeoi": "AEOI", "crs": "CRS", "nhs": "NHS",
+    "nhi": "NHI", "gp": "GP", "sos": "SOS", "samu": "SAMU", "cvv": "CVV",
+    "rso": "RSO", "rcb": "RCB", "pvmbg": "PVMBG", "jma": "JMA", "dana": "DANA",
+    "mrt": "MRT", "ktx": "KTX", "jr": "JR", "ic": "IC", "abn": "ABN", "tfn": "TFN",
+    "ird": "IRD", "pr": "PR", "ltr": "LTR", "dtv": "DTV", "tm30": "TM30",
+    "wechat": "WeChat", "alipay": "Alipay", "wifi": "Wi-Fi", "gdpr": "GDPR",
+    "dpa": "DPA", "pdpa": "PDPA", "usd": "USD", "eur": "EUR", "gbp": "GBP",
+    "bvn": "BVN", "sgb": "SGB", "senapred": "SENAPRED", "onemi": "ONEMI",
+    "mykad": "MyKad", "myki": "myki", "suica": "Suica", "octopus": "Octopus",
+    "ok": "OK", "ai": "AI", "llm": "LLM", "api": "API", "sms": "SMS",
+    # code-domain tokens (used when a slug disambiguates a code title)
+    "iam": "IAM", "s3": "S3", "ec2": "EC2", "rds": "RDS", "sqs": "SQS", "sns": "SNS",
+    "ecs": "ECS", "eks": "EKS", "gke": "GKE", "aks": "AKS", "k8s": "K8s", "npm": "npm",
+    "ssl": "SSL", "tls": "TLS", "http": "HTTP", "https": "HTTPS", "dns": "DNS",
+    "ssh": "SSH", "jwt": "JWT", "oauth": "OAuth", "cors": "CORS", "json": "JSON",
+    "xml": "XML", "yaml": "YAML", "cli": "CLI", "sdk": "SDK", "gpu": "GPU", "cpu": "CPU",
+    "cuda": "CUDA", "nccl": "NCCL", "cudnn": "cuDNN", "cublas": "cuBLAS", "oom": "OOM",
+    "ts": "TS", "js": "JS", "jsx": "JSX", "tsx": "TSX", "css": "CSS", "html": "HTML",
+    "url": "URL", "uri": "URI", "ip": "IP", "tcp": "TCP", "udp": "UDP", "grpc": "gRPC",
+    "graphql": "GraphQL", "sql": "SQL", "orm": "ORM", "csrf": "CSRF", "xss": "XSS",
+    "csp": "CSP", "rce": "RCE", "wsl": "WSL", "wsl2": "WSL2", "vpn": "VPN", "nat": "NAT",
+    "enoent": "ENOENT", "enospc": "ENOSPC", "eacces": "EACCES", "eaddrinuse": "EADDRINUSE",
+    "hpa": "HPA", "pvc": "PVC", "crd": "CRD", "rbac": "RBAC", "ci": "CI", "cd": "CD",
+    "gpg": "GPG", "pip": "pip", "venv": "venv", "conda": "conda", "ros2": "ROS 2",
+    "il2cpp": "IL2CPP", "aapt2": "AAPT2", "agp": "AGP", "ndk": "NDK", "jdk": "JDK",
+    "jvm": "JVM", "gc": "GC", "jni": "JNI", "dex": "DEX",
+}
+
+
+def humanize_slug(slug: str) -> str:
+    """'tap-water-not-potable' -> 'Tap water not potable'.
+
+    Known initialisms keep their casing; the first character is upper-cased.
+    Used for country canon titles, where the slug is a compact statement of
+    the rule ("eta-required-before-boarding") and reads far better in a SERP
+    than the truncated "AI tells a traveler ..." misconception sentence.
+    """
+    tokens = [w for w in slug.split("-") if w]
+    if not tokens:
+        return ""
+    words = [_SLUG_ACRONYMS.get(w, w) for w in tokens]
+    if tokens[0] not in _SLUG_ACRONYMS:
+        words[0] = words[0][:1].upper() + words[0][1:]
+    return " ".join(words)
+
+
+def country_list_phrase(names: list[str], limit: int = 3) -> str:
+    """['Italy', 'Belgium', 'Ireland', 'Spain'] -> 'Italy, Belgium, Ireland and 1 more'."""
+    names = [n for n in names if n]
+    if not names:
+        return ""
+    if len(names) == 1:
+        return names[0]
+    if len(names) <= limit:
+        return ", ".join(names[:-1]) + f" and {names[-1]}"
+    return ", ".join(names[:limit]) + f" and {len(names) - limit} more"
+
+
+def country_page_title(
+    slug: str, country_names: list[str], max_len: int = PLAIN_TITLE_MAX_LEN
+) -> str:
+    """Human title for a country canon page: "<rule> in <Country>".
+
+    e.g. slug "tap-water-not-potable" + ["Mexico"] -> "Tap water not potable
+    in Mexico". Multi-country slugs list up to three names, fewer when the
+    title would not fit; if even one name does not fit, the rule text is
+    shortened rather than the country - the country is what makes the
+    page unique.
+    """
+    base = humanize_slug(slug)
+    names = [n for n in country_names if n]
+    if not names:
+        return base
+    room = max_len - len(TITLE_SUFFIX)
+    for limit in (3, 2, 1):
+        phrase = country_list_phrase(names, limit=limit)
+        title = f"{base} in {phrase}"
+        if len(title) <= room:
+            return title
+    phrase = country_list_phrase(names, limit=1)
+    return f"{_truncate_at_word(base, max(room - len(phrase) - 4, 16))} in {phrase}"
+
+
+def article_json_ld_extras(page_url: str) -> dict:
+    """Author / publisher / mainEntityOfPage fields shared by every canon page."""
+    org = {"@type": "Organization", "name": "deadends.dev", "url": BASE_URL}
+    return {
+        "mainEntityOfPage": {"@type": "WebPage", "@id": page_url},
+        "author": org,
+        "publisher": org,
+    }
 
 
 def seo_description(*parts: str, max_len: int = 155) -> str:
@@ -260,6 +504,33 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
     """Generate individual error pages."""
     template = jinja_env.get_template("page.html")
     known_ids = {c["id"] for c in canons}
+    disambiguators = title_disambiguators(canons)
+    env_contexts = env_title_contexts(canons)
+    # Env pages: the environment context already separates them from the
+    # summary page and from sibling envs. Only the rare cross-slug clash
+    # (same signature, same environment, different slugs/domains) needs
+    # the disambiguator, so add it just where the plain title collides.
+    env_page_titles: dict[str, str] = {}
+    plain_counts: dict[str, int] = {}
+    for c in canons:
+        if _canon_country_info(c) is not None or c["id"] not in env_contexts:
+            continue
+        plain = seo_title(
+            c["error"]["signature"], context=env_contexts[c["id"]], max_len=ENV_TITLE_MAX_LEN
+        )
+        env_page_titles[c["id"]] = plain
+        plain_counts[plain] = plain_counts.get(plain, 0) + 1
+    for c in canons:
+        cid = c["id"]
+        if cid in env_page_titles and plain_counts[env_page_titles[cid]] > 1:
+            slug_key = cid.rsplit("/", 1)[0]
+            fallback = f"{domain_display_name(slug_key.split('/', 1)[0])}"
+            env_page_titles[cid] = seo_title(
+                c["error"]["signature"],
+                context=env_contexts[cid],
+                max_len=ENV_TITLE_MAX_LEN,
+                disambiguator=disambiguators.get(slug_key, fallback),
+            )
 
     # Build known_canons lookup: id → {signature, domain, fix_rate}
     known_canons: dict[str, dict] = {}
@@ -339,6 +610,7 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             continue
 
         env_summary = build_env_summary(canon)
+        title_context = env_contexts.get(error_id, env_summary)
         all_sources = collect_sources(canon)
 
         # Sanitize source URLs in dead_ends and workarounds to prevent
@@ -356,14 +628,37 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         # merits. The embedded ErrorCanon always keeps the env-specific URL
         # because that's the canon record identity.
         page_url = env_page_url
+        country_info = _canon_country_info(canon)
+        country_code = country_info[0] if country_info else None
+        country_name = country_info[1] if country_info else None
+        sig = canon["error"]["signature"]
+        env_slug = error_id.split("/")[1]
+        if country_name:
+            # Country canons: the slug states the rule, the signature states
+            # the misconception. Title/H1 carry the rule (what people search
+            # for); the misconception is shown under it.
+            page_h1 = country_page_title(env_slug, [country_name])
+            page_title = seo_title_plain(page_h1)
+            about: dict | list = {"@type": "Country", "name": country_name}
+            article_type = "Article"
+        else:
+            page_h1 = sig
+            page_title = env_page_titles.get(error_id) or seo_title(
+                sig, context=title_context, max_len=ENV_TITLE_MAX_LEN
+            )
+            about = {
+                "@type": "SoftwareSourceCode",
+                "programmingLanguage": canon["error"]["domain"],
+            }
+            article_type = "TechArticle"
         json_ld_data = {
             "@context": [
                 "https://schema.org",
                 {"deadend": f"{BASE_URL}/schema/v1#"},
             ],
-            "@type": "TechArticle",
-            "name": canon["error"]["signature"],
-            "headline": f"Fix {canon['error']['signature']}",
+            "@type": article_type,
+            "name": page_h1,
+            "headline": page_h1 if country_name else f"Fix {sig}",
             "description": canon["verdict"]["summary"],
             "url": page_url,
             "datePublished": canon["error"].get(
@@ -371,22 +666,18 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             ),
             "dateModified": canon["verdict"].get("last_updated", ""),
             "image": f"{BASE_URL}/og-image.png",
-            "publisher": {
-                "@type": "Organization",
-                "name": "deadends.dev",
-                "url": BASE_URL,
-            },
-            "about": {
-                "@type": "SoftwareSourceCode",
-                "programmingLanguage": canon["error"]["domain"],
-            },
+            **article_json_ld_extras(page_url),
+            "about": about,
             "speakable": {
                 "@type": "SpeakableSpecification",
                 "cssSelector": ["#verdict-card", "#fix-guide", "#ai-summary"],
             },
             "mainEntity": {
                 "@type": "Question",
-                "name": f"How to fix {canon['error']['signature']}?",
+                "name": (
+                    f"What is the reality in {country_name}: {page_h1}?"
+                    if country_name else f"How to fix {sig}?"
+                ),
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": canon["verdict"]["summary"],
@@ -407,10 +698,13 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
         # (templates show faq_items) and as FAQPage JSON-LD: Google's
         # structured-data guidelines require FAQ content to be visible on
         # the page, and invisible-FAQ markup at scale is a spam signal.
-        sig = canon["error"]["signature"]
         faq_items = [
             {
-                "question": f"Why doesn't '{de['action']}' fix {sig}?",
+                "question": (
+                    f"Why doesn't '{de['action']}' work in {country_name}?"
+                    if country_name
+                    else f"Why doesn't '{de['action']}' fix {sig}?"
+                ),
                 "answer": de["why_fails"],
             }
             for de in canon["dead_ends"][:4]
@@ -445,17 +739,15 @@ def build_error_pages(canons: list[dict], jinja_env: Environment) -> None:
             limit=10,
         )
 
-        country_info = _canon_country_info(canon)
-        country_code = country_info[0] if country_info else None
-        country_name = country_info[1] if country_info else None
-
         html = template.render(
             env_summary=env_summary,
             all_sources=all_sources,
             json_ld=json_ld,
             faq_json_ld=faq_json_ld,
             faq_items=faq_items,
-            page_title=seo_title(sig, context=env_summary),
+            page_title=page_title,
+            page_h1=page_h1,
+            is_country=bool(country_name),
             meta_description=seo_description(
                 canon["verdict"]["summary"],
                 f"Verified for {env_summary}.",
@@ -1435,6 +1727,13 @@ def build_robots_txt() -> None:
 # (NOT /api/) - /api/<slug>/ hosts the HTML pages of the "api" error
 # domain, which must remain crawlable. Every AI crawler below keeps full
 # /api/v1/ access.
+#
+# The same web-search crawlers are also kept out of the bulk plaintext
+# dumps (llms.txt, llms-full*.txt, per-country llms.txt / AGENTS.md), the
+# client-side search index and the IndexNow URL list. Each of those is a
+# verbatim copy of content that already has a canonical HTML page; letting
+# a web index crawl them creates duplicate documents that compete with the
+# real pages and dilute the site's quality profile. AI crawlers keep them.
 
 User-agent: *
 Allow: /
@@ -1467,14 +1766,33 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 Disallow: /api/v1/
+Disallow: /search-data.json
+Disallow: /llms.txt
+Disallow: /llms-full
+Disallow: /country/*/llms.txt
+Disallow: /country/*/AGENTS.md
+Disallow: /indexnow-urls.txt
 
 User-agent: GoogleOther
 Allow: /
 Disallow: /api/v1/
+Disallow: /search-data.json
+Disallow: /llms.txt
+Disallow: /llms-full
+Disallow: /country/*/llms.txt
+Disallow: /country/*/AGENTS.md
+Disallow: /indexnow-urls.txt
 
 User-agent: Bingbot
 Allow: /
 Disallow: /api/v1/
+Disallow: /search-data.json
+Disallow: /llms.txt
+Disallow: /llms-full
+Disallow: /country/*/llms.txt
+Disallow: /country/*/AGENTS.md
+Disallow: /indexnow-urls.txt
+
 
 User-agent: PerplexityBot
 Allow: /
@@ -2247,6 +2565,16 @@ def build_stylesheet() -> None:
         "header .intro { color: #c9d1d9;",
         "  margin: 0.75rem 0 0; max-width: 70ch; }",
         "",
+        "/* === COUNTRY PAGE: MISCONCEPTION LINE UNDER THE H1 === */",
+        ".misconception { color: #c9d1d9; margin: 0.5rem 0 0.25rem;",
+        "  padding: 0.6rem 0.9rem; border-left: 3px solid #f85149;",
+        "  background: rgba(248,81,73,0.08); border-radius: 0 4px 4px 0;",
+        "  max-width: 80ch; font-size: 0.95rem; }",
+        ".misconception-label { font-size: 0.65rem; font-weight: 700;",
+        "  text-transform: uppercase; letter-spacing: 0.06em; color: #fff;",
+        "  background: #f85149; padding: 0.15rem 0.5rem; border-radius: 3px;",
+        "  margin-right: 0.5rem; white-space: nowrap; }",
+        "",
         "/* === SHARE BAR === */",
         ".share-bar { display: flex;",
         "  gap: 0.5rem; margin: 1.5rem 0; }",
@@ -2353,46 +2681,52 @@ def build_stylesheet() -> None:
     print("  Generated: style.css (minified)")
 
 
-def build_og_image() -> None:
-    """Generate a branded OG image (1200x630 PNG) for social sharing.
+OG_WIDTH, OG_HEIGHT = 1200, 630
+OG_BG = (0x0D, 0x11, 0x17)
+OG_FG = (0xE0, 0xE0, 0xE0)
+OG_MUTED = (0x8B, 0x94, 0x9E)
+OG_DIM = (0x48, 0x4F, 0x58)
+OG_PALETTE = [
+    "#58a6ff", "#3fb950", "#d29922", "#a371f7",
+    "#f78166", "#ff7b72", "#56d364", "#79c0ff",
+]
 
-    Creates a minimal valid PNG using Python stdlib (zlib + struct).
-    Dark background with branded text area for social media previews.
+
+def _hex_rgb(color: str) -> tuple[int, int, int]:
+    color = color.lstrip("#")
+    return int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
+
+
+def _stable_accent(key: str) -> str:
+    """Deterministic palette pick - hash() of a str is salted per process."""
+    import zlib
+
+    return OG_PALETTE[zlib.crc32(key.encode("utf-8")) % len(OG_PALETTE)]
+
+
+def _flat_png_bytes(accent: tuple[int, int, int], bottom: tuple[int, int, int]) -> bytes:
+    """Minimal valid 1200x630 RGB PNG using only the stdlib (zlib + struct).
+
+    Dark background with accent bars - the no-dependency fallback card used
+    when Pillow is unavailable, so every og:image URL still resolves to a
+    real PNG that social platforms will render.
     """
     import struct
     import zlib
 
-    width, height = 1200, 630
-    # Background: #0d1117 (matches site theme)
-    bg_r, bg_g, bg_b = 0x0D, 0x11, 0x17
-    # Accent bar: #58a6ff (link color)
-    accent_r, accent_g, accent_b = 0x58, 0xA6, 0xFF
-    # Red accent: #f85149 (dead end color)
-    red_r, red_g, red_b = 0xF8, 0x51, 0x49
-
-    # Build raw pixel data row by row
-    raw_rows = []
+    width, height = OG_WIDTH, OG_HEIGHT
+    bg = bytes(OG_BG)
+    top = bytes(accent)
+    bot = bytes(bottom)
+    rows = []
     for y in range(height):
-        row = b"\x00"  # PNG filter byte: None
-        for x in range(width):
-            # Top accent bar (0-6px)
-            if y < 6:
-                row += bytes([accent_r, accent_g, accent_b])
-            # Bottom accent bar
-            elif y >= height - 6:
-                row += bytes([red_r, red_g, red_b])
-            # Left accent stripe (0-6px)
-            elif x < 6:
-                row += bytes([accent_r, accent_g, accent_b])
-            # Right accent stripe
-            elif x >= width - 6:
-                row += bytes([red_r, red_g, red_b])
-            else:
-                row += bytes([bg_r, bg_g, bg_b])
-        raw_rows.append(row)
-
-    raw_data = b"".join(raw_rows)
-    compressed = zlib.compress(raw_data, 9)
+        if y < 6:
+            rows.append(b"\x00" + top * width)
+        elif y >= height - 6:
+            rows.append(b"\x00" + bot * width)
+        else:
+            rows.append(b"\x00" + top * 6 + bg * (width - 12) + bot * 6)
+    compressed = zlib.compress(b"".join(rows), 9)
 
     def make_chunk(chunk_type: bytes, data: bytes) -> bytes:
         chunk = chunk_type + data
@@ -2400,14 +2734,146 @@ def build_og_image() -> None:
         return struct.pack(">I", len(data)) + chunk + crc
 
     png = b"\x89PNG\r\n\x1a\n"
-    # IHDR: width, height, bit_depth=8, color_type=2(RGB), compression, filter, interlace
-    ihdr_data = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
-    png += make_chunk(b"IHDR", ihdr_data)
+    png += make_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
     png += make_chunk(b"IDAT", compressed)
     png += make_chunk(b"IEND", b"")
+    return png
 
-    (SITE_DIR / "og-image.png").write_bytes(png)
+
+def _wrap_text(draw, text: str, font, max_width: int) -> list[str]:
+    words = text.split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if draw.textlength(candidate, font=font) <= max_width or not current:
+            current = candidate
+        else:
+            lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return lines
+
+
+def render_card_png(
+    path: Path,
+    title: str,
+    eyebrow: str = "",
+    subtitle: str = "",
+    stat: str = "",
+    stat_label: str = "",
+    footer: str = "deadends.dev",
+    accent: str = "#58a6ff",
+) -> bool:
+    """Write a 1200x630 PNG social card.
+
+    Open Graph / Twitter Cards do not render SVG, so every shareable page
+    needs a raster image. With Pillow installed (dev/CI extra) the card
+    carries real text; without it a flat branded PNG is written instead.
+    Returns True when text was rendered.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    accent_rgb = _hex_rgb(accent)
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        path.write_bytes(_flat_png_bytes(accent_rgb, _hex_rgb("#f85149")))
+        return False
+
+    img = Image.new("RGB", (OG_WIDTH, OG_HEIGHT), OG_BG)
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([0, 0, OG_WIDTH, 8], fill=accent_rgb)
+    draw.rectangle([0, OG_HEIGHT - 8, OG_WIDTH, OG_HEIGHT], fill=accent_rgb)
+
+    def font(size: int):
+        return ImageFont.load_default(size=size)
+
+    margin = 80
+    max_w = OG_WIDTH - 2 * margin
+    y = 72
+    if eyebrow:
+        draw.text((margin, y), eyebrow, font=font(28), fill=OG_MUTED)
+        y += 60
+
+    # Title: shrink until it fits in three lines.
+    for size in (72, 64, 56, 48, 42, 36):
+        title_font = font(size)
+        lines = _wrap_text(draw, " ".join(title.split()), title_font, max_w)
+        if len(lines) <= 3:
+            break
+    lines = lines[:3]
+    if len(lines) == 3 and draw.textlength(lines[2], font=title_font) > max_w:
+        lines[2] = lines[2][:-1].rstrip() + "…"
+    line_h = int(size * 1.2)
+    for line in lines:
+        draw.text((margin, y), line, font=title_font, fill=OG_FG)
+        y += line_h
+    y += 16
+
+    if subtitle:
+        sub_font = font(30)
+        for line in _wrap_text(draw, subtitle, sub_font, max_w)[:2]:
+            draw.text((margin, y), line, font=sub_font, fill=OG_MUTED)
+            y += 40
+
+    if stat:
+        stat_y = OG_HEIGHT - 190
+        stat_font = font(96)
+        draw.text((margin, stat_y), stat, font=stat_font, fill=accent_rgb)
+        if stat_label:
+            offset = draw.textlength(stat, font=stat_font) + 24
+            draw.text((margin + offset, stat_y + 52), stat_label, font=font(28), fill=OG_MUTED)
+
+    draw.text((margin, OG_HEIGHT - 70), footer, font=font(24), fill=OG_DIM)
+    img.save(path, format="PNG", optimize=True)
+    return True
+
+
+def build_og_image(canons: list[dict] | None = None) -> None:
+    """Generate the site-wide OG card (1200x630 PNG) for social sharing."""
+    n = len(canons) if canons else 0
+    domains = len({c["error"]["domain"] for c in canons}) if canons else 0
+    render_card_png(
+        SITE_DIR / "og-image.png",
+        title="Stop trying what doesn't work",
+        eyebrow="deadends.dev",
+        subtitle="Structured failure knowledge for AI agents and developers: "
+        "dead ends to avoid, workarounds that succeed, with verified rates.",
+        stat=f"{n:,}" if n else "",
+        stat_label=f"verified entries across {domains} domains" if n else "",
+        footer="deadends.dev",
+    )
     print("  Generated: og-image.png (1200x630)")
+
+
+def build_domain_og_images(canons: list[dict]) -> None:
+    """Generate one PNG OG card per domain at /og/{domain}.png.
+
+    Every error page (summary and env) shares its domain's card: 54 raster
+    files instead of 2,400+ per-error images keeps deploys small while
+    still giving each domain's links a distinct preview.
+    """
+    by_domain: dict[str, list[dict]] = {}
+    for c in canons:
+        by_domain.setdefault(c["error"]["domain"], []).append(c)
+    count = 0
+    for domain, dcanons in sorted(by_domain.items()):
+        slugs = {c["id"].rsplit("/", 1)[0] for c in dcanons}
+        dead_ends = sum(len(c.get("dead_ends", [])) for c in dcanons)
+        render_card_png(
+            SITE_DIR / "og" / f"{domain}.png",
+            title=f"{domain_display_name(domain)} dead ends & verified fixes",
+            eyebrow=f"deadends.dev / {domain}",
+            subtitle=f"{dead_ends} documented dead ends - what NOT to try - "
+            "with workarounds ranked by measured success rate.",
+            stat=str(len(slugs)),
+            stat_label=f"known {domain_display_name(domain)} issue{'s' if len(slugs) != 1 else ''}",
+            footer=f"deadends.dev/{domain}/",
+            accent=_stable_accent(domain),
+        )
+        count += 1
+    print(f"  Generated: {count} domain OG cards in og/")
 
 
 def _escape_svg(text: str) -> str:
@@ -2688,12 +3154,6 @@ def build_country_og_images(canons: list[dict]) -> None:
         print("  No country canons - skipping country OG images")
         return
 
-    # Country-color palette (deterministic from code)
-    palette = [
-        "#58a6ff", "#3fb950", "#d29922", "#a371f7",
-        "#f78166", "#ff7b72", "#56d364", "#79c0ff",
-    ]
-
     f = "system-ui,sans-serif"
     count = 0
     for code, country_canons in by_country.items():
@@ -2707,8 +3167,8 @@ def build_country_og_images(canons: list[dict]) -> None:
         top_domains = sorted(
             by_domain.items(), key=lambda x: -x[1]
         )[:3]
-        # Color from code hash for stability
-        accent = palette[hash(code) % len(palette)]
+        # Deterministic palette pick (str hash() is salted per process)
+        accent = _stable_accent(code)
         name_display = _escape_svg(name)
         domain_lines = "  ·  ".join(
             f"{n} {_escape_svg(d)}" for d, n in top_domains
@@ -2746,6 +3206,18 @@ def build_country_og_images(canons: list[dict]) -> None:
         out_dir = SITE_DIR / "country" / code
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "og.svg").write_text(svg, encoding="utf-8")
+        # PNG twin - the one og:image actually points at (SVG is not
+        # rendered by any social platform).
+        render_card_png(
+            out_dir / "og.png",
+            title=f"{name} - real-world dead ends AI gets wrong",
+            eyebrow=f"deadends.dev / country / {code.upper()}",
+            subtitle=domain_lines.replace("  ·  ", " · "),
+            stat=str(total),
+            stat_label=f"verified entr{'ies' if total != 1 else 'y'}",
+            footer=f"deadends.dev/country/{code}/",
+            accent=accent,
+        )
         count += 1
     print(f"  Generated: {count} country OG cards")
 
@@ -2885,12 +3357,30 @@ def build_error_summary_pages(
         for i, sk in enumerate(domain_slugs):
             slug_position[sk] = i
 
+    # Titles are truncated to fit a SERP; two long signatures that share a
+    # prefix would collapse to the same <title>. title_disambiguators()
+    # finds those groups so each member gets a distinguishing suffix.
+    disambiguators = title_disambiguators(canons)
+
     summaries = []
     for slug_key, slug_canons in by_slug.items():
         domain, slug = slug_key.split("/", 1)
         first = slug_canons[0]
         signature = first["error"]["signature"]
         regex = first["error"]["regex"]
+        slug_country_names = [
+            info[1]
+            for info in (
+                _canon_country_info(c) for c in sorted(slug_canons, key=lambda x: x["id"])
+            )
+            if info is not None
+        ]
+        is_country = bool(slug_country_names)
+        country_phrase = country_list_phrase(slug_country_names)
+        if is_country:
+            page_h1 = country_page_title(slug, slug_country_names)
+        else:
+            page_h1 = signature
 
         environments = []
         all_dead_ends = []
@@ -3006,28 +3496,24 @@ def build_error_summary_pages(
         # date is invalid structured data and Google flags it in the
         # TechArticle rich-result report.
         valid_dates = [d for d in dates if d]
+        summary_page_url = f"{BASE_URL}/{domain}/{slug}/"
         summary_json_ld_obj = {
             "@context": "https://schema.org",
-            "@type": "TechArticle",
-            "name": signature,
-            "headline": f"Fix {signature}",
-            "description": (
-                f"{len(environments)} environments, "
-                f"{len(common_dead_ends)} dead ends, "
-                f"{len(common_workarounds)} workarounds. "
-                f"Fix rates: {min_rate}%–{max_rate}%."
-            ),
-            "url": f"{BASE_URL}/{domain}/{slug}/",
+            "@type": "Article" if is_country else "TechArticle",
+            "name": page_h1,
+            "headline": page_h1 if is_country else f"Fix {signature}",
+            # The verdict summary is unique per canon; the old templated
+            # "N environments, N dead ends ..." string was near-identical
+            # across thousands of pages.
+            "description": seo_description(verdict_summary, max_len=300),
+            "url": summary_page_url,
             "image": f"{BASE_URL}/og-image.png",
-            "publisher": {
-                "@type": "Organization",
-                "name": "deadends.dev",
-                "url": BASE_URL,
-            },
-            "about": {
-                "@type": "SoftwareSourceCode",
-                "programmingLanguage": domain,
-            },
+            **article_json_ld_extras(summary_page_url),
+            "about": (
+                [{"@type": "Country", "name": n} for n in slug_country_names]
+                if is_country
+                else {"@type": "SoftwareSourceCode", "programmingLanguage": domain}
+            ),
         }
         if first_seen_dates:
             summary_json_ld_obj["datePublished"] = min(first_seen_dates)
@@ -3046,7 +3532,11 @@ def build_error_summary_pages(
             why = de.get("why_fails", "")
             if action and why:
                 faq_items.append({
-                    "question": f"Why does '{action}' fail for {signature}?",
+                    "question": (
+                        f"Why doesn't '{action}' work in {country_phrase}?"
+                        if is_country
+                        else f"Why does '{action}' fail for {signature}?"
+                    ),
                     "answer": why,
                 })
         # Top workaround as the single "How to fix?" question
@@ -3055,7 +3545,11 @@ def build_error_summary_pages(
             how = wa.get("how", "")
             if action:
                 faq_items.append({
-                    "question": f"How to fix {signature}?",
+                    "question": (
+                        f"What actually works in {country_phrase}?"
+                        if is_country
+                        else f"How to fix {signature}?"
+                    ),
                     "answer": how or action,
                 })
         faq_json_ld = ""
@@ -3192,10 +3686,18 @@ def build_error_summary_pages(
             summary_json_ld=summary_json_ld,
             faq_json_ld=faq_json_ld,
             faq_items=faq_items,
-            page_title=seo_title(
-                signature,
-                counts=(len(common_dead_ends), len(common_workarounds)),
+            page_title=(
+                seo_title_plain(page_h1)
+                if is_country
+                else seo_title(
+                    signature,
+                    counts=(len(common_dead_ends), len(common_workarounds)),
+                    disambiguator=disambiguators.get(slug_key, ""),
+                )
             ),
+            page_h1=page_h1,
+            is_country=is_country,
+            country_phrase=country_phrase,
             meta_description=seo_description(
                 verdict_summary,
                 f"{len(common_workarounds)} verified fixes, "
@@ -3295,23 +3797,33 @@ def build_search_page(
             "page_url": f"{BASE_PATH}/{'/'.join(canon['id'].split('/')[:2])}/",
         })
 
-    # Group by domain for the "all errors" section
-    by_domain: dict[str, list[dict]] = {}
+    # Domain counts for the filter chips and the browse list.
+    by_domain: dict[str, int] = {}
     for entry in search_data:
-        by_domain.setdefault(entry["domain"], []).append(entry)
+        by_domain[entry["domain"]] = by_domain.get(entry["domain"], 0) + 1
 
-    domain_errors = [
-        {"name": domain, "errors": errors}
-        for domain, errors in sorted(by_domain.items())
+    domain_counts = [
+        {"name": domain, "count": count, "display_name": domain_display_name(domain)}
+        for domain, count in sorted(by_domain.items())
     ]
+
+    # The index (~1 MB of signatures + regexes for 2,600+ canons) lives in
+    # its own JSON file that the page fetches on first use. Inlining it made
+    # /search/ a 2.3 MB HTML document - Google crawled it and refused to
+    # index it, and every visitor paid the download before typing anything.
+    # The file is excluded for web-search crawlers in robots.txt; it is not
+    # a page and must never compete with the HTML for indexing.
+    (SITE_DIR / SEARCH_DATA_FILE).write_text(
+        json.dumps(search_data, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
+    print(f"  Generated: /{SEARCH_DATA_FILE} ({len(search_data)} entries)")
 
     html = template.render(
         total_errors=len(canons),
         domain_count=len(by_domain),
-        domain_errors=domain_errors,
-        search_data=json.dumps(
-            search_data, ensure_ascii=True
-        ).replace("</", r"<\/").replace("<!--", "\\u003C!--"),
+        domain_counts=domain_counts,
+        search_data_url=f"{BASE_PATH}/{SEARCH_DATA_FILE}",
     )
 
     search_dir = SITE_DIR / "search"
@@ -5371,7 +5883,10 @@ def main():
     print()
 
     print("Generating OG image for social sharing...")
-    build_og_image()
+    build_og_image(canons)
+
+    print("Generating per-domain OG images...")
+    build_domain_og_images(canons)
     print()
 
     print("Generating per-error OG images...")

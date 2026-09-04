@@ -320,6 +320,18 @@ def test_openapi_documents_country_endpoints(tmp_path, monkeypatch):
     assert "CountryAggregate" in spec["components"]["schemas"]
 
 
+def _robots_rule_matches(rule: str, path: str) -> bool:
+    """Minimal robots.txt path matcher (prefix match, `*` wildcard, `$` anchor)."""
+    import re as _re
+
+    if not rule:
+        return False
+    anchored = rule.endswith("$")
+    pattern = "".join(".*" if ch == "*" else _re.escape(ch) for ch in rule.rstrip("$"))
+    pattern = "^" + pattern + ("$" if anchored else "")
+    return _re.match(pattern, path) is not None
+
+
 def test_robots_allows_country_paths(tmp_path, monkeypatch):
     import generator.build_site as bs
 
@@ -332,15 +344,30 @@ def test_robots_allows_country_paths(tmp_path, monkeypatch):
     # but no Disallow may ever cover /country/ pages or the "api" error
     # domain's HTML pages at /api/{slug}/.
     assert "Allow: /" in robots
+    # Every Disallow must name a non-HTML resource (JSON API, plaintext
+    # dumps, the client-side search index). Nothing may ever cover an HTML
+    # page path: /country/{cc}/, /{domain}/, /{domain}/{slug}/.
+    allowed_disallows = {
+        "/api/v1/",
+        "/search-data.json",
+        "/llms.txt",
+        "/llms-full",
+        "/country/*/llms.txt",
+        "/country/*/AGENTS.md",
+        "/indexnow-urls.txt",
+    }
+    html_paths = ["/country/kr/", "/country/", "/api/", "/api/json-parse-error/",
+                  "/python/", "/python/modulenotfounderror/", "/"]
     for line in robots.splitlines():
         if line.startswith("Disallow:"):
             path = line.split(":", 1)[1].strip()
-            assert not path or "/country" not in path, (
-                f"unexpected Disallow that blocks country paths: {line!r}"
+            assert not path or path in allowed_disallows, (
+                f"unexpected Disallow: {line!r}"
             )
-            assert not path or path == "/api/v1/", (
-                f"unexpected Disallow beyond /api/v1/: {line!r}"
-            )
+            for html_path in html_paths:
+                assert not _robots_rule_matches(path, html_path), (
+                    f"Disallow {path!r} would block HTML page {html_path}"
+                )
 
     # The /api/v1/ block applies to web-search crawler groups only - the
     # generic group and AI crawler groups keep full access.

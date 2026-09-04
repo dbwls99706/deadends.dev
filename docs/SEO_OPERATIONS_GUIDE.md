@@ -94,8 +94,56 @@ GSC 리포트 카테고리별 실제 의미:
 - 경로는 반드시 `/api/v1/`(`/api/` 아님) - `/api/{slug}/`는 "api" 에러 도메인의
   HTML 페이지라서 크롤 가능해야 한다.
 
+### 웹검색 크롤러 제외 목록 (Googlebot / GoogleOther / Bingbot 전용)
+`/api/v1/` 외에 아래 경로도 웹검색 크롤러에게만 `Disallow`한다. 전부 이미
+canonical HTML 페이지가 있는 콘텐츠의 **원문 복제본**이라, 웹 색인이 크롤하면
+실제 페이지와 경쟁하는 중복 문서가 되고 "크롤링됨 - 색인 안 됨" 노이즈만 쌓인다.
+AI 크롤러와 `User-agent: *`는 전부 허용 유지.
+
+| 경로 | 정체 |
+| --- | --- |
+| `/search-data.json` | `/search/`가 첫 입력 때 lazy-fetch하는 클라이언트 검색 인덱스(약 1.5MB) |
+| `/llms.txt`, `/llms-full*.txt` | 전 canon 요약/전문 플레인텍스트 덤프(0.9MB / 4MB) |
+| `/country/*/llms.txt`, `/country/*/AGENTS.md` | 국가 페이지의 플레인텍스트 복제 |
+| `/indexnow-urls.txt` | IndexNow 제출용 URL 목록 |
+
+### 2026-09 기술 점검에서 고친 것 (색인 품질 게이트 대응)
+"크롤링됨 - 현재 색인이 생성되지 않음"은 Google이 페이지를 **봤지만 품질/중복
+판정으로 보류**한 상태다. 아래는 그 판정에 불리하게 작용하던 사이트 자체 결함.
+
+| 결함 | 조치 |
+| --- | --- |
+| `/search/`가 2.3MB HTML(검색 인덱스 JSON 인라인). 사이트맵 priority 0.9인데 색인 거부 | 인덱스를 `/search-data.json`으로 분리, 첫 입력 시 fetch. 페이지 25KB |
+| 국가 canon 제목이 `Fix AI tells a tourist they can open a UAE bank… \| deadends.dev`처럼 잘리고 서로 중복(33쌍) | 제목·H1을 슬러그+국가로 생성: `Account needs residence visa in the United Arab Emirates`. 오답 문장은 H1 아래 "AI dead end" 라인으로 표시 |
+| 코드 canon 제목이 70자에서 잘려 동일해지는 그룹(`An error occurred (AccessDenied)…` ×3, `cuda/nccl-timeout` vs `pytorch/nccl-timeout`) | 충돌 그룹만 `(S3 access denied)`, `(CUDA)`처럼 구분자 부착 (`title_disambiguators`) |
+| 멀티 env 페이지 제목에서 환경 컨텍스트가 길면 통째로 탈락 → summary 페이지와 제목 동일 | 짧은 환경 라벨(`cpython 3.11 · linux`)로 항상 유지, 라벨까지 같으면 env id 사용 |
+| `og:image`가 SVG - X/Facebook/LinkedIn/Slack 어느 곳도 SVG 카드를 렌더하지 않음 | Pillow로 도메인별·국가별·사이트 PNG 카드 생성(`/og/{domain}.png`, `/country/{cc}/og.png`). Pillow 없으면 단색 PNG 폴백 |
+| TechArticle JSON-LD `description`이 "N environments, N dead ends…" 사이트 공통 템플릿 문자열 | verdict summary(페이지 고유)로 교체, `author`/`mainEntityOfPage` 추가. 국가 canon은 `Article` + `about: Country` |
+| GSC 리포트의 수동 색인 요청 목록이 `/search/`, `/sitemap/`, `/dashboard/` 등 유틸리티 페이지부터 | 홈 → 규모 큰 도메인/국가 허브 순으로 정렬 (`gsc_report.rank_key`) |
+
+빌드 산출물 자체는 정합 상태다(사이트맵 2,818 URL 전부 canonical 일치·lastmod 존재,
+noindex 페이지 0건 포함, 라이브 사이트 robots/301/CNAME 정상). 즉 남은 변수는
+Google의 신뢰도 게이트이며, 아래 재제출 절차와 백링크가 그 다음 조치다.
+
+### 사이트맵 삭제 → 재제출 절차 (GSC)
+1. 이 변경이 `main`에 배포된 뒤 `https://deadends.dev/sitemap.xml`을 열어
+   `<lastmod>`가 갱신됐는지 확인한다(GitHub Pages 캐시 10분).
+2. GSC → **Sitemaps** → 기존 `sitemap.xml` 항목의 ⋮ → **사이트맵 삭제**.
+3. 같은 화면에서 `sitemap.xml`을 다시 입력해 **제출**. 하위 사이트맵 55개
+   (`sitemap-main.xml` + 도메인별)는 인덱스에서 자동 발견된다. 개별 제출 불필요.
+4. **페이지 색인 생성** 리포트에서 `robots.txt에 의해 차단됨`(과거 `/api/` 차단
+   잔재)과 `크롤링됨 - 현재 색인이 생성되지 않음` 각각 **유효성 검사 시작**.
+   - `/api/v1/*`, `/llms*.txt`, `/search-data.json`이 "차단됨"으로 남는 것은 정상.
+5. **URL 검사 → 색인 생성 요청**을 아래 순서로, 하루 10건씩:
+   `python -m generator.gsc_report --dry-run --limit 20` 출력 순서 = 홈 →
+   `/country/` → 규모 큰 도메인 허브(`/culture/`, `/python/`, `/docker/` ...).
+6. 1~2주 후 `data/seo/gsc_report.json`(주간 Actions 자동 갱신)의
+   `indexed_count` 추이 확인. 허브가 색인되기 시작하면 상세 페이지가 뒤따른다.
+
 ### 하지 말 것
 - 리디렉션 스텁 noindex 제거(의도된 중복 제거이므로 유지).
 - lastmod를 매 배포마다 현재 시각으로 위조(Google이 신뢰도 하락으로 취급).
 - `/api/` 전체 또는 전 크롤러 대상 차단(AI 에이전트 소비까지 끊김 - 위의
   "웹검색 크롤러만 /api/v1/" 정책과 혼동 금지).
+- `og:image`를 다시 SVG로 되돌리기(소셜 카드가 통째로 사라진다).
+- 검색 인덱스 JSON을 HTML에 다시 인라인하기.

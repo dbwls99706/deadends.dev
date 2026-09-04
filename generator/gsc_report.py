@@ -117,12 +117,70 @@ def build_service(credentials):
     return build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
 
 
+# Utility pages: real pages, but a manual indexing request on them earns
+# nothing for the content hubs beneath - they go after every content hub.
+UTILITY_PATHS = {"/search/", "/sitemap/", "/dashboard/", "/about/"}
+
+
+def _path(url: str) -> str:
+    m = re.match(r"https?://[^/]+(/.*)?$", url)
+    return (m.group(1) or "/") if m else url
+
+
+def hub_weights() -> dict[str, int]:
+    """URL -> number of pages beneath each hub, read from the build output.
+
+    Domain hubs weigh what their sub-sitemap lists; country hubs weigh their
+    entry count from /api/v1/countries.json. Missing files just mean a
+    weight of zero - ordering then falls back to depth and path.
+    """
+    weights: dict[str, int] = {}
+    for sm in SITE_DIR.glob("sitemap-*.xml"):
+        domain = sm.stem.removeprefix("sitemap-")
+        if domain == "main":
+            continue
+        n = len(re.findall(r"<loc>", sm.read_text(encoding="utf-8")))
+        weights[f"https://deadends.dev/{domain}/"] = n
+    countries_file = SITE_DIR / "api" / "v1" / "countries.json"
+    if countries_file.exists():
+        try:
+            data = json.loads(countries_file.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            data = {}
+        for c in data.get("countries", []):
+            if c.get("url"):
+                weights[c["url"]] = int(c.get("total_entries", 0) or 0)
+        weights["https://deadends.dev/country/"] = int(data.get("total_entries", 0) or 0)
+    return weights
+
+
+def rank_key(url: str, weights: dict[str, int] | None = None) -> tuple:
+    """Sort key: home, then content hubs by size, then detail pages, then
+    utility pages.
+
+    Hubs are where a manual indexing request buys the most - once a hub is
+    indexed its crawl equity flows to the detail pages under it - and the
+    biggest hubs first, because they unlock the most pages.
+    """
+    weights = weights or {}
+    path = _path(url)
+    depth = path.rstrip("/").count("/")
+    if path == "/":
+        return (0, 0, path)
+    if path in UTILITY_PATHS:
+        return (3, 0, path)
+    is_hub = depth == 1 or path.startswith("/country/")
+    if is_hub:
+        return (1, -weights.get(url, 0), path)
+    return (2, 0, path)
+
+
 def collect_urls() -> list[str]:
     """Read indexable URLs out of the generated sitemaps, hubs first.
 
     Hub pages are inspected first on purpose: if a hub is not indexed, the detail
     pages below it have little chance, so hubs are where a manual indexing
-    request buys the most.
+    request buys the most. See rank_key() for the order.
     """
     sitemaps = sorted(SITE_DIR.glob("sitemap-*.xml"))
     if not sitemaps:
@@ -139,12 +197,8 @@ def collect_urls() -> list[str]:
                 seen.add(url)
                 urls.append(url)
 
-    def depth(url: str) -> int:
-        return url.rstrip("/").count("/")
-
-    hubs = [u for u in urls if depth(u) <= 3]
-    details = [u for u in urls if depth(u) > 3]
-    return sorted(hubs, key=depth) + details
+    weights = hub_weights()
+    return sorted(urls, key=lambda u: rank_key(u, weights))
 
 
 def inspect_url(service, site_url: str, url: str) -> dict:
@@ -217,8 +271,11 @@ def print_report(results: list[dict], previous: dict) -> list[str]:
         for state, n in sorted(by_state.items(), key=lambda x: -x[1]):
             print(f"    {n:5d}  {state}")
 
-    # Shallowest URLs first: hubs pass crawl equity down to detail pages.
-    shortlist = [r["url"] for r in sorted(pending, key=lambda r: r["url"].rstrip("/").count("/"))]
+    # Biggest content hubs first: hubs pass crawl equity down to their
+    # detail pages, so a request there unlocks the most. Utility pages
+    # (/search/, /about/, ...) come last - see rank_key().
+    weights = hub_weights()
+    shortlist = [r["url"] for r in sorted(pending, key=lambda r: rank_key(r["url"], weights))]
     shortlist = shortlist[:10]
     if shortlist:
         print("\n  Request indexing by hand in Search Console (URL Inspection),")
