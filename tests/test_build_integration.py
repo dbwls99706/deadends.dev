@@ -256,7 +256,14 @@ class TestSiteBuildIntegration:
             assert match, f"Could not extract JSON-LD from {canon['id']}"
             json_ld = json.loads(match.group(1))
             # JSON-LD uses Schema.org TechArticle with embedded ErrorCanon
-            assert json_ld["@type"] == "TechArticle"
+            # (country canons are plain Article about a Country - they are
+            # not software errors).
+            is_country = bool(
+                (canon["environment"].get("additional") or {}).get("country")
+            )
+            assert json_ld["@type"] == ("Article" if is_country else "TechArticle")
+            assert json_ld["mainEntityOfPage"]["@id"] == json_ld["url"]
+            assert json_ld["author"]["name"] == "deadends.dev"
             assert json_ld["deadend:errorCanon"]["id"] == canon["id"]
 
             # Embedded canon URL must have trailing slash (prevent redirect)
@@ -407,13 +414,16 @@ class TestSiteBuildIntegration:
             checked += 1
         assert checked > 0, "No summary page with FAQPage JSON-LD found"
 
-    def test_summary_titles_are_bounded(self, built_site):
-        """Generated <title> tags must stay within ~70 visible chars so
-        Google doesn't truncate/rewrite them sitewide."""
+    def test_summary_titles_are_bounded_and_unique(self, built_site):
+        """Generated <title> tags stay bounded (search engines index the
+        whole title but display ~60-70 chars; country titles and
+        disambiguated ones may run to 85) and no two indexable pages share
+        a title - sitewide duplicate titles are a scaled-content footprint."""
         import html as html_mod
 
         site_dir = built_site["site_dir"]
         violations = []
+        seen: dict[str, str] = {}
         for summary in built_site["summary_urls"]:
             content = (site_dir / summary["slug_key"] / "index.html").read_text(
                 encoding="utf-8"
@@ -421,10 +431,14 @@ class TestSiteBuildIntegration:
             m = re.search(r"<title>(.*?)</title>", content, re.DOTALL)
             assert m, f"{summary['slug_key']}: missing <title>"
             title = html_mod.unescape(m.group(1))
-            if len(title) > 70:
+            if len(title) > 85:
                 violations.append(f"{summary['slug_key']} ({len(title)} chars)")
+            assert title not in seen, (
+                f"duplicate <title> {title!r}: {seen[title]} and {summary['slug_key']}"
+            )
+            seen[title] = summary["slug_key"]
         assert not violations, (
-            f"{len(violations)} summary title(s) exceed 70 chars "
+            f"{len(violations)} summary title(s) exceed 85 chars "
             f"(first 5: {violations[:5]})"
         )
 

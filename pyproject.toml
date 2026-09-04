@@ -43,6 +43,7 @@ dev = [
     "pytest>=7.0,<9",
     "ruff>=0.4,<1",
     "jsonschema>=4.20,<5",
+    "pillow>=10.1,<12",
 ]
 mcp = [
     "jsonschema>=4.20,<5",

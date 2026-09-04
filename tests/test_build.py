@@ -49,12 +49,24 @@ class TestSeoTitle:
         title = seo_title("ENOSPC", context="node20-linux")
         assert title == "Fix ENOSPC on node20-linux | deadends.dev"
 
-    def test_context_dropped_when_it_crowds_signature(self):
+    def test_context_bounded_when_it_crowds_signature(self):
+        """A runaway context is truncated, never dropped: dropping it would
+        make an env page's title identical to its summary page's."""
         sig = "Some moderately long signature text here"
         ctx = "a very long environment summary that eats the whole budget"
         title = seo_title(sig, context=ctx)
-        assert len(title) <= 70
-        assert ctx not in title
+        assert " on a very long environment" in title
+        assert ctx not in title  # bounded to TITLE_CONTEXT_MAX_LEN
+        assert title.startswith("Fix Some moderately long")  # signature stem kept
+        assert len(title) <= 90
+
+    def test_disambiguator_appended_before_suffix(self):
+        sig = "An error occurred (AccessDenied) when calling the GetObject operation"
+        a = seo_title(sig, disambiguator="S3 access denied")
+        b = seo_title(sig, disambiguator="IAM policy denied")
+        assert a != b
+        assert a.endswith(" (S3 access denied) | deadends.dev")
+        assert len(a) <= 70
 
     def test_suffix_always_present(self):
         for sig in ("x", "y" * 200):

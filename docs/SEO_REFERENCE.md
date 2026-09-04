@@ -222,3 +222,36 @@ ruff check generator/ tests/
 - [`docs/country-canon-guide.md`](country-canon-guide.md) - authoring
   standard for country canons, including SEO-aware signature/regex.
 - [`CLAUDE.md`](../CLAUDE.md) - architecture and schema.
+
+## Titles
+
+- Code canon summary page: `Fix {signature} | deadends.dev` (≤ 70 chars,
+  word-boundary truncated). When two signatures truncate to the same
+  prefix, `title_disambiguators()` appends `(humanised slug)` - or the
+  domain name when the same slug lives in two domains - to every member of
+  the clash group. No two indexable pages may share a `<title>`
+  (`test_summary_titles_are_bounded_and_unique`).
+- Multi-env page: `Fix {signature} on {short_env_label} | deadends.dev`
+  (≤ 85 chars). The context is never dropped - without it the env page's
+  title equals the summary page's. Sibling envs whose structured fields are
+  identical fall back to the env segment of the id (`docker24-vpn`).
+- Country canon page (summary and per-country): `{Humanised slug} in
+  {Country} | deadends.dev` (≤ 80 chars; multi-country slugs list up to
+  three names then "and N more"). The `error.signature` ("AI tells a
+  tourist ...") is the misconception, not the topic: it is rendered under
+  the H1 with the "AI dead end" label, never in `<title>`.
+
+## Social cards
+
+`og:image` / `twitter:image` must point at a **PNG** - no platform renders
+an SVG card. Cards are rendered by `render_card_png()` (Pillow when
+installed, flat branded PNG otherwise): `/og-image.png` (site),
+`/og/{domain}.png` (every error page in the domain), `/country/{cc}/og.png`.
+Per-error SVGs under `/og/{domain}/{slug}.svg` still exist for tooling but
+are not referenced from meta tags.
+
+## Search page
+
+`/search/` must stay a small HTML document. The client-side index
+(`/search-data.json`, ~1.5 MB) is fetched on first focus/input and is
+disallowed for web-search crawlers in `robots.txt`.

@@ -19,16 +19,16 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ base_url }}/{{ domain }}/{{ slug }}/">
   <meta property="og:site_name" content="deadends.dev">
-  <meta property="og:image" content="{{ base_url }}/og/{{ domain }}/{{ slug }}.svg">
+  <meta property="og:image" content="{{ base_url }}/og/{{ domain }}.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:alt" content="{{ signature }} - {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page_title }}">
   <meta name="twitter:description" content="{{ meta_description }}">
-  <meta name="twitter:image" content="{{ base_url }}/og/{{ domain }}/{{ slug }}.svg">
+  <meta name="twitter:image" content="{{ base_url }}/og/{{ domain }}.png">
   <meta name="twitter:image:alt" content="{{ signature }} - {{ total_dead_ends }} dead ends, {{ total_workarounds }} workarounds">
 
   <!-- BreadcrumbList for Google rich results -->
@@ -39,7 +39,7 @@
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "deadends.dev", "item": "{{ base_url }}"},
       {"@type": "ListItem", "position": 2, "name": "{{ domain | display_name | json_escape }}", "item": "{{ base_url }}/{{ domain }}/"},
-      {"@type": "ListItem", "position": 3, "name": "{{ signature | json_escape }}"}
+      {"@type": "ListItem", "position": 3, "name": "{{ page_h1 | default(signature) | json_escape }}"}
     ]
   }
   </script>
@@ -82,8 +82,14 @@ MATCH_API={{ base_url }}/api/v1/match.json</pre>
 
   <main>
   <header>
+    {% if is_country %}
+    <h1>{{ page_h1 }}</h1>
+    <p class="misconception"><span class="misconception-label">AI dead end</span> {{ signature }}</p>
+    <p class="meta">{{ environments|length }} countr{{ 'ies' if environments|length != 1 else 'y' }} · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds · Fix rates: {{ min_rate }}%–{{ max_rate }}%</p>
+    {% else %}
     <h1><code>{{ signature }}</code></h1>
     <p class="meta">{{ environments|length }} environment{{ 's' if environments|length != 1 else '' }} · {{ total_dead_ends }} dead ends · {{ total_workarounds }} workarounds · Fix rates: {{ min_rate }}%–{{ max_rate }}%</p>
+    {% endif %}
     {% if intro_text %}<p class="intro">{{ intro_text }}</p>{% endif %}
   </header>
 

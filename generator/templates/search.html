@@ -69,13 +69,14 @@
   <pre id="ai-summary" class="ai-summary">PAGE: Error Search
 PURPOSE: Match error messages against {{ total_errors }} known patterns across {{ domain_count }} domains
 USAGE: Fetch /api/v1/index.json to get all error signatures with regex patterns. Match your error against regexes. Fetch the matching error's api_url for full dead_ends and workarounds.
-API_INDEX: {{ base_url }}/api/v1/index.json</pre>
+API_INDEX: {{ base_url }}/api/v1/index.json
+SEARCH_INDEX: {{ base_url }}{{ search_data_url }}</pre>
 
   <nav><a href="{{ base_path }}/">deadends.dev</a></nav>
 
   <main>
   <h1>Error Search</h1>
-  <p>Paste your error message below. We'll match it against {{ total_errors }} known error patterns.</p>
+  <p>Paste your error message below. We'll match it against {{ total_errors }} known error patterns across {{ domain_count }} domains - each result tells you which fixes are dead ends and which workarounds actually succeed.</p>
 
   <div class="search-box">
     <label for="search-input" class="meta">Paste your error message</label>
@@ -84,8 +85,8 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
 
   <div class="domain-filter" id="domain-filter" role="toolbar" aria-label="Filter by domain">
     <span class="domain-tag active" data-domain="all" role="button" tabindex="0">All</span>
-    {% for domain in domain_errors %}
-    <span class="domain-tag" data-domain="{{ domain.name }}" role="button" tabindex="0">{{ domain.name }} <span class="count">({{ domain.errors|length }})</span></span>
+    {% for domain in domain_counts %}
+    <span class="domain-tag" data-domain="{{ domain.name }}" role="button" tabindex="0">{{ domain.name }} <span class="count">({{ domain.count }})</span></span>
     {% endfor %}
   </div>
 
@@ -98,23 +99,20 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
     <a href="#" class="quick-search" data-q="connection refused">Connection refused</a>
   </div>
 
+  <p id="search-status" class="meta" aria-live="polite" hidden></p>
   <div id="results"></div>
   <div id="no-results">
     <p>No matching errors found. Try pasting more of the error message, or <a href="https://github.com/dbwls99706/deadends.dev/issues/new">request this error</a>.</p>
   </div>
 
-  <section id="all-errors">
-    <h2>All Known Errors ({{ total_errors }})</h2>
-    {% for domain in domain_errors %}
-    <h3>{{ domain.name }} ({{ domain.errors|length }})</h3>
-    {% for err in domain.errors %}
-    <div class="error-entry">
-      <a href="{{ err.page_url }}"><code>{{ err.signature }}</code></a>
-      <span class="verdict-{{ err.resolvable }}">[{{ err.resolvable }}]</span>
-      <span class="meta">{{ err.dead_end_count }} dead ends · {{ err.workaround_count }} workarounds</span>
-    </div>
-    {% endfor %}
-    {% endfor %}
+  <section id="browse-domains">
+    <h2>Browse by domain</h2>
+    <p class="meta">Every domain hub lists its errors with fix rates. The <a href="{{ base_path }}/sitemap/">full index</a> lists all {{ total_errors }} entries on one page, and the <a href="{{ base_path }}/country/">country hub</a> groups real-world dead ends by jurisdiction.</p>
+    <ul class="domain-list">
+      {% for domain in domain_counts %}
+      <li><a href="{{ base_path }}/{{ domain.name }}/">{{ domain.display_name }}</a> <span class="meta">({{ domain.count }})</span></li>
+      {% endfor %}
+    </ul>
   </section>
 
   </main>
@@ -123,43 +121,76 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
     <p><a href="{{ base_path }}/">deadends.dev</a> · <a href="{{ base_path }}/api/v1/index.json">API</a> · <a href="https://github.com/dbwls99706/deadends.dev">GitHub</a></p>
   </footer>
 
-  <script type="application/json" id="search-data">{{ search_data | safe }}</script>
   <script>
     (function() {
-      var errors = JSON.parse(document.getElementById('search-data').textContent);
+      var DATA_URL = {{ search_data_url | tojson }};
       var input = document.getElementById('search-input');
       var resultsDiv = document.getElementById('results');
       var noResults = document.getElementById('no-results');
-      var allErrors = document.getElementById('all-errors');
+      var browse = document.getElementById('browse-domains');
+      var status = document.getElementById('search-status');
       var debounceTimer;
       var activeDomain = 'all';
+      var compiled = null;   // [{data, re}] once the index has loaded
+      var loading = null;    // in-flight fetch promise
 
-      // Pre-compile regexes
-      var compiled = [];
-      for (var i = 0; i < errors.length; i++) {
-        try {
-          compiled.push({
-            data: errors[i],
-            re: new RegExp(errors[i].regex, 'i')
+      function setStatus(msg) {
+        if (msg) { status.textContent = msg; status.hidden = false; }
+        else { status.textContent = ''; status.hidden = true; }
+      }
+
+      // The search index (~1 MB of signatures + regexes) is a separate
+      // JSON file fetched on first use, so the page itself stays small.
+      function ensureData() {
+        if (compiled) return Promise.resolve(compiled);
+        if (loading) return loading;
+        setStatus('Loading error index\u2026');
+        loading = fetch(DATA_URL, { credentials: 'omit' })
+          .then(function(r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+          })
+          .then(function(errors) {
+            var out = [];
+            for (var i = 0; i < errors.length; i++) {
+              var re = null;
+              try { re = new RegExp(errors[i].regex, 'i'); } catch (e) {}
+              out.push({ data: errors[i], re: re });
+            }
+            compiled = out;
+            setStatus('');
+            return compiled;
+          })
+          .catch(function(err) {
+            loading = null;
+            setStatus('Could not load the error index (' + err.message + '). Reload the page to retry.');
+            throw err;
           });
-        } catch(e) {
-          compiled.push({ data: errors[i], re: null });
-        }
+        return loading;
       }
 
       function search(query) {
         if (!query || query.length < 3) {
           resultsDiv.innerHTML = '';
           noResults.style.display = 'none';
-          allErrors.style.display = 'block';
+          browse.style.display = 'block';
           return;
         }
         if (query.length > 500) query = query.substring(0, 500);
-        allErrors.style.display = 'none';
+        ensureData().then(function(entries) {
+          // The user may have kept typing while the index loaded.
+          var current = input.value.trim();
+          if (current && current.length >= 3) query = current.substring(0, 500);
+          render(query, entries);
+        }, function() {});
+      }
+
+      function render(query, entries) {
+        browse.style.display = 'none';
         var matches = [];
         var lowerQuery = query.toLowerCase();
-        for (var i = 0; i < compiled.length; i++) {
-          var entry = compiled[i];
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
           if (activeDomain !== 'all' && entry.data.domain !== activeDomain) continue;
           var score = 0;
           if (entry.re) {
@@ -257,6 +288,9 @@ API_INDEX: {{ base_url }}/api/v1/index.json</pre>
         });
       });
 
+      // Start fetching the index as soon as the user shows intent to
+      // search, so results are instant by the time they finish typing.
+      input.addEventListener('focus', function() { ensureData().then(null, function() {}); }, { once: true });
       input.addEventListener('input', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function() {
