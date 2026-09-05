@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/flood-sms-alerts-targeted-not-universal/ke",
+  "url": "https://deadends.dev/disaster/flood-sms-alerts-targeted-not-universal/ke",
+  "error": {
+    "signature": "AI assumes every phone in Kenya automatically receives an SMS flood warning during flash-flood season, the way a cell-broadcast system would push alerts to all handsets in an area",
+    "regex": "(kenya.{0,20}flood.{0,20}(alert|warning|sms)|kenya.{0,20}(early warning|emergency alert)|kenya red cross.{0,20}sms)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-05",
+    "last_confirmed": "2026-09-05"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ke",
+      "country_name": "Kenya",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.6,
+    "last_updated": "2026-09-05",
+    "summary": "Kenya Red Cross reactivated an SMS-based flood early-warning system during the 2026 short-rains season, sending tens of millions of messages nationally, but the messages specifically target residents in high-risk and flood-prone areas rather than every phone in the country. The Kenya Meteorological Department separately publishes a Daily Flood Bulletin through its National Flood Forecasting and Early Warning Centre, but distribution is as a bulletin residents and local authorities consult, not an automatic nationwide push. A traveler or resident outside a monitored high-risk zone, or newly arrived in one, should not assume silence means no flood risk."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or resident in Kenya that they will automatically receive an SMS flood warning wherever they are in the country, and that no alert means no risk",
+      "why_fails": "Coverage of Kenya Red Cross's reactivated early-warning system reports that 'the messages specifically target residents in high-risk and flood-prone areas' rather than blanket-covering the country the way a cell-broadcast emergency-alert system would; someone outside those specifically monitored zones, or newly exposed by a fast-forming flash flood, cannot rely on getting a text before water rises.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://capitalfm.africa/794691/",
+        "https://allafrica.com/stories/202602240052.html"
+      ],
+      "condition": "Outside a Red-Cross-monitored high-risk flood zone",
+      "common_misconception": "That an SMS early-warning system functions like a cell-broadcast system that reaches every handset in a geographic area automatically, rather than a targeted list-based messaging campaign."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the Kenya Meteorological Department's Daily Flood Bulletin (from its National Flood Forecasting and Early Warning Centre) directly during rainy seasons rather than waiting for an SMS, especially outside areas Kenya Red Cross has flagged as high-risk",
+      "success_rate": 0.75,
+      "how": "The bulletin uses a colour-coded risk system covering river basins and forecast periods; check it proactively during the short and long rains rather than treating the absence of a text alert as confirmation of safety.",
+      "sources": [
+        "https://meteo.go.ke/our-products/flood-bulletin/"
+      ],
+      "condition": "Rainy season travel or residence in flood-prone terrain"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/riparian-reserve-eviction-no-compensation/ke",
+        "distinction": "That canon covers eviction from riparian land with no compensation; this one covers whether you will be warned before a flood reaches you at all."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-05",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-05"
+  }
+}

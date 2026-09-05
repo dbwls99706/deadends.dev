@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/kra-pin-required-for-account/ke",
+  "url": "https://deadends.dev/banking/kra-pin-required-for-account/ke",
+  "error": {
+    "signature": "AI tells a foreigner in Kenya that a passport alone lets them open a bank account, or that anyone can self-register for a KRA PIN online the same way a citizen does",
+    "regex": "(kenya.{0,20}(bank account|open.{0,10}account)|kra pin.{0,20}kenya|kenya.{0,20}kra pin|kenya revenue authority.{0,20}pin)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-05",
+    "last_confirmed": "2026-09-05"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ke",
+      "country_name": "Kenya",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.68,
+    "last_updated": "2026-09-05",
+    "summary": "Kenya's Tax Procedures Act No. 29 of 2015 (First Schedule) lists opening a bank account among the transactions that require a KRA Personal Identification Number (PIN); the Central Bank of Kenya directed all commercial banks in November 2017 to require it for every new account. Kenyan citizens and residents self-register for a PIN online via iTax with a national ID, but KRA's own foreign-national categories (employee, investor, non-resident property buyer, diplomat) each require a specific introduction letter - from an employer, a KRA-registered tax agent, or the applicant's embassy - rather than a passport-only self-service path. A tourist or short-term visitor with none of those sponsors has no route to a PIN, and therefore no route to a Kenyan bank account."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreigner in Kenya they can register for a KRA PIN online themselves with just a passport, the way a citizen registers via iTax with a national ID",
+      "why_fails": "KRA's own PIN-registration requirements page lists separate document sets for each foreign-national category: non-Kenyan employees need a 'letter of introduction by employer' plus the employer's PIN and work permit; non-Kenyan investors need a tax-agent introduction letter and proof of investment; non-residents buying property need an introduction letter from a KRA-registered tax agent; diplomats need a note verbale from their embassy. None of these categories can complete registration with a passport alone.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.kra.go.ke/individual/individual-pin-registration/learn-about-pin/requirements-for-kra-pin-registration"
+      ],
+      "condition": "Foreign national with no employer, tax agent, or embassy sponsor",
+      "common_misconception": "That KRA PIN registration works the same way for every applicant regardless of residency or immigration status."
+    },
+    {
+      "action": "Assume a Kenyan bank will open an account for a foreigner who has a passport and cash to deposit, without a KRA PIN",
+      "why_fails": "KRA's own compliance guidance states a PIN 'is required for activities such as applying for a HELB loan, opening a bank account, engaging in business, and selling land' - opening a bank account is a scheduled transaction under the Tax Procedures Act, and banks were directed by the Central Bank of Kenya in November 2017 to enforce PIN collection on every new account, not just for residents.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.kra.go.ke/news-center/blog/2132-tax-compliance-101-what-you-need-to-know",
+        "https://www.kenyans.co.ke/news/31079-document-you-must-now-produce-opening-bank-account"
+      ],
+      "condition": "Any bank account application in Kenya"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Match the KRA PIN application route to the applicant's actual status: citizens/residents use iTax with a national ID; a foreign employee applies with an employer introduction letter and work permit; a foreign investor or property buyer applies through a KRA-registered tax agent; a diplomat applies via their embassy's note verbale. Only once the PIN is issued should a bank account application be attempted.",
+      "success_rate": 0.85,
+      "how": "KRA's requirements page lists the exact document set per category - match the applicant to their category before starting, since the wrong route (e.g. applying as an investor without proof of investment) will be rejected.",
+      "sources": [
+        "https://www.kra.go.ke/individual/individual-pin-registration/learn-about-pin/requirements-for-kra-pin-registration"
+      ],
+      "condition": "Foreigner with an employer, investment, property purchase, or diplomatic posting"
+    },
+    {
+      "action": "For a short-term visitor with no employer, investment, or embassy sponsor - who therefore has no KRA PIN route - use mobile money (M-Pesa via a local Safaricom SIM) instead of attempting to open a bank account",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.safaricom.co.ke/personal/m-pesa/getting-started"
+      ],
+      "condition": "Tourist or short-term visitor with no PIN-eligible status"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/mpesa-cashless-culture/ke",
+        "distinction": "M-Pesa mobile money is opened with a passport and a local SIM and needs no KRA PIN or bank account at all; this canon covers the separate, harder requirement for a formal bank account."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-05",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-05"
+  }
+}

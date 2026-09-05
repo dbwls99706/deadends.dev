@@ -8,7 +8,7 @@
     "domain": "nextjs",
     "category": "component_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-05"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.98,
     "confidence": 0.95,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-05",
     "summary": "Using React hooks in a Server Component. App Router defaults all components to Server Components."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Defeats the purpose of Server Components - only mark interactive ones",
       "fail_rate": 0.7,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Over-engineering for simple interactive components",
       "fail_rate": 0.65,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     }
@@ -50,7 +50,7 @@
       "success_rate": 0.98,
       "how": "'use client';\nimport { useState } from 'react';",
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": ""
     },
@@ -58,7 +58,7 @@
       "action": "Split into Server (data fetching) + Client (interactive) components",
       "success_rate": 0.92,
       "sources": [
-        "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns"
+        "https://nextjs.org/docs/app/getting-started/server-and-client-components"
       ],
       "condition": "",
       "how": "data fetching"
@@ -79,6 +79,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-05"
   }
 }
