@@ -8,7 +8,7 @@
     "domain": "aws",
     "category": "compute_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-05"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.8,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-05",
     "summary": "An EMR step (Spark, Hive, etc.) failed due to application errors, resource exhaustion, or configuration issues."
   },
   "dead_ends": [
@@ -85,6 +85,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 60,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-05"
   }
 }

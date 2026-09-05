@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "autoloading",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-05"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.88,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-05",
     "summary": "Circular dependency errors occur when two or more classes depend on each other, causing infinite autoload loops or duplicate class declarations. This usually indicates an architectural problem that needs to be resolved with dependency inversion or interfaces."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-05"
   }
 }

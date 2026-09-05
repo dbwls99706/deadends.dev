@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/psychiatric-care-severe-scarcity/bd",
+  "url": "https://deadends.dev/mental-health/psychiatric-care-severe-scarcity/bd",
+  "error": {
+    "signature": "AI tells someone in Bangladesh having a mental health crisis to call a Western-style 24/7 crisis line (988, Samaritans) or assumes psychiatric care is as accessible as in a high-income country",
+    "regex": "(mental health crisis bangladesh|bangladesh.*(suicide|psychiatric) helpline|988.*bangladesh|bangladesh.*crisis hotline)",
+    "domain": "mental-health",
+    "category": "service_limitation",
+    "first_seen": "2026-09-05",
+    "last_confirmed": "2026-09-05"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.7,
+    "confidence": 0.6,
+    "last_updated": "2026-09-05",
+    "summary": "WHO's Bangladesh situation assessment found a treatment gap of 92% among adults and 94.5% among children with mental disorders. A 2024 peer-reviewed stakeholder study found only 270 psychiatrists nationwide (about 1.17 mental health workers per 100,000 people), with the National Institute of Mental Health (NIMH) in Dhaka as the country's one national specialist facility (plus a second hospital in Pabna), and 70% of the population living in rural areas without practical access to a psychiatrist. There is no dedicated, fully-staffed 24/7 national mental-health crisis line comparable to 988 or Samaritans; the general emergency number 999 dispatches police/fire/ambulance but is not a psychiatric triage service."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in mental distress in Bangladesh to call a national crisis hotline modeled on 988/Samaritans, expecting 24/7 professional phone triage",
+      "why_fails": "WHO's Bangladesh mental health situation assessment found a treatment gap of 92% among adults and 94.5% among children, and a 2024 peer-reviewed stakeholder study found the country has only 270 psychiatrists (about 1.17 mental health professionals per 100,000 people) concentrated overwhelmingly in Dhaka; there is no fully-staffed 24/7 national crisis line analogous to 988, so a caller searching for one may find nothing reliable.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.who.int/bangladesh/news/detail/13-12-2021-special-initiative-on-mental-health",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10988148/"
+      ],
+      "condition": "",
+      "common_misconception": "That every country has a government-run 24/7 mental health crisis line the way the US (988) or UK (Samaritans) does."
+    },
+    {
+      "action": "Assume a referral to a general practitioner or the emergency line (999) will connect a person in psychiatric crisis to a psychiatrist quickly",
+      "why_fails": "The PMC-published stakeholder study found Bangladesh has one national specialist-level mental health facility (NIMH, in Dhaka) plus one further hospital in Pabna, while 70% of the 163-million population lives in rural areas without adequate access to a psychiatrist; general emergency responders are not equipped to triage psychiatric emergencies.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10988148/"
+      ],
+      "condition": "Outside Dhaka or Pabna"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct the person (or, if near Dhaka, go in person) to the National Institute of Mental Health (NIMH), the government's dedicated psychiatric hospital and outpatient department, using its listed phone lines",
+      "success_rate": 0.7,
+      "how": "NIMH is a specialized government hospital under the Ministry of Health and Family Welfare, seeing roughly 400-500 outpatients daily; contact +88 01340-337733 or +88 02-223374409, or go to Sher-e-Bangla Nagar, Dhaka.",
+      "sources": [
+        "https://nimh.gov.bd/index_en.php"
+      ],
+      "condition": "Non-life-threatening; patient can call or travel to Dhaka"
+    },
+    {
+      "action": "Set expectations that follow-up psychiatric care will likely require travel to Dhaka or Pabna rather than assuming a local psychiatrist is reachable nearby",
+      "success_rate": 0.6,
+      "how": "Only two facilities nationally specialize in psychiatric care (NIMH Dhaka and a hospital in Pabna); most of the country's roughly 270 psychiatrists practice in Dhaka.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10988148/"
+      ],
+      "condition": "Outside Dhaka/Pabna"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-national/bd",
+        "distinction": "999 is Bangladesh's general emergency number for police/fire/ambulance dispatch; it is not a staffed psychiatric crisis line. NIMH in Dhaka is the country's dedicated national mental-health facility."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-05",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-05"
+  }
+}

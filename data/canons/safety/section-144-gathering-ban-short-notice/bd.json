@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/section-144-gathering-ban-short-notice/bd",
+  "url": "https://deadends.dev/safety/section-144-gathering-ban-short-notice/bd",
+  "error": {
+    "signature": "AI tells a traveler in Bangladesh that peaceful protests, rallies, or public gatherings are safe to watch or join because assembly is a constitutionally protected right",
+    "regex": "(bangladesh.*(protest|rally|gathering|assembly)|section 144 bangladesh|dhaka protest safety)",
+    "domain": "safety",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-05",
+    "last_confirmed": "2026-09-05"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.65,
+    "confidence": 0.6,
+    "last_updated": "2026-09-05",
+    "summary": "Article 37 of Bangladesh's Constitution protects peaceful assembly but allows 'reasonable restrictions imposed by law in the interest of public order,' operationalized via Section 144 of the Code of Criminal Procedure 1898 (still in force): a District Magistrate or Executive Magistrate may, by written order, ban public gatherings, processions, or other specified acts in an area for up to about 2 months (renewable by the government) whenever judged necessary to prevent obstruction, injury, danger to life, or 'disturbance of the public tranquillity.' Such orders can be issued with only hours of notice - a documented November 2025 Faridpur order was issued at 11pm the night before events scheduled to start at 10am - and violating one is a punishable offense that can lead to arrest."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler or foreign resident that observing or joining a public demonstration in Bangladesh is legally safe because Article 37 of the Constitution guarantees peaceful assembly",
+      "why_fails": "Article 37 itself permits 'reasonable restrictions imposed by law in the interest of public order'; in practice this is operationalized through Section 144 of the Code of Criminal Procedure 1898, which lets a District Magistrate or Executive Magistrate ban gatherings, processions, or other specified acts in an area by written order whenever judged necessary to prevent 'obstruction, annoyance or injury...or a disturbance of the public tranquillity, or a riot, or an affray' - a constitutional right on paper does not stop an on-the-ground ban from being imposed with little notice, and violating it is a punishable offense that can lead to arrest.",
+      "fail_rate": 0.55,
+      "sources": [
+        "http://bdlaws.minlaw.gov.bd/act-75/section-20789.html",
+        "http://www.bdlawpost.com/2023/09/what-is-declaration-of-section-144-who.html"
+      ],
+      "condition": "",
+      "common_misconception": "That a constitutionally protected right to assembly means a specific planned protest or rally cannot be banned without a lengthy legal process."
+    },
+    {
+      "action": "Assume any Section 144 order affecting a planned rally or gathering will be announced with enough advance notice to plan around it",
+      "why_fails": "In a documented November 2025 case in Faridpur's Alfadanga upazila, the district administration issued a Section 144 order at 11pm the night before, covering events scheduled to start at 10am the next morning - about 11 hours' notice - to preempt clashes between two rival political factions holding events at the same venue and time.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://en.prothomalo.com/bangladesh/politics/3jveoho0v9"
+      ],
+      "condition": "Near any planned political rally or competing public events",
+      "common_misconception": "That prohibitory orders in Bangladesh are always announced days in advance, the way permit denials might work elsewhere."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before attending or observing any public gathering, rally, or protest in Bangladesh, check same-day local news for a Section 144 order in that specific upazila/thana rather than relying on a general sense that assembly is a protected right",
+      "success_rate": 0.7,
+      "how": "Section 144 orders are area- and time-bound (commonly imposed hours before an event and lasting up to about 2 months, renewable by the government under the Code of Criminal Procedure 1898), so checking specifically for the named administrative area on the day is more reliable than assuming a blanket national rule.",
+      "sources": [
+        "http://www.bdlawpost.com/2023/09/what-is-declaration-of-section-144-who.html"
+      ],
+      "condition": "Any traveler or resident considering attending a public gathering"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/digital-security-act-bd/bd",
+        "distinction": "That canon covers restrictions on online speech under the Cyber Security Act; this one covers restrictions on in-person physical assembly under Section 144 CrPC."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-05",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-05"
+  }
+}
