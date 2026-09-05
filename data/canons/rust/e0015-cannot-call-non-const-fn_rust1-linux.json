@@ -8,7 +8,7 @@
     "domain": "rust",
     "category": "const-eval",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-05"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.91,
     "confidence": 0.93,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-05",
     "summary": "Trying to call a runtime function in a const context (const, static, or const fn)."
   },
   "dead_ends": [
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-05"
   }
 }
