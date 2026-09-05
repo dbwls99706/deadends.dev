@@ -8,7 +8,7 @@
     "domain": "terraform",
     "category": "lifecycle_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-05"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-05",
     "summary": "Terraform plan includes destroying a resource that has prevent_destroy lifecycle rule enabled."
   },
   "dead_ends": [
@@ -91,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 70,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-05"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/earthquake-risk-dismissed-cyclone-focus/bd",
+  "url": "https://deadends.dev/disaster/earthquake-risk-dismissed-cyclone-focus/bd",
+  "error": {
+    "signature": "AI treats Bangladesh as primarily a cyclone/flood risk country and dismisses or omits earthquake risk when advising Dhaka-based residents on disaster preparedness",
+    "regex": "(bangladesh.*earthquake|dhaka.*earthquake|bangladesh disaster preparedness|bangladesh natural disaster risk)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-05",
+    "last_confirmed": "2026-09-05"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "bd",
+      "country_name": "Bangladesh",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.6,
+    "last_updated": "2026-09-05",
+    "summary": "On 21 November 2025 a magnitude 5.5-5.7 earthquake near Narsingdi, about 33km from Dhaka, killed at least 5-10 people and injured several hundred. Separately, a RAJUK (Bangladesh's capital development authority) survey under the Urban Resilience Project (2018-2022) estimated that about 865,000 buildings in Dhaka could collapse in a magnitude-6.9 earthquake on the nearby Madhupur Fault, with roughly 210,000 deaths and 229,000 injuries if it struck during the day; Bangladesh's Environment Adviser has said about 90% of Dhaka's older buildings were built without following the national building code. Bangladesh's disaster-management capacity remains organized primarily around cyclone response, with no routine earthquake drills in schools and no citizen-facing earthquake early-warning system."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise residents/visitors in Dhaka that Bangladesh's disaster risk is essentially cyclones and flooding, treating earthquake risk as negligible",
+      "why_fails": "On 21 November 2025 a magnitude 5.5-5.7 earthquake near Narsingdi (about 33km from Dhaka) killed at least 5-10 people and injured several hundred, with damage in Dhaka, Narayanganj, and Gazipur; separately, a RAJUK survey under the Urban Resilience Project (2018-2022) found roughly 865,000 buildings in Dhaka could collapse in a magnitude-6.9 quake on the nearby Madhupur Fault, with an estimated 210,000 deaths and 229,000 injuries if it struck during the day.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.aljazeera.com/news/2025/11/21/at-least-three-killed-as-magnitude-5-5-earthquake-hits-bangladesh",
+        "https://en.prothomalo.com/bangladesh/city/2lvwharr6l"
+      ],
+      "condition": "",
+      "common_misconception": "That Bangladesh's historically low earthquake death toll compared to its cyclone death toll means seismic risk is low, rather than reflecting that Dhaka has not yet experienced a major quake during its era of dense, largely code-noncompliant construction (about 90% of older buildings, per Bangladesh's Environment Adviser)."
+    },
+    {
+      "action": "Treat a moderate tremor, such as the November 2025 Narsingdi earthquake, as an isolated one-off with no bearing on future risk",
+      "why_fails": "A geologist quoted by Prothom Alo after the quake said the underlying sub-fault near Narsingdi is 'much larger [than earlier believed], extending toward Dhaka' - experts read the recent cluster of moderate quakes as evidence the hazard has been underappreciated, not as background noise.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://en.prothomalo.com/bangladesh/k8tos7p8pu"
+      ],
+      "condition": "After a moderate (magnitude 5+) tremor near Dhaka"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Include earthquake-specific preparedness (identifying safe spots in a home/office built before modern code enforcement, a family communication plan, not assuming cyclone-level rescue capacity) alongside standard cyclone/flood planning for anyone based in or near Dhaka",
+      "success_rate": 0.6,
+      "how": "Bangladesh's disaster-management capacity is still organized primarily around cyclone response; Prothom Alo reported the national Disaster Management Director citing roughly 80,000 volunteers for coastal cyclone response versus 48,000 for urban areas, and noted the absence of routine earthquake drills in schools.",
+      "tradeoff": "Bangladesh has no citizen-facing earthquake early-warning system comparable to its cyclone signal system, so earthquake 'preparedness' here means household/office readiness rather than an alert to act on in advance.",
+      "sources": [
+        "https://en.prothomalo.com/bangladesh/k8tos7p8pu"
+      ],
+      "condition": "Dhaka-area household, office, or school"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-05",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-05"
+  }
+}
