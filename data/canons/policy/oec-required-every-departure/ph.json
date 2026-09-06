@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/oec-required-every-departure/ph",
+  "url": "https://deadends.dev/policy/oec-required-every-departure/ph",
+  "error": {
+    "signature": "AI tells a Filipino overseas worker that a valid employment contract and plane ticket are enough to fly out of the Philippines for work, or that an Overseas Employment Certificate obtained for an earlier trip is still good for a new departure",
+    "regex": "(overseas employment certificate|\\boec\\b.*philippines.*(depart|airport|exit)|ofw.*offloaded.*airport.*philippines|balik manggagawa.*exit)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-06",
+    "last_confirmed": "2026-09-06"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-06",
+    "summary": "Filipinos departing the Philippines to work abroad on an employment visa - whether a first-time hire or a Balik Manggagawa (returning worker going back to the same employer) - must present a valid Overseas Employment Certificate (OEC) at the airport; only those on dependent visas are exempt. The Bureau of Immigration has publicly confirmed this requirement applies regardless of how long the person has already worked overseas or how many times they have flown out before. Under Section 35 of Republic Act No. 8042 (as amended), the OEC is also the document that proves entitlement to the migrant worker's travel-tax and airport-terminal-fee exemption, and it is valid for a single exit only - it is issued by the Department of Migrant Workers (formerly POEA) per departure, not once per contract or once per lifetime."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that having a valid overseas employment contract, a work visa, and a plane ticket is sufficient to leave the Philippines for overseas work",
+      "why_fails": "The Bureau of Immigration enforces the OEC as a separate exit-clearance requirement on top of the employment contract and visa. Its own public clarification states that Filipinos traveling abroad on employment visas are required to present a valid OEC, and only those on dependent visas are exempt from that specific document - a contract and ticket alone do not satisfy it.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://immigration.gov.ph/bi-clarifies-oec-requirement-for-ofws/",
+        "https://www.respicio.ph/commentaries/are-overseas-filipino-workers-exempt-from-philippine-travel-tax-and-terminal-fees-when-flying-abroad"
+      ],
+      "common_misconception": "People assume that once DMW/POEA has already approved the underlying job order or contract, no further document is needed at the airport itself; in practice immigration checks for the OEC as a distinct, separate proof at departure."
+    },
+    {
+      "action": "A Balik Manggagawa (returning worker going back to the same employer) reuses the OEC obtained for a previous trip instead of getting a new one for the current departure",
+      "why_fails": "The OEC is issued as proof of legitimate overseas employment for a single exit, not as a standing travel document. Even Balik Manggagawa are explicitly listed among those required to secure an OEC for departure, alongside new hires - a certificate from an earlier trip does not carry over to the next one.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://immigration.gov.ph/bi-clarifies-oec-requirement-for-ofws/",
+        "https://www.respicio.ph/commentaries/are-overseas-filipino-workers-exempt-from-philippine-travel-tax-and-terminal-fees-when-flying-abroad",
+        "https://services.mwosingapore.online/support/solutions/articles/158000406332-overseas-employment-certificate-oec-"
+      ],
+      "condition": "Applies to Filipinos traveling on an employment visa; dependent-visa holders are exempt from the OEC requirement. An OEC issued via the E-Registration portal is valid 60 days from issuance for a single exit; the eGovPH OFW Travel Pass runs 90 days from issuance - neither is a standing document good for more than the one departure it was issued for.",
+      "common_misconception": "Because the underlying overseas job and employer have not changed between trips, returning workers assume the exit document from their last departure is still valid, rather than treating each departure as needing its own OEC."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Secure a fresh OEC (or confirm Balik Manggagawa/OFW exemption status through the Department of Migrant Workers' official channels) well ahead of each individual departure date, rather than assuming a contract, visa, or a previous OEC is enough",
+      "success_rate": 0.85,
+      "sources": [
+        "https://immigration.gov.ph/bi-clarifies-oec-requirement-for-ofws/"
+      ],
+      "tradeoff": "Adds a processing step before every single trip home and back, even for long-tenured workers with the same overseas employer."
+    },
+    {
+      "action": "Present the OEC at the airline counter or dedicated OFW/exemption counter to also claim the Section 35 travel-tax and airport-terminal-fee exemption it documents, rather than paying those fees unnecessarily or being delayed while immigration verifies status manually",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.respicio.ph/commentaries/are-overseas-filipino-workers-exempt-from-philippine-travel-tax-and-terminal-fees-when-flying-abroad"
+      ],
+      "tradeoff": "Without the OEC in hand, a worker may still be allowed to fly but will typically be made to pay the travel tax and terminal fee out of pocket at the airport instead of being exempted."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-06"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/basic-deposit-account-cap/ph",
+  "url": "https://deadends.dev/banking/basic-deposit-account-cap/ph",
+  "error": {
+    "signature": "AI tells a newly-arrived foreigner in the Philippines that opening a bank's easy, minimal-ID 'Basic Deposit Account' is a fine way to receive a salary or remittances, or that a tourist visa plus passport is enough to open a regular full-service account",
+    "regex": "(basic deposit account.*philippines|philippines.*bank account.*foreigner|open.*bank account.*philippines.*tourist|acr.*i-card.*bank account)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-06",
+    "last_confirmed": "2026-09-06"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.55,
+    "confidence": 0.65,
+    "last_updated": "2026-09-06",
+    "summary": "Bangko Sentral ng Pilipinas (BSP) Circular No. 992 (2018) created the low-barrier 'Basic Deposit Account' (minimum initial deposit of PHP 100, simplified KYC) specifically so it would be easy to open - but it carries a hard PHP 50,000 maximum balance, above which the bank must convert it to a regular account or refuse further deposits. Moving to a regular, uncapped account is where the real barrier sits: banks commonly ask for an Alien Certificate of Registration Identity Card (ACR I-Card), which the Bureau of Immigration only issues to foreign nationals - including Temporary Visitor's Visa holders - once their authorized stay has exceeded fifty-nine (59) days. A foreigner who has been in the country under two months therefore has no ACR I-Card to offer, even though it is what many bank branches ask for."
+  },
+  "dead_ends": [
+    {
+      "action": "Open a Basic Deposit Account on arrival using only a passport, then use it as a normal account for receiving a monthly salary or larger inbound remittances",
+      "why_fails": "BSP Circular No. 992 caps the Basic Deposit Account at a PHP 50,000 maximum balance; the bank is required to convert the account to a regular deposit account (with full KYC) once that ceiling is exceeded, and in practice inbound transfers that would push the balance over the cap can be refused or held pending conversion. It is designed as a financial-inclusion starter account, not a general-purpose one.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.bsp.gov.ph/Regulations/Issuances/2018/c992.pdf",
+        "https://wise.com/ph/blog/foreigner-open-bank-account"
+      ],
+      "common_misconception": "Because the Basic Deposit Account is marketed as the easiest account for a newcomer to open, people assume it has no functional limits beyond the low opening deposit, missing that the PHP 50,000 ceiling is a hard cap, not a soft recommendation."
+    },
+    {
+      "action": "Assume a valid tourist-visa entry stamp and passport alone will satisfy a bank's identification requirements for a regular (uncapped) account the same way they would for the Basic Deposit Account",
+      "why_fails": "Regular deposit accounts are not covered by the simplified KYC rules for Basic Deposit Accounts, and many bank branches require an ACR I-Card as proof of registered alien status. The Bureau of Immigration confirms the ACR I-Card is only issued to foreign nationals - including Temporary Visitor's Visa holders - once their stay has exceeded 59 days, so someone who arrived recently cannot yet hold one.",
+      "fail_rate": 0.6,
+      "condition": "Applies to full-service/regular accounts, not the capped Basic Deposit Account, and requirements vary by bank and branch",
+      "sources": [
+        "https://immigration.gov.ph/faqs/",
+        "https://www.b2bpay.co/how-open-bank-account-philippines-foreigner-2025"
+      ],
+      "common_misconception": "Visitors assume that because a passport is a universally accepted ID, it substitutes for every document a bank could ask for; branch-level KYC practice frequently treats the ACR I-Card as the default proof of registered residency status for a foreigner."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the Basic Deposit Account only for its intended purpose - establishing a banking relationship and receiving small/initial payments - and arrange in advance to move or convert to a regular account before balances approach PHP 50,000, rather than relying on it as a primary salary account",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.bsp.gov.ph/Regulations/Issuances/2018/c992.pdf"
+      ],
+      "tradeoff": "Requires proactively tracking the balance and initiating conversion paperwork with the bank before hitting the cap, which is easy to overlook."
+    },
+    {
+      "action": "Before the 59-day ACR I-Card threshold is reached, ask the specific bank branch what alternative proof of identity/address it accepts for a regular account (e.g. valid passport with visa, plus a barangay certificate or utility bill for proof of address) - BSP's own identification standard does not name the ACR I-Card as the only acceptable ID, and requirements are set at branch level",
+      "success_rate": 0.4,
+      "sources": [
+        "https://www.b2bpay.co/how-open-bank-account-philippines-foreigner-2025"
+      ],
+      "condition": "Success depends heavily on the individual bank's internal policy and is not guaranteed nationwide",
+      "tradeoff": "Some branches will still insist on the ACR I-Card regardless, in which case waiting out the 59-day window (or opening only a Basic Deposit Account in the meantime) is the only remaining option."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-06"
+  }
+}

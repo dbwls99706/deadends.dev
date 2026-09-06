@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/involuntary-treatment-consent-limits/ph",
+  "url": "https://deadends.dev/mental-health/involuntary-treatment-consent-limits/ph",
+  "error": {
+    "signature": "AI tells a family member in the Philippines that they can have a relative involuntarily committed, restrained, or medicated for a mental health crisis simply by bringing them to a hospital and requesting it",
+    "regex": "(philippines.*involuntary commit|philippines.*force.*psychiatric|philippines.*mental health act.*consent|force hospitalize.*philippines|committed.*mental hospital.*philippines)",
+    "domain": "mental-health",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-06",
+    "last_confirmed": "2026-09-06"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.35,
+    "confidence": 0.3,
+    "last_updated": "2026-09-06",
+    "summary": "Republic Act No. 11036 (Mental Health Act of 2018), Section 8, presumes every person - including a service user - has legal capacity and requires informed consent in writing before any therapy, treatment, or physical/chemical restraint. Section 13 allows treatment without consent only during a psychiatric or neurologic emergency or a temporary loss of decision-making capacity, and even then treatment must be ordered by the service user's attending mental health professional, kept to the minimum necessary, and reviewed by an internal review board within fifteen days (and every fifteen days thereafter) if it continues. A family member cannot authorize involuntary treatment or confinement on their own say-so; the decision sits with a licensed mental health professional under the emergency exception, subject to institutional oversight, and compulsory treatment is limited to hospital settings only - the law does not provide for compulsory treatment in the community."
+  },
+  "dead_ends": [
+    {
+      "action": "Bring a relative experiencing a mental health crisis to a hospital and expect staff to admit and treat them involuntarily on the family's authorization alone, without the patient's consent",
+      "why_fails": "Section 8 of RA 11036 requires the service user's own informed, written consent before treatment, restraint, or a therapy plan is implemented, and presumes the person retains legal capacity to give or withhold it. A family member's request is not a substitute for that consent; it is the attending mental health professional who must determine whether a recognized emergency exception under Section 13 applies.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2018/ra_11036_2018.html",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6646847/"
+      ],
+      "common_misconception": "People assume that because a psychiatric hospital exists to treat serious cases, staff can and will admit someone against their will whenever a worried relative asks; the law instead treats non-consensual treatment as an exception requiring a professional's own emergency determination, not a family decision."
+    },
+    {
+      "action": "Assume that once emergency involuntary treatment is authorized, it can continue indefinitely without further review as long as the family agrees it is still needed",
+      "why_fails": "Section 13 limits non-consensual treatment to what is necessary to address the emergency itself, and mandates that an internal review board evaluate the case within fifteen days of the order and every fifteen days thereafter for as long as it continues. It also requires compliance with any advance directive the person has made, unless there is immediate risk of serious harm.",
+      "fail_rate": 0.5,
+      "condition": "Applies once an emergency exception to consent has already been validly invoked",
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2018/ra_11036_2018.html"
+      ],
+      "common_misconception": "Involuntary treatment is assumed to be an open-ended arrangement once started, rather than something the law re-checks on a fixed schedule."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Contact a licensed mental health professional or a hospital's psychiatric emergency service directly and describe the crisis; only that professional - not the family - can determine whether the Section 13 emergency exception to consent applies, and can lawfully order treatment or restraint on that basis",
+      "success_rate": 0.5,
+      "sources": [
+        "https://lawphil.net/statutes/repacts/ra2018/ra_11036_2018.html"
+      ],
+      "tradeoff": "This still depends on a professional's clinical judgment that a genuine emergency or incapacity exists; it is not something family members can compel."
+    },
+    {
+      "action": "Where the person has previously designated a legal representative or 'supporter' under the Act's supported decision-making provisions, involve that person, since the law favors supported decision-making over family members simply overriding the service user",
+      "success_rate": 0.3,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6646847/"
+      ],
+      "condition": "Only applicable if such a representative or supporter was designated in advance",
+      "tradeoff": "Not a fallback available in a first-time, unplanned crisis with no prior designation."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 2,
+    "last_verification": "2026-09-06"
+  }
+}

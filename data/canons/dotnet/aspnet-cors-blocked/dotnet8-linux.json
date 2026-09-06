@@ -8,7 +8,7 @@
     "domain": "dotnet",
     "category": "web_framework",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-06"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-06",
     "summary": "CORS policy blocked errors occur when the ASP.NET Core server does not include the required Access-Control-Allow-Origin header. Common causes include missing CORS middleware, incorrect origin configuration, or middleware order issues where CORS runs after authentication rejects the preflight request. Fix by properly configuring CORS policy and middleware order."
   },
   "dead_ends": [
@@ -30,16 +30,16 @@
       "why_fails": "Bypasses the built-in CORS middleware's preflight handling; OPTIONS requests are not properly handled, and the custom headers may conflict with or be overridden by other middleware. Also misses edge cases like credentials, exposed headers, and max-age",
       "fail_rate": 0.7,
       "sources": [
-        "https://learn.microsoft.com/en-us/dotnet/api/"
+        "https://learn.microsoft.com/en-us/aspnet/core/security/cors"
       ],
       "condition": ""
     },
     {
       "action": "Using AllowAnyOrigin() combined with AllowCredentials()",
-      "why_fails": "The CORS specification explicitly forbids wildcard origins with credentials. ASP.NET Core will throw an InvalidOperationException: 'The CORS protocol does not allow specifying a wildcard (any) origin and credentials at the same time'",
+      "why_fails": "The CORS specification treats a wildcard origin combined with credentials as an insecure configuration that can enable cross-site request forgery. As of the current ASP.NET Core docs, this does not throw an InvalidOperationException at build time - instead the CORS service returns an invalid CORS response at request time when an app is configured with both AllowAnyOrigin and AllowCredentials (the same applies to SetIsOriginAllowed(_ => true) combined with AllowCredentials).",
       "fail_rate": 0.95,
       "sources": [
-        "https://learn.microsoft.com/en-us/dotnet/api/system.invalidoperationexception"
+        "https://learn.microsoft.com/en-us/aspnet/core/security/cors"
       ],
       "condition": ""
     }
@@ -49,14 +49,18 @@
       "action": "Configure CORS policy with specific allowed origins",
       "success_rate": 0.92,
       "how": "In Program.cs: builder.Services.AddCors(options => { options.AddPolicy(\"AllowFrontend\", policy => policy.WithOrigins(\"https://app.example.com\").AllowAnyMethod().AllowAnyHeader().AllowCredentials()); }); Then add middleware in the correct order: app.UseRouting(); app.UseCors(\"AllowFrontend\"); app.UseAuthentication(); app.UseAuthorization();",
-      "sources": [],
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/security/cors"
+      ],
       "condition": ""
     },
     {
-      "action": "Ensure UseCors middleware is placed before UseAuthentication",
+      "action": "Ensure UseCors middleware is placed after UseRouting and before UseAuthorization",
       "success_rate": 0.88,
-      "how": "CORS preflight (OPTIONS) requests must be handled before authentication middleware rejects them with 401. Place app.UseCors() after app.UseRouting() but before app.UseAuthentication(). This allows the CORS middleware to respond to preflight requests without requiring authentication",
-      "sources": [],
+      "how": "Per the official ASP.NET Core CORS docs, the call to UseCors must be placed after UseRouting but before UseAuthorization, so CORS headers are included in the response for both authorized and unauthorized calls; with endpoint routing, CORS middleware must execute between UseRouting and UseEndpoints/MapControllers.",
+      "sources": [
+        "https://learn.microsoft.com/en-us/aspnet/core/security/cors"
+      ],
       "condition": ""
     }
   ],
@@ -97,6 +101,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 80,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-06"
   }
 }

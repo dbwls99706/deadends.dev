@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/foreign-divorce-needs-judicial-recognition/ph",
+  "url": "https://deadends.dev/legal/foreign-divorce-needs-judicial-recognition/ph",
+  "error": {
+    "signature": "AI tells a Filipino citizen married to a foreigner that once the couple divorces abroad, the Filipino spouse is automatically free to remarry in the Philippines and their civil status is updated",
+    "regex": "(philippines.*divorce.*abroad.*remarry|filipino.*spouse.*divorce.*recognize|philippines.*no divorce law|psa.*civil registry.*divorce.*philippines)",
+    "domain": "legal",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-06",
+    "last_confirmed": "2026-09-06"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "ph",
+      "country_name": "Philippines",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-06",
+    "summary": "As of 2026 the Philippines has no general absolute-divorce law for its citizens - the Family Code (Executive Order No. 209) limits Filipinos to legal separation or annulment on specific grounds, and pending House and Senate divorce bills had not been enacted. Article 26 of the Family Code creates only a narrow exception: where a Filipino citizen is married to a foreigner and the foreigner validly obtains a divorce abroad capacitating them to remarry, the Filipino spouse also gains capacity to remarry under Philippine law. But that capacity does not take effect automatically. Philippine Supreme Court rulings interpreting Article 26 require the Filipino spouse to file a judicial petition for recognition of the foreign divorce (a special proceeding under Rule 108 of the Rules of Court) in a Regional Trial Court before the divorce has any legal effect domestically. Only after the court issues that recognition order can the decision be registered with the Local Civil Registrar and the Philippine Statistics Authority (PSA) to update the civil registry."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume that because a foreign court granted the divorce and it is valid where it was obtained, the Filipino spouse can simply remarry in the Philippines or that PSA records will reflect the divorce without any further step",
+      "why_fails": "Philippine courts do not take judicial notice of foreign law or foreign judgments; under Article 26 of the Family Code as interpreted by the Supreme Court, the Filipino spouse must first obtain a Philippine court judgment recognizing the foreign divorce decree. No entry in the civil register may be altered without such a judicial order - the PSA and Local Civil Registrar cannot update marital status on the strength of the foreign decree alone.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://lawphil.net/executive/execord/eo1987/eo_209_1987.html",
+        "https://abagosto.com/2024/11/15/supreme-court-decision-on-recognition-of-foreign-divorce-gerbert-r-corpuz-vs-daisylyn-tirol-sto-tomas-and-the-solicitor-general-g-r-186571/",
+        "https://www.respicio.ph/commentaries/judicial-recognition-of-foreign-divorce-in-the-philippines-4"
+      ],
+      "common_misconception": "People assume Article 26's grant of 'capacity to remarry' is self-executing the moment the foreign divorce is finalized, rather than a substantive right that still has to be judicially recognized in the Philippines before it takes registrable legal effect - as one commentary puts it, 'the Filipino spouse remains married in the Philippines until a Philippine judge says they aren't.'"
+    },
+    {
+      "action": "Assume the recognition process is a quick paperwork formality - submit the foreign decree to the civil registrar or PSA and have the record updated directly",
+      "why_fails": "Recognition requires a full special proceeding under Rule 108 of the Rules of Court: filing with the Regional Trial Court of the province where the civil registry entry is kept, naming the civil registrar and all interested parties as respondents, and publishing notice of the petition in a newspaper of general circulation before a court order can issue. No entry in the civil register may be altered without that judicial order.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://abagosto.com/2024/11/15/supreme-court-decision-on-recognition-of-foreign-divorce-gerbert-r-corpuz-vs-daisylyn-tirol-sto-tomas-and-the-solicitor-general-g-r-186571/",
+        "https://www.respicio.ph/commentaries/judicial-recognition-of-foreign-divorce-in-the-philippines-4"
+      ],
+      "common_misconception": "Because the underlying divorce is already final abroad, people expect the Philippine side to be purely administrative rather than a litigated court case with its own filing fees, publication costs, and timeline."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "The Filipino spouse should file a petition for judicial recognition of the foreign divorce decree under Rule 108 of the Rules of Court with the Regional Trial Court of the province where the relevant civil registry entry is kept, naming the civil registrar and all interested parties and publishing notice as required, before relying on the divorce for remarriage or property purposes in the Philippines",
+      "success_rate": 0.75,
+      "sources": [
+        "https://abagosto.com/2024/11/15/supreme-court-decision-on-recognition-of-foreign-divorce-gerbert-r-corpuz-vs-daisylyn-tirol-sto-tomas-and-the-solicitor-general-g-r-186571/",
+        "https://www.respicio.ph/commentaries/judicial-recognition-of-foreign-divorce-in-the-philippines-4"
+      ],
+      "tradeoff": "Requires hiring counsel, court filing fees, publication costs, and typically months of proceedings before a recognition order is issued."
+    },
+    {
+      "action": "Once the court grants the recognition petition, register the court decision with the Local Civil Registrar where the marriage was recorded (or the Local Civil Registrar of Manila if the marriage was celebrated/registered abroad) and with the PSA, so the civil registry and future PSA-issued civil status documents reflect the change",
+      "success_rate": 0.8,
+      "sources": [
+        "https://abagosto.com/2024/11/15/supreme-court-decision-on-recognition-of-foreign-divorce-gerbert-r-corpuz-vs-daisylyn-tirol-sto-tomas-and-the-solicitor-general-g-r-186571/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-06",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-06"
+  }
+}
