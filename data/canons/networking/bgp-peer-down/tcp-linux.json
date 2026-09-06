@@ -8,7 +8,7 @@
     "domain": "networking",
     "category": "routing",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-06"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-06",
     "summary": "The BGP session with a peer has gone down, typically because keepalive messages were not received before the hold timer expired. This results in route withdrawal and potential traffic blackholing until the session is re-established."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 40,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-06"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "configuration",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-06"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.95,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-06",
     "summary": "File upload size limit errors occur when the uploaded file exceeds PHP's post_max_size or upload_max_filesize directive. Both directives must be set, and the web server (nginx/apache) may also impose its own limits."
   },
   "dead_ends": [
@@ -30,7 +30,8 @@
       "why_fails": "post_max_size must be larger than upload_max_filesize. If post_max_size is smaller, the POST body is rejected before PHP even processes the file upload, and $_FILES will be empty with no clear error.",
       "fail_rate": 0.78,
       "sources": [
-        "https://www.php.net/manual/en/errorfunc.constants.php"
+        "https://www.php.net/manual/en/features.file-upload.php",
+        "https://www.php.net/manual/en/ini.list.php"
       ],
       "condition": ""
     },
@@ -39,7 +40,8 @@
       "why_fails": "post_max_size and upload_max_filesize cannot be set at runtime with ini_set() because they are PHP_INI_PERDIR directives. The POST body is already rejected before the script starts executing.",
       "fail_rate": 0.85,
       "sources": [
-        "https://www.php.net/manual/en/errorfunc.constants.php"
+        "https://www.php.net/manual/en/features.file-upload.php",
+        "https://www.php.net/manual/en/ini.list.php"
       ],
       "condition": ""
     }
@@ -87,6 +89,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 80,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-06"
   }
 }
