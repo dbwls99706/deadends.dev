@@ -111,4 +111,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "seo: weekly Search Console indexing report"
-          git push
+          # The report step above takes 10+ minutes against 120 URLs, so main
+          # can move in the meantime (content PRs merge continuously). Rebase
+          # onto whatever landed and retry instead of failing the push outright.
+          for attempt in 1 2 3 4; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt) - fetching and rebasing"
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "::error::Failed to push gsc_report.json after 4 attempts"
+          exit 1
