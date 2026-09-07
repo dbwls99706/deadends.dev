@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/biosecurity-declare-strict-penalties/au",
+  "url": "https://deadends.dev/legal/biosecurity-declare-strict-penalties/au",
+  "error": {
+    "signature": "AI tells a traveler that undeclared food, plant or animal items entering Australia just get confiscated with no other consequence, or that declaring an item you're unsure about risks a fine",
+    "regex": "(australia.*(declare|biosecurity)|bring.*food.*australia|undeclared.*australia.*(customs|biosecurity))",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-07",
+    "last_confirmed": "2026-09-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-07",
+    "summary": "Australia's Biosecurity Act 2015 requires travelers to declare all food, plant material and animal products on arrival, checked by DAFF biosecurity officers. Failing to declare risk goods triggers a formal on-the-spot infringement notice (scaled in penalty units, higher for concealed or high-risk goods) and can mean immediate visa cancellation and an entry ban of up to 3 years - a Spanish traveler was fined and deported in January 2023 for undeclared pork and cheese. Declaring an item, even one that turns out to be prohibited, carries no penalty under the Act - it is only non-declaration that is punished."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that failing to declare food, plant or animal items on arrival in Australia just means the item gets confiscated, with no other consequence",
+      "why_fails": "Undeclared biosecurity-risk goods trigger a formal infringement notice (an on-the-spot fine under the Biosecurity Act 2015) and can also lead to immediate visa cancellation and being barred from re-entry for up to 3 years. A 20-year-old Spanish traveler was fined and deported from Perth in January 2023 after failing to declare about 1kg of raw pork and goats' cheese - the first case under the tougher penalties introduced 1 January 2023.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://minister.agriculture.gov.au/watt/media-releases/first-traveller-hit-with-tougher-penalty-for-undeclared-snacks",
+        "https://www.agriculture.gov.au/biosecurity-trade/policy/legislation/compliance/infringement-notice-scheme"
+      ],
+      "condition": "Entering Australia with undeclared risk goods"
+    },
+    {
+      "action": "Advise a traveler who is unsure whether an item needs declaring to just skip declaring it, to avoid the risk of a fine",
+      "why_fails": "The Department of Agriculture, Fisheries and Forestry's own guidance states a traveler will not be penalised under the Biosecurity Act 2015 if they declare and present all goods, even if those goods turn out to be prohibited and are seized - the declaration is then assessed by a biosecurity officer and, if necessary, the item is inspected or confiscated. The penalty applies specifically to non-declaration, not to owning an item that ends up disallowed.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.agriculture.gov.au/biosecurity-trade/policy/faqs",
+        "https://www.agriculture.gov.au/biosecurity-trade/travelling/bringing-mailing-goods"
+      ],
+      "condition": "Uncertain whether an item is biosecurity risk material",
+      "common_misconception": "That declaring an item you're not sure is allowed risks a fine; in fact only failing to declare risks the fine."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Declare every food, plant material, wooden item, or animal product on the arrival declaration (paper Incoming Passenger Card, or the Australia Travel Declaration digital form now piloted on some Qantas international flights into Brisbane, Sydney and Melbourne) even if unsure - a biosecurity officer will assess it and, if necessary, confiscate it with no penalty",
+      "success_rate": 0.9,
+      "how": "Tick 'yes' to any biosecurity question rather than guessing; officers bin-dispose of surrendered items at no cost and no infringement is issued for a truthful declaration.",
+      "sources": [
+        "https://www.agriculture.gov.au/biosecurity-trade/policy/faqs",
+        "https://www.abf.gov.au/newsroom-subsite/Pages/Australia-Travel-Declaration-to-be-rolled-out-nationwide.aspx"
+      ],
+      "condition": "Any traveler entering Australia with food, plant, or animal-derived items"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/eta-evisitor-required/au",
+        "distinction": "That canon covers the visa needed to enter Australia at all; this one covers the separate biosecurity declaration required once you're admitted, which can still cost a visa if breached."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-07"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/foreign-resident-interest-withholding/au",
+  "url": "https://deadends.dev/banking/foreign-resident-interest-withholding/au",
+  "error": {
+    "signature": "AI tells a newcomer to Australia they must get a Tax File Number (TFN) before a bank will open an account, or that skipping it only costs a little extra tax on interest",
+    "regex": "(australia.*(tax file number|tfn).*bank|australian bank account.*tfn|tfn withholding)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-07",
+    "last_confirmed": "2026-09-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-07",
+    "summary": "A Tax File Number is not required to open an Australian bank account - banks open accounts without one. Its only role is interest withholding: if a resident account holder doesn't give the bank a TFN, the bank must withhold tax from interest at the top marginal rate of 47%. Foreign tax residents who earn only Australian-sourced interest, dividends or royalties do not need a TFN at all - if they give the bank their overseas address, non-resident withholding tax of 10% applies instead; without an overseas address on file, the bank defaults to the 47% resident rate."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a newly arrived migrant or international student that a bank will not open or activate an account until they have an Australian TFN",
+      "why_fails": "The ATO's own guidance on bank accounts and income bonds confirms a TFN is not a precondition for opening an account - it only affects how much tax is withheld from interest. Withholding without a TFN applies at the top marginal rate (47%, being the 45% top rate plus the 2% Medicare levy), which is a tax consequence, not a barrier to opening the account itself.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.ato.gov.au/individuals-and-families/investments-and-assets/investing-in-bank-accounts-and-income-bonds"
+      ],
+      "condition": "Newcomer opening a first Australian bank account"
+    },
+    {
+      "action": "Tell a foreign tax resident (someone not living in Australia, or a temporary visitor) that they need to apply for an Australian TFN the same way a resident does, to avoid losing money on bank interest",
+      "why_fails": "The ATO states foreign residents who only receive Australian-sourced interest, dividends or royalty payments do not need a TFN. Instead, if they give the financial institution their permanent overseas address, non-resident withholding tax of 10% applies to interest. Without that overseas address on file, the bank instead applies TFN withholding at 47%, which is far higher than the correct non-resident rate - so the fix for a foreign resident is providing an address, not obtaining a TFN.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.ato.gov.au/individuals-and-families/investments-and-assets/foreign-resident-investments/interest-unfranked-dividends-and-royalties",
+        "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/withholding-from-investment-income/investment-income-and-royalties-paid-to-foreign-residents/withholding-rate"
+      ],
+      "condition": "Foreign tax resident with Australian-sourced interest only",
+      "common_misconception": "That TFN withholding (47%, for residents without a TFN) and non-resident withholding (10%, for foreign residents with an overseas address on file) are the same regime."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Australian tax residents: open the account without waiting for a TFN, then supply it to the bank within 28 days of opening to avoid 47% withholding on interest going forward. Foreign tax residents earning only interest/dividends/royalties: skip the TFN application entirely and instead give the bank a permanent overseas address so the correct 10% non-resident withholding rate applies",
+      "success_rate": 0.9,
+      "how": "If a bank has already withheld at the wrong (47%) rate because no TFN or overseas address was on file, a resident can claim the excess back by lodging a tax return; a foreign resident should apply for a TFN and lodge a return to reclaim the difference if this happens.",
+      "sources": [
+        "https://www.ato.gov.au/individuals-and-families/investments-and-assets/investing-in-bank-accounts-and-income-bonds",
+        "https://www.ato.gov.au/individuals-and-families/investments-and-assets/foreign-resident-investments/interest-unfranked-dividends-and-royalties"
+      ],
+      "condition": "Any newcomer or foreign resident opening or holding an Australian bank account"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-07"
+  }
+}

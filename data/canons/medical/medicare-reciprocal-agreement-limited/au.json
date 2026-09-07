@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/medicare-reciprocal-agreement-limited/au",
+  "url": "https://deadends.dev/medical/medicare-reciprocal-agreement-limited/au",
+  "error": {
+    "signature": "AI tells a foreign visitor that Australia has free healthcare for tourists, or that a Reciprocal Health Care Agreement (RHCA) visitor's Medicare cover includes an ambulance ride",
+    "regex": "(australia.*(medicare|free healthcare).*(tourist|visitor)|reciprocal health care agreement.*australia|medicare.*ambulance.*australia)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-07",
+    "last_confirmed": "2026-09-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-07",
+    "summary": "Medicare is not available to all visitors - only to citizens/certain residents of the 11 countries with a Reciprocal Health Care Agreement (Belgium, Finland, Ireland, Italy, Malta, the Netherlands, New Zealand, Norway, Slovenia, Sweden, and the UK), and even then it covers only medically necessary treatment - not elective care, private hospital treatment, dental, subsidised medicines outside hospital, or ambulance transport, which Medicare and every RHCA exclude everywhere in Australia. Ambulance callouts are billed separately by state ambulance services and commonly run into four figures."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell any foreign visitor that Australia has free universal healthcare for tourists, or that Medicare will simply cover them if something goes wrong",
+      "why_fails": "Services Australia limits Medicare access for visitors to citizens or eligible residents of the 11 countries holding a Reciprocal Health Care Agreement with Australia (Belgium, Finland, Ireland, Italy, Malta, the Netherlands, New Zealand, Norway, Slovenia, Sweden, UK). Visitors from every other country have no Medicare access at all and must rely on travel insurance or pay full price.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.servicesaustralia.gov.au/reciprocal-health-care-agreements",
+        "https://www.servicesaustralia.gov.au/about-reciprocal-health-care-agreements?context=22481"
+      ],
+      "condition": "Visitor from a non-RHCA country"
+    },
+    {
+      "action": "Tell an RHCA-eligible visitor that their Medicare cover will pay for an ambulance if they need emergency transport",
+      "why_fails": "Services Australia's own guidance on reciprocal agreements states Medicare does not cover ambulance services, dental treatment, or out-of-hospital subsidised medicines for anyone, RHCA visitors included - ambulance is a separate state-run service billed on the spot or afterward, and an emergency callout can cost well over AUD $1,000 in some states.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.servicesaustralia.gov.au/when-reciprocal-health-care-agreements-apply-and-you-visit-australia?context=22481",
+        "https://www.smartraveller.gov.au/before-you-go/health/reciprocal-health"
+      ],
+      "condition": "RHCA-eligible visitor needing emergency care",
+      "common_misconception": "That RHCA eligibility means comprehensive free healthcare like at home, rather than only Medicare-billed doctor visits and public hospital treatment."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check citizenship/residency against the current 11 RHCA countries before assuming any Medicare eligibility, and take out travel insurance with ambulance and medical evacuation cover regardless of RHCA status",
+      "success_rate": 0.85,
+      "how": "RHCA-eligible visitors should enrol with Services Australia on arrival (most get a card; Irish and New Zealand visitors instead present a passport) so Medicare-billed treatment is available immediately, but still budget separately for ambulance, dental, and private care.",
+      "sources": [
+        "https://www.servicesaustralia.gov.au/reciprocal-health-care-agreements",
+        "https://www.smartraveller.gov.au/before-you-go/health/reciprocal-health"
+      ],
+      "condition": "Any foreign visitor to Australia"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-07"
+  }
+}
