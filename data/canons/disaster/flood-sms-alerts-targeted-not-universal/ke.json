@@ -8,7 +8,7 @@
     "domain": "disaster",
     "category": "hazard_misjudgment",
     "first_seen": "2026-09-05",
-    "last_confirmed": "2026-09-05"
+    "last_confirmed": "2026-09-07"
   },
   "environment": {
     "runtime": {
@@ -27,8 +27,8 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.6,
-    "last_updated": "2026-09-05",
-    "summary": "Kenya Red Cross reactivated an SMS-based flood early-warning system during the 2026 short-rains season, sending tens of millions of messages nationally, but the messages specifically target residents in high-risk and flood-prone areas rather than every phone in the country. The Kenya Meteorological Department separately publishes a Daily Flood Bulletin through its National Flood Forecasting and Early Warning Centre, but distribution is as a bulletin residents and local authorities consult, not an automatic nationwide push. A traveler or resident outside a monitored high-risk zone, or newly arrived in one, should not assume silence means no flood risk."
+    "last_updated": "2026-09-07",
+    "summary": "Kenya Red Cross reactivated an SMS-based flood early-warning system during the 2026 short-rains season, but the messages specifically target residents in high-risk and flood-prone areas rather than every phone in the country. The Kenya Meteorological Department separately publishes a Daily Flood Bulletin through its National Flood Forecasting and Early Warning Centre, but distribution is as a bulletin residents and local authorities consult, not an automatic nationwide push. A traveler or resident outside a monitored high-risk zone, or newly arrived in one, should not assume silence means no flood risk."
   },
   "dead_ends": [
     {
@@ -69,6 +69,6 @@
     "generation_date": "2026-09-05",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-09-05"
+    "last_verification": "2026-09-07"
   }
 }
