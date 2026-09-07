@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "driver_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-07"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.6,
     "confidence": 0.82,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-07",
     "summary": "NVIDIA driver is not loaded or is incompatible. Common after kernel updates."
   },
   "dead_ends": [
@@ -39,7 +39,7 @@
       "why_fails": "May work temporarily but doesn't fix driver/kernel mismatch",
       "fail_rate": 0.55,
       "sources": [
-        "https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#driver-installation"
+        "https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/latest/index.html"
       ],
       "condition": ""
     }
@@ -48,16 +48,16 @@
     {
       "action": "Reinstall NVIDIA driver matching your kernel version",
       "success_rate": 0.8,
-      "how": "sudo apt install nvidia-driver-535",
+      "how": "Run `ubuntu-drivers devices` to find the driver branch marked recommended for your GPU/kernel, then `sudo apt install nvidia-driver-<branch>` (e.g. nvidia-driver-580) using that branch",
       "sources": [
-        "https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#driver-installation"
+        "https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/latest/index.html"
       ],
       "condition": ""
     },
     {
       "action": "Use DKMS to auto-rebuild driver module on kernel updates",
       "success_rate": 0.75,
-      "how": "sudo apt install nvidia-dkms-535",
+      "how": "sudo apt install nvidia-dkms-<branch> (e.g. nvidia-dkms-580), matching the driver branch installed above",
       "sources": [
         "https://docs.nvidia.com/cuda/cuda-installation-guide-linux/"
       ],
@@ -86,6 +86,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 195,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-07"
   }
 }

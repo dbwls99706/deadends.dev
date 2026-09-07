@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/ausalert-cell-broadcast-not-app/au",
+  "url": "https://deadends.dev/disaster/ausalert-cell-broadcast-not-app/au",
+  "error": {
+    "signature": "AI tells someone in Australia to download a specific national app to receive bushfire/flood/cyclone emergency alerts, or assumes a new national alert system replaces state emergency apps",
+    "regex": "(australia.*emergency (alert|warning) app|ausalert|australia.*national (alert|warning) system)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-07",
+    "last_confirmed": "2026-09-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.6,
+    "last_updated": "2026-09-07",
+    "summary": "Emergency management in Australia is constitutionally a state and territory responsibility, so each state/territory runs its own hazard warning app and system (e.g. NSW RFS 'Fires Near Me', VicEmergency, QFES, Emergency WA) - there was no single national warning app as of 2026. The National Emergency Management Agency's AusAlert, tested nationally on 27 July 2026 and going live in October 2026, adds a complementary layer: a cell-broadcast push (like an emergency SMS broadcast from nearby mobile towers) that needs no app, sign-up or opt-in, but it does not replace the state-run systems, which still carry the detailed operational warnings (evacuate now, shelter in place, road closures)."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Australia they need to find and download 'the' national emergency warning app to get bushfire, flood or cyclone alerts",
+      "why_fails": "Emergency management is run state-by-state in Australia, and as of 2026 each of the eight states and territories has its own warning app and digital platform rather than one national app; ABC News reported Australia still lacked a single national emergency warning app years after the Black Summer bushfires exposed the gap. The national system that finally launched, AusAlert, is cell-broadcast based and explicitly requires no app, sign-up, or opt-in.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.nema.gov.au/our-work/risk-reduction/ausalert",
+        "https://www.abc.net.au/news/2023-12-15/why-australia-has-numerous-emergency-warning-apps/103230054"
+      ],
+      "condition": "Seeking a single source of hazard alerts in Australia"
+    },
+    {
+      "action": "Assume that once AusAlert is live nationally (October 2026), state emergency apps and older SMS-based Emergency Alert warnings become redundant and can be uninstalled or ignored",
+      "why_fails": "NEMA and reporting on the rollout describe AusAlert as complementary, not a replacement: states and territories retain their own warning systems and continue to issue the detailed, location-specific operational instructions (evacuation routes, fire perimeters, road closures), while AusAlert's cell-broadcast messages are a broad 'be aware, seek more information' layer on top.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.abc.net.au/news/2026-07-22/emergency-warning-system-in-doubt-as-states-raise-concerns/106942870",
+        "https://www.ausalert.gov.au/news-updates/understanding-ausalert-busting-myths"
+      ],
+      "condition": "After AusAlert's October 2026 national launch",
+      "common_misconception": "That a new national alert system means the old state-run apps disappear or stop mattering."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Leave the phone's built-in emergency/cell-broadcast alert setting enabled (on by default on modern phones) to receive AusAlert automatically with no app needed, and separately install the specific state or territory emergency app for wherever you are traveling (Fires Near Me NSW, VicEmergency, QFES, Emergency WA, SA/Tas/NT/ACT equivalents) for detailed local warnings",
+      "success_rate": 0.85,
+      "how": "AusAlert reaches any compatible phone within about 160m of an affected mobile tower with no registration; it does not collect or store phone numbers or location, so there is nothing to sign up for in advance - the only action needed is not disabling wireless emergency alerts in phone settings.",
+      "sources": [
+        "https://www.nema.gov.au/about-us/media-centre/understanding-ausalert-new-national-warning-system",
+        "https://www.ausalert.gov.au/about-us/about-ausalert"
+      ],
+      "condition": "Anyone in Australia during bushfire, flood, cyclone, or other hazard season"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/triple-zero-000/au",
+        "distinction": "That canon covers which number to call for help (000, not 911); this one covers how official hazard warnings reach you before you ever need to call."
+      },
+      {
+        "error_id": "safety/bushfire-cfa-warnings/au",
+        "distinction": "That canon covers reading the Fire Danger Rating and Total Fire Ban system once you have a warning; this one covers the delivery mechanism - app vs cell broadcast - that gets the warning to you in the first place."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 5,
+    "last_verification": "2026-09-07"
+  }
+}

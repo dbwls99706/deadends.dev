@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/prepaid-sim-id-verification-mandatory/au",
+  "url": "https://deadends.dev/communication/prepaid-sim-id-verification-mandatory/au",
+  "error": {
+    "signature": "AI tells a traveler they can buy an Australian prepaid SIM and activate it anonymously with cash, the way anonymous prepaid SIMs work in some other countries",
+    "regex": "(australia.*(prepaid|pre-paid) sim|buy sim card australia|anonymous sim australia)",
+    "domain": "communication",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-07",
+    "last_confirmed": "2026-09-07"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "au",
+      "country_name": "Australia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-09-07",
+    "summary": "Since the Telecommunications (Service Provider - Identity Checks for Prepaid Mobile Carriage Services) Determination 2017, Australian carriers are legally required to verify a customer's identity before activating any prepaid mobile service - anonymous activation is not permitted. Verification is done against a government-issued photo ID (passport, driver licence) either in person (e.g. at an Australia Post outlet) or online via document-verification/Digital ID services; a SIM bought with cash still cannot be turned on until identity is confirmed."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a backpacker or short-term visitor they can buy a prepaid SIM in Australia, pay cash, and start using it immediately without showing ID, as in some other countries",
+      "why_fails": "The Telecommunications (Service Provider - Identity Checks for Prepaid Mobile Carriage Services) Determination 2017, regulated by the ACMA, requires carriage service providers to obtain and verify a customer's identity - typically a passport or driver licence checked via a document verification service - before activating a prepaid SIM. Buying the SIM card itself doesn't require ID, but activation does, and an unverified SIM will not connect to the network.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.legislation.gov.au/Details/F2017L00399",
+        "https://www.acma.gov.au/guidance-id-checks-prepaid-mobiles"
+      ],
+      "condition": "Buying a prepaid SIM without a passport or other photo ID on hand"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Bring a passport (or Australian driver licence, if already a resident) to the point of sale, or complete the carrier's online identity verification, before expecting the SIM to activate",
+      "success_rate": 0.9,
+      "how": "Retailers such as Australia Post outlets can run the in-person document check on the spot; most carriers also support online verification via their app or website, and since late 2025 the ACMA has been rolling out accredited Digital ID verification as an additional option for prepaid activation.",
+      "sources": [
+        "https://www.acma.gov.au/guidance-id-checks-prepaid-mobiles",
+        "https://www.acma.gov.au/articles/2025-12/acma-strengthens-consumer-protections-digital-id-verification"
+      ],
+      "condition": "Activating a new prepaid SIM in Australia"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-07",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-07"
+  }
+}
