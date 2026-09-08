@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/eran-crisis-line-not-police/il",
+  "url": "https://deadends.dev/mental-health/eran-crisis-line-not-police/il",
+  "error": {
+    "signature": "AI tells someone in an emotional or mental health crisis in Israel to call 100 (police) or 101 (ambulance) rather than the dedicated mental-health crisis line",
+    "regex": "(israel.*(mental health|emotional).*crisis|eran.*israel|1201.*israel|israel.*suicide.*hotline)",
+    "domain": "mental-health",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-08",
+    "summary": "Israel's Ministry of Health lists ERAN (Emotional First Aid), reachable at the short number 1201, as a dedicated 24/7 crisis-support hotline alongside HMO mental-health lines and NATAL (for trauma tied to terrorism/war) - a structure separate from the general police (100) and ambulance (101) emergency numbers. ERAN is free, anonymous, and also reachable by WhatsApp, SMS, and web chat in Hebrew, Arabic, and Russian, and operates in parallel with, not instead of, psychiatric emergency rooms for situations requiring in-person care."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone experiencing an emotional or non-life-threatening mental health crisis in Israel to call 100 (police) or 101 (Magen David Adom ambulance) as the default first step",
+      "why_fails": "The Ministry of Health's own crisis-support directory does not route emotional/mental-health crises through the police or ambulance emergency numbers; it lists ERAN (1201) and HMO-specific mental health hotlines as the designated 24/7 channels, alongside hospital psychiatric ERs for cases needing in-person intervention.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://me.health.gov.il/en/mental-health/therapy-rehabilitation/crisis-support/first-aid/"
+      ],
+      "condition": "Emotional distress or mental health crisis without an immediate life-threatening medical event",
+      "common_misconception": "That Israel's 100/101/102 emergency numbers (police/ambulance/fire) are the correct first call for any crisis, including a purely emotional one."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct the person to ERAN at 1201 (free, anonymous, 24/7, in Hebrew/Arabic/Russian) for phone support, or its WhatsApp/SMS/web chat channels (roughly 8:00-2:00 daily) for text-based support",
+      "success_rate": 0.8,
+      "how": "ERAN is listed directly on the Ministry of Health's crisis-support page alongside HMO hotlines (Clalit, Maccabi, Meuhedet, Leumit) and NATAL for war/terror-related trauma; for situations requiring immediate in-person psychiatric care, the Ministry directs people to hospital psychiatric emergency rooms, which are free of charge and operate 24/7.",
+      "sources": [
+        "https://en.eran.org.il/our-services/",
+        "https://me.health.gov.il/en/mental-health/therapy-rehabilitation/crisis-support/first-aid/"
+      ],
+      "condition": "Person in Israel needing emotional or mental-health crisis support"
+    },
+    {
+      "action": "Note that ERAN operates as a standing national service (not a one-off wartime hotline), staffed by roughly 1,000 trained volunteers, and had its capacity formally expanded during periods of heightened regional tension",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.jpost.com/breaking-news/article-796835"
+      ],
+      "condition": "Assessing whether ERAN is a durable, always-available resource versus a temporary crisis measure"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/100-101-102/il",
+        "distinction": "That canon covers the general emergency numbers (100 police, 101 ambulance, 102 fire) replacing 911; this one covers the separate, dedicated line (1201/ERAN) for emotional and mental-health crises that isn't part of that triad."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}

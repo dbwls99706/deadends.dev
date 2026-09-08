@@ -8,7 +8,7 @@
     "domain": "docker",
     "category": "storage",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-08"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.8,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-08",
     "summary": "Docker overlay2 storage driver has corrupted layers, typically from disk errors, interrupted pulls, or filesystem issues. Containers using affected layers fail to start."
   },
   "dead_ends": [
@@ -30,16 +30,16 @@
       "why_fails": "The overlay2 directory structure is managed by Docker; manual edits break layer metadata and content-addressable references",
       "fail_rate": 0.9,
       "sources": [
-        "https://docs.docker.com/reference/"
+        "https://docs.docker.com/storage/storagedriver/overlayfs-driver/"
       ],
       "condition": ""
     },
     {
       "action": "Running docker system prune while containers are still using corrupted layers",
-      "why_fails": "Prune skips in-use resources; the corrupted layers remain because containers reference them",
+      "why_fails": "docker system prune only removes unused containers, networks, and images, plus dangling/unused build cache and anonymous volumes not attached to a container; it does not touch resources still referenced by an existing container, so a corrupted layer that a container still depends on is left in place",
       "fail_rate": 0.75,
       "sources": [
-        "https://docs.docker.com/reference/"
+        "https://docs.docker.com/reference/cli/docker/system/prune/"
       ],
       "condition": ""
     }
@@ -50,7 +50,7 @@
       "success_rate": 0.9,
       "how": "docker rmi <image> && docker pull <image> - forces fresh download of all layers",
       "sources": [
-        "https://docs.docker.com/storage/storagedriver/overlayfs-driver/"
+        "https://docs.docker.com/reference/cli/docker/image/rm/"
       ],
       "condition": ""
     },
@@ -91,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-08"
   }
 }

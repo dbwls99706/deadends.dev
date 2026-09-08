@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/reserve-duty-employer-obligations/il",
+  "url": "https://deadends.dev/policy/reserve-duty-employer-obligations/il",
+  "error": {
+    "signature": "AI tells an Israeli reservist to file their own claim with Bituach Leumi for salary during miluim, or tells an employer they can freely dismiss an employee right after reserve service ends",
+    "regex": "(miluim.*(salary|pay|claim)|reserve duty.*israel.*(pay|fired|dismiss)|bituach leumi.*reserve)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-08",
+    "summary": "During Israeli military reserve duty (miluim), the employer - not the reservist - is responsible for continuing to pay the employee's regular salary through normal payroll, and the employer then files the reimbursement claim with the National Insurance Institute (Bituach Leumi), which calculates the benefit from the employee's average gross salary over the prior three months. Separately, the Discharged Soldiers (Return to Employment) Law, 1949 prohibits dismissing, or reducing the pay or role of, an employee who served at least two consecutive days of reserve duty, for the duration of the service and 30 days after it ends - dismissal within that window requires prior permission from a regional Employment Committee under the Ministry of Defense."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an employed reservist to personally submit a claim to Bituach Leumi for their miluim salary, the way a self-employed or unemployed reservist would",
+      "why_fails": "The National Insurance Institute's own guidance for employers states the employer must pay the reserve-service benefit to the employee at the time of the regular salary payment, exactly as if they worked, and the employer - not the employee - then submits the reimbursement claim to Bituach Leumi.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.btl.gov.il/English%20Homepage/Benefits/Reserve%20Service%20Benefit/Pages/Informationforemployers.aspx"
+      ],
+      "condition": "Reservist who is a salaried employee (not self-employed or unemployed)",
+      "common_misconception": "That reserve-duty compensation always works like a personal government benefit claim rather than a payroll pass-through with employer reimbursement."
+    },
+    {
+      "action": "Tell an employer they can dismiss, cut the pay of, or demote an employee at will in the days or weeks immediately after that employee returns from reserve duty",
+      "why_fails": "The Ministry of Defense's Employment Committee process exists precisely because the Discharged Soldiers (Return to Employment) Law, 1949 bars dismissal or adverse changes to employment terms during reserve service (of 2+ consecutive days) and for 30 days after it ends, unless the employer first obtains permission from the regional Employment Committee.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.hachvana.mod.gov.il/ConsultationAndDirection/Employment/Pages/employment.aspx",
+        "https://www.fbclawyers.com/news/%D7%9E%D7%A2%D7%95%D7%93%D7%9B%D7%9F-%D7%93%D7%99%D7%A0%D7%99-%D7%A2%D7%91%D7%95%D7%93%D7%94-%D7%A2%D7%93%D7%9B%D7%95%D7%9F-%D7%9C%D7%9E%D7%A2%D7%A1%D7%99%D7%A7%D7%99%D7%9D-%D7%94%D7%A8%D7%97/"
+      ],
+      "condition": "Employee served 2 or more consecutive days of reserve duty",
+      "common_misconception": "That Israeli at-will-style dismissal norms apply the same way immediately following a reservist's return to work."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Employer pays the reservist's normal salary on the usual payroll schedule during miluim, then files the reserve-service benefit claim with the local National Insurance Institute branch, which reimburses based on the employee's average gross salary over the preceding three months plus cost-of-living increment",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.btl.gov.il/English%20Homepage/Benefits/Reserve%20Service%20Benefit/Pages/Informationforemployers.aspx"
+      ],
+      "condition": "Salaried employee called for reserve duty"
+    },
+    {
+      "action": "If an employer has a legitimate business reason to dismiss or change the terms of a reservist within the protected window (during service, or 30 days after), file a formal request for permission with the appropriate regional Employment Committee (Jerusalem, Tel Aviv/Center, Haifa/North, or Beersheba/South) rather than acting unilaterally",
+      "success_rate": 0.6,
+      "how": "The Employment Committee - composed of a judge, a Defense Ministry representative, a labor union representative, and an industrialists' representative - reviews the request before any dismissal in the protected window can take legal effect.",
+      "sources": [
+        "https://www.hachvana.mod.gov.il/ConsultationAndDirection/Employment/Pages/employment.aspx"
+      ],
+      "condition": "Employer seeking to dismiss or alter terms during the protected window"
+    },
+    {
+      "action": "Do not reduce a reservist's scope of employment or income for the protected window either, not just avoid outright dismissal - the law treats both the same way",
+      "success_rate": 0.7,
+      "how": "A 30 May 2024 amendment confirmed the law also bars reducing employment scope or income for an employee who served 2+ days of reserve duty, during service and the protected period after, absent Employment Committee approval - with narrow exceptions such as output-based pay tied to reduced output not caused by the employer.",
+      "sources": [
+        "https://www.fbclawyers.com/news/%D7%9E%D7%A2%D7%95%D7%93%D7%9B%D7%9F-%D7%93%D7%99%D7%A0%D7%99-%D7%A2%D7%91%D7%95%D7%93%D7%94-%D7%A2%D7%93%D7%9B%D7%95%D7%9F-%D7%9C%D7%9E%D7%A2%D7%A1%D7%99%D7%A7%D7%99%D7%9D-%D7%94%D7%A8%D7%97/"
+      ],
+      "condition": "Employer considering a pay cut, reduced hours, or role downgrade rather than outright dismissal"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}
