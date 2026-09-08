@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/ramadan-public-eating-legal-non-muslims/my",
+  "url": "https://deadends.dev/culture/ramadan-public-eating-legal-non-muslims/my",
+  "error": {
+    "signature": "AI warns a non-Muslim visitor or resident in Malaysia that eating, drinking, or smoking in public during Ramadan daylight hours is illegal for them and could lead to fines or arrest",
+    "regex": "(ramadan|puasa).{0,40}(non.?muslim|foreigner|tourist).{0,40}(eat|drink|illegal|fine|law)",
+    "domain": "culture",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-09-08",
+    "summary": "Malaysia's Ramadan fasting offence (e.g. Section 15 of the Syariah Criminal Offences (Federal Territories) Act 1997, and equivalent state Syariah enactments) sits under the Syariah court system, which the Federal Constitution limits to jurisdiction over persons professing Islam. A non-Muslim eating, drinking, or smoking in public during Ramadan daylight hours commits no offence - unlike Gulf countries such as the UAE or Saudi Arabia, Malaysia has no general public-fasting law that binds everyone."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a non-Muslim tourist or resident in Malaysia not to eat, drink, or smoke in public during Ramadan daylight hours, treating it like Saudi Arabia's or the UAE's public-decency Ramadan rules",
+      "why_fails": "Syariah courts in Malaysia have jurisdiction only over persons professing Islam (Federal Constitution, State List, Item 1); Section 15 of the Syariah Criminal Offences (Federal Territories) Act 1997 criminalises a Muslim being found openly eating, drinking or smoking during fasting hours, and selling food to a Muslim for immediate consumption during fasting hours - it says nothing about non-Muslims consuming food themselves.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-khas-ramadhan-cat/4399-irsyad-al-fatwa-series-ramadhan-edition-157-the-ruling-of-selling-food-during-the-day-in-ramadhan",
+        "https://www.nyulawglobal.org/globalex/researching_islamic_law_malaysian_sources1.html"
+      ],
+      "common_misconception": "Visitors extrapolate from Gulf countries where public Ramadan eating bans apply to everyone regardless of religion, and assume Malaysia works the same way."
+    },
+    {
+      "action": "Assume that because Muslim-owned restaurants close or refuse dine-in service until iftar, no food is available anywhere in Malaysia during Ramadan daylight hours",
+      "why_fails": "The Section 15 restriction targets selling food to a Muslim customer for immediate consumption and a Muslim being found openly eating in public - it does not restrict non-Muslim customers or non-Muslim-run establishments. Chinese- and Indian-owned eateries, hotel restaurants, and shopping-mall food courts generally continue normal daytime service.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://malaysia4u.com/syariah-offences-guide",
+        "https://muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-khas-ramadhan-cat/4399-irsyad-al-fatwa-series-ramadhan-edition-157-the-ruling-of-selling-food-during-the-day-in-ramadhan"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Eat and drink normally in public in Malaysia during Ramadan daylight hours if you are not Muslim - no permit, discretion, or hidden-eating requirement applies to you under the law.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-khas-ramadhan-cat/4399-irsyad-al-fatwa-series-ramadhan-edition-157-the-ruling-of-selling-food-during-the-day-in-ramadhan"
+      ]
+    },
+    {
+      "action": "If most Malay-owned eateries near you are closed or dine-in-restricted until iftar, look for Chinese/Indian-owned restaurants, hotel dining, or mall food courts, which are not restricted by the Muslim-only fasting provisions.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://malaysia4u.com/syariah-offences-guide"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "communication/bumiputera-race-religion-topics/my",
+        "distinction": "That canon covers avoiding race/religion as casual conversation topics; this one covers the actual legal scope of Ramadan fasting restrictions and who they bind."
+      },
+      {
+        "error_id": "food-safety/halal-logo-verification-required/my",
+        "distinction": "That canon covers verifying halal certification legitimacy on food packaging; this one covers whether it is legal for a non-Muslim to eat in public during Ramadan."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}

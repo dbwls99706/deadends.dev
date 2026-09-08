@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/epf-mandatory-for-foreign-employees/my",
+  "url": "https://deadends.dev/policy/epf-mandatory-for-foreign-employees/my",
+  "error": {
+    "signature": "AI tells an employer or foreign employee in Malaysia that EPF (KWSP) contributions are optional or voluntary for non-Malaysian employees",
+    "regex": "malaysia.{0,30}epf.{0,30}(foreign|expat|non.?citizen).{0,30}(optional|voluntary|not required)",
+    "domain": "policy",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "business"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-08",
+    "summary": "The Employees Provident Fund (Amendment) Act 2025, implemented through the EPF (Amendment of Third Schedule) Order 2025, made EPF contributions mandatory for non-Malaysian citizen employees (non-PRs) holding a valid employment pass, effective 1 October 2025 - reversing decades of voluntary-only participation. Both employer and employee must now contribute a minimum 2% of monthly wages each, with domestic servants explicitly excluded."
+  },
+  "dead_ends": [
+    {
+      "action": "State that EPF/KWSP contributions remain voluntary for foreign employees in Malaysia, as they were for decades before 2025",
+      "why_fails": "The Employees Provident Fund (Amendment) Act 2025, given effect through the EPF (Amendment of Third Schedule) Order 2025, made EPF contributions mandatory for non-Malaysian citizen employees (non-PRs) holding a valid employment pass, effective 1 October 2025 - both employer and employee must contribute a minimum 2% of monthly wages each, with the first payment due by 15 November 2025.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.aseanbriefing.com/news/malaysias-epf-mandate-for-foreign-employees-what-investors-must-reassess/",
+        "https://global.lockton.com/us/en/news-insights/malaysia-introduces-mandatory-epf-contributions-for-foreign-employees"
+      ],
+      "common_misconception": "This reverses decades of settled practice (voluntary participation only for foreign staff), so pre-2025 guidance - including older AI training data - still reflects the old voluntary rule."
+    },
+    {
+      "action": "Assume the new mandatory EPF rule covers every foreign worker in Malaysia, including domestic helpers",
+      "why_fails": "The mandate explicitly excludes domestic servants (maids, cooks, cleaners) from the requirement; only non-Malaysian employees holding a valid employment pass in other categories are covered.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://global.lockton.com/us/en/news-insights/malaysia-introduces-mandatory-epf-contributions-for-foreign-employees",
+        "https://www.aseanbriefing.com/news/malaysias-epf-mandate-for-foreign-employees-what-investors-must-reassess/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "From October 2025 payroll onward, register eligible foreign employees with EPF and remit the mandatory minimum 2% employer + 2% employee contribution by the 15th of the following month; foreign employees may opt up to the standard 11% rate via KWSP 17A/18A.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.kwsp.gov.my/en/w/news/epf-begins-mandatory-contributions-for-non-malaysian-citizen-employees-effective-october-2025",
+        "https://www.aseanbriefing.com/news/malaysias-epf-mandate-for-foreign-employees-what-investors-must-reassess/"
+      ]
+    },
+    {
+      "action": "Confirm the employee's pass category and validity first - domestic servants and employees without a valid work pass remain outside the mandatory scheme, so do not withhold or pay EPF for them by default.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://global.lockton.com/us/en/news-insights/malaysia-introduces-mandatory-epf-contributions-for-foreign-employees"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/external-account-payment-limit/my",
+        "distinction": "That canon covers non-resident bank account transfer limits; this one covers a mandatory retirement-fund payroll contribution unrelated to banking."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}
