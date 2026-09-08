@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/haze-api-200-school-closure/my",
+  "url": "https://deadends.dev/disaster/haze-api-200-school-closure/my",
+  "error": {
+    "signature": "AI states that Malaysian schools close for haze once the API (Air Pollutant Index) crosses 100 ('unhealthy'), or that closures happen automatically nationwide once any area records hazardous readings",
+    "regex": "malaysia.{0,30}(haze|api).{0,30}school.{0,30}(close|100|nationwide)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.6,
+    "last_updated": "2026-09-08",
+    "summary": "Under Malaysia's National Haze Action Plan, administered by the Department of Environment, an API reading over 100 ('unhealthy') only triggers suspension of outdoor school activities. Schools, kindergartens, and childcare centres are ordered closed only when the API reading at the relevant local monitoring station reaches 200 ('very unhealthy'), and the decision is made per district/state based on that local reading, not nationwide."
+  },
+  "dead_ends": [
+    {
+      "action": "Say that Malaysian schools close for haze as soon as the API reading crosses 100 ('unhealthy')",
+      "why_fails": "Under the National Haze Action Plan, an API over 100 only triggers suspension of outdoor school activities; schools, kindergartens, and childcare centres are ordered closed only when the local API reading reaches 200 ('very unhealthy').",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://malaysia4u.com/air-pollution-guide",
+        "https://www.humanresourcesonline.net/malaysia-haze-worsens-21-areas-record-unhealthy-to-hazardous-air-quality"
+      ],
+      "common_misconception": "The 100 mark is a real, official trigger point, just for a milder response (no outdoor activity) than full closure, so people round it up to 'schools close' prematurely."
+    },
+    {
+      "action": "Assume a haze school-closure announcement covers the whole country at once, since news coverage of a bad haze episode can make it sound universal",
+      "why_fails": "Closures are decided per monitoring-station reading and apply to the schools/districts registering API at or above 200, not nationwide - e.g. only Lubok Antu district's roughly 30 schools closed when its local API passed 200 while other areas of Sarawak stayed open.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://english.news.cn/20260828/3164f128259a4aedb6c0562f4e46c276/c.html"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the API reading for the specific district/state in question (not a national average) against the two real thresholds: over 100 = outdoor activities suspended, at or above 200 = schools/kindergartens/childcare ordered closed.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://malaysia4u.com/air-pollution-guide",
+        "https://www.humanresourcesonline.net/malaysia-haze-worsens-21-areas-record-unhealthy-to-hazardous-air-quality"
+      ]
+    },
+    {
+      "action": "For a specific location, follow that state's Education Department or Ministry of Education announcements rather than assuming a haze episode reported elsewhere in Malaysia applies locally.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://english.news.cn/20260828/3164f128259a4aedb6c0562f4e46c276/c.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-not-911-my/my",
+        "distinction": "That canon covers which number to dial for a life-threatening emergency; this one covers the environmental API threshold that triggers a school closure decision, a DOE/Education Ministry process rather than emergency dispatch."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}

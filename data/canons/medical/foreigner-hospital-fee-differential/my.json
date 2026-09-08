@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/foreigner-hospital-fee-differential/my",
+  "url": "https://deadends.dev/medical/foreigner-hospital-fee-differential/my",
+  "error": {
+    "signature": "AI tells a foreigner in Malaysia that public/government hospital treatment costs the same as for Malaysian citizens, or is free / heavily subsidised the way it is for citizens",
+    "regex": "malaysia.{0,30}(government|public).{0,20}hospital.{0,30}(foreigner|expat|same.?(cost|price|fee)|free)",
+    "domain": "medical",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "my",
+      "country_name": "Malaysia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-08",
+    "summary": "Under the Fees Act 1951 as amended by the Fees (Medical)(Cost of Services) Order 2014 (fully enforced from January 2016), non-citizens are billed on a separate, far higher fee schedule at Malaysian government hospitals and clinics than the heavily subsidised citizen rate - e.g. roughly RM40 vs RM1 for outpatient registration and RM100 vs RM3 for a specialist clinic visit, with much larger gaps for deliveries, radiotherapy, and inpatient ward stays."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a foreigner or expat will be charged the same subsidised citizen rate (e.g. roughly RM1 outpatient registration) at a Malaysian government hospital or clinic",
+      "why_fails": "The Fees (Medical)(Cost of Services) Order 2014, made under the Fees Act 1951 and fully enforced from January 2016, put non-citizens on a separate fee schedule - roughly RM40 vs RM1 for outpatient registration and RM100 vs RM3 for a specialist clinic visit, because the public healthcare subsidy is built around citizens, not visitors or foreign workers.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7725341/",
+        "https://www.freemalaysiatoday.com/category/nation/2024/02/18/ministry-looks-into-rm100mil-hospital-bills-owed-by-foreigners"
+      ],
+      "common_misconception": "Government hospitals are usually associated with subsidised or near-free care, so people assume the subsidy applies uniformly to anyone treated there rather than being billed by citizenship status."
+    },
+    {
+      "action": "Tell an undocumented migrant or asylum seeker they will be charged the identical full 'foreigner' rate with no discount at a government facility",
+      "why_fails": "UNHCR-registered refugees and asylum-seekers are billed at 50% of the standard foreigner fee under an arrangement with the Ministry of Health, so treating every non-citizen as paying the full foreigner rate overstates the cost for that specific registered group (unregistered/undocumented individuals do pay the full foreigner fee).",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://help.unhcr.org/malaysia/assistance-and-support/health-services-in-malaysia/primary-health-care-general-health/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Budget for non-citizen fee tiers before visiting a Malaysian government hospital or clinic - outpatient visits and especially inpatient/ward stays, deliveries, and radiotherapy run many times the citizen price, and expect to settle the bill before or shortly after discharge.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.freemalaysiatoday.com/category/nation/2024/02/18/ministry-looks-into-rm100mil-hospital-bills-owed-by-foreigners",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7725341/"
+      ]
+    },
+    {
+      "action": "If you or a family member are a UNHCR-registered refugee or asylum-seeker, present your UNHCR documentation at registration to be billed at the reduced 50%-of-foreigner rate instead of the full non-citizen rate.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://help.unhcr.org/malaysia/assistance-and-support/health-services-in-malaysia/primary-health-care-general-health/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/external-account-payment-limit/my",
+        "distinction": "That canon covers non-resident bank account payment limits; this one covers a completely separate non-citizen fee schedule at government hospitals."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}
