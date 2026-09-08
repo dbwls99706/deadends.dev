@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/civil-marriage-not-available/il",
+  "url": "https://deadends.dev/legal/civil-marriage-not-available/il",
+  "error": {
+    "signature": "AI tells an interfaith, secular, or same-religion-restricted couple they can get a civil marriage license from an Israeli municipality or court",
+    "regex": "(israel.*(civil marriage|marriage license|marry.*israel)|marry in israel|israeli.*wedding.*license)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-08",
+    "last_confirmed": "2026-09-08"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "il",
+      "country_name": "Israel",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-08",
+    "summary": "Israel has no domestic civil marriage. Marriage within Israel can only be performed by the state-recognized religious authority for each partner (the Orthodox Chief Rabbinate for Jews, sharia courts for Muslims, and recognized Christian and Druze religious courts), a structure inherited from the Ottoman millet system and continued through the British Mandate. Interfaith couples, couples where one or both partners have no recognized religion, and couples barred under religious law (e.g. a kohen marrying a divorcee) cannot marry inside Israel at all. The universal workaround is marrying abroad - commonly in Cyprus, which performs same-day-registrable civil marriages - and then registering that foreign marriage with Israel's Population and Immigration Authority, which is legally required to record it under the 1963 Funk-Schlesinger Supreme Court precedent even though the couple could not have married the same way domestically."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an interfaith couple, a secular couple with no religious affiliation, or a couple barred by religious law that they can register for a civil marriage ceremony at an Israeli municipality (iriya), Ministry of Interior branch, or civil court",
+      "why_fails": "The Knesset Research and Information Center's own review of Israeli marriage law confirms marriage inside Israel can only be performed through the religious authority of each partner's recognized religion - there is no civil marriage track at all, so no domestic office can issue one regardless of the couple's wishes.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://fs.knesset.gov.il/globaldocs/MMM/554d6b58-e9f7-e411-80c8-00155d010977/2_554d6b58-e9f7-e411-80c8-00155d010977_11_7909.pdf"
+      ],
+      "condition": "Interfaith, non-religious, or religious-law-barred couple seeking to marry inside Israel",
+      "common_misconception": "That Israel, as a modern secular-feeling state with civil courts, must offer a standard civil marriage option the way most Western countries do."
+    },
+    {
+      "action": "Assume a marriage performed abroad (e.g. in Cyprus) has no legal force in Israel unless the couple also completes a separate Israeli marriage ceremony",
+      "why_fails": "Under the Funk-Schlesinger v. Ministry of Interior precedent, Israel's Population and Immigration Authority is required to register couples married abroad under the law of the country where they married - the foreign civil marriage stands on its own and does not need to be replicated or re-performed inside Israel.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://lawoffice.org.il/en/registering-civil-marriages/"
+      ],
+      "condition": "Couple already married abroad and registering with Israeli authorities"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Marry through the recognized religious authority for your (and your partner's, if the same faith) religion if eligible; if not, marry in a jurisdiction that performs civil marriage (Cyprus is the most common due to its 3-5 business day process) and then submit the apostilled/authenticated foreign marriage certificate plus a Hebrew translation to the Population and Immigration Authority, or to an Israeli embassy/consulate abroad, to register the marriage",
+      "success_rate": 0.85,
+      "how": "Since a 2019 Israeli Supreme Court decision, registration as married is automatic once valid authenticated documents are submitted, without the six-month waiting period that previously applied to mixed-nationality couples.",
+      "sources": [
+        "https://lawoffice.org.il/en/registering-civil-marriages/"
+      ],
+      "condition": "Couple ineligible for or unwilling to use Israel's religious marriage system"
+    },
+    {
+      "action": "If avoiding travel entirely, cohabiting couples can rely on Israel's judicially recognized 'yeduim ba'tzibur' (publicly known) common-law status for a subset of marital-adjacent protections, while accepting it does not carry full marriage rights",
+      "success_rate": 0.5,
+      "tradeoff": "Common-law status does not confer the same tax, pension, or immigration benefits as a registered marriage - for example, retirement benefits are not automatically extended to a common-law partner the way they are to a legal spouse.",
+      "sources": [
+        "https://www.timesofisrael.com/why-is-there-no-civil-marriage-in-israel/"
+      ],
+      "condition": "Couple not pursuing marriage abroad"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "culture/shabbat-shutdown/il",
+        "distinction": "That canon covers the Shabbat weekly shutdown of transport and commerce; this one covers Israel's separate, permanent lack of civil marriage."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-08",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-08"
+  }
+}

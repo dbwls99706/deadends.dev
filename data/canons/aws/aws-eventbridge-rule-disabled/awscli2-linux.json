@@ -8,7 +8,7 @@
     "domain": "aws",
     "category": "config_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-08"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-08",
     "summary": "EventBridge rule is disabled or event pattern does not match incoming events, so targets are never invoked."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "If the event pattern is wrong, the duplicate will have the same issue; also creates management overhead",
       "fail_rate": 0.7,
       "sources": [
-        "https://docs.aws.amazon.com/eventbridge/latest/userguide/"
+        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-troubleshooting.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "If the rule is disabled, no events are processed and there will be nothing in logs to find",
       "fail_rate": 0.65,
       "sources": [
-        "https://docs.aws.amazon.com/eventbridge/latest/userguide/"
+        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-troubleshooting.html"
       ],
       "condition": ""
     }
@@ -85,6 +85,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-08"
   }
 }
