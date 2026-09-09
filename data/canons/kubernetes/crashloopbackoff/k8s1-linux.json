@@ -8,7 +8,7 @@
     "domain": "kubernetes",
     "category": "pod_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-09-09"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "partial",
     "fix_success_rate": 0.6,
     "confidence": 0.82,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-09-09",
     "summary": "Container starts and crashes repeatedly. K8s backs off restart attempts exponentially."
   },
   "dead_ends": [
@@ -91,6 +91,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 370,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-09-09"
   }
 }

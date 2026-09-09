@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/ni-number-not-required-to-start-work/uk",
+  "url": "https://deadends.dev/policy/ni-number-not-required-to-start-work/uk",
+  "error": {
+    "signature": "AI tells a newcomer to the UK they cannot legally start a job until they have received their National Insurance number",
+    "regex": "(national insurance number.*start.*work|start work.*without.*national insurance|ni number.*(job|work).*uk)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-09",
+    "last_confirmed": "2026-09-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-09",
+    "summary": "You can legally start work in the UK before your National Insurance (NI) number arrives, as long as you can prove your right to work to your employer - the NI number and right-to-work proof are two separate requirements. gov.uk and Northern Ireland's nidirect both confirm employment can begin first and the NI number application can follow, or run in parallel; applications typically take around 4 weeks. Employers may tax new starters without an NI number at a higher emergency rate until the number is provided, but that is a payroll mechanic, not a bar on starting work."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone moving to the UK for work that they must wait for their National Insurance number to arrive before they can legally start their job",
+      "why_fails": "gov.uk states 'You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK,' and nidirect.gov.uk confirms 'if you have already started working you can still apply' - employment and the NI number application are independent processes.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.gov.uk/apply-national-insurance-number",
+        "https://www.nidirect.gov.uk/articles/national-insurance-numbers"
+      ],
+      "condition": "Right to work in the UK can be proven by other means",
+      "common_misconception": "That the National Insurance number is a prerequisite document for employment, like a visa or right-to-work check, rather than a tax/benefits reference number applied for separately."
+    },
+    {
+      "action": "Assume proof of right to work and having an NI number are the same check, so a missing NI number blocks the employer's right-to-work verification",
+      "why_fails": "gov.uk's right-to-work guidance is explicit that employees must 'prove your right to work in the UK to your employer before you start working for them' using documents like a passport, visa, or eVisa share code - the NI number is mentioned only later, as payroll information needed once employment begins, not as part of the right-to-work check itself.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.gov.uk/prove-right-to-work"
+      ],
+      "condition": "Employer is conducting a pre-employment right-to-work check"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Provide the employer with valid right-to-work documents (passport, visa, biometric residence permit, or eVisa share code) to start work immediately, then apply for the National Insurance number in parallel - or tell the employer the application is in progress if it was already submitted",
+      "success_rate": 0.85,
+      "how": "Expect to be taxed at a higher emergency rate on early payslips until the NI number is supplied to payroll; this is corrected once the number comes through, typically within about 4 weeks of applying.",
+      "sources": [
+        "https://www.gov.uk/apply-national-insurance-number"
+      ],
+      "condition": "Right to work in the UK already established"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-09"
+  }
+}

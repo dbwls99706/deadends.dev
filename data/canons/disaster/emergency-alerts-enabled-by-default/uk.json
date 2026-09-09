@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/emergency-alerts-enabled-by-default/uk",
+  "url": "https://deadends.dev/disaster/emergency-alerts-enabled-by-default/uk",
+  "error": {
+    "signature": "AI tells someone in the UK they must download an app or register to receive government emergency alerts for floods, fires, or severe weather",
+    "regex": "(uk emergency alerts?|emergency alerts?.*app.*uk|register.*emergency alert.*uk|gov\\.uk/alerts)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-09",
+    "last_confirmed": "2026-09-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-09",
+    "summary": "The UK's Emergency Alerts system sends severe-weather, flood, fire, and other life-threatening warnings directly to compatible mobile phones and tablets (iOS 14.5+, Android 11+ generally) via cell broadcast, switched on by default with no app download and no registration - the government does not need a phone number or location data to reach a device. Alerts override silent mode with a loud siren-like sound, vibration, and an on-screen message read aloud. Users can opt out through phone notification settings, but there is no opt-in step required to receive alerts in the first place."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a resident or traveler in the UK they need to download an app or register with a phone number to receive government Emergency Alerts",
+      "why_fails": "gov.uk states plainly that 'the government does not need to know your phone number or location to send you an alert' and that no app is required - the service is built into compatible devices at the network level via cell broadcast, and is on by default.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gov.uk/alerts",
+        "https://www.gov.uk/alerts/how-alerts-work"
+      ],
+      "condition": "Device running iOS 14.5+ or Android 11+ (most phones sold in the UK since ~2021)",
+      "common_misconception": "That UK emergency alerts work like an opt-in notification app, similar to some private weather-warning apps, rather than a carrier-level broadcast that's on unless disabled."
+    },
+    {
+      "action": "Assume the alert cannot be silenced or that opting out isn't possible",
+      "why_fails": "gov.uk's opting-out guidance gives exact steps: on iPhone, Settings > Notifications, scroll down, and turn off 'Severe Alerts' and 'Extreme Alerts'; on Android, search settings for 'emergency alerts' and turn off the same two categories.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.gov.uk/alerts/opting-out"
+      ],
+      "condition": "User wants to disable alerts"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Confirm the device meets the minimum OS version (iOS 14.5+/Android 11+) and leave the default notification settings alone - no action is needed to receive alerts; check Settings > Notifications (iPhone) or the emergency alerts setting (Android) only if alerts seem to be missing or need to be turned off",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.gov.uk/alerts/how-alerts-work"
+      ],
+      "condition": "Any compatible smartphone physically in the UK"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-or-112-dual-number/uk",
+        "distinction": "That canon covers which number to dial to request emergency help (999 or 112); this one covers how government-pushed hazard warnings reach your phone automatically (cell broadcast, no app, no dialling involved)."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-09"
+  }
+}

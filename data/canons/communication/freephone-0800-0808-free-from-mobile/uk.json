@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/freephone-0800-0808-free-from-mobile/uk",
+  "url": "https://deadends.dev/communication/freephone-0800-0808-free-from-mobile/uk",
+  "error": {
+    "signature": "AI tells someone in the UK that calling an 0800 or 0808 number from a mobile phone costs money",
+    "regex": "(0800.*(cost|charge|free).*mobile|0808.*(cost|charge|free)|freephone.*mobile.*uk|call.*0800.*phone)",
+    "domain": "communication",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-09",
+    "last_confirmed": "2026-09-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-09-09",
+    "summary": "In the UK, calls to 0800, 0808, and 116 numbers are free from both landlines and mobile phones - a rule that has held since Ofcom's 1 July 2015 'UK Calling' reform, which shifted the mobile-network access charge for these numbers onto the number owner rather than the caller. Before that date, mobiles were commonly charged 14-40p/minute for calling 0800 numbers even though they were free from landlines; that older behaviour no longer applies. Numbers starting 084, 087, 09, and 118 remain chargeable from mobiles, split into a service charge (set by the organisation called) plus the caller's own network access charge."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone calling a UK 0800 or 0808 number from a mobile phone to expect a per-minute charge, or to prefer calling from a landline to avoid cost",
+      "why_fails": "gov.uk's call-charges guidance lists 0800, 0808, and 116 numbers as 'Free' for both landlines and mobiles - identical cost, £0, regardless of which type of phone is used. Citizens Advice confirms 'Calls to these numbers are always free from mobiles and landlines.'",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.gov.uk/call-charges",
+        "https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/check-how-much-a-call-will-cost/"
+      ],
+      "condition": "Calling from within the UK",
+      "common_misconception": "That the pre-July-2015 rule (0800 free from landlines only, chargeable from mobiles) is still current - it was changed by Ofcom's UK Calling reform over a decade ago."
+    },
+    {
+      "action": "Assume all numbers starting with '08' are free, lumping 0843/0844/0870-0873 in with 0800/0808",
+      "why_fails": "nidirect.gov.uk explains 084 and 087 numbers split into an access charge set by the caller's provider (a few pence to over 80p/minute) plus a separate service charge set by the organisation called - these numbers are not free like 0800/0808/116.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.nidirect.gov.uk/articles/contacting-08-and-03-numbers"
+      ],
+      "condition": "Number begins 084 or 087 rather than 0800/0808/116",
+      "common_misconception": "That any '08'-prefixed number is a freephone number."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the first four digits: 0800/0808/116 are always free from mobile and landline; 0843/0844/0845 and 0870-0873 carry a service charge plus your provider's access charge; 09 and 118 numbers are premium rate and can be expensive per minute",
+      "success_rate": 0.9,
+      "how": "gov.uk/call-charges publishes the current per-range price caps if an exact cost is needed.",
+      "sources": [
+        "https://www.gov.uk/call-charges"
+      ],
+      "condition": "Deciding whether to call a UK non-geographic number from a mobile"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-09"
+  }
+}

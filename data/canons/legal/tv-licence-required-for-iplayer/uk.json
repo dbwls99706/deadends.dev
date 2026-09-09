@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/tv-licence-required-for-iplayer/uk",
+  "url": "https://deadends.dev/legal/tv-licence-required-for-iplayer/uk",
+  "error": {
+    "signature": "AI tells someone in the UK that BBC iPlayer doesn't need a TV Licence as long as they never watch live TV",
+    "regex": "(tv licen[cs]e|bbc iplayer.*licen[cs]e|need.*tv licen[cs]e|do i need a tv licen[cs]e)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-09",
+    "last_confirmed": "2026-09-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-09",
+    "summary": "The UK TV Licence covers two separate triggers: watching or recording live TV on any channel or service, and using BBC iPlayer at all - live, catch-up, or fully on-demand. Streaming services like Netflix, Disney+, Amazon Prime Video, and All 4's on-demand content do not require a licence, but any use of iPlayer does, even with zero live TV viewing. Watching or recording live TV without a licence can be fined up to £1,000, and a licence costs £180/year (£60.50 for black-and-white sets) as of 2026."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone who only streams BBC iPlayer (no live channels, no live TV at all) that they don't need a TV Licence because they aren't watching 'live TV'",
+      "why_fails": "gov.uk states you need a TV Licence if you watch or record live TV on any channel or service, OR use BBC iPlayer - and iPlayer's own requirement is not conditioned on live viewing. Unlike Netflix, Prime Video, or All 4's on-demand library, iPlayer needs a licence purely for on-demand use.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gov.uk/tv-licence/do-you-need-one",
+        "https://www.gov.uk/tv-licence"
+      ],
+      "condition": "Watching BBC iPlayer with no live TV viewing",
+      "common_misconception": "That the licence rule is purely about 'live TV' - iPlayer is carved out as its own always-licensed case regardless of live vs. on-demand."
+    },
+    {
+      "action": "Assume the penalty for unlicensed live TV/iPlayer use is a small administrative fee",
+      "why_fails": "gov.uk states the fine for watching or recording live TV without a TV Licence can reach £1,000, pursued as a criminal offence in England, Scotland, and Northern Ireland.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.gov.uk/tv-licence/penalties"
+      ],
+      "condition": "Unlicensed live TV or iPlayer use is detected"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy a TV Licence (£180/year, £60.50 for black-and-white sets) before using BBC iPlayer in any form or watching/recording any live channel; if avoiding the cost, stick strictly to on-demand content on non-BBC platforms (Netflix, Prime Video, All 4 catch-up, Disney+)",
+      "success_rate": 0.95,
+      "how": "Licences are purchased and managed via gov.uk/tv-licence or TV Licensing directly; cancel it if you move to a household member's existing licence or drop all covered services.",
+      "sources": [
+        "https://www.gov.uk/tv-licence"
+      ],
+      "condition": "Any UK household or individual planning to use iPlayer or live TV"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-09"
+  }
+}
