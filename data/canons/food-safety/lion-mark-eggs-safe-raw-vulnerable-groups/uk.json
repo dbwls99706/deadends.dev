@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/lion-mark-eggs-safe-raw-vulnerable-groups/uk",
+  "url": "https://deadends.dev/food-safety/lion-mark-eggs-safe-raw-vulnerable-groups/uk",
+  "error": {
+    "signature": "AI tells a pregnant person, infant's caregiver, or elderly person in the UK to always avoid raw or runny eggs regardless of which eggs they have",
+    "regex": "(raw eggs?.*(pregnan|uk)|runny eggs?.*(pregnan|uk)|lion mark eggs?|british lion egg)",
+    "domain": "food-safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-09",
+    "last_confirmed": "2026-09-09"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "uk",
+      "country_name": "United Kingdom",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-09",
+    "summary": "UK food-safety guidance (Food Standards Agency, echoed by the NHS) allows pregnant women, infants, young children, older people, and most people with underlying health conditions to eat raw or lightly cooked hen eggs - but only if the eggs carry the British Lion stamp or are produced under the Laid in Britain scheme. Eggs without that mark should still only be eaten well-cooked for these groups. This reversed older blanket advice to avoid all raw/runny eggs, following a 2016/2017 FSA risk assessment tied to flock salmonella vaccination under the Lion Code."
+  },
+  "dead_ends": [
+    {
+      "action": "Advise a pregnant person, parent of an infant, or elderly person in the UK to avoid all raw or runny eggs as a blanket rule",
+      "why_fails": "FSA's current guidance (echoed on gov.uk and in the FSA's own blog) states these groups 'can now safely eat raw or lightly cooked hen eggs, or foods containing them, if they have a British Lion mark or are produced under the Laid in Britain egg assurance scheme.' The NHS pregnancy guidance repeats the same distinction. Blanket avoidance is outdated advice from before the 2016/2017 policy change and ignores the Lion Code carve-out.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.gov.uk/government/publications/home-food-fact-checker",
+        "https://www.nhs.uk/pregnancy/keeping-well/foods-to-avoid/"
+      ],
+      "condition": "Eggs actually carry the British Lion stamp or Laid in Britain mark",
+      "common_misconception": "That 'pregnant women/infants/elderly should avoid raw eggs' is still a universal rule in the UK, rather than one that depends on the egg's certification mark."
+    },
+    {
+      "action": "Assume any egg bought in the UK is automatically covered by the Lion Mark safe-raw guidance",
+      "why_fails": "The FSA blog and gov.uk fact-checker are explicit that the safe-raw advice applies only to eggs stamped with the red British Lion mark or produced under the Laid in Britain scheme; unstamped or imported eggs without an equivalent assurance scheme should still be well-cooked for vulnerable groups, and severely immunocompromised people should follow medically supervised advice regardless of the mark.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://food.blog.gov.uk/2026/08/21/food-fact-check-can-you-get-salmonella-from-eggs-what-you-need-to-know/"
+      ],
+      "condition": "Eggs without a British Lion stamp or Laid in Britain certification"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check for the red British Lion stamp printed directly on the shell (or Laid in Britain packaging) before serving raw or lightly cooked eggs to a vulnerable person; if the mark isn't there, cook the eggs until both white and yolk are solid",
+      "success_rate": 0.9,
+      "how": "The stamp is printed on the shell itself, not just the box, so it survives repackaging; buying from a reputable UK supermarket supplier makes Lion-marked eggs the default in most cases.",
+      "sources": [
+        "https://www.gov.uk/government/publications/home-food-fact-checker"
+      ],
+      "condition": "General consumer purchase in the UK"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-09",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-09"
+  }
+}
