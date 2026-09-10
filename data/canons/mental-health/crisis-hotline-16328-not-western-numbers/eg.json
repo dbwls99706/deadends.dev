@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-hotline-16328-not-western-numbers/eg",
+  "url": "https://deadends.dev/mental-health/crisis-hotline-16328-not-western-numbers/eg",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Egypt to call or text a Western crisis line (988, Samaritans, Crisis Text Line) or says no formal crisis line exists in Egypt",
+    "regex": "(egypt.*mental health.*(hotline|crisis|helpline)|call 988.*egypt|egypt.*(suicide|crisis).*hotline)",
+    "domain": "mental-health",
+    "category": "crisis_resource_mismatch",
+    "first_seen": "2026-09-10",
+    "last_confirmed": "2026-09-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-10",
+    "summary": "Egypt's Ministry of Health operates hotline 16328, a free, 24/7 national line run by the General Secretariat of Mental Health and Addiction Treatment that provides psychological support and triages emergency/self-harm cases to a psychologist or psychiatrist; it logged 8,808 calls, including 252 emergency cases, in the first quarter of 2026 alone. It supersedes the older 080-8880700 line set up during the 2020 COVID-19 shutdown, and Western crisis lines such as 988 do not connect when dialed from Egypt."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in Egypt experiencing a mental health crisis to call 988 (US) or text a Crisis Text Line / Samaritans-style number as if it works internationally",
+      "why_fails": "988 and similar Western crisis lines are national telephony services that do not route calls placed from Egypt; Egypt's Ministry of Health operates its own dedicated national line (16328) for this instead.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.egyptindependent.com/egypt-prioritizes-mental-health-support-expands-services-nationwide/"
+      ],
+      "condition": "Person physically in Egypt",
+      "common_misconception": "That crisis hotlines are internationally reachable services rather than national phone-network numbers."
+    },
+    {
+      "action": "Cite the older 080-8880700 hotline, set up during the 2020 COVID-19 shutdown, as Egypt's current mental health number",
+      "why_fails": "Egypt's Ministry of Health now directs callers to the short-code 16328 line run by the General Secretariat of Mental Health and Addiction Treatment; the 2020 COVID-era number was an earlier iteration of the service, and stale numbers risk sending someone in crisis to a line that isn't the currently staffed one.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.dailynewsegypt.com/2020/04/01/health-ministry-launches-mental-health-support-hotlines-during-covid-19-pandemic/",
+        "https://www.egyptindependent.com/egypt-prioritizes-mental-health-support-expands-services-nationwide/"
+      ],
+      "condition": "Advice based on pre-2026 or COVID-era sources",
+      "common_misconception": "That the pandemic-era hotline number is still the operative one."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct the person to call 16328, Egypt's free, 24/7 Ministry of Health mental health and addiction treatment hotline",
+      "success_rate": 0.85,
+      "how": "Operated by the General Secretariat of Mental Health and Addiction Treatment; in Q1 2026 alone it handled 8,808 calls, including 3,874 consultations and 252 emergency cases, with trained staff triaging to a psychologist or psychiatrist.",
+      "sources": [
+        "https://www.egyptindependent.com/egypt-prioritizes-mental-health-support-expands-services-nationwide/",
+        "https://progress.guide/atlas/africa/egypt/"
+      ],
+      "condition": "General psychological distress or crisis"
+    },
+    {
+      "action": "For an immediate life-threatening emergency, also use Egypt's emergency dispatch numbers (123 ambulance, 122 police) rather than relying on the mental-health line alone",
+      "success_rate": 0.6,
+      "condition": "Immediate danger to life"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/122-123-180-not-911/eg",
+        "distinction": "That canon covers which number to dial for a physical emergency (police/ambulance/fire); this one covers the separate, dedicated mental-health support and crisis line."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-10"
+  }
+}

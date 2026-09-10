@@ -8,7 +8,7 @@
     "domain": "java",
     "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-10"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.96,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-10",
     "summary": "UnrecognizedPropertyException is thrown by Jackson when JSON contains a field that does not map to any property in the target Java class. By default, Jackson requires all JSON properties to have matching fields in the POJO."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Disabling unknown property checking globally means all JSON deserialization silently ignores unexpected fields. This hides API contract violations, schema drift, and typos. If a required field is renamed in the JSON source, the Java field will silently get a null/default value instead of raising an error, causing subtle bugs.",
       "fail_rate": 0.55,
       "sources": [
-        "https://docs.oracle.com/en/java/javase/21/docs/api/"
+        "http://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "While less destructive than the global setting, blanket ignoring on every class still masks schema evolution issues. If the JSON API adds a new required field, your application will silently ignore it. Use this annotation judiciously, only on classes where unknown fields are genuinely expected.",
       "fail_rate": 0.55,
       "sources": [
-        "https://docs.oracle.com/en/java/javase/21/docs/api/"
+        "https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations"
       ],
       "condition": ""
     }
@@ -97,6 +97,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 85,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-10"
   }
 }

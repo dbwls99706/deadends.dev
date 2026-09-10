@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/photography-military-government-sites-restricted/eg",
+  "url": "https://deadends.dev/legal/photography-military-government-sites-restricted/eg",
+  "error": {
+    "signature": "AI tells a tourist in Egypt that photographing bridges, dams, or government buildings is fine as long as it's personal, non-commercial use",
+    "regex": "(photograph(ing)?.*egypt.*(military|bridge|dam|government)|egypt.*photography.*(law|rule|permit|restrict))",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-10",
+    "last_confirmed": "2026-09-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-10",
+    "summary": "Prime Ministerial Decree No. 2720 of 2022 lets residents, citizens, and tourists take personal photos in most Egyptian public places without a permit, but it keeps an absolute, permit-proof ban on photographing military installations, security institutions, and government buildings - a category that includes bridges, dams, and other infrastructure tied to national security, such as Suez Canal facilities. Professional gear (studio lighting, tripods blocking a road) still needs a separate permit, and foreign journalists need State Information Service authorization."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume the 2022 decree that legalized personal photography in Egypt's public places also covers bridges, dams, military bases, or government buildings",
+      "why_fails": "Decree 2720/2022 explicitly carves out an absolute prohibition on photographing military installations, security institutions, and government buildings - including bridges, dams, and other national-security-linked infrastructure - that applies to Egyptians and foreigners alike and is not lifted by permission for personal use.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.recordinglaw.com/world-laws/world-recording-laws/egypt-recording-laws/",
+        "https://www.loc.gov/item/global-legal-monitor/2022-09-08/egypt-prime-minister-issues-new-rules-on-personal-photography-in-public-places/"
+      ],
+      "condition": "Personal (non-professional) photography in public places",
+      "common_misconception": "That the widely reported 2022 reform 'ended photography restrictions' in Egypt outright."
+    },
+    {
+      "action": "Photograph a bridge, dam, or Suez Canal facility because it looks like ordinary tourist scenery",
+      "why_fails": "These fall under the decree's named security-linked infrastructure categories rather than general public places, and enforcement does not distinguish an incidental tourist photo from a deliberate one.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.nileempire.com/photography-permits-for-tourists-in-egypt/"
+      ],
+      "condition": "Near the Suez Canal, Nile dams, or bridges"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Take personal photos freely in ordinary public places (streets, markets, monuments open to tourists) without seeking a permit",
+      "success_rate": 0.85,
+      "how": "Decree 2720/2022 removed the prior blanket permit requirement for personal photography in public places generally; only the named security-linked categories remain off-limits.",
+      "sources": [
+        "https://www.recordinglaw.com/world-laws/world-recording-laws/egypt-recording-laws/"
+      ],
+      "condition": "General tourist photography"
+    },
+    {
+      "action": "For professional equipment, or anything that might touch a military, security, government, bridge, or dam site, get advance written approval from the concerned authority before shooting (foreign journalists: through the State Information Service)",
+      "success_rate": 0.65,
+      "sources": [
+        "https://www.recordinglaw.com/world-laws/world-recording-laws/egypt-recording-laws/"
+      ],
+      "condition": "Professional gear, or subject near a restricted category"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/drone-possession-requires-military-permit/eg",
+        "distinction": "This canon covers still/handheld photography of specific infrastructure categories under the 2022 civil decree; the drone canon covers possessing a drone at all, which needs Ministry of Defence authorization regardless of what it films."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-10"
+  }
+}

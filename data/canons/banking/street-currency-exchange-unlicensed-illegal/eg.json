@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/street-currency-exchange-unlicensed-illegal/eg",
+  "url": "https://deadends.dev/banking/street-currency-exchange-unlicensed-illegal/eg",
+  "error": {
+    "signature": "AI tells a traveler to change money with street or black-market currency dealers in Egypt because they offer a much better rate than banks",
+    "regex": "(egypt.*(black market|street).*(currency|exchange|dollar|pound)|unofficial.*money changer.*egypt)",
+    "domain": "banking",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-10",
+    "last_confirmed": "2026-09-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.6,
+    "confidence": 0.3,
+    "last_updated": "2026-09-10",
+    "summary": "Since the Central Bank of Egypt floated the pound in March 2024, the official bank exchange rate converged with the parallel-market rate, closing most of the arbitrage gap that used to make informal street exchange worthwhile. Separately, and regardless of any rate difference, trading foreign currency outside accredited banks and CBE-licensed exchange companies is a criminal offense under Article 233 of the Central Bank and Banking System Law (Law 194/2020), with imprisonment and fines reaching millions of Egyptian pounds plus confiscation of the currency involved."
+  },
+  "dead_ends": [
+    {
+      "action": "Recommend using street/black-market money changers in Egypt because they supposedly offer a much better rate than banks",
+      "why_fails": "Since the Central Bank of Egypt floated the pound in March 2024, the official bank rate converged to within a few percent of the parallel-market rate, closing the arbitrage gap that used to make informal street exchange meaningfully better; this advice reflects a pre-2024 market structure that is now outdated.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.agbi.com/markets/2024/03/egypt-pound-plunges-55-percent-to-match-black-market-dollar-rate/"
+      ],
+      "condition": "Advice based on pre-March-2024 market conditions",
+      "common_misconception": "That Egypt still has a large official/black-market currency gap the way it did before the 2024 float."
+    },
+    {
+      "action": "Treat trading currency with an unlicensed street dealer as a low-risk grey-market transaction",
+      "why_fails": "Trading foreign currency outside accredited banks and CBE-licensed exchange companies is a criminal offense under Article 233 of the Central Bank and Banking System Law (Law 194/2020), carrying imprisonment and fines reaching millions of Egyptian pounds, with confiscation of the currency involved.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://eg.andersen.com/individual-rights-protection/"
+      ],
+      "condition": "Any unlicensed currency exchange transaction",
+      "common_misconception": "That informal currency exchange is merely frowned upon rather than criminally prosecuted."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Exchange currency only through accredited banks or CBE-licensed exchange bureaus, not through street or informal dealers, regardless of any rate difference offered",
+      "success_rate": 0.85,
+      "how": "Licensed banks and exchange bureaus post rates that track the CBE's floated rate; bank counters and ATMs are the legal channels.",
+      "sources": [
+        "https://eg.andersen.com/individual-rights-protection/"
+      ],
+      "condition": "Any currency exchange in Egypt"
+    },
+    {
+      "action": "Check the current official CBE rate before assuming a 'street rate' is meaningfully better - the gap that used to justify the risk has largely closed since the March 2024 float",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.agbi.com/markets/2024/03/egypt-pound-plunges-55-percent-to-match-black-market-dollar-rate/"
+      ],
+      "condition": "Comparing exchange rates before a transaction"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/currency-declaration-required/eg",
+        "distinction": "That canon covers declaring cash over USD 10,000 at the border; this one covers where it is legal to exchange currency at all inside Egypt."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 2,
+    "last_verification": "2026-09-10"
+  }
+}
