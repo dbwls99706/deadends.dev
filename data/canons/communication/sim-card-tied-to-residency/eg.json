@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/sim-card-tied-to-residency/eg",
+  "url": "https://deadends.dev/communication/sim-card-tied-to-residency/eg",
+  "error": {
+    "signature": "AI tells a foreigner in Egypt their registered SIM card will keep working for its full data-plan validity regardless of their visa or residency status",
+    "regex": "(egypt.*sim.*card|buy.*sim.*egypt|egyptian sim.*(register|deactivat|block))",
+    "domain": "communication",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-10",
+    "last_confirmed": "2026-09-10"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "eg",
+      "country_name": "Egypt",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-10",
+    "summary": "Egypt's National Telecom Regulatory Authority (NTRA) requires foreigners to register a SIM in person with an original passport and valid residency document, capped at 5 voice lines and 5 data lines per operator, and requires the operator to link the SIM's validity to the holder's residency period - the line is disconnected one month after residency expires unless a renewed residency document is provided. This is separate from the data-plan duration printed on the package."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a registered Egyptian SIM keeps working through its full advertised plan validity even after the buyer's visa or residency permit expires",
+      "why_fails": "NTRA's Mobile SIM Cards Sales Regulations for Individuals require operators to link SIM validity to the holder's residency period and disconnect the line one month after residency expiry absent a renewed residency document - deactivation is tied to immigration status, not the data plan.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.tra.gov.eg/en/mobile-sim-cards-sales-regulations-for-individuals/",
+        "https://flatswipe.app/en/guides-egypt/egypt-sim-card"
+      ],
+      "condition": "Registered foreigner SIM (not a short-term unregistered tourist SIM)",
+      "common_misconception": "That once a SIM is activated, its validity is governed only by the operator's plan terms."
+    },
+    {
+      "action": "Try to register more than 5 voice lines or 5 data lines per operator on one foreign passport",
+      "why_fails": "NTRA caps foreign customers at 5 voice lines and 5 data lines per mobile operator using a single passport; additional registrations are refused.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.tra.gov.eg/en/mobile-sim-cards-sales-regulations-for-individuals/"
+      ],
+      "condition": "Registering multiple lines on one passport"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Bring an original passport plus a valid residency document (or visa) to an operator branch in person and sign the contract on-site",
+      "success_rate": 0.9,
+      "how": "This is the route NTRA recognizes for a foreigner to get a registered line; the agent keeps a colored copy of both documents and the operator must verify the residency period is still valid.",
+      "sources": [
+        "https://www.tra.gov.eg/en/mobile-sim-cards-sales-regulations-for-individuals/",
+        "https://www.tra.gov.eg/en/mobile-sim-cards-sales-regulations-for-corporate-accounts/"
+      ],
+      "condition": "Any foreigner obtaining a registered SIM"
+    },
+    {
+      "action": "Before your visa or residency document expires, bring the renewed document back to the operator to keep the line active",
+      "success_rate": 0.75,
+      "sources": [
+        "https://flatswipe.app/en/guides-egypt/egypt-sim-card"
+      ],
+      "condition": "Long-term foreign resident renewing status"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-10",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-10"
+  }
+}
