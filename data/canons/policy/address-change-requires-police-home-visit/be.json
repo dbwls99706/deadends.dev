@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/address-change-requires-police-home-visit/be",
+  "url": "https://deadends.dev/policy/address-change-requires-police-home-visit/be",
+  "error": {
+    "signature": "AI tells a newcomer in Belgium that submitting the address-change declaration completes their registration at the new address",
+    "regex": "(belgium.*address change|belgium.*adreswijziging|belgium.*register.*address|moving.*belgium.*registration)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.72,
+    "last_updated": "2026-09-11",
+    "summary": "Belgium requires anyone who moves to declare the change of address within 8 working days at the commune of the new residence, but the declaration alone does not complete registration. FPS Interior (IBZ) and municipalities confirm a local police officer (wijkagent) must first conduct an unannounced residence check confirming the person actually lives there; only after a positive check is the new address recorded in the National Register (Rijksregister), which banks, employers, and other services rely on."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone who just submitted their Belgian address-change declaration (online or at the commune counter) that they are now officially registered at the new address",
+      "why_fails": "FPS Interior's official guide states that after the declaration, the municipality requests a local police residence check ('enquete de residence'), and only once that check confirms actual residence does the municipal official record the new address in the National Register - the declaration starts the process but does not complete it.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://ibz.be/en/single-digital-gateway/registering-a-change-of-address"
+      ],
+      "condition": "Just filed an address-change declaration in Belgium"
+    },
+    {
+      "action": "Assume the police home-visit check happens on a fixed, predictable schedule the mover can plan around, e.g. always within a few days",
+      "why_fails": "Municipal guidance gives different windows even between communes (IBZ cites within 15 days, Antwerp up to 6 weeks) and explicitly states the visit happens at an unannounced moment; the mover can indicate a rough preference but it is 'not guaranteed', so the exact date cannot be relied on.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.antwerpen.be/product/adreswijziging-melden",
+        "https://www.zaventem.be/adreswijziging"
+      ],
+      "condition": "Waiting for wijkagent verification after filing",
+      "common_misconception": "That the residence check is a formality scheduled shortly after filing, like a booked appointment."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File the address-change declaration within 8 working days of actually moving in (not before), then keep proof of residence (lease, utility bill, host statement) ready and stay reachable at the new address so the unannounced wijkagent visit can succeed on the first attempt",
+      "success_rate": 0.85,
+      "how": "The declaration can only be made once you have physically relocated; being unreachable or unable to show residence at the police visit delays registration and everything downstream (bank, driving licence, benefits) that depends on the National Register address.",
+      "sources": [
+        "https://www.zaventem.be/adreswijziging",
+        "https://ibz.be/en/single-digital-gateway/registering-a-change-of-address"
+      ],
+      "condition": "Newcomer establishing residence in a Belgian commune"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "legal/foreign-arrival-declaration-required/be",
+        "distinction": "That canon covers the short-stay presence declaration for visitors staying privately without registering at a commune (hotel/hospital/prison exempt); this one covers the separate 8-working-day address-change registration, with a mandatory police home visit, for someone actually establishing domicile at a Belgian address."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

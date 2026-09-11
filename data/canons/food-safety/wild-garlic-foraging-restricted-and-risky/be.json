@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/wild-garlic-foraging-restricted-and-risky/be",
+  "url": "https://deadends.dev/food-safety/wild-garlic-foraging-restricted-and-risky/be",
+  "error": {
+    "signature": "AI tells someone that picking daslook (wild garlic) in Belgian/Flemish forests is a free, safe, and unrestricted way to forage food",
+    "regex": "(daslook|wild garlic.*belgium|forage.*belgium.*garlic|belgian forest.*forage)",
+    "domain": "food-safety",
+    "category": "food_safety_hazard",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.68,
+    "last_updated": "2026-09-11",
+    "summary": "In Flanders, picking plants - including bulb plants like wild garlic (daslook) - in forests and nature areas is prohibited by default under the Agency for Nature and Forest (ANB) unless a management plan or specific permit allows it; removing the bulbs destroys the colony at that spot. Separately, and regardless of legality, the Belgian Poison Control Centre (Antigifcentrum) warns daslook is frequently confused with toxic lily-of-the-valley and autumn crocus because of similar elliptical leaves; the main reliable distinguishing feature is smell, which can be masked when different plants are gathered together in the same bag."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that picking wild garlic (daslook) in a Flemish forest or nature reserve is a legal, no-permission-needed way to forage food",
+      "why_fails": "The Flemish Agency for Nature and Forest's official visitor guidance states that removing vegetation such as flowers, fruits and mushrooms from forests and nature areas is not permitted by default, only allowed under a specific management-plan exception or authorization; an agency spokesperson told VRT News that daslook picking is destructive because pickers take the bulbs, wiping the plant out at that spot ('Daslook mag niet zomaar geplukt worden').",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://natuurenbos.vlaanderen.be/toegankelijkheid-en-activiteiten/wat-mag-u-doen-onze-natuur-bezoekers",
+        "https://www.vrt.be/vrtnws/nl/2020/02/14/daar-zijn-ze-weer-de-illegale-daslookplukkers/"
+      ],
+      "condition": "Flemish forest or nature area without a foraging permit"
+    },
+    {
+      "action": "Assume that once a foraged leaf smells like garlic, the whole batch gathered that day is safely identified as daslook",
+      "why_fails": "The Belgian Poison Control Centre warns that daslook's garlic smell - the main reliable way to distinguish it from toxic lily-of-the-valley and autumn crocus - can transfer onto other plants collected in the same bag, masking a toxic lookalike; both mistaken species are dangerous (lily-of-the-valley is cardiotoxic, autumn crocus contains colchicine, and just a few leaves can cause serious poisoning).",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.antigifcentrum.be/Toxinfos/daslook-versus-meiklokje-en-herfstijloos/"
+      ],
+      "condition": "Foraging daslook alongside other wild plants",
+      "common_misconception": "That confirming smell on one or two leaves clears the entire harvest."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific nature area's accessibility rules before picking anything, and only forage where a management plan or ANB authorization explicitly allows it",
+      "success_rate": 0.8,
+      "sources": [
+        "https://natuurenbos.vlaanderen.be/toegankelijkheid-en-activiteiten/wat-mag-u-doen-onze-natuur-bezoekers"
+      ],
+      "condition": "Planning to forage in Flanders"
+    },
+    {
+      "action": "Where foraging is allowed, crush and smell each individual plant separately before bagging it, and keep it apart from other harvested plants rather than mixing everything into one bag",
+      "success_rate": 0.75,
+      "how": "Daslook has a distinct garlic odor, a half-cylindrical/triangular stem when cut, white flowers and an elongated white bulb; lily-of-the-valley and autumn crocus lack the smell and have differently shaped stems/leaves. When in doubt, don't eat it, and contact the Poison Centre if symptoms occur after eating a foraged plant.",
+      "sources": [
+        "https://www.antigifcentrum.be/Toxinfos/daslook-versus-meiklokje-en-herfstijloos/"
+      ],
+      "condition": "Foraging permitted in the area"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
