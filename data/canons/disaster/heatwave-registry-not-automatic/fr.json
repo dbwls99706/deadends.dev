@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/heatwave-registry-not-automatic/fr",
+  "url": "https://deadends.dev/disaster/heatwave-registry-not-automatic/fr",
+  "error": {
+    "signature": "AI assumes a vulnerable elderly or disabled relative living alone in France will automatically be checked on by authorities once a heatwave (canicule) alert is declared",
+    "regex": "(france.*heatwave.*(register|check.?in)|registre canicule|plan canicule.*inscription|france.*elderly.*heatwave|canicule.*personne.*(agee|vulnerable))",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-11",
+    "summary": "Since a law of 30 June 2004 (n. 2004-626) and its implementing decree, every French commune must maintain a nominative registry of people 65+, adults 60+ recognized unfit for work, and disabled adults living at home, so the mayor or CCAS can contact them during a heatwave or other exceptional-risk alert. France's data-protection authority (CNIL) confirms registration is strictly voluntary and automatic inscription is legally prohibited: someone must actively request it, either the person themselves, their legal representative, or a third party (family, neighbor, caregiver) who has informed them and whom they have not opposed. Santé publique France's own survey of municipal registries found many vulnerable people, including some of the most at-risk, are simply not listed because nobody registered them."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a vulnerable elderly relative living alone in France will automatically be checked on by authorities once a heatwave alert ('vigilance orange' or 'rouge canicule') is declared",
+      "why_fails": "CNIL confirms automatic inscription onto a commune's nominative vulnerable-persons registry is explicitly prohibited by law; registration is strictly voluntary. Santé publique France's own survey of municipal registries found many at-risk people, including some of the most vulnerable, are not listed simply because no one ever registered them.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.cnil.fr/fr/les-registres-communaux-dalerte-et-de-protection-des-populations-en-cas-de-crise-exceptionnelle",
+        "https://www.santepubliquefrance.fr/climat/fortes-chaleurs-canicule/article/canicule-et-personnes-vulnerables-enquete-sur-les-registres-municipaux"
+      ],
+      "condition": "Elderly, isolated, or disabled person has never actively registered with their town hall"
+    },
+    {
+      "action": "Assume only the vulnerable person themselves can request registration, so a family member abroad can't arrange it for them",
+      "why_fails": "Per CNIL and the official registration procedure, a third party (family member, neighbor, caregiver, or healthcare professional) may submit the registration request, provided the vulnerable person has been informed beforehand and has not objected; the mayor must send written confirmation within 8 days.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.cnil.fr/fr/les-registres-communaux-dalerte-et-de-protection-des-populations-en-cas-de-crise-exceptionnelle",
+        "https://www.service-public.gouv.fr/demarches-silence-vaut-accord/demarches/1635"
+      ],
+      "condition": "Family member lives outside France and wants to register a relative",
+      "common_misconception": "That only the elderly or disabled person themselves can sign up for the registry."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Proactively register the vulnerable person (age 65+, or 60+ recognized unfit for work, or an adult with a disability living at home) on their commune's nominative registry by contacting the mairie or CCAS directly - by phone, mail, in person, or online where the commune offers it",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.service-public.gouv.fr/demarches-silence-vaut-accord/demarches/1635"
+      ],
+      "condition": "Registering before or during heatwave season"
+    },
+    {
+      "action": "A third party may submit the registration after informing the person, as long as the person does not object; the mayor must confirm registration in writing within 8 days under the 'silence vaut accord' rule",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.cnil.fr/fr/les-registres-communaux-dalerte-et-de-protection-des-populations-en-cas-de-crise-exceptionnelle",
+        "https://www.service-public.gouv.fr/demarches-silence-vaut-accord/demarches/1635"
+      ],
+      "condition": "Registering on someone else's behalf"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

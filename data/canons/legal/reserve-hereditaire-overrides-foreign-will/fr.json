@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/reserve-hereditaire-overrides-foreign-will/fr",
+  "url": "https://deadends.dev/legal/reserve-hereditaire-overrides-foreign-will/fr",
+  "error": {
+    "signature": "AI tells a foreign national who owns property in France that choosing their home country's law under the EU Succession Regulation lets them leave 100% of their estate to whoever they want, free of French forced-heirship rules",
+    "regex": "(france.*inheritance.*(will|disinherit)|reserve hereditaire|r[ée]serve h[ée]r[ée]ditaire|french forced heirship|france.*property.*will.*(children|heirs))",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-11",
+    "summary": "EU Succession Regulation 650/2012 (Brussels IV) lets a foreign national elect the law of their own nationality to govern their succession, overriding France's default rule of habitual residence. But since Law n. 2021-1109 of 24 August 2021 (in force 1 November 2021) amended Article 913 of the French Civil Code, a 'prelevement compensatoire' (compensatory levy) lets a child (or their heirs) claim against the deceased's French-located assets, up to the level of French reserved-share protection, whenever the elected foreign law provides no equivalent reserved-portion mechanism for children and either the deceased or at least one child is an EU-member-state national or habitually resides in the EU. This mainly affects common-law testators (UK, US, Canadian, Australian, Irish...) with French real estate whose children have an EU nationality or residence tie; it applies only to assets located in France at death, not to worldwide assets."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a foreign (e.g. US, UK, Canadian) property owner in France that electing their home country's law in their will, under EU Regulation 650/2012, guarantees full testamentary freedom over their French property",
+      "why_fails": "Since the 2021 amendment to Article 913 of the Civil Code (Law 2021-1109, in force 1 November 2021), a compensatory levy lets a child or their heirs claim against the deceased's French-located assets, up to French reserved-share levels, whenever the elected foreign law provides no equivalent protection for children's reserved share and the deceased or a child has an EU nationality or EU habitual residence link - so electing foreign law no longer fully shields French assets from forced heirship.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://1317.notaires.fr/le-droit-de-prelevement-dans-les-successions-internationales/",
+        "https://www.village-justice.com/articles/protection-renforcee-reserve-hereditaire-francaise-partir-1er-novembre-2021,40108.html"
+      ],
+      "condition": "Foreign national with a common-law nationality owning real property in France, with at least one child holding an EU nationality or EU residence tie"
+    },
+    {
+      "action": "Assume the compensatory levy under Article 913 applies to the deceased's worldwide assets, or only if the deceased is French",
+      "why_fails": "Per notaires.fr, the mechanism applies only to assets located in France at the date of death, not worldwide assets, and it does not require the deceased to be French - only that the deceased or at least one child has an EU nationality or an EU habitual-residence link.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://1317.notaires.fr/le-droit-de-prelevement-dans-les-successions-internationales/"
+      ],
+      "condition": "Estate includes both French and non-French assets",
+      "common_misconception": "That the compensatory levy is a French-nationality-only rule, or that it reaches assets held outside France."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Consult a French notaire before finalizing an estate plan that relies on electing foreign law for French real estate; check whether any child or the testator has an EU nationality or EU residence tie that would trigger Article 913, and plan around it (matrimonial regime choice, lifetime gifting, holding structures) rather than assuming the EU Succession Regulation election alone is sufficient",
+      "success_rate": 0.8,
+      "sources": [
+        "https://1317.notaires.fr/le-droit-de-prelevement-dans-les-successions-internationales/"
+      ],
+      "condition": "Cross-border estate planning involving French real estate"
+    },
+    {
+      "action": "If neither the deceased nor any child has an EU nationality or EU habitual residence, the compensatory levy does not apply, and the foreign-law election under Brussels IV remains fully effective for French assets",
+      "success_rate": 0.75,
+      "sources": [
+        "https://1317.notaires.fr/le-droit-de-prelevement-dans-les-successions-internationales/",
+        "https://www.village-justice.com/articles/protection-renforcee-reserve-hereditaire-francaise-partir-1er-novembre-2021,40108.html"
+      ],
+      "condition": "No EU nationality or EU-residence connection among the deceased or heirs"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

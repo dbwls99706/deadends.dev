@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/bank-refusal-droit-au-compte-recourse/fr",
+  "url": "https://deadends.dev/banking/bank-refusal-droit-au-compte-recourse/fr",
+  "error": {
+    "signature": "AI tells someone refused a French bank account there is nothing more they can do except keep trying other banks",
+    "regex": "(france.*bank.*(refus|reject)|banque.*refuse.*compte|droit au compte|open.*bank account.*france.*(refused|denied))",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-09-11",
+    "summary": "France's 'droit au compte' (right to an account) guarantees anyone legally residing in France, French nationals abroad, or EU residents applying for non-professional purposes a free, fast path to a bank account after a refusal. A bank's silence for 15 days counts as an implicit refusal; with a written or implicit refusal, an applicant files a free request with the Banque de France (online, by mail, or at a branch, or via the refusing bank itself), which designates a bank within 1 business day. The designated bank must contact the applicant within 3 business days and open a free basic account within 3 business days of receiving the required documents. A banking ban (interdiction bancaire), a Bank of France credit-incident listing (FICP), or over-indebtedness do not disqualify an applicant; only already holding a deposit account in France does."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone refused a French bank account to just keep applying at different banks and hope one eventually accepts, with no other recourse",
+      "why_fails": "France's droit au compte legally entitles anyone with a written refusal, or 15 days of silence (an implicit refusal), to file a free request with the Banque de France, which must designate a bank within 1 business day; that designated bank must then open a basic account within days. Repeatedly reapplying elsewhere skips a guaranteed, free, fast statutory channel.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2417?lang=en"
+      ],
+      "condition": "Refused (in writing, or 15 days of silence) by at least one bank in France"
+    },
+    {
+      "action": "Assume the droit au compte procedure is unavailable to someone with a banking ban (interdit bancaire), an overdue-debt listing (FICP), or over-indebtedness",
+      "why_fails": "Both service-public.gouv.fr and the Banque de France's own procedure page state eligibility explicitly; a banking ban, FICP listing, or over-indebtedness does not disqualify an applicant. Only already holding an individual deposit account in France does.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2417?lang=en",
+        "https://www.banque-france.fr/fr/a-votre-service/particuliers/droit-au-compte-bancaire"
+      ],
+      "condition": "Applicant has a banking ban, FICP listing, or over-indebtedness",
+      "common_misconception": "That being financially blacklisted (interdit bancaire / FICP) disqualifies you from getting any French bank account."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "File the droit au compte request with the Banque de France: ID, proof of address under 3 months old, the bank's written refusal letter (or a note that 15 days passed with no response), and a declaration of holding no other French deposit account. Submit online at accueil.banque-france.fr, by mail, or at a Banque de France branch counter - the refusing bank can also submit it on the applicant's behalf",
+      "success_rate": 0.9,
+      "how": "Banque de France designates a bank within 1 business day of receiving a complete file; the designated bank must contact the applicant within 3 business days and open a free basic account (card, transfers, direct debits, 2 free monthly check forms) within 3 business days of receiving the applicant's documents. The whole procedure is free and the designation letter stays valid for 6 months.",
+      "sources": [
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2417?lang=en",
+        "https://www.banque-france.fr/fr/a-votre-service/particuliers/droit-au-compte-bancaire"
+      ],
+      "condition": "Complete file submitted to Banque de France after a bank refusal"
+    },
+    {
+      "action": "If assembling the file is difficult, ask a consumer association, the applicant's Caf, local social services, or the refusing bank itself to submit the droit au compte request on the applicant's behalf",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2417?lang=en"
+      ],
+      "condition": "Applicant needs help preparing or filing the paperwork"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
