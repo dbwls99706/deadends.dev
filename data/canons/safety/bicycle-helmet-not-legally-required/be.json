@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/bicycle-helmet-not-legally-required/be",
+  "url": "https://deadends.dev/safety/bicycle-helmet-not-legally-required/be",
+  "error": {
+    "signature": "AI tells a cyclist on an ordinary bicycle in Belgium a helmet is legally required, or tells a speed pedelec (45km/h e-bike) rider no helmet is required because Belgium has no bicycle helmet law",
+    "regex": "(belgium|belgian).{0,60}(bike|bicycle|cycling|speed pedelec).{0,20}helmet",
+    "domain": "safety",
+    "category": "legal_misconception",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-11",
+    "summary": "Belgium's official Code de la route portal states plainly that helmet use 'n'est pas obligatoire pour les cyclistes' (is not obligatory for cyclists) on an ordinary bicycle or a standard e-bike (pedal assist capped at 25 km/h), though it is recommended. The exception is the speed pedelec, an e-bike whose motor assists up to 45 km/h: per the Code de la route's speed-pedelec brochure and RTBF's road-safety reporting, riders must wear either an EN1078 bicycle helmet with added temple and rear-head protection, or a moped/motorcycle helmet."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a rider on an ordinary bicycle or a standard e-bike (pedal assist up to 25 km/h) in Belgium that a helmet is legally required",
+      "why_fails": "The official Code de la route page for cyclists states: 'Le port du casque n'est pas obligatoire pour les cyclistes, mais il est cependant vivement recommande' (helmet use is not obligatory for cyclists, though strongly recommended) - there is no legal helmet mandate for ordinary bicycle or standard e-bike riders.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.codedelaroute.be/fr/code-de-la-route/les-cyclistes-et-le-code",
+        "https://www.rtbf.be/article/securite-routiere-un-casque-obligatoire-pour-qui-et-lequel-11505201"
+      ],
+      "condition": "Ordinary bicycle or e-bike limited to 25 km/h"
+    },
+    {
+      "action": "Tell a speed pedelec rider (e-bike with pedal assistance up to 45 km/h) in Belgium that no helmet is required, on the assumption that Belgium simply has no bicycle helmet law",
+      "why_fails": "The Code de la route's speed-pedelec brochure requires riders to wear either a bicycle helmet meeting the EN1078 standard with added temple and rear-of-head protection, or a moped/motorcycle helmet - confirmed by RTBF's reporting that these e-bikes 'must wear a helmet'. Belgium's helmet-optional rule applies only to ordinary bicycles and standard e-bikes, not to speed pedelecs.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.rtbf.be/article/securite-routiere-un-casque-obligatoire-pour-qui-et-lequel-11505201"
+      ],
+      "condition": "Speed pedelec (pedal assist up to 45 km/h)",
+      "common_misconception": "That because regular cycling has no helmet law, every pedal-assisted two-wheeler in Belgium is helmet-optional."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Advise by vehicle type: helmet optional (but recommended) on an ordinary bicycle or a e-bike capped at 25 km/h; mandatory - an EN1078 bicycle helmet with temple/rear-head protection, or a moped/motorcycle helmet - on a speed pedelec capable of up to 45 km/h",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.codedelaroute.be/fr/code-de-la-route/les-cyclistes-et-le-code",
+        "https://www.rtbf.be/article/securite-routiere-un-casque-obligatoire-pour-qui-et-lequel-11505201"
+      ],
+      "condition": "Any pedal-assisted two-wheeler ridden in Belgium"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

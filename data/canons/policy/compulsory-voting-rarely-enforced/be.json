@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/compulsory-voting-rarely-enforced/be",
+  "url": "https://deadends.dev/policy/compulsory-voting-rarely-enforced/be",
+  "error": {
+    "signature": "AI tells a registered voter in Belgium that skipping a compulsory election will almost certainly bring a fine, or conversely that voting is effectively optional there with no real consequences",
+    "regex": "(belgium|belgian).{0,40}(compulsory|mandatory|obligatory) vot|vote obligatoire.{0,40}belg",
+    "domain": "policy",
+    "category": "legal_misconception",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-09-11",
+    "summary": "Voting is legally compulsory in Belgium (Constitution article 62; sanctions under Electoral Code article 210, per Belgium's Foreign Affairs Ministry). A first unexcused absence can draw a court fine of 40-80 EUR, rising to 80-200 EUR for repeats - but VRT NWS reports courts have historically prosecuted non-voters 'rarely, if ever', so the fine is on the books but almost never actually collected. The consequence that is consistently applied is different: L'Avenir reports that failing to vote, without a justified reason, 4 or more times within 15 years gets a person struck off the electoral rolls for 10 years."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone registered to vote in Belgium that skipping an election will almost certainly result in a court fine",
+      "why_fails": "The fine under Electoral Code article 210 (40-80 EUR first offense, up to 200 EUR for repeats) is real and confirmed by Belgium's Foreign Affairs Ministry, but VRT NWS's reporting on the June 2024 elections states that historically, courts prosecuted non-voters 'rarely, if ever' - so framing a fine as near-certain overstates the practical risk.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://diplomatie.belgium.be/fr/pour-les-belges-letranger/elections/belge-domicilie-dans-lunion-europeenne/obligation-de-vote-et-abstention",
+        "https://www.vrt.be/vrtnws/fr/2024/02/25/le-vote-aux-elections-du-9-juin-est-il-obligatoire-et-est-ce-q/"
+      ],
+      "condition": "First or occasional unexcused absence from a Belgian election",
+      "common_misconception": "That the codified fine is routinely and actively collected."
+    },
+    {
+      "action": "Conclude from the fine's rare enforcement that skipping Belgian elections carries no real consequence at all",
+      "why_fails": "L'Avenir reports that someone who misses 4 or more elections without a justified reason within a rolling 15-year window is struck off the electoral rolls for 10 years - a real, non-monetary sanction that is distinct from, and applied more consistently than, the rarely-prosecuted cash fine.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.lavenir.net/elections/2024/10/12/quelles-sanctions-lorsquon-ne-va-pas-voter-en-belgique-tout-savoir-sur-les-elections-2024-QU75HTBOANCGJMMSMNM2XDA7QU/"
+      ],
+      "condition": "Repeated (4+) unexcused absences within a 15-year window",
+      "common_misconception": "That because fines are barely enforced, voting is functionally optional in Belgium with zero consequences."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Explain the actual risk profile: voting is legally compulsory (Constitution art. 62, Electoral Code art. 210); the 40-200 EUR fine is rarely enforced in practice, but 4+ unexcused absences within 15 years does get a voter struck from the electoral rolls for 10 years. Casting a blank or invalid ballot satisfies the legal obligation to show up without supporting any candidate.",
+      "success_rate": 0.8,
+      "sources": [
+        "https://diplomatie.belgium.be/fr/pour-les-belges-letranger/elections/belge-domicilie-dans-lunion-europeenne/obligation-de-vote-et-abstention",
+        "https://www.lavenir.net/elections/2024/10/12/quelles-sanctions-lorsquon-ne-va-pas-voter-en-belgique-tout-savoir-sur-les-elections-2024-QU75HTBOANCGJMMSMNM2XDA7QU/"
+      ],
+      "condition": "Registered Belgian voter weighing whether to attend"
+    },
+    {
+      "action": "If genuinely unable to attend (illness, travel, etc.), notify the justice of the peace (juge de paix / vrederechter) for the voter's canton as soon as possible so the absence is recorded as justified rather than unexcused",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.lavenir.net/elections/2024/10/12/quelles-sanctions-lorsquon-ne-va-pas-voter-en-belgique-tout-savoir-sur-les-elections-2024-QU75HTBOANCGJMMSMNM2XDA7QU/"
+      ],
+      "condition": "Cannot attend a compulsory election"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

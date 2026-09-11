@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/988-crisis-line-not-reachable/be",
+  "url": "https://deadends.dev/mental-health/988-crisis-line-not-reachable/be",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Belgium to call or text the US 988 Suicide & Crisis Lifeline",
+    "regex": "(belgium|belgian).{0,40}988|988.{0,40}(belgium|belgian)",
+    "domain": "mental-health",
+    "category": "wrong_regional_hotline",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-11",
+    "summary": "988 is a short code that only routes within the US telephone network - 988lifeline.org describes its coverage as 'across the United States and its territories' - and is not reachable as a crisis line from Belgium. Belgium instead runs two separate, free, 24/7 language-specific lines: Zelfmoordlijn 1813 (Dutch-speaking, phone 1813 plus chat at zelfmoord.be) and the francophone Centre de Prévention du Suicide (0800 32 123), the latter confirmed as free and available '24/24' by the Brussels-Capital Region's own health-assistance page."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in a mental health crisis in Belgium to call or text 988",
+      "why_fails": "988lifeline.org states the Lifeline provides support 'across the United States and its territories' - it is a US-only short code. Dialed from a Belgian phone it will not connect to any Belgian crisis service, and may not connect at all depending on the caller's carrier and roaming setup.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://988lifeline.org/about/"
+      ],
+      "condition": "Caller physically located in Belgium"
+    },
+    {
+      "action": "Assume Belgium has a single unified national suicide-prevention hotline that works the same way regardless of the caller's language",
+      "why_fails": "Belgium's crisis-line infrastructure is split by language community rather than unified nationally: the Brussels-Capital Region's official assistance page lists Zelfmoordlijn 1813 for Dutch speakers and the separate Centre de Prévention du Suicide (0800 32 123) for French speakers as two distinct services, not one interchangeable number.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://be.brussels/en/assistance-social-health/assistance-individuals-and-families/psychological-help",
+        "https://www.zelfmoord1813.be/"
+      ],
+      "condition": "Caller's preferred language not yet identified",
+      "common_misconception": "That there is one 'the Belgian suicide hotline' number that covers the whole country the way 988 does in the US."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Direct a Dutch-speaking caller in Belgium to 1813 (phone) or the chat at zelfmoord.be, and a French-speaking caller to 0800 32 123 (Centre de Prévention du Suicide) - both are free and staffed 24/7",
+      "success_rate": 0.85,
+      "how": "Zelfmoord1813.be states the phone line is '24/7 bereikbaar' (reachable 24/7); the Brussels-Capital Region's official page lists the francophone line as free and available '24/24'.",
+      "sources": [
+        "https://www.zelfmoord1813.be/",
+        "https://be.brussels/en/assistance-social-health/assistance-individuals-and-families/psychological-help"
+      ],
+      "condition": "Caller's language community is known"
+    },
+    {
+      "action": "If the situation is immediately life-threatening, or the caller cannot reach a crisis line, direct them to 112, Belgium's EU-wide emergency dispatch number",
+      "success_rate": 0.6,
+      "sources": [],
+      "condition": "Immediate danger to life"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/be",
+        "distinction": "112 dispatches police/fire/ambulance for an active life-threatening emergency; 1813 and 0800 32 123 are dedicated, non-dispatch crisis lines staffed for emotional support and suicide-prevention counselling."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
