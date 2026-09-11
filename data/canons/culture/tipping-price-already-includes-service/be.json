@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/tipping-price-already-includes-service/be",
+  "url": "https://deadends.dev/culture/tipping-price-already-includes-service/be",
+  "error": {
+    "signature": "AI advises tourists to tip 15-20% at Belgian restaurants, or claims a service charge should be added on top of the menu price",
+    "regex": "(belgium.*(tip|gratuity)|tipping.*belgium|belgian restaurant.*tip)",
+    "domain": "culture",
+    "category": "etiquette_violation",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.72,
+    "last_updated": "2026-09-11",
+    "summary": "Belgian law (Wetboek Economisch Recht art. VI.3, from the law of 21 December 2013) requires that the price displayed to consumers already be the 'total price,' including VAT and the cost of any service the customer is obliged to pay; FPS Economy's horeca-specific guidance confirms no additional mandatory costs may be charged on top of the displayed price. Tipping in Belgium is therefore not required - the price shown is the price owed - though rounding up or leaving small change is a common, optional gesture of appreciation."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visitor to tip 15-20% on top of the bill at a Belgian restaurant or cafe, the way they would in the US",
+      "why_fails": "Article VI.3 of the Wetboek Economisch Recht requires that the price shown to consumers already be the 'total price,' including VAT and the cost of any service the consumer is obliged to pay; FPS Economy's horeca price-display guidance confirms no other mandatory costs may be added on top of the indicated price except for genuinely optional extras (e.g. an extra portion the customer isn't obliged to take). A restaurant bill already includes service.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://etaamb.openjustice.be/nl/wet-van-21-december-2013_n2013011649.html",
+        "https://economie.fgov.be/nl/themas/ondernemingen/guidance/dienstverleners/prijzen-aanduiden-de-horeca"
+      ],
+      "condition": "Sit-down restaurant or cafe in Belgium",
+      "common_misconception": "That Belgium follows the same discretionary-tip-on-top norm as North America."
+    },
+    {
+      "action": "Assume a menu price without an explicit 'service compris/inbegrepen' label is missing the service charge, and advise adding one",
+      "why_fails": "The legal requirement applies to the total price shown, not to a specific disclaimer text - FPS Economy's consumer guidance (ConsumerConnect) confirms horeca businesses must display the full total amount payable, so the absence of a 'service included' label doesn't mean service is unpaid; it is included regardless of whether the menu spells that out.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://consumerconnect.be/nl/themas/aankoop-product-of-dienst/prijzen-en-kortingen/prijsaanduiding/de-horeca"
+      ],
+      "condition": "No visible 'service compris/inbegrepen' label on the menu"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Tell visitors the listed price is the full price owed - no separate tip is required - and that rounding up the bill or leaving small change is an optional, appreciated gesture rather than an obligation",
+      "success_rate": 0.9,
+      "sources": [
+        "https://economie.fgov.be/nl/themas/ondernemingen/guidance/dienstverleners/prijzen-aanduiden-de-horeca",
+        "https://etaamb.openjustice.be/nl/wet-van-21-december-2013_n2013011649.html"
+      ],
+      "condition": "General restaurant/cafe dining in Belgium"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}

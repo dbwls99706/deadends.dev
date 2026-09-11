@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/beach-flag-swimming-supervised-zones-only/be",
+  "url": "https://deadends.dev/safety/beach-flag-swimming-supervised-zones-only/be",
+  "error": {
+    "signature": "AI tells a traveler that a green flag on a Belgian beach means it's safe to swim anywhere along that beach",
+    "regex": "(belgium.*beach.*(flag|swim)|belgian coast.*swim|vlaggensysteem.*belgi)",
+    "domain": "safety",
+    "category": "water_safety",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.68,
+    "last_updated": "2026-09-11",
+    "summary": "Belgium's coastal flag system (green/yellow/red, plus black-and-white checkered watersports zones) only applies inside the supervised swimming zones marked by a staffed lifeguard post (redderspost) and yellow buoys. The Belgian Coast Guard states swimming is always prohibited in unsupervised zones regardless of any flag. The bathing season is also seasonal - the coast's 83 lifeguard posts are staffed only from mid-June through summer (the 2026 season opened 13 June, full coverage from 1 July) - so outside that window, or away from a marked zone, no flag applies and the water is unsupervised by default."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that seeing a green flag anywhere on a Belgian beach means it is safe to swim at that spot",
+      "why_fails": "The Belgian Coast Guard's official FAQ states plainly that swimming is always prohibited in unsupervised zones ('in onbewaakte zones is het altijd verboden om te zwemmen'); the flag system only governs the specific supervised zone between the yellow buoys at a staffed lifeguard post, so a green flag at one guarded zone says nothing about the safety of unguarded stretches of the same beach.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://kustwacht.be/nl/faq/hoe-weet-ik-het-veilig-om-te-zwemmen-zee",
+        "https://www.ikwv.be/signalisatie"
+      ],
+      "condition": "Beach location without a nearby staffed lifeguard post/zone"
+    },
+    {
+      "action": "Assume Belgian coast lifeguard flags and supervision are in effect year-round or throughout the whole summer without checking dates",
+      "why_fails": "Tourism Flanders and the coastal lifeguard service confirm the supervised bathing season is a defined window - the 2026 season began 13 June 2026, with all 83 posts fully staffed only from 1 July; outside that season, and outside daily staffed hours, there is no flag signal or lifeguard coverage, so the water reverts to unsupervised, swim-at-your-own-risk status.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://toerismevlaanderen.be/nl/nieuws/elke-kustgemeente-een-redderspost"
+      ],
+      "condition": "Visiting before mid-June or after the bathing season ends",
+      "common_misconception": "That flag-based beach safety systems are staffed continuously, as at some year-round warm-climate destinations."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Only swim between the yellow buoys of a staffed lifeguard post, check the flag posted at that specific post, and follow lifeguard instructions",
+      "success_rate": 0.9,
+      "how": "Lifeguard posts display information boards with flag meanings, current/tide times and water quality; a green flag posted there applies only to that supervised zone.",
+      "sources": [
+        "https://www.ikwv.be/signalisatie",
+        "https://toerismevlaanderen.be/nl/nieuws/elke-kustgemeente-een-redderspost"
+      ],
+      "condition": "During the supervised bathing season (mid-June to early September)"
+    },
+    {
+      "action": "Outside the bathing season or away from a staffed post, treat the sea as unsupervised regardless of weather or visible flags, and avoid swimming",
+      "success_rate": 0.8,
+      "sources": [
+        "https://kustwacht.be/nl/faq/hoe-weet-ik-het-veilig-om-te-zwemmen-zee"
+      ],
+      "condition": "Off-season or an unguarded stretch of coast"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
