@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-milk-cheese-pregnancy-listeria/fr",
+  "url": "https://deadends.dev/food-safety/raw-milk-cheese-pregnancy-listeria/fr",
+  "error": {
+    "signature": "AI tells a pregnant traveler in France that any cheese is fine to eat, or conversely that all raw-milk (unpasteurized) cheese must be avoided",
+    "regex": "(pregnan.*france.*cheese|fromage.*enceinte|france.*listeria.*cheese|raw.?milk cheese.*pregnan|lait cru.*grossesse)",
+    "domain": "food-safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fr",
+      "country_name": "France",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-09-11",
+    "summary": "French official guidance (Santé.fr and the government's Manger Bouger nutrition program) instructs pregnant women to avoid unpasteurized cheese, specifically soft bloomy-rind cheeses (camembert, brie), washed-rind cheeses (munster, pont l'eveque), short-aged uncooked pressed cheeses (reblochon, morbier), and pre-shredded packaged cheese, and to remove rinds from any cheese before eating. Hard cooked-and-pressed cheeses - beaufort, comte, emmental, gruyere, parmesan - are explicitly listed as safe even when made from raw milk, because heating and long aging eliminate the Listeria risk; ANSES reaffirmed this cooked-pressed-cheese exception in its February 2026 recommendations for pregnant women and other at-risk groups. Listeriosis during pregnancy can cause miscarriage, premature birth, or severe neonatal infection, and immunity does not develop against it."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a pregnant traveler that any cheese is fine to eat in France since cheese is a normal part of French cuisine, without distinguishing pasteurized from unpasteurized",
+      "why_fails": "Santé.fr's official pregnancy guidance explicitly instructs avoiding unpasteurized cheese (including pre-shredded cheese) because Listeria monocytogenes survives in raw-milk products; France's official nutrition program (Manger Bouger) adds specific categories - soft bloomy-rind, washed-rind, and short-aged uncooked pressed cheeses - that must be avoided for the full pregnancy.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.sante.fr/listeriose-pendant-la-grossesse-quels-aliments-eviter"
+      ],
+      "condition": "Pregnant traveler or resident evaluating French cheese"
+    },
+    {
+      "action": "Tell a pregnant traveler to avoid ALL raw-milk (lait cru) cheese uniformly, including hard cooked-and-pressed types like comte, gruyere, beaufort, emmental, or parmesan",
+      "why_fails": "Manger Bouger's official list states hard cooked-and-pressed cheeses 'meme s'ils sont au lait cru' (even if raw-milk) are safe because they are heated and aged long enough to eliminate the Listeria risk; ANSES's February 2026 recommendations reaffirm the same cooked-pressed-cheese exception for pregnant women and other at-risk groups. Blanket avoidance of every raw-milk cheese needlessly restricts foods the government's own guidance says are safe.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.mangerbouger.fr/manger-mieux/a-tout-age-et-a-chaque-etape-de-la-vie/les-recommandations-et-conseils-avant-pendant-et-apres-la-grossesse/quels-aliments-eviter-et-quelles-precautions-prendre-quand-on-est-enceinte",
+        "https://www.france24.com/fr/info-en-continu/20260205-salmonellose-list%C3%A9riose-nouvelles-recommandations-pour-limiter-les-infections-selon-l-anses"
+      ],
+      "condition": "Estate includes hard cooked-pressed raw-milk cheeses such as comte or gruyere",
+      "common_misconception": "That 'raw milk cheese' is a single risk category, rather than a group where the cheese-making process (cooking, pressing, aging length) determines the actual Listeria risk."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Avoid unpasteurized soft bloomy-rind cheese (camembert au lait cru, brie au lait cru), washed-rind cheese (munster, pont l'eveque), short-aged uncooked pressed cheese (reblochon, morbier), and pre-shredded packaged cheese; remove the rind from any cheese before eating; hard cooked-and-pressed cheeses (beaufort, comte, emmental, gruyere, parmesan) are safe even if raw-milk",
+      "success_rate": 0.85,
+      "how": "This follows the official Sante.fr and Manger Bouger lists directly; when a raw-milk cheese is cooked thoroughly (e.g. baked into a dish), it is also considered safe regardless of type.",
+      "sources": [
+        "https://www.sante.fr/listeriose-pendant-la-grossesse-quels-aliments-eviter",
+        "https://www.mangerbouger.fr/manger-mieux/a-tout-age-et-a-chaque-etape-de-la-vie/les-recommandations-et-conseils-avant-pendant-et-apres-la-grossesse/quels-aliments-eviter-et-quelles-precautions-prendre-quand-on-est-enceinte"
+      ],
+      "condition": "General pregnancy food-safety planning in France"
+    },
+    {
+      "action": "When buying at a market or ordering in a restaurant and the cheese type or pasteurization status is unclear, ask directly ('est-ce du lait cru ou pasteurise ?') or choose a cheese that is clearly pasteurized",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.sante.fr/listeriose-pendant-la-grossesse-quels-aliments-eviter"
+      ],
+      "condition": "Dining out or buying cheese from a market stall without packaging labels"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
