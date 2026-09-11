@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/personal-import-meat-dairy-banned/be",
+  "url": "https://deadends.dev/food-safety/personal-import-meat-dairy-banned/be",
+  "error": {
+    "signature": "AI tells a traveler it's fine to bring small, personal-use quantities of meat, milk, or dairy products into Belgium in their luggage from a non-EU/non-EEA-equivalent country",
+    "regex": "(bring|carry|import|pack).{0,40}(meat|dairy|cheese|ham|sausage).{0,40}belgium",
+    "domain": "food-safety",
+    "category": "biosecurity_restriction",
+    "first_seen": "2026-09-11",
+    "last_confirmed": "2026-09-11"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "be",
+      "country_name": "Belgium",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-11",
+    "summary": "Belgium's federal food safety agency (FASFC) and the European Commission's official personal-imports guidance, under Commission Delegated Regulation (EU) 2019/2122, state that travellers 'are not allowed to bring in meat, milk or their products' into the EU from third countries - an outright ban with no personal-use or small-quantity threshold. Narrow exceptions exist: up to 2 kg of unopened, non-refrigerated infant formula or medical foods; up to 20 kg of fish/fishery products; up to 2 kg of honey, eggs, or live shellfish/snails; and a full exemption for goods from Andorra, Iceland, Liechtenstein, Norway, San Marino, or Switzerland (plus a 10 kg meat/dairy allowance from the Faeroe Islands or Greenland)."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that bringing a small amount of homemade cheese, cured meat, or other dairy/meat product from a non-EU country (outside Andorra/Iceland/Liechtenstein/Norway/San Marino/Switzerland) into Belgium in personal luggage is fine, or just needs to be declared",
+      "why_fails": "FASFC's own guidance and the European Commission's official personal-imports page both state travellers 'are not allowed to bring in meat, milk or their products' from third countries at all, under Commission Delegated Regulation (EU) 2019/2122 - it is a flat ban, not a declare-and-pass rule or a duty/quantity threshold, regardless of the amount or that it's for personal consumption.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.fasfc.be/import-belgium/going-holiday/animal-foodstuffs",
+        "https://food.ec.europa.eu/animals/animal-products-movements/personal-imports_en"
+      ],
+      "condition": "Meat or dairy product from a non-EU/non-exempt country"
+    },
+    {
+      "action": "Assume the same total ban applies to fish, honey, eggs, or infant formula brought from outside the EU",
+      "why_fails": "The same EU regulation sets separate, more generous allowances for other animal-origin foods: up to 20 kg of fish/fishery products, up to 2 kg of honey/eggs/live shellfish/snails, and up to 2 kg of unopened, non-refrigerated infant formula or medical foods - these categories are not covered by the meat/dairy ban.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://food.ec.europa.eu/animals/animal-products-movements/personal-imports_en",
+        "https://www.fasfc.be/import-belgium/going-holiday/animal-foodstuffs"
+      ],
+      "condition": "Fish, honey, eggs, or infant/medical foods rather than meat or dairy",
+      "common_misconception": "That the rule bans all animal-origin food, when it specifically targets meat and dairy, with separate and more generous limits for other animal-origin foods."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before traveling to Belgium from a non-EU, non-exempt country, leave meat and dairy products behind (or consume them before arrival); for goods from Andorra, Iceland, Liechtenstein, Norway, San Marino, Switzerland, the Faeroe Islands, or Greenland, or for fish/honey/eggs/infant-medical foods, check the specific exemption and weight limit first",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.fasfc.be/import-belgium/going-holiday/animal-foodstuffs",
+        "https://food.ec.europa.eu/animals/animal-products-movements/personal-imports_en"
+      ],
+      "condition": "Traveling to Belgium with animal-origin food from outside the EU"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-11",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-11"
+  }
+}
