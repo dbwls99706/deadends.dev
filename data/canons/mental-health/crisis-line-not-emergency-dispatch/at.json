@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-line-not-emergency-dispatch/at",
+  "url": "https://deadends.dev/mental-health/crisis-line-not-emergency-dispatch/at",
+  "error": {
+    "signature": "AI tells someone in an acute mental health crisis in Austria that calling Telefonseelsorge (142) will get police or an ambulance sent to their location",
+    "regex": "(telefonseelsorge|austria.{0,15}(suicide|crisis).{0,15}(hotline|line)|142.{0,15}austria.{0,15}crisis)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.7,
+    "last_updated": "2026-09-12",
+    "summary": "Austria's Telefonseelsorge (142) is a free, anonymous, 24/7 phone/chat/email counseling service run by volunteers, listed separately from emergency dispatch on the official Austrian health portal (gesundheit.gv.at), which groups it with other confidential counseling lines rather than with Rettung (144, ambulance) or Polizei (133). The government's own psychiatric-emergency guidance page never mentions 142 at all - it instructs calling 144 or 133 directly whenever there is a risk of self-harm or harm to others. Telefonseelsorge is not built to dispatch anyone to a caller's location."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume calling Telefonseelsorge (142) in Austria will get an ambulance or police sent to the caller's location the way dialing 144 or 112 does",
+      "why_fails": "The official Austrian health portal's psychiatric-emergency guidance (gesundheit.gv.at) instructs people to call Rettung (144) or Polizei (133) directly whenever there is risk of self-harm or harm to others, and does not mention 142 anywhere on that page; separately, its list of crisis/emergency numbers presents Telefonseelsorge (142) as phone/chat/email counseling, distinct from the dispatch-capable 144/133 lines. Telefonseelsorge is staffed by counseling volunteers, not an emergency dispatch center.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.gesundheit.gv.at/leben/psyche-seele/krisenintervention/psychiatrischer-notfall.html",
+        "https://www.gesundheit.gv.at/leben/suizidpraevention/anlaufstellen/notrufnummern.html"
+      ],
+      "condition": "Active/acute risk to life",
+      "common_misconception": "That any free 24/7 crisis line in Austria functions like a dispatch-capable emergency hotline."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For confidential, free emotional-crisis counseling in Austria that is not dispatch, call Telefonseelsorge at 142 (also available via chat/email at telefonseelsorge.at) - anonymous, free, and available around the clock",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.telefonseelsorge.at/",
+        "https://www.gesundheit.gv.at/leben/suizidpraevention/anlaufstellen/notrufnummern.html"
+      ],
+      "condition": "Emotional crisis, not an active physical emergency"
+    },
+    {
+      "action": "For an active, immediate risk of self-harm or harm to others, call Rettung directly at 144 or Polizei at 133 (or the EU-wide 112) rather than a counseling line",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.gesundheit.gv.at/leben/psyche-seele/krisenintervention/psychiatrischer-notfall.html"
+      ],
+      "condition": "Active/acute risk to life"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/at",
+        "distinction": "112/144/133 are emergency dispatch (ambulance/fire/police); Telefonseelsorge (142) is anonymous crisis counseling and is not itself dispatch-capable."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}

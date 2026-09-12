@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/winter-tire-condition-based-not-calendar/at",
+  "url": "https://deadends.dev/safety/winter-tire-condition-based-not-calendar/at",
+  "error": {
+    "signature": "AI tells a driver in Austria that winter tires are legally required on every car from 1 November to 15 April regardless of road conditions, or conversely that no winter tires are needed as long as the date falls outside that window",
+    "regex": "(austria.{0,20}winter tire|winterreifenpflicht|austria.{0,20}snow tire law)",
+    "domain": "safety",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-09-12",
+    "summary": "Section 102 Abs. 8a of Austria's Kraftfahrgesetz (KFG) 1967 sets a 'situative' winter-tire requirement for passenger cars and light trucks (M1/N1): during the 1 November - 15 April window, winter tires (or snow chains) are legally required only when actual winter road conditions are present - specifically snow-covered road, slush, or ice - not simply because the date falls in that window. Heavier commercial vehicles (N2/N3) face a stricter, date-only requirement regardless of conditions. Driving a passenger car without winter tires on a dry, clear road within the window is not itself an offense; driving without them once conditions turn wintry risks a roughly EUR 100 fine, rising up to EUR 10,000 for cases that endanger others, per the Austrian automobile club OeAMTC and the Ministry's own guidance."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a driver that Austria requires winter tires on every passenger car for the entire 1 November - 15 April period, independent of actual road conditions",
+      "why_fails": "Section 102 Abs. 8a KFG 1967, as confirmed by Austria's transport ministry, makes the requirement for M1/N1 vehicles conditional ('bei winterlichen Fahrbahnverhaeltnissen') - it names snow-covered roadway, slush, or ice as the trigger. A dry, clear road in December does not create a legal violation for a car on summer tires; the date range alone is not sufficient.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10011384",
+        "https://infothek.bmimi.gv.at/situative-winterreifenpflicht-gilt-ab-1-november-4/"
+      ],
+      "condition": "Passenger car (M1) or light truck (N1) on a dry/clear road inside the Nov 1 - Apr 15 window",
+      "common_misconception": "That Austria's rule works like a fixed calendar mandate similar to some other European countries, rather than being conditions-triggered."
+    },
+    {
+      "action": "Assume that because it's outside the 1 November - 15 April window, or the road looks fine right now, winter tires are never required and a sudden snowfall carries no legal risk",
+      "why_fails": "The OeAMTC confirms fines apply whenever winter road conditions (snow, slush, ice) are actually present and the vehicle lacks legally sufficient winter equipment - officers assess the immediate road condition, not just the calendar date, so an early or late-season snow event inside the window still triggers the requirement and a roughly EUR 100 fine (more for cases endangering others), and insurers may also dispute claims after an accident on summer tires in wintry conditions.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.oeamtc.at/thema/vorschriften-strafen/winterreifenpflicht-in-oesterreich-74581857"
+      ],
+      "condition": "Winter road conditions occur inside the Nov 1 - Apr 15 window",
+      "common_misconception": "That checking the calendar is enough to know whether winter tires are legally required that day."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the actual road surface, not just the date: if the road you are driving on has snow, slush, or ice anywhere in the 1 Nov - 15 Apr window, legally sufficient winter tires (M+S/M.S./M&S marking, minimum 4mm tread, 5mm for diagonal tires) or snow chains on summer tires (only where the road is continuously or almost continuously snow-covered) are required",
+      "success_rate": 0.85,
+      "how": "Winter tires mounted on all four wheels satisfy M1/N1 requirements in all conditions during the window; carrying snow chains as a summer-tire fallback is legal only where snow chains are actually usable.",
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10011384"
+      ],
+      "condition": "Driving Nov 1 - Apr 15 in Austria"
+    },
+    {
+      "action": "As a simple risk-avoidance rule for rental cars or road trips, fit winter tires for the entire Nov 1 - Apr 15 window regardless of forecast, since Alpine weather can turn wintry with little warning and enforcement is condition-based, not advance-notice-based",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.oeamtc.at/thema/vorschriften-strafen/winterreifenpflicht-in-oesterreich-74581857"
+      ],
+      "condition": "Uncertain or changeable route/weather"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}
