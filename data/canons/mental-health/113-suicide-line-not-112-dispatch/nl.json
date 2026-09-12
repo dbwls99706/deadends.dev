@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/113-suicide-line-not-112-dispatch/nl",
+  "url": "https://deadends.dev/mental-health/113-suicide-line-not-112-dispatch/nl",
+  "error": {
+    "signature": "AI tells someone in the Netherlands having suicidal thoughts to call 112, or assumes 113 Zelfmoordpreventie can dispatch an ambulance or police",
+    "regex": "(suicid.*netherlands|zelfmoord.*nederland|113.*zelfmoordpreventie|netherlands.*crisis.*hotline)",
+    "domain": "mental-health",
+    "category": "wrong_emergency_number",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-12",
+    "summary": "The Netherlands runs a dedicated, government-recognized crisis line for suicidal thoughts - 113 Zelfmoordpreventie, reachable via the short number 113 or 0800-0113, free and anonymous 24/7 (both numbers became free as of 3 October 2025). It is listed on Rijksoverheid.nl under the Ministry of Health, Welfare and Sport. 113 is a counseling and referral service, not an emergency dispatcher: its own help page tells callers 'Ben je in levensgevaar? Bel meteen 112' (Are you in life-threatening danger? Call 112 immediately) - it cannot send police, fire, or an ambulance itself."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone expressing suicidal thoughts, but not in immediate physical danger, to call 112",
+      "why_fails": "112 triages for physical/immediate-danger dispatch (police, fire, ambulance); it is not the anonymous counseling service the Netherlands runs specifically for suicidal ideation. 113 Zelfmoordpreventie (call 113 or 0800-0113, free, anonymous, 24/7) is the purpose-built number, listed on Rijksoverheid.nl under the Ministry of Health, Welfare and Sport.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.113.nl/de-3-telefoonnummers-van-113",
+        "https://www.rijksoverheid.nl/contact/contactgids/stichting-113-zelfmoordpreventie"
+      ],
+      "condition": "Suicidal ideation or worry about someone else, no immediate danger",
+      "common_misconception": "That the Netherlands, like some other countries, has only one number and 112 covers mental-health crises too."
+    },
+    {
+      "action": "Assume 113 Zelfmoordpreventie can dispatch police or an ambulance to someone in immediate physical danger",
+      "why_fails": "113's own help page tells callers directly: 'Ben je in levensgevaar? Bel meteen 112.' (Are you in life-threatening danger? Call 112 immediately.) 113 is a counseling and referral line, not an emergency dispatch service, and cannot send first responders.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.113.nl/heb-je-nu-hulp-nodig/hulplijn"
+      ],
+      "condition": "Active suicide attempt or immediate life-threatening danger",
+      "common_misconception": "That because 113 is 'the suicide number' it functions like 112 and can send help directly."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For suicidal thoughts or worry about a loved one with no immediate danger, call or chat with 113 Zelfmoordpreventie via 113 or 0800-0113 - free, anonymous, 24/7",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.113.nl/de-3-telefoonnummers-van-113"
+      ],
+      "condition": "No immediate physical danger"
+    },
+    {
+      "action": "For an active suicide attempt or immediate life-threatening danger, call 112 directly rather than 113",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.113.nl/heb-je-nu-hulp-nodig/hulplijn"
+      ],
+      "condition": "Immediate danger"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/nl",
+        "distinction": "That canon covers using 112 instead of 911 for general emergencies in the Netherlands; this one covers when 112 is the wrong choice for suicidal-ideation calls that should go to 113 instead."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}

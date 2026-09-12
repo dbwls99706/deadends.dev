@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/coffeeshop-backdoor-supply-illegal/nl",
+  "url": "https://deadends.dev/legal/coffeeshop-backdoor-supply-illegal/nl",
+  "error": {
+    "signature": "AI tells a traveler that cannabis is simply legal in the Netherlands, or that a coffeeshop's cannabis supply chain is legal because selling it is tolerated",
+    "regex": "(cannabis.*(legal|netherlands)|coffeeshop.*legal|netherlands.*weed.*legal|is marijuana legal.*netherlands)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-09-12",
+    "summary": "The Netherlands runs a toleration (gedoog) policy, not legalization: selling small quantities of soft drugs in a coffeeshop is a criminal offence that the Public Prosecution Service chooses not to prosecute, provided the shop meets toleration criteria (no nuisance, no hard drugs, no sales to minors, no advertising, max 5g per transaction). Growing and wholesale-supplying cannabis remains fully illegal - the 'achterdeurprobleem' (back-door problem) - so nearly all of the roughly 570 coffeeshops across 102 municipalities still source stock illegally. Since 7 April 2025 a 4-year (extendable 18 months) 'closed coffeeshop chain' experiment lets up to 10 licensed, NVWA-quality-checked growers legally supply coffeeshops in 10 pilot municipalities only; everywhere else the back door is still a crime."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist that cannabis sale and use is simply legal in the Netherlands",
+      "why_fails": "Government.nl states the toleration policy explicitly: 'the sale of small quantities of soft drugs in coffee shops is a criminal offence but the Public Prosecution Service does not prosecute coffee shops for this offence.' It is not legalization - a coffeeshop that sells over 5 grams per transaction, sells to minors, advertises, or causes nuisance loses toleration and can be prosecuted like any other drug offense.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.government.nl/topics/drugs/toleration-policy-regarding-soft-drugs-and-coffee-shops"
+      ],
+      "condition": "General tourist/traveler assumption",
+      "common_misconception": "That 'coffeeshops are tolerated by the government' means cannabis is legal in the Netherlands the way alcohol is."
+    },
+    {
+      "action": "Assume a coffeeshop can legally buy, import, or grow the cannabis it sells, since selling it is tolerated",
+      "why_fails": "Government.nl is explicit that 'it is against the law to grow marijuana and cannabis plants' beyond a 5-plant personal-use exception, and the background page for the government's own pilot program confirms that while sale is tolerated, 'production and supply of cannabis is not tolerated and is illegal' - the reason coffeeshops nationwide (outside the 10-municipality pilot) still buy their stock through illegal 'back door' channels.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.government.nl/topics/controlled-cannabis-supply-chain-experiment/background-information-and-experiment-design",
+        "https://www.government.nl/topics/drugs/toleration-policy-regarding-soft-drugs-and-coffee-shops"
+      ],
+      "condition": "Outside the 10 experiment municipalities",
+      "common_misconception": "Since coffeeshops operate openly with government tolerance, their supply chain must also be legal."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy only from a licensed coffeeshop and stay within the toleration criteria (no more than 5 grams per transaction); don't assume anything about the legality of growing or importing cannabis yourself",
+      "success_rate": 0.9,
+      "how": "A purchase for personal use at a coffeeshop that meets the toleration criteria is safe from prosecution even though the shop's own supply chain, outside the pilot municipalities, is not itself legal.",
+      "sources": [
+        "https://www.government.nl/topics/drugs/toleration-policy-regarding-soft-drugs-and-coffee-shops"
+      ],
+      "condition": "Purchasing for personal use as a tourist"
+    },
+    {
+      "action": "In Almere, Arnhem, Breda, Groningen, Heerlen, Maastricht, Nijmegen, Tilburg, Voorne aan Zee, or Zaanstad, cannabis sold under the 'closed coffeeshop chain' experiment is grown and quality-tested by NVWA under an actual regulated supply chain, not just a tolerated sales point",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.government.nl/topics/controlled-cannabis-supply-chain-experiment/background-information-and-experiment-design"
+      ],
+      "condition": "One of the 10 pilot municipalities, during the 2025-2029 (+18 month) experiment window"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}

@@ -8,7 +8,7 @@
     "domain": "git",
     "category": "lfs",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-12"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-12",
     "summary": "Git LFS smudge filter fails to download large file objects from the LFS server. Commonly caused by missing LFS objects on the remote, expired credentials, or the LFS server being unreachable."
   },
   "dead_ends": [
@@ -89,6 +89,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-12"
   }
 }

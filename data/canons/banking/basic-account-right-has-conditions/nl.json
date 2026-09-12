@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/basic-account-right-has-conditions/nl",
+  "url": "https://deadends.dev/banking/basic-account-right-has-conditions/nl",
+  "error": {
+    "signature": "AI tells a newcomer that having a BSN or legal EU residence guarantees a Dutch bank will open a basic payment account for them",
+    "regex": "(basisbetaalrekening|dutch bank account guarantee|netherlands.*bank.*(refuse|denied)|basic payment account.*netherlands)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.7,
+    "last_updated": "2026-09-12",
+    "summary": "Everyone lawfully residing in the EU has a statutory right to a 'basisbetaalrekening' (basic payment account) under the Wft, implementing the EU Payment Accounts Directive - Kifid confirms 'Iedereen die rechtmatig in de Europese Unie verblijft... Er bestaat daarom een wettelijk recht op een basisbetaalrekening.' But the right has statutory limits (Wft art. 4:71g): a bank must refuse if it cannot meet Wwft anti-money-laundering duties, and may refuse if the applicant cannot show a genuine need ('werkelijk belang') for a Dutch account, already holds or is applying for an NL-IBAN account, was convicted of fraud/forgery/money-laundering-type offenses within 8 years, or had a basic account terminated for intentional criminal misuse within the last 2 years. Legal residence or a BSN alone does not override these grounds."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a newcomer that once they have a BSN and are lawfully resident in the EU, a Dutch bank must open a basic payment account for them, no further questions asked",
+      "why_fails": "Rijksoverheid.nl and Kifid both confirm the statutory right exists but is not unconditional. Kifid states: 'er kan een reden zijn waarom de bank u zo'n basisbetaalrekening mag of moet weigeren, een zogenoemde weigeringsgrond' (there can be a reason the bank is permitted or required to refuse, a so-called ground for refusal). The bank must refuse if it cannot comply with Wwft anti-money-laundering checks, and may refuse if you cannot demonstrate a genuine need for a Dutch account, already hold or are applying for one elsewhere in NL, or have a disqualifying conviction or account-misuse history within the statutory lookback windows.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.rijksoverheid.nl/onderwerpen/betalingsverkeer/vraag-en-antwoord/afwijzing-betaalrekening-consument",
+        "https://www.kifid.nl/kifid-kennis-en-uitspraken/kifid-kennis/de-bank-weigert-een-betaalrekening-voor-mij-te-openen-mag-dat/"
+      ],
+      "condition": "Applying for a basisbetaalrekening as a legally-resident foreigner",
+      "common_misconception": "That the 'legal right to a bank account' works like an unconditional entitlement once you're a legal resident, rather than a default right the bank can still lawfully refuse on specific grounds."
+    },
+    {
+      "action": "Assume the refusal grounds are vague bank discretion rather than specific statutory tests",
+      "why_fails": "Basisbankrekening.nl (the Dutch Banking Association's own covenant site) cites the exact statutory basis: Wft article 4:71g lists refusal grounds including failing Wwft compliance, lacking 'werkelijk belang' (genuine need) for an NL account, already holding or applying for one, a conviction within 8 years for offenses like 'valsheid in geschrifte... oplichting... witwassen' (forgery, fraud, money laundering), or a prior basic account terminated within 2 years for intentional criminal use - these are specific, enumerated tests, not open-ended discretion.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.basisbankrekening.nl/wettelijke-weigeringsgronden/"
+      ],
+      "condition": "Understanding why a specific application was refused"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you don't already hold or can't get a regular account, apply for a basisbetaalrekening directly with a Dutch bank and be ready to document your 'werkelijk belang' (genuine need) for a Dutch account - e.g. proof of residence, employment, or study in the Netherlands",
+      "success_rate": 0.8,
+      "how": "Bring ID, BSN, and documentation of your connection to the Netherlands (residence permit, employment contract, enrollment letter); this is the evidence banks use to assess the statutory 'genuine need' test.",
+      "sources": [
+        "https://www.rijksoverheid.nl/onderwerpen/betalingsverkeer/vraag-en-antwoord/afwijzing-betaalrekening-consument"
+      ],
+      "condition": "First-time applicant with no other NL bank account"
+    },
+    {
+      "action": "If refused, first file a written complaint with the bank itself, then escalate to Kifid (the statutory financial-services complaints institute) if unresolved",
+      "success_rate": 0.6,
+      "sources": [
+        "https://www.kifid.nl/kifid-kennis-en-uitspraken/kifid-kennis/de-bank-weigert-een-betaalrekening-voor-mij-te-openen-mag-dat/"
+      ],
+      "condition": "Application refused without a valid statutory ground",
+      "tradeoff": "Complaint resolution through Kifid takes time and is not guaranteed to succeed if a valid refusal ground applies."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}
