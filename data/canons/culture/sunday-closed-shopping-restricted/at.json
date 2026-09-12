@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/sunday-closed-shopping-restricted/at",
+  "url": "https://deadends.dev/culture/sunday-closed-shopping-restricted/at",
+  "error": {
+    "signature": "AI tells a traveler they can casually grocery-shop or run errands at a regular Austrian shop on a Sunday or public holiday, or names a fixed nationwide list of Sunday-open exceptions (airport shops, train stations, etc.)",
+    "regex": "(austria.{0,20}(sunday|holiday).{0,20}(shop|store|grocery)|oeffnungszeitengesetz|austria.{0,15}shops closed sunday)",
+    "domain": "culture",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-12",
+    "summary": "Under Austria's Oeffnungszeitengesetz 2003 (Sec. 3), shops must generally stay closed after 18:00 on Saturdays, all day Sundays and public holidays, and until 06:00 on Mondays. There is no single fixed federal list of Sunday-open exceptions (e.g. 'airport shops are always open'); instead, Sec. 5 lets each state's Landeshauptmann issue a regional ordinance permitting specific extended hours where there is a demonstrated special regional demand, often tied to tourism. Whether a given shop, train station kiosk, or tourist-zone store may open on a Sunday therefore depends on that state's specific ordinance, not a uniform nationwide rule."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler they can casually shop at an ordinary Austrian supermarket or retail store on a Sunday or public holiday",
+      "why_fails": "Section 3 of the Oeffnungszeitengesetz 2003, confirmed by Austria's federal economy ministry, requires shops to stay closed after 18:00 Saturday, all day Sunday and on public holidays, and until 06:00 Monday, with no general Sunday-shopping carve-out for ordinary retail.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.jusline.at/gesetz/oezg/paragraf/3",
+        "https://www.wko.at/oe/handel/oeffnungszeiten-handel-und-abweichende-regelungen"
+      ],
+      "condition": "Ordinary retail shop, no special regional exemption"
+    },
+    {
+      "action": "State a fixed, nationwide list of shop types that are always allowed to open on Sundays in Austria (e.g. 'airport and train-station shops are always open')",
+      "why_fails": "Section 5 of the Oeffnungszeitengesetz 2003 does not itself name exempt shop categories; it instead authorizes each Bundesland's Landeshauptmann to issue a regional ordinance permitting extended Sunday/holiday hours only where 'besonderer regionaler Bedarf' (special regional demand, often tourism-driven) is shown. Which shops may open, and for how long, therefore varies by state ordinance rather than being fixed at the federal level.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.jusline.at/gesetz/oezg/paragraf/5",
+        "https://www.wko.at/oe/handel/oeffnungszeiten-handel-und-abweichende-regelungen"
+      ],
+      "condition": "Assuming one federal exceptions list applies everywhere",
+      "common_misconception": "That Austria has one uniform national list of Sunday-open shop categories the way some other countries do."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Plan grocery and retail shopping for Monday-Saturday before 18:00; on Sundays and public holidays, rely on petrol-station convenience counters, hotel minibars/shops, or dedicated tourist-zone shops confirmed open locally",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.wko.at/oe/handel/oeffnungszeiten-handel-und-abweichende-regelungen"
+      ],
+      "condition": "General Sunday/holiday planning"
+    },
+    {
+      "action": "If you need a specific shop type open on a Sunday (e.g. a train-station or tourist-zone store), check that state's current Landeshauptmann ordinance or ask locally rather than assuming a nationwide exception applies",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.jusline.at/gesetz/oezg/paragraf/5"
+      ],
+      "condition": "Need for Sunday/holiday shopping in a specific region"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/meldezettel-registration-required-within-3-days/at",
+  "url": "https://deadends.dev/policy/meldezettel-registration-required-within-3-days/at",
+  "error": {
+    "signature": "AI tells someone renting a private apartment or Airbnb in Austria that address registration (Meldezettel) is only for long-term residents, or that private stays are registered automatically the way hotel check-in is",
+    "regex": "(meldezettel|austria.{0,20}register.{0,20}address|austria.{0,20}residence registration|anmeldebescheinigung.{0,20}austria)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "at",
+      "country_name": "Austria",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-12",
+    "summary": "Austria's Meldegesetz 1991 requires anyone taking up accommodation in a private dwelling to register with the Meldebehoerde within three days (Sec. 3 Abs. 1), regardless of nationality or how short the intended stay is. Only guests of a licensed Beherbergungsbetrieb (hotel/guesthouse) get the simplified path: the operator itself must record them within 24 hours (Sec. 5 Abs. 1). A private Airbnb, sublet, or staying with friends is not a Beherbergungsbetrieb, so the resident must register in person (or via oesterreich.gv.at with the landlord's digital co-signature) - it is not handled automatically. Missing the deadline risks a fine."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a short private-apartment stay (Airbnb, sublet, staying with a private host) in Austria doesn't need personal registration because 'accommodation providers handle it automatically'",
+      "why_fails": "Section 3 Abs. 1 of the Meldegesetz 1991 puts the registration duty on the resident for any private dwelling (Wohnung); only a licensed Beherbergungsbetrieb gets the simplified operator-registers-you path under Sec. 5. A private host or Airbnb listing is ordinarily not a registered Beherbergungsbetrieb, so nobody registers the guest unless the guest does it themselves within three days.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10005799",
+        "https://www.oesterreich.gv.at/de/lebenslagen/Ich-wohne-bald-in-einem-neuen-Zuhause/Melden"
+      ],
+      "condition": "Staying in a private apartment/Airbnb/sublet, not a licensed hotel",
+      "common_misconception": "That any short stay in Austria is registered by the host or booking platform the way hotel check-in is."
+    },
+    {
+      "action": "Tell a hotel or guesthouse guest in Austria that they personally must visit the Meldeamt within three days like a private tenant",
+      "why_fails": "Section 5 Abs. 1 of the Meldegesetz 1991 puts the registration duty on the accommodation provider (Beherbergungsbetrieb), who must record the guest within 24 hours of arrival - the guest does not need to visit a registration authority themselves.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10005799"
+      ],
+      "condition": "Staying in a licensed hotel/guesthouse"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If renting privately (not through a licensed accommodation business), register in person at the local Meldebehoerde (Meldeamt, or the Magistratisches Bezirksamt in Vienna) within three days of moving in, with the landlord co-signing the Meldezettel form - or complete it online via oesterreich.gv.at if the landlord can digitally confirm with an ID Austria account",
+      "success_rate": 0.9,
+      "how": "Bring the signed Meldezettel and ID/passport; the landlord's signature confirming you actually live there is required on the same form.",
+      "sources": [
+        "https://www.wien.gv.at/en/housing/residence-registration",
+        "https://www.oesterreich.gv.at/de/lebenslagen/Ich-wohne-bald-in-einem-neuen-Zuhause/Melden"
+      ],
+      "condition": "Private accommodation, not a licensed hotel"
+    },
+    {
+      "action": "Before assuming registration is someone else's job, confirm whether the accommodation is a registered Beherbergungsbetrieb (which self-registers guests) or a private rental (where the guest must self-register)",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10005799"
+      ],
+      "condition": "Uncertain accommodation type"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}
