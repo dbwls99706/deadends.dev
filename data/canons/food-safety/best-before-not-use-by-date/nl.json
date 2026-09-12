@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/best-before-not-use-by-date/nl",
+  "url": "https://deadends.dev/food-safety/best-before-not-use-by-date/nl",
+  "error": {
+    "signature": "AI tells a consumer in the Netherlands that food past its 'ten minste houdbaar tot' (THT/best-before) date must be discarded, or that food past its 'te gebruiken tot' (TGT/use-by) date is fine to eat if it looks, smells, and tastes normal",
+    "regex": "(ten minste houdbaar tot|te gebruiken tot|dutch.*best.before.*date|netherlands.*(expiry|use.by).*date)",
+    "domain": "food-safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-12",
+    "last_confirmed": "2026-09-12"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "nl",
+      "country_name": "Netherlands",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-12",
+    "summary": "Dutch food labeling uses two distinct dates. 'Ten minste houdbaar tot' (THT, best-before) is a quality marker - NVWA states a product 'in theorie... ook na deze datum nog verkocht of geconsumeerd' (could in theory still be sold or eaten after this date); use look, smell, and taste to judge it. 'Te gebruiken tot' (TGT, use-by) is a hard safety cutoff reserved for highly perishable items (fresh meat, smoked salmon, fresh vegetable juices): NVWA states that past this date the food is 'onveilig voor consumptie' (unsafe for consumption) and 'mogen ze niet meer worden verkocht' (may no longer be sold), regardless of appearance. The abbreviations 'THT'/'TGT' themselves are banned from packaging - labels must spell out the full phrase."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone to throw away pasta, canned goods, coffee, or other THT-labeled food the moment the printed date passes",
+      "why_fails": "NVWA's own labeling guidance states: 'In theorie zou een levensmiddel ook na deze datum nog verkocht of geconsumeerd kunnen worden' (in theory a food product could still be sold or consumed after this date). 'Ten minste houdbaar tot' is a quality marker, not a safety cutoff - only look, smell, and taste need checking.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.nvwa.nl/onderwerpen/voedselveiligheid/etikettering-van-levensmiddelen/houdbaarheidsdatum-levensmiddelen"
+      ],
+      "condition": "Product labeled 'ten minste houdbaar tot' (best-before), e.g. dry pasta, canned goods, coffee",
+      "common_misconception": "That any date printed on Dutch food packaging works like a US-style expiration date that makes food unsafe once passed."
+    },
+    {
+      "action": "Assume food labeled 'te gebruiken tot' (TGT/use-by) is still fine to eat past the date as long as it looks, smells, and tastes normal",
+      "why_fails": "NVWA is explicit that after a 'te gebruiken tot' date, foods 'zijn... onveilig voor consumptie en mogen ze niet meer worden verkocht' (are unsafe for consumption and may no longer be sold). TGT is reserved for highly perishable products where the safety risk is not detectable by look, smell, or taste - unlike THT products.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.nvwa.nl/onderwerpen/voedselveiligheid/etikettering-van-levensmiddelen/houdbaarheidsdatum-levensmiddelen",
+        "https://www.voedingscentrum.nl/encyclopedie/houdbaarheidsdatums-tht-tgt.aspx"
+      ],
+      "condition": "Product labeled 'te gebruiken tot' (use-by), e.g. fresh meat, smoked salmon, fresh vegetable juices",
+      "common_misconception": "That all Dutch shelf-life dates are quality-only guidance, since THT dates can be judged loosely."
+    },
+    {
+      "action": "Look for the abbreviation 'THT' or 'TGT' printed directly on Dutch packaging to tell the two apart",
+      "why_fails": "NVWA states plainly: 'De afkortingen \"TGT\" of \"THT\" zijn niet toegestaan' (the abbreviations 'TGT' or 'THT' are not permitted) - labels must spell out the full phrase ('ten minste houdbaar tot' or 'te gebruiken tot'), so searching for the abbreviation itself finds nothing.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.nvwa.nl/onderwerpen/voedselveiligheid/etikettering-van-levensmiddelen/houdbaarheidsdatum-levensmiddelen"
+      ],
+      "condition": "Reading a printed Dutch food label directly"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check which exact phrase is printed: 'ten minste houdbaar tot' means use your senses after the date to judge freshness; 'te gebruiken tot' is a hard safety cutoff - discard once passed, regardless of appearance",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.nvwa.nl/onderwerpen/voedselveiligheid/etikettering-van-levensmiddelen/houdbaarheidsdatum-levensmiddelen"
+      ],
+      "condition": "General grocery shopping in the Netherlands"
+    },
+    {
+      "action": "For borderline products like dairy or eggs, rely on the specific phrase printed on that item rather than a category-wide rule of thumb, since the date type is chosen per-product based on actual spoilage risk",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.voedingscentrum.nl/encyclopedie/houdbaarheidsdatums-tht-tgt.aspx"
+      ],
+      "condition": "Dairy, eggs, and other borderline-perishable products"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-12",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-12"
+  }
+}

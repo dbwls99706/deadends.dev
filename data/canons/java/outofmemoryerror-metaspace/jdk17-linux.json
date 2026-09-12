@@ -8,7 +8,7 @@
     "domain": "java",
     "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-12"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.8,
     "confidence": 0.85,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-12",
     "summary": "OutOfMemoryError: Metaspace is thrown when the JVM runs out of native memory allocated for class metadata. This typically occurs due to classloader leaks, excessive dynamic class generation (e.g., via reflection proxies, CGLIB, Groovy scripts), or too many classes being loaded in the application."
   },
   "dead_ends": [
@@ -97,6 +97,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 60,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-12"
   }
 }
