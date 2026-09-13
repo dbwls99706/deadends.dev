@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/bali-tourism-levy-mandatory/id",
+  "url": "https://deadends.dev/policy/bali-tourism-levy-mandatory/id",
+  "error": {
+    "signature": "AI tells a tourist that Bali's IDR 150,000 foreign tourist levy is optional, already included in the visa fee, or only applies if flying directly into Bali",
+    "regex": "(bali tourist levy|bali tourism (fee|levy)|pungutan wisatawan asing|love bali app|bali visitor fee|bali tourist tax)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "regional",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-13",
+    "summary": "Since 14 February 2024 (Bali Provincial Regulation No. 6/2023, implemented via Governor Regulation No. 2/2024 and its 2025 amendments), every foreign tourist doing tourism activities in Bali must pay a one-time IDR 150,000 (~USD 10) levy through the official Love Bali system (app or lovebali.baliprov.go.id), paid cashless by card, bank transfer, UnionPay, or QRIS. It applies regardless of which Indonesian airport a traveler first lands at, not only direct Bali arrivals. There is currently no legal fine for non-payment, but spot checks at ticketed tourist sites can turn away or charge unpaid visitors on the spot. Diplomatic/official visa holders, transport crew, and KITAS/KITAP, family, student, and golden-visa holders are exempt."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a tourist the Bali levy is effectively voluntary because there's no fine for skipping it",
+      "why_fails": "There is no statutory fine yet, but enforcement happens through spot checks at tourist attractions: a visitor without proof of payment can be turned away from the site and made to pay IDR 150,000 on the spot by QRIS, so skipping it risks being denied entry to paid attractions rather than being cost-free.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://emerhub.com/bali/bali-tourist-tax/"
+      ],
+      "condition": "Visiting ticketed temples or attractions within Bali",
+      "common_misconception": "That the absence of a legal fine makes the levy effectively optional in practice."
+    },
+    {
+      "action": "Tell a tourist who enters Indonesia via Jakarta (or another city) and then flies domestically to Bali that they don't owe the levy because they didn't arrive on a direct international flight to Bali",
+      "why_fails": "Love Bali's own FAQ states the levy applies to 'every international tourist who travels to Bali and do tourist activities' with no exception for the port of first entry into Indonesia; multiple carriers and advisories confirm the charge attaches to arrival in Bali itself, not the initial port of entry to the country.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://lovebali.baliprov.go.id/faq",
+        "https://emerhub.com/bali/bali-tourist-tax/"
+      ],
+      "condition": "Multi-city Indonesia itinerary before reaching Bali"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Pay the Rp150,000 levy once via the official Love Bali app or website before departure, or at the airport/port payment counter on arrival, then keep the emailed QR-code voucher accessible",
+      "success_rate": 0.9,
+      "how": "Payment must be cashless: credit card (Visa/Mastercard/Amex/JCB), bank transfer, virtual account, UnionPay, or QRIS. A voucher with a QR code is emailed and scanned by officers at the airport and can be requested again at tourist sites.",
+      "sources": [
+        "https://lovebali.baliprov.go.id/faq"
+      ],
+      "condition": "Any foreign tourist doing tourism activities in Bali"
+    },
+    {
+      "action": "Check the official exemption list before assuming payment is required: diplomatic/official visa holders, transport crew, and KITAS/KITAP, family-unification, student, and golden-visa holders are exempt",
+      "success_rate": 0.85,
+      "how": "Diplomatic, crew, KITAS/KITAP, and family-visa holders show their card to the officer; golden-visa and 'other visa' exemptions must be applied for through the Love Bali system.",
+      "sources": [
+        "https://lovebali.baliprov.go.id/faq"
+      ],
+      "condition": "Long-term visa or residence-permit holder"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "visa/voa-not-free-not-universal/id",
+        "distinction": "The Visa-on-Arrival fee (~IDR 500,000) is a national immigration charge for entering Indonesia; the Bali tourism levy (IDR 150,000) is a separate provincial charge for cultural/environmental preservation, paid once via Love Bali, and is not part of the visa cost."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

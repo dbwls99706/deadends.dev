@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/tsunami-earthquake-is-the-warning/id",
+  "url": "https://deadends.dev/disaster/tsunami-earthquake-is-the-warning/id",
+  "error": {
+    "signature": "AI tells someone near Indonesia's coast to wait for an official tsunami siren, SMS, or app alert before evacuating after a strong earthquake",
+    "regex": "(indonesia.*tsunami.*(warning|siren|alert)|wait.*official.*tsunami.*indonesia|inatews)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-13",
+    "summary": "Indonesia's official tsunami warning system, InaTEWS (run by BMKG), issues a siren and SMS/app dissemination within about five minutes of a detected quake, but for earthquakes near the coast - as in the 2018 Palu-Donggala disaster - tsunami waves can arrive in well under that window, sometimes under five minutes, and power or network outages after a strong quake can silence sirens and overload cellular networks entirely. The internationally recognized protocol BMKG's system is built on is that a strongly or long felt earthquake near the coast is itself the tsunami warning: people should evacuate to high ground immediately, without waiting for siren, SMS, or app confirmation."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume there will be enough time to wait for a siren, SMS, or app alert before evacuating after feeling a strong earthquake near the Indonesian coast",
+      "why_fails": "In the September 2018 Palu-Donggala disaster, power outages after the earthquake disabled the city's tsunami siren and overloaded telecom networks, so no official evacuation advice reached residents; people who waited for the siren before moving 'lost their golden time to save themselves.' Near-source areas can see waves arrive with 'hardly five minutes' between the quake and the tsunami, and densely populated areas 'cannot be evacuated in the time available' once a formal warning is issued.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://phys.org/news/2018-09-indonesian-tsunami.html",
+        "https://www.eskp.de/en/natural-hazards/tsunami-advice-indonesia-935937/"
+      ],
+      "condition": "Near-field earthquake close to the coast (as in Sulawesi, the Sunda Strait, or western Sumatra)",
+      "common_misconception": "That InaTEWS's siren/SMS/app system will always activate in time, the way far-field Pacific-wide tsunami warnings work elsewhere; Indonesia's post-2004 protocol is instead that 'the earthquake is the tsunami warning and signal for immediate evacuation.'"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "If you feel strong or long-lasting shaking near the Indonesian coast, move immediately to high ground or inland - do not wait for a siren, SMS, or official confirmation",
+      "success_rate": 0.85,
+      "how": "For tourists specifically, this means watching what locals do and moving with them rather than waiting for a phone alert, since cellular networks are frequently overloaded right after a strong quake.",
+      "sources": [
+        "https://www.eskp.de/en/natural-hazards/tsunami-advice-indonesia-935937/"
+      ],
+      "condition": "Coastal area during or immediately after a strongly felt earthquake"
+    },
+    {
+      "action": "Once you have already reached high ground, use BMKG's InaTEWS as the official source to learn when a tsunami warning is confirmed or cancelled before returning to the coast",
+      "success_rate": 0.7,
+      "sources": [
+        "https://inatews.bmkg.go.id/eng"
+      ],
+      "condition": "After self-evacuating, to know when it is safe to return"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "safety/volcanic-eruption-evacuation/id",
+        "distinction": "That canon covers volcanic-eruption evacuation triggered by PVMBG's alert-level system; this one covers tsunami self-evacuation triggered by feeling the earthquake itself, before any official confirmation is possible."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

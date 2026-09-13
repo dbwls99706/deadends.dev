@@ -8,7 +8,7 @@
     "domain": "cicd",
     "category": "timeout",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-13"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.86,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-13",
     "summary": "A GitHub Actions job exceeds the default 6-hour (360-minute) time limit or a custom timeout-minutes value. Usually caused by hanging processes, infinite loops, or builds that are genuinely too slow for the runner."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Masks the underlying issue (hanging process, inefficient build); wastes CI minutes and delays feedback; GitHub has a hard cap of 360 minutes",
       "fail_rate": 0.65,
       "sources": [
-        "https://docs.github.com/en/actions"
+        "https://docs.github.com/en/actions/reference/limits"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Timeouts from hangs or slow builds are deterministic and will recur on every run",
       "fail_rate": 0.8,
       "sources": [
-        "https://docs.github.com/en/actions/writing-workflows"
+        "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs"
       ],
       "condition": ""
     }
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-13"
   }
 }
