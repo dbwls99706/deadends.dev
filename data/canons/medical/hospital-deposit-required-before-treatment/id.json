@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/hospital-deposit-required-before-treatment/id",
+  "url": "https://deadends.dev/medical/hospital-deposit-required-before-treatment/id",
+  "error": {
+    "signature": "AI tells a traveler that Indonesian hospitals will treat first and sort out billing or insurance claims later, the way many public healthcare systems do",
+    "regex": "(indonesia.*hospital.*deposit|bali hospital.*(deposit|upfront)|indonesia.*medical bill.*upfront|indonesia hospital pay first)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "id",
+      "country_name": "Indonesia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-13",
+    "summary": "Indonesian private hospitals commonly used by foreigners and tourists (BIMC, Siloam, and similar international-patient facilities) require a cash or card deposit, typically on the order of IDR 10-20 million (roughly USD 650-1,300) or more depending on the procedure, before admitting a patient for non-emergency treatment. For genuine life-threatening emergencies, hospitals stabilize first, but ongoing treatment beyond stabilization still requires a deposit or an insurer's Guarantee of Payment (GOP), and hospitals can withhold discharge until the bill is settled. Travelers without insurance offering direct billing should expect to pay upfront and seek reimbursement afterward."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that Indonesian hospitals operate like universal-healthcare systems back home and will treat first, bill or claim insurance later",
+      "why_fails": "Private hospitals require a cash deposit before treatment begins, and admission for non-surgical stays or surgery typically requires deposits in the thousands of dollars; the international-patient desk evaluates the case and asks for insurance authorization or a deposit before admitting the patient.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://feather-insurance.com/en-id/blog/health-insurance-guide-indonesia",
+        "https://insurance-indonesia.com/healthcare-cost-indonesia-without-insurance/"
+      ],
+      "condition": "No local insurance with direct billing, and no Guarantee of Payment arranged in advance",
+      "common_misconception": "That 'stabilize first' emergency-care policy means the whole treatment course, not just initial stabilization, is billed after the fact."
+    },
+    {
+      "action": "Assume a genuine emergency guarantees full treatment without ever needing to pay or prove ability to pay",
+      "why_fails": "Hospitals provide 'only enough stabilization to be safely discharged' without payment; once stable, payment confirmation (insurance authorization or deposit) is required for ongoing treatment, and the hospital will not release the patient until payment is settled or alternative arrangements are made.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://insurance-indonesia.com/healthcare-cost-indonesia-without-insurance/"
+      ],
+      "condition": "Emergency admission without an insurer's Guarantee of Payment",
+      "common_misconception": "That stabilization-first emergency policy means the hospital absorbs the full cost of emergency care."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call a travel/health insurer's 24/7 assistance line before or immediately upon arrival at a private hospital so they can issue a Guarantee of Payment (GOP), which waives the cash deposit",
+      "success_rate": 0.85,
+      "sources": [
+        "https://feather-insurance.com/en-id/blog/health-insurance-guide-indonesia"
+      ],
+      "condition": "Holds travel/international health insurance with direct billing"
+    },
+    {
+      "action": "If uninsured, bring a credit card with enough headroom (or access to roughly IDR 10-20 million or more) and expect to pay a deposit at admission, reconciled against the final bill at discharge",
+      "success_rate": 0.75,
+      "sources": [
+        "https://insurance-indonesia.com/healthcare-cost-indonesia-without-insurance/",
+        "https://www.william-russell.com/international-health-insurance/indonesia/"
+      ],
+      "condition": "No insurance with a direct-billing arrangement"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}
