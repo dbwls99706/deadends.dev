@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/unpaid-traffic-fines-block-iqama-exit-visa/sa",
+  "url": "https://deadends.dev/safety/unpaid-traffic-fines-block-iqama-exit-visa/sa",
+  "error": {
+    "signature": "AI tells a Saudi Arabia resident that an unpaid Saher (speed/red-light camera) traffic fine is a minor civil matter with no immigration consequences",
+    "regex": "(saudi.*(traffic fine|saher)|unpaid.*(fine|violation).*saudi|iqama.*renewal.*(traffic|violation)|saher.*violation)",
+    "domain": "safety",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-13",
+    "summary": "Absher, Saudi Arabia's official e-government platform, lists an unpaid traffic violation (issued via the Saher camera system) as a standalone blocking condition on two separate services: Iqama (residence permit) renewal and issuance of an exit/re-entry visa. Both services will not proceed while any traffic violation logged against the worker remains unpaid, independent of whether the fine was for the sponsoree personally or a vehicle registered to them."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume an unpaid Saher speeding/red-light camera fine can be left unpaid indefinitely, or paid later at leisure, without affecting anything beyond the fine amount itself",
+      "why_fails": "Absher's official 'Renewal of residence identity (Iqama)' service guide lists 'the sponsoree should not have any unpaid traffic violation' as a standalone eligibility condition, alongside passport validity and absence-registration status. The renewal request is blocked, not merely fined further, while any violation remains outstanding.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.absher.sa/wps/portal/business/static/guide/!ut/p/z0/fY29DoIwFIVfpQvzbTFBHQ1qjXFBY8QupJYbcpW00Bbi49uF1e07PzkHFNSgrJ6p05Gc1X3ST1U0Quw3p1zyizweSl5dS8HX1XYl7wXc0MIZ1P9SWqH3OKodKONsxG-E-jUFshgCG5yPus84BvQzGQxsSsS6iVpMbo8memfJsCXP-EJN3qT74SMfPzWP7Q8!/"
+      ],
+      "condition": "Iqama (residence permit) renewal"
+    },
+    {
+      "action": "Assume a traffic violation only affects the person renewing their own Iqama, not a sponsor's ability to issue that worker an exit/re-entry visa",
+      "why_fails": "Absher's official 'Issuance of exit/re-entry visa' service guide separately lists 'payment of all traffic violations logged against the worker' as a required condition, alongside visa-fee payment and passport validity of 90+ days. This is a second, independent checkpoint - clearing a fine for one service does not retroactively unblock a visa request filed earlier.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.absher.sa/wps/portal/business/static/guide/!ut/p/z0/fYy9DoIwFEZfpQvzLZKgjga1xrigMWIXUssNuUpa6A_x8e3C6nZOvpMPJDQgjZqpV4GsUUPypyzbPN9vTivBL-J4qHh9rXK-rreFuJdwQwNnkP-j9ELvaZI7kNqagN8AzSt6Mug9G60Lasg4enQzafQsJmJ9pA6ZcmkYUAdnDWm2JBlfqC1a5WD8iMcPlQ_5mw!!/"
+      ],
+      "condition": "Exit/re-entry visa issuance for a sponsored worker",
+      "common_misconception": "That traffic fines are purely a Ministry of Interior traffic matter, separate from Absher's residency and visa workflows, rather than a shared eligibility gate across both."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the 'Traffic Violations' section of Absher (individual or business account) before submitting an Iqama renewal or exit/re-entry visa request, and pay any outstanding fine there first",
+      "success_rate": 0.9,
+      "how": "Both the Iqama renewal and exit/re-entry visa services read from the same violation record, so clearing it once unblocks both downstream requests.",
+      "sources": [
+        "https://www.absher.sa/wps/portal/business/static/guide/!ut/p/z0/fY29DoIwFIVfpQvzbTFBHQ1qjXFBY8QupJYbcpW00Bbi49uF1e07PzkHFNSgrJ6p05Gc1X3ST1U0Quw3p1zyizweSl5dS8HX1XYl7wXc0MIZ1P9SWqH3OKodKONsxG-E-jUFshgCG5yPus84BvQzGQxsSsS6iVpMbo8memfJsCXP-EJN3qT74SMfPzWP7Q8!/"
+      ],
+      "condition": "Before requesting Iqama renewal or an exit/re-entry visa"
+    },
+    {
+      "action": "Have the sponsoring employer verify the worker's Absher violation status as part of routine Iqama-expiry tracking, since the block applies to the employer-initiated renewal as well as employee-initiated visa requests",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.absher.sa/wps/portal/business/static/guide/!ut/p/z0/fYy9DoIwFEZfpQvzLZKgjga1xrigMWIXUssNuUpa6A_x8e3C6nZOvpMPJDQgjZqpV4GsUUPypyzbPN9vTivBL-J4qHh9rXK-rreFuJdwQwNnkP-j9ELvaZI7kNqagN8AzSt6Mug9G60Lasg4enQzafQsJmJ9pA6ZcmkYUAdnDWm2JBlfqC1a5WD8iMcPlQ_5mw!!/"
+      ],
+      "condition": "Employer-sponsored Iqama holders"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

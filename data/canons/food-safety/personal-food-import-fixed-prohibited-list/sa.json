@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/personal-food-import-fixed-prohibited-list/sa",
+  "url": "https://deadends.dev/food-safety/personal-food-import-fixed-prohibited-list/sa",
+  "error": {
+    "signature": "AI tells a traveler that home-cooked snacks, spices, or small personal quantities of meat/dairy are always fine to bring into Saudi Arabia because customs only targets commercial shipments",
+    "regex": "(bring food.*saudi arabia|saudi.*customs.*food|nutmeg.*saudi|pork.*saudi.*customs|saudi.*prohibited.*food)",
+    "domain": "food-safety",
+    "category": "import_ban",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-13",
+    "summary": "Saudi Arabia's customs authority (ZATCA) maintains a fixed list of goods that are prohibited for import regardless of quantity or personal-use intent, distinct from a separate list that is merely restricted pending special approval. Pork and all pig-derived products, frog meat, nutmeg and its pure powder, kola nut, betel/tambol, and any drink labeled Zamzam are outright prohibited; agricultural seeds and live animals are restricted and need prior approval. Personal-quantity exemptions exist only for specific items such as honey and dates."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a small amount of a normal-seeming spice, snack, or home-cooked dish carried for personal consumption is exempt from Saudi customs food restrictions because it isn't a commercial shipment",
+      "why_fails": "ZATCA's prohibited-goods list for individuals bans specific items outright - pork and everything extracted from pigs (meat, fat, hair, blood, offal), frog meat, nutmeg and its pure powder, kola nut, betel/tambol, and any Zamzam-labeled drink - with no personal-quantity or non-commercial exception. Only a narrow set of items (honey, dates) has an explicit reasonable-personal-quantity allowance; everything else on the prohibited list is banned regardless of amount or intent.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/customs_individual/Prohibited-goods.aspx",
+        "https://www.trade.gov/country-commercial-guides/saudi-arabia-prohibited-and-restricted-imports"
+      ],
+      "condition": "Personal baggage, non-commercial quantity",
+      "common_misconception": "That nutmeg is an ordinary, unrestricted cooking spice worldwide; Saudi customs bans nutmeg and its pure powder outright, a restriction most travelers and most AI models would not expect."
+    },
+    {
+      "action": "Treat agricultural seeds or a small pet/live animal as freely importable the same way honey or dates are, since both are 'just food or animal products'",
+      "why_fails": "ZATCA separates prohibited goods (banned outright) from restricted goods (allowed only with special prior approval). Agricultural seeds and live animals fall in the restricted category alongside items like pharmaceutical products and wireless equipment - importable, but only with the required permit obtained beforehand, not on arrival.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/customs_individual/Prohibited-goods.aspx"
+      ],
+      "condition": "Agricultural seeds, live animals, or similar restricted-category goods"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific item against ZATCA's published prohibited and restricted goods lists before packing, rather than assuming commercial-scale rules don't apply to personal baggage",
+      "success_rate": 0.85,
+      "how": "The prohibited list applies uniformly regardless of quantity; the restricted list requires a permit obtained in advance from the relevant Saudi authority before travel.",
+      "sources": [
+        "https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/customs_individual/Prohibited-goods.aspx"
+      ],
+      "condition": "Before packing food or agricultural items for travel to Saudi Arabia"
+    },
+    {
+      "action": "When in doubt about a specific spice, snack, or animal/plant product, declare it at customs rather than assuming it is fine because it is for personal use",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.trade.gov/country-commercial-guides/saudi-arabia-prohibited-and-restricted-imports"
+      ],
+      "condition": "Uncertain or mixed food items in checked or carry-on baggage"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/controlled-medication-clearance-required/sa",
+        "distinction": "That canon covers customs clearance for controlled/psychotropic medications (a health-related, prescription-driven process); this one covers a fixed list of ordinary food and agricultural items banned or restricted regardless of any prescription."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

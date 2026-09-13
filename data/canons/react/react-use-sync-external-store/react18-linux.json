@@ -8,7 +8,7 @@
     "domain": "react",
     "category": "state_management_error",
     "first_seen": "2022-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-13"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.88,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-13",
     "summary": "A component using useSyncExternalStore is experiencing tearing (inconsistent reads from an external store during concurrent rendering) or the getSnapshot function is returning inconsistent values. In React 18's concurrent mode, components may render multiple times before committing. If an external store (Redux, Zustand, custom stores) changes between renders without proper synchronization, different components can see different values from the same store during a single render pass."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "useEffect subscriptions have a timing gap: the store can change between render and the effect running, causing the component to show stale data for one frame (the tearing problem that useSyncExternalStore was designed to fix). In concurrent mode, this gap can cause visible UI inconsistencies where components show different values from the same store.",
       "fail_rate": 0.7,
       "sources": [
-        "https://react.dev/reference/react/useEffect"
+        "https://react.dev/reference/react/useSyncExternalStore"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "ReactDOM.render uses synchronous rendering where tearing cannot occur, but it disables all React 18 features (automatic batching, transitions, Suspense for data fetching, streaming SSR). This is a regression to React 17 behavior and the legacy API is deprecated.",
       "fail_rate": 0.6,
       "sources": [
-        "https://react.dev/reference/react/Suspense"
+        "https://18.react.dev/reference/react-dom/render"
       ],
       "condition": ""
     }
@@ -81,6 +81,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-13"
   }
 }
