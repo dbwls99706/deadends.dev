@@ -8,7 +8,7 @@
     "domain": "kubernetes",
     "category": "networking",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-20"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.93,
     "confidence": 0.95,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-20",
     "summary": "Service has no matching pods - selector doesn't match any pod labels, or pods aren't ready."
   },
   "dead_ends": [
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-20"
   }
 }

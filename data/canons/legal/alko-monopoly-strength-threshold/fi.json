@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/alko-monopoly-strength-threshold/fi",
+  "url": "https://deadends.dev/legal/alko-monopoly-strength-threshold/fi",
+  "error": {
+    "signature": "AI tells someone in Finland they can buy wine or spirits at any grocery store, or states that Alko stores are always closed on Sundays",
+    "regex": "(alko.*finland|finland.*alcohol.*(store|shop)|buy wine finland|buy spirits finland|finland alcohol monopoly)",
+    "domain": "legal",
+    "category": "legal_restriction",
+    "first_seen": "2026-08-20",
+    "last_confirmed": "2026-08-20"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-20",
+    "summary": "Since a 2024 reform, Finnish retail shops, kiosks, and petrol stations may sell fermented beverages up to 8% ABV and other alcoholic products up to 5.5% ABV under a retail sales licence. Anything stronger - most wine and all spirits - is sold only through the state monopoly Alko or served in licensed restaurants. A further 2026 Alcohol Act reform (stage 1, effective 3 July 2026) let Alko extend opening hours; as of the initial rollout, 35 Alko stores nationwide opened on Sundays and 108 extended Saturday hours, so 'Alko is always closed Sunday' is no longer categorically true even though most stores still are."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visitor they can buy wine or spirits, or beer above 8% ABV, at a regular grocery store, kiosk, or supermarket in Finland",
+      "why_fails": "Valvira's retail-sales guidance states a retail licence covers only fermented beverages up to 8 volume-% and other products up to 5.5 volume-%; beverages above those limits - essentially all spirits and most wine - can only be bought at Alko or consumed at a licensed restaurant.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://valvira.fi/documents/152634019/163770440/Alkoholijuomien-vahittaismyynti.pdf"
+      ],
+      "condition": "Grocery store, kiosk, or petrol station purchase"
+    },
+    {
+      "action": "State flatly that all Alko stores are closed on Sundays",
+      "why_fails": "Alko's own announcement of the July 2026 Alcohol Act reform reports that, starting 5 July 2026, 35 stores nationwide are open on Sundays and 108 stores have extended Saturday hours; the blanket 'always closed Sunday' claim is now false for those locations even though most Alko stores nationwide still close on Sundays.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.alko.fi/fi/palvelut/asiointi-myymalassa/alkoholilain-muutos-mahdollistaa-pidemmaet-aukiolot",
+        "https://www.winepress.fi/ajankohtaista/finlands-2026-alcohol-act-reform-a-plain-english-guide"
+      ],
+      "condition": "Since 5 July 2026",
+      "common_misconception": "That Finland's Sunday alcohol-sale restriction is unchanged and uniform nationwide; hours now vary store by store."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the ABV before buying: fermented drinks (beer, cider, long drinks) up to 8% and other products up to 5.5% are fine at any licensed retailer; anything stronger, go to Alko",
+      "success_rate": 0.9,
+      "sources": [
+        "https://valvira.fi/documents/152634019/163770440/Alkoholijuomien-vahittaismyynti.pdf"
+      ],
+      "condition": "Retail purchase"
+    },
+    {
+      "action": "Do not assume Sunday closure - check the specific Alko store's hours on Alko's store locator, since only a subset of stores have adopted the newly permitted Sunday and extended Saturday hours",
+      "success_rate": 0.85,
+      "how": "https://www.alko.fi store finder shows per-location hours.",
+      "sources": [
+        "https://www.alko.fi/fi/palvelut/asiointi-myymalassa/alkoholilain-muutos-mahdollistaa-pidemmaet-aukiolot"
+      ],
+      "condition": "Planning a purchase on a Saturday or Sunday"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-20",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-20"
+  }
+}
