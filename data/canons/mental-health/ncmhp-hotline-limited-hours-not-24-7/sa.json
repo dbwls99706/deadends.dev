@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/ncmhp-hotline-limited-hours-not-24-7/sa",
+  "url": "https://deadends.dev/mental-health/ncmhp-hotline-limited-hours-not-24-7/sa",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Saudi Arabia to call the National Center for Mental Health Promotion hotline (920033360) expecting round-the-clock availability",
+    "regex": "(920033360|saudi.*mental health.*hotline|ncmhp.*saudi|saudi.*mental health.*crisis|mental health support saudi arabia)",
+    "domain": "mental-health",
+    "category": "crisis_resource_mismatch",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.7,
+    "last_updated": "2026-09-13",
+    "summary": "Saudi Arabia's Ministry of Health confirms the National Center for Mental Health Promotion's psychological-consultation hotline (920033360) operates limited daily hours - 8:00am to 8:00pm, and 1:00pm to 8:00pm on Saturdays - not 24/7. For a crisis outside those hours, the Ministry directs people to hospital Emergency Departments, which run 24 hours, or the Qareeb/Qareboon supervised text-counseling app."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone to call the National Center for Mental Health Promotion hotline (920033360) at any hour, treating it as a 24/7 crisis line the way a US- or UK-style crisis hotline works",
+      "why_fails": "The Ministry of Health's own psychiatric-services page states the center 'operates 12 hours a day (from 8:00 a.m. to 8:00 p.m.), except on Saturdays from 1:00 p.m. to 8:00 p.m.' A call placed outside that window will not reach a counselor through this line.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.moh.gov.sa/en/Ministry/Information-and-services/Pages/psychiatry.aspx"
+      ],
+      "condition": "Outside 8:00am-8:00pm (1:00pm-8:00pm Saturday) Saudi time",
+      "common_misconception": "That a national government mental-health hotline is necessarily staffed around the clock; several third-party directories list conflicting, narrower hours (e.g. Sunday-Thursday only), adding to the confusion rather than resolving it."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For an after-hours crisis, go to (or direct the person to) the Emergency Department of any hospital, which the Ministry of Health states runs 24 hours, rather than waiting for the hotline's opening time",
+      "success_rate": 0.75,
+      "how": "MOH's psychiatric-services page lists 'Emergency Departments: Available 24 hours' as one of its listed mental-health service channels, alongside the daytime hotline and Primary Health Centers.",
+      "sources": [
+        "https://www.moh.gov.sa/en/Ministry/Information-and-services/Pages/psychiatry.aspx"
+      ],
+      "condition": "Outside hotline operating hours"
+    },
+    {
+      "action": "During hotline hours, call 920033360; the National Center for Mental Health Promotion is a real, government-run body under the Ministry of Health (not an informal or unofficial service), so the number is safe to give out at face value",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.moh.gov.sa/en/Ministry/Information-and-services/Pages/psychiatry.aspx",
+        "https://saudipedia.com/en/article/567/government-and-politics/centers/national-center-for-mental-health-promotion"
+      ],
+      "condition": "8:00am-8:00pm daily (1:00pm-8:00pm Saturday)"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/999-997-998-ksa/sa",
+        "distinction": "That canon covers which number to dial for police/ambulance/fire (999/997/998); this one covers the separate, hours-limited mental-health consultation line (920033360), which is not a general emergency number."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

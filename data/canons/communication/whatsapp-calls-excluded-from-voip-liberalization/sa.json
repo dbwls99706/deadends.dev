@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/whatsapp-calls-excluded-from-voip-liberalization/sa",
+  "url": "https://deadends.dev/communication/whatsapp-calls-excluded-from-voip-liberalization/sa",
+  "error": {
+    "signature": "AI assumes Saudi Arabia's 2017 VoIP liberalization means WhatsApp and Viber voice/video calls work normally on any connection",
+    "regex": "(whatsapp call.*saudi|saudi.*voip.*(unblock|liberali[sz]ed)|facetime.*saudi arabia|viber.*saudi arabia|voip.*ban.*saudi)",
+    "domain": "communication",
+    "category": "telecom_restriction",
+    "first_seen": "2026-09-13",
+    "last_confirmed": "2026-09-13"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "sa",
+      "country_name": "Saudi Arabia",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.6,
+    "last_updated": "2026-09-13",
+    "summary": "Saudi Arabia's telecom regulator (then CITC, now CST) lifted its VoIP ban on 21 September 2017 for a specific licensed list - FaceTime, Snapchat, Skype, Line, Telegram, and Tango - but WhatsApp and Viber calling were explicitly excluded and remained blocked at that time. As of the most recent reporting, WhatsApp voice/video calling on a local Saudi SIM is still inconsistent: it has briefly worked during unannounced tests (e.g. February 2025) and then stopped again, with the regulator denying in March 2024 that any permanent unblock had occurred, and no official, durable authorization for WhatsApp calling has been announced."
+  },
+  "dead_ends": [
+    {
+      "action": "Cite Saudi Arabia's September 2017 VoIP liberalization as proof that WhatsApp or Viber voice/video calls work normally on a local SIM",
+      "why_fails": "Arab News' original coverage of the 21 September 2017 CITC announcement lists the apps actually licensed - FaceTime, Snapchat, Skype, Line, Telegram, and Tango - and explicitly reports that WhatsApp and Viber calling remained blocked at that time, with users publicly asking the CITC spokesman why WhatsApp had been excluded. The 2017 decision was an app-by-app licensing action, not a blanket unblock of all VoIP traffic.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://backup.arabnews.com/node/1164956/saudi-arabia"
+      ],
+      "condition": "Local Saudi SIM, WhatsApp or Viber calling specifically",
+      "common_misconception": "That 'Saudi Arabia unblocked VoIP in 2017' applied uniformly to every calling app, when the licensing was selective and WhatsApp/Viber were named exceptions from the start."
+    },
+    {
+      "action": "Report that WhatsApp calling is now fully and permanently unblocked in Saudi Arabia because it worked during a recent test period",
+      "why_fails": "Gulf News reported that when WhatsApp voice/video calls unexpectedly started connecting for many users in February 2025, 'there has been no official confirmation on whether this is a permanent change or a temporary test' - and the same article notes that in March 2024 the Communications, Space and Technology Commission had denied claims of a lift and 'reaffirmed that WhatsApp calls remained inaccessible.' Working today does not establish a durable policy change; it has previously reverted after similar unannounced windows.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://gulfnews.com/world/gulf/saudi/whatsapp-calls-reportedly-activated-in-saudi-arabia-permanent-change-or-temporary-test-1.500027288"
+      ],
+      "condition": "Reporting WhatsApp call status based on a single recent observation"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For voice/video calling on a local Saudi SIM, prefer apps that were part of the 2017 licensed list (Skype, FaceTime, Telegram, Line) or a travel eSIM, rather than assuming WhatsApp/Viber calling will work",
+      "success_rate": 0.7,
+      "how": "Licensed apps have been consistently available since the 2017 decision; WhatsApp/Viber calling status should be checked at the time of travel rather than assumed from older claims.",
+      "sources": [
+        "https://backup.arabnews.com/node/1164956/saudi-arabia"
+      ],
+      "condition": "Local Saudi SIM"
+    },
+    {
+      "action": "Before relying on WhatsApp calls for anything time-sensitive, verify current status rather than trusting either 'it's always blocked' or 'it was unblocked' claims, since the situation has flipped multiple times (2017, 2019, March 2024, February 2025) without a lasting official change",
+      "success_rate": 0.6,
+      "sources": [
+        "https://gulfnews.com/world/gulf/saudi/whatsapp-calls-reportedly-activated-in-saudi-arabia-permanent-change-or-temporary-test-1.500027288"
+      ],
+      "condition": "Any point in time"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-13",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-13"
+  }
+}

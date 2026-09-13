@@ -8,7 +8,7 @@
     "domain": "dotnet",
     "category": "runtime_exception",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-13"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.8,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-13",
     "summary": "PlatformNotSupportedException is thrown when calling APIs that are not available on the current OS or runtime. Common when using Windows-specific APIs (Registry, Windows Forms, WMI) on Linux containers, or when using APIs trimmed by the .NET linker. Fix by using cross-platform alternatives or conditional compilation."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "The Microsoft.Windows.Compatibility pack provides some APIs on Linux but many still throw PlatformNotSupportedException at runtime because they depend on Windows OS services (Registry, WMI, COM) that simply do not exist on Linux",
       "fail_rate": 0.7,
       "sources": [
-        "https://learn.microsoft.com/en-us/dotnet/api/"
+        "https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/cross-platform-targeting"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Platform checks exist because the underlying OS capability is absent; bypassing the check just moves the failure to a lower level with a more cryptic error (DllNotFoundException, EntryPointNotFoundException) or causes undefined behavior",
       "fail_rate": 0.85,
       "sources": [
-        "https://learn.microsoft.com/en-us/dotnet/api/"
+        "https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/cross-platform-targeting"
       ],
       "condition": ""
     }
@@ -97,6 +97,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 45,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-13"
   }
 }

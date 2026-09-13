@@ -8,7 +8,7 @@
     "domain": "pip",
     "category": "package_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-13"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-13",
     "summary": "Pip selected a yanked version of a package. Yanked releases are marked by maintainers as broken or dangerous but not deleted. Pip will still install them if explicitly pinned but warns about it."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Yanked versions typically have critical bugs, security vulnerabilities, or data corruption issues",
       "fail_rate": 0.7,
       "sources": [
-        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-V"
+        "https://docs.pypi.org/project-management/yanking/"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "The package is yanked for a reason; installing it from a mirror just bypasses the safety warning",
       "fail_rate": 0.8,
       "sources": [
-        "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-V"
+        "https://docs.pypi.org/project-management/yanking/"
       ],
       "condition": ""
     }
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-13"
   }
 }
