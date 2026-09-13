@@ -8,7 +8,7 @@
     "domain": "aws",
     "category": "network_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-08-21"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.87,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-08-21",
     "summary": "CloudFront cannot reach the configured origin server due to DNS, security group, or SSL/TLS issues."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Cache invalidation does not fix connectivity issues between CloudFront and the origin",
       "fail_rate": 0.9,
       "sources": [
-        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/troubleshooting-distributions.html"
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/http-502-lambda-validation-error.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Price class only affects which edge locations are used, not origin connectivity",
       "fail_rate": 0.95,
       "sources": [
-        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/"
+        "https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DistributionConfig.html"
       ],
       "condition": ""
     }
@@ -50,7 +50,7 @@
       "success_rate": 0.85,
       "how": "Check DNS resolution, verify security groups allow CloudFront IPs, ensure origin is healthy",
       "sources": [
-        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/troubleshooting-distributions.html"
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/http-502-lambda-validation-error.html"
       ],
       "condition": ""
     },
@@ -85,6 +85,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 95,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-08-21"
   }
 }

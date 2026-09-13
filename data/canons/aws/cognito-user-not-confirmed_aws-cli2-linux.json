@@ -8,7 +8,7 @@
     "domain": "aws",
     "category": "cognito",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-11"
+    "last_confirmed": "2026-08-21"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.95,
     "confidence": 0.96,
-    "last_updated": "2026-02-11",
+    "last_updated": "2026-08-21",
     "summary": "Cognito user exists but hasn't confirmed their email/phone."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Loses any associated data; user must re-register",
       "fail_rate": 0.7,
       "sources": [
-        "https://docs.aws.amazon.com/AmazonECR/latest/userguide/"
+        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDeleteUser.html"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Removes a security measure; can't retroactively confirm existing users",
       "fail_rate": 0.75,
       "sources": [
-        "https://docs.aws.amazon.com/"
+        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html"
       ],
       "condition": ""
     }
@@ -77,6 +77,6 @@
     "generation_date": "2026-02-11",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-11"
+    "last_verification": "2026-08-21"
   }
 }

@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "banking/afm-tax-number-required/gr",
+  "url": "https://deadends.dev/banking/afm-tax-number-required/gr",
+  "error": {
+    "signature": "AI tells a foreigner in Greece that a passport (EU) or residence permit (non-EU) alone is enough to open a bank account, sign a lease, or get a phone contract",
+    "regex": "(greece.*(bank account|open.*account)|greek.*tax number|afm.*greece|αφμ.*greece|αριθμός φορολογικού μητρώου)",
+    "domain": "banking",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-08-21",
+    "summary": "Greece requires a separate 9-digit tax registration number (AFM, Αριθμός Φορολογικού Μητρώου) issued by the tax authority AADE before a bank account, lease, or mobile contract can be finalized. Any natural person, EU or non-EU, resident or not, can apply; a passport or residence permit is one of the documents used to request the AFM, not a substitute for it. Applications are submitted online but identity must still be verified by a myAADElive video call or an in-person visit to a tax office (ΔΟΥ) - it is not a purely remote process. Asylum seekers without a full residence permit can still be assigned an AFM in person through Asylum Service offices."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume a passport (EU citizens) or residence permit (non-EU citizens) alone lets you open a bank account, sign a lease, or get a SIM/mobile contract in Greece",
+      "why_fails": "AADE's official procedure (catalogued on Greece's National Registry of Administrative Procedures) requires an AFM - a separate 9-digit tax registration number - before these transactions can complete; the passport or residence permit is only one of the documents submitted to apply for the AFM, not a stand-in for it.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://mitos.gov.gr/index.php/ΔΔ:Απόδοση_ΑΦΜ_%26_Κλειδαρίθμου"
+      ],
+      "condition": "First administrative registration in Greece"
+    },
+    {
+      "action": "Tell a non-EU/third-country national without a residence permit that they cannot get an AFM at all",
+      "why_fails": "Any natural person, regardless of nationality or residency status, can obtain an AFM. Since a process formalized in March 2021, asylum seekers holding a valid International Protection Applicant's card can be assigned an AFM in person through Asylum Service offices, hosting facilities, or Reception/Identification Centers, without first holding a full residence permit.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://migration.gov.gr/en/apodosi-afm-stoys-aitoyntes-diethni-prostasia/"
+      ],
+      "condition": "Asylum seeker without a full residence permit",
+      "common_misconception": "That AFM eligibility requires already holding a residence permit."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply for the AFM through AADE's online portal, then complete identity verification either via the myAADElive video call or in person at a ΔΟΥ (tax office) with the required documents",
+      "success_rate": 0.9,
+      "how": "The application itself is submitted electronically, but Greek law requires identity verification by video call or an in-person visit before the AFM is issued - it is not a fully remote, no-visit process.",
+      "sources": [
+        "https://www.gov.gr/en/services/1001789/apodose-arithmou-phorologikou-metroou-aphm-kai-kleidarithmou-se-phusiko-prosopo"
+      ],
+      "condition": "EU or non-EU applicant with a passport or residence document"
+    },
+    {
+      "action": "Asylum seekers without a residence permit should request AFM assignment directly through the Asylum Service during a registration or renewal appointment, or check assigned status at asylum.migration.gov.gr/afm",
+      "success_rate": 0.75,
+      "sources": [
+        "https://migration.gov.gr/en/apodosi-afm-stoys-aitoyntes-diethni-prostasia/"
+      ],
+      "condition": "Asylum seeker holding an International Protection Applicant's card"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "policy/amka-required-for-employment-and-healthcare/gr",
+        "distinction": "AFM is a tax registration number from AADE needed for banking, leases, and contracts; AMKA is a separate social-security registration number needed for employment and healthcare access. Getting one does not grant the other."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}
