@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/prepaid-sim-id-registration-required/ch",
+  "url": "https://deadends.dev/communication/prepaid-sim-id-registration-required/ch",
+  "error": {
+    "signature": "AI tells a tourist or new arrival they can buy and activate an anonymous prepaid SIM card in Switzerland without showing ID, the way it might work in some other countries",
+    "regex": "(switzerland.{0,20}(prepaid|anonymous).{0,10}sim|swiss.{0,15}sim card.{0,20}(no id|anonymous))",
+    "domain": "communication",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-14",
+    "summary": "Switzerland has required identity registration for every prepaid SIM card since November 1, 2002 (enforced from August 1, 2004), under a Federal Assembly-enacted statutory requirement implemented through the Fernmeldegesetz (FMG) and the Ordinance on Telecommunications Services (FDV). Providers must record the buyer's identity using a valid photo document accepted for crossing into Switzerland (passport or national ID) before the card can be activated - anonymous, walk-in prepaid purchase is not available, unlike some neighboring countries."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy a Swiss prepaid SIM card (Swisscom, Sunrise, Salt, or an MVNO) at a kiosk or shop and expect to activate it anonymously, without presenting ID",
+      "why_fails": "The Swiss Federal Council/Parliament requirement in force since 2002 (fully enforced from August 2004) obliges telecom providers to register every prepaid SIM buyer's identity using a photo ID valid for entry into Switzerland before the card is activated; carriers will not activate an unregistered prepaid SIM.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.admin.ch/de/nsb?id=13600",
+        "https://www.bakom.admin.ch/dam/de/sd-web/Qhnnde5JFh95/verordnung-ueber-fernmeldedienste.pdf"
+      ],
+      "condition": "Purchasing a prepaid (non-contract) SIM in Switzerland",
+      "common_misconception": "That prepaid SIM registration rules only exist in countries with strict surveillance regimes and not in Switzerland, or that a foreign passport would not be accepted for the registration."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Bring a passport or national ID card (any document valid for crossing into Switzerland) to the point of sale; registration is quick and does not require Swiss residency",
+      "success_rate": 0.9,
+      "how": "Staff scan or record the ID details at purchase; the SIM activates once the registration is complete, typically within the same visit.",
+      "sources": [
+        "https://www.admin.ch/de/nsb?id=13600"
+      ],
+      "condition": "Any buyer, resident or visitor, with a valid passport/ID"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}

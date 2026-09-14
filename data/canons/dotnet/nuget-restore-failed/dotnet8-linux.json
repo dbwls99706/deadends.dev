@@ -8,7 +8,7 @@
     "domain": "dotnet",
     "category": "package_management",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-14"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-14",
     "summary": "NuGet restore failures occur when packages cannot be downloaded or resolved. Causes include missing package sources, network issues, private feed authentication failures, or deleted/unlisted packages. Fix by verifying NuGet sources, credentials, and package availability."
   },
   "dead_ends": [
@@ -102,6 +102,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 70,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-14"
   }
 }

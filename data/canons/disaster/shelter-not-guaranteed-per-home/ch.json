@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/shelter-not-guaranteed-per-home/ch",
+  "url": "https://deadends.dev/disaster/shelter-not-guaranteed-per-home/ch",
+  "error": {
+    "signature": "AI tells someone that every home or apartment in Switzerland already has, or is guaranteed, its own ready-to-use nuclear/civil-defense shelter nearby",
+    "regex": "(switzerland.{0,30}(nuclear|fallout) shelter|swiss.{0,20}bunker|schutzraum.{0,20}schweiz)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-14",
+    "summary": "Switzerland's Bevölkerungs- und Zivilschutzgesetz (BZG, SR 520.1) Art. 46 does set a national policy of one protected place per resident, and about 370,000 private and public shelters exist. But the obligation to build a private shelter (Schutzraumbaupflicht) has applied only to new residential buildings of 38+ units since a 2012 reform; smaller developments and most existing older or newer small buildings have no shelter of their own, and the owner may instead pay a CHF 1,400-per-place replacement levy (Ersatzabgabe, BZG Art. 46/47) that funds public shelters elsewhere. BABS itself documents 'cantonal differences and local gaps,' especially in city centers and growing areas. Assigned personal shelter spots are also not pre-communicated in peacetime - allocation happens only if the security situation requires it."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any specific apartment building or house in Switzerland has its own private nuclear/civil-defense shelter simply because Swiss law guarantees 'one shelter place per resident' nationally",
+      "why_fails": "Since the Federal Council's 2012 revision, the private shelter-building obligation (Schutzraumbaupflicht) under BZG Art. 46 applies only when constructing residential buildings with at least 38 apartments; smaller buildings are routinely exempted on payment of a CHF 1,400-per-place replacement levy (Ersatzabgabe) that funds public shelters instead, so a typical single-family home or small apartment block built after 2012 has no on-site shelter at all, and older small buildings are not retrofitted.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.babs.admin.ch/de/schutzraeume",
+        "https://www.fedlex.admin.ch/eli/cc/2020/887/de"
+      ],
+      "condition": "Buildings with fewer than 38 residential units, especially built or renovated after 2012",
+      "common_misconception": "That the famous 'every Swiss person has a guaranteed bunker spot' fact means every individual building has its own physical shelter on site."
+    },
+    {
+      "action": "Tell someone they already know, or can find out in advance, exactly which shelter they are assigned to in peacetime, the way a fire-evacuation plan works",
+      "why_fails": "BABS states shelter places are allocated ('zugewiesen') only if the security-policy situation requires it - there is no standing peacetime personal assignment communicated to residents by default, so someone expecting a pre-known personal shelter number will not find one until authorities actually activate the allocation process during a crisis.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.babs.admin.ch/de/schutzraeume"
+      ],
+      "condition": "Peacetime, no active civil-protection emergency declared"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Ask the building administration/owner (Verwaltung) or the communal civil protection office (Zivilschutzstelle) whether the specific building has a registered private shelter, and where the nearest public shelter is, rather than assuming coverage",
+      "success_rate": 0.8,
+      "how": "Cantonal civil protection offices maintain shelter registers; residents can also consult cantonal pages (e.g. Kanton Zug, Aargau, Thurgau civil-protection shelter pages) that list public shelter locations by municipality.",
+      "sources": [
+        "https://www.babs.admin.ch/de/schutzraeume"
+      ],
+      "condition": "Wants to know actual, current shelter coverage for a specific address"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-117-118-144/ch",
+        "distinction": "That canon covers which number to call for an active emergency; this one covers whether a physical civil-defense shelter is actually available near a given home, which is a separate, commonly overstated claim."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}
