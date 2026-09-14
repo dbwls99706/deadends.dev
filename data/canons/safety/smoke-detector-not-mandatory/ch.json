@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/smoke-detector-not-mandatory/ch",
+  "url": "https://deadends.dev/safety/smoke-detector-not-mandatory/ch",
+  "error": {
+    "signature": "AI tells someone renting or buying a home in Switzerland that smoke detectors are legally required in the apartment, the way they are in Germany, Austria, the UK, or Ireland",
+    "regex": "(switzerland.{0,20}smoke (detector|alarm).{0,15}(law|required|mandatory)|swiss.{0,15}rauchmelder.{0,10}pflicht)",
+    "domain": "safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.65,
+    "last_updated": "2026-09-14",
+    "summary": "Unlike Germany, Austria, Ireland, or the UK, Switzerland has no nationwide legal requirement to install smoke detectors in private homes. Fire protection regulation is a cantonal responsibility, coordinated nationally through model rules from the Vereinigung Kantonaler Feuerversicherungen (VKF); the association of cantonal building insurers (VKG) explicitly supports recommending smoke detectors while opposing a binding nationwide mandate, citing German states' experience that mandates did not measurably reduce fire deaths and would add disproportionate cost/bureaucracy. Some cantons or specific building types (e.g. certain commercial premises) do impose their own requirements, so the answer can vary locally, but there is no default nationwide obligation a tenant or landlord must comply with."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume every rented Swiss apartment must legally have a working smoke detector installed, and that a landlord who has not installed one is automatically in breach of the law",
+      "why_fails": "Switzerland has no federal law mandating smoke detectors in private homes; the VKG (association of cantonal building insurers) publicly recommends installing them but explicitly opposes making it a legal obligation, and SRF (Swiss public broadcaster) reporting confirms there is 'keine Rauchmelderpflicht' (no smoke-detector obligation) nationwide. Whether any obligation exists depends on the specific canton and building type, not on a uniform national rule.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.vkg.ch/de/publikationen/positionen/rauchwarnmelder",
+        "https://www.srf.ch/news/schweiz/toedliche-hausbraende-wieso-es-in-der-schweiz-keine-rauchmelderpflicht-gibt"
+      ],
+      "condition": "Private residential apartments and single-family homes",
+      "common_misconception": "That Switzerland's generally strict regulatory reputation means it must also mandate smoke detectors like most of its EU neighbors."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check the specific canton's fire-protection rules (some cantons or municipalities do require detectors in certain building types) and install smoke detectors voluntarily regardless, following VKG's recommendation",
+      "success_rate": 0.8,
+      "how": "Cantonal fire-prevention advisory offices (e.g. BFB/CIPI) publish tenant and landlord fire-safety guidance; installing battery smoke detectors voluntarily is inexpensive and matches VKG's own recommendation even where not legally required.",
+      "sources": [
+        "https://www.bfb-cipi.ch/brandverhuetungs-tipps/detail/pflichten-fuer-hauseigentuemer-und-mieter"
+      ],
+      "condition": "Wants actual fire-safety protection regardless of legal minimum"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/crustacean-stunning-required/ch",
+  "url": "https://deadends.dev/food-safety/crustacean-stunning-required/ch",
+  "error": {
+    "signature": "AI tells someone in Switzerland it is fine to drop a live lobster or other crustacean straight into boiling water, or to store it on ice before cooking",
+    "regex": "(switzerland.{0,20}(boil|cook).{0,15}lobster|swiss.{0,15}lobster.{0,15}alive)",
+    "domain": "food-safety",
+    "category": "legal_restriction",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ch",
+      "country_name": "Switzerland",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-14",
+    "summary": "Since March 1, 2018, Article 178 of the Tierschutzverordnung (TSchV, SR 455.1) requires that crustaceans (Panzerkrebse) such as lobsters be stunned - the Federal Food Safety and Veterinary Office (BLV) recommends electrical stunning - before being killed; boiling a live, unstunned crustacean is an explicitly cited example of a prohibited killing method and can be treated as animal cruelty under the Tierschutzgesetz. Transporting or storing live crustaceans on ice or in ice water is also forbidden; they must be kept in their natural environment (e.g. seawater) and killed or tanked within a limited time of arrival. The rule is not limited to restaurants or fishmongers - the underlying cruelty prohibition applies broadly to anyone killing the animal."
+  },
+  "dead_ends": [
+    {
+      "action": "Cook a live lobster or other crustacean by dropping it straight into boiling water without stunning it first, whether at home or in a restaurant",
+      "why_fails": "TSchV Art. 178 requires that crustaceans, like vertebrates, only be killed under stunning; BLV explicitly names immersion in boiling water without prior stunning as a prohibited, painful killing method, backed by the Tierschutzgesetz's general animal-cruelty penalties (fines or up to three years' imprisonment for cruel killing).",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.blv.admin.ch/de/panzerkrebse",
+        "https://www.fedlex.admin.ch/eli/cc/2008/416/de"
+      ],
+      "condition": "Killing a live crustacean (lobster, crab, crayfish) in Switzerland",
+      "common_misconception": "That this is only a restaurant/retail regulation, or that putting the animal in a freezer beforehand counts as acceptable stunning."
+    },
+    {
+      "action": "Store or transport a live lobster on ice or in ice water before cooking",
+      "why_fails": "BLV guidance states transport or storage of live crustaceans on ice or in ice water is forbidden because it is considered inhumane; animals must be kept moist in their natural environment and either killed properly or moved to a suitable holding tank within 12 hours of arrival.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.blv.admin.ch/de/panzerkrebse"
+      ],
+      "condition": "Transporting or holding live crustaceans before preparation"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Stun the crustacean with an electric stunning device immediately before killing it (BLV's recommended method), or buy it pre-stunned/pre-killed from a retailer that already complies",
+      "success_rate": 0.85,
+      "how": "BLV's technical guidance (Fachinformation 16.8) describes correct electrical stunning parameters; mechanical destruction of the brain is accepted but BLV advises avoiding it where possible in favor of electric stunning.",
+      "sources": [
+        "https://www.blv.admin.ch/dam/blv/de/dokumente/tiere/heim-und-wildtierhaltung/fi-panzerkrebse-toeten.pdf.download.pdf/D%20Fachinformation%2016.8%20-%20Panzerkrebse%20fachgerecht%20t%C3%B6ten.pdf"
+      ],
+      "condition": "Preparing live crustaceans for cooking"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}
