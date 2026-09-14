@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "legal/three-day-cooling-off-rule-not-universal/us",
+  "url": "https://deadends.dev/legal/three-day-cooling-off-rule-not-universal/us",
+  "error": {
+    "signature": "AI tells a US consumer they have three business days to cancel any signed contract or purchase, treating the FTC Cooling-Off Rule as a universal right",
+    "regex": "(cooling.off (rule|period)|three.day (right to cancel|cancellation)|3.day right to cancel)",
+    "domain": "legal",
+    "category": "contract_terms",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-14",
+    "summary": "The FTC's Cooling-Off Rule (16 CFR Part 429) gives buyers three business days to cancel only sales made away from the seller's normal place of business - at the buyer's home, a rented hotel/motel room, dormitory, workplace, or similar temporary venue - and only above a dollar threshold ($25 at the buyer's residence, $130 elsewhere). It excludes purchases at a retail store, real estate, insurance, securities, and sales conducted entirely by mail or phone with no other prior contact. There is no general federal 3-day right to cancel ordinary purchases, online orders, or most signed contracts."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a consumer they can cancel any signed contract or purchase - including an in-store purchase, an online order, or a car bought at a dealership - within three days under a general federal 'cooling-off' right",
+      "why_fails": "The FTC's Cooling-Off Rule applies only to sales made away from the seller's normal place of business - at the buyer's home, a temporary venue like a hotel room, or similarly - and above $25 (at the buyer's residence) or $130 (elsewhere). Sales at the seller's regular retail location, and sales made entirely by mail, phone, or online with no other prior contact, are excluded outright.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.ftc.gov/legal-library/browse/rules/cooling-period-sales-made-home-or-other-locations",
+        "https://www.law.cornell.edu/cfr/text/16/429.0"
+      ],
+      "condition": "Purchase made at a normal retail location or entirely online/by phone",
+      "common_misconception": "That the US has a general '3-day right to cancel' consumer protection covering any purchase, the way some other consumer-protection regimes work."
+    },
+    {
+      "action": "Assume the cancellation right applies once a threshold amount is spent, regardless of where the sale happened",
+      "why_fails": "The dollar threshold is tied to location, not just amount: $25 or more only covers sales at the buyer's own residence; sales at any other qualifying off-premises location (hotel room, fairground, workplace, dorm) require $130 or more to be covered.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.law.cornell.edu/cfr/text/16/429.0"
+      ],
+      "condition": "Sale at a temporary venue other than the buyer's home"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check whether the sale actually happened away from the seller's regular place of business (home visit, hotel-room sales presentation, fair/convention booth) and meets the dollar threshold before assuming a cancellation right exists",
+      "success_rate": 0.85,
+      "how": "If it does qualify, the seller must have provided two copies of a cancellation form and written notice of the right to cancel at the time of sale; send a signed, dated cancellation notice within three business days to exercise it.",
+      "sources": [
+        "https://www.ftc.gov/node/40342"
+      ],
+      "condition": "Off-premises sale meeting the dollar threshold"
+    },
+    {
+      "action": "For an ordinary retail-store or online purchase, rely on the seller's own return policy, credit-card chargeback rights, or state warranty/'lemon law' protections instead of a federal cooling-off right, since none applies",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.ftc.gov/legal-library/browse/rules/cooling-period-sales-made-home-or-other-locations"
+      ],
+      "condition": "In-store or standard online purchase"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}

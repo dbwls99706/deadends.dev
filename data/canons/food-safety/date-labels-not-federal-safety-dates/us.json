@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/date-labels-not-federal-safety-dates/us",
+  "url": "https://deadends.dev/food-safety/date-labels-not-federal-safety-dates/us",
+  "error": {
+    "signature": "AI tells a US consumer that food is unsafe or must be discarded once its 'sell by,' 'use by,' or 'best by' date has passed, treating these as federally mandated safety expiration dates",
+    "regex": "(sell.by date.*expired|use.by date.*unsafe|best.by date.*throw (away|out))",
+    "domain": "food-safety",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-14",
+    "summary": "Except for infant formula, product dating on US packaged food is not required by federal law or regulation - manufacturers apply 'Sell-By,' 'Use-By,' 'Best if Used By,' and similar dates voluntarily as quality indicators, not safety cutoffs. USDA and FDA both state a 'use by' date reflects peak flavor/quality, not a safety deadline, and properly stored food generally remains safe to eat after that date passes; spoilage should be judged by smell, texture, and appearance instead. Infant formula is the sole federally mandated exception: FDA regulation requires a 'Use By' date on every container, and formula should not be fed to an infant after that date because the manufacturer only guarantees nutrient content up to it."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a consumer that a passed 'sell by,' 'use by,' or 'best by' date on ordinary packaged food (other than infant formula) means the food is unsafe and must be thrown out",
+      "why_fails": "USDA FSIS states that except for infant formula, product dating is not required by federal regulation at all, and where manufacturers add these dates voluntarily, a 'use-by' date is the last date recommended for use of the product while at peak quality and is not a safety date. FDA says the same: these are quality indicators, and properly stored food does not have to be discarded once the date passes.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-product-dating",
+        "https://www.fda.gov/consumers/consumer-updates/confused-date-labels-packaged-foods"
+      ],
+      "condition": "Any packaged food except infant formula",
+      "common_misconception": "That 'use by'/'sell by'/'best by' dates work like a federally regulated expiration date, the way medication expiration dates do."
+    },
+    {
+      "action": "Apply the same 'date has passed, still fine if stored properly' reasoning to infant formula",
+      "why_fails": "Infant formula is the one federally regulated exception: FDA requires a 'Use By' date on every container, and the manufacturer only guarantees the labeled nutrient content and quality up to that date - formula should not be fed to an infant after it passes.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.fda.gov/consumers/consumer-updates/infant-formula-safety-dos-and-donts"
+      ],
+      "condition": "Infant formula specifically",
+      "common_misconception": "That the 'dates are just quality, not safety' rule for most food also applies to infant formula."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Judge ordinary packaged food safety by smell, texture, appearance, and proper storage/handling rather than by a passed sell-by/use-by/best-by date",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-product-dating"
+      ],
+      "condition": "Non-perishable or properly refrigerated packaged food"
+    },
+    {
+      "action": "Treat infant formula's 'Use By' date as a hard safety cutoff and discard/replace unopened containers once it passes",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.fda.gov/consumers/consumer-updates/infant-formula-safety-dos-and-donts"
+      ],
+      "condition": "Infant formula"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/call-recording-one-party-consent-not-universal/us",
+  "url": "https://deadends.dev/communication/call-recording-one-party-consent-not-universal/us",
+  "error": {
+    "signature": "AI tells someone in the US it's legal to record a phone call or conversation as long as they are a participant, without checking state law",
+    "regex": "(record.*phone call.*legal.*(us|united states)|one.party consent.*record|legal to record.*conversation)",
+    "domain": "communication",
+    "category": "legal_risk",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "regional",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-14",
+    "summary": "Federal law (18 U.S.C. § 2511) sets a one-party consent floor for recording calls and conversations, but it does not preempt stricter state law. About 11 states - including California, Florida, Illinois, Massachusetts, Michigan, and Pennsylvania - require all-party consent for at least some conversations, with several more requiring it for either phone calls or in-person conversations specifically. Recording without every participant's consent in an all-party-consent state can be a crime, and courts disagree on whether the recorder's state or the other party's state governs an interstate call, so the safer assumption is the stricter of the two applies."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone in the US that recording a phone call or in-person conversation is legal as long as they are a party to it, without asking which state they or the other party are in",
+      "why_fails": "Federal law (18 U.S.C. § 2511) sets only a one-party consent floor - it does not preempt stricter state law. About 11 states require all-party consent for at least phone calls, and recording without every participant's consent there can be a criminal offense; California Penal Code § 632, for example, punishes it with up to a year in jail plus a fine.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.law.cornell.edu/uscode/text/18/2511",
+        "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PEN&sectionNum=632",
+        "https://www.rcfp.org/introduction-to-reporters-recording-guide/"
+      ],
+      "condition": "Recording without checking the applicable state's law",
+      "common_misconception": "That 'federal law allows it' settles the question everywhere in the US, when federal law is only a floor that states can raise."
+    },
+    {
+      "action": "Assume that only the recorder's own state law matters when recording an interstate call",
+      "why_fails": "Courts disagree on whether the recorder's state or the other party's state governs; a recorder in a one-party-consent state can still face liability under the stricter all-party-consent law of the state where the other party is located.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.rcfp.org/introduction-to-reporters-recording-guide/"
+      ],
+      "condition": "Interstate call between a one-party-consent and an all-party-consent state"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before recording, identify the state(s) involved and check whether either is an all-party-consent jurisdiction; when in doubt or the call crosses state lines, treat it as governed by the stricter rule and get every participant's explicit consent before recording",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.rcfp.org/introduction-to-reporters-recording-guide/"
+      ],
+      "condition": "Any call or conversation recording in the US"
+    },
+    {
+      "action": "Get affirmative verbal or written consent from every participant, or clearly announce the recording and let them decline, before or at the start of the call",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.rcfp.org/introduction-to-reporters-recording-guide/"
+      ],
+      "condition": "All-party-consent jurisdiction, or jurisdiction unknown"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}

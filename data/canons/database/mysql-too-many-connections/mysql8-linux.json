@@ -8,7 +8,7 @@
     "domain": "database",
     "category": "resource_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-14"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.9,
     "confidence": 0.92,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-14",
     "summary": "All MySQL connection slots (max_connections, default 151) are in use. No new connections can be established including admin connections. Caused by connection leaks, missing connection pooling, or sudden traffic spikes."
   },
   "dead_ends": [
@@ -30,16 +30,16 @@
       "why_fails": "Each MySQL connection uses a thread with its own memory allocation. High max_connections without increasing open_files_limit, thread stack, and available RAM leads to OOM or 'Can't create a new thread' errors.",
       "fail_rate": 0.8,
       "sources": [
-        "https://www.postgresql.org/docs/current/libpq-connect.html"
+        "https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections"
       ],
       "condition": ""
     },
     {
       "action": "Rapidly restarting MySQL to reset connections",
-      "why_fails": "Restarting kills all connections and in-flight transactions abruptly. Without fixing the root cause, connections exhaust again within minutes. Repeated restarts cause data corruption risk with InnoDB recovery.",
+      "why_fails": "Restarting kills all connections and in-flight transactions abruptly. Without fixing the root cause, connections exhaust again within minutes. InnoDB must roll back every incomplete transaction on the next start, which can take three to four times longer than the transaction had been running, and that rollback cannot be canceled once started.",
       "fail_rate": 0.85,
       "sources": [
-        "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+        "https://dev.mysql.com/doc/refman/8.0/en/innodb-recovery.html"
       ],
       "condition": ""
     }
@@ -49,14 +49,18 @@
       "action": "Use a connection pooler like ProxySQL or MySQL Router",
       "success_rate": 0.92,
       "how": "Install ProxySQL and configure backend MySQL servers. Set mysql-max_connections in ProxySQL to limit backend connections while accepting more frontend connections. Applications connect to ProxySQL port instead of MySQL directly.",
-      "sources": [],
+      "sources": [
+        "https://dev.mysql.com/doc/mysql-router/8.0/en/"
+      ],
       "condition": ""
     },
     {
       "action": "Identify and close idle connections, fix connection leaks",
       "success_rate": 0.88,
-      "how": "Connect as root (MySQL reserves one extra connection for SUPER users): mysql -u root -p. Run: SHOW PROCESSLIST; to see all connections. Kill idle ones: KILL <id>; Set wait_timeout and interactive_timeout to reasonable values (e.g., 300 seconds) to auto-close idle connections. Fix application code to properly close connections.",
-      "sources": [],
+      "how": "Connect as root (MySQL reserves one extra connection for accounts with the CONNECTION_ADMIN/SUPER privilege): mysql -u root -p. Run: SHOW PROCESSLIST; to see all connections. Kill idle ones: KILL <id>; Set wait_timeout and interactive_timeout to reasonable values (e.g., 300 seconds) to auto-close idle connections. Fix application code to properly close connections.",
+      "sources": [
+        "https://dev.mysql.com/doc/refman/8.0/en/show-processlist.html"
+      ],
       "condition": ""
     }
   ],
@@ -87,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 70,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-14"
   }
 }
