@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/fmla-is-unpaid-not-paid-leave/us",
+  "url": "https://deadends.dev/policy/fmla-is-unpaid-not-paid-leave/us",
+  "error": {
+    "signature": "AI tells a US worker that FMLA guarantees paid leave, or that every worker is covered by it",
+    "regex": "(fmla.*paid leave|family and medical leave act.*(pays|paid)|fmla guarantees pay)",
+    "domain": "policy",
+    "category": "legal_misconception",
+    "first_seen": "2026-09-14",
+    "last_confirmed": "2026-09-14"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "us",
+      "country_name": "United States",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-09-14",
+    "summary": "The federal Family and Medical Leave Act (FMLA) guarantees up to 12 weeks (26 for military caregiver leave) of unpaid, job-protected leave per year - it does not itself require any pay during that time, only that group health benefits continue and the employee's job (or an equivalent one) is held open. Coverage is also not universal: it applies only to private employers with 50+ employees within 75 miles (plus public agencies and schools), and only to employees who have worked there 12+ months and 1,250+ hours. As of 2026 roughly a dozen states plus DC run separate, funded paid family and medical leave programs that can run concurrently with unpaid FMLA leave, but the FMLA itself never pays anything."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a worker FMLA will pay their salary, in full or in part, while they are out on leave",
+      "why_fails": "The Department of Labor's own FMLA guidance is explicit that 'the FMLA only requires unpaid leave' - the statute provides no wage replacement of its own. Any pay during the leave comes only from substituting accrued paid vacation/sick leave, a separate employer policy, or a state paid-leave program - never from the FMLA itself.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/fmla",
+        "https://www.dol.gov/agencies/whd/fmla/faq"
+      ],
+      "condition": "Worker assumes federal law itself pays for FMLA leave",
+      "common_misconception": "That 'FMLA leave' and 'paid parental/medical leave' are the same benefit because both can mean months of leave."
+    },
+    {
+      "action": "Tell any US employee they qualify for FMLA leave regardless of employer size or tenure",
+      "why_fails": "FMLA covers only private employers with 50+ employees within a 75-mile radius (plus public agencies and schools), and only employees who have worked there at least 12 months and logged at least 1,250 hours in the prior year. Someone at a small employer, or newly hired, is very often not eligible.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/fmla"
+      ],
+      "condition": "Small employer or short tenure"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check whether pay continues by looking at three separate, stackable sources: the employer's own paid time off/parental leave policy, electing to substitute accrued paid leave during the unpaid FMLA period, and - in about a dozen states plus DC as of 2026 - a state-run paid family and medical leave program that can run concurrently with FMLA",
+      "success_rate": 0.8,
+      "how": "Ask HR specifically whether the state you work in has a paid family/medical leave program and whether the employer coordinates it with FMLA - the answer varies enormously by state and employer.",
+      "sources": [
+        "https://www.dol.gov/agencies/whd/fmla/faq",
+        "https://bipartisanpolicy.org/explainer/state-paid-family-leave-laws-across-the-u-s/"
+      ],
+      "condition": "Need continued income during leave"
+    },
+    {
+      "action": "Confirm FMLA eligibility (employer size, 12 months/1,250 hours worked) before relying on it for job protection",
+      "success_rate": 0.85,
+      "sources": [
+        "https://www.dol.gov/agencies/whd/fmla"
+      ],
+      "condition": "Uncertain eligibility"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-14",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-14"
+  }
+}
