@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "culture/good-friday-alcohol-ban-repealed/ie",
+  "url": "https://deadends.dev/culture/good-friday-alcohol-ban-repealed/ie",
+  "error": {
+    "signature": "AI tells a traveler or resident that pubs, off-licences, and shops in Ireland are closed for alcohol sales on Good Friday",
+    "regex": "(good friday.*ireland.*alcohol|ireland.*good friday.*(pub|alcohol|drink)|good friday.*dry day.*ireland)",
+    "domain": "culture",
+    "category": "outdated_legal_reference",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.75,
+    "last_updated": "2026-09-15",
+    "summary": "Ireland's Good Friday alcohol sale ban - in place since the Intoxicating Liquor Act 1927 - was repealed by the Intoxicating Liquor (Amendment) Act 2018, effective from Good Friday 2018 (30 March 2018). Pubs, hotels, off-licences, restaurants, registered clubs, holiday camps and other licensed premises can now sell alcohol on Good Friday under their normal licensing hours, the same as any other Friday; Good Friday is not a public holiday in Ireland, so it carries no special closing-hours regime in current law."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a traveler that pubs and off-licences in Ireland will be closed, or that alcohol cannot legally be sold, on Good Friday",
+      "why_fails": "RTE's report on the Dail debate confirms the Intoxicating Liquor (Amendment) Act 2018 ended the alcohol sale ban that had applied since 1927; a contemporaneous legal analysis states the change 'will be effective for Good Friday 2018 (March 30)' and covers 'pubs, hotels, off-licences, restaurants, registered clubs, holiday camps and other licensed premises' - the ban has not applied for any Good Friday since.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.rte.ie/news/politics/2018/0125/936000-dail-politics/",
+        "https://www.algoodbody.com/insights-publications/intoxicating-liquor-amendment-act-2018"
+      ],
+      "condition": "Good Friday, any year from 2018 onward",
+      "common_misconception": "That Ireland's historic 'dry day' religious closing rule for Good Friday is still current law, since it held for over 90 years before being repealed."
+    },
+    {
+      "action": "Assume Good Friday has special statutory licensing hours or restrictions distinct from an ordinary Friday",
+      "why_fails": "The Courts Service of Ireland's own guide to licensing hours lists Ireland's public holidays with special licensing provisions and does not include Good Friday among them, and gives standard on-licence hours (Friday: 10:30am-12:30am) that apply without a Good Friday carve-out.",
+      "fail_rate": 0.4,
+      "sources": [
+        "https://www.courts.ie/guides/licences-and-opening-hours"
+      ],
+      "condition": "Checking whether Good Friday hours differ from a normal Friday"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat Good Friday as licensing-hours-equivalent to a normal Friday: pubs, off-licences, restaurants, hotels, and registered clubs can sell alcohol under their usual hours",
+      "success_rate": 0.9,
+      "how": "Since the 2018 Act, hotels additionally gained the right to sell alcohol to guests at any time on Good Friday, without the old requirement that it be served with a meal.",
+      "sources": [
+        "https://www.algoodbody.com/insights-publications/intoxicating-liquor-amendment-act-2018"
+      ],
+      "condition": "Planning to buy or serve alcohol on Good Friday"
+    },
+    {
+      "action": "Double-check individual venue opening hours anyway, since Good Friday is not an official public holiday in the Republic and some smaller businesses independently choose shorter hours or closure for reasons unrelated to alcohol licensing",
+      "success_rate": 0.7,
+      "sources": [
+        "https://www.courts.ie/guides/licences-and-opening-hours"
+      ],
+      "condition": "Planning a specific visit rather than a general assumption"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}

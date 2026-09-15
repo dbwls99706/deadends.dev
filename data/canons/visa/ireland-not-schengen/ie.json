@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "visa/ireland-not-schengen/ie",
+  "url": "https://deadends.dev/visa/ireland-not-schengen/ie",
+  "error": {
+    "signature": "AI tells a traveler that a Schengen visa or Schengen residence permit lets them enter Ireland, or that an Irish visa covers travel to the Schengen Area",
+    "regex": "(ireland.*schengen|schengen.*ireland|irish visa.*schengen area)",
+    "domain": "visa",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-15",
+    "summary": "Ireland is not part of the Schengen Area. Under Protocol (No 19) to the EU treaties - carried from the 1997 Treaty of Amsterdam into the 2009 Treaty of Lisbon - Ireland and the United Kingdom opted out of the Schengen acquis's border-free travel rules in order to preserve the Common Travel Area (CTA) between the two countries. A Schengen visa or Schengen-area residence permit does not grant entry to Ireland, and an Irish visa does not grant entry to the Schengen Area; the two require separate applications, and the CTA (a UK-Ireland-only travel/social-security arrangement) is a distinct system from Schengen entirely."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a visa-required traveler that holding a valid Schengen visa or Schengen-area residence permit is enough to enter Ireland",
+      "why_fails": "The European Commission's own Schengen Area guidance states Ireland 'is exceptionally allowed by the Schengen Protocol not to apply the Schengen rules (\"opt out\") so it continues to enforce its own visa and border policies' - a Schengen visa carries no entry right for Ireland. Ireland's Department of Foreign Affairs and its embassies worldwide consistently state that a Schengen visa is not valid for travel to Ireland.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://home-affairs.ec.europa.eu/policies/schengen-borders-and-visa/schengen-area_en",
+        "https://www.ireland.ie/en/dfa/visas-for-ireland/"
+      ],
+      "condition": "Visa-required nationality holding only a Schengen visa"
+    },
+    {
+      "action": "Assume an Irish visa, or days spent in Ireland, count toward or grant access to the Schengen Area's border-free zone or 90/180-day rule",
+      "why_fails": "Protocol (No 19) to the Treaty on the Functioning of the European Union states that Ireland and the United Kingdom 'may at any time request to take part in some or all of the provisions of the Schengen acquis' - participation is opt-in and separate. Irish entry/exit stamps and Irish visas are outside Schengen's shared border and day-counting system.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:12016E/PRO/19"
+      ],
+      "condition": "Traveler planning a combined Ireland + mainland-Europe itinerary",
+      "common_misconception": "That EU membership automatically means Schengen membership - Ireland is an EU member state with its own separate visa and border regime."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Apply separately for whichever visas are actually required: an Irish short-stay ('C') visa for Ireland only if the traveler's nationality is on Ireland's own visa-required list (which differs from the Schengen list), plus a Schengen visa for any Schengen-area legs of the same trip",
+      "success_rate": 0.85,
+      "how": "Check Ireland's visa-required nationality list separately from the Schengen list - some nationalities need one visa but not the other, so the two applications must be checked and filed independently.",
+      "sources": [
+        "https://www.ireland.ie/en/dfa/visas-for-ireland/"
+      ],
+      "condition": "Multi-country itinerary including both Ireland and Schengen states"
+    },
+    {
+      "action": "For travel specifically between Ireland and the UK, rely on the Common Travel Area (CTA) rather than Schengen rules",
+      "success_rate": 0.8,
+      "how": "The CTA predates the EU and covers only the UK, Ireland, the Isle of Man and the Channel Islands; it governs travel and social-security rights between those territories and is unrelated to, and unaffected by, either country's Schengen status.",
+      "sources": [
+        "https://www.nidirect.gov.uk/node/14039"
+      ],
+      "condition": "UK-Ireland travel"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-15"
+  }
+}
