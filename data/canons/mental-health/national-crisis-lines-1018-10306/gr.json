@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/national-crisis-lines-1018-10306/gr",
+  "url": "https://deadends.dev/mental-health/national-crisis-lines-1018-10306/gr",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Greece to call 988 (the US line) or says Greece has no dedicated crisis helpline of its own",
+    "regex": "(988.*greece|greece.*crisis line|suicide hotline greece|mental health helpline greece)",
+    "domain": "mental-health",
+    "category": "wrong_hotline_number",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.9,
+    "confidence": 0.65,
+    "last_updated": "2026-09-15",
+    "summary": "988 is a US-only number and does not work in Greece. Greece runs two national, free, 24/7 lines: 1018 (Klimaka's suicide intervention line, operating since 2007) and 10306 (the Ministry of Health's psychosocial support line, launched in 2020), both reachable from landlines and mobiles anywhere in the country."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell the person to call 988 for a mental health crisis while in Greece",
+      "why_fails": "988 is a US Federal Communications Commission-designated number; it is not routed or recognized by Greek telecoms and will not connect to any crisis service from a Greek number or while dialing within Greece.",
+      "fail_rate": 0.95,
+      "common_misconception": "That 988 is an internationally recognized crisis number the way 112 is for emergencies across the EU.",
+      "sources": [
+        "https://www.klimaka.org.gr/19-xronia-grammis-paremvasis-gia-tin-aytoktonia-1018-klimaka-org/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call 1018 (suicide-specific crisis intervention, run by Klimaka since 2007) or 10306 (broader psychosocial support, Ministry of Health, launched 2020)",
+      "success_rate": 0.9,
+      "how": "1018 operates 24/7, accepts calls from landline or mobile anywhere in Greece at local call rates, and is anonymous and confidential. 10306 operates 24/7, is free and anonymous, and is staffed by psychologists, social workers, and psychiatrists; option 1 (psychological support) and option 3 (family/youth support) run around the clock.",
+      "sources": [
+        "https://www.klimaka.org.gr/19-xronia-grammis-paremvasis-gia-tin-aytoktonia-1018-klimaka-org/",
+        "https://www.moh.gov.gr/articles/citizen/xrhsima-thlefwna-amp-dieythynseis/10714-thlefwnikh-grammh-psyxokoinwnikhs-yposthrikshs-10306",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12555299/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/gr",
+        "distinction": "Covers the general EU emergency number, not the country-specific specialized hotline documented here."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}

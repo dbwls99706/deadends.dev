@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/unorganized-beach-no-lifeguard/gr",
+  "url": "https://deadends.dev/safety/unorganized-beach-no-lifeguard/gr",
+  "error": {
+    "signature": "AI tells a tourist that Greek beaches generally have lifeguards on duty for safety",
+    "regex": "(greek beach.*lifeguard|swim.*greece.*safe|beach safety.*greece)",
+    "domain": "safety",
+    "category": "false_safety_assumption",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.6,
+    "last_updated": "2026-09-15",
+    "summary": "Greek law only requires lifeguards on paid, 'organized' beaches with enough visitors (roughly 300+ swimmers), and only during set daytime hours in the June-August season. Free, unorganized beaches - where most swimming actually happens - have no legal lifeguard requirement at all. Greece recorded 376 water deaths in 2025, with no fatalities reported at organized, lifeguarded beaches."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume any Greek beach, including free/undeveloped ones, has a lifeguard on duty",
+      "why_fails": "Lifeguard coverage is legally tied to paid, organized beaches and, even there, is phased in through the season - around 30% of covered beaches have lifeguards by June 1, rising to about 90% by mid-July - and runs only fixed hours (roughly 10:30am-5:30pm). Free beaches without paid concessions, where most tourists and locals actually swim, carry no legal lifeguard requirement, and most of Greece's 357 sea deaths in 2025 occurred outside supervised organized beaches.",
+      "fail_rate": 0.5,
+      "common_misconception": "That lifeguard presence is a general safety standard for Greek beaches rather than a fee-beach-specific, season-phased legal requirement.",
+      "sources": [
+        "https://www.tovima.com/society/beaches-without-lifeguards-376-deaths-in-2025/",
+        "https://news.gtp.gr/2019/06/14/greek-consumer-group-know-your-beach-rights/",
+        "https://epiloges.tv/ti-ischyei-gia-toys-nayagosostes-stis-paralies-i-anakoinosi-toy-ypoyrgeioy-naytilias/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before swimming, check whether the specific beach is a paid 'organized' beach with a lifeguard on duty, and if not, treat it as unsupervised",
+      "success_rate": 0.8,
+      "how": "Organized beaches charging admission are legally required to staff lifeguards roughly 10:30am-5:30pm in June-August once visitor numbers justify it; free/wild beaches generally are not. Swim only within your ability, avoid swimming alone or far from shore at unsupervised beaches, and heed any posted flag warnings.",
+      "sources": [
+        "https://news.gtp.gr/2019/06/14/greek-consumer-group-know-your-beach-rights/",
+        "https://www.tovima.com/society/beaches-without-lifeguards-376-deaths-in-2025/",
+        "https://epiloges.tv/ti-ischyei-gia-toys-nayagosostes-stis-paralies-i-anakoinosi-toy-ypoyrgeioy-naytilias/"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}
