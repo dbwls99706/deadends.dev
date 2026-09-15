@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/amka-required-for-employment-and-healthcare/gr",
+  "url": "https://deadends.dev/policy/amka-required-for-employment-and-healthcare/gr",
+  "error": {
+    "signature": "AI tells a foreigner moving to Greece that an EHIC card covers their ongoing healthcare, or that AMKA is optional for legal employment",
+    "regex": "(amka.*greece|greece.*social security.*number|greece.*employment.*insurance number|παάυπα|paaypa)",
+    "domain": "policy",
+    "category": "administrative_barrier",
+    "first_seen": "2026-08-21",
+    "last_confirmed": "2026-08-21"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.75,
+    "last_updated": "2026-08-21",
+    "summary": "AMKA (Αριθμός Μητρώου Κοινωνικής Ασφάλισης), an 11-digit social security registration number, has been mandatory since October 2009 for legal employment and residence-based healthcare access in Greece. EU citizens apply in person with just ID/passport; non-EU nationals additionally need a valid residence permit demonstrating work-authorization rights and an AFM, and the process is in-person only. Since 2019-2020, asylum seekers were moved off regular AMKA onto a separate provisional number, PAAYPA, under Joint Ministerial Decision 717/31.01.2020; recognized refugees are entitled to the regular permanent AMKA. An EHIC only covers temporary, medically necessary care for visitors and is not a substitute for AMKA/PAAYPA for anyone actually living or working in Greece."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell an EU citizen moving to Greece for work that their EHIC (European Health Insurance Card) covers their healthcare once they're a resident, so they don't need to register for AMKA",
+      "why_fails": "EHIC only covers temporary, medically necessary treatment during a visit; it is not a substitute for the social-insurance registration (AMKA) required for legal employment and ongoing residence-based healthcare access, which has been mandatory since October 2009.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://mitos.gov.gr/index.php/ΔΔ:Έκδοση_ΑΜΚΑ_σε_πολίτες_τρίτων_χωρών_και_ανιθαγενείς_(ενήλικοι)"
+      ],
+      "condition": "EU citizen taking up residence or employment in Greece"
+    },
+    {
+      "action": "Tell a non-EU/third-country national they can get an AMKA the same way an EU citizen does, or that any asylum seeker gets regular AMKA",
+      "why_fails": "Non-EU nationals must first hold a residence permit demonstrating work-authorization rights (and typically an AFM) before applying for AMKA, in person only - there is no online submission. Since Joint Ministerial Decision 717/31.01.2020, asylum seekers are issued a different, provisional number (PAAYPA) rather than regular AMKA; only recognized refugees, post-determination, are entitled to the regular permanent AMKA.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://ypergasias.gov.gr/en/social-security/insured-persons/social-security-registration-number-amka/"
+      ],
+      "condition": "Non-EU national or asylum seeker",
+      "common_misconception": "That AMKA and PAAYPA are interchangeable, or that the pre-2019 rule (asylum seekers getting regular AMKA) is still current."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "EU citizens: register for AMKA in person at an e-EFKA branch or a KEP (citizen service center) with ID/passport. Non-EU citizens: obtain a residence permit and AFM first, then apply for AMKA in person at e-EFKA/KEP with those documents",
+      "success_rate": 0.85,
+      "how": "The AMKA process has no digital/online submission route - it requires an in-person visit with the correct documents for your citizenship category.",
+      "sources": [
+        "https://mitos.gov.gr/index.php/ΔΔ:Έκδοση_ΑΜΚΑ_σε_πολίτες_τρίτων_χωρών_και_ανιθαγενείς_(ενήλικοι)"
+      ],
+      "condition": "Foreigner establishing residence or employment in Greece"
+    },
+    {
+      "action": "Asylum seekers should apply for PAAYPA (not standard AMKA) through the Asylum Service under the current Joint Ministerial Decision framework",
+      "success_rate": 0.7,
+      "sources": [
+        "https://ypergasias.gov.gr/en/social-security/insured-persons/social-security-registration-number-amka/"
+      ],
+      "condition": "Pending asylum application, not yet recognized as a refugee"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "medical/ehic-non-eu-ineligible/gr",
+        "distinction": "That canon covers EHIC eligibility for temporary visitors; this one covers AMKA/PAAYPA, the separate registration needed for employment and ongoing residence-based healthcare access."
+      },
+      {
+        "error_id": "banking/afm-tax-number-required/gr",
+        "distinction": "AFM is a tax registration number needed for banking, leases, and contracts; AMKA is a separate social-security number needed for employment and healthcare. Non-EU applicants typically need AFM before they can get AMKA."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-08-21",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-08-21"
+  }
+}
