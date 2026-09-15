@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/foraged-food-poisoning-hotline/gr",
+  "url": "https://deadends.dev/food-safety/foraged-food-poisoning-hotline/gr",
+  "error": {
+    "signature": "AI tells someone in Greece who may have eaten a poisonous wild mushroom or foraged plant to just call 112 or go to the nearest ER, as if that is the only option",
+    "regex": "(wild mushroom.*greece|foraged.*greece.*sick|ate.*mushroom.*athens|poison.*greece.*emergency)",
+    "domain": "food-safety",
+    "category": "missing_specialized_resource",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "gr",
+      "country_name": "Greece",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-15",
+    "summary": "Greece has run a single national Poison Information Center (210 779 3777) at Athens' P. & A. Kyriakou Children's Hospital since 1975, free and staffed 24/7, that gives the public and doctors direct toxicology guidance on suspected poisoning from wild mushrooms, foraged plants, medication, or chemicals. Calling 112 still reaches emergency services, but skipping the poison center means missing free specialist guidance on whether ER treatment or a specific antidote is even needed."
+  },
+  "dead_ends": [
+    {
+      "action": "Rely only on 112 or a hospital ER for a suspected food/plant poisoning without also calling the national Poison Information Center",
+      "why_fails": "112 dispatches general emergency responders, and a walk-in ER may not have a toxicologist on call. Greece centralizes poisoning expertise in one national center specifically so callers can get species-specific guidance (e.g. on a particular mushroom or plant) and be told whether hospital treatment is even necessary, by phone, before or alongside an ER visit.",
+      "fail_rate": 0.3,
+      "common_misconception": "That Greece has no dedicated poison hotline separate from 112, so 112 or the ER is the only path to help.",
+      "sources": [
+        "https://www.moh.gov.gr/articles/citizen/xrhsima-thlefwna-amp-dieythynseis/203-210-7793777-kentro-dhlhthriasewn",
+        "https://www.athensvoice.gr/life/health-fitness/406141/kentro-dilitiriaseon-ekei/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call the national Poison Information Center directly at 210 779 3777 for free 24/7 toxicology guidance, in addition to 112 for a life-threatening emergency",
+      "success_rate": 0.85,
+      "how": "The center, based at Athens' P. & A. Kyriakou Children's Hospital since 1975, operates around the clock and answers calls from the public as well as doctors and hospitals nationwide, free of charge, on poisoning of any kind.",
+      "tradeoff": "The service is reported to be understaffed relative to its original design (down from 10 to 6 physician posts as of a 2012 reorganization) and answers primarily in Greek, so hold times or a language barrier are possible; always call 112 immediately if symptoms are severe.",
+      "sources": [
+        "https://www.moh.gov.gr/articles/citizen/xrhsima-thlefwna-amp-dieythynseis/203-210-7793777-kentro-dhlhthriasewn",
+        "https://aglaiakyriakou.gr/?page_id=75"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/gr",
+        "distinction": "Covers the general EU emergency number, not the country-specific specialized hotline documented here."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}

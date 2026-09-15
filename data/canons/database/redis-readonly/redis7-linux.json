@@ -8,7 +8,7 @@
     "domain": "database",
     "category": "replication_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-15"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.89,
     "confidence": 0.91,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-15",
     "summary": "A write command was sent to a Redis replica (slave) node which is read-only by default. This happens when the application connects to a replica instead of the primary, often after a failover event changes which node is primary, or when using Redis Sentinel/Cluster without proper client configuration."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Allowing writes on a replica breaks replication consistency. Writes to the replica are not replicated to the primary or other replicas, and will be overwritten on the next sync. This creates data divergence and silent data loss.",
       "fail_rate": 0.9,
       "sources": [
-        "https://www.postgresql.org/docs/current/high-availability.html"
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "After a failover, the primary role moves to a different node. A hardcoded IP will point to the old primary (now a replica). The application needs to discover the current primary dynamically.",
       "fail_rate": 0.75,
       "sources": [
-        "https://redis.io/docs/"
+        "https://redis.io/docs/latest/operate/oss_and_stack/management/replication/"
       ],
       "condition": ""
     }
@@ -92,6 +92,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 48,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-15"
   }
 }

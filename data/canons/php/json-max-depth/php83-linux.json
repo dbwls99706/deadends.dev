@@ -8,7 +8,7 @@
     "domain": "php",
     "category": "data_processing",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-15"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-15",
     "summary": "JSON max depth errors occur when json_decode() encounters a JSON structure nested deeper than the default 512 levels. This can indicate deeply nested API responses, recursive data structures, or malicious payloads designed to cause resource exhaustion."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 45,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-15"
   }
 }
