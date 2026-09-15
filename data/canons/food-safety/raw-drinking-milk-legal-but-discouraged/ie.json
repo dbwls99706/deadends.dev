@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/raw-drinking-milk-legal-but-discouraged/ie",
+  "url": "https://deadends.dev/food-safety/raw-drinking-milk-legal-but-discouraged/ie",
+  "error": {
+    "signature": "AI tells someone in Ireland that selling raw (unpasteurised) drinking milk directly to consumers is illegal, or fails to warn that the Food Safety Authority of Ireland advises against drinking it at all",
+    "regex": "(raw milk.*ireland|unpasteurised milk.*ireland|ireland.*raw milk)",
+    "domain": "food-safety",
+    "category": "regulatory_barrier",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.65,
+    "last_updated": "2026-09-15",
+    "summary": "Selling raw drinking milk directly to consumers is legal in Ireland, regulated under S.I. 306 of 2015 and the European Union (Food and Feed Hygiene) Regulations 2020 (S.I. 22 of 2020): producers supplying more than 30 litres per week, or supplying any quantity beyond a 20km radius of their farm, must register with the Department of Agriculture, Food and the Marine (DAFM) and put a mandatory FSAI/DAFM health warning on the label. Despite this legal sale route, the FSAI's official public-health advice is that raw milk should not be consumed without boiling first, and never by children, pregnant women, older people, or those who are unwell or have a chronic illness - legality and official dietary advice point in opposite directions."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell a farmer, market stall, or consumer that selling raw (unpasteurised) drinking milk directly to the public is banned in Ireland",
+      "why_fails": "The DAFM/FSAI-approved 'Raw Milk Ireland Industry Guide to Legal Requirements and Good Practice' confirms raw milk for direct human consumption may be sold once the producer registers with DAFM's Milk Hygiene Division (required once sales exceed 30 litres/week or travel beyond a 20km radius of the farm) and meets labelling and hygiene rules under S.I. 306 of 2015 and S.I. 22 of 2020 - there is no outright sale ban, and a March 2026 report confirms the same registration threshold and approval process remain in force with farms currently registered and selling under it.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://assets.gov.ie/118075/d26752bb-cfc1-439c-84f6-87c78839d1af.pdf",
+        "https://www.farmersjournal.ie/food/news/raw-milk-it-has-the-potential-to-be-a-vital-community-asset-906938"
+      ],
+      "condition": "Farm-gate, market, or small-retail raw milk sale",
+      "common_misconception": "That because several other EU/US jurisdictions ban retail raw milk sales, Ireland must too."
+    },
+    {
+      "action": "Tell a consumer that raw milk sold legally in Ireland is therefore safe to drink for anyone, including children or pregnant women",
+      "why_fails": "The FSAI's own consumer advice states plainly that it 'advises the public not to drink raw milk without boiling it first' and that infants and children, pregnant women, older people, and those who are unwell or have chronic illness face elevated risk and should avoid it; the FSAI's Scientific Committee has gone further and recommended that sale of raw milk for direct human consumption should be prohibited outright, a recommendation the State has not enacted.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.fsai.ie/consumer-advice/food-safety-and-hygiene/advice-on-raw-milk"
+      ],
+      "condition": "Any raw milk consumption, especially by a vulnerable group"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Producers: register with DAFM's Milk Hygiene Division before selling more than 30 litres/week or selling beyond a 20km radius, and include the exact FSAI/DAFM-composed health warning on every label or point-of-sale notice",
+      "success_rate": 0.85,
+      "how": "The required label text is: 'This milk has not been heat treated and may contain harmful bacteria. The FSAI strongly advises that, unless it is boiled first, it should not be consumed by children, pregnant women, older people or those who are unwell or have chronic illness.' For non-prepacked milk sold at a farm shop or stall, the same wording must appear on a ticket or notice visible to the buyer.",
+      "sources": [
+        "https://assets.gov.ie/118075/d26752bb-cfc1-439c-84f6-87c78839d1af.pdf"
+      ],
+      "condition": "Registered raw milk producer selling directly to consumers"
+    },
+    {
+      "action": "Consumers who want the perceived benefits of farm-fresh milk without the pathogen risk should boil raw milk before drinking it, or buy pasteurised milk instead",
+      "success_rate": 0.9,
+      "sources": [
+        "https://www.fsai.ie/consumer-advice/food-safety-and-hygiene/advice-on-raw-milk"
+      ],
+      "condition": "General consumer, especially vulnerable groups"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}

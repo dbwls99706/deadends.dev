@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-response-not-specialist-team/ie",
+  "url": "https://deadends.dev/mental-health/crisis-response-not-specialist-team/ie",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Ireland that dialling 999/112 will send a dedicated mental health crisis team, rather than Gardai and/or an ambulance",
+    "regex": "(ireland.*mental health crisis|mental health crisis.*ireland|999.*mental health.*ireland)",
+    "domain": "mental-health",
+    "category": "crisis_resource_mismatch",
+    "first_seen": "2026-09-15",
+    "last_confirmed": "2026-09-15"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ie",
+      "country_name": "Ireland",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-09-15",
+    "summary": "Ireland has no nationwide dedicated mental-health crisis response embedded in 999/112 dispatch. The HSE's own guidance for someone about to harm themselves or someone else is to 'phone 112 or 999 or go to your nearest emergency department (ED)' - which in practice usually brings Gardai and/or general ambulance crews, not a specialist mental health clinician. Co-responder pilot schemes (e.g. the Community Access Support Team in Limerick, Crisis Resolution Services in Sligo/Donegal/Kerry) exist only in specific areas as of 2026 and have not been rolled out nationally. The Mental Health Commission's 2024 Annual Report found almost a third of community applications for involuntary admission were made by a Garda, not a healthcare professional."
+  },
+  "dead_ends": [
+    {
+      "action": "Tell someone that calling 999 or 112 in a mental health crisis in Ireland will dispatch a mental health professional or specialist crisis team to meet them",
+      "why_fails": "The HSE's own urgent-help guidance says to 'Phone 112 or 999 or go to your nearest emergency department (ED)' without promising a mental-health-specific responder; reporting on the Mental Health Commission's 2024 Annual Report found gardai made almost a third of community applications for involuntary admission in 2024, and dedicated co-responder teams such as Limerick's CAST are still pilot projects, not a national service, as of 2026.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www2.hse.ie/mental-health/services-support/get-urgent-help/",
+        "https://www.irishtimes.com/health/your-wellness/2026/03/05/in-limerick-a-new-mental-health-approach-diverts-people-in-crisis-away-from-garda-cells-2/"
+      ],
+      "condition": "Mental health crisis anywhere outside a CAST/Crisis Resolution pilot area",
+      "common_misconception": "That Ireland's emergency dispatch works like jurisdictions with mature co-responder or embedded clinician models everywhere, rather than only in a few pilot regions."
+    },
+    {
+      "action": "Treat a Garda response to a mental health crisis as equivalent to a clinical assessment",
+      "why_fails": "Mental Health Commission chairman John Farrelly said publicly of the pattern of Garda-led involuntary admissions: 'When people are unwell, they need to be met by a healthcare practitioner and not a law enforcement officer' - Gardai can detain someone under the Mental Health Act 2001 but are not clinicians, and the Commission on the Future of Policing's 2018 recommendation for 24/7 Crisis Intervention Teams in every Garda division still had not been fully implemented as of the 2023 reporting on it.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.irishexaminer.com/news/arid-41158744.html"
+      ],
+      "condition": "Garda-led response to a community mental health crisis"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a non-life-threatening crisis, use a dedicated mental health support line instead of/alongside 999: Text HELLO to 50808 (free, 24/7, anonymous) or call Samaritans on 116 123 (free, 24/7)",
+      "success_rate": 0.75,
+      "how": "These services connect to a trained volunteer rather than emergency dispatch, and are listed directly on the HSE's own urgent-help page alongside 999/112 and the nearest ED.",
+      "sources": [
+        "https://www2.hse.ie/mental-health/services-support/get-urgent-help/"
+      ],
+      "condition": "Crisis where the person is not in immediate physical danger"
+    },
+    {
+      "action": "If the person is at immediate risk of harm, still call 999/112 or go to the nearest ED as the HSE advises, but tell the dispatcher explicitly that it is a mental health crisis and, where available, ask whether the local area has a Crisis Resolution Service or Community Access Support Team that can be looped in",
+      "success_rate": 0.55,
+      "how": "Coverage is expanding area-by-area (Sligo, Donegal, Kerry, Limerick, with Midlands funded for 2026) but is not guaranteed nationwide, so confirm what is actually available locally rather than assuming a specialist team will respond.",
+      "sources": [
+        "https://www.irishtimes.com/health/your-wellness/2026/03/05/in-limerick-a-new-mental-health-approach-diverts-people-in-crisis-away-from-garda-cells-2/"
+      ],
+      "condition": "Immediate danger to self or others"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-15",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-15"
+  }
+}
