@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/sns24-not-emergency-dispatch/pt",
+  "url": "https://deadends.dev/mental-health/sns24-not-emergency-dispatch/pt",
+  "error": {
+    "signature": "AI tells someone in an acute mental health crisis in Portugal to call the SNS24 psychological line or SOS Voz Amiga expecting it to dispatch an ambulance or police",
+    "regex": "(sns *24|voz amiga).{0,40}(crisis|emergency|dispatch|ambulance|portugal)",
+    "domain": "mental-health",
+    "category": "wrong_hotline_expectation",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-16",
+    "summary": "SNS24's psychological support line (808 24 24 24, option 4) is staffed by psychologists who provide counselling; per the Portuguese government's own announcement, a call is transferred to INEM only if the psychologist judges during the call that there is danger to the caller or others. SOS Voz Amiga (213 544 545) is a volunteer emotional-support line with no stated emergency transfer at all. Neither is a substitute for dialing 112 directly when the danger is already imminent."
+  },
+  "dead_ends": [
+    {
+      "action": "Call SNS24's psychological line (808 24 24 24, option 4) and wait for it to send help automatically during an active life-threatening crisis",
+      "why_fails": "The Portuguese government's own release on this line states the call is answered by a psychologist providing counselling for anxiety, worsening prior conditions, and crisis management; it is only transferred to INEM ('a chamada e transferida para o INEM') if the psychologist identifies danger to the caller or a third party during the conversation. That is a judgment made after some minutes of talking, not an automatic dispatch the moment the line picks up.",
+      "fail_rate": 0.6,
+      "condition": "Danger is already imminent (e.g. an attempt in progress) rather than a building crisis",
+      "sources": [
+        "https://portugal.gov.pt/gc23/comunicacao/noticias/linha-de-apoio-psicologico-do-sns-24-ja-atendeu-mais-de-240-mil-chamadas"
+      ],
+      "common_misconception": "People assume any 'health' hotline works like 112 and will send emergency responders the moment danger is mentioned."
+    },
+    {
+      "action": "Call SOS Voz Amiga (213 544 545 / 912 802 669 / 963 524 660) expecting police or an ambulance to be sent",
+      "why_fails": "SOS Voz Amiga is answered by trained volunteers providing anonymous, confidential emotional listening for loneliness, anxiety, depression, and suicide risk - its own site describes no emergency-dispatch function, and it is only staffed 15:30-00:30 daily, not 24/7.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.sosvozamiga.org/en/contactos"
+      ]
+    },
+    {
+      "action": "Assume the dedicated 1411 national suicide-prevention line dispatches emergency responders the instant a caller mentions risk",
+      "why_fails": "The government's own launch announcement for line 1411 says it is staffed by psychologists and specialist nurses ('assegurada por psicologos e enfermeiros especialistas'), the same counselling-first model as the SNS24 psychological line - a professional judgment call precedes any transfer to CODU/INEM, it is not an instant dispatch line like 112.",
+      "fail_rate": 0.55,
+      "condition": "Danger is already imminent rather than a building crisis",
+      "sources": [
+        "https://portugal.gov.pt/gc25/comunicacao/noticias/nova-linha-de-prevencao-do-suicidio-entra-em-funcionamento"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Call 112 directly whenever danger to life is immediate, and reserve SNS24/1411/SOS Voz Amiga for support during a non-acute crisis",
+      "success_rate": 0.9,
+      "how": "112 is answered by INEM-coordinated emergency services and can dispatch an ambulance or police immediately; it is the correct first call for an attempt in progress or immediate danger. Use the psychological/emotional-support lines when you need someone to talk to but are not in immediate physical danger.",
+      "sources": [
+        "https://portugal.gov.pt/gc23/comunicacao/noticias/linha-de-apoio-psicologico-do-sns-24-ja-atendeu-mais-de-240-mil-chamadas"
+      ]
+    },
+    {
+      "action": "Use SNS24 (808 24 24 24, option 4) or the 1411 suicide-prevention line for 24/7 professional-staffed crisis counselling when danger is not immediate",
+      "success_rate": 0.8,
+      "how": "Both lines are free, available around the clock, and staffed by psychologists or specialist nurses who can still escalate to INEM/CODU mid-call if the situation deteriorates.",
+      "tradeoff": "Escalation depends on the professional's in-call judgment, so it is slower than dialing 112 directly.",
+      "sources": [
+        "https://portugal.gov.pt/gc23/comunicacao/noticias/linha-de-apoio-psicologico-do-sns-24-ja-atendeu-mais-de-240-mil-chamadas",
+        "https://portugal.gov.pt/gc25/comunicacao/noticias/nova-linha-de-prevencao-do-suicidio-entra-em-funcionamento"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/pt",
+        "distinction": "The 112 canon is about tourists dialing the wrong number (911) out of habit; this canon is about dialing a real Portuguese support line that is not designed to dispatch emergency responders on its own."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-16"
+  }
+}

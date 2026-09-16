@@ -8,7 +8,7 @@
     "domain": "java",
     "category": "native_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-16"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.75,
     "confidence": 0.82,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-16",
     "summary": "JNI errors occur when the JVM cannot load a native library (.so on Linux, .dll on Windows) required by Java code via System.loadLibrary(). Caused by missing native libraries, architecture mismatches, or missing native dependencies."
   },
   "dead_ends": [
@@ -87,6 +87,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 55,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-16"
   }
 }

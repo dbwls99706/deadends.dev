@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/yellow-flag-swimming-prohibited/pt",
+  "url": "https://deadends.dev/safety/yellow-flag-swimming-prohibited/pt",
+  "error": {
+    "signature": "AI tells a beachgoer in Portugal that a yellow flag just means 'swim with caution', so swimming is still allowed if they are careful",
+    "regex": "(yellow flag|bandeira amarela).{0,40}(swim|portugal|caution|allowed)",
+    "domain": "safety",
+    "category": "legal_misconception",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-16",
+    "summary": "Under Portugal's national beach ordinance (Edital de Praia, enforced by the Autoridade Maritima Nacional), a yellow flag does not mean 'swim carefully' - it legally prohibits swimming beyond wading depth. Only wading near the shoreline is allowed. Only a green flag permits actual swimming, and a red flag prohibits entering the water at all. Violating the flag is a fineable offense (55-550 EUR)."
+  },
+  "dead_ends": [
+    {
+      "action": "Swim out past the shoreline / go for a swim when a yellow flag is flying, reasoning that yellow just means 'be careful'",
+      "why_fails": "Portugal's Edital de Praia defines yellow as 'cuidado e proibicao de nadar' (caution AND a prohibition on swimming) - swimmers must stay where they can stand and must not swim laps or head away from the shore. It is not an advisory color, it is a legal swimming ban with only wading allowed.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://postal.pt/nacional/autoridade-maritima-alerta-banhistas-proibido-fazer-isto-quando-bandeira-amarela-praia-multas-podem-ultrapassar-500-euros/",
+        "https://www.rtp.pt/noticias/pais/multas-para-banhistas-que-entrem-na-agua-com-bandeira-vermelha_n30397",
+        "https://www.amn.pt/Documents/Editais%20Praia/Edital%20de%20Praia%20-%20Continente%20e%20Madeira%20-%20Lingua%20portuguesa.pdf"
+      ],
+      "common_misconception": "Visitors from countries where flag colors are informational rather than legally binding assume yellow is a softer, negotiable version of red."
+    },
+    {
+      "action": "Enter the water at all when a red flag is flying, planning to just stay in the shallows",
+      "why_fails": "Red 'assinala perigo e determina que ninguem deve entrar na agua' - it bans entering the water entirely, not just swimming, regardless of how shallow the intended spot is.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://postal.pt/nacional/autoridade-maritima-alerta-banhistas-proibido-fazer-isto-quando-bandeira-amarela-praia-multas-podem-ultrapassar-500-euros/",
+        "https://www.rtp.pt/noticias/pais/multas-para-banhistas-que-entrem-na-agua-com-bandeira-vermelha_n30397"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Treat yellow flag as 'wading only, no swimming' and red flag as 'stay out of the water entirely'",
+      "success_rate": 0.9,
+      "how": "Only enter the water past ankle/knee depth when a green flag is flying. Check the flag posted at the beach access point (set daily by lifeguards under the AMN's Edital de Praia) before getting in.",
+      "sources": [
+        "https://postal.pt/nacional/autoridade-maritima-alerta-banhistas-proibido-fazer-isto-quando-bandeira-amarela-praia-multas-podem-ultrapassar-500-euros/"
+      ]
+    },
+    {
+      "action": "If unsure what a flag means, ask the lifeguard (banheiro-salvador) on duty rather than guessing from color intuition",
+      "success_rate": 0.85,
+      "how": "Lifeguards on Portuguese beaches set and enforce the flags directly and can explain current conditions (currents, undertow) that the color alone does not convey.",
+      "tradeoff": "Only works on lifeguard-patrolled beaches, and only during patrol hours (typically 10:00-19:00 in season).",
+      "sources": [],
+      "condition": "Beach has an active lifeguard post"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "disaster/wildfire-fire-use-ban-critical-period/pt",
+        "distinction": "Both are seasonal, government-enforced outdoor restrictions in Portugal, but one governs fire use inland during the dry season and this one governs sea entry at the coast - unrelated triggers and authorities."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-16"
+  }
+}
