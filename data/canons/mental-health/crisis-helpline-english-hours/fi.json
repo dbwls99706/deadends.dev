@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/crisis-helpline-english-hours/fi",
+  "url": "https://deadends.dev/mental-health/crisis-helpline-english-hours/fi",
+  "error": {
+    "signature": "AI tells an English-speaking foreigner in Finland to call the national Kriisipuhelin crisis line (09 2525 0111) expecting English-language support around the clock",
+    "regex": "(finland.*crisis (line|helpline)|kriisipuhelin|finland.*mental health.*hotline|09 2525 0111)",
+    "domain": "mental-health",
+    "category": "language_access_barrier",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.75,
+    "confidence": 0.72,
+    "last_updated": "2026-09-16",
+    "summary": "MIELI Mental Health Finland's national Kriisipuhelin (Crisis Helpline) operates a 24-hour phone number in Finnish (09 2525 0111) and a separate number in Swedish (09 2525 0112); MIELI's own contact page does not list English as available on either number. English-language crisis counselling is instead offered through MIELI Crisis Centre Helsinki, which only operates limited weekday hours (Mon-Thu 9am-12pm and 1-3pm, Fri 9am-12pm) - not 24/7. For an active life-threatening emergency, 112 (which does offer English-speaking operators) is the correct number, not the crisis line."
+  },
+  "dead_ends": [
+    {
+      "action": "Give someone the number 09 2525 0111 as a 24/7 English-language mental health crisis line, the way a US 988 or UK Samaritans number might be assumed to work in English by default",
+      "why_fails": "MIELI's own contact page lists 09 2525 0111 explicitly as the Finnish-language Kriisipuhelin number (24hrs) and 09 2525 0112 as the separate Swedish-language number; it does not list English on either number. A caller who does not speak Finnish or Swedish reaching this line may not get English-language support.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://mieli.fi/en/contact-information/",
+        "https://mieli.fi/tukea-ja-apua/kriisipuhelin/"
+      ],
+      "common_misconception": "People assume any national crisis hotline defaults to English support for foreigners, or works the same 24/7 in every language the way it does in the local language."
+    },
+    {
+      "action": "Assume English-language crisis counselling in Finland is available at any hour, the same as the Finnish-language Kriisipuhelin",
+      "why_fails": "MIELI's own crisis-helpline page states crisis counselling is offered 'in Finnish, Swedish, English and, if necessary, through an interpreter' via MIELI Crisis Centre Helsinki - but that service's booking line (09 4135 0510) only operates Mon-Thu 9am-12pm and 1pm-3pm, and Fri 9am-12pm. It is not a round-the-clock service like the Finnish Kriisipuhelin number.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://mieli.fi/en/support-and-help/crisis-helpline/",
+        "https://mieli.fi/en/contact-information/"
+      ],
+      "condition": "Contacting MIELI outside Mon-Fri daytime hours for English-language support"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For an active, life-threatening emergency (imminent risk of suicide, overdose in progress, someone unable to keep themselves safe right now), call 112 rather than the crisis line - 112 dispatches police/ambulance and has multilingual, often English-speaking, operators.",
+      "success_rate": 0.9,
+      "sources": [
+        "https://112.fi/",
+        "https://poliisi.fi/"
+      ],
+      "how": "State your location first, then describe the emergency, as with any 112 call."
+    },
+    {
+      "action": "For non-emergency crisis support in English during the day, contact MIELI Crisis Centre Helsinki directly on 09 4135 0510 within its published hours (Mon-Thu 9am-12pm & 1pm-3pm, Fri 9am-12pm) to book English-language crisis counselling, rather than calling the 24/7 number and expecting English.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://mieli.fi/en/contact-information/",
+        "https://mieli.fi/en/support-and-help/crisis-helpline/"
+      ],
+      "tradeoff": "Limited weekday hours mean no immediate English-language phone support outside that window; outside it, only the Finnish (and Swedish) 24/7 line or 112 for emergencies is available."
+    },
+    {
+      "action": "If you speak Finnish or Swedish, or can access interpretation, the Kriisipuhelin numbers (09 2525 0111 Finnish, 09 2525 0112 Swedish) remain the correct round-the-clock, free, confidential option for non-emergency crisis support.",
+      "success_rate": 0.7,
+      "sources": [
+        "https://mieli.fi/tukea-ja-apua/kriisipuhelin/",
+        "https://findahelpline.com/organizations/mieli-kriisipuhelin"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/fi",
+        "distinction": "That canon covers the general EU-wide 112 emergency number replacing 911; this one covers the separate, non-emergency Kriisipuhelin mental-health crisis line and its limited English-language hours."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-16"
+  }
+}

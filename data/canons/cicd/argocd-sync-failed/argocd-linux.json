@@ -8,7 +8,7 @@
     "domain": "cicd",
     "category": "gitops",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-16"
   },
   "environment": {
     "runtime": {
@@ -21,25 +21,25 @@
     "resolvable": "true",
     "fix_success_rate": 0.83,
     "confidence": 0.86,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-16",
     "summary": "ArgoCD failed to sync the desired state from Git to the Kubernetes cluster. Causes include invalid manifests, RBAC issues, resource conflicts, or CRDs not installed in the target cluster."
   },
   "dead_ends": [
     {
       "action": "Repeatedly clicking Sync in the ArgoCD UI without fixing the manifests",
-      "why_fails": "If the manifests are invalid or the cluster state prevents application, retrying sync produces the same error",
+      "why_fails": "If the manifests are invalid or the cluster state prevents application, retrying sync produces the same error - the diff between desired (Git) and live state doesn't change until the manifest itself changes.",
       "fail_rate": 0.9,
       "sources": [
-        "https://argo-cd.readthedocs.io/en/stable/"
+        "https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/"
       ],
       "condition": ""
     },
     {
       "action": "Using --force flag to override sync conflicts",
-      "why_fails": "Force sync can delete and recreate resources, causing downtime and data loss. It masks the underlying issue without resolving it.",
+      "why_fails": "Argo CD's own docs warn that the Force=true sync option synchronizes resources via 'kubectl delete/create' and 'has a destructive action, which could cause an outage for your application'; Replace=true carries the same outage warning. It masks the underlying issue without resolving it.",
       "fail_rate": 0.7,
       "sources": [
-        "https://argo-cd.readthedocs.io/en/stable/"
+        "https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/"
       ],
       "condition": ""
     }
@@ -49,14 +49,18 @@
       "action": "Check ArgoCD app diff and fix manifest issues",
       "success_rate": 0.88,
       "how": "Run argocd app diff <app-name> to see what differs between desired and live state. Fix YAML issues in Git. Check argocd app get <app-name> for detailed sync status and error messages.",
-      "sources": [],
+      "sources": [
+        "https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/"
+      ],
       "condition": ""
     },
     {
       "action": "Ensure CRDs and dependencies are installed before syncing",
       "success_rate": 0.85,
-      "how": "Use ArgoCD sync waves and hooks: annotate CRDs with argocd.argoproj.io/sync-wave: '-1' to install them before dependent resources. Verify CRDs exist: kubectl get crd.",
-      "sources": [],
+      "how": "Use ArgoCD sync waves and hooks: annotate CRDs with argocd.argoproj.io/sync-wave: '-1' to install them before dependent resources (waves run lowest-number first and can be negative). Verify CRDs exist: kubectl get crd.",
+      "sources": [
+        "https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/"
+      ],
       "condition": ""
     }
   ],
@@ -86,6 +90,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-16"
   }
 }

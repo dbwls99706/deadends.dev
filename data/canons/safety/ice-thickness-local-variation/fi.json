@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "safety/ice-thickness-local-variation/fi",
+  "url": "https://deadends.dev/safety/ice-thickness-local-variation/fi",
+  "error": {
+    "signature": "AI tells someone that a Finnish lake shown as frozen on an ice-situation map, or that has been below freezing for several days, is safe to walk on everywhere",
+    "regex": "(finland.*frozen lake|finland.*ice fishing|finland.*walk.*ice|jää.*turvallis|finland.*ice thickness)",
+    "domain": "safety",
+    "category": "physical_hazard",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.82,
+    "confidence": 0.78,
+    "last_updated": "2026-09-16",
+    "summary": "Finland's Environment Institute publishes ice-thickness estimates for ~46-47 monitoring sites nationwide, updated only about three times a month, and states explicitly that people should not go onto ice based solely on these map estimates because thickness varies greatly even within the same lake. The Finnish Border Guard sets minimum thickness guidance (5 cm bare minimum, 10 cm to reliably carry an adult, 15 cm for a snowmobile/quad) but flags flowing-water areas - straits, narrows, river mouths, near bridges and reed beds - as consistently thinner and dangerous even when the rest of the lake looks solid."
+  },
+  "dead_ends": [
+    {
+      "action": "Check the national ice-situation map or the fact that the lake has looked frozen for days, then treat the whole lake surface as equally safe to walk on",
+      "why_fails": "The Finnish Environment Institute (SYKE) publishes ice estimates for only ~46-47 observation sites, updated about three times a month, and states directly: 'You should not go on the ice solely based on the estimates and observations on the map because ice quality and thickness vary greatly between different water bodies and even within the same lake.'",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://www.vesi.fi/en/ice-situation/",
+        "https://raja.fi/en/instructions-for-walking-on-ice"
+      ],
+      "common_misconception": "Visitors assume a lake that looks uniformly white and solid is uniformly safe, or that a published regional ice map is a real-time, location-specific safety guarantee."
+    },
+    {
+      "action": "Walk or ride across narrows, straits, river mouths, near bridges, piers, or reed beds because the open part of the same lake tested thick enough",
+      "why_fails": "Both the Finnish Border Guard and Finnish Rescue Services (pelastustoimi) specifically warn that ice is always thinner in flowing-water areas - narrows, straits, estuaries, near bridges, and shipping channels - regardless of how thick the ice is elsewhere on the same body of water; snow cover can also hide thin or slushy ice.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://raja.fi/en/instructions-for-walking-on-ice",
+        "https://pelastustoimi.fi/-/pohjois-savossa-jaatilanne-vaihteleva-jaalla-liikkuessa-syyta-olla-varautunut"
+      ],
+      "condition": "Route crosses narrows, currents, or structures on the ice"
+    },
+    {
+      "action": "Go out onto the ice alone without ice picks (jäänaskalit), a whistle, a throw rope, or telling anyone the planned route",
+      "why_fails": "Finnish Rescue Services guidance states the single best safety tool is a companion - going alone is discouraged - and that ice picks worn around the neck (not stored in a bag), a whistle, a rope, and a buoyant pack with dry spare clothes are basic safety gear, alongside informing someone of your route before you go.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://raja.fi/en/instructions-for-walking-on-ice",
+        "https://pelastustoimi.fi/-/pohjois-savossa-jaatilanne-vaihteleva-jaalla-liikkuessa-syyta-olla-varautunut"
+      ],
+      "condition": "Solo trips onto lake or sea ice"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Use the SYKE ice-situation map only as a rough regional starting point, then test actual ice thickness yourself before committing to a route - do not trust a single lake-wide reading.",
+      "success_rate": 0.8,
+      "how": "The Border Guard's minimum figures: at least 5 cm of clear ice is the absolute minimum, 10 cm is needed to reliably carry an adult on foot/skis, and 15 cm for a snowmobile or quad bike; only drive a car on officially marked ice roads.",
+      "sources": [
+        "https://raja.fi/en/instructions-for-walking-on-ice",
+        "https://www.vesi.fi/en/ice-situation/"
+      ]
+    },
+    {
+      "action": "Avoid narrows, straits, river/stream mouths, bridges, piers, and reed beds even when the open lake ice looks fine, and rely on visible local knowledge (marked routes, ice-fishing groups already out) rather than assumptions from the shoreline.",
+      "success_rate": 0.82,
+      "sources": [
+        "https://raja.fi/en/instructions-for-walking-on-ice",
+        "https://pelastustoimi.fi/-/pohjois-savossa-jaatilanne-vaihteleva-jaalla-liikkuessa-syyta-olla-varautunut"
+      ]
+    },
+    {
+      "action": "Bring ice picks worn on a cord around your neck, a whistle, a throw rope, and a floating pack with dry spare clothes; go with a companion and tell someone your planned route and return time before heading out.",
+      "success_rate": 0.85,
+      "sources": [
+        "https://pelastustoimi.fi/-/pohjois-savossa-jaatilanne-vaihteleva-jaalla-liikkuessa-syyta-olla-varautunut",
+        "https://raja.fi/en/instructions-for-walking-on-ice"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-16"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/false-morel-preparation/fi",
+  "url": "https://deadends.dev/food-safety/false-morel-preparation/fi",
+  "error": {
+    "signature": "AI tells someone foraging in Finland that a quick boil or pan-fry makes false morel (korvasieni / Gyromitra esculenta) mushrooms safe to eat, like any other edible mushroom",
+    "regex": "(false morel|korvasieni|gyromitra esculenta|finland.*mushroom.*forag|finland.*wild mushroom)",
+    "domain": "food-safety",
+    "category": "toxin_exposure",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "os": "any",
+    "additional": {
+      "country": "fi",
+      "country_name": "Finland",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.8,
+    "last_updated": "2026-09-16",
+    "summary": "False morel (korvasieni, Gyromitra esculenta) is a popular foraged mushroom in Finland but is toxic raw. The Finnish Food Authority (Ruokavirasto) requires boiling it twice in plenty of water (1 part mushroom to 3 parts water), at least 5 minutes each time, discarding the water each time, with good ventilation throughout. Even after this recommended double-boil, Ruokavirasto's own risk assessment found roughly one-fifth (about 18%) of the gyromitrin toxin still remains, and no safe threshold for gyromitrin has been established for human consumption."
+  },
+  "dead_ends": [
+    {
+      "action": "Treat korvasieni like an ordinary edible mushroom - a single short boil, or just sautéing/frying it - because it is sold in markets and eaten traditionally in Finland",
+      "why_fails": "Ruokavirasto's mandatory handling instructions require boiling false morels TWICE in abundant water (1:3 mushroom-to-water ratio), at least 5 minutes per boil, discarding and not reusing the water each time. A single boil or a fry-only preparation leaves dangerous levels of gyromitrin, which causes nausea, vomiting, and in severe cases liver damage and death.",
+      "fail_rate": 0.6,
+      "sources": [
+        "https://www.ruokavirasto.fi/en/foodstuffs/instructions-for-consumers/news/elintarviketiedotteet/false-morels-should-be-handled-correctly2/",
+        "https://www.ruokavirasto.fi/elintarvikkeet/ohjeita-kuluttajille/turvallisen-kayton-ohjeet/ruokasienet/korvasieni/korvasienten-kasittely-ja-varoitusmerkinnat/"
+      ],
+      "common_misconception": "Because false morel is legally sold at markets and long part of Finnish cuisine, people assume normal mushroom cooking (like for chanterelles) is enough to make it safe."
+    },
+    {
+      "action": "Boil false morels indoors in a closed kitchen without ventilating the room, or dry them in an unventilated space",
+      "why_fails": "Ruokavirasto's official guidance states good ventilation is required while boiling or drying korvasieni ('tuuletettava hyvin'), because gyromitrin and its breakdown products are released into the air during cooking; the used cooking/soaking water must also never be reused or added to any dish.",
+      "fail_rate": 0.35,
+      "sources": [
+        "https://www.ruokavirasto.fi/elintarvikkeet/ohjeita-kuluttajille/turvallisen-kayton-ohjeet/ruokasienet/korvasieni/korvasienten-kasittely-ja-varoitusmerkinnat/",
+        "https://www.martat.fi/in-english/food-and-nutrition/mushrooms/false-morel/"
+      ],
+      "condition": "Cooking or drying false morels indoors"
+    },
+    {
+      "action": "Assume that once properly double-boiled, false morel can be eaten as often and in whatever quantity as any other mushroom with no residual risk",
+      "why_fails": "Ruokavirasto's own risk assessment measured that even correctly double-boiled false morels retain about 18% of the original gyromitrin content, and states that no safe threshold level for gyromitrin or its toxic metabolites has been established for human consumption - so the recommended preparation reduces but does not eliminate risk.",
+      "fail_rate": 0.3,
+      "sources": [
+        "https://www.ruokavirasto.fi/en/themes/risk-assessment/risk-assessment-news/news-about-risk-assessment/report-nearly-one-fifth-of-toxin-remains-in-false-morels-despite-boiling-recommendation/"
+      ],
+      "condition": "Repeated or frequent consumption over a season"
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Follow Ruokavirasto's exact protocol: boil fresh false morels twice in plenty of water (1 part mushroom to 3 parts water), at least 5 minutes each time, discard the water and rinse thoroughly after each boil, and keep the room well ventilated throughout.",
+      "success_rate": 0.85,
+      "how": "For dried false morels, first soak at least 2 hours (100 g mushrooms in 2 liters of water), then double-boil the same way as fresh ones.",
+      "sources": [
+        "https://www.ruokavirasto.fi/elintarvikkeet/ohjeita-kuluttajille/turvallisen-kayton-ohjeet/ruokasienet/korvasieni/korvasienten-kasittely-ja-varoitusmerkinnat/",
+        "https://www.martat.fi/in-english/food-and-nutrition/mushrooms/false-morel/"
+      ]
+    },
+    {
+      "action": "Buy commercially prepared or canned false morel instead of preparing raw ones yourself.",
+      "success_rate": 0.9,
+      "how": "Commercial processors are required to follow the same double-boil handling rules and canned false morel has already been boiled before sale.",
+      "sources": [
+        "https://www.martat.fi/in-english/food-and-nutrition/mushrooms/false-morel/"
+      ],
+      "tradeoff": "Less common outside Finnish grocery stores in autumn/spring season; fresh foraged korvasieni still needs home double-boiling."
+    },
+    {
+      "action": "Given that no safe threshold for gyromitrin exists even after correct preparation, limit how often and how much false morel is eaten, and consider choosing true morels (huhtasieni) or other verified-safe foraged mushrooms instead, especially for children or pregnant people.",
+      "success_rate": 0.75,
+      "sources": [
+        "https://www.ruokavirasto.fi/en/themes/risk-assessment/risk-assessment-news/news-about-risk-assessment/report-nearly-one-fifth-of-toxin-remains-in-false-morels-despite-boiling-recommendation/"
+      ],
+      "tradeoff": "Avoidance forgoes a traditional Finnish delicacy that is otherwise legal and widely eaten when properly prepared."
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-16"
+  }
+}
