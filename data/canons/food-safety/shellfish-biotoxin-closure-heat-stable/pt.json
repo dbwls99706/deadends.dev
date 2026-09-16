@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "food-safety/shellfish-biotoxin-closure-heat-stable/pt",
+  "url": "https://deadends.dev/food-safety/shellfish-biotoxin-closure-heat-stable/pt",
+  "error": {
+    "signature": "AI tells someone that cooking, boiling, or freezing wild-gathered clams, mussels, or cockles from a Portuguese beach removes the risk of marine biotoxin poisoning",
+    "regex": "(bivalve|clam|mussel|cockle|percebe).{0,40}(cook|boil|freeze).{0,40}(safe|toxin|portugal)",
+    "domain": "food-safety",
+    "category": "food_safety_misconception",
+    "first_seen": "2026-09-16",
+    "last_confirmed": "2026-09-16"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "pt",
+      "country_name": "Portugal",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.8,
+    "last_updated": "2026-09-16",
+    "summary": "Portugal's coast is subject to recurring closures of wild bivalve mollusc harvesting (clams, mussels, cockles) due to marine biotoxins (PSP, DSP, ASP) produced by algal blooms. IPMA (Instituto Portugues do Mar e da Atmosfera) publishes real-time harvesting-zone closures, and DGS (Direcao-Geral da Saude) states explicitly that cooking or freezing does not reduce the toxin, and that contaminated shellfish look, smell, and taste normal."
+  },
+  "dead_ends": [
+    {
+      "action": "Cook, boil, or fry wild-gathered clams/mussels/cockles thoroughly and assume that neutralizes any marine biotoxin",
+      "why_fails": "DGS states directly that cooking (\"cozedura\") and freezing (\"congelacao\") do not reduce the toxicity of marine biotoxins such as PSP, DSP and ASP - these are heat-stable and survive normal cooking temperatures. Unlike bacterial contamination, this is a chemical toxin problem that heat does not solve.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.dgs.pt/paginas-de-sistema/saude-de-a-a-z/moluscos-bivalves.aspx"
+      ],
+      "common_misconception": "People conflate marine biotoxins with the bacterial/viral contamination that thorough cooking does neutralize, and assume the same rule applies."
+    },
+    {
+      "action": "Judge whether wild shellfish are safe to eat by smell, color, or taste",
+      "why_fails": "DGS notes contaminated bivalves show no different odor, color, or taste from safe ones, and the seawater itself usually shows no unusual coloring during a toxic bloom - so there is no sensory way to detect the danger before eating.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://www.dgs.pt/paginas-de-sistema/saude-de-a-a-z/moluscos-bivalves.aspx"
+      ]
+    },
+    {
+      "action": "Assume any beach or estuary open to the public is safe for gathering shellfish year-round",
+      "why_fails": "IPMA continuously monitors production zones and issues interdictions (total or partial harvesting bans) whenever biotoxin levels exceed safety thresholds - as happened repeatedly in zones like Lagoa de Albufeira in 2026. A zone that was open last month can be closed today, and status changes without on-site signage in many spots.",
+      "fail_rate": 0.6,
+      "condition": "Gathering shellfish personally rather than buying from a licensed fishmonger",
+      "sources": [
+        "https://www.ipma.pt/pt/bivalves/index.jsp"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Check IPMA's real-time bivalve harvesting map before gathering or buying direct from a harvester",
+      "success_rate": 0.9,
+      "how": "Visit ipma.pt's 'Bivalves - ponto de situacao' page, which shows each production zone as permitted, partially permitted, or fully interdicted, updated as new biotoxin analyses come in (typically weekly to bi-weekly).",
+      "sources": [
+        "https://www.ipma.pt/pt/bivalves/index.jsp"
+      ]
+    },
+    {
+      "action": "Buy bivalves only from a licensed fishmonger or restaurant rather than gathering them personally",
+      "success_rate": 0.95,
+      "how": "Commercially sold live bivalves in Portugal must come from classified, monitored production zones and pass through DGAV-approved establishments, which is the practical way an ordinary consumer avoids biotoxin exposure without checking IPMA's map themselves.",
+      "tradeoff": "Costs more than self-gathering and does not apply to informal roadside or beach sales.",
+      "sources": [
+        "https://www.dgs.pt/paginas-de-sistema/saude-de-a-a-z/moluscos-bivalves.aspx"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/112-eu-emergency/pt",
+        "distinction": "This canon is about a food-safety prevention failure (eating toxic shellfish); the emergency canon is about which number to call once a medical emergency is already happening."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-16",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-16"
+  }
+}

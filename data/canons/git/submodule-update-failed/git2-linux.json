@@ -8,7 +8,7 @@
     "domain": "git",
     "category": "submodule_error",
     "first_seen": "2017-01-01",
-    "last_confirmed": "2026-02-14"
+    "last_confirmed": "2026-09-16"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.87,
     "confidence": 0.89,
-    "last_updated": "2026-02-14",
+    "last_updated": "2026-09-16",
     "summary": "Submodule update failures occur when: the submodule isn't initialized, the referenced commit doesn't exist in the submodule repo, network issues prevent fetching, or the .gitmodules config has incorrect URLs. The error 'reference is not a tree' means the parent repo references a submodule commit that the submodule repo doesn't have."
   },
   "dead_ends": [
@@ -115,6 +115,6 @@
     "generation_date": "2026-02-14",
     "review_status": "human_reviewed",
     "evidence_count": 70,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-09-16"
   }
 }
