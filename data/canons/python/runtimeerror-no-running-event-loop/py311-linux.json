@@ -8,7 +8,7 @@
     "domain": "python",
     "category": "async_error",
     "first_seen": "2020-10-01",
-    "last_confirmed": "2026-02-14"
+    "last_confirmed": "2026-09-17"
   },
   "environment": {
     "runtime": {
@@ -29,7 +29,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.88,
-    "last_updated": "2026-02-14",
+    "last_updated": "2026-09-17",
     "summary": "This error occurs when async code is called without a running event loop, or when asyncio.run() is called from within an already-running event loop. The root cause is almost always an incorrect boundary between synchronous and asynchronous code. Fixing it requires understanding which context you are in and using the appropriate pattern."
   },
   "dead_ends": [
@@ -102,6 +102,6 @@
     "generation_date": "2026-02-14",
     "review_status": "human_reviewed",
     "evidence_count": 68,
-    "last_verification": "2026-02-14"
+    "last_verification": "2026-09-17"
   }
 }

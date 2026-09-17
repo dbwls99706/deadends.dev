@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "id": "policy/import-tax-under-50-still-icms/br",
+  "url": "https://deadends.dev/policy/import-tax-under-50-still-icms/br",
+  "error": {
+    "signature": "AI tells someone that purchases under US$50 shipped from abroad to Brazil are completely tax-free / duty-free",
+    "regex": "(under|below|less than).{0,20}(us\\$\\s?50|\\$50).{0,60}(brazil|brasil).{0,60}(tax.free|duty.free|isento|no tax)",
+    "domain": "policy",
+    "category": "tax_misconception",
+    "first_seen": "2026-09-17",
+    "last_confirmed": "2026-09-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.8,
+    "confidence": 0.85,
+    "last_updated": "2026-09-17",
+    "summary": "Since Portaria MF 1.342/2026 and MP 1.357/2026 (in effect for declarations registered from 12 May 2026), the federal Import Tax on purchases up to US$50 is zero - but only on platforms certified under the Remessa Conforme compliance programme. Uncertified sellers are still taxed at 60% of the full value with no minimum-value exemption. Either way, state ICMS (17-20% depending on the destination state) is explicitly unchanged by the 2026 measure and continues to apply on top, so no international purchase into Brazil is actually tax-free."
+  },
+  "dead_ends": [
+    {
+      "action": "Order from a seller/platform that is not certified under the Receita Federal's Remessa Conforme programme, assuming a purchase under $50 avoids tax the way the original 2023 rule promised",
+      "why_fails": "Only purchases made through platforms formally certified under Remessa Conforme qualify for the reduced/zero Import Tax rate on values up to US$50 (Portaria MF 1.342/2026). Purchases from uncertified sellers remain taxed at 60% Import Tax on the full declared value with no minimum-value exemption, plus state ICMS on top.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras",
+        "https://www12.senado.leg.br/noticias/materias/2026/05/13/medida-provisoria-zera-taxa-das-blusinhas-para-importacoes-de-ate-us-50"
+      ],
+      "common_misconception": "People remember the general idea that purchases 'under $50 are free' from earlier Remessa Conforme coverage (2023-2024) and assume it still applies unconditionally, missing that platform certification became the deciding factor after the 2024-2026 rule changes."
+    },
+    {
+      "action": "Assume a purchase under $50 through a certified platform (e.g. a Remessa Conforme-adherent marketplace) is completely tax-free end-to-end because the federal Import Tax was zeroed in May 2026",
+      "why_fails": "The Import Tax zeroing applies only to the federal Imposto de Importacao. Receita Federal's own published rules state that ICMS (17-20% depending on the destination state) is explicitly unchanged by the 2026 measure and continues to be charged normally on the full purchase value, so the transaction is not actually tax-free.",
+      "fail_rate": 0.65,
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras",
+        "https://www.cnnbrasil.com.br/economia/macroeconomia/dou-extra-traz-mp-que-isenta-tributacao-para-compras-internacionais-ate-us-50/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Before ordering, confirm the seller/platform is certified under Remessa Conforme and budget for ICMS (about 17-20% of item value depending on destination state) even when Import Tax shows as zero",
+      "success_rate": 0.85,
+      "how": "Certified platforms itemize ICMS separately from Import Tax at checkout; Receita Federal's 'Regras Futuras' page documents the current rate split so the estimate can be cross-checked.",
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras"
+      ]
+    },
+    {
+      "action": "For purchases from uncertified sellers, or above US$50, plan for the full 60% Import Tax plus ICMS rather than assuming any exemption bracket applies",
+      "success_rate": 0.8,
+      "how": "Use Receita Federal's published examples on the 'Regras Futuras' page to estimate total landed cost before ordering.",
+      "tradeoff": "MP 1.357/2026 itself requires conversion into law by Congress within 120 days of its 12 May 2026 publication, so rates could change again.",
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras",
+        "https://www12.senado.leg.br/noticias/materias/2026/05/13/medida-provisoria-zera-taxa-das-blusinhas-para-importacoes-de-ate-us-50"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [
+      {
+        "error_id": "communication/whatsapp-customs-import-tax-scam/br",
+        "probability": 0.3,
+        "condition": "Awareness of the real, frequently-changing import-tax rules makes a scam message referencing a 'pending customs fee' feel plausible."
+      }
+    ],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "communication/whatsapp-customs-import-tax-scam/br",
+        "distinction": "This canon covers the real federal/state tax rules on international purchases; the communication canon covers fraudulent messages that exploit awareness of those rules."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-17"
+  }
+}
