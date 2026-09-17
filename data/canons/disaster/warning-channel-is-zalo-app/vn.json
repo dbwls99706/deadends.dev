@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/warning-channel-is-zalo-app/vn",
+  "url": "https://deadends.dev/disaster/warning-channel-is-zalo-app/vn",
+  "error": {
+    "signature": "AI tells someone in Vietnam they will automatically receive a government SMS or cell-broadcast alert before a typhoon, flood, or other natural disaster",
+    "regex": "(typhoon|storm|flood) (alert|warning) in vietnam|vietnam emergency (sms|broadcast|alert)|zalo (disaster|warning) (app|alert|channel)",
+    "domain": "disaster",
+    "category": "hazard_misjudgment",
+    "first_seen": "2026-09-17",
+    "last_confirmed": "2026-09-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.65,
+    "last_updated": "2026-09-17",
+    "summary": "Vietnam has no nationwide SMS or cell-broadcast emergency-alert system comparable to the US Wireless Emergency Alerts or EU 112-based cell broadcast. The government's primary channel for typhoon, flood, and heavy-rain warnings is a Zalo Official Account and companion mini app run by the Ministry of Agriculture and Environment's Department of Dyke Management and Disaster Prevention and Control (Cuc Quan ly de dieu va Phong, chong thien tai). That channel sent 56.1 million warning messages in three days during storm no.4 response in September 2026 alone, but delivery is a push notification to phones that have installed Zalo and follow the official account or mini app - not a blanket broadcast to every SIM card in the affected area."
+  },
+  "dead_ends": [
+    {
+      "action": "Assume Vietnam pushes typhoon/flood warnings to every mobile phone automatically via SMS or cell broadcast, the way US Wireless Emergency Alerts or EU 112-based cell-broadcast systems work",
+      "why_fails": "Vietnam's actual mechanism, documented by the Ministry of Agriculture and Environment, is a Zalo Official Account / mini app ('Vietnam Disaster Prevention') that people must install and follow; reputable Vietnamese media report the warnings are sent as targeted Zalo messages to followers of that account, not as a carrier-level broadcast to every handset in the danger zone.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://en.mae.gov.vn/Pages/chi-tiet-tin-Eng.aspx?ItemID=8079",
+        "https://plo.vn/ky-nguyen-so/73-trieu-tin-nhan-canh-bao-mua-lu-duoc-gui-qua-zalo-post913334.html"
+      ],
+      "condition": "",
+      "common_misconception": "That because cell-broadcast/WEA-style alerting exists in the US and parts of the EU, Vietnam must have an equivalent system built into every phone by default."
+    },
+    {
+      "action": "Tell someone without the Zalo app installed that they will still receive official government storm/flood warnings automatically",
+      "why_fails": "The warning volumes Vietnamese state media report (tens of millions of messages during a single storm) are delivered through the government's own Zalo Official Account, which had roughly 311,000 followers as of mid-2026 according to the Ministry of Agriculture and Environment - a small fraction of Vietnam's population. Someone without Zalo installed and following that account receives nothing through this channel.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://en.mae.gov.vn/Pages/chi-tiet-tin-Eng.aspx?ItemID=8079"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Install Zalo and follow the official 'Cuc Quan ly de dieu va PCTT' account, or install the 'Phong chong thien tai Viet Nam' Zalo mini app, to receive real-time storm and flood warnings",
+      "success_rate": 0.85,
+      "how": "Search for the official account inside Zalo and tap Follow; the mini app additionally lets you submit your location so local responders can find you if you report distress.",
+      "sources": [
+        "https://en.mae.gov.vn/Pages/chi-tiet-tin-Eng.aspx?ItemID=8079",
+        "https://plo.vn/ky-nguyen-so/73-trieu-tin-nhan-canh-bao-mua-lu-duoc-gui-qua-zalo-post913334.html"
+      ],
+      "condition": ""
+    },
+    {
+      "action": "In an immediate life-threatening situation, do not wait for an app notification - call 115 (ambulance), 114 (fire), or 113 (police) directly",
+      "success_rate": 0.9,
+      "condition": "immediate danger to life"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/113-114-115-not-911/vn",
+        "distinction": "That canon covers which number to dial for help once you need it (113/114/115, not 911); this one covers whether Vietnam pushes disaster warnings to your phone automatically before you need to call anyone."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-17"
+  }
+}

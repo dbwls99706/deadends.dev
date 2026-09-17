@@ -8,7 +8,7 @@
     "domain": "android",
     "category": "runtime_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-26"
+    "last_confirmed": "2026-09-17"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.82,
     "confidence": 0.86,
-    "last_updated": "2026-02-26",
+    "last_updated": "2026-09-17",
     "summary": "Fragment method called after detach from Activity."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "Leaks Activity reference, same crash",
       "fail_rate": 0.8,
       "sources": [
-        "https://developer.android.com/docs"
+        "https://developer.android.com/reference/androidx/fragment/app/Fragment#getActivity()"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Corrupt UI state",
       "fail_rate": 0.82,
       "sources": [
-        "https://developer.android.com/docs"
+        "https://developer.android.com/reference/androidx/fragment/app/Fragment#isAdded()"
       ],
       "condition": ""
     }
@@ -48,13 +48,17 @@
     {
       "action": "Check isAdded()/isDetached() before context-dependent operations",
       "success_rate": 0.88,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/reference/androidx/fragment/app/Fragment#isAdded()"
+      ],
       "condition": ""
     },
     {
       "action": "Use viewLifecycleOwner for lifecycle-aware operations",
       "success_rate": 0.9,
-      "sources": [],
+      "sources": [
+        "https://developer.android.com/guide/fragments/lifecycle"
+      ],
       "condition": ""
     }
   ],
@@ -67,7 +71,7 @@
     "generated_by": "bulk_generate.py",
     "generation_date": "2026-02-26",
     "review_status": "auto_generated",
-    "evidence_count": 3,
-    "last_verification": "2026-02-26"
+    "evidence_count": 5,
+    "last_verification": "2026-09-17"
   }
 }
