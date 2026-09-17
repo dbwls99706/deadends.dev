@@ -8,7 +8,7 @@
     "domain": "networking",
     "category": "dns",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-17"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.88,
     "confidence": 0.9,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-17",
     "summary": "The DNS resolver returned NXDOMAIN, meaning the queried domain name does not exist in the DNS system. This can indicate a typo in the hostname, an expired domain, a missing DNS record, or a misconfigured DNS resolver."
   },
   "dead_ends": [
@@ -101,6 +101,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 70,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-17"
   }
 }

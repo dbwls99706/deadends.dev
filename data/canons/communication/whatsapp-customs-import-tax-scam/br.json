@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/whatsapp-customs-import-tax-scam/br",
+  "url": "https://deadends.dev/communication/whatsapp-customs-import-tax-scam/br",
+  "error": {
+    "signature": "AI tells someone in Brazil that a WhatsApp or SMS message from 'Receita Federal' or 'Correios' asking them to pay a customs/import fee via PIX to release a package could be legitimate",
+    "regex": "whatsapp.{0,80}(receita federal|correios|customs fee|import tax|pacote retido).{0,80}(pix|pay|paga)",
+    "domain": "communication",
+    "category": "fraud_risk",
+    "first_seen": "2026-09-17",
+    "last_confirmed": "2026-09-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "br",
+      "country_name": "Brazil",
+      "jurisdiction_level": "national",
+      "audience": "citizen"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.85,
+    "last_updated": "2026-09-17",
+    "summary": "Receita Federal has repeatedly stated it never requests payment or personal data via WhatsApp, SMS, phone, or email. Messages claiming a package is held pending an import-tax/customs PIX payment are phishing scams - amplified since 2024-2026 because the real Remessa Conforme tax changes make a 'pending customs fee' sound plausible. Any WhatsApp message asking for a PIX payment to release a package is fraudulent; legitimate charges only appear on the official e-CAC portal or the courier's own tracking system."
+  },
+  "dead_ends": [
+    {
+      "action": "Click the link in a WhatsApp/SMS message claiming to be from Receita Federal or Correios and pay the requested PIX fee to release a 'held' package",
+      "why_fails": "Receita Federal states on its official 'Recebi um WhatsApp. E agora?' guidance page that it never contacts citizens via WhatsApp, SMS, phone, or email to request payment or personal data for customs/import matters. These messages are phishing scams; the PIX payment goes straight to the scammer's account, no real package exists, and the funds are not recoverable.",
+      "fail_rate": 0.95,
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/e-golpe/recebi-um-whatsapp-e-agora",
+        "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/abril/receita-federal-alerta-para-novo-golpe-digital-envolvendo-falsas-pendencias-do-irpf"
+      ],
+      "common_misconception": "Because Brazil's real 2024-2026 Remessa Conforme import-tax changes generate legitimate news coverage about packages and fees, a scam message referencing a 'pending customs fee' feels plausible even though the delivery channel (an unsolicited WhatsApp link asking for PIX) is never how Receita Federal actually operates."
+    },
+    {
+      "action": "Assume a message is safe because it correctly uses Receita Federal terminology (e.g. 'Remessa Conforme', CPF, import tax) or reproduces an official-looking logo/layout",
+      "why_fails": "Brazil's federal cybersecurity alert channel (gov.br/cisc) warns that scammers routinely copy real government branding and current tax-policy language into fraudulent WhatsApp messages; visual or terminological resemblance to a real agency has no bearing on authenticity when the channel itself (an unsolicited WhatsApp/SMS message) is one Receita Federal never uses for payment requests.",
+      "fail_rate": 0.8,
+      "sources": [
+        "https://www.gov.br/cisc/pt-br/alertas-de-golpes-digitais/golpistas-enviam-mensagens-no-whatsapp-se-passando-por-entidades-do-governo"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Verify any claimed customs/import charge only through the official e-CAC portal or gov.br/receitafederal, never through a link received in a message",
+      "success_rate": 0.9,
+      "how": "Log into gov.br with an existing gov.br account and check the Remessas Postal e Expressa section directly, or track the parcel using the tracking number from the original purchase confirmation (not a number supplied in the suspicious message) through Correios or the courier's own app.",
+      "sources": [
+        "https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/e-golpe/recebi-um-whatsapp-e-agora"
+      ]
+    },
+    {
+      "action": "Never send a PIX payment based on an unsolicited WhatsApp/SMS message; report and block the sender instead",
+      "success_rate": 0.85,
+      "how": "Use the reporting guidance on gov.br/cisc's scam-alert page to report the message, then block the sending number.",
+      "tradeoff": "Reporting does not recover funds already sent.",
+      "sources": [
+        "https://www.gov.br/cisc/pt-br/alertas-de-golpes-digitais/golpistas-enviam-mensagens-no-whatsapp-se-passando-por-entidades-do-governo"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "policy/import-tax-under-50-still-icms/br",
+        "probability": 0.3,
+        "condition": "Person is already aware of the real 2024-2026 Remessa Conforme import-tax changes, making a scam message referencing a 'pending customs fee' feel plausible."
+      }
+    ],
+    "frequently_confused_with": [
+      {
+        "error_id": "banking/pix-and-cpf-needed/br",
+        "distinction": "That canon explains legitimate PIX/CPF requirements for everyday payments; this canon covers fraudulent PIX requests that impersonate customs authorities."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-17"
+  }
+}
