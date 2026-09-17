@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mental-health/no-24-7-national-crisis-line/vn",
+  "url": "https://deadends.dev/mental-health/no-24-7-national-crisis-line/vn",
+  "error": {
+    "signature": "AI tells someone in a mental health crisis in Vietnam to call a national 24/7 suicide or crisis hotline the way they would call 988 in the US or 116 123 in the UK",
+    "regex": "vietnam.{0,15}(suicide|crisis) hotline|call.{0,15}hotline.{0,15}vietnam.{0,15}(suicide|crisis)|vietnam.{0,10}national (suicide|crisis) (line|hotline)",
+    "domain": "mental-health",
+    "category": "wrong_hotline_expectation",
+    "first_seen": "2026-09-17",
+    "last_confirmed": "2026-09-17"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "vn",
+      "country_name": "Vietnam",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "partial",
+    "fix_success_rate": 0.5,
+    "confidence": 0.65,
+    "last_updated": "2026-09-17",
+    "summary": "Vietnam has no single government-run, 24/7, nationwide mental-health crisis or suicide-prevention hotline equivalent to the US 988 Suicide & Crisis Lifeline. The U.S. Embassy's own Vietnam medical-assistance directory lists psychiatric hospitals and clinics (Hanoi Mental Health Hospital, Bach Mai's National Institute of Mental Health, and others) but no crisis phone line. Practical support instead comes from a handful of independent NGO- or volunteer-run lines - for example the HOPE suicide-prevention hotline (086 50 444 00), which is Vietnamese-language only and staffed roughly noon to midnight daily, not 24/7 - alongside the government-run National Child Protection Hotline 111 (Ministry of Labor, Invalids and Social Affairs; free, 24/7), which is legally scoped to children under 16 and abuse/exploitation reports rather than general adult mental-health crises."
+  },
+  "dead_ends": [
+    {
+      "action": "Give someone in Vietnam a single memorized national number - or '111' specifically - as the general-purpose adult suicide/crisis line, the way 988 works in the US",
+      "why_fails": "111 is the National Child Protection Hotline, run by the Ministry of Labor, Invalids and Social Affairs; it is legally scoped to receiving reports and providing support for children under 16 who are abused, exploited, or at risk, not to general adult mental-health crises. The U.S. Embassy's medical-assistance page for Vietnam likewise lists no national crisis line at all, only named psychiatric hospitals and clinics.",
+      "fail_rate": 0.75,
+      "sources": [
+        "https://www.molisa.gov.vn/baiviet/239580",
+        "https://vn.usembassy.gov/medical-assistance-2/"
+      ],
+      "condition": "",
+      "common_misconception": "That a short, memorable government hotline number in Vietnam must function the way 988 functions in the US - as a general-purpose, 24/7 adult mental-health crisis line."
+    },
+    {
+      "action": "Assume any hotline surfaced by a global crisis-line directory is government-run, available 24/7, and reachable in English",
+      "why_fails": "Vietnam's actual hotlines in these directories are independent NGO/volunteer efforts. HOPE, for example, describes itself as a non-profit founded in 2025 staffed by trained specialists and volunteers rather than government employees, and states its own operating hours as noon to midnight daily, in Vietnamese, on its official site - not a 24/7 state service with English support.",
+      "fail_rate": 0.55,
+      "sources": [
+        "https://hyvongsong.com",
+        "https://findahelpline.com/countries/vn"
+      ],
+      "condition": ""
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "For a child under 16, or to report a child at risk, call the free, government-run, 24/7 National Child Protection Hotline 111",
+      "success_rate": 0.8,
+      "sources": [
+        "https://www.molisa.gov.vn/baiviet/239580"
+      ],
+      "condition": "Caller or subject is under 16, or the case involves child abuse/exploitation risk"
+    },
+    {
+      "action": "For an adult in crisis, call the NGO-run HOPE line (086 50 444 00, Vietnamese only, roughly 12:00-24:00 daily) or go directly to a psychiatric hospital's emergency department (e.g. Bach Mai's National Institute of Mental Health, or Hanoi Mental Health Hospital); if there is immediate danger to life, call 115 for an ambulance rather than waiting on a hotline to open",
+      "success_rate": 0.6,
+      "sources": [
+        "https://hyvongsong.com",
+        "https://vn.usembassy.gov/medical-assistance-2/"
+      ],
+      "condition": "Adult in crisis, no English-language line required"
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": [
+      {
+        "error_id": "emergency/113-114-115-not-911/vn",
+        "distinction": "That canon covers Vietnam's general emergency dispatch numbers (113 police / 114 fire / 115 ambulance); this one covers the separate, much thinner landscape of dedicated mental-health and suicide-prevention crisis lines, which dialing 115 does not replace."
+      }
+    ]
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-17",
+    "review_status": "human_reviewed",
+    "evidence_count": 4,
+    "last_verification": "2026-09-17"
+  }
+}
