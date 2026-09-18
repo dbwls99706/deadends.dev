@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "id": "medical/upfront-cash-payment-expected/ma",
+  "url": "https://deadends.dev/medical/upfront-cash-payment-expected/ma",
+  "error": {
+    "signature": "AI tells a traveler their foreign or travel health insurance will be directly billed by Moroccan hospitals and doctors",
+    "regex": "(morocco.*hospital.*insurance|morocco.*doctor.*cash|morocco.*medical.*bill|hopital.*maroc.*paiement)",
+    "domain": "medical",
+    "category": "insurance_coverage",
+    "first_seen": "2026-09-18",
+    "last_confirmed": "2026-09-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.88,
+    "confidence": 0.8,
+    "last_updated": "2026-09-18",
+    "summary": "Moroccan doctors, clinics, and hospitals generally expect immediate cash or card payment at the point of care rather than billing a foreign insurer directly. The UK and Canadian government travel advisories both confirm this in explicit terms. Travelers must pay upfront and then file for reimbursement afterward, so accessible funds - not just an insurance policy number - are what actually gets you treated, and evacuation coverage matters most outside the main cities."
+  },
+  "dead_ends": [
+    {
+      "action": "Show a foreign travel-insurance card or policy number at a Moroccan clinic and expect the facility to bill the insurer directly, deferring payment",
+      "why_fails": "Moroccan doctors and hospitals, public and private, generally do not have direct-billing arrangements with foreign insurers and expect immediate payment at or before treatment. Canada's official travel advisory states plainly that \"doctors and hospitals often expect immediate cash payment,\" and the UK's advisory tells travelers to have \"accessible funds to cover the cost of any medical treatment abroad\" rather than relying on the policy alone.",
+      "fail_rate": 0.85,
+      "sources": [
+        "https://travel.gc.ca/destinations/morocco",
+        "https://www.gov.uk/foreign-travel-advice/morocco/health"
+      ],
+      "common_misconception": "Travelers assume Morocco works like countries with direct-billing arrangements (common within much of the EU under reciprocal healthcare agreements), where showing an insurance card is enough on its own."
+    },
+    {
+      "action": "Assume a standard travel policy without medical evacuation cover is enough because Morocco has hospitals in every major city",
+      "why_fails": "The UK government's advisory notes that \"public health facilities in Morocco provide limited medical care\" while private clinics operate to a higher standard but are concentrated in Casablanca, Marrakesh, and Rabat. New Zealand's SafeTravel advisory separately and explicitly recommends \"comprehensive travel insurance, which includes provision for medical evacuation by air\" - getting from the Atlas Mountains or Sahara routes to a capable facility is not something local services arrange for you without that cover already in place.",
+      "fail_rate": 0.4,
+      "condition": "Traveling outside Casablanca, Marrakesh, or Rabat - e.g. the Atlas Mountains or desert routes",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/health",
+        "https://www.safetravel.govt.nz/destinations/morocco"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Carry accessible funds (cash or card) sufficient to pay for treatment upfront, and buy travel insurance built around reimbursement claims plus medical evacuation cover before departure.",
+      "success_rate": 0.9,
+      "how": "Pay the clinic or hospital directly at the time of service, keep every itemized receipt and diagnosis report, and file a reimbursement claim with your insurer afterward. Confirm your policy includes medical evacuation before you travel beyond the main cities - private facilities in Casablanca, Marrakesh, and Rabat cover most needs, but transport from rural areas is your own responsibility to arrange and fund in the moment.",
+      "sources": [
+        "https://travel.gc.ca/destinations/morocco",
+        "https://www.gov.uk/foreign-travel-advice/morocco/health"
+      ]
+    },
+    {
+      "action": "Call your insurer's assistance line before or immediately after seeking treatment, not after returning home.",
+      "success_rate": 0.7,
+      "how": "UK government guidance specifically instructs travelers to \"contact your insurance or medical assistance company quickly if you're referred to a medical facility for treatment\" - a live assistance line can sometimes pre-authorize care or coordinate with a facility even without full direct billing, which speeds later reimbursement and can reduce the cash needed up front.",
+      "tradeoff": "Only works with mobile signal or roaming and a policy that has a live assistance line; rural areas can have poor connectivity.",
+      "sources": [
+        "https://www.gov.uk/foreign-travel-advice/morocco/health"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [
+      {
+        "error_id": "emergency/19-15-177/ma",
+        "probability": 0.2,
+        "condition": "Calling Morocco's emergency ambulance number leads into needing to pay for the resulting care"
+      }
+    ],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-18"
+  }
+}

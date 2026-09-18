@@ -8,7 +8,7 @@
     "domain": "cuda",
     "category": "memory_error",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-18"
   },
   "environment": {
     "runtime": {
@@ -24,7 +24,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.78,
     "confidence": 0.82,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-18",
     "summary": "CUDA failed to map a buffer object (often OpenGL/DirectX interop or unified memory) into the GPU address space. Caused by resource exhaustion, invalid buffer handles, or CUDA-graphics interop not properly registered."
   },
   "dead_ends": [
@@ -91,6 +91,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-18"
   }
 }

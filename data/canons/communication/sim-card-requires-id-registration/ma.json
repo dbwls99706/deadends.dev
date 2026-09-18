@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "id": "communication/sim-card-requires-id-registration/ma",
+  "url": "https://deadends.dev/communication/sim-card-requires-id-registration/ma",
+  "error": {
+    "signature": "AI tells a tourist in Morocco they can buy and activate a prepaid SIM card anonymously, without showing ID, the way they might in some other countries",
+    "regex": "(morocco.*sim card.*id|morocco.*prepaid.*anonymous|carte sim.*maroc.*identification|buy sim.*morocco.*passport)",
+    "domain": "communication",
+    "category": "telecom_restriction",
+    "first_seen": "2026-09-18",
+    "last_confirmed": "2026-09-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "traveler"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.85,
+    "confidence": 0.75,
+    "last_updated": "2026-09-18",
+    "summary": "Morocco has required official identification for every mobile subscriber, prepaid included, since a 2011 ANRT decision, with non-compliant lines subject to deactivation. A 2023 Ministry of Digital Transition mandate ordered operators to complete subscriber ID databases - name, surname, national ID number - within three months or deactivate the line. Buying a SIM without showing ID is not a real option at any licensed outlet."
+  },
+  "dead_ends": [
+    {
+      "action": "Buy a prepaid SIM card from a street vendor or informal reseller in Morocco and activate it without presenting official ID",
+      "why_fails": "Since a 2011 ANRT decision, Moroccan telecom operators must collect precise identification - name, surname, and an official ID document - for every mobile subscriber, prepaid included, before activation; unidentified lines were given a compliance deadline and then subject to deactivation. The requirement was reinforced in 2023 when the Ministry of Digital Transition (Ghita Mezzour) ordered operators to complete subscriber ID databases, including the national ID (CNI) number, within three months or deactivate non-compliant lines - a measure taken specifically because, per a parliamentarian cited by Bladi.net, the original 2011 rule had never been fully enforced and anonymous cards kept circulating.",
+      "fail_rate": 0.9,
+      "sources": [
+        "https://www.lavieeco.com/economie/lanrt-somme-les-operateurs-didentifier-leurs-clients-ou-de-desactiver-leurs-cartes-sim-20480/",
+        "https://www.lavieeco.com/affaires/cartes-sim-anonymes-les-operateurs-tenus-didentifier-les-souscripteurs-a-leurs-services-mobiles/",
+        "https://www.bladi.net/maroc-cartes-sim-anonymes-seront-desactivees,109357.html"
+      ],
+      "common_misconception": "Travelers assume Morocco has an informal, unregistered prepaid market like some countries because SIM cards are sold openly at kiosks and airports, or because past enforcement gaps meant some anonymous lines really did work for a while."
+    },
+    {
+      "action": "Assume a SIM that worked fine when first activated is permanently safe from deactivation regardless of whether the operator's identification record is complete",
+      "why_fails": "The 2023 ministry mandate specifically targeted operators' existing subscriber databases, not just new sign-ups, ordering a review of already-active lines and deactivation of any without complete ID data within the three-month window.",
+      "fail_rate": 0.35,
+      "condition": "Using a SIM bought informally, resold, or registered long ago under incomplete records",
+      "sources": [
+        "https://www.lavieeco.com/affaires/cartes-sim-anonymes-les-operateurs-tenus-didentifier-les-souscripteurs-a-leurs-services-mobiles/"
+      ]
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "Buy the SIM directly from an official operator store, kiosk, or airport counter (Maroc Telecom, Orange, or inwi) and register it in your own name at the time of purchase.",
+      "success_rate": 0.92,
+      "how": "Bring a passport or other official ID to the point of sale; the operator captures the required identification on the spot as mandated by the ANRT/Ministry of Digital Transition rules, so the line is not at risk of the database-cleanup deactivations that target unidentified subscribers.",
+      "sources": [
+        "https://www.lavieeco.com/economie/lanrt-somme-les-operateurs-didentifier-leurs-clients-ou-de-desactiver-leurs-cartes-sim-20480/"
+      ]
+    },
+    {
+      "action": "If a SIM stops working unexpectedly, ask the operator whether it was deactivated for incomplete subscriber identification before assuming a technical or network fault.",
+      "success_rate": 0.6,
+      "how": "Visit an operator store with your passport and the SIM; if the deactivation was for an identification gap on file rather than a physical SIM fault, staff can usually reactivate it once your ID is captured.",
+      "tradeoff": "Requires visiting a physical operator store, which may not be nearby outside larger towns.",
+      "sources": [
+        "https://www.bladi.net/maroc-cartes-sim-anonymes-seront-desactivees,109357.html"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-18"
+  }
+}

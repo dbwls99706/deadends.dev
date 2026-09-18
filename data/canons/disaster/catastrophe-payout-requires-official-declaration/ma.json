@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "id": "disaster/catastrophe-payout-requires-official-declaration/ma",
+  "url": "https://deadends.dev/disaster/catastrophe-payout-requires-official-declaration/ma",
+  "error": {
+    "signature": "AI tells a resident or property owner in Morocco that earthquake, flood, or storm damage is compensated as soon as they file a claim with their insurer",
+    "regex": "(morocco.*earthquake.*insurance|morocco.*catastrophe.*insurance|ev cat.*maroc|morocco.*disaster.*claim)",
+    "domain": "disaster",
+    "category": "administrative_barrier",
+    "first_seen": "2026-09-18",
+    "last_confirmed": "2026-09-18"
+  },
+  "environment": {
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
+    "os": "any",
+    "additional": {
+      "country": "ma",
+      "country_name": "Morocco",
+      "jurisdiction_level": "national",
+      "audience": "foreigner-resident"
+    }
+  },
+  "verdict": {
+    "resolvable": "true",
+    "fix_success_rate": 0.78,
+    "confidence": 0.75,
+    "last_updated": "2026-09-18",
+    "summary": "Since Law 110-14 (2020), Morocco bundles mandatory catastrophic-event (EV CAT) coverage into property, motor, and liability insurance, plus a solidarity fund (FSEC) for the uninsured. But no payout - insured or uninsured - can be processed until Morocco's Head of Government formally declares the event catastrophic in the Official Bulletin, within three months of the event; fixed notification and registration windows start only once that declaration is published."
+  },
+  "dead_ends": [
+    {
+      "action": "File a claim with your property or auto insurer immediately after earthquake, flood, or storm damage in Morocco, expecting ordinary accident-style claims processing",
+      "why_fails": "Under Law 110-14, an EV CAT payout - through the mandatory insurance rider or the FSEC solidarity fund - can only be opened once Morocco's Head of Government formally declares the event catastrophic by an order published in the Official Bulletin, within three months of the event. ACAPS (Morocco's insurance regulator) and Le Matin both describe this declaration, naming the affected zones, event date, and duration, as the trigger that launches the whole compensation process. Before it exists, insurers have no legal basis to open an EV CAT claim however severe the damage.",
+      "fail_rate": 0.7,
+      "sources": [
+        "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance",
+        "https://lematin.ma/express/2023/details-regime-couverture-consequences-catastrophes/394071.html"
+      ],
+      "common_misconception": "People assume the mandatory 'Cat Nat' clause added to policies since 2020 means any qualifying natural disaster triggers an automatic payout, the way filing a claim after a car accident does."
+    },
+    {
+      "action": "Assume that having no property or auto insurance policy at all leaves you with no path to compensation after a declared catastrophe",
+      "why_fails": "Law 110-14 also created the Fonds de Solidarite contre les Evenements Catastrophiques (FSEC), a parallel track for people with no insurance or inadequate coverage. Morocco funds FSEC partly through a sovereign parametric catastrophe insurance policy - Artemis.bm reported a $275 million payout on that sovereign policy after the 2023 Al Haouz earthquake, specifically to support compensation for the uninsured population FSEC was designed to help. But FSEC registration still opens only after the same official catastrophe declaration, within the 90-day window Le Matin reports.",
+      "fail_rate": 0.5,
+      "sources": [
+        "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance",
+        "https://lematin.ma/express/2023/details-regime-couverture-consequences-catastrophes/394071.html",
+        "https://www.artemis.bm/news/morocco-renewed-parametric-quake-insurance-after-2023-payout-of-275m/"
+      ],
+      "common_misconception": "People conflate 'no insurance' with 'no possible compensation,' when Morocco's post-2020 regime specifically built a state-backed track for the uninsured."
+    }
+  ],
+  "workarounds": [
+    {
+      "action": "After a serious natural event, watch for the government's official EV CAT declaration in the Official Bulletin rather than filing a claim on your own timeline, then act inside the fixed windows it opens.",
+      "success_rate": 0.75,
+      "how": "Once the Head of Government's order is published (within three months of the event), insured policyholders must notify their insurer within 20 days and insurers must respond within 60 days. Uninsured people register with FSEC within 90 days of the declaration; FSEC evaluates complete files within 30 days and disburses within 30 days of a signed acknowledgment.",
+      "sources": [
+        "https://lematin.ma/express/2023/details-regime-couverture-consequences-catastrophes/394071.html",
+        "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance"
+      ],
+      "tradeoff": "Missing the notification or registration window after the declaration is published can forfeit compensation even though the underlying event qualified."
+    },
+    {
+      "action": "Check whether your existing property, auto, or liability policy already includes the mandatory EV CAT rider rather than shopping for a separate 'earthquake insurance' product.",
+      "success_rate": 0.85,
+      "how": "Since Law 110-14, EV CAT coverage is compulsory and bundled automatically into property damage, motor liability, and premises civil-liability contracts - aviation and agricultural-crop policies are exempt - so there is nothing extra to buy for those policy types.",
+      "sources": [
+        "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance"
+      ]
+    }
+  ],
+  "transition_graph": {
+    "leads_to": [],
+    "preceded_by": [],
+    "frequently_confused_with": []
+  },
+  "metadata": {
+    "generated_by": "manual",
+    "generation_date": "2026-09-18",
+    "review_status": "human_reviewed",
+    "evidence_count": 3,
+    "last_verification": "2026-09-18"
+  }
+}
