@@ -8,7 +8,7 @@
     "domain": "git",
     "category": "filter",
     "first_seen": "2023-01-01",
-    "last_confirmed": "2026-02-12"
+    "last_confirmed": "2026-09-18"
   },
   "environment": {
     "runtime": {
@@ -21,7 +21,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.87,
-    "last_updated": "2026-02-12",
+    "last_updated": "2026-09-18",
     "summary": "Git's filter process protocol encounters an error, typically when git-lfs is configured in .gitattributes but the git-lfs binary is not installed or not found in PATH."
   },
   "dead_ends": [
@@ -30,7 +30,7 @@
       "why_fails": "This disables LFS tracking for the entire repo; large files become checked in directly, bloating the repository permanently",
       "fail_rate": 0.85,
       "sources": [
-        "https://git-scm.com/docs/git-filter-branch"
+        "https://git-scm.com/docs/gitattributes#_long_running_filter_process"
       ],
       "condition": ""
     },
@@ -39,7 +39,7 @@
       "why_fails": "Older git versions use the single-file filter protocol which is slower and still fails if the filter binary is missing",
       "fail_rate": 0.75,
       "sources": [
-        "https://git-scm.com/docs/git-filter-branch"
+        "https://git-scm.com/docs/gitattributes#_long_running_filter_process"
       ],
       "condition": ""
     }
@@ -89,6 +89,6 @@
     "generation_date": "2026-02-12",
     "review_status": "auto_generated",
     "evidence_count": 50,
-    "last_verification": "2026-02-12"
+    "last_verification": "2026-09-18"
   }
 }
