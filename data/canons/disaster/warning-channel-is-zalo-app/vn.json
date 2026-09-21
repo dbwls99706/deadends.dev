@@ -28,7 +28,7 @@
     "fix_success_rate": 0.85,
     "confidence": 0.65,
     "last_updated": "2026-09-17",
-    "summary": "Vietnam has no nationwide SMS or cell-broadcast emergency-alert system comparable to the US Wireless Emergency Alerts or EU 112-based cell broadcast. The government's primary channel for typhoon, flood, and heavy-rain warnings is a Zalo Official Account and companion mini app run by the Ministry of Agriculture and Environment's Department of Dyke Management and Disaster Prevention and Control (Cuc Quan ly de dieu va Phong, chong thien tai). That channel sent 56.1 million warning messages in three days during storm no.4 response in September 2026 alone, but delivery is a push notification to phones that have installed Zalo and follow the official account or mini app - not a blanket broadcast to every SIM card in the affected area."
+    "summary": "Vietnam has no nationwide SMS or cell-broadcast emergency-alert system comparable to the US Wireless Emergency Alerts or EU 112-based cell broadcast. The government's primary channel for typhoon, flood, and heavy-rain warnings is a Zalo Official Account and companion mini app run by the Ministry of Agriculture and Environment's Department of Dyke Management and Disaster Prevention and Control (Cuc Quan ly de dieu va Phong, chong thien tai). That channel sent 7.3 million warning messages in a single day (28 June 2026) during a heavy-rain warning across ten northern provinces, and the ministry reports over 120 million emergency messages sent through it annually overall - but delivery is a push notification to phones that have installed Zalo and follow the official account or mini app, not a blanket broadcast to every SIM card in the affected area."
   },
   "dead_ends": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "action": "Tell someone without the Zalo app installed that they will still receive official government storm/flood warnings automatically",
-      "why_fails": "The warning volumes Vietnamese state media report (tens of millions of messages during a single storm) are delivered through the government's own Zalo Official Account, which had roughly 311,000 followers as of mid-2026 according to the Ministry of Agriculture and Environment - a small fraction of Vietnam's population. Someone without Zalo installed and following that account receives nothing through this channel.",
+      "why_fails": "The warning volumes Vietnamese state media report (millions of messages in a single day, over 120 million annually per the ministry) are delivered through the government's own Zalo Official Account, which had roughly 311,000 followers as of mid-2023 according to the Ministry of Agriculture and Environment - a small fraction of Vietnam's population. Someone without Zalo installed and following that account receives nothing through this channel.",
       "fail_rate": 0.55,
       "sources": [
         "https://en.mae.gov.vn/Pages/chi-tiet-tin-Eng.aspx?ItemID=8079"
