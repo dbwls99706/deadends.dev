@@ -43,9 +43,9 @@
     },
     {
       "action": "Assume a standard travel policy without medical evacuation cover is enough because Morocco has hospitals in every major city",
-      "why_fails": "The UK government's advisory notes that \"public health facilities in Morocco provide limited medical care\" while private clinics operate to a higher standard but are concentrated in Casablanca, Marrakesh, and Rabat. New Zealand's SafeTravel advisory separately and explicitly recommends \"comprehensive travel insurance, which includes provision for medical evacuation by air\" - getting from the Atlas Mountains or Sahara routes to a capable facility is not something local services arrange for you without that cover already in place.",
+      "why_fails": "The UK government's advisory notes that \"public health facilities in Morocco provide limited medical care\" while private clinics \"operate to a higher standard.\" New Zealand's SafeTravel advisory separately and explicitly recommends \"comprehensive travel insurance, which includes provision for medical evacuation by air\" - getting from the Atlas Mountains or Sahara routes to a capable facility is not something local services arrange for you without that cover already in place.",
       "fail_rate": 0.4,
-      "condition": "Traveling outside Casablanca, Marrakesh, or Rabat - e.g. the Atlas Mountains or desert routes",
+      "condition": "Traveling outside Morocco's major cities - e.g. the Atlas Mountains or desert routes, where higher-standard private clinics are harder to reach",
       "sources": [
         "https://www.gov.uk/foreign-travel-advice/morocco/health",
         "https://www.safetravel.govt.nz/destinations/morocco"

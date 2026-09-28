@@ -55,14 +55,14 @@
   ],
   "workarounds": [
     {
-      "action": "After a serious natural event, watch for the government's official EV CAT declaration in the Official Bulletin rather than filing a claim on your own timeline, then act inside the fixed windows it opens.",
+      "action": "If insured, notify your insurer within 20 days of the event itself - do not wait for the government's official EV CAT declaration first. If uninsured, register with FSEC once that declaration is published in the Official Bulletin.",
       "success_rate": 0.75,
-      "how": "Once the Head of Government's order is published (within three months of the event), insured policyholders must notify their insurer within 20 days and insurers must respond within 60 days. Uninsured people register with FSEC within 90 days of the declaration; FSEC evaluates complete files within 30 days and disburses within 30 days of a signed acknowledgment.",
+      "how": "The 20-day insurer-notification deadline and the insurer's 60-day response deadline run from the event's occurrence, independent of whether the Head of Government's catastrophe declaration (due within three months of the event) has been published yet - notify your insurer immediately even with no declaration yet in hand. FSEC registration for the uninsured works differently: it only opens once that declaration is published, within a 90-day window counted from the publication date; FSEC then evaluates complete files within 30 days and disburses within 30 days of a signed acknowledgment.",
       "sources": [
         "https://lematin.ma/express/2023/details-regime-couverture-consequences-catastrophes/394071.html",
         "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance"
       ],
-      "tradeoff": "Missing the notification or registration window after the declaration is published can forfeit compensation even though the underlying event qualified."
+      "tradeoff": "The two clocks run independently and aren't intuitive: waiting for the declaration before notifying your insurer, reasonably assuming that's when the process starts, can burn through the 20-day insured-notification window before it even exists."
     },
     {
       "action": "Check whether your existing property, auto, or liability policy already includes the mandatory EV CAT rider rather than shopping for a separate 'earthquake insurance' product.",
