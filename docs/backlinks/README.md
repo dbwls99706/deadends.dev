@@ -15,6 +15,7 @@ tracker - see each kit file for the exact fork-and-edit link.
 | 2026-09-14 | jamesmurdza/awesome-ai-devtools (Configuration & Context Management) | drafted, awaiting human submission | [2026-09-14-awesome-ai-devtools.md](2026-09-14-awesome-ai-devtools.md) |
 | 2026-09-21 | cbovis/awesome-digital-nomads (Travel Planning) | drafted, awaiting human submission | [2026-09-21-awesome-digital-nomads.md](2026-09-21-awesome-digital-nomads.md) |
 | 2026-09-28 | alihesari/awesome-relocation (Country Guides) | drafted, awaiting human submission | [2026-09-28-awesome-relocation.md](2026-09-28-awesome-relocation.md) |
+| 2026-10-05 | appcypher/awesome-mcp-servers (Research & Data) | drafted, awaiting human submission | [2026-10-05-appcypher-awesome-mcp-servers.md](2026-10-05-appcypher-awesome-mcp-servers.md) |
 
 ## Status values
 
