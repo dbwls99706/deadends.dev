@@ -41,12 +41,12 @@ Insert as the last bullet of `## 🧬 Research & Data`, immediately after the
 `Congress` line and before the `<br />` that precedes `## 🤝 AI Services`:
 
 ```markdown
-- <img src="https://deadends.dev/favicon.ico" height="14"/> [deadends.dev](https://github.com/dbwls99706/deadends.dev) - Search a database of documented dead ends (what NOT to try) and verified workarounds for code errors and country-specific real-world rules
+- [deadends.dev](https://github.com/dbwls99706/deadends.dev) - Search a database of documented dead ends (what NOT to try) and verified workarounds for code errors and country-specific real-world rules
 ```
 
-Before submitting, confirm `https://deadends.dev/favicon.ico` resolves (200);
-if it does not, drop the `<img>` tag and use a plain `- [deadends.dev](...) - ...`
-bullet.
+`https://deadends.dev/favicon.ico` returns 404 (checked 2026-10-05), so the entry
+is a plain bullet with no `<img>` icon; many entries in the section use one,
+but it is not required.
 
 ## PR title
 
