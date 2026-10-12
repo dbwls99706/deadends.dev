@@ -43,7 +43,7 @@
     },
     {
       "action": "Assume that having no property or auto insurance policy at all leaves you with no path to compensation after a declared catastrophe",
-      "why_fails": "Law 110-14 also created the Fonds de Solidarite contre les Evenements Catastrophiques (FSEC), a parallel track for people with no insurance or inadequate coverage. Morocco funds FSEC partly through a sovereign parametric catastrophe insurance policy - Artemis.bm reported a $275 million payout on that sovereign policy after the 2023 Al Haouz earthquake, specifically to support compensation for the uninsured population FSEC was designed to help. But FSEC registration still opens only after the same official catastrophe declaration, within the 90-day window Le Matin reports.",
+      "why_fails": "Law 110-14 also created the Fonds de Solidarite contre les Evenements Catastrophiques (FSEC), a parallel track for victims with no other coverage, limited to bodily injury and loss of a main residence. Morocco funds FSEC partly through a sovereign parametric catastrophe insurance policy - Artemis.bm reported a $275 million payout on that sovereign policy after the 2023 Al Haouz earthquake, specifically to support compensation for the uninsured population FSEC was designed to help. But FSEC registration still opens only after the same official catastrophe declaration, within the 90-day window Le Matin reports.",
       "fail_rate": 0.5,
       "sources": [
         "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance",
@@ -57,7 +57,7 @@
     {
       "action": "If insured, notify your insurer within 20 days of the event itself - do not wait for the government's official EV CAT declaration first. If uninsured, register with FSEC once that declaration is published in the Official Bulletin.",
       "success_rate": 0.75,
-      "how": "The 20-day insurer-notification deadline and the insurer's 60-day response deadline run from the event's occurrence, independent of whether the Head of Government's catastrophe declaration (due within three months of the event) has been published yet - notify your insurer immediately even with no declaration yet in hand. FSEC registration for the uninsured works differently: it only opens once that declaration is published, within a 90-day window counted from the publication date; FSEC then evaluates complete files within 30 days and disburses within 30 days of a signed acknowledgment.",
+      "how": "The 20-day insurer-notification deadline and the insurer's 60-day response deadline run from the event's occurrence, independent of whether the Head of Government's catastrophe declaration (due within three months of the event) has been published yet - notify your insurer immediately even with no declaration yet in hand. FSEC registration for the uninsured works differently: it only opens once that declaration is published, within a 90-day window counted from the publication date; FSEC then has 30 days from receipt of a complete file to notify a compensation proposal, and must pay within 30 days of receiving the signed receipt (quittance). FSEC allocations cover only bodily injury and/or loss of a main residence, for victims with no other coverage.",
       "sources": [
         "https://lematin.ma/express/2023/details-regime-couverture-consequences-catastrophes/394071.html",
         "https://www.acaps.ma/en/grand-public/properties/cat-nat-insurance"
