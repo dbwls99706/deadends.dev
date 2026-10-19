@@ -1,13 +1,12 @@
 {
   "property": "sc-domain:deadends.dev",
-  "generated_at": "2026-10-12T01:18:24+00:00",
-  "previous_generated_at": "2026-10-05T00:47:37+00:00",
+  "generated_at": "2026-10-19T00:13:11+00:00",
+  "previous_generated_at": "2026-10-12T01:18:24+00:00",
   "inspected_count": 120,
   "indexed_count": 1,
   "coverage_breakdown": {
-    "Crawled - currently not indexed": 83,
-    "URL is unknown to Google": 31,
-    "error": 5,
+    "Crawled - currently not indexed": 86,
+    "URL is unknown to Google": 33,
     "Submitted and indexed": 1
   },
   "manual_request_shortlist": [
@@ -19,8 +18,8 @@
     "https://deadends.dev/legal/",
     "https://deadends.dev/docker/",
     "https://deadends.dev/node/",
-    "https://deadends.dev/medical/",
-    "https://deadends.dev/cuda/"
+    "https://deadends.dev/kubernetes/",
+    "https://deadends.dev/medical/"
   ],
   "results": [
     {
@@ -66,11 +65,11 @@
     {
       "url": "https://deadends.dev/communication/",
       "coverage": "Crawled - currently not indexed",
-      "indexing_state": "INDEXING_ALLOWED",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
       "robots": "ALLOWED",
       "fetch": "SUCCESSFUL",
-      "last_crawl": "2026-04-13T19:25:25Z",
-      "canonical_google": "https://deadends.dev/communication/",
+      "last_crawl": "2026-08-12T08:35:23Z",
+      "canonical_google": null,
       "verdict": "unknown"
     },
     {
@@ -115,7 +114,13 @@
     },
     {
       "url": "https://deadends.dev/kubernetes/",
-      "error": "<HttpError 500 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"Internal error encountered.\". Details: \"Internal error encountered.\">"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-12T08:38:44Z",
+      "canonical_google": "https://deadends.dev/kubernetes/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/medical/",
@@ -249,7 +254,13 @@
     },
     {
       "url": "https://deadends.dev/ros2/",
-      "error": "<HttpError 500 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"Internal error encountered.\". Details: \"Internal error encountered.\">"
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T00:37:03Z",
+      "canonical_google": "https://deadends.dev/ros2/",
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/terraform/",
@@ -273,12 +284,12 @@
     },
     {
       "url": "https://deadends.dev/rust/",
-      "coverage": "URL is unknown to Google",
-      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
-      "last_crawl": null,
-      "canonical_google": null,
+      "coverage": "Crawled - currently not indexed",
+      "indexing_state": "INDEXING_ALLOWED",
+      "robots": "ALLOWED",
+      "fetch": "SUCCESSFUL",
+      "last_crawl": "2026-08-13T00:46:21Z",
+      "canonical_google": "https://deadends.dev/rust/",
       "verdict": "unknown"
     },
     {
@@ -973,11 +984,23 @@
     },
     {
       "url": "https://deadends.dev/country/ar/",
-      "error": "<HttpError 500 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"Internal error encountered.\". Details: \"Internal error encountered.\">"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/country/cl/",
-      "error": "<HttpError 500 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"Internal error encountered.\". Details: \"Internal error encountered.\">"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/country/co/",
@@ -1101,7 +1124,13 @@
     },
     {
       "url": "https://deadends.dev/android/adb-device-unauthorized/",
-      "error": "<HttpError 500 when requesting https://searchconsole.googleapis.com/v1/urlInspection/index:inspect?alt=json returned \"Internal error encountered.\". Details: \"Internal error encountered.\">"
+      "coverage": "URL is unknown to Google",
+      "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+      "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+      "last_crawl": null,
+      "canonical_google": null,
+      "verdict": "unknown"
     },
     {
       "url": "https://deadends.dev/android/anr-main-thread/",
