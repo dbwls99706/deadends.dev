@@ -18,6 +18,7 @@ tracker - see each kit file for the exact fork-and-edit link.
 | 2026-10-05 | appcypher/awesome-mcp-servers (Research & Data) | drafted, awaiting human submission | [2026-10-05-appcypher-awesome-mcp-servers.md](2026-10-05-appcypher-awesome-mcp-servers.md) |
 | 2026-10-12 | TensorBlock/awesome-mcp-servers (docs/knowledge-management--memory.md) | drafted, awaiting human submission | [2026-10-12-tensorblock-awesome-mcp-servers.md](2026-10-12-tensorblock-awesome-mcp-servers.md) |
 | 2026-10-19 | rohitg00/awesome-devops-mcp-servers (AI Agent Infrastructure > Memory & Context) | drafted, awaiting human submission | [2026-10-19-rohitg00-awesome-devops-mcp-servers.md](2026-10-19-rohitg00-awesome-devops-mcp-servers.md) |
+| 2026-10-26 | tolkonepiu/best-of-mcp-servers (projects.yaml, knowledge-and-memory) | drafted, awaiting human submission | [2026-10-26-best-of-mcp-servers.md](2026-10-26-best-of-mcp-servers.md) |
 
 ## Status values
 
