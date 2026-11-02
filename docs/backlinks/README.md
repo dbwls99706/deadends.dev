@@ -19,6 +19,7 @@ tracker - see each kit file for the exact fork-and-edit link.
 | 2026-10-12 | TensorBlock/awesome-mcp-servers (docs/knowledge-management--memory.md) | drafted, awaiting human submission | [2026-10-12-tensorblock-awesome-mcp-servers.md](2026-10-12-tensorblock-awesome-mcp-servers.md) |
 | 2026-10-19 | rohitg00/awesome-devops-mcp-servers (AI Agent Infrastructure > Memory & Context) | drafted, awaiting human submission | [2026-10-19-rohitg00-awesome-devops-mcp-servers.md](2026-10-19-rohitg00-awesome-devops-mcp-servers.md) |
 | 2026-10-26 | tolkonepiu/best-of-mcp-servers (projects.yaml, knowledge-and-memory) | drafted, awaiting human submission | [2026-10-26-best-of-mcp-servers.md](2026-10-26-best-of-mcp-servers.md) |
+| 2026-11-02 | punkpeye/awesome-remote-mcp-servers (Knowledge & Memory) | drafted, awaiting human submission - uses the working Vercel endpoint, see kit's endpoint warning | [2026-11-02-awesome-remote-mcp-servers.md](2026-11-02-awesome-remote-mcp-servers.md) |
 
 ## Status values
 
@@ -36,3 +37,9 @@ of 2026-08-24 the registry lists `dev.deadends/deadends-dev` at v0.9.0
 favor of it. This was flagged "not yet published" as of 2026-08-17; it was
 published sometime in the following week, presumably by a human off this
 tracker. No further action needed on this channel.
+
+**Endpoint caveat (found 2026-11-02):** the registry entry's remote,
+`https://deadends.dev/mcp`, does not answer - `deadends.dev` is GitHub Pages
+(`GET` 404, `POST` 405). The working endpoint is
+`https://deadends-dev.vercel.app/mcp/` (trailing slash required). The registry
+entry, `server.json`, README and kits dated before 2026-11-02 cite the dead URL.
