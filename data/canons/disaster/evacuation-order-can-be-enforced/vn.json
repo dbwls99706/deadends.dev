@@ -28,12 +28,12 @@
     "fix_success_rate": 0.85,
     "confidence": 0.65,
     "last_updated": "2026-09-17",
-    "summary": "Under Decree 66/2021/ND-CP as amended by Decree 53/2026/ND-CP (effective 5 February 2026), the commune/ward-level (xa) People's Committee chairperson directly commands the local response to natural disaster risk levels 1 through 3 and, per the decree text quoted by Vietnam's government news outlet, 'decides to organize forced evacuation' (quyet dinh to chuc cuong che so tan) of anyone who does not voluntarily comply with an evacuation instruction issued for safety. This authority sat at the now-abolished district level before Vietnam's 2025 two-tier local-government reform pushed it down to the commune/ward chair. A typhoon or flood evacuation notice in Vietnam is a legally enforceable order at the routine disaster-response level, not merely a recommendation contingent on a separately declared national emergency."
+    "summary": "Under Decree 66/2021/ND-CP as amended by Decree 53/2026/ND-CP (effective 5 February 2026), the commune/ward-level (xa) People's Committee chairperson directly commands the local response to natural disaster risk levels 1 through 3 and, at level 2 (which level 3 inherits), per the decree text quoted by Vietnam's government news outlet, 'decides to organize forced evacuation' (quyet dinh to chuc cuong che so tan) of anyone who does not voluntarily comply with an evacuation instruction issued for safety. This authority sat at the now-abolished district level before Vietnam's 2025 two-tier local-government reform pushed it down to the commune/ward chair. A typhoon or flood evacuation notice in Vietnam is a legally enforceable order at the routine disaster-response level, not merely a recommendation contingent on a separately declared national emergency."
   },
   "dead_ends": [
     {
       "action": "Tell a foreign resident that a Vietnamese evacuation notice is advisory, and that staying behind (for example to protect property) is a personal risk decision with no legal consequence",
-      "why_fails": "Decree 53/2026/ND-CP, amending Decree 66/2021/ND-CP, gives the commune/ward chair explicit authority to 'decide to organize forced evacuation' of organizations or individuals who do not voluntarily comply, for disaster response levels 1 through 3 - the routine typhoon/flood response tier, not a rare exceptional measure.",
+      "why_fails": "Decree 53/2026/ND-CP, amending Decree 66/2021/ND-CP, gives the commune/ward chair explicit authority to 'decide to organize forced evacuation' of organizations or individuals who do not voluntarily comply, at disaster response level 2 (level 3 carries out the level 2 duties) - the routine typhoon/flood response tier, not a rare exceptional measure.",
       "fail_rate": 0.65,
       "sources": [
         "https://baochinhphu.vn/sua-doi-mot-so-quy-dinh-trong-linh-vuc-de-dieu-va-phong-chong-thien-tai-102260205152136307.htm",
@@ -44,7 +44,7 @@
     },
     {
       "action": "Assume compulsory-evacuation power only exists once the government formally declares a nationwide state of emergency",
-      "why_fails": "The forced-evacuation authority for disaster response levels 1-3 sits in the routine Decree 66/2021/ND-CP framework (as amended) and does not require invoking Vietnam's separate, far rarer Law on Emergency Status; it applies to ordinary annual typhoon and flood response, which is the situation almost every resident will actually encounter.",
+      "why_fails": "The forced-evacuation authority at disaster response levels 2-3 sits in the routine Decree 66/2021/ND-CP framework (as amended) and does not require invoking Vietnam's separate, far rarer Law on Emergency Status; it applies to ordinary annual typhoon and flood response, which is the situation almost every resident will actually encounter.",
       "fail_rate": 0.5,
       "sources": [
         "https://vtv.vn/chu-tich-ubnd-cap-xa-duoc-quyen-chi-huy-ung-pho-thien-tai-tu-cap-do-1-den-3-100260206000736082.htm"
@@ -61,7 +61,7 @@
         "https://baochinhphu.vn/sua-doi-mot-so-quy-dinh-trong-linh-vuc-de-dieu-va-phong-chong-thien-tai-102260205152136307.htm",
         "https://luatvietnam.vn/tai-nguyen/nghi-dinh-53-2026-nd-cp-sua-doi-bo-sung-linh-vuc-de-dieu-va-phong-chong-thien-tai-425877-d1.html"
       ],
-      "condition": "Disaster risk level 1-3 (the routine typhoon/flood response tier)"
+      "condition": "Disaster risk level 2-3 (the routine typhoon/flood response tier)"
     },
     {
       "action": "If a notice's status is unclear, ask the local ward/commune authority or a Vietnamese neighbor directly rather than assuming it is optional",
