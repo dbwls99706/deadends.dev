@@ -8,7 +8,7 @@
     "domain": "safety",
     "category": "legal_misconception",
     "first_seen": "2026-09-16",
-    "last_confirmed": "2026-09-16"
+    "last_confirmed": "2026-11-09"
   },
   "environment": {
     "runtime": {
@@ -27,8 +27,8 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.75,
-    "last_updated": "2026-09-16",
-    "summary": "Under Portugal's national beach ordinance (Edital de Praia, enforced by the Autoridade Maritima Nacional), a yellow flag does not mean 'swim carefully' - it legally prohibits swimming beyond wading depth. Only wading near the shoreline is allowed. Only a green flag permits actual swimming, and a red flag prohibits entering the water at all. Violating the flag is a fineable offense (55-550 EUR)."
+    "last_updated": "2026-11-09",
+    "summary": "Under Portugal's national beach ordinance (Edital de Praia, enforced by the Autoridade Maritima Nacional), a yellow flag does not mean 'swim carefully' - it legally prohibits swimming beyond wading depth. Only wading near the shoreline is allowed. Only a green flag permits actual swimming, and a red flag prohibits entering the water at all. Violating the flag is a fineable offense (fines start at 55 EUR; the AMN-cited range is 55-550 EUR and RTP cites up to 1,000 EUR for repeat/other offences)."
   },
   "dead_ends": [
     {
@@ -85,6 +85,6 @@
     "generation_date": "2026-09-16",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-09-16"
+    "last_verification": "2026-11-09"
   }
 }

@@ -8,7 +8,7 @@
     "domain": "food-safety",
     "category": "food_safety_misconception",
     "first_seen": "2026-09-16",
-    "last_confirmed": "2026-09-16"
+    "last_confirmed": "2026-11-09"
   },
   "environment": {
     "runtime": {
@@ -27,8 +27,8 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.8,
-    "last_updated": "2026-09-16",
-    "summary": "Portugal's coast is subject to recurring closures of wild bivalve mollusc harvesting (clams, mussels, cockles) due to marine biotoxins (PSP, DSP, ASP) produced by algal blooms. IPMA (Instituto Portugues do Mar e da Atmosfera) publishes real-time harvesting-zone closures, and DGS (Direcao-Geral da Saude) states explicitly that cooking or freezing does not reduce the toxin, and that contaminated shellfish look, smell, and taste normal."
+    "last_updated": "2026-11-09",
+    "summary": "Portugal's coast is subject to recurring closures of wild bivalve mollusc harvesting (clams, mussels, cockles) due to marine biotoxins (PSP, DSP, ASP) produced by algal blooms. IPMA (Instituto Portugues do Mar e da Atmosfera) publishes harvesting-zone closures, and DGS (Direcao-Geral da Saude) states explicitly that cooking or freezing does not reduce the toxin, and that contaminated shellfish look, smell, and taste normal."
   },
   "dead_ends": [
     {
@@ -50,7 +50,7 @@
     },
     {
       "action": "Assume any beach or estuary open to the public is safe for gathering shellfish year-round",
-      "why_fails": "IPMA continuously monitors production zones and issues interdictions (total or partial harvesting bans) whenever biotoxin levels exceed safety thresholds - as happened repeatedly in zones like Lagoa de Albufeira in 2026. A zone that was open last month can be closed today, and status changes without on-site signage in many spots.",
+      "why_fails": "IPMA monitors production zones and publishes total or partial harvesting interdictions (its page lists current interdictions, their history and biotoxin analysis results). A zone that was open earlier can be closed later, so check the current status before gathering.",
       "fail_rate": 0.6,
       "condition": "Gathering shellfish personally rather than buying from a licensed fishmonger",
       "sources": [
@@ -62,7 +62,7 @@
     {
       "action": "Check IPMA's real-time bivalve harvesting map before gathering or buying direct from a harvester",
       "success_rate": 0.9,
-      "how": "Visit ipma.pt's 'Bivalves - ponto de situacao' page, which shows each production zone as permitted, partially permitted, or fully interdicted, updated as new biotoxin analyses come in (typically weekly to bi-weekly).",
+      "how": "Visit ipma.pt's bivalves page, which shows each production zone as permitted, partially permitted or fully interdicted, with links to current interdictions and analysis results. The page does not state an update frequency, so check the date of the data.",
       "sources": [
         "https://www.ipma.pt/pt/bivalves/index.jsp"
       ]
@@ -70,10 +70,10 @@
     {
       "action": "Buy bivalves only from a licensed fishmonger or restaurant rather than gathering them personally",
       "success_rate": 0.95,
-      "how": "Commercially sold live bivalves in Portugal must come from classified, monitored production zones and pass through DGAV-approved establishments, which is the practical way an ordinary consumer avoids biotoxin exposure without checking IPMA's map themselves.",
+      "how": "Commercial sales go through the classified production-zone system rather than personal gathering, so buying from a licensed fishmonger or restaurant avoids having to check closures yourself. (The cited DGS page does not itself state this; it identifies the classification authorities and sale bans.)",
       "tradeoff": "Costs more than self-gathering and does not apply to informal roadside or beach sales.",
       "sources": [
-        "https://www.dgs.pt/paginas-de-sistema/saude-de-a-a-z/moluscos-bivalves.aspx"
+        "https://www.ipma.pt/pt/bivalves/index.jsp"
       ]
     }
   ],
@@ -92,6 +92,6 @@
     "generation_date": "2026-09-16",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-09-16"
+    "last_verification": "2026-11-09"
   }
 }

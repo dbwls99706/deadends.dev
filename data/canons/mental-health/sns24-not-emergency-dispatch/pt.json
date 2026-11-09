@@ -8,7 +8,7 @@
     "domain": "mental-health",
     "category": "wrong_hotline_expectation",
     "first_seen": "2026-09-16",
-    "last_confirmed": "2026-09-16"
+    "last_confirmed": "2026-11-09"
   },
   "environment": {
     "runtime": {
@@ -27,7 +27,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.85,
     "confidence": 0.75,
-    "last_updated": "2026-09-16",
+    "last_updated": "2026-11-09",
     "summary": "SNS24's psychological support line (808 24 24 24, option 4) is staffed by psychologists who provide counselling; per the Portuguese government's own announcement, a call is transferred to INEM only if the psychologist judges during the call that there is danger to the caller or others. SOS Voz Amiga (213 544 545) is a volunteer emotional-support line with no stated emergency transfer at all. Neither is a substitute for dialing 112 directly when the danger is already imminent."
   },
   "dead_ends": [
@@ -43,7 +43,7 @@
     },
     {
       "action": "Call SOS Voz Amiga (213 544 545 / 912 802 669 / 963 524 660) expecting police or an ambulance to be sent",
-      "why_fails": "SOS Voz Amiga is answered by trained volunteers providing anonymous, confidential emotional listening for loneliness, anxiety, depression, and suicide risk - its own site describes no emergency-dispatch function, and it is only staffed 15:30-00:30 daily, not 24/7.",
+      "why_fails": "SOS Voz Amiga is answered by trained volunteers providing emotional-support listening for loneliness, anxiety, depression, and suicide risk - its own site describes no emergency-dispatch function, and it is only staffed 15:30-00:30 daily, not 24/7.",
       "fail_rate": 0.65,
       "sources": [
         "https://www.sosvozamiga.org/en/contactos"
@@ -51,7 +51,7 @@
     },
     {
       "action": "Assume the dedicated 1411 national suicide-prevention line dispatches emergency responders the instant a caller mentions risk",
-      "why_fails": "The government's own launch announcement for line 1411 says it is staffed by psychologists and specialist nurses ('assegurada por psicologos e enfermeiros especialistas'), the same counselling-first model as the SNS24 psychological line - a professional judgment call precedes any transfer to CODU/INEM, it is not an instant dispatch line like 112.",
+      "why_fails": "The government's launch announcement for line 1411 says it is staffed by psychologists and specialist nurses in mental health and psychiatry (initially by the psychological-counselling service's professionals). The announcement does not describe any automatic emergency dispatch or transfer procedure, so do not assume mentioning risk triggers responders; call 112 for immediate danger.",
       "fail_rate": 0.55,
       "condition": "Danger is already imminent rather than a building crisis",
       "sources": [
@@ -94,6 +94,6 @@
     "generation_date": "2026-09-16",
     "review_status": "human_reviewed",
     "evidence_count": 3,
-    "last_verification": "2026-09-16"
+    "last_verification": "2026-11-09"
   }
 }
