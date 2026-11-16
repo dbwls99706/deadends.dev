@@ -28,16 +28,17 @@
     "fix_success_rate": 0.5,
     "confidence": 0.65,
     "last_updated": "2026-09-17",
-    "summary": "Vietnam has no single government-run, 24/7, nationwide mental-health crisis or suicide-prevention hotline equivalent to the US 988 Suicide & Crisis Lifeline. The U.S. Embassy's own Vietnam medical-assistance directory lists psychiatric hospitals and clinics (Hanoi Mental Health Hospital, Bach Mai's National Institute of Mental Health, and others) but no crisis phone line. Practical support instead comes from a handful of independent NGO- or volunteer-run lines - for example the HOPE suicide-prevention hotline (086 50 444 00), which is Vietnamese-language only and staffed roughly noon to midnight daily, not 24/7 - alongside the government-run National Child Protection Hotline 111 (Ministry of Labor, Invalids and Social Affairs; free, 24/7), which is legally scoped to children under 16 and abuse/exploitation reports rather than general adult mental-health crises."
+    "summary": "Vietnam has no single government-run, 24/7, nationwide mental-health crisis or suicide-prevention hotline equivalent to the US 988 Suicide & Crisis Lifeline. The U.S. Embassy's own Vietnam medical-assistance directory lists psychiatric hospitals and clinics (Hanoi Mental Health Hospital, Bach Mai's National Institute of Mental Health, and others) but no crisis phone line. Practical support instead comes from a handful of independent NGO- or volunteer-run lines - for example the HOPE suicide-prevention hotline (086 50 444 00), which is Vietnamese-language only and staffed roughly noon to midnight daily, not 24/7 - alongside the government-run National Child Protection Hotline 111 (operated by the Department of Maternal and Child Health, Cuc Ba me va Tre em, formerly under the Ministry of Labor, Invalids and Social Affairs; free, 24/7), which is scoped to children under 16, child abuse/exploitation reports and human-trafficking victims rather than general adult mental-health crises."
   },
   "dead_ends": [
     {
       "action": "Give someone in Vietnam a single memorized national number - or '111' specifically - as the general-purpose adult suicide/crisis line, the way 988 works in the US",
-      "why_fails": "111 is the National Child Protection Hotline, run by the Ministry of Labor, Invalids and Social Affairs; it is legally scoped to receiving reports and providing support for children under 16 who are abused, exploited, or at risk, not to general adult mental-health crises. The U.S. Embassy's medical-assistance page for Vietnam likewise lists no national crisis line at all, only named psychiatric hospitals and clinics.",
+      "why_fails": "111 is the National Child Protection Hotline, now operated by the Department of Maternal and Child Health (Cuc Ba me va Tre em) per its official site, tongdai111.vn; it is legally scoped to receiving reports and providing support for children under 16 who are abused, exploited, or at risk, not to general adult mental-health crises. The U.S. Embassy's medical-assistance page for Vietnam likewise lists no national crisis line at all, only named psychiatric hospitals and clinics.",
       "fail_rate": 0.75,
       "sources": [
         "https://www.molisa.gov.vn/baiviet/239580",
-        "https://vn.usembassy.gov/medical-assistance-2/"
+        "https://vn.usembassy.gov/medical-assistance-2/",
+        "https://tongdai111.vn/"
       ],
       "condition": "",
       "common_misconception": "That a short, memorable government hotline number in Vietnam must function the way 988 functions in the US - as a general-purpose, 24/7 adult mental-health crisis line."
@@ -58,7 +59,8 @@
       "action": "For a child under 16, or to report a child at risk, call the free, government-run, 24/7 National Child Protection Hotline 111",
       "success_rate": 0.8,
       "sources": [
-        "https://www.molisa.gov.vn/baiviet/239580"
+        "https://www.molisa.gov.vn/baiviet/239580",
+        "https://tongdai111.vn/"
       ],
       "condition": "Caller or subject is under 16, or the case involves child abuse/exploitation risk"
     },

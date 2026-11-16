@@ -21,6 +21,7 @@ tracker - see each kit file for the exact fork-and-edit link.
 | 2026-10-26 | tolkonepiu/best-of-mcp-servers (projects.yaml, knowledge-and-memory) | drafted, awaiting human submission | [2026-10-26-best-of-mcp-servers.md](2026-10-26-best-of-mcp-servers.md) |
 | 2026-11-02 | punkpeye/awesome-remote-mcp-servers (Knowledge & Memory) | drafted, awaiting human submission - uses the working Vercel endpoint, see kit's endpoint warning | [2026-11-02-awesome-remote-mcp-servers.md](2026-11-02-awesome-remote-mcp-servers.md) |
 | 2026-11-09 | YuzeHao2023/Awesome-MCP-Servers (Research & Data) | drafted, awaiting human submission | [2026-11-09-yuzehao-awesome-mcp-servers.md](2026-11-09-yuzehao-awesome-mcp-servers.md) |
+| 2026-11-16 | MobinX/awesome-mcp-list (Knowledge & Memory) | drafted, awaiting human submission | [2026-11-16-mobinx-awesome-mcp-list.md](2026-11-16-mobinx-awesome-mcp-list.md) |
 
 ## Status values
 
