@@ -22,6 +22,13 @@ tracker - see each kit file for the exact fork-and-edit link.
 | 2026-11-02 | punkpeye/awesome-remote-mcp-servers (Knowledge & Memory) | drafted, awaiting human submission - uses the working Vercel endpoint, see kit's endpoint warning | [2026-11-02-awesome-remote-mcp-servers.md](2026-11-02-awesome-remote-mcp-servers.md) |
 | 2026-11-09 | YuzeHao2023/Awesome-MCP-Servers (Research & Data) | drafted, awaiting human submission | [2026-11-09-yuzehao-awesome-mcp-servers.md](2026-11-09-yuzehao-awesome-mcp-servers.md) |
 | 2026-11-16 | MobinX/awesome-mcp-list (Knowledge & Memory) | drafted, awaiting human submission | [2026-11-16-mobinx-awesome-mcp-list.md](2026-11-16-mobinx-awesome-mcp-list.md) |
+| 2026-11-23 | habitoai/awesome-mcp-servers (Knowledge and Memory) | drafted, awaiting human submission - entry includes a direct `[Homepage](https://deadends.dev)` link | [2026-11-23-habitoai-awesome-mcp-servers.md](2026-11-23-habitoai-awesome-mcp-servers.md) |
+
+**Traction blocker (found 2026-11-23):** `dbwls99706/deadends.dev` has 0 GitHub
+stars and 0 forks. Curated lists with a traction bar (e.g. `kyrolabs/awesome-agents`,
+which auto-closes such PRs) are closed to us until that changes. Prefer lists
+without one, and prefer entries that can link `https://deadends.dev` itself: the
+`/llms.txt` and `/api/v1/` URLs are robots-disallowed for Googlebot.
 
 ## Status values
 
