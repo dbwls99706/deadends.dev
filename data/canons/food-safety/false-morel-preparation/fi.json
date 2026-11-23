@@ -8,10 +8,13 @@
     "domain": "food-safety",
     "category": "toxin_exposure",
     "first_seen": "2026-09-16",
-    "last_confirmed": "2026-09-16"
+    "last_confirmed": "2026-11-23"
   },
   "environment": {
-    "runtime": { "name": "ai-agent", "version_range": ">=1.0" },
+    "runtime": {
+      "name": "ai-agent",
+      "version_range": ">=1.0"
+    },
     "os": "any",
     "additional": {
       "country": "fi",
@@ -24,7 +27,7 @@
     "resolvable": "true",
     "fix_success_rate": 0.8,
     "confidence": 0.8,
-    "last_updated": "2026-09-16",
+    "last_updated": "2026-11-23",
     "summary": "False morel (korvasieni, Gyromitra esculenta) is a popular foraged mushroom in Finland but is toxic raw. The Finnish Food Authority (Ruokavirasto) requires boiling it twice in plenty of water (1 part mushroom to 3 parts water), at least 5 minutes each time, discarding the water each time, with good ventilation throughout. Even after this recommended double-boil, Ruokavirasto's own risk assessment found roughly one-fifth (about 18%) of the gyromitrin toxin still remains, and no safe threshold for gyromitrin has been established for human consumption."
   },
   "dead_ends": [
@@ -71,7 +74,7 @@
     {
       "action": "Buy commercially prepared or canned false morel instead of preparing raw ones yourself.",
       "success_rate": 0.9,
-      "how": "Commercial processors are required to follow the same double-boil handling rules and canned false morel has already been boiled before sale.",
+      "how": "Martat notes that canned false morels have already been boiled, but they must still be cut in half and rinsed before use. Fresh or dried false morels bought at a market still need the full double-boil at home.",
       "sources": [
         "https://www.martat.fi/in-english/food-and-nutrition/mushrooms/false-morel/"
       ],
@@ -96,6 +99,6 @@
     "generation_date": "2026-09-16",
     "review_status": "human_reviewed",
     "evidence_count": 4,
-    "last_verification": "2026-09-16"
+    "last_verification": "2026-11-23"
   }
 }
